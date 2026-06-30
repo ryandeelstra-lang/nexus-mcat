@@ -22,6 +22,8 @@ import yaml  # type: ignore[import-untyped]
 ROOT = Path(__file__).resolve().parents[1]
 TAXONOMY = ROOT / "docs" / "data" / "mcat_taxonomy.yaml"
 OUT = ROOT / "graph" / "sidecar.json"
+# Bundled copy the SvelteKit knowledge-graph route imports (vite inlines it at build).
+TS_OUT = ROOT / "ts" / "lib" / "graph-sidecar.json"
 
 # Curated v1 prerequisite edges (directed; MUST be acyclic — topo-checked in the test). Flows
 # chem -> biochem -> cell -> systems, physics -> systems, and the psych chain 6->7->8->9->10.
@@ -91,6 +93,12 @@ def build() -> dict:
             "z": round(4 * math.cos(ang), 2),
         })
 
+    # Attach the deck path to each LEAF node so the VIEW can map live MasteryQuery topics
+    # (keyed by deck_name, e.g. "MCAT::B-B::1A") onto sidecar nodes (keyed by leaf_id, e.g. "BB.1A").
+    leaf_path = {leaf["leaf_id"]: leaf["path"] for leaf in leaves}
+    for n in nodes:
+        n["path"] = leaf_path.get(n["id"])  # deck path for category/cars; None for section/fc
+
     edges: list[dict] = []
     for fc in fcs:
         edges.append({"src": fc["section"], "dst": fc["id"], "kind": "contains"})
@@ -107,8 +115,11 @@ def build() -> dict:
         "nodes": nodes,
         "edges": edges,
     }
+    payload = json.dumps(sidecar, separators=(",", ":"))
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(json.dumps(sidecar, separators=(",", ":")), encoding="utf-8")
+    OUT.write_text(payload, encoding="utf-8")
+    TS_OUT.parent.mkdir(parents=True, exist_ok=True)
+    TS_OUT.write_text(payload, encoding="utf-8")
     return sidecar
 
 

@@ -25,13 +25,14 @@ impl BackendCollectionService for Backend {
             .set_shared_progress_state(self.progress_state.clone());
 
         *guard = Some(builder.build()?);
-        // charged_up: pre-warm timing at collection open so the first MasteryQuery RPC
-        // is provably read-only — this routes Anki's one-time {rollover,
-        // localOffset} timing self-heal to OPEN, not to the read path. A
-        // warm-up must never fail the open (`let _`).
-        if let Some(col) = guard.as_mut() {
-            let _ = col.timing_today();
-        }
+        // charged_up: deliberately NO timing pre-warm at open. The MasteryQuery
+        // read-only invariant is BOUNDED — the only config it can touch is
+        // Anki's pre-existing {rollover, localOffset} self-heal on the first
+        // timing call (identical to opening graphs/card_stats), proven by the
+        // `mastery_query_is_read_only` equivalence test. A pre-warm here would cache
+        // `scheduler_info` at open and break upstream tests that mutate
+        // `col.crt` directly after open before the first scheduler call (e.g.
+        // pylib test_export_anki_due) — so the warm stays lazy on first use.
 
         Ok(())
     }

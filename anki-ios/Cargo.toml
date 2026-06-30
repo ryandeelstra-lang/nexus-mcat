@@ -1,0 +1,23 @@
+# charged_up: iOS FFI staticlib. WORKSPACE-EXCLUDED (its own [workspace] below + listed in the
+# root Cargo.toml `exclude`) so `just check`'s unscoped cargo clippy/nextest/fmt never host-build it
+# (which would red-bar the engine safety net — hardening C1). Build ONLY for the iOS targets:
+#   cargo build --manifest-path anki-ios/Cargo.toml --target aarch64-apple-ios-sim --release
+[package]
+name = "anki-ios"
+version = "0.1.0"
+edition = "2021"
+license = "AGPL-3.0-or-later"
+publish = false
+
+[lib]
+name = "anki_ios"
+crate-type = ["staticlib", "rlib"]
+path = "lib.rs"
+
+[dependencies]
+# rustls (NOT native-tls): the rustls feature pulls reqwest/rustls-tls(-native-roots); no native-tls
+# is compiled into a downstream crate (rslib's native-tls reqwest line is dev-only). rusqlite stays bundled.
+anki = { path = "../rslib", features = ["rustls"] }
+
+# Own workspace root so it is fully detached from the main Anki workspace.
+[workspace]

@@ -21,6 +21,10 @@ members = [
   "rslib/sync",
   "tools/minilints",
 ]
+# charged_up: the iOS FFI staticlib is EXCLUDED so `just check`'s unscoped cargo clippy/nextest/fmt
+# never host-build it (would red-bar the engine safety net — hardening C1). Build it only for the
+# iOS targets via --manifest-path anki-ios/Cargo.toml.
+exclude = ["anki-ios"]
 resolver = "2"
 
 [workspace.dependencies.percent-encoding-iri]

@@ -19,6 +19,7 @@
         "ftl/core-repo",
         "ftl/usage",
         "licenses.json",
+        "graph/sidecar.json",
         ".dmypy.json",
         "docs-site",
         "target",

@@ -423,6 +423,7 @@ def is_sveltekit_page(path: str) -> bool:
         "import-page",
         "image-occlusion",
         "knowledge-graph",
+        "scores-dashboard",
     ]
 
 
@@ -705,6 +706,49 @@ def save_custom_colours() -> bytes:
     return b""
 
 
+def _load_scores_display():  # type: ignore[no-untyped-def]
+    """charged_up: import the out-of-tree `scores` package (a sibling of pylib/qt at the repo root).
+
+    Returns the `scores.display` module, or None if it can't be located (e.g. a packaged build that
+    didn't bundle it) so the endpoint can degrade honestly instead of crashing. Imported dynamically
+    so the qt type-check never has to resolve a package outside the aqt source tree."""
+    import importlib
+    import sys
+    from pathlib import Path
+
+    try:
+        return importlib.import_module("scores.display")
+    except ImportError:
+        repo_root = (
+            Path(__file__).resolve().parents[2]
+        )  # qt/aqt/mediasrv.py -> repo root
+        if str(repo_root) not in sys.path:
+            sys.path.insert(0, str(repo_root))
+        try:
+            return importlib.import_module("scores.display")
+        except ImportError:
+            return None
+
+
+def scores_dashboard() -> bytes:
+    """charged_up: serve the three honest scores + coverage as JSON.
+
+    The single source of truth for every score (and every honest abstention) is the Python scores
+    engine — this bridge only forwards its output. The request body is the optional deck search."""
+    import json
+
+    search = request.data.decode("utf-8") if request.data else ""
+    display = _load_scores_display()
+    if display is None:
+        payload = {
+            "available": False,
+            "reason": "scores engine is not available in this build",
+        }
+    else:
+        payload = display.dashboard(aqt.mw.col, search)
+    return json.dumps(payload).encode("utf-8")
+
+
 post_handler_list = [
     congrats_info,
     get_deck_configs_for_update,
@@ -721,6 +765,7 @@ post_handler_list = [
     deck_options_require_close,
     deck_options_ready,
     save_custom_colours,
+    scores_dashboard,
 ]
 
 

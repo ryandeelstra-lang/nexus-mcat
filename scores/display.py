@@ -66,7 +66,9 @@ def readiness_display(col: Collection, topics, gate_coverage_fraction: float, be
             "available": False,
             "reason": give_up.readiness_block_reason(total, gate_coverage_fraction),
             "graded_reviews": total,
+            "graded_reviews_required": give_up.READINESS_MIN_GRADED_REVIEWS,
             "coverage_pct": round(gate_coverage_fraction * 100, 1),
+            "coverage_required_pct": round(give_up.READINESS_MIN_COVERAGE * 100, 1),
             "best_next": best_next,
             "data_provenance": prov,
         }

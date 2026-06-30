@@ -16,6 +16,10 @@ unavailable (no open collection), the map still renders as un-lit structure — 
     import { computeBestNext } from "./best-next";
     import { type NodeState, renderGraph, type Sidecar } from "./graph-render";
 
+    // Backdrop mode: a calm, dim, static structure map rendered behind the study-flow screens.
+    // No live RPC, no interaction, no chrome — just the spine setting the scene.
+    export let backdrop = false;
+
     const graph = sidecar as Sidecar;
     // Only leaf nodes carry a deck path; build deck-path -> sidecar-node-id for RPC mapping.
     const pathToId = new Map<string, string>(
@@ -28,6 +32,9 @@ unavailable (no open collection), the map still renders as un-lit structure — 
     let status: "loading" | "live" | "structure" = "loading";
 
     onMount(async () => {
+        if (backdrop) {
+            return; // static structure only — leave mastery empty, draw no live glow
+        }
         try {
             const resp = await masteryQuery(
                 { search: "", masteredRetrievabilityThreshold: 0.9 },
@@ -60,7 +67,7 @@ unavailable (no open collection), the map still renders as un-lit structure — 
     $: bestNextNode = bestNext ? graph.nodes.find((n) => n.id === bestNext) : undefined;
 </script>
 
-<div class="kg-wrap">
+<div class="kg-wrap" class:backdrop>
     <svg
         bind:this={svg}
         viewBox="0 0 1000 720"
@@ -69,11 +76,11 @@ unavailable (no open collection), the map still renders as un-lit structure — 
         role="img"
         aria-label="MCAT knowledge graph"
     ></svg>
-    {#if status === "structure"}
+    {#if !backdrop && status === "structure"}
         <div class="kg-hint">
             Structure preview — open your MCAT deck to light the map.
         </div>
-    {:else if status === "live" && bestNextNode}
+    {:else if !backdrop && status === "live" && bestNextNode}
         <div class="kg-starthere">
             <span class="kg-dot"></span>
             Start here ·
@@ -89,6 +96,12 @@ unavailable (no open collection), the map still renders as un-lit structure — 
         height: 100%;
         min-height: 480px;
         background: radial-gradient(circle at 50% 42%, #161a23 0%, #0c0e14 70%);
+    }
+
+    // Backdrop mode: non-interactive (the deck/overview overlay in front controls the dim blend).
+    .kg-wrap.backdrop {
+        pointer-events: none;
+        min-height: 100vh;
     }
 
     .kg-svg {

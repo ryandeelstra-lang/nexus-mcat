@@ -41,7 +41,7 @@ from anki.utils import (
     is_win,
     split_fields,
 )
-from aqt import gui_hooks
+from aqt import colors, gui_hooks
 from aqt.addons import DownloadLogEntry, check_and_prompt_for_updates, show_log_to_user
 from aqt.debug_console import show_debug_console
 from aqt.flags import FlagManager
@@ -774,6 +774,7 @@ class AnkiQt(QMainWindow):
         self.clearStateShortcuts()
         self.state = state
         gui_hooks.state_will_change(state, oldState)
+        self._update_graph_backdrop(state)
         getattr(self, f"_{state}State", lambda *_: None)(oldState, *args)
         if state != "resetRequired":
             self.bottomWeb.adjustHeightToFit()
@@ -825,6 +826,21 @@ class AnkiQt(QMainWindow):
 
     # charged_up: the integrated MCAT knowledge-graph screen
     ##########################################################################
+
+    def _update_graph_backdrop(self, state: MainWindowState) -> None:
+        """Show the calm static graph as a dim backdrop behind the study-flow screens (deck list +
+        overview), with mw.web transparent in front so it shows through. Every other screen keeps
+        mw.web opaque and the backdrop hidden — the reviewer's card rendering is never touched. The
+        full 'knowledgeGraph' screen manages graph_web itself, so leave it alone here."""
+        if state == "knowledgeGraph":
+            return
+        if state in ("deckBrowser", "overview"):
+            self._load_graph_web("backdrop", force=False)
+            self.web.page().setBackgroundColor(QColor(Qt.GlobalColor.transparent))
+            self.graph_web.show()
+        else:
+            self.graph_web.hide()
+            self.web.page().setBackgroundColor(theme_manager.qcolor(colors.CANVAS))
 
     def _load_graph_web(self, mode: str, *, force: bool) -> None:
         """Load the knowledge-graph route into the dedicated webview, in 'full' (explorable) or

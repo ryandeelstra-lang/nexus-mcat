@@ -12,23 +12,34 @@ of the already-built engine; neither writes to the collection.
     import KnowledgeGraph from "./KnowledgeGraph.svelte";
 
     let tab: "map" | "scores" = "map";
+    // ssr is disabled for this app, so window is always available here. When the host loads the
+    // route as "knowledge-graph?mode=backdrop", render only the calm static map (no tabs/chrome).
+    const backdrop =
+        typeof window !== "undefined" &&
+        new URLSearchParams(window.location.search).get("mode") === "backdrop";
 </script>
 
-<div class="kg-page">
-    <nav class="kg-tabs">
-        <button class:active={tab === "map"} on:click={() => (tab = "map")}>Map</button>
-        <button class:active={tab === "scores"} on:click={() => (tab = "scores")}>
-            Scores
-        </button>
-    </nav>
-    <div class="kg-body">
-        {#if tab === "map"}
-            <KnowledgeGraph />
-        {:else}
-            <ScoresDashboard />
-        {/if}
+{#if backdrop}
+    <KnowledgeGraph backdrop />
+{:else}
+    <div class="kg-page">
+        <nav class="kg-tabs">
+            <button class:active={tab === "map"} on:click={() => (tab = "map")}>
+                Map
+            </button>
+            <button class:active={tab === "scores"} on:click={() => (tab = "scores")}>
+                Scores
+            </button>
+        </nav>
+        <div class="kg-body">
+            {#if tab === "map"}
+                <KnowledgeGraph />
+            {:else}
+                <ScoresDashboard />
+            {/if}
+        </div>
     </div>
-</div>
+{/if}
 
 <style lang="scss">
     :global(html),

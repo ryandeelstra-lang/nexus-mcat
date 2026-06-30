@@ -63,6 +63,27 @@ body {
     -webkit-user-select: none;
 }
 
+/* charged_up: the MCAT knowledge graph shows as a calm, dim, static backdrop behind the deck list.
+ * The host makes mw.web transparent for this screen and renders the graph in a webview behind it;
+ * here we drop the page background and lay a near-opaque themed scrim so the deck content stays
+ * fully legible (themed, not forced dark) while the graph reads faintly through. Tune the scrim
+ * `opacity` to taste: lower = more graph, higher = calmer. */
+html {
+    background: transparent;
+}
+body {
+    background: transparent;
+}
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: var(--canvas);
+    opacity: 0.8;
+    pointer-events: none;
+}
+
 .current,
 tr:hover:not(.top-level-drag-row) {
     td {

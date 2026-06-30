@@ -6,6 +6,25 @@
 @use "../../../../../ts/lib/sass/card-counts";
 @use "../../../../../ts/lib/sass/button-mixins" as button;
 
+/* charged_up: same calm static graph backdrop as the deck list (see deckbrowser.scss). The host
+ * makes mw.web transparent here; this scrim keeps the overview legible while the graph reads
+ * faintly through. */
+html {
+    background: transparent;
+}
+body {
+    background: transparent;
+}
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: var(--canvas);
+    opacity: 0.8;
+    pointer-events: none;
+}
+
 .smallLink {
     font-size: 10px;
 }

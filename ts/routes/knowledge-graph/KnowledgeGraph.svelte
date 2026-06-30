@@ -56,6 +56,8 @@ unavailable (no open collection), the map still renders as un-lit structure — 
     $: if (svg) {
         renderGraph(svg, graph, mastery, bestNext);
     }
+
+    $: bestNextNode = bestNext ? graph.nodes.find((n) => n.id === bestNext) : undefined;
 </script>
 
 <div class="kg-wrap">
@@ -70,6 +72,12 @@ unavailable (no open collection), the map still renders as un-lit structure — 
     {#if status === "structure"}
         <div class="kg-hint">
             Structure preview — open your MCAT deck to light the map.
+        </div>
+    {:else if status === "live" && bestNextNode}
+        <div class="kg-starthere">
+            <span class="kg-dot"></span>
+            Start here ·
+            <strong>{bestNextNode.label}</strong>
         </div>
     {/if}
 </div>
@@ -89,16 +97,50 @@ unavailable (no open collection), the map still renders as un-lit structure — 
         height: 100%;
     }
 
-    .kg-hint {
+    .kg-hint,
+    .kg-starthere {
         position: absolute;
         left: 50%;
         bottom: 18px;
         transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        gap: 8px;
         padding: 6px 14px;
         border-radius: 999px;
         font-size: 13px;
+        font-family:
+            Inter,
+            -apple-system,
+            "Segoe UI",
+            Roboto,
+            sans-serif;
         color: rgba(255, 255, 255, 0.7);
         background: rgba(255, 255, 255, 0.06);
+    }
+
+    .kg-starthere strong {
+        color: rgba(255, 255, 255, 0.95);
+        font-weight: 600;
+    }
+
+    .kg-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #ffffff;
+        box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.7);
+        animation: kg-pulse-dot 2.4s ease-in-out infinite;
+    }
+
+    @keyframes kg-pulse-dot {
+        0%,
+        100% {
+            opacity: 0.45;
+        }
+        50% {
+            opacity: 1;
+        }
     }
 
     // The best-next node breathes — a calm "start here", never an alarm.

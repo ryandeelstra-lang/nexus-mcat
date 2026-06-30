@@ -1,9 +1,10 @@
 // Copyright: Ankitects Pty Ltd and contributors
 // License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
 
-// charged_up: render the MCAT knowledge-graph sidecar as an SVG scene (d3, no new dep).
+// charged_up: render the MCAT knowledge-graph sidecar as a 2.5D SVG scene (d3, no new dep).
 // Structure comes from the <100KB sidecar (baked x/y/z); node glow comes from the LIVE
-// MasteryQuery RPC (passed in as `mastery`) — never a fabricated number.
+// MasteryQuery RPC (passed in as `mastery`) — never a fabricated number. The baked z gives a
+// depth cue (size + draw order); lit nodes earn a soft bloom, the map "only gains light".
 
 import { max, min, scaleLinear, select } from "d3";
 
@@ -54,6 +55,7 @@ const KIND_RADIUS: Record<string, number> = {
 
 const WIDTH = 1000;
 const HEIGHT = 720;
+const LABEL_FONT = "Inter, -apple-system, 'Segoe UI', Roboto, sans-serif";
 
 function color(section: string): string {
     return SECTION_COLOR[section] ?? "#8a8f98";
@@ -68,12 +70,36 @@ export function renderGraph(
     const root = select(svg);
     root.selectAll("*").remove();
 
+    // Glow filters for the "earned bloom": only lit nodes gain light; the best-next node gains more.
+    const defs = root.append("defs");
+    for (const [id, blur] of [["kg-glow-soft", 3.2], ["kg-glow-strong", 6]] as [string, number][]) {
+        const f = defs
+            .append("filter")
+            .attr("id", id)
+            .attr("x", "-80%")
+            .attr("y", "-80%")
+            .attr("width", "260%")
+            .attr("height", "260%");
+        f.append("feGaussianBlur").attr("stdDeviation", blur).attr("result", "b");
+        const merge = f.append("feMerge");
+        merge.append("feMergeNode").attr("in", "b");
+        merge.append("feMergeNode").attr("in", "SourceGraphic");
+    }
+
     const xs = sidecar.nodes.map((n) => n.x);
     const ys = sidecar.nodes.map((n) => n.y);
+    const zs = sidecar.nodes.map((n) => n.z);
     const sx = scaleLinear().domain([min(xs) ?? 0, max(xs) ?? 1]).range([70, WIDTH - 70]);
     const sy = scaleLinear().domain([min(ys) ?? 0, max(ys) ?? 1]).range([70, HEIGHT - 70]);
+    const zmin = min(zs) ?? 0;
+    const zmax = max(zs) ?? 1;
+    const depth = (z: number): number => (zmax > zmin ? (z - zmin) / (zmax - zmin) : 0.5); // 0 far .. 1 near
     const pos = new Map(sidecar.nodes.map((n) => [n.id, { x: sx(n.x), y: sy(n.y) }]));
     const xy = (id: string): { x: number; y: number } => pos.get(id) ?? { x: 0, y: 0 };
+    const lit = (n: SidecarNode): boolean => {
+        const m = mastery[n.id];
+        return !!(m && m.hasState);
+    };
 
     // Edges first (drawn under the nodes). Prerequisite edges are brighter than containment.
     const edges = root.append("g").attr("class", "kg-edges");
@@ -88,16 +114,17 @@ export function renderGraph(
         .attr("stroke", (e) => (e.kind === "prerequisite" ? "rgba(255,255,255,0.28)" : "rgba(255,255,255,0.07)"))
         .attr("stroke-width", (e) => (e.kind === "prerequisite" ? 1.4 : 0.7));
 
-    // Nodes.
+    // Nodes, painted far -> near so nearer (higher-z) nodes sit on top.
+    const ordered = [...sidecar.nodes].sort((a, b) => a.z - b.z);
     const nodes = root.append("g").attr("class", "kg-nodes");
     const g = nodes
         .selectAll("g")
-        .data(sidecar.nodes)
+        .data(ordered)
         .join("g")
         .attr("transform", (n) => `translate(${xy(n.id).x},${xy(n.id).y})`);
 
     g.append("circle")
-        .attr("r", (n) => KIND_RADIUS[n.kind] ?? 6)
+        .attr("r", (n) => (KIND_RADIUS[n.kind] ?? 6) * (0.8 + 0.45 * depth(n.z)))
         .attr("fill", (n) => color(n.section))
         .attr("fill-opacity", (n) => {
             const m = mastery[n.id];
@@ -106,6 +133,12 @@ export function renderGraph(
                 return 0.2;
             }
             return 0.35 + 0.6 * Math.max(0, Math.min(1, m.recall));
+        })
+        .attr("filter", (n) => {
+            if (n.id === bestNext) {
+                return "url(#kg-glow-strong)";
+            }
+            return lit(n) ? "url(#kg-glow-soft)" : null;
         })
         .attr("stroke", (n) => (n.id === bestNext ? "#ffffff" : "rgba(255,255,255,0.15)"))
         .attr("stroke-width", (n) => (n.id === bestNext ? 3 : 0.6))
@@ -117,6 +150,7 @@ export function renderGraph(
         .text((n) => n.label)
         .attr("dy", (n) => -(KIND_RADIUS[n.kind] ?? 6) - 4)
         .attr("text-anchor", "middle")
+        .attr("font-family", LABEL_FONT)
         .attr("fill", (n) => (n.kind === "section" ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.6)"))
         .attr("font-size", (n) => (n.kind === "section" ? 14 : 10));
 }

@@ -59,6 +59,7 @@ class AnkiWebViewKind(Enum):
     FIELDS = "fields"
     IMPORT_LOG = "import log"
     IMPORT_ANKI_PACKAGE = "anki package import"
+    KNOWLEDGE_GRAPH = "knowledge graph"
 
 
 class AuthInterceptor(QWebEngineUrlRequestInterceptor):

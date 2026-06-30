@@ -553,6 +553,8 @@ class AnkiQt(QMainWindow):
             )
 
         refresh_reviewer_on_day_rollover_change()
+        # charged_up: reveal the knowledge-graph Tools item only when this profile opts in.
+        self.knowledge_graph_action.setVisible(self.pm.knowledge_graph_enabled())
         gui_hooks.profile_did_open()
         self.maybe_auto_sync_on_open_close(_onsuccess)
 
@@ -1314,6 +1316,9 @@ title="{}" {}>{}</button>""".format(
     def onPrefs(self) -> None:
         aqt.dialogs.open("Preferences", self)
 
+    def onKnowledgeGraph(self) -> None:
+        aqt.dialogs.open("KnowledgeGraph", self)
+
     def on_check_for_updates(self) -> None:
         from packaging.version import Version
 
@@ -1447,6 +1452,14 @@ title="{}" {}>{}</button>""".format(
         qconnect(m.actionNoteTypes.triggered, self.onNoteTypes)
         qconnect(m.action_check_for_updates.triggered, self.on_check_for_updates)
         qconnect(m.actionPreferences.triggered, self.onPrefs)
+
+        # Tools — charged_up MCAT knowledge-graph VIEW. Feature-flagged: created hidden here
+        # (the flag lives in the per-profile config, which isn't loaded until loadProfile), then
+        # made visible in loadProfile when the default-off flag is set.
+        self.knowledge_graph_action = QAction("Knowledge Graph", self)
+        qconnect(self.knowledge_graph_action.triggered, self.onKnowledgeGraph)
+        m.menuTools.addAction(self.knowledge_graph_action)
+        self.knowledge_graph_action.setVisible(False)
 
         # View
         qconnect(

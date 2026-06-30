@@ -118,3 +118,23 @@ def test_thresholds_are_the_locked_values():
     assert give_up.READINESS_MIN_GRADED_REVIEWS == 1000
     assert give_up.READINESS_MIN_COVERAGE == 0.75
     assert give_up.PERFORMANCE_MIN_ITEMS == 20
+
+
+def test_readiness_available_branch_never_emits_a_bare_float(monkeypatch):
+    # Guard the AUTO-FAIL gate at the seam where Block G adds the 472-528 mapping: even when the
+    # give-up floor is cleared, the readiness payload must NOT contain a bare numeric point today.
+    monkeypatch.setattr(give_up, "readiness_available", lambda *a, **k: True)
+    col = _fresh_col()
+    r = display.readiness_display(col, [], gate_coverage_fraction=1.0)
+    assert r["available"] is True
+    assert r["point"] is None and r["range"] is None  # no fabricated number until Block G maps it
+    col.close()
+
+
+def test_provenance_is_one_of_two_typed_values():
+    col = _fresh_col()
+    assert engine.data_provenance(col) in (engine.REAL, engine.SYNTHETIC)
+    assert engine.data_provenance(col) == engine.REAL
+    col.set_config(engine.SYNTHETIC_MARKER, True)
+    assert engine.data_provenance(col) == engine.SYNTHETIC
+    col.close()

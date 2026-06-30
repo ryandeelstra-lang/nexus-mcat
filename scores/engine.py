@@ -9,11 +9,19 @@ computes (mastered count, average recall, graded-review event count, stability, 
 
 from __future__ import annotations
 
+from typing import Literal
+
 from anki.collection import Collection
 from anki.decks import DeckId, UpdateDeckConfigs, UpdateDeckConfigsMode
 
 # Marker (collection config) set by the synthetic bench-deck generator (Block H / S4).
 SYNTHETIC_MARKER = "mcat_synthetic"
+
+# Provenance is a TYPED two-value field — use these constants, never bare strings, so a typo
+# (e.g. "syntethic") can never silently read as 'real' (tier-1: no misleading readiness numbers).
+Provenance = Literal["real", "synthetic"]
+REAL: Provenance = "real"
+SYNTHETIC: Provenance = "synthetic"
 
 
 def enable_fsrs(col: Collection) -> None:
@@ -39,6 +47,6 @@ def total_graded_reviews(topics) -> int:
     return sum(t.graded_reviews for t in topics)
 
 
-def data_provenance(col: Collection) -> str:
-    """'synthetic' if the collection bears the synthetic-bench marker, else 'real'."""
-    return "synthetic" if col.get_config(SYNTHETIC_MARKER, False) else "real"
+def data_provenance(col: Collection) -> Provenance:
+    """SYNTHETIC if the collection bears the synthetic-bench marker, else REAL (typed; never a bare str)."""
+    return SYNTHETIC if col.get_config(SYNTHETIC_MARKER, False) else REAL

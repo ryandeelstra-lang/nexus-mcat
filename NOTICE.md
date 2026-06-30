@@ -20,6 +20,17 @@ re-targeted as an MCAT study application for desktop + iOS that share one Rust e
   corresponding source for our modifications is published with this repository.
 - The upstream [LICENSE](./LICENSE) and [CONTRIBUTORS](./CONTRIBUTORS) files are retained **verbatim**.
 
+## MCAT content provenance
+
+- The MCAT **taxonomy** ([docs/data/mcat_taxonomy.yaml](./docs/data/mcat_taxonomy.yaml)) uses only the AAMC
+  content-outline _structure_ (section / Foundational-Concept / content-category titles) — public facts, no
+  exam items. See [docs/mcat/TAXONOMY.md](./docs/mcat/TAXONOMY.md).
+- The seed **deck content** ([deck_content/cards.jsonl](./deck_content/cards.jsonl)) is **self-authored,
+  original** material (© 2026 the charged_up authors, AGPL-3.0-or-later) written from general public scientific
+  knowledge — **no** real AAMC items, **no** scraped/copyrighted third-party question text. Provenance and the
+  held-out leakage wall are documented in [deck_content/DECK-PROVENANCE.md](./deck_content/DECK-PROVENANCE.md)
+  and [eval_gold/README.md](./eval_gold/README.md).
+
 ## Trademarks / logo
 
 The **Anki logo** is copyright Alex Fraser and is **not** relabeled, modified, or used to brand

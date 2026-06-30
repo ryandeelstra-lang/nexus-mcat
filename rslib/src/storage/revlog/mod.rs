@@ -213,6 +213,18 @@ impl SqliteStorage {
             })?
             .collect()
     }
+
+    /// charged_up: COUNT of graded revlog rows (answer events) per TRUE deck,
+    /// scoped to the current `search_cids` temp table. Read-only; no day
+    /// filter (counts all graded events).
+    pub(crate) fn mastery_graded_reviews_by_deck(&self) -> Result<Vec<(DeckId, u32)>> {
+        self.db
+            .prepare_cached(include_str!("mastery_graded_reviews_by_deck.sql"))?
+            .query_and_then([], |row| -> Result<(DeckId, u32)> {
+                Ok((DeckId(row.get(0)?), row.get::<_, i64>(1)? as u32))
+            })?
+            .collect()
+    }
     pub(crate) fn upgrade_revlog_to_v2(&self) -> Result<()> {
         self.db
             .execute_batch(include_str!("v2_upgrade.sql"))

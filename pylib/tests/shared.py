@@ -60,6 +60,25 @@ def getEmptyDeckWith(**kwargs):
     return aopen(nam, **kwargs)
 
 
+def enable_fsrs(col):
+    """Enable FSRS the only correct way.
+
+    There is NO `Config.Bool.FSRS` in Python; `update_deck_configs(fsrs=True)` sets
+    `BoolKey::Fsrs` AND seeds the FSRS-6 21-weight default params (so the w20 decay is used,
+    never the FSRS-4.5/5 constants). Shared by the mastery / memory-score / bench tests.
+    """
+    from anki.decks import DeckId, UpdateDeckConfigs, UpdateDeckConfigsMode
+
+    req = col.decks.get_deck_configs_for_update(DeckId(1))
+    upd = UpdateDeckConfigs(
+        target_deck_id=1,
+        configs=[cw.config for cw in req.all_config],
+        mode=UpdateDeckConfigsMode.UPDATE_DECK_CONFIGS_MODE_NORMAL,
+        fsrs=True,
+    )
+    col.decks.update_deck_configs(upd)
+
+
 def getUpgradeDeckPath(name="anki12.anki"):
     src = os.path.join(testDir, "support", name)
     (fd, dst) = tempfile.mkstemp(suffix=".anki2")

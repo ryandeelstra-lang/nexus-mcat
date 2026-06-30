@@ -16,6 +16,10 @@ service StatsService {
   rpc Graphs(GraphsRequest) returns (GraphsResponse);
   rpc GetGraphPreferences(generic.Empty) returns (GraphPreferences);
   rpc SetGraphPreferences(GraphPreferences) returns (generic.Empty);
+  // charged_up: read-only per-topic mastery aggregation (appended at END —
+  // keeps positional dispatch indices stable; BackendStatsService stays empty
+  // so it auto-forwards).
+  rpc MasteryQuery(MasteryQueryRequest) returns (MasteryQueryResponse);
 }
 
 // Implicitly includes any of the above methods that are not listed in the
@@ -241,4 +245,40 @@ message Dataset {
   repeated CardEntry cards = 2;
   repeated DeckEntry decks = 3;
   int64 next_day_at = 4;
+}
+
+// charged_up: per-topic mastery aggregation for the dashboard + the
+// knowledge-graph node-state. Read-only (no transact / no schema bump). Fields
+// are positional-append-only.
+message MasteryQueryRequest {
+  // Anki search selecting the cards to aggregate (empty = whole collection).
+  string search = 1;
+  // A card counts as "mastered" when its FSRS retrievability >= this threshold.
+  // 0 means "use the engine default" (0.9).
+  float mastered_retrievability_threshold = 2;
+}
+
+message MasteryQueryResponse {
+  message Topic {
+    // True deck id (filtered-deck cards bucket under their original deck).
+    int64 deck_id = 1;
+    string deck_name = 2;
+    uint32 total_cards = 3;
+    // Cards carrying an FSRS memory state (the recall denominator).
+    uint32 cards_with_state = 4;
+    uint32 mastered_count = 5;
+    // Mean FSRS retrievability over cards_with_state (0 if none).
+    float average_recall = 6;
+    // DISTINCT cards with reps > 0 (a coverage/display signal).
+    uint32 reviewed_card_count = 7;
+    // COUNT of graded revlog ROWS (answer events) — the give-up gate's unit.
+    uint32 graded_reviews = 8;
+    // Sum of FSRS stability over cards_with_state (feeds the trajectory layer).
+    float stability_sum = 9;
+    // Per-user trained FSRS-6 decay for this topic's preset (never the FSRS-5
+    // 0.5 literal).
+    float decay = 10;
+  }
+  repeated Topic topics = 1;
+  float mastered_retrievability_threshold = 2;
 }

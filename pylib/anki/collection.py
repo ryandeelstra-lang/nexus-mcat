@@ -1025,6 +1025,21 @@ class Collection(DeprecatedNamesMixin):
     ) -> Sequence[stats_pb2.CardStatsResponse.StatsRevlogEntry]:
         return self._backend.get_review_logs(card_id)
 
+    def mastery_query(
+        self,
+        search: str = "",
+        mastered_retrievability_threshold: float = 0.0,
+    ) -> stats_pb2.MasteryQueryResponse:
+        """charged_up: read-only per-topic mastery aggregation (the MasteryQuery RPC).
+
+        Always call via Collection, never `_backend` directly. The inner backend call passes
+        both args BY KEYWORD because the generated stub is keyword-only (2-field *Request).
+        """
+        return self._backend.mastery_query(
+            search=search,
+            mastered_retrievability_threshold=mastered_retrievability_threshold,
+        )
+
     def studied_today(self) -> str:
         return self._backend.studied_today()
 

@@ -36,6 +36,13 @@ impl crate::services::StatsService for Collection {
     ) -> error::Result<()> {
         self.set_graph_preferences(input)
     }
+
+    fn mastery_query(
+        &mut self,
+        input: anki_proto::stats::MasteryQueryRequest,
+    ) -> error::Result<anki_proto::stats::MasteryQueryResponse> {
+        self.mastery_query(input)
+    }
 }
 
 impl From<RevlogReviewKind> for i32 {

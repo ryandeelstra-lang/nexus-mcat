@@ -25,6 +25,13 @@ impl BackendCollectionService for Backend {
             .set_shared_progress_state(self.progress_state.clone());
 
         *guard = Some(builder.build()?);
+        // charged_up: pre-warm timing at collection open so the first MasteryQuery RPC
+        // is provably read-only — this routes Anki's one-time {rollover,
+        // localOffset} timing self-heal to OPEN, not to the read path. A
+        // warm-up must never fail the open (`let _`).
+        if let Some(col) = guard.as_mut() {
+            let _ = col.timing_today();
+        }
 
         Ok(())
     }

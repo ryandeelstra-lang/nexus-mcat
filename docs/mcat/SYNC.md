@@ -19,11 +19,30 @@ by the W1 iOS cross-compile GO).
   the iOS client uses **rustls** for real-internet HTTPS (proven to cross-compile in W1; a live device
   TLS/trust-store handshake is HUMAN-recorded).
 
-## Still to build (T2–T4 / S1–S2)
+## T2–T4 / S1–S2 — engine-level proofs (DONE, all green)
 
-- **T2** scripted round-trip: review on collection A → sync → review on B → sync → both revlogs merged.
-- **T3** revlog dedup detector (`INSERT OR IGNORE` on the ms `RevlogId`).
-- **T4** the 7b test: 10 cards on phone + 10 different on desktop offline → reconnect → **all 20 land once**
-  (none lost, none doubled).
-- **S1** conflict rule: same card reviewed on both offline → **last-write-wins by mtime**, documented here.
-- **S2** offline-reconnect / mid-sync-interrupt / wrong-clock engine tests (airplane-mode _recording_ is HUMAN).
+All Block E sync invariants are pinned by re-runnable Rust tests in
+`rslib/src/sync/collection/tests.rs` (module `mcat_block_e`), driven against the real in-process
+`anki-sync-server`. Verified: `cargo test -p anki mcat_block_e` → **7 passed**; full
+`cargo test -p anki --lib` → **533 passed, 0 failed** (no regression). The conflict rule (S1/D7) is
+documented in [CONFLICT-RULE.md](CONFLICT-RULE.md).
+
+- **T2** `t2_two_collection_roundtrip` — note added on col1 → full round-trip → note count matches on both.
+- **T3** `t3_revlog_dedup_primitive` — `INSERT OR IGNORE` on the ms `RevlogId`: same id lands once, distinct
+  ids land twice, same-card distinct-ids both land (hardening L4: the SQLite primitive, not the merge invariant).
+- **T4** `t4_twenty_reviews_land_once` — the 7b headline: 10 reviews on A + 10 different on B, offline →
+  reconnect/sync → **all 20 land once** (none lost, none doubled); both collections converge to the same set.
+- **S1** `s1_conflict_lww_by_mtime` — same note edited offline on both → the **later mtime wins** on both
+  sides (LWW); the rule is written down in CONFLICT-RULE.md (satisfies D7).
+- **C7** `c7_offline_review_then_reconnect` — offline reviews land on the other device after reconnect.
+- **S2b** `s2b_midsync_interrupt_is_clean` — an interrupted (start→abort) sync + a redundant replay →
+  no loss, no double-count (idempotent).
+- **S2c** `s2c_wrong_clock_revlog_id_collision` — honest clock-skew limitation: a true cross-device id
+  collision resolves to **exactly one** surviving row (we do not claim both reviews land).
+
+### Still HUMAN-gated (untested ≠ passed)
+
+- The on-device **airplane-mode recording** for C7 (the engine-level proof above is automated; the phone demo is human).
+- The **iOS client** half of two-way sync (Step **F1**, contingent on the W1 rustls spike) — outside Block E;
+  it consumes this server.
+- The **50k-deck sync timing** gate (H5 < 5 s) — Block H (`make bench`), not yet run.

@@ -117,6 +117,25 @@ _bridge_script = _create_bridge_script()
 _profile_with_api_access: QWebEngineProfile | None = None
 _profile_without_api_access: QWebEngineProfile | None = None
 
+# Web-view kinds granted backend API access: the AuthInterceptor injects the Bearer header for
+# these, so their pages may POST to /_anki/ RPC + data endpoints. A kind NOT listed here is 403'd
+# by mediasrv's permission gate (fail-closed). Kept module-level so it is unit-testable.
+API_ACCESS_WEBVIEW_KINDS = frozenset(
+    {
+        AnkiWebViewKind.DECK_OPTIONS,
+        AnkiWebViewKind.EDITOR,
+        AnkiWebViewKind.DECK_STATS,
+        AnkiWebViewKind.CHANGE_NOTETYPE,
+        AnkiWebViewKind.BROWSER_CARD_INFO,
+        AnkiWebViewKind.IMPORT_ANKI_PACKAGE,
+        AnkiWebViewKind.IMPORT_CSV,
+        AnkiWebViewKind.IMPORT_LOG,
+        # charged_up: the knowledge-graph VIEW calls the read-only masteryQuery / scoresDashboard
+        # endpoints, so it needs the api-access profile (Bearer header).
+        AnkiWebViewKind.KNOWLEDGE_GRAPH,
+    }
+)
+
 
 class AnkiWebPage(QWebEnginePage):
     def __init__(
@@ -134,16 +153,7 @@ class AnkiWebPage(QWebEnginePage):
         self.open_links_externally = True
 
     def _profileForPage(self, kind: AnkiWebViewKind) -> QWebEngineProfile:
-        have_api_access = kind in (
-            AnkiWebViewKind.DECK_OPTIONS,
-            AnkiWebViewKind.EDITOR,
-            AnkiWebViewKind.DECK_STATS,
-            AnkiWebViewKind.CHANGE_NOTETYPE,
-            AnkiWebViewKind.BROWSER_CARD_INFO,
-            AnkiWebViewKind.IMPORT_ANKI_PACKAGE,
-            AnkiWebViewKind.IMPORT_CSV,
-            AnkiWebViewKind.IMPORT_LOG,
-        )
+        have_api_access = kind in API_ACCESS_WEBVIEW_KINDS
 
         global _profile_with_api_access, _profile_without_api_access
 

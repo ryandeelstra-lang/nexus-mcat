@@ -723,7 +723,8 @@ def _load_scores_display():  # type: ignore[no-untyped-def]
             Path(__file__).resolve().parents[2]
         )  # qt/aqt/mediasrv.py -> repo root
         if str(repo_root) not in sys.path:
-            sys.path.insert(0, str(repo_root))
+            # append (not insert) so a repo-root `scores/` can never shadow a site-package
+            sys.path.append(str(repo_root))
         try:
             return importlib.import_module("scores.display")
         except ImportError:
@@ -792,6 +793,7 @@ exposed_backend_list = [
     "graphs",
     "get_graph_preferences",
     "set_graph_preferences",
+    "mastery_query",  # charged_up: read-only per-topic mastery for the knowledge-graph VIEW
     # TagsService
     "complete_tag",
     # ImageOcclusionService

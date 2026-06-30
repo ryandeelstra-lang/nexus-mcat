@@ -19,6 +19,8 @@ from aqt.mediasrv import (
     _handle_local_file_request,
     ensure_safe_path,
     is_localhost_origin,
+    is_sveltekit_page,
+    post_handlers,
 )
 
 
@@ -199,6 +201,31 @@ class TestMediaFileCSP:
             with app.test_request_context():
                 resp = _handle_local_file_request(req)
             assert _get_csp(resp) is None
+
+
+class TestKnowledgeGraphWiring:
+    """charged_up: guards the runtime wiring of the knowledge-graph VIEW so the live-glow /
+    scores paths can never silently regress to a 404 (unregistered endpoint) or a 403
+    (web view denied API access) — the exact gap an audit caught after the first build."""
+
+    def test_mastery_query_endpoint_registered(self) -> None:
+        # Without this the graph's masteryQuery() POST 404s and the map stays un-lit.
+        assert "masteryQuery" in post_handlers
+
+    def test_scores_dashboard_endpoint_registered(self) -> None:
+        assert "scoresDashboard" in post_handlers
+
+    def test_view_pages_are_sveltekit_pages(self) -> None:
+        assert is_sveltekit_page("knowledge-graph")
+        assert is_sveltekit_page("scores-dashboard")
+
+    def test_knowledge_graph_webview_has_api_access(self) -> None:
+        # Without API access the AuthInterceptor injects no Bearer header and mediasrv 403s
+        # every RPC/data POST from the VIEW, so nothing lights up. Import locally so the Qt
+        # dependency doesn't burden the rest of the module.
+        from aqt.webview import API_ACCESS_WEBVIEW_KINDS, AnkiWebViewKind
+
+        assert AnkiWebViewKind.KNOWLEDGE_GRAPH in API_ACCESS_WEBVIEW_KINDS
 
 
 class TestEditorPageCSP:

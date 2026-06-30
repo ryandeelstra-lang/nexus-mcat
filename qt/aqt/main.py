@@ -83,7 +83,13 @@ from aqt.webview import AnkiWebView, AnkiWebViewKind
 install_pylib_legacy()
 
 MainWindowState = Literal[
-    "startup", "deckBrowser", "overview", "review", "resetRequired", "profileManager"
+    "startup",
+    "deckBrowser",
+    "overview",
+    "review",
+    "resetRequired",
+    "profileManager",
+    "knowledgeGraph",
 ]
 
 
@@ -168,6 +174,10 @@ class AnkiQt(QMainWindow):
     pm: ProfileManagerType
     web: MainWebView
     bottomWeb: BottomWebView
+    # charged_up: dedicated api-access webview for the integrated knowledge-graph screen/backdrop,
+    # plus the route mode currently loaded into it ("full" | "backdrop" | None when unloaded).
+    graph_web: AnkiWebView
+    _graph_web_mode: str | None
 
     def __init__(
         self,
@@ -553,8 +563,6 @@ class AnkiQt(QMainWindow):
             )
 
         refresh_reviewer_on_day_rollover_change()
-        # charged_up: reveal the knowledge-graph Tools item only when this profile opts in.
-        self.knowledge_graph_action.setVisible(self.pm.knowledge_graph_enabled())
         gui_hooks.profile_did_open()
         self.maybe_auto_sync_on_open_close(_onsuccess)
 
@@ -815,6 +823,31 @@ class AnkiQt(QMainWindow):
             self.toolbarWeb.show()
             self.bottomWeb.show()
 
+    # charged_up: the integrated MCAT knowledge-graph screen
+    ##########################################################################
+
+    def _load_graph_web(self, mode: str, *, force: bool) -> None:
+        """Load the knowledge-graph route into the dedicated webview, in 'full' (explorable) or
+        'backdrop' (dim, static) mode. Reload only when the mode changes, unless force=True (the
+        explore screen forces a reload so the live mastery glow is fresh each visit)."""
+        if force or self._graph_web_mode != mode:
+            suffix = "" if mode == "full" else f"?mode={mode}"
+            self.graph_web.load_sveltekit_page(f"knowledge-graph{suffix}")
+            self._graph_web_mode = mode
+
+    def _knowledgeGraphState(self, oldState: MainWindowState) -> None:
+        # Full, interactive Graph screen — rendered in the SAME window (no separate dialog).
+        self._load_graph_web("full", force=True)
+        self.web.hide()
+        self.graph_web.show()
+        self.graph_web.setFocus()
+        self.toolbar.redraw()
+
+    def _knowledgeGraphCleanup(self, newState: MainWindowState) -> None:
+        # Hand the central area back to mw.web for the next screen.
+        self.graph_web.hide()
+        self.web.show()
+
     # Resetting state
     ##########################################################################
 
@@ -954,6 +987,24 @@ title="{}" {}>{}</button>""".format(
         self.toolbar = Toolbar(self, tweb)
         # main area
         self.web = MainWebView(self)
+        # charged_up: the MCAT knowledge-graph VIEW lives in the SAME window via a dedicated
+        # api-access webview that overlaps mw.web in a stacked layout (added FIRST => sits BEHIND).
+        # It serves as the explorable "Graph" screen and (Stage 2) the calm backdrop behind the deck
+        # list/overview. mw.web (kind MAIN, no api access, renders untrusted card HTML during review)
+        # is never used to host the graph, preserving the security boundary.
+        self.graph_web = AnkiWebView(kind=AnkiWebViewKind.KNOWLEDGE_GRAPH)
+        self.graph_web.disable_zoom()
+        self._graph_web_mode = None  # currently-loaded route mode (None=unloaded)
+        graph_stack = QWidget(self)
+        graph_stack.setSizePolicy(
+            QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding
+        )
+        self.centralStack = QStackedLayout(graph_stack)
+        self.centralStack.setContentsMargins(0, 0, 0, 0)
+        self.centralStack.setStackingMode(QStackedLayout.StackingMode.StackAll)
+        self.centralStack.addWidget(self.graph_web)  # behind
+        self.centralStack.addWidget(self.web)  # in front
+        self.graph_web.hide()
         # bottom area
         sweb = self.bottomWeb = BottomWebView(self)
         sweb.setFocusPolicy(Qt.FocusPolicy.WheelFocus)
@@ -963,7 +1014,7 @@ title="{}" {}>{}</button>""".format(
         self.mainLayout.setContentsMargins(0, 0, 0, 0)
         self.mainLayout.setSpacing(0)
         self.mainLayout.addWidget(tweb)
-        self.mainLayout.addWidget(self.web)
+        self.mainLayout.addWidget(graph_stack)
         self.mainLayout.addWidget(sweb)
         self.form.centralwidget.setLayout(self.mainLayout)
 
@@ -1316,9 +1367,6 @@ title="{}" {}>{}</button>""".format(
     def onPrefs(self) -> None:
         aqt.dialogs.open("Preferences", self)
 
-    def onKnowledgeGraph(self) -> None:
-        aqt.dialogs.open("KnowledgeGraph", self)
-
     def on_check_for_updates(self) -> None:
         from packaging.version import Version
 
@@ -1452,14 +1500,6 @@ title="{}" {}>{}</button>""".format(
         qconnect(m.actionNoteTypes.triggered, self.onNoteTypes)
         qconnect(m.action_check_for_updates.triggered, self.on_check_for_updates)
         qconnect(m.actionPreferences.triggered, self.onPrefs)
-
-        # Tools — charged_up MCAT knowledge-graph VIEW. Feature-flagged: created hidden here
-        # (the flag lives in the per-profile config, which isn't loaded until loadProfile), then
-        # made visible in loadProfile when the default-off flag is set.
-        self.knowledge_graph_action = QAction("Knowledge Graph", self)
-        qconnect(self.knowledge_graph_action.triggered, self.onKnowledgeGraph)
-        m.menuTools.addAction(self.knowledge_graph_action)
-        self.knowledge_graph_action.setVisible(False)
 
         # View
         qconnect(

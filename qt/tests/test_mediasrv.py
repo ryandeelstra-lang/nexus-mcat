@@ -227,6 +227,15 @@ class TestKnowledgeGraphWiring:
 
         assert AnkiWebViewKind.KNOWLEDGE_GRAPH in API_ACCESS_WEBVIEW_KINDS
 
+    def test_knowledge_graph_is_an_integrated_main_window_state(self) -> None:
+        # The graph is an in-window screen (toolbar tab -> moveToState), not a separate dialog.
+        from aqt.main import AnkiQt
+        from aqt.toolbar import Toolbar
+
+        assert hasattr(AnkiQt, "_knowledgeGraphState")
+        assert hasattr(AnkiQt, "_knowledgeGraphCleanup")
+        assert hasattr(Toolbar, "_graphLinkHandler")
+
 
 class TestEditorPageCSP:
     def test_editor_csp_does_not_block_user_embeds(self) -> None:

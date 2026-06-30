@@ -372,6 +372,14 @@ class Toolbar:
                 tip=tr.actions_shortcut_key(val="T"),
                 id="stats",
             ),
+            # charged_up: the MCAT knowledge-graph VIEW, integrated as a main-window screen.
+            self.create_link(
+                "graph",
+                tr.qt_misc_graph(),
+                self._graphLinkHandler,
+                tip=tr.actions_shortcut_key(val="G"),
+                id="graph",
+            ),
         ]
 
         links.append(self._create_sync_link())
@@ -449,6 +457,9 @@ class Toolbar:
 
     def _statsLinkHandler(self) -> None:
         self.mw.onStats()
+
+    def _graphLinkHandler(self) -> None:
+        self.mw.moveToState("knowledgeGraph")
 
     def _syncLinkHandler(self) -> None:
         self.mw.on_sync_button_clicked()

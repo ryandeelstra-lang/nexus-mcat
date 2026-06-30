@@ -681,13 +681,6 @@ create table if not exists profiles
     def media_syncing_enabled(self) -> bool:
         return self.profile.get("syncMedia", True)
 
-    def knowledge_graph_enabled(self) -> bool:
-        "charged_up: experimental MCAT knowledge-graph VIEW (Tools menu). Default off."
-        return self.profile.get("chargedUpKnowledgeGraph", False)
-
-    def set_knowledge_graph_enabled(self, on: bool) -> None:
-        self.profile["chargedUpKnowledgeGraph"] = on
-
     def auto_syncing_enabled(self) -> bool:
         "True if syncing on startup/shutdown enabled."
         return self.profile.get("autoSync", True)

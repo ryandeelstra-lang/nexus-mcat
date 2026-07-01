@@ -297,3 +297,68 @@ class TestEditorPageCSP:
         assert "frame-src" not in directives
         assert "child-src" not in directives
         assert "img-src" not in directives
+
+
+class TestChargedUpHeadlessChrome:
+    """charged_up: the app is driven by our own web chrome (the Nexus toolbar + home),
+    so Anki's native menu bar must be removed and review Stats must render in-window
+    instead of a popup dialog. These guard that wiring so it can't silently regress
+    back to "this is just Anki" (a visible File/Edit/Tools/Help bar, or Stats opening
+    a separate native window)."""
+
+    def test_native_menu_bar_removal_is_wired_on_startup(self) -> None:
+        import inspect
+
+        from aqt.main import AnkiQt
+
+        assert hasattr(AnkiQt, "_hide_native_menu_bar")
+        # It must actually run on startup (setupUI, right after setupMenus), not
+        # merely exist; and setupUI is the method __init__ drives at launch.
+        setup_src = inspect.getsource(AnkiQt.setupUI)
+        assert "_hide_native_menu_bar" in setup_src
+        assert "setupUI" in inspect.getsource(AnkiQt.__init__)
+
+    def test_hidden_menu_bar_keeps_actions_but_leaves_native_bar(self) -> None:
+        import inspect
+
+        from aqt.main import AnkiQt
+
+        src = inspect.getsource(AnkiQt._hide_native_menu_bar)
+        # Re-homes actions on the window so their shortcuts survive the hidden bar.
+        assert "self.addAction(action)" in src
+        # Drops out of the macOS system menu bar (so File/Edit/Tools/Help vanish).
+        assert "setNativeMenuBar(False)" in src
+        assert ".hide()" in src
+
+    def test_fullscreen_never_resurrects_the_hidden_menu_bar(self) -> None:
+        import inspect
+
+        from aqt.main import AnkiQt
+
+        assert "_native_menu_bar_hidden" in inspect.getsource(AnkiQt.show_menubar)
+
+    def test_stats_is_an_integrated_main_window_state(self) -> None:
+        # Stats is an in-window screen (toolbar tab -> moveToState), not a dialog.
+        from aqt.main import AnkiQt
+        from aqt.toolbar import Toolbar
+
+        assert hasattr(AnkiQt, "_statsState")
+        assert hasattr(AnkiQt, "_statsCleanup")
+        assert hasattr(Toolbar, "_statsLinkHandler")
+
+    def test_stats_is_a_known_window_state(self) -> None:
+        import typing
+
+        from aqt.main import MainWindowState
+
+        assert "stats" in typing.get_args(MainWindowState)
+
+    def test_stats_link_opens_in_window_not_a_popup_dialog(self) -> None:
+        import inspect
+
+        from aqt.toolbar import Toolbar
+
+        src = inspect.getsource(Toolbar._statsLinkHandler)
+        assert 'moveToState("stats")' in src
+        # The old popup path (mw.onStats -> aqt.dialogs.open) must be gone.
+        assert "onStats" not in src

@@ -18,7 +18,7 @@ class EditCurrent(QMainWindow):
         self.mw = mw
         self.form = aqt.forms.editcurrent.Ui_Dialog()
         self.form.setupUi(self)
-        self.setWindowTitle(tr.editing_edit_current())
+        self.setWindowTitle(f"{tr.editing_edit_current()} — Nexus")
         self.setMinimumHeight(400)
         self.setMinimumWidth(250)
         if not is_mac:

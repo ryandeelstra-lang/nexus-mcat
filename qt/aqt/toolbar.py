@@ -94,6 +94,7 @@ _STATE_TO_ACTIVE_ITEM: dict[str, str] = {
     "overview": "decks",
     "review": "decks",
     "knowledgeGraph": "graph",
+    "stats": "stats",
 }
 
 
@@ -581,7 +582,8 @@ class Toolbar:
         self.mw.onBrowse()
 
     def _statsLinkHandler(self) -> None:
-        self.mw.onStats()
+        # charged_up: review stats live in-window now (no popup dialog).
+        self.mw.moveToState("stats")
 
     def _graphLinkHandler(self) -> None:
         self.mw.moveToState("knowledgeGraph")

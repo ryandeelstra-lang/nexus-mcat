@@ -41,6 +41,8 @@ class Preferences(QDialog):
         self.prof = self.mw.pm.profile
         self.form = aqt.forms.preferences.Ui_Preferences()
         self.form.setupUi(self)
+        # charged_up: brand the window as Nexus.
+        self.setWindowTitle(f"{self.windowTitle()} — Nexus")
         for spinbox in (
             self.form.lrnCutoff,
             self.form.dayOffset,

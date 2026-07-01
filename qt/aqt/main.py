@@ -99,6 +99,7 @@ MainWindowState = Literal[
     "profileManager",
     "knowledgeGraph",
     "home",
+    "stats",
 ]
 
 
@@ -187,6 +188,9 @@ class AnkiQt(QMainWindow):
     # plus the route mode currently loaded into it ("full" | "backdrop" | None when unloaded).
     graph_web: AnkiWebView
     home_web: AnkiWebView
+    # charged_up: in-window Anki review stats (the graphs page), so "Stats" never
+    # opens a separate native window.
+    stats_web: AnkiWebView
     _graph_web_mode: str | None
 
     def __init__(
@@ -252,6 +256,8 @@ class AnkiQt(QMainWindow):
         self.setupMainWindow()
         self.setupSystemSpecific()
         self.setupMenus()
+        # charged_up: drive the app from our own web chrome — no native menu bar.
+        self._hide_native_menu_bar()
         self.setupErrorHandler()
         self.setupSignals()
         self.setupHooks()
@@ -888,9 +894,11 @@ class AnkiQt(QMainWindow):
         mw.web opaque and the backdrop hidden — the reviewer's card rendering is never touched. The
         full 'knowledgeGraph' screen manages graph_web itself, so leave it alone here."""
         # charged_up: the Nexus home owns the central area in the 'home' state (see _homeState);
-        # keep it hidden in every other state.
+        # keep it hidden in every other state. Same for the in-window stats screen.
         if state != "home":
             self.home_web.hide()
+        if state != "stats":
+            self.stats_web.hide()
         if state in ("knowledgeGraph", "home"):
             return
         if state in ("deckBrowser", "overview"):
@@ -901,18 +909,28 @@ class AnkiQt(QMainWindow):
             self.graph_web.hide()
             self.web.page().setBackgroundColor(theme_manager.qcolor(colors.CANVAS))
 
-    def _load_graph_web(self, mode: str, *, force: bool) -> None:
+    def _load_graph_web(
+        self, mode: str, *, force: bool, tab: str | None = None
+    ) -> None:
         """Load the knowledge-graph route into the dedicated webview, in 'full' (explorable) or
-        'backdrop' (dim, static) mode. Reload only when the mode changes, unless force=True (the
-        explore screen forces a reload so the live mastery glow is fresh each visit)."""
-        if force or self._graph_web_mode != mode:
-            suffix = "" if mode == "full" else f"?mode={mode}"
+        'backdrop' (dim, static) mode. In 'full' mode an optional tab ('scores') opens that tab
+        directly. Reload only when the mode/tab changes, unless force=True (the explore screen
+        forces a reload so the live mastery glow is fresh each visit)."""
+        key = mode if tab is None else f"{mode}:{tab}"
+        if force or self._graph_web_mode != key:
+            if mode == "full":
+                suffix = f"?tab={tab}" if tab else ""
+            else:
+                suffix = f"?mode={mode}"
             self.graph_web.load_sveltekit_page(f"knowledge-graph{suffix}")
-            self._graph_web_mode = mode
+            self._graph_web_mode = key
 
     def _knowledgeGraphState(self, oldState: MainWindowState) -> None:
         # Full, interactive Graph screen — rendered in the SAME window (no separate dialog).
-        self._load_graph_web("full", force=True)
+        # home:scores routes here with a pending "scores" tab so it opens on the Scores tab.
+        tab = getattr(self, "_pending_graph_tab", None)
+        self._pending_graph_tab = None
+        self._load_graph_web("full", force=True, tab=tab)
         self.web.hide()
         self.graph_web.show()
         self.graph_web.setFocus()
@@ -922,6 +940,34 @@ class AnkiQt(QMainWindow):
         # Hand the central area back to mw.web for the next screen.
         self.graph_web.hide()
         self.web.show()
+
+    # charged_up: in-window review stats (Anki's graphs page, no popup dialog).
+    ##########################################################################
+
+    def _statsState(self, oldState: MainWindowState) -> None:
+        # Anki's review-stats graphs, rendered in the SAME window instead of the
+        # NewDeckStats dialog. Scope follows the currently-selected deck.
+        self.stats_web.set_bridge_command(self._on_stats_bridge_cmd, self)
+        self.stats_web.load_sveltekit_page("graphs")
+        self.web.hide()
+        self.graph_web.hide()
+        self.home_web.hide()
+        self.stats_web.show()
+        self.stats_web.setFocus()
+        self.toolbar.redraw()
+
+    def _statsCleanup(self, newState: MainWindowState) -> None:
+        self.stats_web.hide()
+        self.web.show()
+
+    def _on_stats_bridge_cmd(self, cmd: str) -> bool:
+        # The graphs page can ask to open the browser on a search (e.g. clicking a
+        # bar); honour it exactly like the old NewDeckStats dialog did.
+        if cmd.startswith("browserSearch"):
+            _, query = cmd.split(":", 1)
+            browser = aqt.dialogs.open("Browser", self)
+            browser.search_for(query)
+        return False
 
     # charged_up: Nexus — the in-app landing/home (the front door the app opens to).
     ##########################################################################
@@ -944,7 +990,8 @@ class AnkiQt(QMainWindow):
         if cmd == "home:study":
             self.moveToState("deckBrowser")
         elif cmd in ("home:map", "home:scores"):
-            # v1: the three scores live inside the graph screen's Scores tab
+            # the three scores live inside the graph screen's Scores tab; open it directly
+            self._pending_graph_tab = "scores" if cmd == "home:scores" else None
             self.moveToState("knowledgeGraph")
         elif cmd == "home:browse":
             self.onBrowse()
@@ -1116,8 +1163,14 @@ title="{}" {}>{}</button>""".format(
         self.centralStack.addWidget(
             self.home_web
         )  # in front (shown only in 'home' state)
+        # charged_up: in-window Anki review stats (the graphs page). Added last so it
+        # sits in front when shown; hidden in every other state (see _statsState).
+        self.stats_web = AnkiWebView(kind=AnkiWebViewKind.DECK_STATS)
+        self.stats_web.disable_zoom()
+        self.centralStack.addWidget(self.stats_web)
         self.graph_web.hide()
         self.home_web.hide()
+        self.stats_web.hide()
         # bottom area
         sweb = self.bottomWeb = BottomWebView(self)
         sweb.setFocusPolicy(Qt.FocusPolicy.WheelFocus)
@@ -1632,7 +1685,8 @@ title="{}" {}>{}</button>""".format(
         m.actionFullScreen.setShortcutContext(Qt.ShortcutContext.ApplicationShortcut)
 
     def updateTitleBar(self) -> None:
-        self.setWindowTitle("Anki")
+        # charged_up: the product is "Nexus", not Anki (AGPL credit lives in NOTICE.md).
+        self.setWindowTitle("Nexus")
 
     # View
     ##########################################################################
@@ -1667,8 +1721,44 @@ title="{}" {}>{}</button>""".format(
         self.form.menubar.setFixedHeight(0)
 
     def show_menubar(self) -> None:
+        # charged_up: the native menu bar is permanently hidden (see
+        # _hide_native_menu_bar); never let the fullscreen logic bring it back.
+        if getattr(self, "_native_menu_bar_hidden", False):
+            return
         self.form.menubar.setMaximumSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX)
         self.form.menubar.setMinimumSize(0, 0)
+
+    # charged_up: headless native chrome
+    ##########################################################################
+
+    def _hide_native_menu_bar(self) -> None:
+        """The app is driven entirely by our own web chrome (the Nexus toolbar +
+        home screen), so Anki's native File / Edit / View / Tools / Help menu bar
+        must never appear: it is the loudest "this is Anki" signal and every item
+        spawns a separate native window. We keep each action alive and reachable by
+        its keyboard shortcut — only the visible menu bar (and, on macOS, its
+        system-bar menus) is removed.
+
+        Undo/Redo keep their default (window) shortcut context so the card editor's
+        own text undo/redo is never hijacked; every other action is promoted to an
+        application shortcut so it still fires while a webview holds focus.
+        """
+        menubar = self.form.menubar
+        keep_window_ctx = {self.form.actionUndo, self.form.actionRedo}
+        for menu in menubar.findChildren(QMenu):
+            for action in menu.actions():
+                if action.isSeparator():
+                    continue
+                if action not in keep_window_ctx and not action.shortcut().isEmpty():
+                    action.setShortcutContext(Qt.ShortcutContext.ApplicationShortcut)
+                # Re-home the action on the window so its shortcut survives the menu
+                # bar being hidden (the action's menu parent is left untouched).
+                self.addAction(action)
+        # macOS renders menus in the system bar regardless of the widget's height,
+        # so we must leave the native menu bar before hiding the widget.
+        menubar.setNativeMenuBar(False)
+        menubar.hide()
+        self._native_menu_bar_hidden = True
 
     # Auto update
     ##########################################################################

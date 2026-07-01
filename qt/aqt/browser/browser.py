@@ -551,7 +551,7 @@ class Browser(QMainWindow):
             else tr.browsing_window_title
         )
         self.setWindowTitle(
-            without_unicode_isolation(tr_title(total=cur, selected=selected))
+            without_unicode_isolation(tr_title(total=cur, selected=selected)) + " — Nexus"
         )
 
     def search_for_terms(self, *search_terms: str | SearchNode) -> None:

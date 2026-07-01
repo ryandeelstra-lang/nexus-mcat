@@ -12,6 +12,9 @@ unavailable (no open collection), the map still renders as un-lit structure — 
     import { onDestroy, onMount } from "svelte";
 
     import sidecar from "$lib/graph-sidecar.json";
+    // The comprehensive graph is emitted as a lazy ASSET (its URL), not inlined — so the bundle stays
+    // small and tsc never has to infer a multi-MB JSON literal. We fetch it on mount.
+    import graphFullUrl from "$lib/graph_full.json?url";
 
     import { computeBestNext } from "./best-next";
     import { createGraph3D, type Graph3D, type HoverInfo } from "./graph-3d";
@@ -26,23 +29,30 @@ unavailable (no open collection), the map still renders as un-lit structure — 
     // No live RPC, no interaction, no chrome — just the spine setting the scene.
     export let backdrop = false;
 
-    const graph = sidecar as Sidecar;
-    // Only leaf nodes carry a deck path; build deck-path -> sidecar-node-id for RPC mapping.
+    // The small spine sidecar is inlined (instant) and drives the backdrop + the RPC deck-path map.
+    const spine = sidecar as Sidecar;
+    // The COMPREHENSIVE graph (10k+ nodes: spine → concepts → cards) is lazy-loaded for the interactive
+    // view — the detail slider streams it in. Kept out of the bundle so the default view stays light.
+    let graph: Sidecar = spine;
+    // Only leaf nodes carry a deck path; build deck-path -> node-id for RPC mapping (from the spine).
     const pathToId = new Map<string, string>(
-        graph.nodes.filter((n) => n.path).map((n) => [n.path as string, n.id]),
+        spine.nodes.filter((n) => n.path).map((n) => [n.path as string, n.id]),
     );
 
     let svg: SVGElement | null = null;
     let mastery: Record<string, NodeState> = {};
     let bestNext: string | null = null;
     let status: "loading" | "live" | "structure" = "loading";
+    let visibleCount = 4;
+    let totalCount = 0;
 
     // 3D engine + overlay state (interactive mode only).
     let controller: Graph3D | null = null;
     let tooltip: { title: string; sub: string; x: number; y: number } | null = null;
     let crumb: { id: string; label: string } | null = null;
-    // Resolution: a calm degree-of-interest "detail" slider (0 = overview .. 1 = finest grain).
-    let detail = 0.5;
+    // The detail slider is a GLOBAL level-of-detail: 0 = the 4 section galaxies (default), 1 = every
+    // concept + card. It ADDS nodes as it climbs; it never resizes them.
+    let detail = 0;
 
     function onDetail(e: Event): void {
         detail = Number((e.currentTarget as HTMLInputElement).value);
@@ -69,7 +79,9 @@ unavailable (no open collection), the map still renders as un-lit structure — 
             // Roll leaf state up into the section / foundational-concept galaxies (card-weighted, honest)
             // so the calm Overview altitude reads "where you are" at a glance.
             mastery = rollupMastery(graph, next);
-            bestNext = computeBestNext(graph, mastery);
+            // Best-next is a category-grain decision — compute it on the spine (which carries the curated
+            // category prerequisite DAG), then apply it to the comprehensive graph (same leaf ids).
+            bestNext = computeBestNext(spine, rollupMastery(spine, next));
             status = "live";
         } catch {
             // Graceful: the backend isn't reachable (no open collection) — render the structure un-lit.
@@ -82,35 +94,51 @@ unavailable (no open collection), the map still renders as un-lit structure — 
             return;
         }
         if (backdrop) {
-            renderGraph(svg, graph, {}, null); // calm, dim, static structure behind the study flow
+            renderGraph(svg, spine, {}, null); // calm, dim, static structure behind the study flow
             return;
         }
-        const c = createGraph3D(svg as SVGSVGElement, graph, {
-            onHover: (info: HoverInfo | null, x: number, y: number) => {
-                tooltip = info
-                    ? {
-                          title: info.label,
-                          // Gaps read as "not yet" (Dweck) — never a red/failure state.
-                          sub:
-                              (info.unlocks > 0
-                                  ? `${info.sectionLabel} · unlocks ${info.unlocks}`
-                                  : info.sectionLabel) + (info.lit ? "" : " · not yet"),
-                          x,
-                          y,
-                      }
-                    : null;
-            },
-            onSectionFocus: (sec) => {
-                crumb = sec;
-            },
-        });
-        controller = c;
-        c.setReducedMotion(
-            typeof window !== "undefined" &&
-                window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-        );
-        c.setDetail(detail);
-        loadMastery().then(() => c.setMastery(mastery, bestNext));
+        // Lazy-load the comprehensive graph (fetched as an asset), then build the interactive engine.
+        void (async () => {
+            try {
+                const res = await fetch(graphFullUrl);
+                graph = (await res.json()) as Sidecar;
+            } catch {
+                graph = spine; // fall back to the spine if the comprehensive graph isn't reachable
+            }
+            if (!svg) {
+                return;
+            }
+            const c = createGraph3D(svg as SVGSVGElement, graph, {
+                onHover: (info: HoverInfo | null, x: number, y: number) => {
+                    tooltip = info
+                        ? {
+                              title: info.label,
+                              // Gaps read as "not yet" (Dweck) — never a red/failure state.
+                              sub:
+                                  (info.unlocks > 0
+                                      ? `${info.sectionLabel} · unlocks ${info.unlocks}`
+                                      : info.sectionLabel) + (info.lit ? "" : " · not yet"),
+                              x,
+                              y,
+                          }
+                        : null;
+                },
+                onSectionFocus: (sec) => {
+                    crumb = sec;
+                },
+                onCount: (v, t) => {
+                    visibleCount = v;
+                    totalCount = t;
+                },
+            });
+            controller = c;
+            c.setReducedMotion(
+                typeof window !== "undefined"
+                    && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+            );
+            c.setDetail(detail);
+            loadMastery().then(() => c.setMastery(mastery, bestNext));
+        })();
     });
 
     onDestroy(() => controller?.destroy());
@@ -165,6 +193,9 @@ unavailable (no open collection), the map still renders as un-lit structure — 
                 aria-label="Graph detail — from a calm overview to finer grain"
             />
             <span class="kg-detail-end">More detail</span>
+        </div>
+        <div class="kg-count" aria-live="polite">
+            {visibleCount.toLocaleString()} / {totalCount.toLocaleString()} nodes
         </div>
     {/if}
 
@@ -330,6 +361,19 @@ unavailable (no open collection), the map still renders as un-lit structure — 
         width: 132px;
         accent-color: rgba(27, 29, 42, 0.55);
         cursor: pointer;
+    }
+
+    // Live node-count readout under the detail slider (top-right) — makes the "adding nodes" tangible.
+    .kg-count {
+        position: absolute;
+        top: 54px;
+        right: 18px;
+        font-size: 11px;
+        font-variant-numeric: tabular-nums;
+        letter-spacing: 0.02em;
+        color: rgba(27, 29, 42, 0.45);
+        user-select: none;
+        pointer-events: none;
     }
 
     // Hover tooltip — fixed to the cursor (clientX/clientY).

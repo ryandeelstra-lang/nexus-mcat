@@ -19,6 +19,10 @@ export interface SidecarNode {
     z: number;
     /** Deck path (e.g. "MCAT::B-B::1A") for content-category / CARS leaves; absent for section/fc/topics. */
     path?: string | null;
+    /** Altitude 0 (section) .. 6 (card) — comprehensive graph only. */
+    tier?: number;
+    /** Slider value in [0,1] at which this node appears (comprehensive graph's progressive reveal). */
+    appear?: number;
 }
 
 export interface SidecarEdge {
@@ -57,6 +61,8 @@ export const KIND_RADIUS: Record<string, number> = {
     cars: 6,
     topic: 3.4,
     subtopic: 2,
+    concept: 1.4,
+    card: 0.9,
 };
 
 const WIDTH = 1000;

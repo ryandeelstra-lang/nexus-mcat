@@ -106,7 +106,7 @@ it shows the structured "prove this topic" abstention, never a fabricated number
         {#if synthetic}
             <div class="caveat">
                 ⚠ These scores are computed on <strong>synthetic</strong>
-                 practice data — not a real readiness estimate.
+                practice data — not a real readiness estimate.
             </div>
         {/if}
 
@@ -253,165 +253,210 @@ it shows the structured "prove this topic" abstention, never a fabricated number
 </div>
 
 <style lang="scss">
+    // charged_up premium scores surface — near-white field, dark ink, Inter. Layout: a full-width
+    // Memory hero, a paired Performance/Readiness row, then a Coverage footer. Visual only; the engine
+    // still owns every number and every abstention.
     .dash {
         min-height: 100%;
-        padding: 28px clamp(16px, 4vw, 48px);
-        color: rgba(255, 255, 255, 0.92);
-        background: radial-gradient(circle at 50% -10%, #161a23 0%, #0c0e14 60%);
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 40px clamp(18px, 4vw, 44px) 56px;
+        color: #1b1d2a;
+        background: var(--canvas, #fbfbfd);
         box-sizing: border-box;
+        font-family:
+            Inter,
+            system-ui,
+            -apple-system,
+            "Segoe UI",
+            Roboto,
+            sans-serif;
     }
     .dash-head h1 {
-        margin: 0 0 4px;
-        font-size: 22px;
-        font-weight: 650;
+        margin: 0 0 6px;
+        font-size: 28px;
+        font-weight: 680;
+        letter-spacing: -0.02em;
     }
     .sub {
-        margin: 0 0 22px;
-        color: rgba(255, 255, 255, 0.55);
-        font-size: 14px;
+        margin: 0 0 26px;
+        color: rgba(27, 29, 42, 0.55);
+        font-size: 14.5px;
+        line-height: 1.5;
+        max-width: 56ch;
     }
+    // Calm centered empty-state panel (engine unavailable / loading) — intentional, never error-red.
     .notice {
-        padding: 40px 0;
-        color: rgba(255, 255, 255, 0.6);
+        margin-top: 8px;
+        padding: 40px 24px;
+        text-align: center;
+        color: rgba(27, 29, 42, 0.55);
+        font-size: 15px;
+        background: var(--canvas-elevated, #ffffff);
+        border: 1px solid var(--border-subtle, rgba(27, 29, 42, 0.08));
+        border-radius: 18px;
+        box-shadow:
+            0 1px 2px rgba(27, 29, 42, 0.04),
+            0 10px 30px rgba(27, 29, 42, 0.05);
     }
     .caveat {
-        margin-bottom: 18px;
-        padding: 10px 14px;
-        border-radius: 10px;
-        background: rgba(245, 166, 35, 0.14);
-        border: 1px solid rgba(245, 166, 35, 0.4);
-        color: #f5c97a;
+        margin-bottom: 20px;
+        padding: 12px 16px;
+        border-radius: 12px;
+        background: rgba(245, 158, 11, 0.1);
+        border: 1px solid rgba(245, 158, 11, 0.45);
+        color: #92580a;
         font-size: 14px;
     }
     .cards {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 16px;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+    }
+    // Memory is the hero — full width, larger.
+    .memory {
+        grid-column: 1 / -1;
+    }
+    @media (max-width: 680px) {
+        .cards {
+            grid-template-columns: 1fr;
+        }
     }
     .card {
         position: relative;
-        padding: 18px 20px;
-        border-radius: 14px;
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 22px 24px;
+        border-radius: 18px;
+        background: var(--canvas-elevated, #ffffff);
+        border: 1px solid var(--border-subtle, rgba(27, 29, 42, 0.07));
+        box-shadow:
+            0 1px 2px rgba(27, 29, 42, 0.04),
+            0 10px 30px rgba(27, 29, 42, 0.06);
         overflow: hidden;
     }
+    // 4px left accent bar in the locked section hues — every surface speaks the graph's color language.
     .card::before {
         content: "";
         position: absolute;
         inset: 0 auto 0 0;
-        width: 3px;
+        width: 4px;
     }
     .memory::before {
-        background: #5b8cff;
+        background: #3b82f6;
     }
     .performance::before {
-        background: #8a8f98;
+        background: #94a3b8;
     }
     .readiness::before {
-        background: #34d39e;
+        background: #14b8a6;
     }
     .coverage {
-        margin-top: 16px;
+        margin-top: 18px;
     }
     .coverage::before {
-        background: #b07bff;
+        background: #8b5cf6;
     }
     .card-kind {
-        font-size: 12px;
-        letter-spacing: 0.08em;
+        font-size: 11.5px;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.5);
-        margin-bottom: 10px;
+        color: rgba(27, 29, 42, 0.45);
+        margin-bottom: 12px;
+        font-weight: 600;
     }
     .big {
-        font-size: 44px;
-        font-weight: 700;
+        font-size: 54px;
+        font-weight: 720;
         line-height: 1;
+        letter-spacing: -0.03em;
     }
     .pending,
     .locked {
         font-size: 18px;
-        font-weight: 600;
-        color: rgba(255, 255, 255, 0.85);
+        font-weight: 620;
+        color: rgba(27, 29, 42, 0.82);
         margin-bottom: 6px;
     }
     .locked {
-        color: #9ad9c0;
+        color: #0f9488;
     }
     .range {
         display: flex;
         align-items: center;
-        gap: 8px;
-        margin: 10px 0;
+        gap: 10px;
+        margin: 14px 0 4px;
+        max-width: 460px;
         font-size: 12px;
-        color: rgba(255, 255, 255, 0.55);
+        color: rgba(27, 29, 42, 0.55);
     }
     .range-bar {
         position: relative;
         flex: 1;
-        height: 6px;
-        border-radius: 3px;
-        background: rgba(255, 255, 255, 0.1);
+        height: 8px;
+        border-radius: 999px;
+        background: rgba(27, 29, 42, 0.07);
     }
     .range-fill {
         position: absolute;
         top: 0;
         bottom: 0;
-        background: #5b8cff;
-        border-radius: 3px;
+        background: linear-gradient(90deg, #60a5fa, #3b82f6);
+        border-radius: 999px;
     }
     .chip {
         display: inline-block;
-        padding: 2px 10px;
+        margin-top: 12px;
+        padding: 3px 11px;
         border-radius: 999px;
         font-size: 12px;
-        background: rgba(52, 211, 158, 0.16);
-        color: #6fe0b8;
+        font-weight: 550;
+        background: rgba(20, 184, 166, 0.12);
+        color: #0f9488;
     }
     .chip-warn {
-        background: rgba(245, 166, 35, 0.16);
-        color: #f5c97a;
+        background: rgba(245, 158, 11, 0.14);
+        color: #92580a;
     }
     .evidence {
-        margin: 10px 0 0;
-        font-size: 13px;
-        line-height: 1.5;
-        color: rgba(255, 255, 255, 0.62);
+        margin: 14px 0 0;
+        font-size: 13.5px;
+        line-height: 1.55;
+        color: rgba(27, 29, 42, 0.62);
+        max-width: 64ch;
     }
     .missing {
         margin: 6px 0 0;
-        font-size: 12px;
-        color: rgba(255, 255, 255, 0.45);
+        font-size: 12.5px;
+        color: rgba(27, 29, 42, 0.45);
+        max-width: 64ch;
     }
     .meter {
-        margin-top: 12px;
+        margin-top: 14px;
         font-size: 12px;
-        color: rgba(255, 255, 255, 0.55);
+        color: rgba(27, 29, 42, 0.55);
     }
     .meter-label {
         display: block;
-        margin-bottom: 4px;
+        margin-bottom: 5px;
     }
     .meter-bar {
-        height: 6px;
-        border-radius: 3px;
-        background: rgba(255, 255, 255, 0.1);
+        height: 8px;
+        border-radius: 999px;
+        background: rgba(27, 29, 42, 0.07);
         overflow: hidden;
     }
     .meter-fill {
         height: 100%;
-        background: #34d39e;
-        border-radius: 3px;
+        background: linear-gradient(90deg, #2dd4bf, #14b8a6);
+        border-radius: 999px;
     }
     .meter-val {
         display: block;
-        margin-top: 4px;
-        color: rgba(255, 255, 255, 0.45);
+        margin-top: 5px;
+        color: rgba(27, 29, 42, 0.45);
     }
     .cov-row {
         display: flex;
-        gap: 28px;
+        gap: 36px;
         flex-wrap: wrap;
     }
     .cov-stat {
@@ -419,12 +464,16 @@ it shows the structured "prove this topic" abstention, never a fabricated number
         min-width: 180px;
     }
     .cov-num {
-        font-size: 26px;
+        font-size: 28px;
         font-weight: 700;
+        letter-spacing: -0.02em;
     }
     .cov-cap {
         font-size: 12px;
-        color: rgba(255, 255, 255, 0.5);
-        margin: 2px 0 8px;
+        color: rgba(27, 29, 42, 0.5);
+        margin: 2px 0 10px;
+    }
+    .coverage .meter-fill {
+        background: linear-gradient(90deg, #a78bfa, #8b5cf6);
     }
 </style>

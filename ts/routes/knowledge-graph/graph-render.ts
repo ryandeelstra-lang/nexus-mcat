@@ -39,14 +39,16 @@ export interface NodeState {
     hasState: boolean;
 }
 
-const SECTION_COLOR: Record<string, string> = {
-    "C-P": "#5b8cff",
-    "CARS": "#f5a623",
-    "B-B": "#34d39e",
-    "P-S": "#b07bff",
+// Locked section palette (docs/17-UI-UX.md §section palette, 2026-06-29). Hue = section identity;
+// mastery is carried by light/bloom on top of the hue, never a new color.
+export const SECTION_COLOR: Record<string, string> = {
+    "C-P": "#3B82F6", // Chemistry/Physics — blue
+    "B-B": "#14B8A6", // Biology/Biochem — teal
+    "P-S": "#F59E0B", // Psychology/Sociology — amber
+    "CARS": "#8B5CF6", // Reading/Reasoning — purple
 };
 
-const KIND_RADIUS: Record<string, number> = {
+export const KIND_RADIUS: Record<string, number> = {
     section: 16,
     fc: 9,
     category: 6,
@@ -55,10 +57,60 @@ const KIND_RADIUS: Record<string, number> = {
 
 const WIDTH = 1000;
 const HEIGHT = 720;
-const LABEL_FONT = "Inter, -apple-system, 'Segoe UI', Roboto, sans-serif";
+export const INK = "#1B1D2A";
+export const FIELD = "#FBFBFD";
+export const LABEL_FONT = "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif";
+const GLOW_SUFFIX = ["soft", "strong"] as const;
 
-function color(section: string): string {
-    return SECTION_COLOR[section] ?? "#8a8f98";
+export function color(section: string): string {
+    // Fallback is a neutral slate (the give-up "opportunity" tone), never a failure grey.
+    return SECTION_COLOR[section] ?? "#94A3B8";
+}
+
+// The per-section "watercolor bloom" filters (soft + strong) — shared by the 2D and 3D renderers.
+// For each section hue: two blurred copies of the node silhouette (inner tight, outer wide),
+// flood-tinted to the hue and masked to those silhouettes, stacked wide→tight→crisp. sRGB keeps
+// the tint from washing out on the white field. Pure SVG, zero new deps.
+export function buildGlowDefs(svg: SVGElement): void {
+    const defs = select(svg).append("defs");
+    const GLOWS = {
+        soft: { blurInner: 2.2, blurOuter: 5.5, flood: 0.5 },
+        strong: { blurInner: 3.2, blurOuter: 9, flood: 0.72 },
+    };
+    for (const [section, hue] of Object.entries(SECTION_COLOR)) {
+        for (const suffix of GLOW_SUFFIX) {
+            const gs = GLOWS[suffix];
+            const f = defs
+                .append("filter")
+                .attr("id", `kg-glow-${section}-${suffix}`)
+                .attr("x", "-120%")
+                .attr("y", "-120%")
+                .attr("width", "340%")
+                .attr("height", "340%")
+                .attr("color-interpolation-filters", "sRGB");
+            f.append("feGaussianBlur").attr("in", "SourceAlpha").attr("stdDeviation", gs.blurInner).attr(
+                "result",
+                "bIn",
+            );
+            f.append("feGaussianBlur").attr("in", "SourceAlpha").attr("stdDeviation", gs.blurOuter).attr(
+                "result",
+                "bOut",
+            );
+            f.append("feFlood").attr("flood-color", hue).attr("flood-opacity", gs.flood).attr("result", "tint");
+            f.append("feComposite").attr("in", "tint").attr("in2", "bIn").attr("operator", "in").attr(
+                "result",
+                "hazeIn",
+            );
+            f.append("feComposite").attr("in", "tint").attr("in2", "bOut").attr("operator", "in").attr(
+                "result",
+                "hazeOut",
+            );
+            const merge = f.append("feMerge");
+            merge.append("feMergeNode").attr("in", "hazeOut");
+            merge.append("feMergeNode").attr("in", "hazeIn");
+            merge.append("feMergeNode").attr("in", "SourceGraphic");
+        }
+    }
 }
 
 export function renderGraph(
@@ -70,21 +122,8 @@ export function renderGraph(
     const root = select(svg);
     root.selectAll("*").remove();
 
-    // Glow filters for the "earned bloom": only lit nodes gain light; the best-next node gains more.
-    const defs = root.append("defs");
-    for (const [id, blur] of [["kg-glow-soft", 3.2], ["kg-glow-strong", 6]] as [string, number][]) {
-        const f = defs
-            .append("filter")
-            .attr("id", id)
-            .attr("x", "-80%")
-            .attr("y", "-80%")
-            .attr("width", "260%")
-            .attr("height", "260%");
-        f.append("feGaussianBlur").attr("stdDeviation", blur).attr("result", "b");
-        const merge = f.append("feMerge");
-        merge.append("feMergeNode").attr("in", "b");
-        merge.append("feMergeNode").attr("in", "SourceGraphic");
-    }
+    // The earned-light bloom filters (shared with the 3D engine).
+    buildGlowDefs(svg);
 
     const xs = sidecar.nodes.map((n) => n.x);
     const ys = sidecar.nodes.map((n) => n.y);
@@ -111,8 +150,11 @@ export function renderGraph(
         .attr("y1", (e) => xy(e.src).y)
         .attr("x2", (e) => xy(e.dst).x)
         .attr("y2", (e) => xy(e.dst).y)
-        .attr("stroke", (e) => (e.kind === "prerequisite" ? "rgba(255,255,255,0.28)" : "rgba(255,255,255,0.07)"))
-        .attr("stroke-width", (e) => (e.kind === "prerequisite" ? 1.4 : 0.7));
+        // Faint pencil lines on white: prerequisites (load-bearing) read slightly stronger than
+        // containment/related, which recede.
+        .attr("stroke", (e) => (e.kind === "prerequisite" ? "rgba(27,29,42,0.18)" : "rgba(27,29,42,0.08)"))
+        .attr("stroke-width", (e) => (e.kind === "prerequisite" ? 1.1 : 0.6))
+        .attr("stroke-linecap", "round");
 
     // Nodes, painted far -> near so nearer (higher-z) nodes sit on top.
     const ordered = [...sidecar.nodes].sort((a, b) => a.z - b.z);
@@ -128,29 +170,50 @@ export function renderGraph(
         .attr("fill", (n) => color(n.section))
         .attr("fill-opacity", (n) => {
             const m = mastery[n.id];
-            // Un-lit "not yet lit" ghost (never dark-as-punishment); glow grows with mastery.
+            // Un-lit "not yet lit" gap: colored-but-dim on white (never grey, never invisible).
             if (!m || !m.hasState) {
-                return 0.2;
+                return 0.45;
             }
-            return 0.35 + 0.6 * Math.max(0, Math.min(1, m.recall));
+            // Lit: saturate toward a solid sphere as recall climbs.
+            return 0.7 + 0.3 * Math.max(0, Math.min(1, m.recall));
         })
         .attr("filter", (n) => {
             if (n.id === bestNext) {
-                return "url(#kg-glow-strong)";
+                return `url(#kg-glow-${n.section}-strong)`;
             }
-            return lit(n) ? "url(#kg-glow-soft)" : null;
+            return lit(n) ? `url(#kg-glow-${n.section}-soft)` : null;
         })
-        .attr("stroke", (n) => (n.id === bestNext ? "#ffffff" : "rgba(255,255,255,0.15)"))
-        .attr("stroke-width", (n) => (n.id === bestNext ? 3 : 0.6))
+        // Un-lit gaps get a quiet section-hued ring (a colored ghost, present-but-quiet); lit nodes get
+        // a barely-there ink hairline (the bloom carries them); best-next is ringed in its section hue
+        // (a white ring would vanish on the white field — "calm not alarm" is the gentle pulse).
+        .attr("stroke", (n) => {
+            if (n.id === bestNext) {
+                return color(n.section);
+            }
+            return lit(n) ? "rgba(27,29,42,0.10)" : color(n.section);
+        })
+        .attr("stroke-opacity", (n) => (lit(n) || n.id === bestNext ? 1 : 0.55))
+        .attr("stroke-width", (n) => {
+            if (n.id === bestNext) {
+                return 2.5;
+            }
+            return lit(n) ? 0.5 : 1;
+        })
         .attr("class", (n) => (n.id === bestNext ? "kg-node kg-best-next" : "kg-node"));
 
-    // Labels for the higher altitudes only (keeps ~48 nodes legible).
+    // Labels for the higher altitudes only (keeps ~48 nodes legible). A white halo (paint-order stroke)
+    // lets text sit cleanly over nodes/edges without a chip background.
     g.filter((n) => n.kind === "section" || n.kind === "fc")
         .append("text")
         .text((n) => n.label)
-        .attr("dy", (n) => -(KIND_RADIUS[n.kind] ?? 6) - 4)
+        .attr("dy", (n) => -(KIND_RADIUS[n.kind] ?? 6) - 6)
         .attr("text-anchor", "middle")
         .attr("font-family", LABEL_FONT)
-        .attr("fill", (n) => (n.kind === "section" ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.6)"))
-        .attr("font-size", (n) => (n.kind === "section" ? 14 : 10));
+        .attr("font-size", (n) => (n.kind === "section" ? 12 : 10))
+        .attr("font-weight", (n) => (n.kind === "section" ? 600 : 500))
+        .attr("fill", (n) => (n.kind === "section" ? INK : "rgba(27,29,42,0.6)"))
+        .attr("stroke", FIELD)
+        .attr("stroke-width", 3.5)
+        .attr("stroke-linejoin", "round")
+        .attr("paint-order", "stroke");
 }

@@ -53,6 +53,18 @@ function encodeMastery(topics: Topic[]): Buffer {
     return Buffer.from(body);
 }
 
+// The SvelteKit root layout awaits setupGlobalI18n() → i18nResources(), which decodes an
+// anki.generic.Json { bytes json = 1 } and JSON.parses it as { resources, langs }. With no engine in
+// the dev harness we must answer it with a valid (empty) payload, or the whole route render aborts.
+export function i18nResourcesBytes(): Buffer {
+    // One empty "en" FTL bundle — enough for firstLanguage()/direction() to resolve. The screens use
+    // hardcoded English copy, so no real translations are needed.
+    const payload = Array.from(
+        new TextEncoder().encode(JSON.stringify({ resources: [""], langs: ["en"] })),
+    );
+    return Buffer.from([tag(1, 2), ...varint(payload.length), ...payload]);
+}
+
 // The 34 coverage leaves, verbatim from graph/sidecar.json (deck paths must match pathToId).
 const LEAVES: string[] = [
     "MCAT::B-B::1A",

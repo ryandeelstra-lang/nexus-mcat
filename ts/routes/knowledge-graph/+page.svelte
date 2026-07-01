@@ -10,17 +10,30 @@ of the already-built engine; neither writes to the collection.
 <script lang="ts">
     import ScoresDashboard from "../scores-dashboard/ScoresDashboard.svelte";
     import KnowledgeGraph from "./KnowledgeGraph.svelte";
+    import StudyCard from "./StudyCard.svelte";
 
     let tab: "map" | "scores" = "map";
-    // ssr is disabled for this app, so window is always available here. When the host loads the
-    // route as "knowledge-graph?mode=backdrop", render only the calm static map (no tabs/chrome).
-    const backdrop =
-        typeof window !== "undefined" &&
-        new URLSearchParams(window.location.search).get("mode") === "backdrop";
+    // ssr is disabled for this app, so window is always available here. The host loads the route in
+    // one of three modes via ?mode=: "backdrop" (calm static map behind the deck/overview screens),
+    // "study" (the card loop floating in front of the dim map — cards are home), or none (the full
+    // explorable graph + scores).
+    const mode =
+        typeof window !== "undefined"
+            ? new URLSearchParams(window.location.search).get("mode")
+            : null;
+    const backdrop = mode === "backdrop";
+    const study = mode === "study";
 </script>
 
 {#if backdrop}
     <KnowledgeGraph backdrop />
+{:else if study}
+    <div class="kg-study">
+        <div class="kg-study-bg">
+            <KnowledgeGraph backdrop />
+        </div>
+        <StudyCard />
+    </div>
 {:else}
     <div class="kg-page">
         <nav class="kg-tabs">
@@ -46,7 +59,7 @@ of the already-built engine; neither writes to the collection.
     :global(body) {
         margin: 0;
         height: 100%;
-        background: #0c0e14;
+        background: var(--canvas, #fbfbfd);
     }
 
     .kg-page {
@@ -55,6 +68,7 @@ of the already-built engine; neither writes to the collection.
         height: 100vh;
         font-family:
             Inter,
+            system-ui,
             -apple-system,
             "Segoe UI",
             Roboto,
@@ -63,35 +77,56 @@ of the already-built engine; neither writes to the collection.
 
     .kg-tabs {
         display: flex;
-        gap: 4px;
-        padding: 10px 14px 0;
-        background: #0c0e14;
+        gap: 6px;
+        padding: 12px 18px 0;
+        background: var(--canvas, #fbfbfd);
+        border-bottom: 1px solid var(--border-subtle, rgba(27, 29, 42, 0.08));
     }
 
     .kg-tabs button {
         appearance: none;
         border: none;
         background: transparent;
-        color: rgba(255, 255, 255, 0.5);
+        color: rgba(27, 29, 42, 0.5);
         font: inherit;
         font-size: 14px;
-        padding: 8px 16px;
-        border-radius: 8px 8px 0 0;
+        font-weight: 550;
+        padding: 9px 18px;
+        border-radius: 10px 10px 0 0;
         cursor: pointer;
+        transition:
+            color 0.15s ease,
+            background 0.15s ease;
     }
 
     .kg-tabs button:hover {
-        color: rgba(255, 255, 255, 0.8);
+        color: rgba(27, 29, 42, 0.82);
     }
 
+    // The active tab reads as a white "raised card tab" on the near-white field — Linear/Arc restraint.
     .kg-tabs button.active {
-        color: #ffffff;
-        background: rgba(255, 255, 255, 0.06);
+        color: #1b1d2a;
+        background: var(--canvas-elevated, #ffffff);
+        box-shadow:
+            0 -1px 0 var(--border-subtle, rgba(27, 29, 42, 0.08)),
+            -1px 0 0 var(--border-subtle, rgba(27, 29, 42, 0.08)),
+            1px 0 0 var(--border-subtle, rgba(27, 29, 42, 0.08));
     }
 
     .kg-body {
         flex: 1;
         min-height: 0;
         overflow: auto;
+    }
+
+    // Study mode: the dim map fills the screen; the card surface floats in front of it.
+    .kg-study {
+        position: relative;
+        height: 100vh;
+        overflow: hidden;
+    }
+    .kg-study-bg {
+        position: absolute;
+        inset: 0;
     }
 </style>

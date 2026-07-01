@@ -18,7 +18,7 @@ if [ "${1:-}" = "--release" ]; then PROFILE_DIR="release"; EXTRA=(--release); fi
 # Simulator target is the GO/NO-GO; add aarch64-apple-ios for the device half of the XCFramework.
 for t in aarch64-apple-ios-sim; do
   echo ">>> building anki-ios for $t ($PROFILE_DIR)"
-  cargo build --manifest-path anki-ios/Cargo.toml --target "$t" "${EXTRA[@]}"
+  cargo build --manifest-path anki-ios/Cargo.toml --target "$t" "${EXTRA[@]+"${EXTRA[@]}"}"
 done
 
 LIB="$CARGO_TARGET_DIR/aarch64-apple-ios-sim/$PROFILE_DIR/libanki_ios.a"

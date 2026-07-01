@@ -1,0 +1,2005 @@
+{
+ "leaf": "CP.4B",
+ "section": "C-P",
+ "name": "Importance of fluids for the circulation of blood, gas movement, and gas exchange",
+ "nodes": [
+  {
+   "id": "CP.4B.fluid-properties",
+   "label": "Fluid Properties & Definitions",
+   "kind": "topic",
+   "parent": "CP.4B",
+   "summary": "A fluid is a substance (liquid or gas) that flows and conforms to its container, characterized by density, viscosity, and surface tension."
+  },
+  {
+   "id": "CP.4B.fluid-properties.basic",
+   "label": "Basic Fluid Quantities",
+   "kind": "subtopic",
+   "parent": "CP.4B.fluid-properties",
+   "summary": "Density, specific gravity, and pressure are the foundational scalar quantities describing a fluid."
+  },
+  {
+   "id": "CP.4B.fluid-properties.basic.fluid-def",
+   "label": "Definition of a fluid",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-properties.basic",
+   "summary": "A fluid is any substance (liquid or gas) that cannot resist a shear stress and therefore flows continuously under it.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.fluid-properties.basic.density",
+   "label": "Density (rho = m/V)",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-properties.basic",
+   "summary": "Density is mass per unit volume, rho = m/V, with SI units kg/m^3 and water ~1000 kg/m^3.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.fluid-properties.basic.specific-gravity",
+   "label": "Specific gravity",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-properties.basic",
+   "summary": "Specific gravity is the dimensionless ratio of a substance's density to that of water (1000 kg/m^3 at 4 C).",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.fluid-properties.basic.weight-density",
+   "label": "Weight density (specific weight)",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-properties.basic",
+   "summary": "Weight density is weight per unit volume (rho*g), the quantity that actually appears in hydrostatic and buoyancy expressions.",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.fluid-properties.basic.pressure-def",
+   "label": "Pressure (P = F/A)",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-properties.basic",
+   "summary": "Pressure is the normal force per unit area, P = F/A, a scalar with SI unit pascal (Pa = N/m^2).",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.fluid-properties.basic.pressure-units",
+   "label": "Pressure units (Pa, atm, mmHg, torr)",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-properties.basic",
+   "summary": "1 atm = 101.3 kPa = 760 mmHg = 760 torr = 14.7 psi, with 1 mmHg approximately 1 torr.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.fluid-properties.basic.atmospheric-pressure",
+   "label": "Atmospheric pressure",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-properties.basic",
+   "summary": "Atmospheric pressure (~101.3 kPa at sea level) is the weight of the air column pressing on a surface.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.fluid-properties.basic.gauge-vs-absolute",
+   "label": "Gauge vs absolute pressure",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-properties.basic",
+   "summary": "Absolute pressure is total pressure (P0 + rho*g*h) while gauge pressure is pressure relative to atmospheric (P_abs - P_atm).",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.fluid-properties.basic.barometer",
+   "label": "Barometer",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-properties.basic",
+   "summary": "A barometer measures atmospheric pressure by the height of a mercury column it supports (760 mmHg at 1 atm), with vacuum above.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.fluid-properties.basic.manometer",
+   "label": "Open-tube manometer",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-properties.basic",
+   "summary": "A U-tube manometer measures gauge pressure from the height difference of fluid columns, with gas pressure read as rho*g*delta-h relative to atmosphere.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.fluid-properties.viscosity-tension",
+   "label": "Viscosity & Surface Tension",
+   "kind": "subtopic",
+   "parent": "CP.4B.fluid-properties",
+   "summary": "Viscosity quantifies a fluid's resistance to flow, and surface tension arises from cohesive forces at a liquid surface."
+  },
+  {
+   "id": "CP.4B.fluid-properties.viscosity-tension.viscosity",
+   "label": "Viscosity (eta)",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-properties.viscosity-tension",
+   "summary": "Viscosity is a fluid's internal resistance to shear/flow, measured in Pa*s (SI) or poise.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.fluid-properties.viscosity-tension.viscosity-temperature",
+   "label": "Temperature dependence of viscosity",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-properties.viscosity-tension",
+   "summary": "Liquid viscosity decreases with temperature while gas viscosity increases with temperature, due to opposite molecular mechanisms.",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.fluid-properties.viscosity-tension.ideal-fluid",
+   "label": "Ideal (inviscid) fluid",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-properties.viscosity-tension",
+   "summary": "An ideal fluid is incompressible and has zero viscosity, the simplifying assumption behind Bernoulli's equation and continuity.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.fluid-properties.viscosity-tension.surface-tension",
+   "label": "Surface tension (gamma)",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-properties.viscosity-tension",
+   "summary": "Surface tension is the energy or force per unit length at a liquid surface caused by unbalanced cohesive forces on surface molecules.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.fluid-properties.viscosity-tension.cohesion-adhesion",
+   "label": "Cohesion vs adhesion",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-properties.viscosity-tension",
+   "summary": "Cohesion is attraction between like molecules while adhesion is attraction to a different surface; their balance sets meniscus shape and capillarity.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.fluid-properties.viscosity-tension.meniscus",
+   "label": "Meniscus formation",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-properties.viscosity-tension",
+   "summary": "A concave meniscus forms when adhesion exceeds cohesion (water in glass) and a convex meniscus when cohesion dominates (mercury).",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.fluid-properties.viscosity-tension.capillary-action",
+   "label": "Capillary action",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-properties.viscosity-tension",
+   "summary": "Capillary action is the rise or fall of a liquid in a thin tube driven by the balance of adhesion, cohesion, and surface tension.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.fluid-statics",
+   "label": "Fluid Statics (Hydrostatics)",
+   "kind": "topic",
+   "parent": "CP.4B",
+   "summary": "Hydrostatics describes pressure, buoyancy, and force transmission in fluids at rest."
+  },
+  {
+   "id": "CP.4B.fluid-statics.hydrostatic-pressure",
+   "label": "Hydrostatic Pressure",
+   "kind": "subtopic",
+   "parent": "CP.4B.fluid-statics",
+   "summary": "Pressure in a static fluid increases linearly with depth and is transmitted in all directions."
+  },
+  {
+   "id": "CP.4B.fluid-statics.hydrostatic-pressure.depth-equation",
+   "label": "Hydrostatic pressure equation (P = P0 + rho*g*h)",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-statics.hydrostatic-pressure",
+   "summary": "Absolute pressure at depth h is P = P0 + rho*g*h, where rho*g*h is the gauge (hydrostatic) contribution.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.fluid-statics.hydrostatic-pressure.depth-dependence",
+   "label": "Pressure depends only on depth",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-statics.hydrostatic-pressure",
+   "summary": "In a static fluid, pressure depends only on vertical depth and fluid density, not on container shape (hydrostatic paradox).",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.fluid-statics.hydrostatic-pressure.isotropic",
+   "label": "Pressure acts in all directions (isotropy)",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-statics.hydrostatic-pressure",
+   "summary": "At any point in a static fluid, pressure acts equally in all directions and perpendicular to any surface.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.fluid-statics.hydrostatic-pressure.connected-vessels",
+   "label": "Connected vessels / hydrostatic equilibrium",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-statics.hydrostatic-pressure",
+   "summary": "A connected static fluid reaches the same height in open columns and equal pressure at equal depth regardless of column shape or width.",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.fluid-statics.pascal",
+   "label": "Pascal's Principle",
+   "kind": "subtopic",
+   "parent": "CP.4B.fluid-statics",
+   "summary": "Pressure applied to an enclosed incompressible fluid is transmitted undiminished to every part of the fluid."
+  },
+  {
+   "id": "CP.4B.fluid-statics.pascal.principle",
+   "label": "Pascal's principle statement",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-statics.pascal",
+   "summary": "A pressure change applied to an enclosed incompressible fluid is transmitted equally to every point and the container walls.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.fluid-statics.pascal.hydraulic",
+   "label": "Hydraulic lift / machines",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-statics.pascal",
+   "summary": "A hydraulic system multiplies force via F1/A1 = F2/A2 while conserving work (volume), so the larger piston moves less distance.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.fluid-statics.pascal.mechanical-advantage",
+   "label": "Hydraulic mechanical advantage & work conservation",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-statics.pascal",
+   "summary": "Force is multiplied by the area ratio A2/A1 but distance shrinks by the same factor (A1*d1 = A2*d2), so work in equals work out.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.fluid-statics.buoyancy",
+   "label": "Buoyancy & Archimedes' Principle",
+   "kind": "subtopic",
+   "parent": "CP.4B.fluid-statics",
+   "summary": "A submerged or floating object experiences an upward buoyant force equal to the weight of displaced fluid."
+  },
+  {
+   "id": "CP.4B.fluid-statics.buoyancy.archimedes",
+   "label": "Archimedes' principle",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-statics.buoyancy",
+   "summary": "The buoyant force on an object equals the weight of the fluid it displaces, Fb = rho_fluid * V_displaced * g.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.fluid-statics.buoyancy.buoyant-force",
+   "label": "Buoyant force equation",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-statics.buoyancy",
+   "summary": "Fb = rho_fluid * V_submerged * g, arising from the greater hydrostatic pressure on the bottom than top of an object.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.fluid-statics.buoyancy.pressure-origin",
+   "label": "Buoyancy from the pressure gradient",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-statics.buoyancy",
+   "summary": "The buoyant force originates from greater hydrostatic pressure on the lower surface than the upper surface of a submerged object.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.fluid-statics.buoyancy.float-sink",
+   "label": "Floating, sinking, and neutral buoyancy",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-statics.buoyancy",
+   "summary": "An object floats if its average density is less than the fluid's, sinks if greater, and is neutrally buoyant if equal.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.fluid-statics.buoyancy.fraction-submerged",
+   "label": "Fraction submerged",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-statics.buoyancy",
+   "summary": "A floating object submerges a fraction equal to the ratio of its density to the fluid's density (rho_obj/rho_fluid).",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.fluid-statics.buoyancy.apparent-weight",
+   "label": "Apparent weight in fluid",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-statics.buoyancy",
+   "summary": "A submerged object's apparent weight equals its true weight minus the buoyant force (W_apparent = W - Fb).",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.fluid-dynamics",
+   "label": "Fluid Dynamics",
+   "kind": "topic",
+   "parent": "CP.4B",
+   "summary": "Fluid dynamics describes moving fluids via continuity, Bernoulli's energy conservation, and flow regimes."
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.flow-types",
+   "label": "Types of Flow",
+   "kind": "subtopic",
+   "parent": "CP.4B.fluid-dynamics",
+   "summary": "Flow may be laminar or turbulent, steady or unsteady, and is characterized by the Reynolds number."
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.flow-types.steady-flow",
+   "label": "Steady (streamline) vs unsteady flow",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-dynamics.flow-types",
+   "summary": "In steady flow the velocity at any fixed point does not change with time, the regime assumed by continuity and Bernoulli.",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.flow-types.laminar",
+   "label": "Laminar flow",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-dynamics.flow-types",
+   "summary": "Laminar flow is smooth, orderly flow in parallel layers with no mixing, occurring at low velocity/Reynolds number.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.flow-types.turbulent",
+   "label": "Turbulent flow",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-dynamics.flow-types",
+   "summary": "Turbulent flow is chaotic, eddying flow with mixing that occurs above a critical (high) Reynolds number.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.flow-types.reynolds",
+   "label": "Reynolds number",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-dynamics.flow-types",
+   "summary": "The Reynolds number Re = rho*v*D/eta is a dimensionless ratio of inertial to viscous forces predicting laminar (low) vs turbulent (high) flow.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.flow-types.critical-velocity",
+   "label": "Critical velocity (onset of turbulence)",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-dynamics.flow-types",
+   "summary": "Above a critical velocity (Re roughly 2000-4000 in a pipe) laminar flow transitions to turbulent; vessel narrowing or anemia can trigger it physiologically.",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.flow-types.streamlines",
+   "label": "Streamlines",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-dynamics.flow-types",
+   "summary": "Streamlines trace the path of fluid particles in steady flow and never cross; their spacing indicates speed.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.flow-types.flow-rate",
+   "label": "Volumetric flow rate (Q = A*v)",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-dynamics.flow-types",
+   "summary": "Volumetric flow rate Q = A*v (m^3/s) is the volume of fluid passing a cross-section per unit time.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.continuity",
+   "label": "Continuity Equation",
+   "kind": "subtopic",
+   "parent": "CP.4B.fluid-dynamics",
+   "summary": "Conservation of mass requires that volumetric flow rate is constant along a streamline for an incompressible fluid."
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.continuity.equation",
+   "label": "Continuity equation (A1*v1 = A2*v2)",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-dynamics.continuity",
+   "summary": "For an incompressible fluid, A1*v1 = A2*v2, so flow speed increases where cross-sectional area decreases.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.continuity.mass-conservation",
+   "label": "Conservation of mass basis",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-dynamics.continuity",
+   "summary": "The continuity equation expresses conservation of mass: what flows in must flow out for an incompressible fluid.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.continuity.incompressibility",
+   "label": "Incompressibility assumption",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-dynamics.continuity",
+   "summary": "Continuity in the form A1*v1 = A2*v2 assumes constant density (incompressible flow), valid for liquids and low-speed gas flow.",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.bernoulli",
+   "label": "Bernoulli's Equation",
+   "kind": "subtopic",
+   "parent": "CP.4B.fluid-dynamics",
+   "summary": "Bernoulli's equation is conservation of energy per unit volume along a streamline in an ideal fluid."
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.bernoulli.equation",
+   "label": "Bernoulli's equation",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-dynamics.bernoulli",
+   "summary": "P + (1/2)rho*v^2 + rho*g*h = constant along a streamline, summing static pressure, dynamic pressure, and gravitational terms.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.bernoulli.assumptions",
+   "label": "Bernoulli assumptions / limits",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-dynamics.bernoulli",
+   "summary": "Bernoulli's equation requires an ideal fluid: incompressible, non-viscous, steady, laminar flow along a single streamline.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.bernoulli.energy-conservation",
+   "label": "Bernoulli as energy conservation",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-dynamics.bernoulli",
+   "summary": "Bernoulli's equation is conservation of mechanical energy per unit volume for an ideal, incompressible, non-viscous fluid in steady flow.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.bernoulli.bernoulli-effect",
+   "label": "Bernoulli effect (faster flow, lower pressure)",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-dynamics.bernoulli",
+   "summary": "At constant height, an increase in fluid speed corresponds to a decrease in static pressure, and vice versa.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.bernoulli.dynamic-pressure",
+   "label": "Static vs dynamic pressure",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-dynamics.bernoulli",
+   "summary": "Static pressure (P) is the fluid's thermodynamic pressure while dynamic pressure (1/2 rho*v^2) is the kinetic-energy contribution.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.bernoulli.torricelli",
+   "label": "Torricelli's theorem (efflux speed)",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-dynamics.bernoulli",
+   "summary": "Fluid draining from a hole at depth h exits at v = sqrt(2gh), the free-fall speed, a direct Bernoulli application.",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.bernoulli.venturi",
+   "label": "Venturi effect",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-dynamics.bernoulli",
+   "summary": "In a constricted tube, fluid speeds up and its pressure drops, the basis of the Venturi meter and atomizers.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.bernoulli.pitot",
+   "label": "Pitot tube / stagnation pressure",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-dynamics.bernoulli",
+   "summary": "A pitot tube measures flow speed from the difference between stagnation (total) and static pressure via Bernoulli.",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.bernoulli.applications",
+   "label": "Applications (lift, pitot, aneurysm)",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-dynamics.bernoulli",
+   "summary": "Bernoulli/continuity explain pitot tubes and why arterial widening (aneurysm) lowers flow speed and raises pressure; for an airfoil, faster flow over the wing accompanies lower pressure, but lift is not fully explained by Bernoulli alone (it arises mainly from downward deflection of air, Newton's third law).",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.viscous-flow",
+   "label": "Viscous (Real) Flow",
+   "kind": "subtopic",
+   "parent": "CP.4B.fluid-dynamics",
+   "summary": "Real fluids lose pressure to viscous resistance, quantified by Poiseuille's law in tubes."
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.viscous-flow.poiseuille",
+   "label": "Poiseuille's law",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-dynamics.viscous-flow",
+   "summary": "For laminar viscous flow in a tube, Q = (pi*r^4*deltaP)/(8*eta*L), so flow scales with the fourth power of radius.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.viscous-flow.r4-dependence",
+   "label": "Fourth-power radius dependence",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-dynamics.viscous-flow",
+   "summary": "Because flow scales with r^4, small changes in vessel radius cause large changes in flow and resistance (vasoconstriction/dilation).",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.viscous-flow.resistance",
+   "label": "Flow resistance",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-dynamics.viscous-flow",
+   "summary": "Resistance R = 8*eta*L/(pi*r^4) relates pressure drop and flow (deltaP = Q*R), analogous to electrical resistance.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.viscous-flow.resistance-combinations",
+   "label": "Resistance in series and parallel",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-dynamics.viscous-flow",
+   "summary": "Vascular resistances add in series and combine reciprocally in parallel, mirroring resistors and explaining low capillary-bed resistance.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.fluid-dynamics.viscous-flow.viscous-drag",
+   "label": "Viscous drag / pressure drop in pipes",
+   "kind": "concept",
+   "parent": "CP.4B.fluid-dynamics.viscous-flow",
+   "summary": "Real viscous flow continuously dissipates energy as a pressure drop along a tube, unlike the ideal Bernoulli case.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.circulatory",
+   "label": "Circulatory System Hemodynamics",
+   "kind": "topic",
+   "parent": "CP.4B",
+   "summary": "The cardiovascular system applies fluid mechanics to pump and distribute blood through vessels."
+  },
+  {
+   "id": "CP.4B.circulatory.heart",
+   "label": "Heart as a Pump",
+   "kind": "subtopic",
+   "parent": "CP.4B.circulatory",
+   "summary": "The heart generates the pressure gradient that drives blood through the systemic and pulmonary circuits."
+  },
+  {
+   "id": "CP.4B.circulatory.heart.four-chambers",
+   "label": "Four-chamber structure",
+   "kind": "concept",
+   "parent": "CP.4B.circulatory.heart",
+   "summary": "The heart has two atria (receiving) and two ventricles (pumping) separating oxygenated and deoxygenated blood.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.circulatory.heart.two-circuits",
+   "label": "Pulmonary vs systemic circuits",
+   "kind": "concept",
+   "parent": "CP.4B.circulatory.heart",
+   "summary": "The right heart drives the low-pressure pulmonary circuit (lungs) and the left heart the high-pressure systemic circuit (body), arranged in series.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.circulatory.heart.systole-diastole",
+   "label": "Systole and diastole",
+   "kind": "concept",
+   "parent": "CP.4B.circulatory.heart",
+   "summary": "Systole is ventricular contraction (ejection) and diastole is relaxation (filling), generating pulsatile pressure.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.circulatory.heart.cardiac-output",
+   "label": "Cardiac output (CO = HR x SV)",
+   "kind": "concept",
+   "parent": "CP.4B.circulatory.heart",
+   "summary": "Cardiac output is the volume of blood pumped per minute, CO = heart rate x stroke volume, analogous to flow rate Q.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.circulatory.heart.blood-pressure",
+   "label": "Blood pressure (systolic/diastolic)",
+   "kind": "concept",
+   "parent": "CP.4B.circulatory.heart",
+   "summary": "Arterial blood pressure (~120/80 mmHg) is the systolic peak over diastolic trough of pressure in large arteries.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.circulatory.heart.map-pulse-pressure",
+   "label": "Mean arterial & pulse pressure",
+   "kind": "concept",
+   "parent": "CP.4B.circulatory.heart",
+   "summary": "Pulse pressure is systolic minus diastolic; mean arterial pressure approx diastolic + one-third pulse pressure, the effective perfusion pressure.",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.circulatory.heart.bp-measurement",
+   "label": "Blood pressure measurement (Korotkoff/turbulence)",
+   "kind": "concept",
+   "parent": "CP.4B.circulatory.heart",
+   "summary": "A sphygmomanometer reads systolic/diastolic pressure from turbulent Korotkoff sounds as a cuff occludes and releases the artery.",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.circulatory.vessels",
+   "label": "Blood Vessels & Flow",
+   "kind": "subtopic",
+   "parent": "CP.4B.circulatory",
+   "summary": "Vessel geometry governs blood velocity, pressure, and resistance throughout the circuit."
+  },
+  {
+   "id": "CP.4B.circulatory.vessels.arteries-veins-caps",
+   "label": "Arteries, capillaries, veins",
+   "kind": "concept",
+   "parent": "CP.4B.circulatory.vessels",
+   "summary": "Arteries carry blood from the heart at high pressure, capillaries exchange materials, and veins return blood at low pressure.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.circulatory.vessels.velocity-area",
+   "label": "Velocity vs total cross-sectional area",
+   "kind": "concept",
+   "parent": "CP.4B.circulatory.vessels",
+   "summary": "By continuity, blood velocity is slowest in capillaries because their enormous total cross-sectional area is greatest.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.circulatory.vessels.pressure-drop",
+   "label": "Pressure drop across the circuit",
+   "kind": "concept",
+   "parent": "CP.4B.circulatory.vessels",
+   "summary": "Blood pressure falls steadily from arteries to veins, with the largest drop across the high-resistance arterioles.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.circulatory.vessels.resistance-radius",
+   "label": "Vascular resistance and radius",
+   "kind": "concept",
+   "parent": "CP.4B.circulatory.vessels",
+   "summary": "Per Poiseuille, vasoconstriction/dilation of arterioles strongly regulates resistance and blood flow via the r^4 term.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.circulatory.vessels.tpr",
+   "label": "Total peripheral resistance & MAP = CO x TPR",
+   "kind": "concept",
+   "parent": "CP.4B.circulatory.vessels",
+   "summary": "Mean arterial pressure equals cardiac output times total peripheral resistance, the circulatory analog of deltaP = Q*R.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.circulatory.vessels.blood-viscosity",
+   "label": "Blood viscosity (hematocrit)",
+   "kind": "concept",
+   "parent": "CP.4B.circulatory.vessels",
+   "summary": "Blood viscosity exceeds water and rises with hematocrit; changes alter resistance and flow per Poiseuille's eta term.",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.circulatory.vessels.compliance",
+   "label": "Vessel compliance and elasticity",
+   "kind": "concept",
+   "parent": "CP.4B.circulatory.vessels",
+   "summary": "Elastic arteries stretch in systole and recoil in diastole (Windkessel effect), smoothing pulsatile flow.",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.circulatory.vessels.venous-return",
+   "label": "Venous return (gravity, valves, muscle pump)",
+   "kind": "concept",
+   "parent": "CP.4B.circulatory.vessels",
+   "summary": "Low-pressure venous return relies on one-way valves, skeletal-muscle pumping, and hydrostatic effects (gravity raises pressure in dependent veins).",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.circulatory.fluid-exchange",
+   "label": "Capillary Fluid Exchange",
+   "kind": "subtopic",
+   "parent": "CP.4B.circulatory",
+   "summary": "Fluid moves across capillary walls by the balance of hydrostatic and osmotic (oncotic) pressures."
+  },
+  {
+   "id": "CP.4B.circulatory.fluid-exchange.starling",
+   "label": "Starling forces",
+   "kind": "concept",
+   "parent": "CP.4B.circulatory.fluid-exchange",
+   "summary": "Net capillary filtration is governed by the balance of hydrostatic pressure (pushing out) and oncotic pressure (pulling in).",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.circulatory.fluid-exchange.hydrostatic",
+   "label": "Capillary hydrostatic pressure",
+   "kind": "concept",
+   "parent": "CP.4B.circulatory.fluid-exchange",
+   "summary": "Blood hydrostatic pressure pushes fluid out of the capillary, dominating at the arteriolar end.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.circulatory.fluid-exchange.oncotic",
+   "label": "Oncotic (colloid osmotic) pressure",
+   "kind": "concept",
+   "parent": "CP.4B.circulatory.fluid-exchange",
+   "summary": "Plasma proteins (mainly albumin) create osmotic pressure that draws fluid back into the capillary, dominating at the venular end.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.circulatory.fluid-exchange.bulk-flow",
+   "label": "Bulk flow (filtration vs reabsorption)",
+   "kind": "concept",
+   "parent": "CP.4B.circulatory.fluid-exchange",
+   "summary": "Net outward filtration at the arteriolar end and net inward reabsorption at the venular end constitute capillary bulk flow.",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.circulatory.fluid-exchange.lymphatic",
+   "label": "Lymphatic return of filtered fluid",
+   "kind": "concept",
+   "parent": "CP.4B.circulatory.fluid-exchange",
+   "summary": "The small net excess of filtered fluid and leaked protein is returned to the bloodstream by the lymphatic system.",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.circulatory.fluid-exchange.edema",
+   "label": "Edema",
+   "kind": "concept",
+   "parent": "CP.4B.circulatory.fluid-exchange",
+   "summary": "Edema is interstitial fluid accumulation from elevated hydrostatic pressure or reduced plasma oncotic pressure.",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.gas-laws",
+   "label": "Gases & Gas Laws",
+   "kind": "topic",
+   "parent": "CP.4B",
+   "summary": "Gas behavior is described by the ideal gas law and partial pressures, foundational to gas movement and exchange."
+  },
+  {
+   "id": "CP.4B.gas-laws.ideal-gas",
+   "label": "Ideal Gas Behavior",
+   "kind": "subtopic",
+   "parent": "CP.4B.gas-laws",
+   "summary": "The ideal gas law relates pressure, volume, temperature, and moles of a gas."
+  },
+  {
+   "id": "CP.4B.gas-laws.ideal-gas.ideal-gas-law",
+   "label": "Ideal gas law (PV = nRT)",
+   "kind": "concept",
+   "parent": "CP.4B.gas-laws.ideal-gas",
+   "summary": "PV = nRT relates pressure, volume, moles, and absolute temperature with R = 8.314 J/(mol*K).",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.gas-laws.ideal-gas.boyle",
+   "label": "Boyle's law",
+   "kind": "concept",
+   "parent": "CP.4B.gas-laws.ideal-gas",
+   "summary": "At constant temperature, pressure and volume are inversely proportional (P1V1 = P2V2), explaining lung inflation.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.gas-laws.ideal-gas.charles",
+   "label": "Charles's law",
+   "kind": "concept",
+   "parent": "CP.4B.gas-laws.ideal-gas",
+   "summary": "At constant pressure, volume is directly proportional to absolute temperature (V1/T1 = V2/T2).",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.gas-laws.ideal-gas.breathing-mechanics",
+   "label": "Boyle's law in breathing mechanics",
+   "kind": "concept",
+   "parent": "CP.4B.gas-laws.ideal-gas",
+   "summary": "Diaphragm contraction enlarges thoracic volume, lowering intrapulmonary pressure below atmospheric so air flows in (negative-pressure breathing).",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.gas-laws.partial-pressure",
+   "label": "Partial Pressures",
+   "kind": "subtopic",
+   "parent": "CP.4B.gas-laws",
+   "summary": "In a gas mixture, each gas contributes a partial pressure proportional to its mole fraction."
+  },
+  {
+   "id": "CP.4B.gas-laws.partial-pressure.dalton",
+   "label": "Dalton's law of partial pressures",
+   "kind": "concept",
+   "parent": "CP.4B.gas-laws.partial-pressure",
+   "summary": "The total pressure of a gas mixture equals the sum of the partial pressures of its components (P_total = sum P_i).",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.gas-laws.partial-pressure.mole-fraction",
+   "label": "Partial pressure from mole fraction",
+   "kind": "concept",
+   "parent": "CP.4B.gas-laws.partial-pressure",
+   "summary": "A gas's partial pressure equals its mole fraction times the total pressure (P_i = X_i * P_total).",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.gas-laws.partial-pressure.alveolar-po2",
+   "label": "Atmospheric vs alveolar partial pressures",
+   "kind": "concept",
+   "parent": "CP.4B.gas-laws.partial-pressure",
+   "summary": "Inspired air PO2 (~160 mmHg) falls to alveolar PO2 (~100 mmHg) due to humidification and CO2 addition.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.gas-laws.partial-pressure.water-vapor",
+   "label": "Water vapor pressure of humidified air",
+   "kind": "concept",
+   "parent": "CP.4B.gas-laws.partial-pressure",
+   "summary": "Inspired air is humidified to a water vapor partial pressure of ~47 mmHg, which lowers the partial pressures of the other gases.",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.gas-laws.partial-pressure.partial-pressure-gradient",
+   "label": "Partial pressure gradient as driver",
+   "kind": "concept",
+   "parent": "CP.4B.gas-laws.partial-pressure",
+   "summary": "Gases diffuse down their individual partial pressure (not total pressure) gradients between alveoli and blood.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.gas-laws.solubility",
+   "label": "Gas Solubility",
+   "kind": "subtopic",
+   "parent": "CP.4B.gas-laws",
+   "summary": "The amount of gas dissolved in a liquid depends on its partial pressure and solubility (Henry's law)."
+  },
+  {
+   "id": "CP.4B.gas-laws.solubility.henry",
+   "label": "Henry's law",
+   "kind": "concept",
+   "parent": "CP.4B.gas-laws.solubility",
+   "summary": "The concentration of dissolved gas is proportional to its partial pressure above the liquid (C = k*P).",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.gas-laws.solubility.solubility-factors",
+   "label": "Factors affecting solubility",
+   "kind": "concept",
+   "parent": "CP.4B.gas-laws.solubility",
+   "summary": "Gas solubility increases with higher partial pressure and lower temperature, relevant to O2/CO2 transport and decompression.",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.gas-laws.solubility.co2-vs-o2-solubility",
+   "label": "CO2 more soluble than O2",
+   "kind": "concept",
+   "parent": "CP.4B.gas-laws.solubility",
+   "summary": "CO2 is roughly 20x more soluble in plasma than O2, so a small PCO2 gradient suffices for adequate CO2 exchange.",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.gas-laws.solubility.decompression",
+   "label": "Decompression sickness",
+   "kind": "concept",
+   "parent": "CP.4B.gas-laws.solubility",
+   "summary": "Rapid pressure drop lowers gas solubility per Henry's law, so dissolved N2 forms bubbles (the bends).",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.gas-exchange",
+   "label": "Gas Exchange & Diffusion",
+   "kind": "topic",
+   "parent": "CP.4B",
+   "summary": "Gases move between alveoli, blood, and tissues by passive diffusion governed by Fick's law and partial pressure gradients."
+  },
+  {
+   "id": "CP.4B.gas-exchange.diffusion",
+   "label": "Diffusion of Gases",
+   "kind": "subtopic",
+   "parent": "CP.4B.gas-exchange",
+   "summary": "Gas exchange occurs by passive diffusion described quantitatively by Fick's law of diffusion."
+  },
+  {
+   "id": "CP.4B.gas-exchange.diffusion.passive",
+   "label": "Passive diffusion down gradient",
+   "kind": "concept",
+   "parent": "CP.4B.gas-exchange.diffusion",
+   "summary": "Gases cross the respiratory membrane by passive diffusion, moving from high to low partial pressure with no energy cost.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.gas-exchange.diffusion.ficks-law",
+   "label": "Fick's law of diffusion",
+   "kind": "concept",
+   "parent": "CP.4B.gas-exchange.diffusion",
+   "summary": "Diffusion rate is proportional to membrane area and partial-pressure difference and inversely proportional to membrane thickness.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.gas-exchange.diffusion.membrane-factors",
+   "label": "Factors affecting diffusion rate",
+   "kind": "concept",
+   "parent": "CP.4B.gas-exchange.diffusion",
+   "summary": "Diffusion is faster with greater surface area, larger partial-pressure gradient, higher solubility, and thinner membranes.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.gas-exchange.diffusion.respiratory-membrane",
+   "label": "Respiratory (alveolar-capillary) membrane",
+   "kind": "concept",
+   "parent": "CP.4B.gas-exchange.diffusion",
+   "summary": "The thin alveolar-capillary membrane maximizes surface area and minimizes thickness for efficient gas diffusion.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.gas-exchange.diffusion.diffusion-impairment",
+   "label": "Impaired diffusion (thickened membrane)",
+   "kind": "concept",
+   "parent": "CP.4B.gas-exchange.diffusion",
+   "summary": "Fibrosis, edema, or emphysema thicken the membrane or reduce surface area, slowing gas exchange per Fick's law.",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.gas-exchange.alveolar",
+   "label": "Alveolar Gas Exchange",
+   "kind": "subtopic",
+   "parent": "CP.4B.gas-exchange",
+   "summary": "O2 and CO2 are exchanged between alveolar air and pulmonary capillary blood at the lungs."
+  },
+  {
+   "id": "CP.4B.gas-exchange.alveolar.alveoli-structure",
+   "label": "Alveolar structure for exchange",
+   "kind": "concept",
+   "parent": "CP.4B.gas-exchange.alveolar",
+   "summary": "Alveoli provide a vast, thin, moist, highly vascularized surface optimizing gas exchange efficiency.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.gas-exchange.alveolar.o2-loading",
+   "label": "O2 loading into blood",
+   "kind": "concept",
+   "parent": "CP.4B.gas-exchange.alveolar",
+   "summary": "O2 diffuses from high alveolar PO2 (~100 mmHg) into low-PO2 deoxygenated capillary blood (~40 mmHg).",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.gas-exchange.alveolar.co2-unloading",
+   "label": "CO2 unloading from blood",
+   "kind": "concept",
+   "parent": "CP.4B.gas-exchange.alveolar",
+   "summary": "CO2 diffuses from high-PCO2 blood (~46 mmHg) into lower-PCO2 alveolar air (~40 mmHg) for exhalation.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.gas-exchange.alveolar.surfactant",
+   "label": "Pulmonary surfactant",
+   "kind": "concept",
+   "parent": "CP.4B.gas-exchange.alveolar",
+   "summary": "Surfactant lowers alveolar surface tension, preventing collapse (atelectasis) and reducing the work of breathing.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.gas-exchange.alveolar.laplace",
+   "label": "Law of Laplace (alveoli)",
+   "kind": "concept",
+   "parent": "CP.4B.gas-exchange.alveolar",
+   "summary": "For a sphere, pressure P = 2*gamma/r, so smaller alveoli have higher collapse pressure unless surfactant lowers surface tension.",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.gas-exchange.tissue",
+   "label": "Tissue Gas Exchange",
+   "kind": "subtopic",
+   "parent": "CP.4B.gas-exchange",
+   "summary": "At the tissues, O2 leaves blood and CO2 enters, driven by reversed partial-pressure gradients."
+  },
+  {
+   "id": "CP.4B.gas-exchange.tissue.o2-delivery",
+   "label": "O2 delivery to tissues",
+   "kind": "concept",
+   "parent": "CP.4B.gas-exchange.tissue",
+   "summary": "O2 diffuses from oxygenated blood (~100 mmHg) into low-PO2 metabolizing tissue (~40 mmHg or lower).",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.gas-exchange.tissue.co2-pickup",
+   "label": "CO2 pickup from tissues",
+   "kind": "concept",
+   "parent": "CP.4B.gas-exchange.tissue",
+   "summary": "CO2 produced by metabolism diffuses from high-PCO2 tissue into blood for transport to the lungs.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.gas-exchange.specialized",
+   "label": "Specialized Exchange Mechanisms",
+   "kind": "subtopic",
+   "parent": "CP.4B.gas-exchange",
+   "summary": "Some animals enhance gas exchange by countercurrent arrangements that maintain a gradient along the entire exchange surface."
+  },
+  {
+   "id": "CP.4B.gas-exchange.specialized.countercurrent",
+   "label": "Countercurrent gas exchange (fish gills)",
+   "kind": "concept",
+   "parent": "CP.4B.gas-exchange.specialized",
+   "summary": "Blood and water flow in opposite directions across fish gills, maintaining a favorable PO2 gradient along the whole length for near-complete extraction.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.gas-exchange.specialized.concurrent-comparison",
+   "label": "Concurrent vs countercurrent efficiency",
+   "kind": "concept",
+   "parent": "CP.4B.gas-exchange.specialized",
+   "summary": "Concurrent flow equilibrates partway and limits extraction, whereas countercurrent flow sustains the gradient for greater net transfer.",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.gas-transport",
+   "label": "Gas Transport in Blood",
+   "kind": "topic",
+   "parent": "CP.4B",
+   "summary": "Oxygen and carbon dioxide are carried in blood by hemoglobin and as bicarbonate, with cooperative and pH-dependent binding."
+  },
+  {
+   "id": "CP.4B.gas-transport.oxygen",
+   "label": "Oxygen Transport",
+   "kind": "subtopic",
+   "parent": "CP.4B.gas-transport",
+   "summary": "Most oxygen is carried bound to hemoglobin, with a small fraction dissolved in plasma."
+  },
+  {
+   "id": "CP.4B.gas-transport.oxygen.hemoglobin",
+   "label": "Hemoglobin as O2 carrier",
+   "kind": "concept",
+   "parent": "CP.4B.gas-transport.oxygen",
+   "summary": "Hemoglobin is a tetrameric protein that reversibly binds up to four O2 molecules, carrying ~98% of blood oxygen.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.gas-transport.oxygen.dissolved-o2",
+   "label": "Dissolved O2 in plasma",
+   "kind": "concept",
+   "parent": "CP.4B.gas-transport.oxygen",
+   "summary": "A small fraction (~2%) of oxygen is physically dissolved in plasma per Henry's law and sets the blood PO2.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.gas-transport.oxygen.o2-content",
+   "label": "O2 content & carrying capacity",
+   "kind": "concept",
+   "parent": "CP.4B.gas-transport.oxygen",
+   "summary": "Blood O2 content depends on hemoglobin concentration and percent saturation far more than on dissolved O2; anemia lowers capacity despite normal PO2.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.gas-transport.oxygen.cooperativity",
+   "label": "Cooperative O2 binding",
+   "kind": "concept",
+   "parent": "CP.4B.gas-transport.oxygen",
+   "summary": "O2 binding to hemoglobin is cooperative, so each bound O2 increases affinity for the next, producing a sigmoidal curve.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.gas-transport.oxygen.dissociation-curve",
+   "label": "Oxygen-hemoglobin dissociation curve",
+   "kind": "concept",
+   "parent": "CP.4B.gas-transport.oxygen",
+   "summary": "The sigmoidal curve plots hemoglobin saturation vs PO2, with a steep midrange enabling efficient tissue O2 delivery.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.gas-transport.oxygen.p50",
+   "label": "P50 (half-saturation PO2)",
+   "kind": "concept",
+   "parent": "CP.4B.gas-transport.oxygen",
+   "summary": "P50 is the PO2 at 50% hemoglobin saturation (~26 mmHg); a higher P50 means lower affinity (right shift), lower P50 higher affinity.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.gas-transport.oxygen.affinity-shifts",
+   "label": "Right/left shifts of the curve",
+   "kind": "concept",
+   "parent": "CP.4B.gas-transport.oxygen",
+   "summary": "A right shift lowers O2 affinity (more unloading); a left shift raises affinity (more loading).",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.gas-transport.oxygen.bohr",
+   "label": "Bohr effect",
+   "kind": "concept",
+   "parent": "CP.4B.gas-transport.oxygen",
+   "summary": "Increased CO2, H+ (low pH), temperature, and 2,3-BPG shift the curve right, promoting O2 unloading at active tissues.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.gas-transport.oxygen.bpg",
+   "label": "2,3-bisphosphoglycerate (2,3-BPG)",
+   "kind": "concept",
+   "parent": "CP.4B.gas-transport.oxygen",
+   "summary": "2,3-BPG binds deoxyhemoglobin, lowering O2 affinity (right shift) and increasing during high-altitude adaptation.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.gas-transport.oxygen.fetal-hb",
+   "label": "Fetal hemoglobin",
+   "kind": "concept",
+   "parent": "CP.4B.gas-transport.oxygen",
+   "summary": "Fetal hemoglobin (HbF) has higher O2 affinity (left-shifted curve) than adult HbA, drawing O2 across the placenta.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.gas-transport.oxygen.co-poisoning",
+   "label": "Carbon monoxide poisoning",
+   "kind": "concept",
+   "parent": "CP.4B.gas-transport.oxygen",
+   "summary": "CO binds hemoglobin ~200x more tightly than O2, blocking O2 sites and left-shifting the curve so remaining O2 is poorly unloaded.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.gas-transport.oxygen.myoglobin",
+   "label": "Myoglobin",
+   "kind": "concept",
+   "parent": "CP.4B.gas-transport.oxygen",
+   "summary": "Myoglobin is a monomeric muscle O2-storage protein with a hyperbolic, high-affinity, non-cooperative binding curve.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.gas-transport.co2",
+   "label": "Carbon Dioxide Transport",
+   "kind": "subtopic",
+   "parent": "CP.4B.gas-transport",
+   "summary": "CO2 is transported mainly as bicarbonate, with smaller amounts bound to hemoglobin and dissolved in plasma."
+  },
+  {
+   "id": "CP.4B.gas-transport.co2.bicarbonate",
+   "label": "Bicarbonate transport",
+   "kind": "concept",
+   "parent": "CP.4B.gas-transport.co2",
+   "summary": "Most CO2 (~70%) travels as bicarbonate (HCO3-) formed in red blood cells via carbonic anhydrase.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.gas-transport.co2.carbonic-anhydrase",
+   "label": "Carbonic anhydrase reaction",
+   "kind": "concept",
+   "parent": "CP.4B.gas-transport.co2",
+   "summary": "Carbonic anhydrase catalyzes CO2 + H2O <-> H2CO3 <-> H+ + HCO3-, speeding bicarbonate formation in red blood cells.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.gas-transport.co2.carbaminohemoglobin",
+   "label": "Carbaminohemoglobin",
+   "kind": "concept",
+   "parent": "CP.4B.gas-transport.co2",
+   "summary": "About 20-23% of CO2 binds to hemoglobin's globin amino groups as carbaminohemoglobin (not at the heme).",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.gas-transport.co2.dissolved-co2",
+   "label": "Dissolved CO2 in plasma",
+   "kind": "concept",
+   "parent": "CP.4B.gas-transport.co2",
+   "summary": "About 7-10% of CO2 is carried physically dissolved in plasma per Henry's law.",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.gas-transport.co2.chloride-shift",
+   "label": "Chloride shift",
+   "kind": "concept",
+   "parent": "CP.4B.gas-transport.co2",
+   "summary": "As HCO3- exits the red blood cell, Cl- enters to maintain electrical neutrality (the chloride/Hamburger shift).",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.gas-transport.co2.haldane",
+   "label": "Haldane effect",
+   "kind": "concept",
+   "parent": "CP.4B.gas-transport.co2",
+   "summary": "Deoxygenated hemoglobin binds CO2 and H+ more readily, so O2 unloading at tissues enhances CO2 uptake.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.acid-base",
+   "label": "Blood pH & Acid-Base Buffering",
+   "kind": "topic",
+   "parent": "CP.4B",
+   "summary": "The bicarbonate buffer system links CO2 transport to blood pH regulation via the respiratory and renal systems."
+  },
+  {
+   "id": "CP.4B.acid-base.bicarbonate-buffer",
+   "label": "Bicarbonate Buffer System",
+   "kind": "subtopic",
+   "parent": "CP.4B.acid-base",
+   "summary": "The CO2/HCO3- equilibrium is the primary buffer maintaining blood pH near 7.4."
+  },
+  {
+   "id": "CP.4B.acid-base.bicarbonate-buffer.equilibrium",
+   "label": "CO2/bicarbonate equilibrium",
+   "kind": "concept",
+   "parent": "CP.4B.acid-base.bicarbonate-buffer",
+   "summary": "CO2 + H2O <-> H2CO3 <-> H+ + HCO3- ties dissolved CO2 directly to blood [H+] and pH.",
+   "yield": "high"
+  },
+  {
+   "id": "CP.4B.acid-base.bicarbonate-buffer.blood-ph",
+   "label": "Normal blood pH",
+   "kind": "concept",
+   "parent": "CP.4B.acid-base.bicarbonate-buffer",
+   "summary": "Arterial blood is tightly buffered to pH ~7.35-7.45; deviations cause acidosis or alkalosis.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.acid-base.bicarbonate-buffer.henderson",
+   "label": "Henderson-Hasselbalch (blood)",
+   "kind": "concept",
+   "parent": "CP.4B.acid-base.bicarbonate-buffer",
+   "summary": "Blood pH = 6.1 + log([HCO3-]/(0.03*PCO2)) links pH to bicarbonate and CO2 partial pressure.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.acid-base.bicarbonate-buffer.le-chatelier",
+   "label": "Le Chatelier shifts of the buffer",
+   "kind": "concept",
+   "parent": "CP.4B.acid-base.bicarbonate-buffer",
+   "summary": "Adding CO2 or H+ drives the equilibrium to raise [H+] (lower pH); removing CO2 by breathing drives it back, illustrating Le Chatelier's principle.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.acid-base.respiratory-compensation",
+   "label": "Respiratory pH Control",
+   "kind": "subtopic",
+   "parent": "CP.4B.acid-base",
+   "summary": "Ventilation rate adjusts CO2 levels to rapidly compensate for pH disturbances."
+  },
+  {
+   "id": "CP.4B.acid-base.respiratory-compensation.ventilation-co2",
+   "label": "Ventilation regulates CO2 and pH",
+   "kind": "concept",
+   "parent": "CP.4B.acid-base.respiratory-compensation",
+   "summary": "Hyperventilation lowers CO2 (raising pH) and hypoventilation raises CO2 (lowering pH), giving fast respiratory compensation.",
+   "yield": "medium"
+  },
+  {
+   "id": "CP.4B.acid-base.respiratory-compensation.acidosis-alkalosis",
+   "label": "Respiratory acidosis/alkalosis",
+   "kind": "concept",
+   "parent": "CP.4B.acid-base.respiratory-compensation",
+   "summary": "Respiratory acidosis results from CO2 retention (low pH) and alkalosis from excess CO2 loss (high pH).",
+   "yield": "low"
+  },
+  {
+   "id": "CP.4B.acid-base.respiratory-compensation.chemoreceptors",
+   "label": "Chemoreceptor control of ventilation",
+   "kind": "concept",
+   "parent": "CP.4B.acid-base.respiratory-compensation",
+   "summary": "Central and peripheral chemoreceptors sense rising PCO2/H+ (and low PO2) and increase ventilation to restore blood pH and gases.",
+   "yield": "low"
+  }
+ ],
+ "prerequisites": [
+  {
+   "src": "CP.4B.fluid-properties.basic.fluid-def",
+   "dst": "CP.4B.fluid-properties.basic.density"
+  },
+  {
+   "src": "CP.4B.fluid-properties.basic.density",
+   "dst": "CP.4B.fluid-properties.basic.specific-gravity"
+  },
+  {
+   "src": "CP.4B.fluid-properties.basic.density",
+   "dst": "CP.4B.fluid-properties.basic.weight-density"
+  },
+  {
+   "src": "CP.4B.fluid-properties.basic.pressure-def",
+   "dst": "CP.4B.fluid-properties.basic.pressure-units"
+  },
+  {
+   "src": "CP.4B.fluid-properties.basic.pressure-def",
+   "dst": "CP.4B.fluid-properties.basic.atmospheric-pressure"
+  },
+  {
+   "src": "CP.4B.fluid-properties.basic.atmospheric-pressure",
+   "dst": "CP.4B.fluid-properties.basic.gauge-vs-absolute"
+  },
+  {
+   "src": "CP.4B.fluid-properties.basic.pressure-units",
+   "dst": "CP.4B.fluid-properties.basic.gauge-vs-absolute"
+  },
+  {
+   "src": "CP.4B.fluid-properties.basic.atmospheric-pressure",
+   "dst": "CP.4B.fluid-properties.basic.barometer"
+  },
+  {
+   "src": "CP.4B.fluid-properties.basic.gauge-vs-absolute",
+   "dst": "CP.4B.fluid-properties.basic.manometer"
+  },
+  {
+   "src": "CP.4B.fluid-properties.basic.fluid-def",
+   "dst": "CP.4B.fluid-properties.viscosity-tension.viscosity"
+  },
+  {
+   "src": "CP.4B.fluid-properties.viscosity-tension.viscosity",
+   "dst": "CP.4B.fluid-properties.viscosity-tension.viscosity-temperature"
+  },
+  {
+   "src": "CP.4B.fluid-properties.viscosity-tension.viscosity",
+   "dst": "CP.4B.fluid-properties.viscosity-tension.ideal-fluid"
+  },
+  {
+   "src": "CP.4B.fluid-properties.viscosity-tension.surface-tension",
+   "dst": "CP.4B.fluid-properties.viscosity-tension.cohesion-adhesion"
+  },
+  {
+   "src": "CP.4B.fluid-properties.viscosity-tension.cohesion-adhesion",
+   "dst": "CP.4B.fluid-properties.viscosity-tension.meniscus"
+  },
+  {
+   "src": "CP.4B.fluid-properties.viscosity-tension.cohesion-adhesion",
+   "dst": "CP.4B.fluid-properties.viscosity-tension.capillary-action"
+  },
+  {
+   "src": "CP.4B.fluid-properties.viscosity-tension.meniscus",
+   "dst": "CP.4B.fluid-properties.viscosity-tension.capillary-action"
+  },
+  {
+   "src": "CP.4B.fluid-properties.basic.pressure-def",
+   "dst": "CP.4B.fluid-statics.hydrostatic-pressure.depth-equation"
+  },
+  {
+   "src": "CP.4B.fluid-properties.basic.density",
+   "dst": "CP.4B.fluid-statics.hydrostatic-pressure.depth-equation"
+  },
+  {
+   "src": "CP.4B.fluid-properties.basic.gauge-vs-absolute",
+   "dst": "CP.4B.fluid-statics.hydrostatic-pressure.depth-equation"
+  },
+  {
+   "src": "CP.4B.fluid-statics.hydrostatic-pressure.depth-equation",
+   "dst": "CP.4B.fluid-statics.hydrostatic-pressure.depth-dependence"
+  },
+  {
+   "src": "CP.4B.fluid-statics.hydrostatic-pressure.depth-equation",
+   "dst": "CP.4B.fluid-statics.hydrostatic-pressure.isotropic"
+  },
+  {
+   "src": "CP.4B.fluid-statics.hydrostatic-pressure.depth-dependence",
+   "dst": "CP.4B.fluid-statics.hydrostatic-pressure.connected-vessels"
+  },
+  {
+   "src": "CP.4B.fluid-properties.basic.manometer",
+   "dst": "CP.4B.fluid-statics.hydrostatic-pressure.connected-vessels"
+  },
+  {
+   "src": "CP.4B.fluid-properties.basic.pressure-def",
+   "dst": "CP.4B.fluid-statics.pascal.principle"
+  },
+  {
+   "src": "CP.4B.fluid-statics.pascal.principle",
+   "dst": "CP.4B.fluid-statics.pascal.hydraulic"
+  },
+  {
+   "src": "CP.4B.fluid-statics.pascal.hydraulic",
+   "dst": "CP.4B.fluid-statics.pascal.mechanical-advantage"
+  },
+  {
+   "src": "CP.4B.fluid-statics.hydrostatic-pressure.depth-equation",
+   "dst": "CP.4B.fluid-statics.buoyancy.archimedes"
+  },
+  {
+   "src": "CP.4B.fluid-statics.buoyancy.archimedes",
+   "dst": "CP.4B.fluid-statics.buoyancy.buoyant-force"
+  },
+  {
+   "src": "CP.4B.fluid-statics.hydrostatic-pressure.isotropic",
+   "dst": "CP.4B.fluid-statics.buoyancy.pressure-origin"
+  },
+  {
+   "src": "CP.4B.fluid-statics.buoyancy.buoyant-force",
+   "dst": "CP.4B.fluid-statics.buoyancy.pressure-origin"
+  },
+  {
+   "src": "CP.4B.fluid-statics.buoyancy.buoyant-force",
+   "dst": "CP.4B.fluid-statics.buoyancy.float-sink"
+  },
+  {
+   "src": "CP.4B.fluid-properties.basic.density",
+   "dst": "CP.4B.fluid-statics.buoyancy.float-sink"
+  },
+  {
+   "src": "CP.4B.fluid-statics.buoyancy.float-sink",
+   "dst": "CP.4B.fluid-statics.buoyancy.fraction-submerged"
+  },
+  {
+   "src": "CP.4B.fluid-statics.buoyancy.buoyant-force",
+   "dst": "CP.4B.fluid-statics.buoyancy.apparent-weight"
+  },
+  {
+   "src": "CP.4B.fluid-properties.viscosity-tension.viscosity",
+   "dst": "CP.4B.fluid-dynamics.flow-types.laminar"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.flow-types.steady-flow",
+   "dst": "CP.4B.fluid-dynamics.flow-types.laminar"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.flow-types.laminar",
+   "dst": "CP.4B.fluid-dynamics.flow-types.turbulent"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.flow-types.turbulent",
+   "dst": "CP.4B.fluid-dynamics.flow-types.reynolds"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.flow-types.reynolds",
+   "dst": "CP.4B.fluid-dynamics.flow-types.critical-velocity"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.flow-types.laminar",
+   "dst": "CP.4B.fluid-dynamics.flow-types.streamlines"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.flow-types.streamlines",
+   "dst": "CP.4B.fluid-dynamics.flow-types.flow-rate"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.flow-types.flow-rate",
+   "dst": "CP.4B.fluid-dynamics.continuity.equation"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.continuity.equation",
+   "dst": "CP.4B.fluid-dynamics.continuity.mass-conservation"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.continuity.mass-conservation",
+   "dst": "CP.4B.fluid-dynamics.continuity.incompressibility"
+  },
+  {
+   "src": "CP.4B.fluid-properties.viscosity-tension.ideal-fluid",
+   "dst": "CP.4B.fluid-dynamics.bernoulli.equation"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.continuity.equation",
+   "dst": "CP.4B.fluid-dynamics.bernoulli.equation"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.bernoulli.equation",
+   "dst": "CP.4B.fluid-dynamics.bernoulli.assumptions"
+  },
+  {
+   "src": "CP.4B.fluid-properties.viscosity-tension.ideal-fluid",
+   "dst": "CP.4B.fluid-dynamics.bernoulli.assumptions"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.bernoulli.equation",
+   "dst": "CP.4B.fluid-dynamics.bernoulli.energy-conservation"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.bernoulli.equation",
+   "dst": "CP.4B.fluid-dynamics.bernoulli.bernoulli-effect"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.bernoulli.equation",
+   "dst": "CP.4B.fluid-dynamics.bernoulli.dynamic-pressure"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.bernoulli.energy-conservation",
+   "dst": "CP.4B.fluid-dynamics.bernoulli.torricelli"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.bernoulli.bernoulli-effect",
+   "dst": "CP.4B.fluid-dynamics.bernoulli.venturi"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.bernoulli.dynamic-pressure",
+   "dst": "CP.4B.fluid-dynamics.bernoulli.pitot"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.bernoulli.bernoulli-effect",
+   "dst": "CP.4B.fluid-dynamics.bernoulli.applications"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.bernoulli.pitot",
+   "dst": "CP.4B.fluid-dynamics.bernoulli.applications"
+  },
+  {
+   "src": "CP.4B.fluid-properties.viscosity-tension.viscosity",
+   "dst": "CP.4B.fluid-dynamics.viscous-flow.poiseuille"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.flow-types.flow-rate",
+   "dst": "CP.4B.fluid-dynamics.viscous-flow.poiseuille"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.viscous-flow.poiseuille",
+   "dst": "CP.4B.fluid-dynamics.viscous-flow.r4-dependence"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.viscous-flow.poiseuille",
+   "dst": "CP.4B.fluid-dynamics.viscous-flow.resistance"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.viscous-flow.resistance",
+   "dst": "CP.4B.fluid-dynamics.viscous-flow.resistance-combinations"
+  },
+  {
+   "src": "CP.4B.fluid-properties.viscosity-tension.viscosity",
+   "dst": "CP.4B.fluid-dynamics.viscous-flow.viscous-drag"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.bernoulli.energy-conservation",
+   "dst": "CP.4B.fluid-dynamics.viscous-flow.viscous-drag"
+  },
+  {
+   "src": "CP.4B.circulatory.heart.four-chambers",
+   "dst": "CP.4B.circulatory.heart.two-circuits"
+  },
+  {
+   "src": "CP.4B.circulatory.heart.four-chambers",
+   "dst": "CP.4B.circulatory.heart.systole-diastole"
+  },
+  {
+   "src": "CP.4B.circulatory.heart.systole-diastole",
+   "dst": "CP.4B.circulatory.heart.cardiac-output"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.flow-types.flow-rate",
+   "dst": "CP.4B.circulatory.heart.cardiac-output"
+  },
+  {
+   "src": "CP.4B.circulatory.heart.systole-diastole",
+   "dst": "CP.4B.circulatory.heart.blood-pressure"
+  },
+  {
+   "src": "CP.4B.circulatory.heart.blood-pressure",
+   "dst": "CP.4B.circulatory.heart.map-pulse-pressure"
+  },
+  {
+   "src": "CP.4B.circulatory.heart.blood-pressure",
+   "dst": "CP.4B.circulatory.heart.bp-measurement"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.flow-types.turbulent",
+   "dst": "CP.4B.circulatory.heart.bp-measurement"
+  },
+  {
+   "src": "CP.4B.circulatory.heart.four-chambers",
+   "dst": "CP.4B.circulatory.vessels.arteries-veins-caps"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.continuity.equation",
+   "dst": "CP.4B.circulatory.vessels.velocity-area"
+  },
+  {
+   "src": "CP.4B.circulatory.vessels.arteries-veins-caps",
+   "dst": "CP.4B.circulatory.vessels.velocity-area"
+  },
+  {
+   "src": "CP.4B.circulatory.heart.blood-pressure",
+   "dst": "CP.4B.circulatory.vessels.pressure-drop"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.viscous-flow.resistance",
+   "dst": "CP.4B.circulatory.vessels.pressure-drop"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.viscous-flow.r4-dependence",
+   "dst": "CP.4B.circulatory.vessels.resistance-radius"
+  },
+  {
+   "src": "CP.4B.circulatory.vessels.pressure-drop",
+   "dst": "CP.4B.circulatory.vessels.tpr"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.viscous-flow.resistance-combinations",
+   "dst": "CP.4B.circulatory.vessels.tpr"
+  },
+  {
+   "src": "CP.4B.circulatory.heart.cardiac-output",
+   "dst": "CP.4B.circulatory.vessels.tpr"
+  },
+  {
+   "src": "CP.4B.fluid-properties.viscosity-tension.viscosity",
+   "dst": "CP.4B.circulatory.vessels.blood-viscosity"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.viscous-flow.resistance",
+   "dst": "CP.4B.circulatory.vessels.blood-viscosity"
+  },
+  {
+   "src": "CP.4B.circulatory.vessels.arteries-veins-caps",
+   "dst": "CP.4B.circulatory.vessels.compliance"
+  },
+  {
+   "src": "CP.4B.circulatory.vessels.pressure-drop",
+   "dst": "CP.4B.circulatory.vessels.venous-return"
+  },
+  {
+   "src": "CP.4B.fluid-statics.hydrostatic-pressure.depth-equation",
+   "dst": "CP.4B.circulatory.vessels.venous-return"
+  },
+  {
+   "src": "CP.4B.fluid-statics.hydrostatic-pressure.depth-equation",
+   "dst": "CP.4B.circulatory.fluid-exchange.starling"
+  },
+  {
+   "src": "CP.4B.circulatory.fluid-exchange.starling",
+   "dst": "CP.4B.circulatory.fluid-exchange.hydrostatic"
+  },
+  {
+   "src": "CP.4B.circulatory.fluid-exchange.starling",
+   "dst": "CP.4B.circulatory.fluid-exchange.oncotic"
+  },
+  {
+   "src": "CP.4B.circulatory.fluid-exchange.hydrostatic",
+   "dst": "CP.4B.circulatory.fluid-exchange.bulk-flow"
+  },
+  {
+   "src": "CP.4B.circulatory.fluid-exchange.oncotic",
+   "dst": "CP.4B.circulatory.fluid-exchange.bulk-flow"
+  },
+  {
+   "src": "CP.4B.circulatory.fluid-exchange.bulk-flow",
+   "dst": "CP.4B.circulatory.fluid-exchange.lymphatic"
+  },
+  {
+   "src": "CP.4B.circulatory.fluid-exchange.hydrostatic",
+   "dst": "CP.4B.circulatory.fluid-exchange.edema"
+  },
+  {
+   "src": "CP.4B.circulatory.fluid-exchange.oncotic",
+   "dst": "CP.4B.circulatory.fluid-exchange.edema"
+  },
+  {
+   "src": "CP.4B.circulatory.fluid-exchange.lymphatic",
+   "dst": "CP.4B.circulatory.fluid-exchange.edema"
+  },
+  {
+   "src": "CP.4B.gas-laws.ideal-gas.ideal-gas-law",
+   "dst": "CP.4B.gas-laws.ideal-gas.boyle"
+  },
+  {
+   "src": "CP.4B.gas-laws.ideal-gas.ideal-gas-law",
+   "dst": "CP.4B.gas-laws.ideal-gas.charles"
+  },
+  {
+   "src": "CP.4B.gas-laws.ideal-gas.boyle",
+   "dst": "CP.4B.gas-laws.ideal-gas.breathing-mechanics"
+  },
+  {
+   "src": "CP.4B.gas-laws.ideal-gas.ideal-gas-law",
+   "dst": "CP.4B.gas-laws.partial-pressure.dalton"
+  },
+  {
+   "src": "CP.4B.gas-laws.partial-pressure.dalton",
+   "dst": "CP.4B.gas-laws.partial-pressure.mole-fraction"
+  },
+  {
+   "src": "CP.4B.gas-laws.partial-pressure.mole-fraction",
+   "dst": "CP.4B.gas-laws.partial-pressure.alveolar-po2"
+  },
+  {
+   "src": "CP.4B.gas-laws.partial-pressure.alveolar-po2",
+   "dst": "CP.4B.gas-laws.partial-pressure.water-vapor"
+  },
+  {
+   "src": "CP.4B.gas-laws.partial-pressure.dalton",
+   "dst": "CP.4B.gas-laws.partial-pressure.partial-pressure-gradient"
+  },
+  {
+   "src": "CP.4B.gas-laws.partial-pressure.dalton",
+   "dst": "CP.4B.gas-laws.solubility.henry"
+  },
+  {
+   "src": "CP.4B.gas-laws.solubility.henry",
+   "dst": "CP.4B.gas-laws.solubility.solubility-factors"
+  },
+  {
+   "src": "CP.4B.gas-laws.solubility.henry",
+   "dst": "CP.4B.gas-laws.solubility.co2-vs-o2-solubility"
+  },
+  {
+   "src": "CP.4B.gas-laws.solubility.solubility-factors",
+   "dst": "CP.4B.gas-laws.solubility.decompression"
+  },
+  {
+   "src": "CP.4B.gas-laws.partial-pressure.partial-pressure-gradient",
+   "dst": "CP.4B.gas-exchange.diffusion.passive"
+  },
+  {
+   "src": "CP.4B.gas-exchange.diffusion.passive",
+   "dst": "CP.4B.gas-exchange.diffusion.ficks-law"
+  },
+  {
+   "src": "CP.4B.gas-exchange.diffusion.ficks-law",
+   "dst": "CP.4B.gas-exchange.diffusion.membrane-factors"
+  },
+  {
+   "src": "CP.4B.gas-exchange.diffusion.ficks-law",
+   "dst": "CP.4B.gas-exchange.diffusion.respiratory-membrane"
+  },
+  {
+   "src": "CP.4B.gas-exchange.diffusion.membrane-factors",
+   "dst": "CP.4B.gas-exchange.diffusion.diffusion-impairment"
+  },
+  {
+   "src": "CP.4B.gas-exchange.diffusion.respiratory-membrane",
+   "dst": "CP.4B.gas-exchange.diffusion.diffusion-impairment"
+  },
+  {
+   "src": "CP.4B.gas-exchange.diffusion.respiratory-membrane",
+   "dst": "CP.4B.gas-exchange.alveolar.alveoli-structure"
+  },
+  {
+   "src": "CP.4B.gas-laws.partial-pressure.alveolar-po2",
+   "dst": "CP.4B.gas-exchange.alveolar.o2-loading"
+  },
+  {
+   "src": "CP.4B.gas-exchange.diffusion.passive",
+   "dst": "CP.4B.gas-exchange.alveolar.o2-loading"
+  },
+  {
+   "src": "CP.4B.gas-exchange.diffusion.passive",
+   "dst": "CP.4B.gas-exchange.alveolar.co2-unloading"
+  },
+  {
+   "src": "CP.4B.fluid-properties.viscosity-tension.surface-tension",
+   "dst": "CP.4B.gas-exchange.alveolar.surfactant"
+  },
+  {
+   "src": "CP.4B.gas-exchange.alveolar.alveoli-structure",
+   "dst": "CP.4B.gas-exchange.alveolar.surfactant"
+  },
+  {
+   "src": "CP.4B.fluid-properties.viscosity-tension.surface-tension",
+   "dst": "CP.4B.gas-exchange.alveolar.laplace"
+  },
+  {
+   "src": "CP.4B.gas-exchange.alveolar.surfactant",
+   "dst": "CP.4B.gas-exchange.alveolar.laplace"
+  },
+  {
+   "src": "CP.4B.gas-exchange.diffusion.passive",
+   "dst": "CP.4B.gas-exchange.tissue.o2-delivery"
+  },
+  {
+   "src": "CP.4B.gas-exchange.alveolar.o2-loading",
+   "dst": "CP.4B.gas-exchange.tissue.o2-delivery"
+  },
+  {
+   "src": "CP.4B.gas-exchange.diffusion.passive",
+   "dst": "CP.4B.gas-exchange.tissue.co2-pickup"
+  },
+  {
+   "src": "CP.4B.gas-exchange.alveolar.o2-loading",
+   "dst": "CP.4B.gas-exchange.specialized.countercurrent"
+  },
+  {
+   "src": "CP.4B.gas-laws.partial-pressure.partial-pressure-gradient",
+   "dst": "CP.4B.gas-exchange.specialized.countercurrent"
+  },
+  {
+   "src": "CP.4B.gas-exchange.specialized.countercurrent",
+   "dst": "CP.4B.gas-exchange.specialized.concurrent-comparison"
+  },
+  {
+   "src": "CP.4B.gas-exchange.tissue.o2-delivery",
+   "dst": "CP.4B.gas-transport.oxygen.hemoglobin"
+  },
+  {
+   "src": "CP.4B.gas-laws.solubility.henry",
+   "dst": "CP.4B.gas-transport.oxygen.dissolved-o2"
+  },
+  {
+   "src": "CP.4B.gas-transport.oxygen.hemoglobin",
+   "dst": "CP.4B.gas-transport.oxygen.o2-content"
+  },
+  {
+   "src": "CP.4B.gas-transport.oxygen.dissolved-o2",
+   "dst": "CP.4B.gas-transport.oxygen.o2-content"
+  },
+  {
+   "src": "CP.4B.gas-transport.oxygen.hemoglobin",
+   "dst": "CP.4B.gas-transport.oxygen.cooperativity"
+  },
+  {
+   "src": "CP.4B.gas-transport.oxygen.cooperativity",
+   "dst": "CP.4B.gas-transport.oxygen.dissociation-curve"
+  },
+  {
+   "src": "CP.4B.gas-transport.oxygen.dissociation-curve",
+   "dst": "CP.4B.gas-transport.oxygen.p50"
+  },
+  {
+   "src": "CP.4B.gas-transport.oxygen.dissociation-curve",
+   "dst": "CP.4B.gas-transport.oxygen.affinity-shifts"
+  },
+  {
+   "src": "CP.4B.gas-transport.oxygen.p50",
+   "dst": "CP.4B.gas-transport.oxygen.affinity-shifts"
+  },
+  {
+   "src": "CP.4B.gas-transport.oxygen.affinity-shifts",
+   "dst": "CP.4B.gas-transport.oxygen.bohr"
+  },
+  {
+   "src": "CP.4B.gas-transport.oxygen.affinity-shifts",
+   "dst": "CP.4B.gas-transport.oxygen.bpg"
+  },
+  {
+   "src": "CP.4B.gas-transport.oxygen.affinity-shifts",
+   "dst": "CP.4B.gas-transport.oxygen.fetal-hb"
+  },
+  {
+   "src": "CP.4B.gas-transport.oxygen.affinity-shifts",
+   "dst": "CP.4B.gas-transport.oxygen.co-poisoning"
+  },
+  {
+   "src": "CP.4B.gas-transport.oxygen.hemoglobin",
+   "dst": "CP.4B.gas-transport.oxygen.co-poisoning"
+  },
+  {
+   "src": "CP.4B.gas-transport.oxygen.dissociation-curve",
+   "dst": "CP.4B.gas-transport.oxygen.myoglobin"
+  },
+  {
+   "src": "CP.4B.gas-exchange.tissue.co2-pickup",
+   "dst": "CP.4B.gas-transport.co2.bicarbonate"
+  },
+  {
+   "src": "CP.4B.gas-transport.co2.bicarbonate",
+   "dst": "CP.4B.gas-transport.co2.carbonic-anhydrase"
+  },
+  {
+   "src": "CP.4B.gas-transport.oxygen.hemoglobin",
+   "dst": "CP.4B.gas-transport.co2.carbaminohemoglobin"
+  },
+  {
+   "src": "CP.4B.gas-laws.solubility.henry",
+   "dst": "CP.4B.gas-transport.co2.dissolved-co2"
+  },
+  {
+   "src": "CP.4B.gas-transport.co2.carbonic-anhydrase",
+   "dst": "CP.4B.gas-transport.co2.chloride-shift"
+  },
+  {
+   "src": "CP.4B.gas-transport.co2.carbaminohemoglobin",
+   "dst": "CP.4B.gas-transport.co2.haldane"
+  },
+  {
+   "src": "CP.4B.gas-transport.oxygen.bohr",
+   "dst": "CP.4B.gas-transport.co2.haldane"
+  },
+  {
+   "src": "CP.4B.gas-transport.co2.carbonic-anhydrase",
+   "dst": "CP.4B.acid-base.bicarbonate-buffer.equilibrium"
+  },
+  {
+   "src": "CP.4B.acid-base.bicarbonate-buffer.equilibrium",
+   "dst": "CP.4B.acid-base.bicarbonate-buffer.blood-ph"
+  },
+  {
+   "src": "CP.4B.acid-base.bicarbonate-buffer.equilibrium",
+   "dst": "CP.4B.acid-base.bicarbonate-buffer.henderson"
+  },
+  {
+   "src": "CP.4B.acid-base.bicarbonate-buffer.equilibrium",
+   "dst": "CP.4B.acid-base.bicarbonate-buffer.le-chatelier"
+  },
+  {
+   "src": "CP.4B.acid-base.bicarbonate-buffer.blood-ph",
+   "dst": "CP.4B.acid-base.respiratory-compensation.ventilation-co2"
+  },
+  {
+   "src": "CP.4B.acid-base.bicarbonate-buffer.equilibrium",
+   "dst": "CP.4B.acid-base.respiratory-compensation.ventilation-co2"
+  },
+  {
+   "src": "CP.4B.acid-base.bicarbonate-buffer.le-chatelier",
+   "dst": "CP.4B.acid-base.respiratory-compensation.ventilation-co2"
+  },
+  {
+   "src": "CP.4B.acid-base.respiratory-compensation.ventilation-co2",
+   "dst": "CP.4B.acid-base.respiratory-compensation.acidosis-alkalosis"
+  },
+  {
+   "src": "CP.4B.acid-base.respiratory-compensation.ventilation-co2",
+   "dst": "CP.4B.acid-base.respiratory-compensation.chemoreceptors"
+  }
+ ],
+ "related": [
+  {
+   "src": "CP.4B.fluid-dynamics.continuity.equation",
+   "dst": "CP.4B.circulatory.vessels.velocity-area"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.viscous-flow.r4-dependence",
+   "dst": "CP.4B.circulatory.vessels.resistance-radius"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.viscous-flow.resistance",
+   "dst": "CP.4B.circulatory.vessels.tpr"
+  },
+  {
+   "src": "CP.4B.gas-transport.oxygen.bohr",
+   "dst": "CP.4B.gas-transport.co2.haldane"
+  },
+  {
+   "src": "CP.4B.gas-laws.partial-pressure.partial-pressure-gradient",
+   "dst": "CP.4B.gas-exchange.diffusion.ficks-law"
+  },
+  {
+   "src": "CP.4B.fluid-properties.viscosity-tension.surface-tension",
+   "dst": "CP.4B.gas-exchange.alveolar.laplace"
+  },
+  {
+   "src": "CP.4B.gas-transport.co2.carbonic-anhydrase",
+   "dst": "CP.4B.acid-base.bicarbonate-buffer.equilibrium"
+  },
+  {
+   "src": "CP.4B.gas-transport.oxygen.dissolved-o2",
+   "dst": "CP.4B.gas-laws.solubility.henry"
+  },
+  {
+   "src": "CP.4B.circulatory.fluid-exchange.starling",
+   "dst": "CP.4B.fluid-statics.hydrostatic-pressure.depth-equation"
+  },
+  {
+   "src": "CP.4B.fluid-dynamics.flow-types.turbulent",
+   "dst": "CP.4B.circulatory.heart.bp-measurement"
+  },
+  {
+   "src": "CP.4B.gas-transport.oxygen.fetal-hb",
+   "dst": "CP.4B.gas-transport.oxygen.affinity-shifts"
+  },
+  {
+   "src": "CP.4B.gas-transport.oxygen.bpg",
+   "dst": "CP.4B.gas-transport.oxygen.bohr"
+  },
+  {
+   "src": "CP.4B.gas-laws.solubility.co2-vs-o2-solubility",
+   "dst": "CP.4B.gas-transport.co2.dissolved-co2"
+  },
+  {
+   "src": "CP.4B.circulatory.fluid-exchange.oncotic",
+   "dst": "CP.4B.circulatory.fluid-exchange.lymphatic"
+  }
+ ],
+ "external_prereqs": [
+  {
+   "dst": "CP.4B.fluid-properties.basic.pressure-def",
+   "from_leaf": "CP.4A",
+   "concept_hint": "Force (Newton's laws, F = ma)"
+  },
+  {
+   "dst": "CP.4B.fluid-dynamics.bernoulli.energy-conservation",
+   "from_leaf": "CP.4A",
+   "concept_hint": "Conservation of mechanical energy (kinetic and potential energy)"
+  },
+  {
+   "dst": "CP.4B.fluid-statics.pascal.mechanical-advantage",
+   "from_leaf": "CP.4A",
+   "concept_hint": "Work-energy theorem and conservation of work in simple machines"
+  },
+  {
+   "dst": "CP.4B.fluid-dynamics.viscous-flow.resistance",
+   "from_leaf": "CP.5E",
+   "concept_hint": "Ohm's law and electrical resistance analogy (V = IR)"
+  },
+  {
+   "dst": "CP.4B.fluid-dynamics.viscous-flow.resistance-combinations",
+   "from_leaf": "CP.5E",
+   "concept_hint": "Resistors in series and parallel"
+  },
+  {
+   "dst": "CP.4B.gas-laws.ideal-gas.ideal-gas-law",
+   "from_leaf": "CP.4E",
+   "concept_hint": "Kinetic molecular theory and absolute temperature"
+  },
+  {
+   "dst": "CP.4B.gas-laws.solubility.henry",
+   "from_leaf": "CP.5B",
+   "concept_hint": "Solutions and concentration / equilibrium partitioning"
+  },
+  {
+   "dst": "CP.4B.gas-transport.oxygen.hemoglobin",
+   "from_leaf": "BB.1B",
+   "concept_hint": "Quaternary protein structure and oxygen-binding heme groups"
+  },
+  {
+   "dst": "CP.4B.gas-transport.oxygen.cooperativity",
+   "from_leaf": "BB.1D",
+   "concept_hint": "Allosteric regulation and cooperative ligand binding"
+  },
+  {
+   "dst": "CP.4B.gas-transport.co2.carbonic-anhydrase",
+   "from_leaf": "BB.1D",
+   "concept_hint": "Enzyme catalysis (rate enhancement)"
+  },
+  {
+   "dst": "CP.4B.acid-base.bicarbonate-buffer.henderson",
+   "from_leaf": "CP.5C",
+   "concept_hint": "Acid-base equilibria, pKa, and the Henderson-Hasselbalch equation"
+  },
+  {
+   "dst": "CP.4B.acid-base.bicarbonate-buffer.equilibrium",
+   "from_leaf": "CP.5B",
+   "concept_hint": "Le Chatelier's principle and chemical equilibrium"
+  },
+  {
+   "dst": "CP.4B.circulatory.fluid-exchange.oncotic",
+   "from_leaf": "CP.5B",
+   "concept_hint": "Osmotic pressure and colligative properties"
+  },
+  {
+   "dst": "CP.4B.gas-exchange.specialized.countercurrent",
+   "from_leaf": "BB.3B",
+   "concept_hint": "Respiratory system anatomy and gas exchange surfaces across organisms"
+  },
+  {
+   "dst": "CP.4B.acid-base.respiratory-compensation.chemoreceptors",
+   "from_leaf": "BB.3D",
+   "concept_hint": "Nervous control / negative feedback homeostasis"
+  }
+ ]
+}

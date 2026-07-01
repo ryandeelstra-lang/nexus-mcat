@@ -60,6 +60,7 @@ class AnkiWebViewKind(Enum):
     IMPORT_LOG = "import log"
     IMPORT_ANKI_PACKAGE = "anki package import"
     KNOWLEDGE_GRAPH = "knowledge graph"
+    HOME = "home"
 
 
 class AuthInterceptor(QWebEngineUrlRequestInterceptor):
@@ -595,18 +596,24 @@ button {{ font-family: {family}; }}
             """
             font = f"font-family:{family};"
         elif is_mac:
-            family = "Helvetica"
-            font = f'font-family:"{family}";'
+            # charged_up: use the macOS system font (SF Pro via -apple-system) with antialiasing
+            # instead of Helvetica — the single biggest modernizer for every legacy web surface.
+            family = (
+                '-apple-system, "SF Pro Text", "SF Pro Display", system-ui,'
+                ' "Helvetica Neue", sans-serif'
+            )
+            font = f"font-family:{family};-webkit-font-smoothing:antialiased;"
             button_style = """
 button {
     --canvas: #fff;
     -webkit-appearance: none;
     background: var(--canvas);
-    border-radius: var(--border-radius);
-    padding: 3px 12px;
+    border-radius: 7px;
+    padding: 5px 14px;
     border: 1px solid var(--border);
     box-shadow: 0px 1px 3px var(--border-subtle);
-    font-family: Helvetica
+    font-family: -apple-system, "SF Pro Text", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
 }
 .night-mode button { --canvas: #606060; --fg: #eee; }
 """

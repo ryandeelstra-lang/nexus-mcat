@@ -13,6 +13,6 @@ License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
     :global(body) {
         margin: 0;
         height: 100%;
-        background: #0c0e14;
+        background: var(--canvas, #fbfbfd);
     }
 </style>

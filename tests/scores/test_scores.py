@@ -138,3 +138,24 @@ def test_provenance_is_one_of_two_typed_values():
     col.set_config(engine.SYNTHETIC_MARKER, True)
     assert engine.data_provenance(col) == engine.SYNTHETIC
     col.close()
+
+
+def test_performance_does_not_claim_topic_data_it_lacks():
+    # The dashboard has no per-topic context yet (the model lands in Block G), so the performance
+    # abstention must NOT claim "< N graded items on this topic" — that read as a false statement for
+    # every student regardless of their real review history. The per-topic clause is only honest once
+    # a real topic_items count is actually supplied.
+    col = _fresh_col()
+    _answer_one_in_default(col)
+    perf = display.dashboard(col, "")["performance"]
+    assert perf["available"] is False
+    assert (
+        "graded items on this topic" not in perf["reason"]
+    ), f"dashboard must not fabricate a per-topic graded-items claim: {perf['reason']!r}"
+    # The Block-G seam is preserved: when a real per-topic count IS passed, the clause is honest.
+    assert "graded items on this topic" in display.performance_display(col, topic_items=5)["reason"]
+    assert (
+        "graded items on this topic"
+        not in display.performance_display(col, topic_items=25)["reason"]
+    )
+    col.close()

@@ -57,12 +57,18 @@ def build() -> dict:
         })
 
     # Foundational Concepts (ringed around their section).
+    # Record each FC's position within its section's sibling list at insertion time, keyed by the
+    # unique FC id, so the angular index is identity-stable (no value-equality collision) and O(n)
+    # — while leaving the node append order identical to the source `fcs` order.
     fc_by_sec: dict[str, list] = {}
+    fc_pos: dict[str, int] = {}
     for fc in fcs:
-        fc_by_sec.setdefault(fc["section"], []).append(fc)
+        sib = fc_by_sec.setdefault(fc["section"], [])
+        fc_pos[fc["id"]] = len(sib)
+        sib.append(fc)
     for fc in fcs:
         sib = fc_by_sec[fc["section"]]
-        j = sib.index(fc)
+        j = fc_pos[fc["id"]]
         sec = next(n for n in nodes if n["id"] == fc["section"])
         ang = 2 * math.pi * j / max(len(sib), 1)
         nodes.append({
@@ -74,14 +80,18 @@ def build() -> dict:
         })
 
     # Leaves: content categories under their FC; CARS skills under the CARS section.
+    # Same identity-stable, order-preserving indexing as the FC loop above (keyed by unique leaf_id).
     group: dict[str, list] = {}
+    leaf_pos: dict[str, int] = {}
     for leaf in leaves:
         key = leaf["fc"] if leaf["is_content_category"] else "CARS"
-        group.setdefault(key, []).append(leaf)
+        sib = group.setdefault(key, [])
+        leaf_pos[leaf["leaf_id"]] = len(sib)
+        sib.append(leaf)
     for leaf in leaves:
         parent_id = leaf["fc"] if leaf["is_content_category"] else "CARS"
         sib = group[parent_id]
-        j = sib.index(leaf)
+        j = leaf_pos[leaf["leaf_id"]]
         pnode = next(n for n in nodes if n["id"] == parent_id)
         ang = 2 * math.pi * j / max(len(sib), 1)
         nodes.append({

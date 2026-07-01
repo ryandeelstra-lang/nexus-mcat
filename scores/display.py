@@ -43,11 +43,13 @@ def memory_display(col: Collection, topics) -> dict:
     }
 
 
-def performance_display(col: Collection, topic_items: int = 0) -> dict:
+def performance_display(col: Collection, topic_items: int | None = None) -> dict:
     # The performance model (held-out exam-style accuracy) is built in Block F6/G; abstain until then.
-    extra = "" if give_up.performance_available(topic_items) else (
-        f"; also < {give_up.PERFORMANCE_MIN_ITEMS} graded items on this topic"
-    )
+    # Only surface the per-topic graded-items shortfall when a real per-topic count is supplied — the
+    # dashboard has no per-topic context yet, so it must not claim "< N on this topic" for everyone.
+    extra = ""
+    if topic_items is not None and not give_up.performance_available(topic_items):
+        extra = f"; also < {give_up.PERFORMANCE_MIN_ITEMS} graded items on this topic"
     return {
         "kind": "performance",
         "available": False,

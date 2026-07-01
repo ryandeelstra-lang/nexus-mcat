@@ -1,0 +1,3690 @@
+{
+ "leaf": "PS.7A",
+ "section": "P-S",
+ "name": "Individual influences on behavior",
+ "nodes": [
+  {
+   "id": "PS.7A.biological-bases",
+   "label": "Biological bases of behavior",
+   "kind": "topic",
+   "parent": "PS.7A",
+   "summary": "The nervous system, brain structures, neurotransmitters, endocrine system, and genetics that underlie individual behavior."
+  },
+  {
+   "id": "PS.7A.biological-bases.nervous-system",
+   "label": "Organization of the nervous system",
+   "kind": "subtopic",
+   "parent": "PS.7A.biological-bases",
+   "summary": "The nervous system divides into central and peripheral branches that control and integrate behavior."
+  },
+  {
+   "id": "PS.7A.biological-bases.nervous-system.cns-pns",
+   "label": "CNS vs PNS",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.nervous-system",
+   "summary": "The central nervous system comprises the brain and spinal cord; the peripheral nervous system comprises all nervous tissue (nerves and ganglia) outside the brain and spinal cord, connecting the CNS to the rest of the body.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.biological-bases.nervous-system.somatic",
+   "label": "Somatic nervous system",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.nervous-system",
+   "summary": "The somatic nervous system carries voluntary motor commands to skeletal muscle and sensory input to the CNS.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.biological-bases.nervous-system.autonomic",
+   "label": "Autonomic nervous system",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.nervous-system",
+   "summary": "The autonomic nervous system controls involuntary functions of glands, smooth muscle, and cardiac muscle.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.biological-bases.nervous-system.sympathetic",
+   "label": "Sympathetic division (fight-or-flight)",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.nervous-system",
+   "summary": "The sympathetic division mobilizes the body for fight-or-flight by raising heart rate, dilating pupils, and releasing energy.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.biological-bases.nervous-system.parasympathetic",
+   "label": "Parasympathetic division (rest-and-digest)",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.nervous-system",
+   "summary": "The parasympathetic division conserves energy and promotes rest-and-digest functions, lowering heart rate and stimulating digestion.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.biological-bases.nervous-system.reflex-arc",
+   "label": "Reflex arc",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.nervous-system",
+   "summary": "A reflex arc routes sensory input to motor output at the spinal-cord level without requiring the brain; polysynaptic reflexes use interneurons, but monosynaptic reflexes (e.g., the knee-jerk) connect a sensory neuron directly to a motor neuron.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-structures",
+   "label": "Brain structures and functions",
+   "kind": "subtopic",
+   "parent": "PS.7A.biological-bases",
+   "summary": "Distinct brain regions in the hindbrain, midbrain, and forebrain mediate specific behavioral and cognitive functions."
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-structures.hindbrain",
+   "label": "Hindbrain",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-structures",
+   "summary": "The hindbrain (medulla, pons, cerebellum) controls vital autonomic functions, arousal, and motor coordination.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-structures.medulla",
+   "label": "Medulla oblongata",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-structures",
+   "summary": "The medulla oblongata regulates vital reflexes such as breathing, heart rate, and blood pressure.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-structures.pons",
+   "label": "Pons",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-structures",
+   "summary": "The pons relays signals between the cerebrum and cerebellum and contributes to sleep and respiratory control.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-structures.cerebellum",
+   "label": "Cerebellum",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-structures",
+   "summary": "The cerebellum coordinates voluntary movement, balance, posture, and procedural motor learning.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-structures.midbrain",
+   "label": "Midbrain",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-structures",
+   "summary": "The midbrain processes sensory and motor reflexes including the inferior and superior colliculi for auditory and visual reflexes.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-structures.reticular-formation",
+   "label": "Reticular formation",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-structures",
+   "summary": "The reticular formation regulates arousal, alertness, and the sleep-wake cycle.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-structures.forebrain",
+   "label": "Forebrain",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-structures",
+   "summary": "The forebrain (cerebrum, thalamus, hypothalamus, limbic system) governs complex cognition, emotion, and homeostasis.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-structures.thalamus",
+   "label": "Thalamus",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-structures",
+   "summary": "The thalamus is the sensory relay station that routes incoming sensory information (except smell) to the cortex.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-structures.hypothalamus",
+   "label": "Hypothalamus",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-structures",
+   "summary": "The hypothalamus maintains homeostasis and controls the four F's (feeding, fighting, fleeing, mating) via the endocrine system.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-structures.limbic-system",
+   "label": "Limbic system",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-structures",
+   "summary": "The limbic system mediates emotion, motivation, and memory and includes the amygdala, hippocampus, and parts of the hypothalamus.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-structures.amygdala",
+   "label": "Amygdala",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-structures",
+   "summary": "The amygdala processes fear, aggression, and the emotional salience of stimuli.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-structures.hippocampus",
+   "label": "Hippocampus",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-structures",
+   "summary": "The hippocampus consolidates new explicit (declarative) long-term memories and supports spatial navigation.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-structures.basal-ganglia",
+   "label": "Basal ganglia",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-structures",
+   "summary": "The basal ganglia smooth movements and help maintain posture, with dysfunction implicated in Parkinson's disease.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-structures.cerebral-cortex",
+   "label": "Cerebral cortex",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-structures",
+   "summary": "The cerebral cortex is the outer layer of the cerebrum responsible for higher-order thought, perception, and voluntary action.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-structures.frontal-lobe",
+   "label": "Frontal lobe",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-structures",
+   "summary": "The frontal lobe governs executive function, decision-making, voluntary movement (motor cortex), and speech production (Broca's area).",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-structures.prefrontal-cortex",
+   "label": "Prefrontal cortex",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-structures",
+   "summary": "The prefrontal cortex supervises executive functions such as planning, impulse control, and personality.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-structures.parietal-lobe",
+   "label": "Parietal lobe",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-structures",
+   "summary": "The parietal lobe processes somatosensory information and spatial orientation via the somatosensory cortex.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-structures.temporal-lobe",
+   "label": "Temporal lobe",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-structures",
+   "summary": "The temporal lobe processes auditory information, language comprehension (Wernicke's area), and memory.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-structures.occipital-lobe",
+   "label": "Occipital lobe",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-structures",
+   "summary": "The occipital lobe contains the primary visual cortex and processes visual information.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-structures.lateralization",
+   "label": "Hemispheric lateralization",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-structures",
+   "summary": "The two cerebral hemispheres are functionally specialized, with language typically left-lateralized and spatial processing right-lateralized.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-structures.corpus-callosum",
+   "label": "Corpus callosum",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-structures",
+   "summary": "The corpus callosum is the band of fibers connecting the two cerebral hemispheres, allowing interhemispheric communication.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-structures.split-brain",
+   "label": "Split-brain research",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-structures",
+   "summary": "Split-brain studies (severed corpus callosum) reveal that the hemispheres can process information independently.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-mapping",
+   "label": "Studying the brain (methods)",
+   "kind": "subtopic",
+   "parent": "PS.7A.biological-bases",
+   "summary": "Lesion, electrical, and imaging techniques map brain structure to behavioral function."
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-mapping.eeg",
+   "label": "Electroencephalography (EEG)",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-mapping",
+   "summary": "EEG records electrical activity of the cortex through scalp electrodes with high temporal resolution.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-mapping.ct",
+   "label": "Computed tomography (CT)",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-mapping",
+   "summary": "CT uses X-rays to produce cross-sectional structural images of the brain.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-mapping.pet",
+   "label": "Positron emission tomography (PET)",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-mapping",
+   "summary": "PET uses a radioactive tracer to image metabolic activity and blood flow in the brain.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-mapping.mri-fmri",
+   "label": "MRI and fMRI",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-mapping",
+   "summary": "MRI images brain structure with magnetic fields, while fMRI measures blood-oxygen-level changes to track activity.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-mapping.lesion-studies",
+   "label": "Lesion and stimulation studies",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-mapping",
+   "summary": "Studying behavioral deficits from brain lesions or responses to electrical stimulation localizes function.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.biological-bases.neurotransmitters",
+   "label": "Neurotransmitters",
+   "kind": "subtopic",
+   "parent": "PS.7A.biological-bases",
+   "summary": "Chemical messengers released at synapses modulate mood, arousal, movement, and cognition."
+  },
+  {
+   "id": "PS.7A.biological-bases.neurotransmitters.acetylcholine",
+   "label": "Acetylcholine",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.neurotransmitters",
+   "summary": "Acetylcholine mediates voluntary muscle movement at the neuromuscular junction and supports attention and memory.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.biological-bases.neurotransmitters.dopamine",
+   "label": "Dopamine",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.neurotransmitters",
+   "summary": "Dopamine modulates reward, motivation, and motor control, with imbalances linked to schizophrenia and Parkinson's disease.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.biological-bases.neurotransmitters.serotonin",
+   "label": "Serotonin",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.neurotransmitters",
+   "summary": "Serotonin regulates mood, sleep, appetite, and arousal, with low levels associated with depression.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.biological-bases.neurotransmitters.norepinephrine",
+   "label": "Norepinephrine",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.neurotransmitters",
+   "summary": "Norepinephrine controls alertness, arousal, and the sympathetic fight-or-flight response.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.biological-bases.neurotransmitters.epinephrine",
+   "label": "Epinephrine",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.neurotransmitters",
+   "summary": "Epinephrine (adrenaline) acts as both a hormone and neurotransmitter in the fight-or-flight response.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.biological-bases.neurotransmitters.gaba",
+   "label": "GABA",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.neurotransmitters",
+   "summary": "GABA is the brain's primary inhibitory neurotransmitter, reducing neuronal excitability and anxiety.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.biological-bases.neurotransmitters.glutamate",
+   "label": "Glutamate",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.neurotransmitters",
+   "summary": "Glutamate is the brain's primary excitatory neurotransmitter, important for learning and memory.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.biological-bases.neurotransmitters.endorphins",
+   "label": "Endorphins",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.neurotransmitters",
+   "summary": "Endorphins are natural opioids that reduce pain and produce feelings of pleasure.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.biological-bases.endocrine",
+   "label": "Endocrine influences on behavior",
+   "kind": "subtopic",
+   "parent": "PS.7A.biological-bases",
+   "summary": "Hormones from endocrine glands exert slower, longer-lasting influences on behavior and physiology."
+  },
+  {
+   "id": "PS.7A.biological-bases.endocrine.pituitary",
+   "label": "Pituitary gland",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.endocrine",
+   "summary": "The pituitary is the 'master gland' that releases hormones controlling other endocrine glands under hypothalamic direction.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.biological-bases.endocrine.adrenal",
+   "label": "Adrenal glands",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.endocrine",
+   "summary": "The adrenal glands secrete cortisol and epinephrine, mediating stress responses and arousal.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.biological-bases.endocrine.cortisol",
+   "label": "Cortisol",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.endocrine",
+   "summary": "Cortisol is the primary stress hormone that mobilizes energy and is released via the HPA axis.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.biological-bases.genetics",
+   "label": "Genetic and evolutionary bases",
+   "kind": "subtopic",
+   "parent": "PS.7A.biological-bases",
+   "summary": "Heredity, gene-environment interaction, and natural selection shape behavioral predispositions."
+  },
+  {
+   "id": "PS.7A.biological-bases.genetics.heritability",
+   "label": "Heritability",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.genetics",
+   "summary": "Heritability estimates the proportion of variation in a trait attributable to genetic differences within a population.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.biological-bases.genetics.twin-family-studies",
+   "label": "Twin and family studies",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.genetics",
+   "summary": "Twin, family, and adoption studies disentangle genetic from environmental contributions to behavior.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.biological-bases.genetics.gene-environment",
+   "label": "Gene-environment interaction",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.genetics",
+   "summary": "Genes and environment interact such that genetic predispositions are expressed depending on environmental conditions.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.biological-bases.genetics.evolution-behavior",
+   "label": "Evolution and natural selection of behavior",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.genetics",
+   "summary": "Natural selection favors heritable behaviors that increase reproductive fitness, shaping behavioral adaptations.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.sensation",
+   "label": "Sensation",
+   "kind": "topic",
+   "parent": "PS.7A",
+   "summary": "The detection and transduction of physical stimuli into neural signals by sensory receptors."
+  },
+  {
+   "id": "PS.7A.sensation.basic-concepts",
+   "label": "Basic sensory concepts",
+   "kind": "subtopic",
+   "parent": "PS.7A.sensation",
+   "summary": "Core principles of how raw stimulus energy is captured and converted into neural information."
+  },
+  {
+   "id": "PS.7A.sensation.basic-concepts.transduction",
+   "label": "Sensory transduction",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.basic-concepts",
+   "summary": "Transduction is the conversion of physical or chemical stimulus energy into electrochemical neural signals.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.sensation.basic-concepts.sensory-receptors",
+   "label": "Sensory receptors",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.basic-concepts",
+   "summary": "Specialized receptor cells detect specific stimulus modalities and initiate transduction.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.sensation.basic-concepts.receptor-types",
+   "label": "Types of sensory receptors",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.basic-concepts",
+   "summary": "Photoreceptors, mechanoreceptors, chemoreceptors, thermoreceptors, nociceptors, and osmoreceptors each detect a specific stimulus class.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.sensation.basic-concepts.sensory-pathways",
+   "label": "Sensory pathways",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.basic-concepts",
+   "summary": "Sensory information travels from receptors through projection (relay) neurons to dedicated cortical areas.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.sensation.basic-concepts.sensory-coding",
+   "label": "Sensory coding (types of stimuli)",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.basic-concepts",
+   "summary": "Stimulus modality, intensity, location, and duration are coded by which neurons fire and how strongly.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.sensation.thresholds",
+   "label": "Thresholds and signal detection",
+   "kind": "subtopic",
+   "parent": "PS.7A.sensation",
+   "summary": "Quantitative limits on detection and discrimination, including the influence of decision criteria."
+  },
+  {
+   "id": "PS.7A.sensation.thresholds.absolute-threshold",
+   "label": "Absolute threshold",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.thresholds",
+   "summary": "The absolute threshold is the minimum stimulus intensity detectable 50% of the time.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.sensation.thresholds.threshold-of-conscious",
+   "label": "Threshold of conscious perception",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.thresholds",
+   "summary": "Subliminal stimuli below the threshold of conscious perception may still be processed without awareness.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.sensation.thresholds.difference-threshold",
+   "label": "Difference threshold (JND)",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.thresholds",
+   "summary": "The difference threshold, or just-noticeable difference, is the smallest detectable change between two stimuli.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.sensation.thresholds.webers-law",
+   "label": "Weber's law",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.thresholds",
+   "summary": "Weber's law states that the just-noticeable difference is a constant proportion of the original stimulus intensity.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.sensation.thresholds.weber-fraction",
+   "label": "Weber fraction equation",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.thresholds",
+   "summary": "The Weber fraction is expressed as ΔI/I = k, where k is a constant for a given sensory modality.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.sensation.thresholds.signal-detection-theory",
+   "label": "Signal detection theory",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.thresholds",
+   "summary": "Signal detection theory explains how internal and external factors influence detection of stimuli amid noise.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.sensation.thresholds.sdt-outcomes",
+   "label": "Hits, misses, false alarms, correct rejections",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.thresholds",
+   "summary": "Signal detection yields four response outcomes determined by whether a signal is present and whether it is detected.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.sensation.thresholds.response-bias",
+   "label": "Response bias and criterion",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.thresholds",
+   "summary": "Response bias reflects the decision criterion an observer adopts, shaped by expectations, motives, and consequences.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.sensation.adaptation",
+   "label": "Sensory adaptation",
+   "kind": "subtopic",
+   "parent": "PS.7A.sensation",
+   "summary": "Receptor responsiveness decreases with constant stimulation."
+  },
+  {
+   "id": "PS.7A.sensation.adaptation.definition",
+   "label": "Sensory adaptation",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.adaptation",
+   "summary": "Sensory adaptation is the decreased response of receptors to a constant, unchanging stimulus over time.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.sensation.adaptation.neural-adaptation",
+   "label": "Neural adaptation",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.adaptation",
+   "summary": "Neural adaptation reflects reduced firing rates in sensory neurons during prolonged stimulation.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.sensation.vision",
+   "label": "Vision",
+   "kind": "subtopic",
+   "parent": "PS.7A.sensation",
+   "summary": "The visual system transduces light into neural signals through the eye's optics and retina."
+  },
+  {
+   "id": "PS.7A.sensation.vision.cornea-lens",
+   "label": "Cornea and lens",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.vision",
+   "summary": "The cornea and lens refract incoming light to focus it onto the retina, with the lens accommodating for distance.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.sensation.vision.pupil-iris",
+   "label": "Pupil and iris",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.vision",
+   "summary": "The iris controls pupil diameter to regulate the amount of light entering the eye.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.sensation.vision.retina",
+   "label": "Retina",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.vision",
+   "summary": "The retina is the light-sensitive inner layer of the eye containing photoreceptors that begin visual transduction.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.sensation.vision.rods",
+   "label": "Rods",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.vision",
+   "summary": "Rods are photoreceptors specialized for low-light (scotopic) vision and detecting motion but not color.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.sensation.vision.cones",
+   "label": "Cones",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.vision",
+   "summary": "Cones are photoreceptors specialized for color and fine-detail (photopic) vision concentrated in the fovea.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.sensation.vision.fovea",
+   "label": "Fovea",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.vision",
+   "summary": "The fovea is the central retinal region densely packed with cones, providing the sharpest visual acuity.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.sensation.vision.optic-nerve",
+   "label": "Optic nerve and blind spot",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.vision",
+   "summary": "The optic nerve carries visual signals to the brain, creating a blind spot where it exits the retina.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.sensation.vision.visual-pathway",
+   "label": "Visual processing pathway",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.vision",
+   "summary": "Visual signals travel via the optic nerve and chiasm through the thalamus (LGN) to the visual cortex.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.sensation.vision.feature-detection",
+   "label": "Feature detection and parallel processing",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.vision",
+   "summary": "Feature detectors in the cortex respond to specific stimulus features, and parallel processing analyzes them simultaneously.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.sensation.vision.trichromatic-theory",
+   "label": "Trichromatic (Young-Helmholtz) theory",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.vision",
+   "summary": "Trichromatic theory holds that color vision arises from three cone types sensitive to red, green, and blue light.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.sensation.vision.opponent-process-theory",
+   "label": "Opponent-process theory",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.vision",
+   "summary": "Opponent-process theory explains color perception and afterimages via opposing red-green, blue-yellow, and black-white channels.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.sensation.hearing",
+   "label": "Hearing (audition)",
+   "kind": "subtopic",
+   "parent": "PS.7A.sensation",
+   "summary": "The auditory system transduces sound waves into neural signals through the structures of the ear."
+  },
+  {
+   "id": "PS.7A.sensation.hearing.outer-ear",
+   "label": "Outer ear",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.hearing",
+   "summary": "The outer ear (pinna and auditory canal) collects and funnels sound waves toward the eardrum.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.sensation.hearing.middle-ear",
+   "label": "Middle ear (ossicles)",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.hearing",
+   "summary": "The middle ear ossicles (malleus, incus, stapes) amplify and transmit eardrum vibrations to the cochlea.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.sensation.hearing.cochlea",
+   "label": "Cochlea and basilar membrane",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.hearing",
+   "summary": "The cochlea houses the fluid-filled basilar membrane whose movement bends hair cells to transduce sound.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.sensation.hearing.hair-cells",
+   "label": "Hair cells (Organ of Corti)",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.hearing",
+   "summary": "Hair cells in the organ of Corti convert mechanical vibration into auditory neural signals.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.sensation.hearing.auditory-pathway",
+   "label": "Auditory pathway",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.hearing",
+   "summary": "Auditory signals travel via the auditory nerve through the brainstem and thalamus to the auditory cortex.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.sensation.hearing.place-theory",
+   "label": "Place theory of pitch",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.hearing",
+   "summary": "Place theory holds that pitch is encoded by which location on the basilar membrane vibrates most.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.sensation.hearing.frequency-theory",
+   "label": "Frequency (temporal) theory of pitch",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.hearing",
+   "summary": "Frequency theory holds that pitch is encoded by the rate of neural firing matching the sound's frequency.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.sensation.hearing.vestibular",
+   "label": "Vestibular sense",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.hearing",
+   "summary": "The vestibular system in the semicircular canals detects head position, balance, and acceleration.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.sensation.chemical",
+   "label": "Chemical senses (smell and taste)",
+   "kind": "subtopic",
+   "parent": "PS.7A.sensation",
+   "summary": "Chemoreceptors transduce dissolved chemicals into the senses of olfaction and gustation."
+  },
+  {
+   "id": "PS.7A.sensation.chemical.olfaction",
+   "label": "Olfaction (smell)",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.chemical",
+   "summary": "Olfactory chemoreceptors detect airborne molecules and project directly to the brain, bypassing the thalamus.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.sensation.chemical.pheromones",
+   "label": "Pheromones",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.chemical",
+   "summary": "Pheromones are chemical signals that can influence behavior and physiology of conspecifics.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.sensation.chemical.gustation",
+   "label": "Gustation (taste)",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.chemical",
+   "summary": "Taste buds detect five basic tastes: sweet, sour, salty, bitter, and umami.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.sensation.somatosensation",
+   "label": "Somatosensation",
+   "kind": "subtopic",
+   "parent": "PS.7A.sensation",
+   "summary": "The skin and body senses detect touch, temperature, pain, and body position."
+  },
+  {
+   "id": "PS.7A.sensation.somatosensation.touch",
+   "label": "Touch and pressure",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.somatosensation",
+   "summary": "Mechanoreceptors in the skin detect touch, pressure, vibration, and texture.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.sensation.somatosensation.temperature",
+   "label": "Temperature",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.somatosensation",
+   "summary": "Thermoreceptors detect warmth and cold relative to skin temperature.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.sensation.somatosensation.pain",
+   "label": "Pain (nociception)",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.somatosensation",
+   "summary": "Nociceptors transduce tissue-damaging stimuli into pain signals.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.sensation.somatosensation.gate-control-theory",
+   "label": "Gate-control theory of pain",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.somatosensation",
+   "summary": "Gate-control theory proposes that spinal 'gates' can block or allow pain signals based on competing input.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.sensation.somatosensation.kinesthesia",
+   "label": "Kinesthesia",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.somatosensation",
+   "summary": "Kinesthesia is the sense of the position and movement of individual body parts.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.sensation.somatosensation.proprioception",
+   "label": "Proprioception",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.somatosensation",
+   "summary": "Proprioception is the sense of the body's overall position and orientation in space.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.perception",
+   "label": "Perception",
+   "kind": "topic",
+   "parent": "PS.7A",
+   "summary": "The organization and interpretation of sensory information into meaningful experience."
+  },
+  {
+   "id": "PS.7A.perception.processing-direction",
+   "label": "Bottom-up and top-down processing",
+   "kind": "subtopic",
+   "parent": "PS.7A.perception",
+   "summary": "Perception integrates stimulus-driven and knowledge-driven processing."
+  },
+  {
+   "id": "PS.7A.perception.processing-direction.bottom-up",
+   "label": "Bottom-up processing",
+   "kind": "concept",
+   "parent": "PS.7A.perception.processing-direction",
+   "summary": "Bottom-up (data-driven) processing builds perception from individual sensory features upward.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.perception.processing-direction.top-down",
+   "label": "Top-down processing",
+   "kind": "concept",
+   "parent": "PS.7A.perception.processing-direction",
+   "summary": "Top-down (conceptually driven) processing uses prior knowledge and expectation to interpret sensory input.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.perception.processing-direction.perceptual-set",
+   "label": "Perceptual set",
+   "kind": "concept",
+   "parent": "PS.7A.perception.processing-direction",
+   "summary": "A perceptual set is a predisposition to perceive stimuli in a particular way based on expectations and context.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.perception.gestalt",
+   "label": "Gestalt principles",
+   "kind": "subtopic",
+   "parent": "PS.7A.perception",
+   "summary": "The mind organizes elements into coherent wholes using innate grouping principles."
+  },
+  {
+   "id": "PS.7A.perception.gestalt.proximity",
+   "label": "Proximity",
+   "kind": "concept",
+   "parent": "PS.7A.perception.gestalt",
+   "summary": "The Gestalt principle of proximity groups objects that are near one another as a unit.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.perception.gestalt.similarity",
+   "label": "Similarity",
+   "kind": "concept",
+   "parent": "PS.7A.perception.gestalt",
+   "summary": "The Gestalt principle of similarity groups objects that resemble one another.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.perception.gestalt.continuity",
+   "label": "Good continuation (continuity)",
+   "kind": "concept",
+   "parent": "PS.7A.perception.gestalt",
+   "summary": "The Gestalt principle of continuity perceives elements arranged along a smooth line or curve as related.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.perception.gestalt.closure",
+   "label": "Closure",
+   "kind": "concept",
+   "parent": "PS.7A.perception.gestalt",
+   "summary": "The Gestalt principle of closure fills in gaps to perceive a complete, whole figure.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.perception.gestalt.figure-ground",
+   "label": "Figure-ground",
+   "kind": "concept",
+   "parent": "PS.7A.perception.gestalt",
+   "summary": "Figure-ground organization separates an object (figure) from its surroundings (ground).",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.perception.gestalt.pragnanz",
+   "label": "Law of Prägnanz",
+   "kind": "concept",
+   "parent": "PS.7A.perception.gestalt",
+   "summary": "The law of Prägnanz holds that we perceive ambiguous stimuli in the simplest, most stable form possible.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.perception.depth",
+   "label": "Depth and constancy",
+   "kind": "subtopic",
+   "parent": "PS.7A.perception",
+   "summary": "Cues and mechanisms that produce three-dimensional and stable perception."
+  },
+  {
+   "id": "PS.7A.perception.depth.binocular-cues",
+   "label": "Binocular depth cues",
+   "kind": "concept",
+   "parent": "PS.7A.perception.depth",
+   "summary": "Binocular cues such as retinal disparity and convergence use both eyes to perceive depth.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.perception.depth.monocular-cues",
+   "label": "Monocular depth cues",
+   "kind": "concept",
+   "parent": "PS.7A.perception.depth",
+   "summary": "Monocular cues such as relative size, interposition, and linear perspective convey depth with one eye.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.perception.depth.perceptual-constancy",
+   "label": "Perceptual constancy",
+   "kind": "concept",
+   "parent": "PS.7A.perception.depth",
+   "summary": "Perceptual constancy keeps objects perceived as stable in size, shape, and color despite changing sensory input.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.perception.organization",
+   "label": "Perceptual organization and recognition",
+   "kind": "subtopic",
+   "parent": "PS.7A.perception",
+   "summary": "Higher mechanisms organize motion, patterns, and ambiguity into recognized percepts."
+  },
+  {
+   "id": "PS.7A.perception.organization.motion-perception",
+   "label": "Motion perception",
+   "kind": "concept",
+   "parent": "PS.7A.perception.organization",
+   "summary": "Motion perception integrates retinal change over time, including phi phenomenon and stroboscopic motion.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.perception.organization.pattern-recognition",
+   "label": "Pattern recognition",
+   "kind": "concept",
+   "parent": "PS.7A.perception.organization",
+   "summary": "Pattern recognition matches sensory input to stored representations to identify objects.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.perception.organization.perceptual-illusions",
+   "label": "Perceptual illusions",
+   "kind": "concept",
+   "parent": "PS.7A.perception.organization",
+   "summary": "Illusions reveal perceptual rules by producing systematic mismatches between percept and reality.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.attention",
+   "label": "Attention",
+   "kind": "topic",
+   "parent": "PS.7A",
+   "summary": "The cognitive process of selectively focusing on some stimuli while filtering others."
+  },
+  {
+   "id": "PS.7A.attention.selective",
+   "label": "Selective attention",
+   "kind": "subtopic",
+   "parent": "PS.7A.attention",
+   "summary": "Focusing on one stimulus stream while ignoring competing ones."
+  },
+  {
+   "id": "PS.7A.attention.selective.definition",
+   "label": "Selective attention",
+   "kind": "concept",
+   "parent": "PS.7A.attention.selective",
+   "summary": "Selective attention focuses conscious awareness on one stimulus or task while filtering out others.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.attention.selective.cocktail-party",
+   "label": "Cocktail party effect",
+   "kind": "concept",
+   "parent": "PS.7A.attention.selective",
+   "summary": "The cocktail party effect is the ability to focus on one conversation while still detecting salient cues like one's name elsewhere.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.attention.selective.inattentional-blindness",
+   "label": "Inattentional blindness",
+   "kind": "concept",
+   "parent": "PS.7A.attention.selective",
+   "summary": "Inattentional blindness is the failure to notice a fully visible but unattended object.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.attention.selective.change-blindness",
+   "label": "Change blindness",
+   "kind": "concept",
+   "parent": "PS.7A.attention.selective",
+   "summary": "Change blindness is the failure to detect changes in a visual scene when attention is diverted.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.attention.divided",
+   "label": "Divided attention",
+   "kind": "subtopic",
+   "parent": "PS.7A.attention",
+   "summary": "Distributing attention across multiple tasks simultaneously."
+  },
+  {
+   "id": "PS.7A.attention.divided.definition",
+   "label": "Divided attention",
+   "kind": "concept",
+   "parent": "PS.7A.attention.divided",
+   "summary": "Divided attention is the ability to attend to multiple tasks at once, often impaired for demanding tasks.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.attention.divided.automatic-controlled",
+   "label": "Automatic vs controlled processing",
+   "kind": "concept",
+   "parent": "PS.7A.attention.divided",
+   "summary": "Automatic processing requires little attention, while controlled processing demands deliberate effort.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.attention.divided.resource-model",
+   "label": "Resource model of attention",
+   "kind": "concept",
+   "parent": "PS.7A.attention.divided",
+   "summary": "Attention is treated as a limited resource that constrains how many tasks can be performed at once.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.cognition",
+   "label": "Cognition",
+   "kind": "topic",
+   "parent": "PS.7A",
+   "summary": "Higher mental processes of thinking, problem-solving, decision-making, and intelligence."
+  },
+  {
+   "id": "PS.7A.cognition.development",
+   "label": "Cognitive development",
+   "kind": "subtopic",
+   "parent": "PS.7A.cognition",
+   "summary": "How thinking abilities change across the lifespan, especially Piaget's stages."
+  },
+  {
+   "id": "PS.7A.cognition.development.piaget-stages",
+   "label": "Piaget's stages of cognitive development",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.development",
+   "summary": "Piaget proposed four stages: sensorimotor, preoperational, concrete operational, and formal operational.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.cognition.development.sensorimotor",
+   "label": "Sensorimotor stage",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.development",
+   "summary": "In the sensorimotor stage (0-2 yrs), infants learn through senses and motor action and develop object permanence.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.cognition.development.object-permanence",
+   "label": "Object permanence",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.development",
+   "summary": "Object permanence is the understanding that objects continue to exist when out of sight.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.cognition.development.preoperational",
+   "label": "Preoperational stage",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.development",
+   "summary": "In the preoperational stage (2-7 yrs), children use symbols but show egocentrism and lack conservation.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.cognition.development.egocentrism",
+   "label": "Egocentrism",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.development",
+   "summary": "Egocentrism is the inability to take another person's perspective, characteristic of preoperational thought.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.cognition.development.concrete-operational",
+   "label": "Concrete operational stage",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.development",
+   "summary": "In the concrete operational stage (7-11 yrs), children grasp conservation and logical reasoning about concrete events.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.cognition.development.conservation",
+   "label": "Conservation",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.development",
+   "summary": "Conservation is the understanding that quantity stays the same despite changes in shape or appearance.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.cognition.development.formal-operational",
+   "label": "Formal operational stage",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.development",
+   "summary": "In the formal operational stage (12+ yrs), individuals develop abstract and hypothetical reasoning.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.cognition.development.schemas",
+   "label": "Schemas, assimilation, accommodation",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.development",
+   "summary": "Schemas are mental frameworks updated through assimilation (fitting new info) and accommodation (revising the framework).",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.cognition.development.vygotsky",
+   "label": "Vygotsky's sociocultural theory",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.development",
+   "summary": "Vygotsky emphasized that cognition develops through social interaction and the zone of proximal development.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.cognition.problem-solving",
+   "label": "Problem-solving and decision-making",
+   "kind": "subtopic",
+   "parent": "PS.7A.cognition",
+   "summary": "Strategies and biases involved in reaching solutions and making choices."
+  },
+  {
+   "id": "PS.7A.cognition.problem-solving.algorithms",
+   "label": "Algorithms",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.problem-solving",
+   "summary": "An algorithm is a step-by-step procedure that guarantees a correct solution if followed.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.cognition.problem-solving.heuristics",
+   "label": "Heuristics",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.problem-solving",
+   "summary": "Heuristics are mental shortcuts that allow faster judgments at the cost of occasional error.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.cognition.problem-solving.availability-heuristic",
+   "label": "Availability heuristic",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.problem-solving",
+   "summary": "The availability heuristic estimates likelihood by how easily examples come to mind.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.cognition.problem-solving.representativeness-heuristic",
+   "label": "Representativeness heuristic",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.problem-solving",
+   "summary": "The representativeness heuristic judges probability by how closely something matches a prototype, ignoring base rates.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.cognition.problem-solving.base-rate-fallacy",
+   "label": "Base rate fallacy",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.problem-solving",
+   "summary": "The base rate fallacy is ignoring general statistical information in favor of specific representative details.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.cognition.problem-solving.confirmation-bias",
+   "label": "Confirmation bias",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.problem-solving",
+   "summary": "Confirmation bias is the tendency to seek and favor information that confirms existing beliefs.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.cognition.problem-solving.overconfidence",
+   "label": "Overconfidence",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.problem-solving",
+   "summary": "Overconfidence is the tendency to overestimate the accuracy of one's judgments.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.cognition.problem-solving.belief-perseverance",
+   "label": "Belief perseverance",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.problem-solving",
+   "summary": "Belief perseverance is maintaining a belief even after the evidence supporting it is discredited.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.cognition.problem-solving.belief-bias",
+   "label": "Belief bias",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.problem-solving",
+   "summary": "Belief bias is the tendency to judge an argument's logic by the believability of its conclusion.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.cognition.problem-solving.fixation",
+   "label": "Fixation and mental set",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.problem-solving",
+   "summary": "Fixation is the inability to see a problem from a fresh perspective, often due to a mental set.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.cognition.problem-solving.functional-fixedness",
+   "label": "Functional fixedness",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.problem-solving",
+   "summary": "Functional fixedness is the tendency to see objects as only functioning in their usual way.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.cognition.problem-solving.framing",
+   "label": "Framing effect",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.problem-solving",
+   "summary": "The framing effect shows that how a choice is presented influences the decision made.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.cognition.problem-solving.insight",
+   "label": "Insight",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.problem-solving",
+   "summary": "Insight is a sudden realization of a problem's solution rather than a gradual, deliberate search.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.cognition.problem-solving.intuition",
+   "label": "Intuition",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.problem-solving",
+   "summary": "Intuition is an automatic, effortless, immediate feeling or thought used in judgment.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.cognition.problem-solving.dual-process",
+   "label": "Dual-process theory of cognition",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.problem-solving",
+   "summary": "Dual-process theory distinguishes fast, automatic intuitive thinking from slow, deliberate analytic thinking.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.cognition.intelligence",
+   "label": "Intelligence",
+   "kind": "subtopic",
+   "parent": "PS.7A.cognition",
+   "summary": "Theories, measurement, and influences on intellectual ability."
+  },
+  {
+   "id": "PS.7A.cognition.intelligence.general-g",
+   "label": "General intelligence (g) and Spearman",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.intelligence",
+   "summary": "Spearman proposed a general intelligence factor (g) underlying performance across all cognitive tasks.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.cognition.intelligence.gardner",
+   "label": "Gardner's multiple intelligences",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.intelligence",
+   "summary": "Gardner proposed multiple independent intelligences such as linguistic, spatial, and musical.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.cognition.intelligence.sternberg",
+   "label": "Sternberg's triarchic theory",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.intelligence",
+   "summary": "Sternberg's triarchic theory describes analytical, creative, and practical intelligence.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.cognition.intelligence.fluid-crystallized",
+   "label": "Fluid vs crystallized intelligence",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.intelligence",
+   "summary": "Fluid intelligence is reasoning ability that declines with age, while crystallized intelligence is accumulated knowledge that grows.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.cognition.intelligence.iq",
+   "label": "Intelligence quotient (IQ) and testing",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.intelligence",
+   "summary": "IQ tests standardize intelligence scores around a mean of 100 with a normal distribution.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.cognition.intelligence.heredity-environment",
+   "label": "Heredity and environment in intelligence",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.intelligence",
+   "summary": "Intelligence reflects both genetic heritability and environmental influences such as education and nutrition.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.consciousness",
+   "label": "Consciousness",
+   "kind": "topic",
+   "parent": "PS.7A",
+   "summary": "States of awareness including wakefulness, sleep, dreaming, and altered states from drugs."
+  },
+  {
+   "id": "PS.7A.consciousness.states",
+   "label": "States of consciousness",
+   "kind": "subtopic",
+   "parent": "PS.7A.consciousness",
+   "summary": "Levels and varieties of conscious awareness."
+  },
+  {
+   "id": "PS.7A.consciousness.states.alertness",
+   "label": "Alertness and wakefulness",
+   "kind": "concept",
+   "parent": "PS.7A.consciousness.states",
+   "summary": "Alertness is the state of awake awareness reflected in beta and alpha brain-wave activity.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.consciousness.states.circadian-rhythm",
+   "label": "Circadian rhythm",
+   "kind": "concept",
+   "parent": "PS.7A.consciousness.states",
+   "summary": "The circadian rhythm is the roughly 24-hour biological cycle regulating the sleep-wake cycle.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.consciousness.states.melatonin",
+   "label": "Melatonin and the SCN",
+   "kind": "concept",
+   "parent": "PS.7A.consciousness.states",
+   "summary": "The suprachiasmatic nucleus regulates melatonin release from the pineal gland to control sleepiness.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.consciousness.sleep",
+   "label": "Sleep and sleep stages",
+   "kind": "subtopic",
+   "parent": "PS.7A.consciousness",
+   "summary": "The cyclic architecture of sleep and its associated brain-wave patterns."
+  },
+  {
+   "id": "PS.7A.consciousness.sleep.stage-n1",
+   "label": "NREM stage 1",
+   "kind": "concept",
+   "parent": "PS.7A.consciousness.sleep",
+   "summary": "NREM stage 1 is light sleep with theta waves and hypnagogic sensations.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.consciousness.sleep.stage-n2",
+   "label": "NREM stage 2",
+   "kind": "concept",
+   "parent": "PS.7A.consciousness.sleep",
+   "summary": "NREM stage 2 shows theta waves with sleep spindles and K-complexes.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.consciousness.sleep.stage-n3",
+   "label": "NREM stage 3 (slow-wave sleep)",
+   "kind": "concept",
+   "parent": "PS.7A.consciousness.sleep",
+   "summary": "NREM stage 3 is deep slow-wave sleep dominated by delta waves and important for restoration.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.consciousness.sleep.rem",
+   "label": "REM sleep",
+   "kind": "concept",
+   "parent": "PS.7A.consciousness.sleep",
+   "summary": "REM sleep features rapid eye movement, vivid dreaming, beta-like brain waves, and paradoxical muscle paralysis.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.consciousness.sleep.brain-waves",
+   "label": "Sleep brain waves (beta/alpha/theta/delta)",
+   "kind": "concept",
+   "parent": "PS.7A.consciousness.sleep",
+   "summary": "Brain waves slow from beta (awake) to alpha (relaxed) to theta (light sleep) to delta (deep sleep).",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.consciousness.sleep.sleep-cycle",
+   "label": "Sleep cycle architecture",
+   "kind": "concept",
+   "parent": "PS.7A.consciousness.sleep",
+   "summary": "Sleep cycles through NREM and REM about every 90 minutes, with REM lengthening across the night.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.consciousness.sleep.dreaming-theories",
+   "label": "Theories of dreaming",
+   "kind": "concept",
+   "parent": "PS.7A.consciousness.sleep",
+   "summary": "Dream theories include wish fulfillment, activation-synthesis, and information-processing/consolidation accounts.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.consciousness.sleep.sleep-disorders",
+   "label": "Sleep-wake disorders",
+   "kind": "concept",
+   "parent": "PS.7A.consciousness.sleep",
+   "summary": "Sleep disorders include insomnia, narcolepsy, sleep apnea, and night terrors.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.consciousness.altered",
+   "label": "Altered states of consciousness",
+   "kind": "subtopic",
+   "parent": "PS.7A.consciousness",
+   "summary": "Hypnosis, meditation, and drug-induced changes in awareness."
+  },
+  {
+   "id": "PS.7A.consciousness.altered.hypnosis",
+   "label": "Hypnosis",
+   "kind": "concept",
+   "parent": "PS.7A.consciousness.altered",
+   "summary": "Hypnosis is a state of heightened suggestibility and focused attention.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.consciousness.altered.meditation",
+   "label": "Meditation",
+   "kind": "concept",
+   "parent": "PS.7A.consciousness.altered",
+   "summary": "Meditation is a practice of focused attention or open awareness that can alter conscious experience.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.consciousness.drugs",
+   "label": "Consciousness-altering drugs",
+   "kind": "subtopic",
+   "parent": "PS.7A.consciousness",
+   "summary": "Psychoactive drug classes and their effects on the nervous system and behavior."
+  },
+  {
+   "id": "PS.7A.consciousness.drugs.depressants",
+   "label": "Depressants",
+   "kind": "concept",
+   "parent": "PS.7A.consciousness.drugs",
+   "summary": "Depressants (e.g., alcohol, barbiturates, benzodiazepines) reduce CNS activity and arousal.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.consciousness.drugs.stimulants",
+   "label": "Stimulants",
+   "kind": "concept",
+   "parent": "PS.7A.consciousness.drugs",
+   "summary": "Stimulants (e.g., cocaine, amphetamines, caffeine, nicotine) increase CNS activity and dopamine.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.consciousness.drugs.opiates",
+   "label": "Opiates and opioids",
+   "kind": "concept",
+   "parent": "PS.7A.consciousness.drugs",
+   "summary": "Opiates act on endorphin receptors to relieve pain and produce euphoria while depressing CNS activity.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.consciousness.drugs.hallucinogens",
+   "label": "Hallucinogens",
+   "kind": "concept",
+   "parent": "PS.7A.consciousness.drugs",
+   "summary": "Hallucinogens (e.g., LSD, marijuana) distort perception and evoke sensory images without external input.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.consciousness.drugs.reward-pathway",
+   "label": "Mesolimbic reward pathway",
+   "kind": "concept",
+   "parent": "PS.7A.consciousness.drugs",
+   "summary": "Drug reward is mediated by the dopaminergic mesolimbic pathway connecting the VTA to the nucleus accumbens.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.consciousness.drugs.tolerance-dependence",
+   "label": "Tolerance, dependence, and withdrawal",
+   "kind": "concept",
+   "parent": "PS.7A.consciousness.drugs",
+   "summary": "Repeated drug use produces tolerance, physical/psychological dependence, and withdrawal upon cessation.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.consciousness.drugs.addiction",
+   "label": "Addiction",
+   "kind": "concept",
+   "parent": "PS.7A.consciousness.drugs",
+   "summary": "Addiction is compulsive drug seeking and use despite harmful consequences, driven by the reward pathway.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.memory",
+   "label": "Memory",
+   "kind": "topic",
+   "parent": "PS.7A",
+   "summary": "The encoding, storage, and retrieval of information, and the processes that cause forgetting."
+  },
+  {
+   "id": "PS.7A.memory.encoding",
+   "label": "Encoding",
+   "kind": "subtopic",
+   "parent": "PS.7A.memory",
+   "summary": "Getting information into the memory system."
+  },
+  {
+   "id": "PS.7A.memory.encoding.types",
+   "label": "Types of encoding",
+   "kind": "concept",
+   "parent": "PS.7A.memory.encoding",
+   "summary": "Information can be encoded visually, acoustically, or semantically, with semantic encoding being deepest.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.memory.encoding.automatic-effortful",
+   "label": "Automatic vs effortful processing",
+   "kind": "concept",
+   "parent": "PS.7A.memory.encoding",
+   "summary": "Some information is encoded automatically while other information requires effortful, deliberate processing.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.memory.encoding.levels-of-processing",
+   "label": "Levels of processing",
+   "kind": "concept",
+   "parent": "PS.7A.memory.encoding",
+   "summary": "Deeper, semantic processing produces stronger, more durable memories than shallow processing.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.memory.encoding.mnemonics",
+   "label": "Mnemonics and chunking",
+   "kind": "concept",
+   "parent": "PS.7A.memory.encoding",
+   "summary": "Mnemonics and chunking organize information into meaningful units to improve encoding.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.memory.encoding.spacing-effect",
+   "label": "Spacing effect",
+   "kind": "concept",
+   "parent": "PS.7A.memory.encoding",
+   "summary": "The spacing effect shows that distributed practice yields better retention than massed practice.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.memory.storage",
+   "label": "Storage (memory stages)",
+   "kind": "subtopic",
+   "parent": "PS.7A.memory",
+   "summary": "The multi-store model of how memory is retained over time."
+  },
+  {
+   "id": "PS.7A.memory.storage.sensory-memory",
+   "label": "Sensory memory",
+   "kind": "concept",
+   "parent": "PS.7A.memory.storage",
+   "summary": "Sensory memory briefly holds raw sensory input, including iconic (visual) and echoic (auditory) stores.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.memory.storage.short-term-memory",
+   "label": "Short-term memory",
+   "kind": "concept",
+   "parent": "PS.7A.memory.storage",
+   "summary": "Short-term memory holds about 7±2 items for roughly 20-30 seconds without rehearsal.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.memory.storage.working-memory",
+   "label": "Working memory",
+   "kind": "concept",
+   "parent": "PS.7A.memory.storage",
+   "summary": "Working memory actively manipulates information using subsystems like the phonological loop and visuospatial sketchpad.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.memory.storage.long-term-memory",
+   "label": "Long-term memory",
+   "kind": "concept",
+   "parent": "PS.7A.memory.storage",
+   "summary": "Long-term memory stores information relatively permanently with essentially unlimited capacity.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.memory.storage.explicit-memory",
+   "label": "Explicit (declarative) memory",
+   "kind": "concept",
+   "parent": "PS.7A.memory.storage",
+   "summary": "Explicit memory holds consciously recalled facts (semantic) and events (episodic).",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.memory.storage.implicit-memory",
+   "label": "Implicit (nondeclarative) memory",
+   "kind": "concept",
+   "parent": "PS.7A.memory.storage",
+   "summary": "Implicit memory holds skills, procedures, and conditioned responses retrieved without conscious awareness.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.memory.storage.procedural-memory",
+   "label": "Procedural memory",
+   "kind": "concept",
+   "parent": "PS.7A.memory.storage",
+   "summary": "Procedural memory is the implicit memory for motor skills and habits.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.memory.storage.long-term-potentiation",
+   "label": "Long-term potentiation",
+   "kind": "concept",
+   "parent": "PS.7A.memory.storage",
+   "summary": "Long-term potentiation is the strengthening of synaptic connections that forms the neural basis of memory.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.memory.retrieval",
+   "label": "Retrieval",
+   "kind": "subtopic",
+   "parent": "PS.7A.memory",
+   "summary": "Getting information back out of memory."
+  },
+  {
+   "id": "PS.7A.memory.retrieval.recall-recognition",
+   "label": "Recall vs recognition",
+   "kind": "concept",
+   "parent": "PS.7A.memory.retrieval",
+   "summary": "Recall reproduces information without cues, while recognition identifies previously learned information.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.memory.retrieval.retrieval-cues",
+   "label": "Retrieval cues and priming",
+   "kind": "concept",
+   "parent": "PS.7A.memory.retrieval",
+   "summary": "Retrieval cues, including primes, trigger associated memories.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.memory.retrieval.context-state-dependent",
+   "label": "Context- and state-dependent memory",
+   "kind": "concept",
+   "parent": "PS.7A.memory.retrieval",
+   "summary": "Memory retrieval improves when the external context or internal state matches that of encoding.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.memory.retrieval.serial-position",
+   "label": "Serial position effect",
+   "kind": "concept",
+   "parent": "PS.7A.memory.retrieval",
+   "summary": "The serial position effect shows better recall for items at the beginning (primacy) and end (recency) of a list.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.memory.forgetting",
+   "label": "Forgetting and memory errors",
+   "kind": "subtopic",
+   "parent": "PS.7A.memory",
+   "summary": "Why memories fail and how they can be distorted."
+  },
+  {
+   "id": "PS.7A.memory.forgetting.encoding-failure",
+   "label": "Encoding failure",
+   "kind": "concept",
+   "parent": "PS.7A.memory.forgetting",
+   "summary": "Encoding failure is forgetting that results from information never being adequately stored.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.memory.forgetting.decay",
+   "label": "Decay (storage failure)",
+   "kind": "concept",
+   "parent": "PS.7A.memory.forgetting",
+   "summary": "Decay theory holds that memory traces fade with disuse over time.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.memory.forgetting.ebbinghaus",
+   "label": "Ebbinghaus forgetting curve",
+   "kind": "concept",
+   "parent": "PS.7A.memory.forgetting",
+   "summary": "The Ebbinghaus forgetting curve shows rapid initial memory loss that levels off over time.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.memory.forgetting.proactive-interference",
+   "label": "Proactive interference",
+   "kind": "concept",
+   "parent": "PS.7A.memory.forgetting",
+   "summary": "Proactive interference occurs when old memories disrupt the recall of newly learned information.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.memory.forgetting.retroactive-interference",
+   "label": "Retroactive interference",
+   "kind": "concept",
+   "parent": "PS.7A.memory.forgetting",
+   "summary": "Retroactive interference occurs when new memories disrupt the recall of previously learned information.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.memory.forgetting.retrieval-failure",
+   "label": "Retrieval failure (tip-of-tongue)",
+   "kind": "concept",
+   "parent": "PS.7A.memory.forgetting",
+   "summary": "Retrieval failure is the inability to access stored memory, exemplified by the tip-of-the-tongue phenomenon.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.memory.forgetting.misinformation-effect",
+   "label": "Misinformation effect",
+   "kind": "concept",
+   "parent": "PS.7A.memory.forgetting",
+   "summary": "The misinformation effect distorts memory when misleading post-event information is incorporated.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.memory.forgetting.source-monitoring",
+   "label": "Source monitoring error",
+   "kind": "concept",
+   "parent": "PS.7A.memory.forgetting",
+   "summary": "A source-monitoring error misattributes the origin of a memory, as in source amnesia.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.memory.forgetting.false-memory",
+   "label": "False memory and memory construction",
+   "kind": "concept",
+   "parent": "PS.7A.memory.forgetting",
+   "summary": "Memory is reconstructive, so false memories can form from inference, suggestion, and imagination.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.memory.dysfunction",
+   "label": "Memory dysfunction",
+   "kind": "subtopic",
+   "parent": "PS.7A.memory",
+   "summary": "Disorders and aging-related changes that impair memory."
+  },
+  {
+   "id": "PS.7A.memory.dysfunction.anterograde-amnesia",
+   "label": "Anterograde amnesia",
+   "kind": "concept",
+   "parent": "PS.7A.memory.dysfunction",
+   "summary": "Anterograde amnesia is the inability to form new long-term memories after brain injury.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.memory.dysfunction.retrograde-amnesia",
+   "label": "Retrograde amnesia",
+   "kind": "concept",
+   "parent": "PS.7A.memory.dysfunction",
+   "summary": "Retrograde amnesia is the loss of memories formed before the onset of injury.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.memory.dysfunction.alzheimers",
+   "label": "Alzheimer's disease",
+   "kind": "concept",
+   "parent": "PS.7A.memory.dysfunction",
+   "summary": "Alzheimer's disease is a neurodegenerative disorder causing progressive memory loss linked to plaques, tangles, and acetylcholine decline.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.memory.dysfunction.korsakoff",
+   "label": "Korsakoff's syndrome",
+   "kind": "concept",
+   "parent": "PS.7A.memory.dysfunction",
+   "summary": "Korsakoff's syndrome causes amnesia and confabulation from thiamine deficiency, often due to chronic alcoholism.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.emotion",
+   "label": "Emotion",
+   "kind": "topic",
+   "parent": "PS.7A",
+   "summary": "The physiological, behavioral, and cognitive components of emotional experience and its theories."
+  },
+  {
+   "id": "PS.7A.emotion.components",
+   "label": "Components of emotion",
+   "kind": "subtopic",
+   "parent": "PS.7A.emotion",
+   "summary": "The three interacting elements that make up an emotion."
+  },
+  {
+   "id": "PS.7A.emotion.components.three-elements",
+   "label": "Physiological, behavioral, cognitive components",
+   "kind": "concept",
+   "parent": "PS.7A.emotion.components",
+   "summary": "Emotion has a physiological (arousal), behavioral (expression), and cognitive (appraisal) component.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.emotion.components.universal-emotions",
+   "label": "Universal basic emotions",
+   "kind": "concept",
+   "parent": "PS.7A.emotion.components",
+   "summary": "A set of basic emotions (e.g., happiness, sadness, fear, anger, surprise, disgust) is recognized across cultures.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.emotion.components.facial-expression",
+   "label": "Facial expression and feedback",
+   "kind": "concept",
+   "parent": "PS.7A.emotion.components",
+   "summary": "Facial expressions communicate emotion, and the facial-feedback hypothesis holds that they can intensify it.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.emotion.theories",
+   "label": "Theories of emotion",
+   "kind": "subtopic",
+   "parent": "PS.7A.emotion",
+   "summary": "Competing accounts of how arousal, cognition, and feeling relate."
+  },
+  {
+   "id": "PS.7A.emotion.theories.james-lange",
+   "label": "James-Lange theory",
+   "kind": "concept",
+   "parent": "PS.7A.emotion.theories",
+   "summary": "James-Lange theory holds that emotion results from the perception of bodily/physiological responses to a stimulus.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.emotion.theories.cannon-bard",
+   "label": "Cannon-Bard theory",
+   "kind": "concept",
+   "parent": "PS.7A.emotion.theories",
+   "summary": "Cannon-Bard theory holds that physiological arousal and the conscious emotion occur simultaneously and independently.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.emotion.theories.schachter-singer",
+   "label": "Schachter-Singer two-factor theory",
+   "kind": "concept",
+   "parent": "PS.7A.emotion.theories",
+   "summary": "Schachter-Singer theory holds that emotion requires both physiological arousal and a cognitive label.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.emotion.theories.lazarus",
+   "label": "Lazarus appraisal theory",
+   "kind": "concept",
+   "parent": "PS.7A.emotion.theories",
+   "summary": "Lazarus theory holds that cognitive appraisal of a stimulus precedes and is essential to emotional experience.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.emotion.theories.yerkes-dodson",
+   "label": "Yerkes-Dodson law",
+   "kind": "concept",
+   "parent": "PS.7A.emotion.theories",
+   "summary": "The Yerkes-Dodson law states that performance is best at moderate levels of arousal, depicted as an inverted-U.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.emotion.brain",
+   "label": "Brain and emotion",
+   "kind": "subtopic",
+   "parent": "PS.7A.emotion",
+   "summary": "Neural structures that generate and regulate emotion."
+  },
+  {
+   "id": "PS.7A.emotion.brain.amygdala-role",
+   "label": "Amygdala in emotion",
+   "kind": "concept",
+   "parent": "PS.7A.emotion.brain",
+   "summary": "The amygdala is central to processing fear and rapidly tagging the emotional significance of stimuli.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.emotion.brain.limbic-emotion",
+   "label": "Limbic system in emotion",
+   "kind": "concept",
+   "parent": "PS.7A.emotion.brain",
+   "summary": "The limbic system, including the hypothalamus and amygdala, generates and integrates emotional responses.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.emotion.brain.prefrontal-regulation",
+   "label": "Prefrontal cortex in emotion regulation",
+   "kind": "concept",
+   "parent": "PS.7A.emotion.brain",
+   "summary": "The prefrontal cortex modulates and regulates emotional responses generated by limbic structures.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.emotion.brain.autonomic-emotion",
+   "label": "Autonomic arousal in emotion",
+   "kind": "concept",
+   "parent": "PS.7A.emotion.brain",
+   "summary": "The sympathetic nervous system produces the physiological arousal accompanying intense emotion.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.stress",
+   "label": "Stress",
+   "kind": "topic",
+   "parent": "PS.7A",
+   "summary": "The appraisal of and response to threatening or challenging stimuli, and its effects on health."
+  },
+  {
+   "id": "PS.7A.stress.appraisal",
+   "label": "Stress and appraisal",
+   "kind": "subtopic",
+   "parent": "PS.7A.stress",
+   "summary": "How individuals evaluate and categorize potential stressors."
+  },
+  {
+   "id": "PS.7A.stress.appraisal.definition",
+   "label": "Stress and stressors",
+   "kind": "concept",
+   "parent": "PS.7A.stress.appraisal",
+   "summary": "Stress is the process by which we appraise and respond to stressors that challenge or threaten us.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.stress.appraisal.cognitive-appraisal",
+   "label": "Primary and secondary appraisal",
+   "kind": "concept",
+   "parent": "PS.7A.stress.appraisal",
+   "summary": "Primary appraisal evaluates a stressor's threat, while secondary appraisal evaluates available coping resources.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.stress.appraisal.types-of-stressors",
+   "label": "Types of stressors",
+   "kind": "concept",
+   "parent": "PS.7A.stress.appraisal",
+   "summary": "Stressors include catastrophes, significant life changes, and daily hassles.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.stress.appraisal.eustress-distress",
+   "label": "Eustress vs distress",
+   "kind": "concept",
+   "parent": "PS.7A.stress.appraisal",
+   "summary": "Eustress is beneficial, motivating stress while distress is harmful, debilitating stress.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.stress.response",
+   "label": "Physiological stress response",
+   "kind": "subtopic",
+   "parent": "PS.7A.stress",
+   "summary": "The body's biological reaction to stressors."
+  },
+  {
+   "id": "PS.7A.stress.response.gas",
+   "label": "General adaptation syndrome (GAS)",
+   "kind": "concept",
+   "parent": "PS.7A.stress.response",
+   "summary": "Selye's general adaptation syndrome describes three stress stages: alarm, resistance, and exhaustion.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.stress.response.hpa-axis",
+   "label": "HPA axis",
+   "kind": "concept",
+   "parent": "PS.7A.stress.response",
+   "summary": "The hypothalamic-pituitary-adrenal axis releases cortisol to sustain the body's response to stress.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.stress.response.fight-flight-freeze",
+   "label": "Fight-or-flight (and freeze) response",
+   "kind": "concept",
+   "parent": "PS.7A.stress.response",
+   "summary": "The acute stress response mobilizes the sympathetic nervous system to confront, flee, or freeze.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.stress.response.tend-and-befriend",
+   "label": "Tend-and-befriend response",
+   "kind": "concept",
+   "parent": "PS.7A.stress.response",
+   "summary": "The tend-and-befriend response is a social, nurturing stress reaction associated with oxytocin.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.stress.health",
+   "label": "Stress and health / coping",
+   "kind": "subtopic",
+   "parent": "PS.7A.stress",
+   "summary": "The health consequences of chronic stress and strategies for managing it."
+  },
+  {
+   "id": "PS.7A.stress.health.chronic-stress-effects",
+   "label": "Effects of chronic stress",
+   "kind": "concept",
+   "parent": "PS.7A.stress.health",
+   "summary": "Chronic stress suppresses immune function and increases risk of cardiovascular and other diseases.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.stress.health.problem-focused-coping",
+   "label": "Problem-focused coping",
+   "kind": "concept",
+   "parent": "PS.7A.stress.health",
+   "summary": "Problem-focused coping reduces stress by directly addressing and changing the stressor.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.stress.health.emotion-focused-coping",
+   "label": "Emotion-focused coping",
+   "kind": "concept",
+   "parent": "PS.7A.stress.health",
+   "summary": "Emotion-focused coping manages the emotional distress associated with a stressor rather than the stressor itself.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.language",
+   "label": "Language",
+   "kind": "topic",
+   "parent": "PS.7A",
+   "summary": "The structure, development, and neural basis of language and its relationship to thought."
+  },
+  {
+   "id": "PS.7A.language.structure",
+   "label": "Components of language",
+   "kind": "subtopic",
+   "parent": "PS.7A.language",
+   "summary": "The hierarchical building blocks of language structure."
+  },
+  {
+   "id": "PS.7A.language.structure.phonemes",
+   "label": "Phonemes",
+   "kind": "concept",
+   "parent": "PS.7A.language.structure",
+   "summary": "Phonemes are the smallest distinctive units of sound in a language.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.language.structure.morphemes",
+   "label": "Morphemes",
+   "kind": "concept",
+   "parent": "PS.7A.language.structure",
+   "summary": "Morphemes are the smallest units of language that carry meaning.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.language.structure.semantics",
+   "label": "Semantics",
+   "kind": "concept",
+   "parent": "PS.7A.language.structure",
+   "summary": "Semantics is the set of rules governing the meaning of words and sentences.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.language.structure.syntax",
+   "label": "Syntax and grammar",
+   "kind": "concept",
+   "parent": "PS.7A.language.structure",
+   "summary": "Syntax is the set of grammatical rules for arranging words into valid sentences.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.language.structure.pragmatics",
+   "label": "Pragmatics",
+   "kind": "concept",
+   "parent": "PS.7A.language.structure",
+   "summary": "Pragmatics is the practical, contextual use of language in social communication.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.language.development",
+   "label": "Language development",
+   "kind": "subtopic",
+   "parent": "PS.7A.language",
+   "summary": "How language emerges over early childhood and the theories explaining it."
+  },
+  {
+   "id": "PS.7A.language.development.milestones",
+   "label": "Language milestones",
+   "kind": "concept",
+   "parent": "PS.7A.language.development",
+   "summary": "Language develops from cooing and babbling through one-word and two-word telegraphic speech.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.language.development.nativist",
+   "label": "Nativist theory (Chomsky)",
+   "kind": "concept",
+   "parent": "PS.7A.language.development",
+   "summary": "Chomsky's nativist theory proposes an innate language acquisition device and universal grammar.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.language.development.learning-theory",
+   "label": "Learning (behaviorist) theory (Skinner)",
+   "kind": "concept",
+   "parent": "PS.7A.language.development",
+   "summary": "Skinner's learning theory attributes language acquisition to operant conditioning and reinforcement.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.language.development.interactionist",
+   "label": "Interactionist theory",
+   "kind": "concept",
+   "parent": "PS.7A.language.development",
+   "summary": "The interactionist theory holds that biological readiness interacts with social experience to drive language.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.language.development.critical-period",
+   "label": "Critical period for language",
+   "kind": "concept",
+   "parent": "PS.7A.language.development",
+   "summary": "A critical period in early childhood is optimal for acquiring language naturally.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.language.brain",
+   "label": "Language and the brain",
+   "kind": "subtopic",
+   "parent": "PS.7A.language",
+   "summary": "Cortical regions specialized for producing and comprehending language."
+  },
+  {
+   "id": "PS.7A.language.brain.brocas-area",
+   "label": "Broca's area and Broca's aphasia",
+   "kind": "concept",
+   "parent": "PS.7A.language.brain",
+   "summary": "Broca's area in the frontal lobe controls speech production; damage causes nonfluent (expressive) aphasia.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.language.brain.wernickes-area",
+   "label": "Wernicke's area and Wernicke's aphasia",
+   "kind": "concept",
+   "parent": "PS.7A.language.brain",
+   "summary": "Wernicke's area in the temporal lobe controls language comprehension; damage causes fluent (receptive) aphasia.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.language.brain.aphasia",
+   "label": "Aphasia",
+   "kind": "concept",
+   "parent": "PS.7A.language.brain",
+   "summary": "Aphasia is an impairment of language production or comprehension due to brain damage.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.language.thought",
+   "label": "Language and thought",
+   "kind": "subtopic",
+   "parent": "PS.7A.language",
+   "summary": "The relationship between linguistic and cognitive processes."
+  },
+  {
+   "id": "PS.7A.language.thought.whorf-hypothesis",
+   "label": "Whorfian (linguistic relativity) hypothesis",
+   "kind": "concept",
+   "parent": "PS.7A.language.thought",
+   "summary": "The Whorfian hypothesis proposes that the language one speaks shapes how one thinks and perceives.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.7A.biological-bases.neurotransmitters.oxytocin",
+   "label": "Oxytocin",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.neurotransmitters",
+   "summary": "Oxytocin promotes social bonding, trust, and attachment and underlies the tend-and-befriend response.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.biological-bases.endocrine.pineal",
+   "label": "Pineal gland",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.endocrine",
+   "summary": "The pineal gland secretes melatonin to regulate circadian rhythm and sleep.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.biological-bases.endocrine.thyroid",
+   "label": "Thyroid gland",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.endocrine",
+   "summary": "The thyroid secretes thyroxine, regulating metabolic rate, which influences arousal and energy level.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.biological-bases.endocrine.gonads",
+   "label": "Gonads and sex hormones",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.endocrine",
+   "summary": "The gonads release sex hormones (testosterone, estrogen) that influence sexual development and behavior.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.biological-bases.genetics.temperament",
+   "label": "Innate temperament",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.genetics",
+   "summary": "Temperament is the biologically based, early-appearing pattern of emotional reactivity and self-regulation.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.biological-bases.brain-structures.nucleus-accumbens",
+   "label": "Nucleus accumbens",
+   "kind": "concept",
+   "parent": "PS.7A.biological-bases.brain-structures",
+   "summary": "The nucleus accumbens is a key reward-center structure that responds to dopaminergic input during pleasure and reinforcement.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.sensation.thresholds.fechner-stevens",
+   "label": "Fechners and Stevens power law",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.thresholds",
+   "summary": "Beyond Webers law, Fechners logarithmic law and Stevens power law relate physical stimulus magnitude to perceived intensity.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.sensation.adaptation.dark-light-adaptation",
+   "label": "Dark and light adaptation",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.adaptation",
+   "summary": "Dark adaptation increases retinal sensitivity in dim light while light adaptation decreases it in bright light.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.sensation.vision.bipolar-ganglion",
+   "label": "Bipolar and ganglion cells",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.vision",
+   "summary": "Photoreceptors synapse on bipolar cells, which synapse on ganglion cells whose axons form the optic nerve.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.sensation.hearing.sound-localization",
+   "label": "Sound localization",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.hearing",
+   "summary": "The brain localizes sound using interaural time and intensity differences between the two ears.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.sensation.hearing.deafness-types",
+   "label": "Conductive vs sensorineural hearing loss",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.hearing",
+   "summary": "Conductive deafness arises from mechanical damage to the outer/middle ear; sensorineural deafness from hair-cell or nerve damage.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.sensation.somatosensation.pain-modulation",
+   "label": "Pain modulation and phantom limb",
+   "kind": "concept",
+   "parent": "PS.7A.sensation.somatosensation",
+   "summary": "Pain perception is modulated by endorphins, attention, and expectation, with phantom limb pain showing its central, top-down nature.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.perception.depth.retinal-disparity",
+   "label": "Retinal disparity and convergence",
+   "kind": "concept",
+   "parent": "PS.7A.perception.depth",
+   "summary": "Retinal disparity (difference between the two eyes images) and convergence are the core binocular depth cues.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.perception.organization.phi-phenomenon",
+   "label": "Phi phenomenon and stroboscopic motion",
+   "kind": "concept",
+   "parent": "PS.7A.perception.organization",
+   "summary": "The phi phenomenon and stroboscopic motion are apparent-motion illusions produced by sequentially presented stationary stimuli.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.cognition.problem-solving.concepts-prototypes",
+   "label": "Concepts and prototypes",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.problem-solving",
+   "summary": "Concepts are mental groupings, and a prototype is the best, most typical example used to categorize new instances.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.cognition.problem-solving.trial-and-error",
+   "label": "Trial and error",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.problem-solving",
+   "summary": "Trial and error solves problems by attempting solutions until one succeeds, without a guaranteed systematic path.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.cognition.problem-solving.anchoring",
+   "label": "Anchoring bias",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.problem-solving",
+   "summary": "Anchoring is the tendency to rely too heavily on the first piece of information (the anchor) when making judgments.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.cognition.problem-solving.hindsight-bias",
+   "label": "Hindsight bias",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.problem-solving",
+   "summary": "Hindsight bias is the tendency, after an event, to believe one would have foreseen it (the \"I-knew-it-all-along\" effect).",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.cognition.problem-solving.gamblers-fallacy",
+   "label": "Gamblers fallacy and sunk cost",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.problem-solving",
+   "summary": "The gamblers fallacy misjudges independent events as related, and the sunk-cost fallacy continues investment to justify past costs.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.cognition.problem-solving.creativity",
+   "label": "Creativity and convergent vs divergent thinking",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.problem-solving",
+   "summary": "Creativity is the ability to produce novel, valuable ideas, often via divergent thinking versus convergent single-answer thinking.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.cognition.intelligence.achievement-aptitude",
+   "label": "Achievement vs aptitude tests",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.intelligence",
+   "summary": "Achievement tests measure current knowledge while aptitude tests predict future performance and capacity to learn.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.cognition.intelligence.reliability-validity",
+   "label": "Reliability, validity, and standardization",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.intelligence",
+   "summary": "A useful intelligence test must be standardized, reliable (consistent), and valid (measuring what it claims).",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.cognition.intelligence.flynn-effect",
+   "label": "Flynn effect",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.intelligence",
+   "summary": "The Flynn effect is the steady generational rise in average IQ scores over the twentieth century.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.cognition.intelligence.stereotype-threat",
+   "label": "Stereotype threat and test bias",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.intelligence",
+   "summary": "Stereotype threat is the performance decrement that arises when one fears confirming a negative stereotype about ones group.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.cognition.intelligence.variations",
+   "label": "Variations in intellectual ability",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.intelligence",
+   "summary": "Intellectual ability ranges from intellectual disability through the typical range to giftedness at the upper extreme.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.cognition.intelligence.emotional-intelligence",
+   "label": "Emotional intelligence",
+   "kind": "concept",
+   "parent": "PS.7A.cognition.intelligence",
+   "summary": "Emotional intelligence is the ability to perceive, understand, manage, and use emotions in oneself and others.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.memory.storage.semantic-episodic",
+   "label": "Semantic vs episodic memory",
+   "kind": "concept",
+   "parent": "PS.7A.memory.storage",
+   "summary": "Within explicit memory, semantic memory stores general facts and episodic memory stores personally experienced events.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.memory.storage.flashbulb-memory",
+   "label": "Flashbulb memory",
+   "kind": "concept",
+   "parent": "PS.7A.memory.storage",
+   "summary": "A flashbulb memory is a vivid, emotionally charged, seemingly detailed memory of a surprising significant event.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.memory.retrieval.prospective-memory",
+   "label": "Prospective memory",
+   "kind": "concept",
+   "parent": "PS.7A.memory.retrieval",
+   "summary": "Prospective memory is remembering to perform an intended action at a future time.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.memory.dysfunction.aging-memory",
+   "label": "Memory and aging",
+   "kind": "concept",
+   "parent": "PS.7A.memory.dysfunction",
+   "summary": "Normal aging selectively impairs episodic and prospective recall while sparing semantic and procedural memory.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.emotion.components.nonverbal-display-rules",
+   "label": "Nonverbal communication and display rules",
+   "kind": "concept",
+   "parent": "PS.7A.emotion.components",
+   "summary": "Emotion is communicated nonverbally through gesture and posture, and culture-specific display rules govern its expression.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.stress.appraisal.srrs",
+   "label": "Social Readjustment Rating Scale (SRRS)",
+   "kind": "concept",
+   "parent": "PS.7A.stress.appraisal",
+   "summary": "The Holmes-Rahe SRRS quantifies cumulative life-change stress in life-change units to predict illness risk.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.stress.health.perceived-control",
+   "label": "Perceived control and learned helplessness",
+   "kind": "concept",
+   "parent": "PS.7A.stress.health",
+   "summary": "Greater perceived control buffers stress, while uncontrollable aversive events can produce learned helplessness.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.stress.health.social-support",
+   "label": "Social support",
+   "kind": "concept",
+   "parent": "PS.7A.stress.health",
+   "summary": "Social support buffers the physiological and psychological impact of stress and improves health outcomes.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.7A.stress.health.stress-management",
+   "label": "Stress-management techniques",
+   "kind": "concept",
+   "parent": "PS.7A.stress.health",
+   "summary": "Exercise, relaxation, biofeedback, and mindfulness reduce stress arousal and improve coping.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.7A.language.brain.aphasia-types",
+   "label": "Conduction and global aphasia",
+   "kind": "concept",
+   "parent": "PS.7A.language.brain",
+   "summary": "Damage to the arcuate fasciculus causes conduction aphasia (impaired repetition); widespread damage causes global aphasia.",
+   "yield": "low"
+  }
+ ],
+ "prerequisites": [
+  {
+   "src": "PS.7A.biological-bases.nervous-system.cns-pns",
+   "dst": "PS.7A.biological-bases.nervous-system.somatic"
+  },
+  {
+   "src": "PS.7A.biological-bases.nervous-system.cns-pns",
+   "dst": "PS.7A.biological-bases.nervous-system.autonomic"
+  },
+  {
+   "src": "PS.7A.biological-bases.nervous-system.autonomic",
+   "dst": "PS.7A.biological-bases.nervous-system.sympathetic"
+  },
+  {
+   "src": "PS.7A.biological-bases.nervous-system.autonomic",
+   "dst": "PS.7A.biological-bases.nervous-system.parasympathetic"
+  },
+  {
+   "src": "PS.7A.biological-bases.nervous-system.cns-pns",
+   "dst": "PS.7A.biological-bases.nervous-system.reflex-arc"
+  },
+  {
+   "src": "PS.7A.biological-bases.nervous-system.cns-pns",
+   "dst": "PS.7A.biological-bases.brain-structures.hindbrain"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.hindbrain",
+   "dst": "PS.7A.biological-bases.brain-structures.medulla"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.hindbrain",
+   "dst": "PS.7A.biological-bases.brain-structures.pons"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.hindbrain",
+   "dst": "PS.7A.biological-bases.brain-structures.cerebellum"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.hindbrain",
+   "dst": "PS.7A.biological-bases.brain-structures.reticular-formation"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.midbrain",
+   "dst": "PS.7A.biological-bases.brain-structures.reticular-formation"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.forebrain",
+   "dst": "PS.7A.biological-bases.brain-structures.thalamus"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.forebrain",
+   "dst": "PS.7A.biological-bases.brain-structures.hypothalamus"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.forebrain",
+   "dst": "PS.7A.biological-bases.brain-structures.limbic-system"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.limbic-system",
+   "dst": "PS.7A.biological-bases.brain-structures.amygdala"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.limbic-system",
+   "dst": "PS.7A.biological-bases.brain-structures.hippocampus"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.forebrain",
+   "dst": "PS.7A.biological-bases.brain-structures.basal-ganglia"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.forebrain",
+   "dst": "PS.7A.biological-bases.brain-structures.cerebral-cortex"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.cerebral-cortex",
+   "dst": "PS.7A.biological-bases.brain-structures.frontal-lobe"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.frontal-lobe",
+   "dst": "PS.7A.biological-bases.brain-structures.prefrontal-cortex"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.cerebral-cortex",
+   "dst": "PS.7A.biological-bases.brain-structures.parietal-lobe"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.cerebral-cortex",
+   "dst": "PS.7A.biological-bases.brain-structures.temporal-lobe"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.cerebral-cortex",
+   "dst": "PS.7A.biological-bases.brain-structures.occipital-lobe"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.cerebral-cortex",
+   "dst": "PS.7A.biological-bases.brain-structures.lateralization"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.lateralization",
+   "dst": "PS.7A.biological-bases.brain-structures.corpus-callosum"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.corpus-callosum",
+   "dst": "PS.7A.biological-bases.brain-structures.split-brain"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.cerebral-cortex",
+   "dst": "PS.7A.biological-bases.brain-mapping.eeg"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-mapping.eeg",
+   "dst": "PS.7A.biological-bases.brain-mapping.ct"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-mapping.eeg",
+   "dst": "PS.7A.biological-bases.brain-mapping.pet"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-mapping.eeg",
+   "dst": "PS.7A.biological-bases.brain-mapping.mri-fmri"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-mapping.eeg",
+   "dst": "PS.7A.biological-bases.brain-mapping.lesion-studies"
+  },
+  {
+   "src": "PS.7A.biological-bases.nervous-system.sympathetic",
+   "dst": "PS.7A.biological-bases.neurotransmitters.norepinephrine"
+  },
+  {
+   "src": "PS.7A.biological-bases.neurotransmitters.norepinephrine",
+   "dst": "PS.7A.biological-bases.neurotransmitters.epinephrine"
+  },
+  {
+   "src": "PS.7A.biological-bases.nervous-system.somatic",
+   "dst": "PS.7A.biological-bases.neurotransmitters.acetylcholine"
+  },
+  {
+   "src": "PS.7A.biological-bases.neurotransmitters.acetylcholine",
+   "dst": "PS.7A.biological-bases.neurotransmitters.dopamine"
+  },
+  {
+   "src": "PS.7A.biological-bases.neurotransmitters.acetylcholine",
+   "dst": "PS.7A.biological-bases.neurotransmitters.serotonin"
+  },
+  {
+   "src": "PS.7A.biological-bases.neurotransmitters.acetylcholine",
+   "dst": "PS.7A.biological-bases.neurotransmitters.gaba"
+  },
+  {
+   "src": "PS.7A.biological-bases.neurotransmitters.acetylcholine",
+   "dst": "PS.7A.biological-bases.neurotransmitters.glutamate"
+  },
+  {
+   "src": "PS.7A.biological-bases.neurotransmitters.acetylcholine",
+   "dst": "PS.7A.biological-bases.neurotransmitters.endorphins"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.hypothalamus",
+   "dst": "PS.7A.biological-bases.endocrine.pituitary"
+  },
+  {
+   "src": "PS.7A.biological-bases.endocrine.pituitary",
+   "dst": "PS.7A.biological-bases.endocrine.adrenal"
+  },
+  {
+   "src": "PS.7A.biological-bases.endocrine.adrenal",
+   "dst": "PS.7A.biological-bases.endocrine.cortisol"
+  },
+  {
+   "src": "PS.7A.biological-bases.genetics.heritability",
+   "dst": "PS.7A.biological-bases.genetics.twin-family-studies"
+  },
+  {
+   "src": "PS.7A.biological-bases.genetics.heritability",
+   "dst": "PS.7A.biological-bases.genetics.gene-environment"
+  },
+  {
+   "src": "PS.7A.biological-bases.genetics.heritability",
+   "dst": "PS.7A.biological-bases.genetics.evolution-behavior"
+  },
+  {
+   "src": "PS.7A.sensation.basic-concepts.sensory-receptors",
+   "dst": "PS.7A.sensation.basic-concepts.transduction"
+  },
+  {
+   "src": "PS.7A.sensation.basic-concepts.sensory-receptors",
+   "dst": "PS.7A.sensation.basic-concepts.receptor-types"
+  },
+  {
+   "src": "PS.7A.sensation.basic-concepts.transduction",
+   "dst": "PS.7A.sensation.basic-concepts.sensory-pathways"
+  },
+  {
+   "src": "PS.7A.sensation.basic-concepts.transduction",
+   "dst": "PS.7A.sensation.basic-concepts.sensory-coding"
+  },
+  {
+   "src": "PS.7A.sensation.basic-concepts.transduction",
+   "dst": "PS.7A.sensation.thresholds.absolute-threshold"
+  },
+  {
+   "src": "PS.7A.sensation.thresholds.absolute-threshold",
+   "dst": "PS.7A.sensation.thresholds.threshold-of-conscious"
+  },
+  {
+   "src": "PS.7A.sensation.thresholds.absolute-threshold",
+   "dst": "PS.7A.sensation.thresholds.difference-threshold"
+  },
+  {
+   "src": "PS.7A.sensation.thresholds.difference-threshold",
+   "dst": "PS.7A.sensation.thresholds.webers-law"
+  },
+  {
+   "src": "PS.7A.sensation.thresholds.webers-law",
+   "dst": "PS.7A.sensation.thresholds.weber-fraction"
+  },
+  {
+   "src": "PS.7A.sensation.thresholds.absolute-threshold",
+   "dst": "PS.7A.sensation.thresholds.signal-detection-theory"
+  },
+  {
+   "src": "PS.7A.sensation.thresholds.signal-detection-theory",
+   "dst": "PS.7A.sensation.thresholds.sdt-outcomes"
+  },
+  {
+   "src": "PS.7A.sensation.thresholds.sdt-outcomes",
+   "dst": "PS.7A.sensation.thresholds.response-bias"
+  },
+  {
+   "src": "PS.7A.sensation.basic-concepts.transduction",
+   "dst": "PS.7A.sensation.adaptation.definition"
+  },
+  {
+   "src": "PS.7A.sensation.adaptation.definition",
+   "dst": "PS.7A.sensation.adaptation.neural-adaptation"
+  },
+  {
+   "src": "PS.7A.sensation.basic-concepts.receptor-types",
+   "dst": "PS.7A.sensation.vision.retina"
+  },
+  {
+   "src": "PS.7A.sensation.vision.cornea-lens",
+   "dst": "PS.7A.sensation.vision.retina"
+  },
+  {
+   "src": "PS.7A.sensation.vision.pupil-iris",
+   "dst": "PS.7A.sensation.vision.cornea-lens"
+  },
+  {
+   "src": "PS.7A.sensation.vision.retina",
+   "dst": "PS.7A.sensation.vision.rods"
+  },
+  {
+   "src": "PS.7A.sensation.vision.retina",
+   "dst": "PS.7A.sensation.vision.cones"
+  },
+  {
+   "src": "PS.7A.sensation.vision.cones",
+   "dst": "PS.7A.sensation.vision.fovea"
+  },
+  {
+   "src": "PS.7A.sensation.vision.retina",
+   "dst": "PS.7A.sensation.vision.optic-nerve"
+  },
+  {
+   "src": "PS.7A.sensation.vision.optic-nerve",
+   "dst": "PS.7A.sensation.vision.visual-pathway"
+  },
+  {
+   "src": "PS.7A.sensation.vision.visual-pathway",
+   "dst": "PS.7A.sensation.vision.feature-detection"
+  },
+  {
+   "src": "PS.7A.sensation.vision.cones",
+   "dst": "PS.7A.sensation.vision.trichromatic-theory"
+  },
+  {
+   "src": "PS.7A.sensation.vision.trichromatic-theory",
+   "dst": "PS.7A.sensation.vision.opponent-process-theory"
+  },
+  {
+   "src": "PS.7A.sensation.basic-concepts.receptor-types",
+   "dst": "PS.7A.sensation.hearing.cochlea"
+  },
+  {
+   "src": "PS.7A.sensation.hearing.outer-ear",
+   "dst": "PS.7A.sensation.hearing.middle-ear"
+  },
+  {
+   "src": "PS.7A.sensation.hearing.middle-ear",
+   "dst": "PS.7A.sensation.hearing.cochlea"
+  },
+  {
+   "src": "PS.7A.sensation.hearing.cochlea",
+   "dst": "PS.7A.sensation.hearing.hair-cells"
+  },
+  {
+   "src": "PS.7A.sensation.hearing.hair-cells",
+   "dst": "PS.7A.sensation.hearing.auditory-pathway"
+  },
+  {
+   "src": "PS.7A.sensation.hearing.cochlea",
+   "dst": "PS.7A.sensation.hearing.place-theory"
+  },
+  {
+   "src": "PS.7A.sensation.hearing.cochlea",
+   "dst": "PS.7A.sensation.hearing.frequency-theory"
+  },
+  {
+   "src": "PS.7A.sensation.hearing.hair-cells",
+   "dst": "PS.7A.sensation.hearing.vestibular"
+  },
+  {
+   "src": "PS.7A.sensation.basic-concepts.receptor-types",
+   "dst": "PS.7A.sensation.chemical.olfaction"
+  },
+  {
+   "src": "PS.7A.sensation.chemical.olfaction",
+   "dst": "PS.7A.sensation.chemical.pheromones"
+  },
+  {
+   "src": "PS.7A.sensation.basic-concepts.receptor-types",
+   "dst": "PS.7A.sensation.chemical.gustation"
+  },
+  {
+   "src": "PS.7A.sensation.basic-concepts.receptor-types",
+   "dst": "PS.7A.sensation.somatosensation.touch"
+  },
+  {
+   "src": "PS.7A.sensation.basic-concepts.receptor-types",
+   "dst": "PS.7A.sensation.somatosensation.temperature"
+  },
+  {
+   "src": "PS.7A.sensation.basic-concepts.receptor-types",
+   "dst": "PS.7A.sensation.somatosensation.pain"
+  },
+  {
+   "src": "PS.7A.sensation.somatosensation.pain",
+   "dst": "PS.7A.sensation.somatosensation.gate-control-theory"
+  },
+  {
+   "src": "PS.7A.sensation.somatosensation.touch",
+   "dst": "PS.7A.sensation.somatosensation.kinesthesia"
+  },
+  {
+   "src": "PS.7A.sensation.somatosensation.kinesthesia",
+   "dst": "PS.7A.sensation.somatosensation.proprioception"
+  },
+  {
+   "src": "PS.7A.sensation.basic-concepts.transduction",
+   "dst": "PS.7A.perception.processing-direction.bottom-up"
+  },
+  {
+   "src": "PS.7A.perception.processing-direction.bottom-up",
+   "dst": "PS.7A.perception.processing-direction.top-down"
+  },
+  {
+   "src": "PS.7A.perception.processing-direction.top-down",
+   "dst": "PS.7A.perception.processing-direction.perceptual-set"
+  },
+  {
+   "src": "PS.7A.perception.processing-direction.bottom-up",
+   "dst": "PS.7A.perception.gestalt.proximity"
+  },
+  {
+   "src": "PS.7A.perception.gestalt.proximity",
+   "dst": "PS.7A.perception.gestalt.similarity"
+  },
+  {
+   "src": "PS.7A.perception.gestalt.proximity",
+   "dst": "PS.7A.perception.gestalt.continuity"
+  },
+  {
+   "src": "PS.7A.perception.gestalt.proximity",
+   "dst": "PS.7A.perception.gestalt.closure"
+  },
+  {
+   "src": "PS.7A.perception.gestalt.proximity",
+   "dst": "PS.7A.perception.gestalt.figure-ground"
+  },
+  {
+   "src": "PS.7A.perception.gestalt.proximity",
+   "dst": "PS.7A.perception.gestalt.pragnanz"
+  },
+  {
+   "src": "PS.7A.perception.processing-direction.bottom-up",
+   "dst": "PS.7A.perception.depth.binocular-cues"
+  },
+  {
+   "src": "PS.7A.perception.depth.binocular-cues",
+   "dst": "PS.7A.perception.depth.monocular-cues"
+  },
+  {
+   "src": "PS.7A.perception.depth.binocular-cues",
+   "dst": "PS.7A.perception.depth.perceptual-constancy"
+  },
+  {
+   "src": "PS.7A.perception.processing-direction.bottom-up",
+   "dst": "PS.7A.perception.organization.motion-perception"
+  },
+  {
+   "src": "PS.7A.perception.processing-direction.top-down",
+   "dst": "PS.7A.perception.organization.pattern-recognition"
+  },
+  {
+   "src": "PS.7A.perception.gestalt.proximity",
+   "dst": "PS.7A.perception.organization.perceptual-illusions"
+  },
+  {
+   "src": "PS.7A.perception.processing-direction.top-down",
+   "dst": "PS.7A.attention.selective.definition"
+  },
+  {
+   "src": "PS.7A.attention.selective.definition",
+   "dst": "PS.7A.attention.selective.cocktail-party"
+  },
+  {
+   "src": "PS.7A.attention.selective.definition",
+   "dst": "PS.7A.attention.selective.inattentional-blindness"
+  },
+  {
+   "src": "PS.7A.attention.selective.inattentional-blindness",
+   "dst": "PS.7A.attention.selective.change-blindness"
+  },
+  {
+   "src": "PS.7A.attention.selective.definition",
+   "dst": "PS.7A.attention.divided.definition"
+  },
+  {
+   "src": "PS.7A.attention.divided.definition",
+   "dst": "PS.7A.attention.divided.automatic-controlled"
+  },
+  {
+   "src": "PS.7A.attention.divided.definition",
+   "dst": "PS.7A.attention.divided.resource-model"
+  },
+  {
+   "src": "PS.7A.cognition.development.piaget-stages",
+   "dst": "PS.7A.cognition.development.sensorimotor"
+  },
+  {
+   "src": "PS.7A.cognition.development.sensorimotor",
+   "dst": "PS.7A.cognition.development.object-permanence"
+  },
+  {
+   "src": "PS.7A.cognition.development.sensorimotor",
+   "dst": "PS.7A.cognition.development.preoperational"
+  },
+  {
+   "src": "PS.7A.cognition.development.preoperational",
+   "dst": "PS.7A.cognition.development.egocentrism"
+  },
+  {
+   "src": "PS.7A.cognition.development.preoperational",
+   "dst": "PS.7A.cognition.development.concrete-operational"
+  },
+  {
+   "src": "PS.7A.cognition.development.concrete-operational",
+   "dst": "PS.7A.cognition.development.conservation"
+  },
+  {
+   "src": "PS.7A.cognition.development.concrete-operational",
+   "dst": "PS.7A.cognition.development.formal-operational"
+  },
+  {
+   "src": "PS.7A.cognition.development.piaget-stages",
+   "dst": "PS.7A.cognition.development.schemas"
+  },
+  {
+   "src": "PS.7A.cognition.development.piaget-stages",
+   "dst": "PS.7A.cognition.development.vygotsky"
+  },
+  {
+   "src": "PS.7A.cognition.problem-solving.algorithms",
+   "dst": "PS.7A.cognition.problem-solving.heuristics"
+  },
+  {
+   "src": "PS.7A.cognition.problem-solving.heuristics",
+   "dst": "PS.7A.cognition.problem-solving.availability-heuristic"
+  },
+  {
+   "src": "PS.7A.cognition.problem-solving.heuristics",
+   "dst": "PS.7A.cognition.problem-solving.representativeness-heuristic"
+  },
+  {
+   "src": "PS.7A.cognition.problem-solving.representativeness-heuristic",
+   "dst": "PS.7A.cognition.problem-solving.base-rate-fallacy"
+  },
+  {
+   "src": "PS.7A.cognition.problem-solving.heuristics",
+   "dst": "PS.7A.cognition.problem-solving.confirmation-bias"
+  },
+  {
+   "src": "PS.7A.cognition.problem-solving.confirmation-bias",
+   "dst": "PS.7A.cognition.problem-solving.overconfidence"
+  },
+  {
+   "src": "PS.7A.cognition.problem-solving.confirmation-bias",
+   "dst": "PS.7A.cognition.problem-solving.belief-perseverance"
+  },
+  {
+   "src": "PS.7A.cognition.problem-solving.belief-perseverance",
+   "dst": "PS.7A.cognition.problem-solving.belief-bias"
+  },
+  {
+   "src": "PS.7A.cognition.problem-solving.heuristics",
+   "dst": "PS.7A.cognition.problem-solving.fixation"
+  },
+  {
+   "src": "PS.7A.cognition.problem-solving.fixation",
+   "dst": "PS.7A.cognition.problem-solving.functional-fixedness"
+  },
+  {
+   "src": "PS.7A.cognition.problem-solving.heuristics",
+   "dst": "PS.7A.cognition.problem-solving.framing"
+  },
+  {
+   "src": "PS.7A.cognition.problem-solving.heuristics",
+   "dst": "PS.7A.cognition.problem-solving.insight"
+  },
+  {
+   "src": "PS.7A.cognition.problem-solving.insight",
+   "dst": "PS.7A.cognition.problem-solving.intuition"
+  },
+  {
+   "src": "PS.7A.cognition.problem-solving.intuition",
+   "dst": "PS.7A.cognition.problem-solving.dual-process"
+  },
+  {
+   "src": "PS.7A.cognition.intelligence.general-g",
+   "dst": "PS.7A.cognition.intelligence.gardner"
+  },
+  {
+   "src": "PS.7A.cognition.intelligence.gardner",
+   "dst": "PS.7A.cognition.intelligence.sternberg"
+  },
+  {
+   "src": "PS.7A.cognition.intelligence.general-g",
+   "dst": "PS.7A.cognition.intelligence.fluid-crystallized"
+  },
+  {
+   "src": "PS.7A.cognition.intelligence.general-g",
+   "dst": "PS.7A.cognition.intelligence.iq"
+  },
+  {
+   "src": "PS.7A.cognition.intelligence.iq",
+   "dst": "PS.7A.cognition.intelligence.heredity-environment"
+  },
+  {
+   "src": "PS.7A.consciousness.states.alertness",
+   "dst": "PS.7A.consciousness.states.circadian-rhythm"
+  },
+  {
+   "src": "PS.7A.consciousness.states.circadian-rhythm",
+   "dst": "PS.7A.consciousness.states.melatonin"
+  },
+  {
+   "src": "PS.7A.consciousness.states.circadian-rhythm",
+   "dst": "PS.7A.consciousness.sleep.brain-waves"
+  },
+  {
+   "src": "PS.7A.consciousness.sleep.brain-waves",
+   "dst": "PS.7A.consciousness.sleep.stage-n1"
+  },
+  {
+   "src": "PS.7A.consciousness.sleep.stage-n1",
+   "dst": "PS.7A.consciousness.sleep.stage-n2"
+  },
+  {
+   "src": "PS.7A.consciousness.sleep.stage-n2",
+   "dst": "PS.7A.consciousness.sleep.stage-n3"
+  },
+  {
+   "src": "PS.7A.consciousness.sleep.stage-n3",
+   "dst": "PS.7A.consciousness.sleep.rem"
+  },
+  {
+   "src": "PS.7A.consciousness.sleep.rem",
+   "dst": "PS.7A.consciousness.sleep.sleep-cycle"
+  },
+  {
+   "src": "PS.7A.consciousness.sleep.rem",
+   "dst": "PS.7A.consciousness.sleep.dreaming-theories"
+  },
+  {
+   "src": "PS.7A.consciousness.sleep.sleep-cycle",
+   "dst": "PS.7A.consciousness.sleep.sleep-disorders"
+  },
+  {
+   "src": "PS.7A.consciousness.states.alertness",
+   "dst": "PS.7A.consciousness.altered.hypnosis"
+  },
+  {
+   "src": "PS.7A.consciousness.altered.hypnosis",
+   "dst": "PS.7A.consciousness.altered.meditation"
+  },
+  {
+   "src": "PS.7A.consciousness.states.alertness",
+   "dst": "PS.7A.consciousness.drugs.depressants"
+  },
+  {
+   "src": "PS.7A.consciousness.drugs.depressants",
+   "dst": "PS.7A.consciousness.drugs.stimulants"
+  },
+  {
+   "src": "PS.7A.consciousness.drugs.depressants",
+   "dst": "PS.7A.consciousness.drugs.opiates"
+  },
+  {
+   "src": "PS.7A.consciousness.drugs.depressants",
+   "dst": "PS.7A.consciousness.drugs.hallucinogens"
+  },
+  {
+   "src": "PS.7A.consciousness.drugs.stimulants",
+   "dst": "PS.7A.consciousness.drugs.reward-pathway"
+  },
+  {
+   "src": "PS.7A.consciousness.drugs.reward-pathway",
+   "dst": "PS.7A.consciousness.drugs.tolerance-dependence"
+  },
+  {
+   "src": "PS.7A.consciousness.drugs.tolerance-dependence",
+   "dst": "PS.7A.consciousness.drugs.addiction"
+  },
+  {
+   "src": "PS.7A.memory.encoding.types",
+   "dst": "PS.7A.memory.encoding.automatic-effortful"
+  },
+  {
+   "src": "PS.7A.memory.encoding.types",
+   "dst": "PS.7A.memory.encoding.levels-of-processing"
+  },
+  {
+   "src": "PS.7A.memory.encoding.levels-of-processing",
+   "dst": "PS.7A.memory.encoding.mnemonics"
+  },
+  {
+   "src": "PS.7A.memory.encoding.levels-of-processing",
+   "dst": "PS.7A.memory.encoding.spacing-effect"
+  },
+  {
+   "src": "PS.7A.memory.encoding.types",
+   "dst": "PS.7A.memory.storage.sensory-memory"
+  },
+  {
+   "src": "PS.7A.memory.storage.sensory-memory",
+   "dst": "PS.7A.memory.storage.short-term-memory"
+  },
+  {
+   "src": "PS.7A.memory.storage.short-term-memory",
+   "dst": "PS.7A.memory.storage.working-memory"
+  },
+  {
+   "src": "PS.7A.memory.storage.short-term-memory",
+   "dst": "PS.7A.memory.storage.long-term-memory"
+  },
+  {
+   "src": "PS.7A.memory.storage.long-term-memory",
+   "dst": "PS.7A.memory.storage.explicit-memory"
+  },
+  {
+   "src": "PS.7A.memory.storage.long-term-memory",
+   "dst": "PS.7A.memory.storage.implicit-memory"
+  },
+  {
+   "src": "PS.7A.memory.storage.implicit-memory",
+   "dst": "PS.7A.memory.storage.procedural-memory"
+  },
+  {
+   "src": "PS.7A.memory.storage.long-term-memory",
+   "dst": "PS.7A.memory.storage.long-term-potentiation"
+  },
+  {
+   "src": "PS.7A.memory.storage.long-term-memory",
+   "dst": "PS.7A.memory.retrieval.recall-recognition"
+  },
+  {
+   "src": "PS.7A.memory.retrieval.recall-recognition",
+   "dst": "PS.7A.memory.retrieval.retrieval-cues"
+  },
+  {
+   "src": "PS.7A.memory.retrieval.retrieval-cues",
+   "dst": "PS.7A.memory.retrieval.context-state-dependent"
+  },
+  {
+   "src": "PS.7A.memory.retrieval.retrieval-cues",
+   "dst": "PS.7A.memory.retrieval.serial-position"
+  },
+  {
+   "src": "PS.7A.memory.storage.long-term-memory",
+   "dst": "PS.7A.memory.forgetting.encoding-failure"
+  },
+  {
+   "src": "PS.7A.memory.forgetting.encoding-failure",
+   "dst": "PS.7A.memory.forgetting.decay"
+  },
+  {
+   "src": "PS.7A.memory.forgetting.decay",
+   "dst": "PS.7A.memory.forgetting.ebbinghaus"
+  },
+  {
+   "src": "PS.7A.memory.forgetting.encoding-failure",
+   "dst": "PS.7A.memory.forgetting.proactive-interference"
+  },
+  {
+   "src": "PS.7A.memory.forgetting.proactive-interference",
+   "dst": "PS.7A.memory.forgetting.retroactive-interference"
+  },
+  {
+   "src": "PS.7A.memory.forgetting.encoding-failure",
+   "dst": "PS.7A.memory.forgetting.retrieval-failure"
+  },
+  {
+   "src": "PS.7A.memory.forgetting.encoding-failure",
+   "dst": "PS.7A.memory.forgetting.misinformation-effect"
+  },
+  {
+   "src": "PS.7A.memory.forgetting.misinformation-effect",
+   "dst": "PS.7A.memory.forgetting.source-monitoring"
+  },
+  {
+   "src": "PS.7A.memory.forgetting.misinformation-effect",
+   "dst": "PS.7A.memory.forgetting.false-memory"
+  },
+  {
+   "src": "PS.7A.memory.storage.long-term-memory",
+   "dst": "PS.7A.memory.dysfunction.anterograde-amnesia"
+  },
+  {
+   "src": "PS.7A.memory.dysfunction.anterograde-amnesia",
+   "dst": "PS.7A.memory.dysfunction.retrograde-amnesia"
+  },
+  {
+   "src": "PS.7A.memory.dysfunction.anterograde-amnesia",
+   "dst": "PS.7A.memory.dysfunction.alzheimers"
+  },
+  {
+   "src": "PS.7A.memory.dysfunction.anterograde-amnesia",
+   "dst": "PS.7A.memory.dysfunction.korsakoff"
+  },
+  {
+   "src": "PS.7A.emotion.components.three-elements",
+   "dst": "PS.7A.emotion.components.universal-emotions"
+  },
+  {
+   "src": "PS.7A.emotion.components.three-elements",
+   "dst": "PS.7A.emotion.components.facial-expression"
+  },
+  {
+   "src": "PS.7A.emotion.components.three-elements",
+   "dst": "PS.7A.emotion.theories.james-lange"
+  },
+  {
+   "src": "PS.7A.emotion.theories.james-lange",
+   "dst": "PS.7A.emotion.theories.cannon-bard"
+  },
+  {
+   "src": "PS.7A.emotion.theories.cannon-bard",
+   "dst": "PS.7A.emotion.theories.schachter-singer"
+  },
+  {
+   "src": "PS.7A.emotion.theories.schachter-singer",
+   "dst": "PS.7A.emotion.theories.lazarus"
+  },
+  {
+   "src": "PS.7A.emotion.components.three-elements",
+   "dst": "PS.7A.emotion.theories.yerkes-dodson"
+  },
+  {
+   "src": "PS.7A.emotion.components.three-elements",
+   "dst": "PS.7A.emotion.brain.amygdala-role"
+  },
+  {
+   "src": "PS.7A.emotion.brain.amygdala-role",
+   "dst": "PS.7A.emotion.brain.limbic-emotion"
+  },
+  {
+   "src": "PS.7A.emotion.brain.limbic-emotion",
+   "dst": "PS.7A.emotion.brain.prefrontal-regulation"
+  },
+  {
+   "src": "PS.7A.emotion.brain.limbic-emotion",
+   "dst": "PS.7A.emotion.brain.autonomic-emotion"
+  },
+  {
+   "src": "PS.7A.stress.appraisal.definition",
+   "dst": "PS.7A.stress.appraisal.cognitive-appraisal"
+  },
+  {
+   "src": "PS.7A.stress.appraisal.definition",
+   "dst": "PS.7A.stress.appraisal.types-of-stressors"
+  },
+  {
+   "src": "PS.7A.stress.appraisal.definition",
+   "dst": "PS.7A.stress.appraisal.eustress-distress"
+  },
+  {
+   "src": "PS.7A.stress.appraisal.definition",
+   "dst": "PS.7A.stress.response.gas"
+  },
+  {
+   "src": "PS.7A.stress.response.gas",
+   "dst": "PS.7A.stress.response.hpa-axis"
+  },
+  {
+   "src": "PS.7A.stress.response.gas",
+   "dst": "PS.7A.stress.response.fight-flight-freeze"
+  },
+  {
+   "src": "PS.7A.stress.response.fight-flight-freeze",
+   "dst": "PS.7A.stress.response.tend-and-befriend"
+  },
+  {
+   "src": "PS.7A.stress.response.gas",
+   "dst": "PS.7A.stress.health.chronic-stress-effects"
+  },
+  {
+   "src": "PS.7A.stress.appraisal.cognitive-appraisal",
+   "dst": "PS.7A.stress.health.problem-focused-coping"
+  },
+  {
+   "src": "PS.7A.stress.health.problem-focused-coping",
+   "dst": "PS.7A.stress.health.emotion-focused-coping"
+  },
+  {
+   "src": "PS.7A.language.structure.phonemes",
+   "dst": "PS.7A.language.structure.morphemes"
+  },
+  {
+   "src": "PS.7A.language.structure.morphemes",
+   "dst": "PS.7A.language.structure.semantics"
+  },
+  {
+   "src": "PS.7A.language.structure.morphemes",
+   "dst": "PS.7A.language.structure.syntax"
+  },
+  {
+   "src": "PS.7A.language.structure.semantics",
+   "dst": "PS.7A.language.structure.pragmatics"
+  },
+  {
+   "src": "PS.7A.language.structure.morphemes",
+   "dst": "PS.7A.language.development.milestones"
+  },
+  {
+   "src": "PS.7A.language.development.milestones",
+   "dst": "PS.7A.language.development.nativist"
+  },
+  {
+   "src": "PS.7A.language.development.nativist",
+   "dst": "PS.7A.language.development.learning-theory"
+  },
+  {
+   "src": "PS.7A.language.development.learning-theory",
+   "dst": "PS.7A.language.development.interactionist"
+  },
+  {
+   "src": "PS.7A.language.development.milestones",
+   "dst": "PS.7A.language.development.critical-period"
+  },
+  {
+   "src": "PS.7A.language.structure.syntax",
+   "dst": "PS.7A.language.brain.brocas-area"
+  },
+  {
+   "src": "PS.7A.language.structure.semantics",
+   "dst": "PS.7A.language.brain.wernickes-area"
+  },
+  {
+   "src": "PS.7A.language.brain.brocas-area",
+   "dst": "PS.7A.language.brain.aphasia"
+  },
+  {
+   "src": "PS.7A.language.brain.wernickes-area",
+   "dst": "PS.7A.language.brain.aphasia"
+  },
+  {
+   "src": "PS.7A.language.structure.semantics",
+   "dst": "PS.7A.language.thought.whorf-hypothesis"
+  },
+  {
+   "src": "PS.7A.biological-bases.neurotransmitters.serotonin",
+   "dst": "PS.7A.biological-bases.neurotransmitters.oxytocin"
+  },
+  {
+   "src": "PS.7A.biological-bases.endocrine.pituitary",
+   "dst": "PS.7A.biological-bases.endocrine.thyroid"
+  },
+  {
+   "src": "PS.7A.biological-bases.endocrine.pituitary",
+   "dst": "PS.7A.biological-bases.endocrine.gonads"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.hypothalamus",
+   "dst": "PS.7A.biological-bases.endocrine.pineal"
+  },
+  {
+   "src": "PS.7A.biological-bases.genetics.gene-environment",
+   "dst": "PS.7A.biological-bases.genetics.temperament"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.basal-ganglia",
+   "dst": "PS.7A.biological-bases.brain-structures.nucleus-accumbens"
+  },
+  {
+   "src": "PS.7A.sensation.thresholds.webers-law",
+   "dst": "PS.7A.sensation.thresholds.fechner-stevens"
+  },
+  {
+   "src": "PS.7A.sensation.adaptation.definition",
+   "dst": "PS.7A.sensation.adaptation.dark-light-adaptation"
+  },
+  {
+   "src": "PS.7A.sensation.vision.retina",
+   "dst": "PS.7A.sensation.vision.bipolar-ganglion"
+  },
+  {
+   "src": "PS.7A.sensation.vision.bipolar-ganglion",
+   "dst": "PS.7A.sensation.vision.optic-nerve"
+  },
+  {
+   "src": "PS.7A.sensation.hearing.auditory-pathway",
+   "dst": "PS.7A.sensation.hearing.sound-localization"
+  },
+  {
+   "src": "PS.7A.sensation.hearing.hair-cells",
+   "dst": "PS.7A.sensation.hearing.deafness-types"
+  },
+  {
+   "src": "PS.7A.sensation.somatosensation.gate-control-theory",
+   "dst": "PS.7A.sensation.somatosensation.pain-modulation"
+  },
+  {
+   "src": "PS.7A.perception.depth.binocular-cues",
+   "dst": "PS.7A.perception.depth.retinal-disparity"
+  },
+  {
+   "src": "PS.7A.perception.organization.motion-perception",
+   "dst": "PS.7A.perception.organization.phi-phenomenon"
+  },
+  {
+   "src": "PS.7A.cognition.problem-solving.concepts-prototypes",
+   "dst": "PS.7A.cognition.problem-solving.algorithms"
+  },
+  {
+   "src": "PS.7A.cognition.problem-solving.algorithms",
+   "dst": "PS.7A.cognition.problem-solving.trial-and-error"
+  },
+  {
+   "src": "PS.7A.cognition.problem-solving.heuristics",
+   "dst": "PS.7A.cognition.problem-solving.anchoring"
+  },
+  {
+   "src": "PS.7A.cognition.problem-solving.confirmation-bias",
+   "dst": "PS.7A.cognition.problem-solving.hindsight-bias"
+  },
+  {
+   "src": "PS.7A.cognition.problem-solving.heuristics",
+   "dst": "PS.7A.cognition.problem-solving.gamblers-fallacy"
+  },
+  {
+   "src": "PS.7A.cognition.problem-solving.insight",
+   "dst": "PS.7A.cognition.problem-solving.creativity"
+  },
+  {
+   "src": "PS.7A.cognition.intelligence.iq",
+   "dst": "PS.7A.cognition.intelligence.achievement-aptitude"
+  },
+  {
+   "src": "PS.7A.cognition.intelligence.iq",
+   "dst": "PS.7A.cognition.intelligence.reliability-validity"
+  },
+  {
+   "src": "PS.7A.cognition.intelligence.iq",
+   "dst": "PS.7A.cognition.intelligence.flynn-effect"
+  },
+  {
+   "src": "PS.7A.cognition.intelligence.iq",
+   "dst": "PS.7A.cognition.intelligence.stereotype-threat"
+  },
+  {
+   "src": "PS.7A.cognition.intelligence.iq",
+   "dst": "PS.7A.cognition.intelligence.variations"
+  },
+  {
+   "src": "PS.7A.cognition.intelligence.gardner",
+   "dst": "PS.7A.cognition.intelligence.emotional-intelligence"
+  },
+  {
+   "src": "PS.7A.memory.storage.explicit-memory",
+   "dst": "PS.7A.memory.storage.semantic-episodic"
+  },
+  {
+   "src": "PS.7A.memory.storage.explicit-memory",
+   "dst": "PS.7A.memory.storage.flashbulb-memory"
+  },
+  {
+   "src": "PS.7A.memory.retrieval.recall-recognition",
+   "dst": "PS.7A.memory.retrieval.prospective-memory"
+  },
+  {
+   "src": "PS.7A.memory.dysfunction.retrograde-amnesia",
+   "dst": "PS.7A.memory.dysfunction.aging-memory"
+  },
+  {
+   "src": "PS.7A.emotion.components.facial-expression",
+   "dst": "PS.7A.emotion.components.nonverbal-display-rules"
+  },
+  {
+   "src": "PS.7A.stress.appraisal.types-of-stressors",
+   "dst": "PS.7A.stress.appraisal.srrs"
+  },
+  {
+   "src": "PS.7A.stress.health.chronic-stress-effects",
+   "dst": "PS.7A.stress.health.perceived-control"
+  },
+  {
+   "src": "PS.7A.stress.health.emotion-focused-coping",
+   "dst": "PS.7A.stress.health.social-support"
+  },
+  {
+   "src": "PS.7A.stress.health.problem-focused-coping",
+   "dst": "PS.7A.stress.health.stress-management"
+  },
+  {
+   "src": "PS.7A.language.brain.aphasia",
+   "dst": "PS.7A.language.brain.aphasia-types"
+  }
+ ],
+ "related": [
+  {
+   "src": "PS.7A.biological-bases.brain-structures.hippocampus",
+   "dst": "PS.7A.memory.storage.explicit-memory"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.amygdala",
+   "dst": "PS.7A.emotion.brain.amygdala-role"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.frontal-lobe",
+   "dst": "PS.7A.language.brain.brocas-area"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.temporal-lobe",
+   "dst": "PS.7A.language.brain.wernickes-area"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.occipital-lobe",
+   "dst": "PS.7A.sensation.vision.visual-pathway"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.reticular-formation",
+   "dst": "PS.7A.consciousness.states.alertness"
+  },
+  {
+   "src": "PS.7A.biological-bases.neurotransmitters.dopamine",
+   "dst": "PS.7A.consciousness.drugs.reward-pathway"
+  },
+  {
+   "src": "PS.7A.biological-bases.neurotransmitters.endorphins",
+   "dst": "PS.7A.sensation.somatosensation.gate-control-theory"
+  },
+  {
+   "src": "PS.7A.biological-bases.endocrine.cortisol",
+   "dst": "PS.7A.stress.response.hpa-axis"
+  },
+  {
+   "src": "PS.7A.biological-bases.nervous-system.sympathetic",
+   "dst": "PS.7A.stress.response.fight-flight-freeze"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.thalamus",
+   "dst": "PS.7A.sensation.basic-concepts.sensory-pathways"
+  },
+  {
+   "src": "PS.7A.emotion.theories.schachter-singer",
+   "dst": "PS.7A.emotion.components.three-elements"
+  },
+  {
+   "src": "PS.7A.emotion.theories.yerkes-dodson",
+   "dst": "PS.7A.stress.appraisal.eustress-distress"
+  },
+  {
+   "src": "PS.7A.memory.encoding.spacing-effect",
+   "dst": "PS.7A.memory.forgetting.ebbinghaus"
+  },
+  {
+   "src": "PS.7A.perception.processing-direction.top-down",
+   "dst": "PS.7A.cognition.problem-solving.heuristics"
+  },
+  {
+   "src": "PS.7A.consciousness.sleep.rem",
+   "dst": "PS.7A.memory.storage.long-term-potentiation"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.cerebellum",
+   "dst": "PS.7A.memory.storage.procedural-memory"
+  },
+  {
+   "src": "PS.7A.biological-bases.neurotransmitters.oxytocin",
+   "dst": "PS.7A.stress.response.tend-and-befriend"
+  },
+  {
+   "src": "PS.7A.biological-bases.brain-structures.nucleus-accumbens",
+   "dst": "PS.7A.consciousness.drugs.reward-pathway"
+  },
+  {
+   "src": "PS.7A.biological-bases.endocrine.gonads",
+   "dst": "PS.7A.biological-bases.genetics.evolution-behavior"
+  },
+  {
+   "src": "PS.7A.cognition.problem-solving.concepts-prototypes",
+   "dst": "PS.7A.cognition.problem-solving.representativeness-heuristic"
+  },
+  {
+   "src": "PS.7A.memory.storage.flashbulb-memory",
+   "dst": "PS.7A.emotion.brain.amygdala-role"
+  },
+  {
+   "src": "PS.7A.stress.health.perceived-control",
+   "dst": "PS.7A.stress.response.fight-flight-freeze"
+  },
+  {
+   "src": "PS.7A.cognition.intelligence.emotional-intelligence",
+   "dst": "PS.7A.emotion.components.three-elements"
+  }
+ ],
+ "external_prereqs": [
+  {
+   "dst": "PS.7A.biological-bases.nervous-system.cns-pns",
+   "from_leaf": "BB.3A",
+   "concept_hint": "Neuron structure and the action potential"
+  },
+  {
+   "dst": "PS.7A.biological-bases.neurotransmitters.acetylcholine",
+   "from_leaf": "BB.3A",
+   "concept_hint": "Synaptic transmission and neurotransmitter release"
+  },
+  {
+   "dst": "PS.7A.biological-bases.endocrine.pituitary",
+   "from_leaf": "BB.3B",
+   "concept_hint": "Endocrine system and hormone signaling"
+  },
+  {
+   "dst": "PS.7A.biological-bases.genetics.heritability",
+   "from_leaf": "BB.2C",
+   "concept_hint": "Mendelian inheritance and genetic variation"
+  },
+  {
+   "dst": "PS.7A.sensation.vision.cornea-lens",
+   "from_leaf": "CP.4D",
+   "concept_hint": "Refraction of light and lens optics"
+  },
+  {
+   "dst": "PS.7A.sensation.hearing.middle-ear",
+   "from_leaf": "CP.4B",
+   "concept_hint": "Sound waves and properties of mechanical waves"
+  },
+  {
+   "dst": "PS.7A.sensation.thresholds.weber-fraction",
+   "from_leaf": "CP.4D",
+   "concept_hint": "Logarithmic scales and stimulus intensity"
+  },
+  {
+   "dst": "PS.7A.biological-bases.neurotransmitters.dopamine",
+   "from_leaf": "PS.6C",
+   "concept_hint": "Reward and operant conditioning"
+  },
+  {
+   "dst": "PS.7A.cognition.development.piaget-stages",
+   "from_leaf": "PS.6A",
+   "concept_hint": "Theories of cognitive and lifespan development"
+  },
+  {
+   "dst": "PS.7A.consciousness.drugs.addiction",
+   "from_leaf": "PS.6C",
+   "concept_hint": "Reinforcement schedules and conditioned drug response"
+  },
+  {
+   "dst": "PS.7A.language.development.learning-theory",
+   "from_leaf": "PS.6C",
+   "concept_hint": "Operant conditioning and reinforcement"
+  },
+  {
+   "dst": "PS.7A.cognition.intelligence.iq",
+   "from_leaf": "PS.10A",
+   "concept_hint": "Normal distribution and standardized scores"
+  }
+ ]
+}

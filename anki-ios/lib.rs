@@ -71,6 +71,16 @@ pub unsafe extern "C" fn anki_run_method(
     in_len: usize,
     is_err: *mut u8,
 ) -> AnkiBuffer {
+    // Fail closed on a null backend (e.g. an unchecked `anki_open_backend` failure, which returns
+    // null). `&*backend` below would be UB — a hardware fault the `catch_unwind` cannot trap — so
+    // short-circuit BEFORE it to the documented is_err=2 / empty-buffer result. Mirrors the
+    // is_null() guards already in anki_buffer_free / anki_close_backend.
+    if backend.is_null() {
+        if !is_err.is_null() {
+            unsafe { *is_err = 2 };
+        }
+        return AnkiBuffer::empty();
+    }
     let outcome = catch_unwind(|| {
         let backend = unsafe { &*backend };
         let input: &[u8] = if in_ptr.is_null() {
@@ -115,5 +125,34 @@ pub unsafe extern "C" fn anki_buffer_free(buf: AnkiBuffer) {
 pub unsafe extern "C" fn anki_close_backend(backend: *mut Backend) {
     if !backend.is_null() {
         unsafe { drop(Box::from_raw(backend)) };
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// A null backend pointer (which `anki_open_backend` itself returns on error/panic) must NOT be
+    /// dereferenced — `&*null` is UB that the `catch_unwind` cannot trap. `anki_run_method` must fail
+    /// closed to the documented `is_err=2` / empty-buffer contract instead. Before the null guard
+    /// this test crashes the process (SIGSEGV); after it, the call returns cleanly.
+    #[test]
+    fn null_backend_fails_closed_not_ub() {
+        let mut is_err: u8 = 0;
+        let buf = unsafe {
+            anki_run_method(
+                std::ptr::null_mut(),
+                0,
+                0,
+                std::ptr::null(),
+                0,
+                &mut is_err,
+            )
+        };
+        assert_eq!(is_err, 2, "a null backend must report is_err=2 (panic/refused)");
+        assert!(
+            buf.ptr.is_null() && buf.len == 0 && buf.cap == 0,
+            "a null backend must return an empty buffer"
+        );
     }
 }

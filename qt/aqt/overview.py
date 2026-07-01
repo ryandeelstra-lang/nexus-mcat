@@ -40,12 +40,16 @@ class OverviewContent:
         shareLink {str} -- HTML of the share link section
         desc {str} -- HTML of the deck description section
         table {str} -- HTML of the deck stats table section
+        back_label {str} -- Plain text label for the "back to decks" affordance
+        back_title {str} -- Plain text tooltip for the "back to decks" affordance
     """
 
     deck: str
     shareLink: str
     desc: str
     table: str
+    back_label: str = ""
+    back_title: str = ""
 
 
 class Overview:
@@ -195,9 +199,13 @@ class Overview:
             shareLink=shareLink,
             desc=self._desc(deck),
             table=self._table(),
+            back_label=tr.actions_decks(),
+            back_title=tr.actions_decks(),
         )
         gui_hooks.overview_will_render_content(self, content)
         content.deck = html.escape(content.deck)
+        content.back_label = html.escape(content.back_label)
+        content.back_title = html.escape(content.back_title, quote=True)
         self.web.stdHtml(
             self._body % content.__dict__,
             css=["css/overview.css"],
@@ -240,38 +248,54 @@ class Overview:
             buried_new = buried_learning = buried_review = 0
         buried_label = tr.studying_counts_differ()
 
-        def number_row(title: str, klass: str, count: int, buried_count: int) -> str:
+        # charged_up · Apple-HIG stat row + one prominent primary action.
+        # Each count is a labelled stat (label under a big tabular number, tinted with
+        # the section/state hue via the shared .new-/.learn-/.review-count classes);
+        # a bury delta chip appears only when the shown count differs from the tree count.
+        # The Study button keeps id=study and its pycmd("study") handler untouched — we
+        # only relabel it "Start Review" and wrap it in a clean HIG action row.
+        def stat_cell(label: str, klass: str, count: int, buried_count: int) -> str:
             buried = f"{buried_count:+}" if buried_count else ""
             return f"""
-<tr>
-    <td>{title}:</td>
-    <td>
-        <b>
-            <span class={klass}>{count}</span>
-            <span class=bury-count title="{buried_label}">{buried}</span>
-        </b>
-    </td>
-</tr>
+<div class="stat">
+    <div class="stat-value {klass}">{count}<span class="bury-count" title="{buried_label}">{buried}</span></div>
+    <div class="stat-label">{label}</div>
+</div>
 """
 
+        stats = f"""
+<div class="stat-row">
+{stat_cell(tr.actions_new(), "new-count", counts[0], buried_new)}
+<div class="stat-sep" aria-hidden="true"></div>
+{stat_cell(tr.scheduling_learning(), "learn-count", counts[1], buried_learning)}
+<div class="stat-sep" aria-hidden="true"></div>
+{stat_cell(tr.studying_to_review(), "review-count", counts[2], buried_review)}
+</div>
+"""
+
+        study = but(
+            "study",
+            tr.studying_study_now(),
+            id="study",
+            extra=" autofocus",
+        )
+
         return f"""
-<table width=400 cellpadding=5>
-<tr><td align=center valign=top>
-<table cellspacing=5>
-{number_row(tr.actions_new(), "new-count", counts[0], buried_new)}
-{number_row(tr.scheduling_learning(), "learn-count", counts[1], buried_learning)}
-{number_row(tr.studying_to_review(), "review-count", counts[2], buried_review)}
-</table>
-</td><td align=center>
-{but("study", tr.studying_study_now(), id="study", extra=" autofocus")}</td></tr></table>"""
+<div class="overview-card">
+{stats}
+<div class="action-row">
+{study}
+</div>
+</div>"""
 
     _body = """
-<center>
-<h3>%(deck)s</h3>
+<div class="overview">
+<a class="back-link" href="#" onclick='pycmd("decks");return false;' title="%(back_title)s">&#8249;&nbsp;%(back_label)s</a>
+<h1 class="deck-title">%(deck)s</h1>
 %(shareLink)s
 %(desc)s
 %(table)s
-</center>
+</div>
 """
 
     def edit_description(self) -> None:
@@ -281,8 +305,11 @@ class Overview:
     ######################################################################
 
     def _renderBottom(self) -> None:
+        # charged_up: relabel the ambiguous "Options" to the plainer "Deck Settings"
+        # for a brand-new user. The shortcut ("O") and pycmd ("opts") are unchanged,
+        # so the handler and keybinding keep working exactly as before.
         links = [
-            ["O", "opts", tr.actions_options()],
+            ["O", "opts", "Deck Settings"],
         ]
         is_dyn = self.mw.col.decks.current()["dyn"]
         if is_dyn:

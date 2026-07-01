@@ -82,3 +82,234 @@ button {
         border-top-color: color(border-subtle);
     }
 }
+
+/* ============================================================================
+ * charged_up · Apple-HIG reviewer bottom bar
+ * The most-used control in the app: a calm translucent bar with ONE obvious
+ * primary action (Show Answer), color-coded HIG ease pills, and clearly
+ * secondary Edit / More affordances. Appended so it overrides the upstream
+ * rules above (equal specificity, later wins). Every pycmd / onclick / data-
+ * ease hook and the timer / interval logic are left untouched — chrome only.
+ * ============================================================================ */
+
+/* ---- HIG palette (light mode is the default now) --------------------------- */
+$hig-accent: #007aff;
+$hig-red: #ff3b30;
+$hig-orange: #ff9500;
+$hig-green: #34c759;
+$hig-ink: rgba(0, 0, 0, 0.85);
+$hig-elevation: 0 2px 6px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+$hig-elevation-hover: 0 6px 16px rgba(0, 0, 0, 0.14),
+    0 2px 4px rgba(0, 0, 0, 0.08);
+$hig-motion: 180ms cubic-bezier(0.2, 0, 0.2, 1);
+
+body {
+    -webkit-font-smoothing: antialiased;
+}
+
+/* The bar itself — a translucent HIG material sitting on a hairline, not a
+ * hard-bordered chrome strip. Keeps its top hairline separator. */
+#outer {
+    border-top: 1px solid var(--border-subtle);
+    background: rgba(255, 255, 255, 0.72);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+    padding: 6px 16px 10px;
+    box-sizing: border-box;
+}
+
+.nightMode #outer {
+    border-top-color: var(--border-subtle);
+    background: rgba(255, 255, 255, 0.72);
+}
+
+/* the three-column layout table keeps its structure; just breathe */
+#innertable {
+    vertical-align: middle;
+}
+
+#innertable > tbody > tr > td {
+    vertical-align: middle;
+}
+
+/* ---- base pill shape shared by every chrome button ------------------------- */
+#outer button {
+    -webkit-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    min-width: 60px;
+    margin: 6px;
+    padding: 8px 16px;
+    border-radius: 9px;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    color: var(--fg);
+    background: var(--canvas-elevated);
+    box-shadow: $hig-elevation;
+    cursor: pointer;
+    transition:
+        transform $hig-motion,
+        box-shadow $hig-motion,
+        background $hig-motion,
+        filter $hig-motion;
+}
+
+#outer button:hover {
+    box-shadow: $hig-elevation-hover;
+    transform: translateY(-1px);
+}
+
+#outer button:active {
+    transform: translateY(0);
+    box-shadow: $hig-elevation;
+    filter: brightness(0.96);
+}
+
+#outer button:focus-visible {
+    outline: 3px solid var(--focus-color);
+    outline-offset: 1px;
+}
+
+/* ---- Edit (left) & More (right): clearly SECONDARY -------------------------- */
+.stat button {
+    color: var(--fg);
+    background: var(--canvas-elevated);
+    font-weight: 500;
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.06),
+        inset 0 0 0 1px var(--border-subtle);
+}
+
+.stat button:hover {
+    box-shadow:
+        $hig-elevation,
+        inset 0 0 0 1px var(--border-subtle);
+}
+
+/* ---- PRIMARY: "Show Answer" -------------------------------------------------
+ * The one obvious action per screen — a large, filled accent button, centered.
+ * Targets the existing #ansbut id (no HTML hook change needed). */
+#middle #ansbut,
+#outer #ansbut {
+    min-width: 220px;
+    padding: 12px 28px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: #fff;
+    background: $hig-accent;
+    box-shadow:
+        0 4px 12px rgba(0, 122, 255, 0.35),
+        0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+#middle #ansbut:hover,
+#outer #ansbut:hover {
+    background: #0a84ff;
+    box-shadow:
+        0 8px 20px rgba(0, 122, 255, 0.42),
+        0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+#middle #ansbut:active,
+#outer #ansbut:active {
+    background: #0064d6;
+    transform: translateY(0);
+}
+
+/* ---- Ease pills: Again / Hard / Good / Easy --------------------------------
+ * Color-coded HIG pills, evenly spaced, large hit targets. Each keeps its
+ * label, its next-interval hint (.nobold), and its keyboard number (title).
+ * We color by data-ease so the standard 4-button layout maps as designed;
+ * the accent Good (#defease default) is guaranteed blue below. */
+#middle [data-ease] {
+    min-width: 92px;
+    padding: 10px 18px 12px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    background: $hig-accent;
+    box-shadow: $hig-elevation;
+}
+
+/* ease number → HIG semantic hue (4-button case: 1=Again 2=Hard 3=Good 4=Easy) */
+#middle [data-ease="1"] {
+    background: $hig-red;
+    box-shadow:
+        0 2px 8px rgba(255, 59, 48, 0.28),
+        0 1px 2px rgba(0, 0, 0, 0.06);
+}
+#middle [data-ease="2"] {
+    background: $hig-orange;
+    box-shadow:
+        0 2px 8px rgba(255, 149, 0, 0.28),
+        0 1px 2px rgba(0, 0, 0, 0.06);
+}
+#middle [data-ease="3"] {
+    background: $hig-accent;
+    box-shadow:
+        0 2px 8px rgba(0, 122, 255, 0.28),
+        0 1px 2px rgba(0, 0, 0, 0.06);
+}
+#middle [data-ease="4"] {
+    background: $hig-green;
+    box-shadow:
+        0 2px 8px rgba(52, 199, 89, 0.28),
+        0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+/* the scheduler's default ("Good") is always the accent-blue pill, even in the
+ * reduced 2-/3-button layouts where the ease numbers shift */
+#middle #defease {
+    background: $hig-accent;
+    box-shadow:
+        0 2px 8px rgba(0, 122, 255, 0.28),
+        0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+#middle [data-ease]:hover {
+    filter: brightness(1.04);
+    transform: translateY(-1px);
+}
+#middle [data-ease]:active {
+    filter: brightness(0.95);
+    transform: translateY(0);
+}
+
+/* the space between ease pills — even, generous */
+#middle table td[align="center"] {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+/* ---- hint text (next-interval estimate) ------------------------------------
+ * Sits above each pill; keep it readable on the near-white bar (it is NOT on
+ * the colored pill — it's absolutely positioned above it). */
+.nobold {
+    color: var(--fg-subtle);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* ---- remaining counts / timer under More ----------------------------------- */
+.stattxt {
+    color: var(--fg-subtle);
+    font-size: 12px;
+}
+
+/* respect reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    #outer button,
+    #middle [data-ease] {
+        transition: none;
+    }
+    #outer button:hover,
+    #middle [data-ease]:hover,
+    #middle #ansbut:hover {
+        transform: none;
+    }
+}

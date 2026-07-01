@@ -1,0 +1,210 @@
+{
+  "version": 1,
+  "leaves": {
+    "BB.1A": {
+      "section": "B-B",
+      "name": "Structure and function of proteins and their constituent amino acids",
+      "file": "concepts/BB.1A.json",
+      "node_count": 178
+    },
+    "BB.1B": {
+      "section": "B-B",
+      "name": "Transmission of genetic information from the gene to the protein",
+      "file": "concepts/BB.1B.json",
+      "node_count": 253
+    },
+    "BB.1C": {
+      "section": "B-B",
+      "name": "Transmission of heritable information from generation to generation and the processes that increase genetic diversity",
+      "file": "concepts/BB.1C.json",
+      "node_count": 181
+    },
+    "BB.1D": {
+      "section": "B-B",
+      "name": "Principles of bioenergetics and fuel molecule metabolism",
+      "file": "concepts/BB.1D.json",
+      "node_count": 301
+    },
+    "BB.2A": {
+      "section": "B-B",
+      "name": "Assemblies of molecules, cells, and groups of cells within single cellular and multicellular organisms",
+      "file": "concepts/BB.2A.json",
+      "node_count": 197
+    },
+    "BB.2B": {
+      "section": "B-B",
+      "name": "The structure, growth, physiology, and genetics of prokaryotes and viruses",
+      "file": "concepts/BB.2B.json",
+      "node_count": 150
+    },
+    "BB.2C": {
+      "section": "B-B",
+      "name": "Processes of cell division, differentiation, and specialization",
+      "file": "concepts/BB.2C.json",
+      "node_count": 187
+    },
+    "BB.3A": {
+      "section": "B-B",
+      "name": "Structure and functions of the nervous and endocrine systems and ways these systems coordinate the organ systems",
+      "file": "concepts/BB.3A.json",
+      "node_count": 181
+    },
+    "BB.3B": {
+      "section": "B-B",
+      "name": "Structure and integrative functions of the main organ systems",
+      "file": "concepts/BB.3B.json",
+      "node_count": 308
+    },
+    "CP.4A": {
+      "section": "C-P",
+      "name": "Translational motion, forces, work, energy, and equilibrium in living systems",
+      "file": "concepts/CP.4A.json",
+      "node_count": 200
+    },
+    "CP.4B": {
+      "section": "C-P",
+      "name": "Importance of fluids for the circulation of blood, gas movement, and gas exchange",
+      "file": "concepts/CP.4B.json",
+      "node_count": 158
+    },
+    "CP.4C": {
+      "section": "C-P",
+      "name": "Electrochemistry and electrical circuits and their elements",
+      "file": "concepts/CP.4C.json",
+      "node_count": 159
+    },
+    "CP.4D": {
+      "section": "C-P",
+      "name": "How light and sound interact with matter",
+      "file": "concepts/CP.4D.json",
+      "node_count": 147
+    },
+    "CP.4E": {
+      "section": "C-P",
+      "name": "Atoms, nuclear decay, electronic structure, and atomic chemical behavior",
+      "file": "concepts/CP.4E.json",
+      "node_count": 191
+    },
+    "CP.5A": {
+      "section": "C-P",
+      "name": "Unique nature of water and its solutions",
+      "file": "concepts/CP.5A.json",
+      "node_count": 148
+    },
+    "CP.5B": {
+      "section": "C-P",
+      "name": "Nature of molecules and intermolecular interactions",
+      "file": "concepts/CP.5B.json",
+      "node_count": 182
+    },
+    "CP.5C": {
+      "section": "C-P",
+      "name": "Separation and purification methods",
+      "file": "concepts/CP.5C.json",
+      "node_count": 161
+    },
+    "CP.5D": {
+      "section": "C-P",
+      "name": "Structure, function, and reactivity of biologically relevant molecules",
+      "file": "concepts/CP.5D.json",
+      "node_count": 218
+    },
+    "CP.5E": {
+      "section": "C-P",
+      "name": "Principles of chemical thermodynamics and kinetics",
+      "file": "concepts/CP.5E.json",
+      "node_count": 165
+    },
+    "PS.6A": {
+      "section": "P-S",
+      "name": "Sensing the environment",
+      "file": "concepts/PS.6A.json",
+      "node_count": 169
+    },
+    "PS.6B": {
+      "section": "P-S",
+      "name": "Making sense of the environment",
+      "file": "concepts/PS.6B.json",
+      "node_count": 211
+    },
+    "PS.6C": {
+      "section": "P-S",
+      "name": "Responding to the world",
+      "file": "concepts/PS.6C.json",
+      "node_count": 102
+    },
+    "PS.7A": {
+      "section": "P-S",
+      "name": "Individual influences on behavior",
+      "file": "concepts/PS.7A.json",
+      "node_count": 318
+    },
+    "PS.7B": {
+      "section": "P-S",
+      "name": "Social processes that influence human behavior",
+      "file": "concepts/PS.7B.json",
+      "node_count": 105
+    },
+    "PS.7C": {
+      "section": "P-S",
+      "name": "Attitude and behavior change",
+      "file": "concepts/PS.7C.json",
+      "node_count": 138
+    },
+    "PS.8A": {
+      "section": "P-S",
+      "name": "Self-identity",
+      "file": "concepts/PS.8A.json",
+      "node_count": 170
+    },
+    "PS.8B": {
+      "section": "P-S",
+      "name": "Social thinking",
+      "file": "concepts/PS.8B.json",
+      "node_count": 147
+    },
+    "PS.8C": {
+      "section": "P-S",
+      "name": "Social interactions",
+      "file": "concepts/PS.8C.json",
+      "node_count": 122
+    },
+    "PS.9A": {
+      "section": "P-S",
+      "name": "Understanding social structure",
+      "file": "concepts/PS.9A.json",
+      "node_count": 192
+    },
+    "PS.9B": {
+      "section": "P-S",
+      "name": "Demographic characteristics and processes",
+      "file": "concepts/PS.9B.json",
+      "node_count": 137
+    },
+    "PS.10A": {
+      "section": "P-S",
+      "name": "Social inequality",
+      "file": "concepts/PS.10A.json",
+      "node_count": 131
+    },
+    "CARS.FOC": {
+      "section": "CARS",
+      "name": "Foundations of Comprehension",
+      "file": "concepts/CARS.FOC.json",
+      "node_count": 118
+    },
+    "CARS.RW": {
+      "section": "CARS",
+      "name": "Reasoning Within the Text",
+      "file": "concepts/CARS.RW.json",
+      "node_count": 170
+    },
+    "CARS.RB": {
+      "section": "CARS",
+      "name": "Reasoning Beyond the Text",
+      "file": "concepts/CARS.RB.json",
+      "node_count": 130
+    }
+  },
+  "total_concept_nodes": 6025
+}

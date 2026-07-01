@@ -1,0 +1,2449 @@
+{
+  "missing_files": [],
+  "malformed_files": [],
+  "dropped_dangling_edges": [
+    {
+      "src": "BB.1A.protein-function.structural.actin",
+      "dst": "BB.2A.cytoskeleton.microfilaments.polymerization",
+      "kind": "prerequisite"
+    },
+    {
+      "src": "CP.5D.carbohydrates.feeder",
+      "dst": "BB.1D.glycolysis.feeder",
+      "kind": "prerequisite"
+    }
+  ],
+  "broken_cycle_edges": [
+    {
+      "src": "CP.5E.gibbs.coupling.concept",
+      "dst": "BB.1D.bioenergetics.coupling.reaction-coupling"
+    }
+  ],
+  "duplicate_ids": [],
+  "resolved_external": 94,
+  "unresolved_external": [
+    {
+      "dst": "BB.1A.amino-acids.acid-base.henderson-hasselbalch",
+      "from_leaf": "CP.5A",
+      "concept_hint": "Acid-base equilibria, pH, pKa, and the Henderson-Hasselbalch equation",
+      "_in_leaf": "BB.1A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1A.amino-acids.acid-base.titration-curve",
+      "from_leaf": "CP.5A",
+      "concept_hint": "Acid-base titration curves and equivalence points",
+      "_in_leaf": "BB.1A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1A.amino-acids.acid-base.polyprotic",
+      "from_leaf": "CP.5A",
+      "concept_hint": "Polyprotic acids and stepwise dissociation",
+      "_in_leaf": "BB.1A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1A.amino-acids.stereochemistry.d-l-vs-r-s",
+      "from_leaf": "CP.5D",
+      "concept_hint": "Stereochemistry: absolute configuration and R/S Cahn-Ingold-Prelog priority rules",
+      "_in_leaf": "BB.1A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1A.amino-acids.stereochemistry.glyceraldehyde-reference",
+      "from_leaf": "CP.5D",
+      "concept_hint": "D/L relative configuration referenced to glyceraldehyde",
+      "_in_leaf": "BB.1A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1A.amino-acids.special-residues.cysteine-disulfide",
+      "from_leaf": "CP.4E",
+      "concept_hint": "Oxidation-reduction reactions (thiol oxidation to disulfide)",
+      "_in_leaf": "BB.1A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1A.protein-structure.tertiary.hydrophobic-interactions",
+      "from_leaf": "CP.5E",
+      "concept_hint": "Intermolecular forces and the hydrophobic effect",
+      "_in_leaf": "BB.1A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1A.protein-structure.stabilizing-forces.entropy-driven",
+      "from_leaf": "CP.4A",
+      "concept_hint": "Entropy, free energy, and spontaneity of processes",
+      "_in_leaf": "BB.1A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1A.protein-folding.native-state.folding-funnel",
+      "from_leaf": "CP.4A",
+      "concept_hint": "Free-energy minimization and spontaneous processes",
+      "_in_leaf": "BB.1A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1A.protein-analysis.quantification.uv-absorbance",
+      "from_leaf": "CP.5C",
+      "concept_hint": "Beer-Lambert law and spectroscopic absorbance",
+      "_in_leaf": "BB.1A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1A.protein-analysis.quantification.mass-spec",
+      "from_leaf": "CP.5C",
+      "concept_hint": "Mass spectrometry and mass-to-charge separation",
+      "_in_leaf": "BB.1A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1A.protein-analysis.electrophoresis.principle",
+      "from_leaf": "CP.5B",
+      "concept_hint": "Movement of charged particles in an electric field",
+      "_in_leaf": "BB.1A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1A.protein-structure.primary.point-mutation-effect",
+      "from_leaf": "BB.1C",
+      "concept_hint": "Point mutations and the genetic code (e.g., sickle-cell missense mutation)",
+      "_in_leaf": "BB.1A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1A.amino-acids.special-residues.methionine-start",
+      "from_leaf": "BB.1B",
+      "concept_hint": "AUG start codon and translation initiation",
+      "_in_leaf": "BB.1A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1A.protein-function.binding.binding-affinity",
+      "from_leaf": "BB.1D",
+      "concept_hint": "Binding equilibria and dissociation constants (Kd)",
+      "_in_leaf": "BB.1A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1B.nucleic-acids.nucleotides.phosphodiester",
+      "from_leaf": "CP.5D",
+      "concept_hint": "Condensation (dehydration) reaction forming ester/anhydride bonds",
+      "_in_leaf": "BB.1B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1B.nucleic-acids.nucleotides.glycosidic-bond",
+      "from_leaf": "BB.2C",
+      "concept_hint": "Glycosidic linkage between a sugar and another group",
+      "_in_leaf": "BB.1B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1B.nucleic-acids.dna-structure.complementary-pairing",
+      "from_leaf": "CP.5D",
+      "concept_hint": "Hydrogen bonding between electronegative atoms",
+      "_in_leaf": "BB.1B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1B.nucleic-acids.dna-structure.base-stacking",
+      "from_leaf": "CP.5E",
+      "concept_hint": "Van der Waals forces and hydrophobic interactions",
+      "_in_leaf": "BB.1B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1B.nucleic-acids.dna-structure.denaturation-melting",
+      "from_leaf": "CP.5E",
+      "concept_hint": "Noncovalent interactions and thermodynamics of bond breaking",
+      "_in_leaf": "BB.1B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1B.nucleic-acids.dna-structure.hyperchromicity",
+      "from_leaf": "CP.4D",
+      "concept_hint": "UV absorbance spectroscopy and conjugated systems",
+      "_in_leaf": "BB.1B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1B.eukaryotic-chromosome.histones.positive-charge",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Basic amino acids (lysine, arginine) and their positive charge",
+      "_in_leaf": "BB.1B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1B.translation.players.aminoacyl-trna-synthetase",
+      "from_leaf": "BB.2C",
+      "concept_hint": "ATP as the cell's energy currency / coupled hydrolysis",
+      "_in_leaf": "BB.1B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1B.translation.posttranslational.signal-sequence",
+      "from_leaf": "BB.2A",
+      "concept_hint": "Rough endoplasmic reticulum and the secretory pathway",
+      "_in_leaf": "BB.1B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1B.biotechnology.separation.gel-electrophoresis",
+      "from_leaf": "CP.5C",
+      "concept_hint": "Migration of charged particles in an electric field (electrophoresis)",
+      "_in_leaf": "BB.1B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1B.gene-regulation.cancer.tumor-suppressors",
+      "from_leaf": "BB.2B",
+      "concept_hint": "Cell cycle control and apoptosis",
+      "_in_leaf": "BB.1B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1B.recombination.conjugation",
+      "from_leaf": "BB.2C",
+      "concept_hint": "Bacterial cell structure and plasmids",
+      "_in_leaf": "BB.1B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1C.meiosis.overview.one-replication",
+      "from_leaf": "BB.1B",
+      "concept_hint": "DNA replication (semiconservative S phase)",
+      "_in_leaf": "BB.1C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1C.meiosis.overview.ploidy-reduction",
+      "from_leaf": "BB.1B",
+      "concept_hint": "Mitosis and the cell cycle",
+      "_in_leaf": "BB.1C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1C.meiosis.overview.diversity-vs-mitosis",
+      "from_leaf": "BB.1B",
+      "concept_hint": "Mitosis produces identical diploid daughter cells",
+      "_in_leaf": "BB.1C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1C.meiosis.meiosis-i.metaphase-i",
+      "from_leaf": "BB.1B",
+      "concept_hint": "Mitotic spindle apparatus and centromere/kinetochore attachment",
+      "_in_leaf": "BB.1C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1C.meiosis.overview.centromere-kinetochore",
+      "from_leaf": "BB.1B",
+      "concept_hint": "Centromere, kinetochore, and spindle-fiber attachment",
+      "_in_leaf": "BB.1C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1C.mendelian.terms.gene",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Gene as a DNA sequence encoding a product (central dogma)",
+      "_in_leaf": "BB.1C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1C.chromosomal-genetics.mutation.point-mutation",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Genetic code, codons, and translation reading frame",
+      "_in_leaf": "BB.1C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1C.chromosomal-genetics.mutation.substitution-types",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Codon degeneracy, stop codons, and translation",
+      "_in_leaf": "BB.1C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1C.chromosomal-genetics.mutation.frameshift",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Reading frame and codon triplet structure",
+      "_in_leaf": "BB.1C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1C.chromosomal-genetics.mutation.transition-transversion",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Purine vs pyrimidine nucleotide structure",
+      "_in_leaf": "BB.1C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1C.variation-sources.crossing-over.chiasmata",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Homologous recombination / DNA strand exchange mechanism",
+      "_in_leaf": "BB.1C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1C.extranuclear.epigenetics.dna-methylation",
+      "from_leaf": "BB.1A",
+      "concept_hint": "DNA structure and regulation of gene expression (chromatin)",
+      "_in_leaf": "BB.1C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1C.extranuclear.epigenetics.histone-modification",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Histones, nucleosomes, and chromatin packaging",
+      "_in_leaf": "BB.1C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1C.inheritance-patterns.dominance-variants.abo-blood",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Glycosyltransferases adding antigen sugars (gene product to phenotype)",
+      "_in_leaf": "BB.1C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1C.mendelian.probability.product-rule",
+      "from_leaf": "PS.9B",
+      "concept_hint": "Probability rules (independent and mutually exclusive events)",
+      "_in_leaf": "BB.1C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1C.population-genetics.hardy-weinberg.genotype-equation",
+      "from_leaf": "PS.9B",
+      "concept_hint": "Binomial probability and frequency proportions",
+      "_in_leaf": "BB.1C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1D.bioenergetics.thermo.gibbs-free-energy",
+      "from_leaf": "CP.5E",
+      "concept_hint": "Thermodynamics: enthalpy, entropy, Gibbs free energy",
+      "_in_leaf": "BB.1D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1D.bioenergetics.thermo.delta-g-vs-keq",
+      "from_leaf": "CP.5C",
+      "concept_hint": "Equilibrium constant and the relationship of Keq to free energy",
+      "_in_leaf": "BB.1D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1D.bioenergetics.thermo.actual-delta-g",
+      "from_leaf": "CP.5C",
+      "concept_hint": "Reaction quotient Q and Le Chatelier's principle",
+      "_in_leaf": "BB.1D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1D.bioenergetics.redox.delta-g-vs-emf",
+      "from_leaf": "CP.5E",
+      "concept_hint": "Electrochemistry: cell potential, Nernst equation, \u0394G = -nFE",
+      "_in_leaf": "BB.1D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1D.metabolism-overview.regulation.allosteric",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Enzyme structure, active site, and allosteric regulation",
+      "_in_leaf": "BB.1D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1D.metabolism-overview.regulation.committed-step",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Enzyme kinetics, rate-limiting steps, and feedback regulation",
+      "_in_leaf": "BB.1D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1D.metabolism-overview.regulation.covalent-modification",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Reversible covalent modification of enzymes by kinases and phosphatases",
+      "_in_leaf": "BB.1D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1D.bioenergetics.thermo.thermo-vs-kinetics",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Enzymes lower activation energy without changing \u0394G",
+      "_in_leaf": "BB.1D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1D.pdh.reaction.coenzymes",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Cofactors and coenzymes derived from vitamins (thiamine, riboflavin, niacin)",
+      "_in_leaf": "BB.1D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1D.protein.nitrogen.plp-cofactor",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Vitamin-derived coenzymes (pyridoxal phosphate / vitamin B6)",
+      "_in_leaf": "BB.1D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1D.bioenergetics.coupling.atp-structure",
+      "from_leaf": "BB.1B",
+      "concept_hint": "Nucleotide structure: nitrogenous base, sugar, and phosphate",
+      "_in_leaf": "BB.1D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1D.glycogen.structure.branched-polymer",
+      "from_leaf": "BB.1B",
+      "concept_hint": "Carbohydrate structure: glycosidic linkages and polysaccharides",
+      "_in_leaf": "BB.1D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1D.lipid.mobilization.lipolysis",
+      "from_leaf": "BB.1B",
+      "concept_hint": "Triacylglycerol and fatty acid structure",
+      "_in_leaf": "BB.1D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1D.lipid.mobilization.lipoproteins",
+      "from_leaf": "BB.1B",
+      "concept_hint": "Lipoprotein structure and classes (chylomicrons, VLDL, LDL, HDL)",
+      "_in_leaf": "BB.1D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1D.glycolysis.feeder.fructose",
+      "from_leaf": "BB.1B",
+      "concept_hint": "Monosaccharide structure and isomers (glucose, fructose, galactose)",
+      "_in_leaf": "BB.1D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1D.glycogen.regulation.camp-cascade",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Second-messenger signal transduction (cAMP, PKA cascade)",
+      "_in_leaf": "BB.1D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1D.oxphos.etc.location",
+      "from_leaf": "BB.2A",
+      "concept_hint": "Mitochondrial structure: inner membrane, cristae, intermembrane space, matrix",
+      "_in_leaf": "BB.1D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1D.oxphos.chemiosmosis.proton-gradient",
+      "from_leaf": "BB.2A",
+      "concept_hint": "Membrane transport and electrochemical gradients across membranes",
+      "_in_leaf": "BB.1D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1D.glycolysis.overview.glucose-uptake",
+      "from_leaf": "BB.2A",
+      "concept_hint": "Facilitated diffusion and membrane transporters (GLUT family)",
+      "_in_leaf": "BB.1D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.1D.integration.hormones.insulin",
+      "from_leaf": "BB.3A",
+      "concept_hint": "Endocrine hormone signaling and receptor mechanisms",
+      "_in_leaf": "BB.1D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2A.plasma-membrane.composition.amphipathic",
+      "from_leaf": "BB.1C",
+      "concept_hint": "Lipid structure: fatty acids and phospholipids",
+      "_in_leaf": "BB.2A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2A.plasma-membrane.composition.cholesterol",
+      "from_leaf": "BB.1C",
+      "concept_hint": "Steroid/sterol structure",
+      "_in_leaf": "BB.2A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2A.plasma-membrane.composition.self-assembly",
+      "from_leaf": "CP.5D",
+      "concept_hint": "Thermodynamics: entropy and the hydrophobic effect",
+      "_in_leaf": "BB.2A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2A.plasma-membrane.proteins.integral",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Protein structure and hydrophobic/hydrophilic amino acids",
+      "_in_leaf": "BB.2A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2A.membrane-transport.passive.simple-diffusion",
+      "from_leaf": "CP.5B",
+      "concept_hint": "Diffusion and concentration gradients",
+      "_in_leaf": "BB.2A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2A.membrane-transport.osmosis.osmotic-pressure",
+      "from_leaf": "CP.5B",
+      "concept_hint": "Colligative properties and osmotic pressure (Pi = iMRT)",
+      "_in_leaf": "BB.2A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2A.membrane-transport.passive.saturation-kinetics",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Michaelis-Menten saturation kinetics (Vmax, Km)",
+      "_in_leaf": "BB.2A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2A.membrane-potential.resting.nernst",
+      "from_leaf": "CP.5C",
+      "concept_hint": "Electrochemistry: Nernst equation and electrode potentials",
+      "_in_leaf": "BB.2A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2A.membrane-potential.resting.definition",
+      "from_leaf": "CP.5A",
+      "concept_hint": "Electric potential and charge separation",
+      "_in_leaf": "BB.2A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2A.cell-signaling.transduction.second-messengers",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Enzyme activity and kinase phosphorylation",
+      "_in_leaf": "BB.2A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2A.cell-signaling.receptors.intracellular",
+      "from_leaf": "BB.1C",
+      "concept_hint": "Steroid hormone (lipophilic) structure and membrane permeability",
+      "_in_leaf": "BB.2A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2B.cell-structure.envelope.plasma-membrane",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Phospholipid bilayer structure and fluid mosaic membrane",
+      "_in_leaf": "BB.2B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2B.cell-structure.internal.nucleoid",
+      "from_leaf": "BB.1C",
+      "concept_hint": "DNA structure: nucleotides and the double helix",
+      "_in_leaf": "BB.2B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2B.cell-structure.internal.supercoiling",
+      "from_leaf": "BB.1C",
+      "concept_hint": "DNA topology, gyrase/topoisomerase, and chromosome packaging",
+      "_in_leaf": "BB.2B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2B.genetics.gene-expression.operon",
+      "from_leaf": "BB.1C",
+      "concept_hint": "Transcription: promoters, RNA polymerase, and gene control",
+      "_in_leaf": "BB.2B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2B.genetics.gene-expression.coupled",
+      "from_leaf": "BB.1C",
+      "concept_hint": "Translation and the central dogma",
+      "_in_leaf": "BB.2B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2B.cell-structure.internal.ribosome-70s",
+      "from_leaf": "BB.1C",
+      "concept_hint": "Ribosome structure and protein synthesis",
+      "_in_leaf": "BB.2B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2B.viruses.genome.dna-rna",
+      "from_leaf": "BB.1C",
+      "concept_hint": "DNA vs RNA nucleic acid chemistry",
+      "_in_leaf": "BB.2B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2B.viruses.genome.retrovirus",
+      "from_leaf": "BB.1C",
+      "concept_hint": "Reverse transcription and DNA replication",
+      "_in_leaf": "BB.2B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2B.genetics.htg.recombination",
+      "from_leaf": "BB.1C",
+      "concept_hint": "Homologous recombination and DNA repair",
+      "_in_leaf": "BB.2B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2B.metabolism.respiration.membrane-etc",
+      "from_leaf": "BB.2C",
+      "concept_hint": "Electron transport chain and oxidative phosphorylation",
+      "_in_leaf": "BB.2B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2B.metabolism.respiration.fermentation",
+      "from_leaf": "BB.2C",
+      "concept_hint": "Glycolysis, fermentation, and NAD+ regeneration",
+      "_in_leaf": "BB.2B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2B.metabolism.nutrition.autotroph",
+      "from_leaf": "BB.2C",
+      "concept_hint": "Carbon fixation and cellular energy metabolism",
+      "_in_leaf": "BB.2B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2B.metabolism.oxygen.oxygen-toxicity",
+      "from_leaf": "BB.2C",
+      "concept_hint": "Reactive oxygen species and antioxidant enzymes",
+      "_in_leaf": "BB.2B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2B.subviral.agents.prion",
+      "from_leaf": "BB.1B",
+      "concept_hint": "Protein folding and conformational structure",
+      "_in_leaf": "BB.2B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2B.subviral.agents.prion-mechanism",
+      "from_leaf": "BB.1B",
+      "concept_hint": "Alpha-helix vs beta-sheet secondary structure",
+      "_in_leaf": "BB.2B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2B.genetics.mutation.source",
+      "from_leaf": "BB.3B",
+      "concept_hint": "Mutation and natural selection as evolutionary forces",
+      "_in_leaf": "BB.2B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2B.cell-structure.external.flagellum",
+      "from_leaf": "CP.5E",
+      "concept_hint": "Proton-motive force / electrochemical gradient driving rotation",
+      "_in_leaf": "BB.2B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2C.cell-cycle.control.cyclin-degradation",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Ubiquitin-proteasome protein degradation",
+      "_in_leaf": "BB.2C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2C.differentiation.basis.differential-expression",
+      "from_leaf": "BB.1C",
+      "concept_hint": "Eukaryotic gene regulation / transcriptional control",
+      "_in_leaf": "BB.2C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2C.differentiation.signaling.transcription-factors",
+      "from_leaf": "BB.1C",
+      "concept_hint": "Transcription factors and gene expression control",
+      "_in_leaf": "BB.2C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2C.cell-death.apoptosis.caspases",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Proteases / enzyme catalysis",
+      "_in_leaf": "BB.2C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2C.meiosis.overview.homologous-chromosomes",
+      "from_leaf": "BB.3A",
+      "concept_hint": "Chromosomes, alleles, and loci (Mendelian genetics)",
+      "_in_leaf": "BB.2C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2C.meiosis.variation.assortment-source",
+      "from_leaf": "BB.3A",
+      "concept_hint": "Law of independent assortment (Mendelian genetics)",
+      "_in_leaf": "BB.2C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2C.meiosis.errors.aneuploidy",
+      "from_leaf": "BB.3A",
+      "concept_hint": "Chromosomal disorders / trisomy",
+      "_in_leaf": "BB.2C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2C.specialization.communication.signaling-modes",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Cell-surface receptors and signal transduction",
+      "_in_leaf": "BB.2C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2C.cancer.dysregulation.ras",
+      "from_leaf": "BB.1A",
+      "concept_hint": "G-protein / GTPase signaling cascades",
+      "_in_leaf": "BB.2C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.2C.specialization.extracellular-matrix.ecm",
+      "from_leaf": "BB.2A",
+      "concept_hint": "Collagen and extracellular structural proteins",
+      "_in_leaf": "BB.2C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3A.signaling.resting.na-k-pump",
+      "from_leaf": "BB.1B",
+      "concept_hint": "Active transport / membrane pumps using ATP",
+      "_in_leaf": "BB.3A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3A.signaling.resting.k-leak",
+      "from_leaf": "BB.1B",
+      "concept_hint": "Selective membrane permeability and ion channels",
+      "_in_leaf": "BB.3A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3A.signaling.resting.nernst",
+      "from_leaf": "CP.5B",
+      "concept_hint": "Electrochemical / membrane potential and the Nernst equation",
+      "_in_leaf": "BB.3A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3A.signaling.resting.goldman",
+      "from_leaf": "CP.5B",
+      "concept_hint": "Electrochemistry of concentration cells / multi-ion potentials",
+      "_in_leaf": "BB.3A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3A.signaling.synapse.ca-trigger",
+      "from_leaf": "BB.1B",
+      "concept_hint": "Vesicular exocytosis and membrane fusion",
+      "_in_leaf": "BB.3A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3A.endocrine.principles.steroid",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Steroid (cholesterol-derived) lipid structure",
+      "_in_leaf": "BB.3A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3A.endocrine.principles.second-messenger",
+      "from_leaf": "BB.1B",
+      "concept_hint": "G-protein-coupled receptors and cAMP signal transduction",
+      "_in_leaf": "BB.3A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3A.signaling.nt.catecholamines",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Tyrosine amino acid as a biosynthetic precursor",
+      "_in_leaf": "BB.3A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3A.coordination.homeostasis.blood-glucose",
+      "from_leaf": "BB.2B",
+      "concept_hint": "Glycogenolysis and gluconeogenesis in metabolism",
+      "_in_leaf": "BB.3A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3A.endocrine.glands.kidney-epo-renin",
+      "from_leaf": "BB.3B",
+      "concept_hint": "Nephron function and renal regulation of blood volume",
+      "_in_leaf": "BB.3A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3B.nervous.signaling.resting-potential",
+      "from_leaf": "CP.5E",
+      "concept_hint": "Electrochemical gradients and membrane potential (Nernst)",
+      "_in_leaf": "BB.3B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3B.nervous.signaling.equilibrium-potential",
+      "from_leaf": "CP.5E",
+      "concept_hint": "Nernst equation and equilibrium potential",
+      "_in_leaf": "BB.3B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3B.nervous.signaling.depolarization",
+      "from_leaf": "CP.5E",
+      "concept_hint": "Ion movement through channels and the electrochemical driving force",
+      "_in_leaf": "BB.3B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3B.nervous.signaling.saltatory",
+      "from_leaf": "CP.5B",
+      "concept_hint": "Resistance, capacitance, and conduction along a cable",
+      "_in_leaf": "BB.3B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3B.endocrine.principles.steroid-hormones",
+      "from_leaf": "BB.1D",
+      "concept_hint": "Steroid structure derived from cholesterol",
+      "_in_leaf": "BB.3B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3B.endocrine.principles.second-messengers",
+      "from_leaf": "BB.1B",
+      "concept_hint": "G-protein-coupled receptor and cAMP signal transduction",
+      "_in_leaf": "BB.3B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3B.endocrine.principles.steroid-hormones",
+      "from_leaf": "BB.1C",
+      "concept_hint": "Transcription factors regulating gene expression",
+      "_in_leaf": "BB.3B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3B.circulatory.vessels.blood-pressure",
+      "from_leaf": "CP.4B",
+      "concept_hint": "Fluid pressure and Poiseuille flow / fluid dynamics",
+      "_in_leaf": "BB.3B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3B.circulatory.vessels.peripheral-resistance",
+      "from_leaf": "CP.4B",
+      "concept_hint": "Flow resistance depends on tube radius (Poiseuille's law)",
+      "_in_leaf": "BB.3B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3B.circulatory.blood.hemoglobin",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Protein quaternary structure and cooperative binding",
+      "_in_leaf": "BB.3B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3B.circulatory.blood.co2-transport",
+      "from_leaf": "CP.5C",
+      "concept_hint": "Acid-base equilibria and the bicarbonate buffer (Henderson-Hasselbalch)",
+      "_in_leaf": "BB.3B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3B.respiratory.gas-exchange.diffusion",
+      "from_leaf": "CP.4A",
+      "concept_hint": "Gas diffusion and partial pressures (Fick's law, Dalton's law)",
+      "_in_leaf": "BB.3B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3B.respiratory.mechanics.boyle-law",
+      "from_leaf": "CP.4A",
+      "concept_hint": "Boyle's law / ideal gas pressure-volume relationship",
+      "_in_leaf": "BB.3B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3B.respiratory.regulation.ph-buffering",
+      "from_leaf": "CP.5C",
+      "concept_hint": "Buffer systems and pH",
+      "_in_leaf": "BB.3B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3B.immune.adaptive.antibody-diversity",
+      "from_leaf": "BB.1C",
+      "concept_hint": "Genetic recombination generating diversity",
+      "_in_leaf": "BB.3B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3B.digestive.accessory.bile",
+      "from_leaf": "BB.1D",
+      "concept_hint": "Amphipathic lipids and emulsification of fats",
+      "_in_leaf": "BB.3B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3B.excretory.processes.filtration",
+      "from_leaf": "CP.4B",
+      "concept_hint": "Hydrostatic and osmotic pressure driving filtration",
+      "_in_leaf": "BB.3B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3B.excretory.processes.loop-henle",
+      "from_leaf": "CP.5D",
+      "concept_hint": "Osmosis and osmolarity gradients",
+      "_in_leaf": "BB.3B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3B.excretory.regulation.adh",
+      "from_leaf": "BB.2A",
+      "concept_hint": "Aquaporin water channels in membranes",
+      "_in_leaf": "BB.3B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3B.circulatory.blood.oncotic-pressure",
+      "from_leaf": "CP.5D",
+      "concept_hint": "Colloid osmotic pressure of macromolecules",
+      "_in_leaf": "BB.3B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3B.musculoskeletal.contraction.cross-bridge",
+      "from_leaf": "BB.2C",
+      "concept_hint": "ATP hydrolysis powering conformational change in motor proteins",
+      "_in_leaf": "BB.3B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3B.musculoskeletal.contraction.energy",
+      "from_leaf": "BB.2C",
+      "concept_hint": "Glycolysis and oxidative phosphorylation as ATP sources",
+      "_in_leaf": "BB.3B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3B.musculoskeletal.skeletal.bone-matrix",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Collagen fibrous protein structure",
+      "_in_leaf": "BB.3B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3B.reproductive.fertilization.process",
+      "from_leaf": "BB.3A",
+      "concept_hint": "Embryonic development and early cell division",
+      "_in_leaf": "BB.3B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "BB.3B.integument.functions.vitamin-d",
+      "from_leaf": "BB.1D",
+      "concept_hint": "Vitamin D as a steroid-derived molecule",
+      "_in_leaf": "BB.3B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4A.work-energy.work.path-pv",
+      "from_leaf": "CP.4D",
+      "concept_hint": "Pressure and PV relationships of gases (fluids/gas phase)",
+      "_in_leaf": "CP.4A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4A.work-energy.conservation.first-law-thermo",
+      "from_leaf": "CP.4E",
+      "concept_hint": "First law of thermodynamics / internal energy and heat (\u0394U = Q \u2212 W)",
+      "_in_leaf": "CP.4A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4A.bio-applications.musculoskeletal.muscle-tension",
+      "from_leaf": "BB.3B",
+      "concept_hint": "Skeletal muscle structure and contraction generating force",
+      "_in_leaf": "CP.4A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4A.bio-applications.musculoskeletal.joint-torque",
+      "from_leaf": "BB.3B",
+      "concept_hint": "Skeletal system: joints and bone as lever framework",
+      "_in_leaf": "CP.4A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4A.units-vectors.scalars-vectors.magnitude-direction",
+      "from_leaf": "CP.4C",
+      "concept_hint": "Trigonometric relationships used in resolving vectors",
+      "_in_leaf": "CP.4A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4A.circular-motion.period.angular-velocity",
+      "from_leaf": "CP.4C",
+      "concept_hint": "Radian measure and angular quantities for rotational kinematics",
+      "_in_leaf": "CP.4A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4A.forces.types.drag",
+      "from_leaf": "CP.4B",
+      "concept_hint": "Fluid viscosity and drag in fluids (Stokes/turbulent drag)",
+      "_in_leaf": "CP.4A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4B.fluid-dynamics.viscous-flow.resistance",
+      "from_leaf": "CP.5E",
+      "concept_hint": "Ohm's law and electrical resistance analogy (V = IR)",
+      "_in_leaf": "CP.4B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4B.gas-laws.ideal-gas.ideal-gas-law",
+      "from_leaf": "CP.4E",
+      "concept_hint": "Kinetic molecular theory and absolute temperature",
+      "_in_leaf": "CP.4B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4B.gas-laws.solubility.henry",
+      "from_leaf": "CP.5B",
+      "concept_hint": "Solutions and concentration / equilibrium partitioning",
+      "_in_leaf": "CP.4B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4B.gas-transport.oxygen.hemoglobin",
+      "from_leaf": "BB.1B",
+      "concept_hint": "Quaternary protein structure and oxygen-binding heme groups",
+      "_in_leaf": "CP.4B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4B.acid-base.bicarbonate-buffer.henderson",
+      "from_leaf": "CP.5C",
+      "concept_hint": "Acid-base equilibria, pKa, and the Henderson-Hasselbalch equation",
+      "_in_leaf": "CP.4B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4B.acid-base.bicarbonate-buffer.equilibrium",
+      "from_leaf": "CP.5B",
+      "concept_hint": "Le Chatelier's principle and chemical equilibrium",
+      "_in_leaf": "CP.4B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4B.circulatory.fluid-exchange.oncotic",
+      "from_leaf": "CP.5B",
+      "concept_hint": "Osmotic pressure and colligative properties",
+      "_in_leaf": "CP.4B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4B.gas-exchange.specialized.countercurrent",
+      "from_leaf": "BB.3B",
+      "concept_hint": "Respiratory system anatomy and gas exchange surfaces across organisms",
+      "_in_leaf": "CP.4B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4B.acid-base.respiratory-compensation.chemoreceptors",
+      "from_leaf": "BB.3D",
+      "concept_hint": "Nervous control / negative feedback homeostasis",
+      "_in_leaf": "CP.4B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4C.ohms-law.voltage.definition",
+      "from_leaf": "CP.4D",
+      "concept_hint": "Electric potential energy and electric potential",
+      "_in_leaf": "CP.4C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4C.charge-current.charge.two-types",
+      "from_leaf": "CP.4D",
+      "concept_hint": "Coulomb's law and the electrostatic force between charges",
+      "_in_leaf": "CP.4C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4C.capacitance.basics.field-between-plates",
+      "from_leaf": "CP.4D",
+      "concept_hint": "Electric field of point charges and Coulomb's law",
+      "_in_leaf": "CP.4C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4C.cell-potential.thermo.equilibrium",
+      "from_leaf": "CP.5B",
+      "concept_hint": "Equilibrium constant K and the reaction quotient Q",
+      "_in_leaf": "CP.4C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4C.cell-potential.nernst.equation",
+      "from_leaf": "CP.5B",
+      "concept_hint": "Reaction quotient Q and Le Chatelier's principle",
+      "_in_leaf": "CP.4C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4C.electrochem-fundamentals.redox.oxidation-number",
+      "from_leaf": "CP.5A",
+      "concept_hint": "Assigning oxidation states from electronegativity and bonding",
+      "_in_leaf": "CP.4C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4C.electrolytic.faraday.law",
+      "from_leaf": "CP.5D",
+      "concept_hint": "Mole concept and stoichiometric conversions",
+      "_in_leaf": "CP.4C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4C.rc.charging.charging-curve",
+      "from_leaf": "CP.4A",
+      "concept_hint": "Exponential functions and natural logarithms",
+      "_in_leaf": "CP.4C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4C.power.energy.rms",
+      "from_leaf": "CP.4A",
+      "concept_hint": "Sinusoidal functions and averaging over a period",
+      "_in_leaf": "CP.4C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4D.sound.nature.longitudinal",
+      "from_leaf": "CP.4C",
+      "concept_hint": "Transverse and longitudinal waves; wave properties (amplitude, wavelength, frequency, period, phase)",
+      "_in_leaf": "CP.4D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4D.sound.speed.wave-relation",
+      "from_leaf": "CP.4C",
+      "concept_hint": "Wave equation v = f\u03bb and general wave characteristics",
+      "_in_leaf": "CP.4D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4D.sound.resonance.standing-waves",
+      "from_leaf": "CP.4C",
+      "concept_hint": "Superposition, standing waves, nodes and antinodes",
+      "_in_leaf": "CP.4D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4D.sound.beats.superposition",
+      "from_leaf": "CP.4C",
+      "concept_hint": "Superposition principle and interference of waves",
+      "_in_leaf": "CP.4D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4D.sound.speed.formula",
+      "from_leaf": "CP.4B",
+      "concept_hint": "Bulk modulus and elastic properties / density of fluids",
+      "_in_leaf": "CP.4D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4D.sound.boundary.acoustic-impedance",
+      "from_leaf": "CP.4B",
+      "concept_hint": "Density of fluids and impedance/resistance concepts",
+      "_in_leaf": "CP.4D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4D.sound.resonance.resonance-driven",
+      "from_leaf": "CP.4A",
+      "concept_hint": "Simple harmonic motion and natural (resonant) frequency",
+      "_in_leaf": "CP.4D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4D.sound.intensity.decibel",
+      "from_leaf": "CP.5E",
+      "concept_hint": "Logarithms and log scales (pH/decibel arithmetic)",
+      "_in_leaf": "CP.4D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4D.light.em-nature.transverse",
+      "from_leaf": "CP.5E",
+      "concept_hint": "Electric and magnetic fields; electromagnetic field concepts",
+      "_in_leaf": "CP.4D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4D.quantum.photon-energy",
+      "from_leaf": "CP.5E",
+      "concept_hint": "Energy quantization E = hf and Planck's constant in atomic structure",
+      "_in_leaf": "CP.4D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4D.quantum.electronic-transition",
+      "from_leaf": "CP.5E",
+      "concept_hint": "Quantized atomic energy levels and electron transitions (Bohr model / spectra)",
+      "_in_leaf": "CP.4D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4D.quantum.photoelectric",
+      "from_leaf": "CP.5E",
+      "concept_hint": "Work function and atomic electron binding energies",
+      "_in_leaf": "CP.4D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4D.quantum.beer-lambert",
+      "from_leaf": "CP.5E",
+      "concept_hint": "Concentration (molarity) and solution chemistry for spectrophotometry",
+      "_in_leaf": "CP.4D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4E.nuclear.stability.e-mc2",
+      "from_leaf": "CP.4C",
+      "concept_hint": "energy, work, and conservation of energy",
+      "_in_leaf": "CP.4E",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4E.nuclear.kinetics.first-order",
+      "from_leaf": "CP.5A",
+      "concept_hint": "first-order reaction rate law and rate constant",
+      "_in_leaf": "CP.4E",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4E.bohr.transitions.planck",
+      "from_leaf": "CP.4D",
+      "concept_hint": "electromagnetic waves: frequency, wavelength, and the speed of light",
+      "_in_leaf": "CP.4E",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4E.quantum.wave-particle.de-broglie",
+      "from_leaf": "CP.4D",
+      "concept_hint": "properties of waves and the photon/wave nature of light",
+      "_in_leaf": "CP.4E",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4E.atomic-structure.subatomic-particles.charge-magnitude",
+      "from_leaf": "CP.5C",
+      "concept_hint": "electric charge and Coulomb's law",
+      "_in_leaf": "CP.4E",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.4E.periodic.effective-charge.zeff",
+      "from_leaf": "CP.5C",
+      "concept_hint": "Coulomb's law: electrostatic attraction and distance",
+      "_in_leaf": "CP.4E",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5A.water-structure.molecular-structure.bond-polarity",
+      "from_leaf": "CP.5C",
+      "concept_hint": "Electronegativity and bond polarity",
+      "_in_leaf": "CP.5A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5A.water-structure.molecular-structure.sp3-oxygen",
+      "from_leaf": "CP.5C",
+      "concept_hint": "Orbital hybridization (sp3) and VSEPR geometry",
+      "_in_leaf": "CP.5A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5A.water-structure.molecular-structure.lone-pair-compression",
+      "from_leaf": "CP.5C",
+      "concept_hint": "VSEPR lone-pair vs bonding-pair repulsion",
+      "_in_leaf": "CP.5A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5A.water-structure.imf.london",
+      "from_leaf": "CP.5C",
+      "concept_hint": "London dispersion forces / intermolecular forces",
+      "_in_leaf": "CP.5A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5A.water-as-solvent.dissolution.high-dielectric",
+      "from_leaf": "CP.5C",
+      "concept_hint": "Dielectric constant / Coulomb's law screening",
+      "_in_leaf": "CP.5A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5A.water-as-solvent.energetics.lattice-energy",
+      "from_leaf": "CP.5C",
+      "concept_hint": "Ionic bonding and lattice energy",
+      "_in_leaf": "CP.5A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5A.solutions-solubility.saturation.dynamic-equilibrium",
+      "from_leaf": "CP.5B",
+      "concept_hint": "Dynamic equilibrium and reversible processes",
+      "_in_leaf": "CP.5A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5A.solutions-solubility.ksp.definition",
+      "from_leaf": "CP.5B",
+      "concept_hint": "Equilibrium constant and the law of mass action",
+      "_in_leaf": "CP.5A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5A.solutions-solubility.ksp.common-ion",
+      "from_leaf": "CP.5B",
+      "concept_hint": "Le Chatelier's principle",
+      "_in_leaf": "CP.5A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5A.solutions-solubility.ksp.complex-ion",
+      "from_leaf": "CP.5B",
+      "concept_hint": "Complex-ion equilibria and formation constant Kf",
+      "_in_leaf": "CP.5A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5A.solutions-solubility.factors.ph-effect",
+      "from_leaf": "CP.5B",
+      "concept_hint": "Acid-base equilibria and Le Chatelier",
+      "_in_leaf": "CP.5A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5A.concentration.amount-based.molarity",
+      "from_leaf": "CP.5B",
+      "concept_hint": "The mole concept and Avogadro's number",
+      "_in_leaf": "CP.5A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5A.concentration.amount-based.equivalents",
+      "from_leaf": "CP.5B",
+      "concept_hint": "Stoichiometry and reacting equivalents",
+      "_in_leaf": "CP.5A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5A.concentration.dilution.unit-conversion",
+      "from_leaf": "CP.4A",
+      "concept_hint": "Density as mass per unit volume",
+      "_in_leaf": "CP.5A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5A.water-ionization.amphoterism.amphoteric",
+      "from_leaf": "CP.5B",
+      "concept_hint": "Br\u00f8nsted-Lowry acid-base definition",
+      "_in_leaf": "CP.5A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5A.colligative.osmotic.cell-effects",
+      "from_leaf": "BB.2A",
+      "concept_hint": "Plasma membrane and osmotic regulation of cells",
+      "_in_leaf": "CP.5A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5B.covalent-bond.formation.valence-electrons",
+      "from_leaf": "CP.5A",
+      "concept_hint": "Electron configuration, valence shell, and the periodic table organization of electrons",
+      "_in_leaf": "CP.5B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5B.covalent-bond.formation.octet-rule",
+      "from_leaf": "CP.5A",
+      "concept_hint": "Noble-gas (stable) electron configurations and shell filling",
+      "_in_leaf": "CP.5B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5B.covalent-bond.formation.potential-energy-curve",
+      "from_leaf": "CP.4B",
+      "concept_hint": "Potential energy, equilibrium, and electrostatic (Coulombic) attraction/repulsion",
+      "_in_leaf": "CP.5B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5B.electronegativity-polarity.electronegativity.periodic-trend",
+      "from_leaf": "CP.5A",
+      "concept_hint": "Periodic trends (atomic radius, effective nuclear charge) and the periodic table",
+      "_in_leaf": "CP.5B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5B.electronegativity-polarity.bond-character.ionic",
+      "from_leaf": "CP.5A",
+      "concept_hint": "Ionic bonding and electron transfer to form cations and anions",
+      "_in_leaf": "CP.5B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5B.other-bonding.ionic.lattice-energy",
+      "from_leaf": "CP.4B",
+      "concept_hint": "Coulomb's law: force/energy \u221d q\u2081q\u2082/r between charges",
+      "_in_leaf": "CP.5B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5B.dipole-polarity.dipole-moment.definition",
+      "from_leaf": "CP.4B",
+      "concept_hint": "Electric charge, electric field, and the concept of an electric dipole (q\u00b7d)",
+      "_in_leaf": "CP.5B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5B.hybridization-orbitals.valence-bond.orbital-overlap",
+      "from_leaf": "CP.5A",
+      "concept_hint": "Atomic orbitals (s, p, d) shapes and quantum numbers",
+      "_in_leaf": "CP.5B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5B.hybridization-orbitals.mo-theory.paramagnetism",
+      "from_leaf": "CP.5A",
+      "concept_hint": "Paired vs. unpaired electrons and Hund's rule in atomic orbitals",
+      "_in_leaf": "CP.5B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5B.intermolecular-forces.ion-dipole.definition",
+      "from_leaf": "CP.5A",
+      "concept_hint": "Formation and charges of monatomic and polyatomic ions",
+      "_in_leaf": "CP.5B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5B.physical-properties.phase-transitions.heat-of-vaporization",
+      "from_leaf": "CP.4E",
+      "concept_hint": "Enthalpy, heat, and phase-change energetics (heat of vaporization/fusion)",
+      "_in_leaf": "CP.5B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5B.intermolecular-forces.hydrogen-bonding.water-anomalies",
+      "from_leaf": "BB.1D",
+      "concept_hint": "Water as a biological solvent and its role in hydrophobic/hydrophilic interactions",
+      "_in_leaf": "CP.5B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5B.physical-properties.solubility.amphipathic",
+      "from_leaf": "BB.1D",
+      "concept_hint": "Phospholipid bilayers, micelles, and the hydrophobic effect in biological membranes",
+      "_in_leaf": "CP.5B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5C.principles.partition-coefficient.definition",
+      "from_leaf": "CP.5A",
+      "concept_hint": "Solution equilibrium and equilibrium constant",
+      "_in_leaf": "CP.5C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5C.principles.basis.polarity",
+      "from_leaf": "CP.5D",
+      "concept_hint": "Bond dipoles and molecular polarity",
+      "_in_leaf": "CP.5C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5C.extraction.acid-base.protonation",
+      "from_leaf": "CP.5E",
+      "concept_hint": "pKa, pH, and acid-base equilibria (Henderson-Hasselbalch)",
+      "_in_leaf": "CP.5C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5C.extraction.acid-base.pka-vs-ph",
+      "from_leaf": "CP.5E",
+      "concept_hint": "Henderson-Hasselbalch and fraction ionized",
+      "_in_leaf": "CP.5C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5C.distillation.principles.raoults-law",
+      "from_leaf": "CP.5B",
+      "concept_hint": "Colligative properties / Raoult's law",
+      "_in_leaf": "CP.5C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5C.distillation.steam.immiscible-additive-pressures",
+      "from_leaf": "CP.5B",
+      "concept_hint": "Dalton's law of partial pressures",
+      "_in_leaf": "CP.5C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5C.electrophoresis.dna-gel.uniform-charge",
+      "from_leaf": "BB.1C",
+      "concept_hint": "Nucleic acid structure and phosphodiester backbone",
+      "_in_leaf": "CP.5C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5C.electrophoresis.sds-page.reducing-agent",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Disulfide bonds in protein tertiary/quaternary structure",
+      "_in_leaf": "CP.5C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5C.chromatography.affinity.specific-binding",
+      "from_leaf": "BB.1B",
+      "concept_hint": "Enzyme-substrate and ligand specificity",
+      "_in_leaf": "CP.5C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5C.filtration-centrifugation.dialysis.membrane",
+      "from_leaf": "CP.5B",
+      "concept_hint": "Diffusion and osmosis across membranes",
+      "_in_leaf": "CP.5C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5C.filtration-centrifugation.centrifugation.differential",
+      "from_leaf": "BB.2A",
+      "concept_hint": "Eukaryotic organelles and cell fractionation",
+      "_in_leaf": "CP.5C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5D.amino-acids.structure.chirality",
+      "from_leaf": "CP.5A",
+      "concept_hint": "Stereochemistry: chirality and enantiomers",
+      "_in_leaf": "CP.5D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5D.amino-acids.structure.absolute-config",
+      "from_leaf": "CP.5A",
+      "concept_hint": "R/S absolute configuration (CIP priority rules)",
+      "_in_leaf": "CP.5D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5D.amino-acids.acid-base.zwitterion",
+      "from_leaf": "CP.5E",
+      "concept_hint": "Acid-base equilibria and pKa",
+      "_in_leaf": "CP.5D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5D.amino-acids.acid-base.isoelectric-point",
+      "from_leaf": "CP.5E",
+      "concept_hint": "Henderson-Hasselbalch equation and buffers",
+      "_in_leaf": "CP.5D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5D.amino-acids.reactions.peptide-bond-formation",
+      "from_leaf": "CP.5C",
+      "concept_hint": "Nucleophilic acyl substitution / amide formation",
+      "_in_leaf": "CP.5D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5D.amino-acids.reactions.disulfide-formation",
+      "from_leaf": "CP.5B",
+      "concept_hint": "Oxidation and reduction of functional groups",
+      "_in_leaf": "CP.5D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5D.carbohydrates.cyclic.ring-formation",
+      "from_leaf": "CP.5C",
+      "concept_hint": "Hemiacetal and acetal formation from carbonyls",
+      "_in_leaf": "CP.5D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5D.carbohydrates.reactions.tollens-benedict",
+      "from_leaf": "CP.5B",
+      "concept_hint": "Oxidation of aldehydes by mild oxidants",
+      "_in_leaf": "CP.5D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5D.lipids.triacylglycerols.saponification",
+      "from_leaf": "CP.5C",
+      "concept_hint": "Ester hydrolysis under basic conditions",
+      "_in_leaf": "CP.5D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5D.enzymes.basics.lower-ea",
+      "from_leaf": "CP.4A",
+      "concept_hint": "Activation energy and reaction coordinate diagrams",
+      "_in_leaf": "CP.5D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5D.enzymes.kinetics.michaelis-menten",
+      "from_leaf": "CP.4A",
+      "concept_hint": "Reaction rate laws and rate-limiting steps",
+      "_in_leaf": "CP.5D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5D.enzymes.basics.no-keq-change",
+      "from_leaf": "CP.4B",
+      "concept_hint": "Chemical equilibrium and the equilibrium constant",
+      "_in_leaf": "CP.5D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5D.proteins.tertiary.hydrophobic",
+      "from_leaf": "CP.4B",
+      "concept_hint": "Entropy and the hydrophobic effect (thermodynamics)",
+      "_in_leaf": "CP.5D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5D.nucleotides.energy.atp",
+      "from_leaf": "CP.4B",
+      "concept_hint": "Free energy and spontaneity (coupled reactions)",
+      "_in_leaf": "CP.5D",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5E.first-law.work.pv-work",
+      "from_leaf": "CP.4D",
+      "concept_hint": "Ideal gas law and pressure-volume relationships",
+      "_in_leaf": "CP.5E",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5E.first-law.processes.isothermal",
+      "from_leaf": "CP.4D",
+      "concept_hint": "Ideal gas behavior (\u0394U depends only on T)",
+      "_in_leaf": "CP.5E",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5E.enthalpy.definition.dh-du-relation",
+      "from_leaf": "CP.4D",
+      "concept_hint": "\u0394n_gas\u00b7RT and the ideal gas law",
+      "_in_leaf": "CP.5E",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5E.gibbs.standard.k-relation",
+      "from_leaf": "CP.5D",
+      "concept_hint": "Equilibrium constant K and the reaction quotient Q",
+      "_in_leaf": "CP.5E",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5E.gibbs.standard.q-relation",
+      "from_leaf": "CP.5D",
+      "concept_hint": "Reaction quotient Q and Le Chatelier's principle",
+      "_in_leaf": "CP.5E",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5E.gibbs.standard.q-vs-k-direction",
+      "from_leaf": "CP.5D",
+      "concept_hint": "Comparing Q to K to predict shift direction",
+      "_in_leaf": "CP.5E",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5E.enthalpy.hess.bond-enthalpy",
+      "from_leaf": "CP.4A",
+      "concept_hint": "Covalent bonding and bond strength",
+      "_in_leaf": "CP.5E",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5E.kinetics-theory.collision.temperature",
+      "from_leaf": "CP.4B",
+      "concept_hint": "Maxwell-Boltzmann distribution of molecular speeds",
+      "_in_leaf": "CP.5E",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5E.energy-state.system.heat-vs-temperature",
+      "from_leaf": "CP.4B",
+      "concept_hint": "Kinetic molecular theory: temperature as average kinetic energy",
+      "_in_leaf": "CP.5E",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5E.enthalpy.special.lattice-hydration",
+      "from_leaf": "CP.5C",
+      "concept_hint": "Solubility, dissolution, and ion-dipole solvation",
+      "_in_leaf": "CP.5E",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CP.5E.mechanisms.catalysis.enzymes",
+      "from_leaf": "BB.1A",
+      "concept_hint": "Enzyme structure, function, and active site",
+      "_in_leaf": "CP.5E",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6A.foundations.transduction.receptor-potential",
+      "from_leaf": "BB.3B",
+      "concept_hint": "Graded potentials and membrane depolarization",
+      "_in_leaf": "PS.6A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6A.foundations.pathways.projection-areas",
+      "from_leaf": "PS.7A",
+      "concept_hint": "Cerebral cortex lobes and localization of function",
+      "_in_leaf": "PS.6A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6A.vision.eye-anatomy.lens-accommodation",
+      "from_leaf": "CP.4D",
+      "concept_hint": "Lenses, focal length, and image formation",
+      "_in_leaf": "PS.6A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6A.vision.phototransduction.photopigments",
+      "from_leaf": "CP.4D",
+      "concept_hint": "Wavelength and energy of electromagnetic (visible) light",
+      "_in_leaf": "PS.6A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6A.hearing.sound-properties.frequency-pitch",
+      "from_leaf": "CP.4C",
+      "concept_hint": "Sound waves, frequency, and wave properties",
+      "_in_leaf": "PS.6A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6A.hearing.sound-properties.amplitude-loudness",
+      "from_leaf": "CP.4C",
+      "concept_hint": "Decibel scale and sound intensity (logarithmic)",
+      "_in_leaf": "PS.6A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6A.hearing.outer-middle.oval-window",
+      "from_leaf": "CP.4C",
+      "concept_hint": "Impedance matching and pressure amplification",
+      "_in_leaf": "PS.6A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6A.hearing.inner-ear.hair-cell-bending",
+      "from_leaf": "BB.3B",
+      "concept_hint": "Mechanically-gated ion channels and depolarization",
+      "_in_leaf": "PS.6A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6A.somatosensation.proprioception.muscle-spindles",
+      "from_leaf": "BB.3C",
+      "concept_hint": "Muscle structure and the stretch reflex",
+      "_in_leaf": "PS.6A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6B.sensory-processing.receptors.transduction",
+      "from_leaf": "BB.3A",
+      "concept_hint": "Resting membrane potential and graded/action potentials of neurons",
+      "_in_leaf": "PS.6B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6B.sensory-processing.pathways.thalamus-relay",
+      "from_leaf": "PS.7A",
+      "concept_hint": "Thalamus and gross functional organization of the brain",
+      "_in_leaf": "PS.6B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6B.vision.photoreceptors.phototransduction",
+      "from_leaf": "BB.3A",
+      "concept_hint": "G-protein-coupled receptor signaling cascades",
+      "_in_leaf": "PS.6B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6B.hearing.sound-properties.frequency-pitch",
+      "from_leaf": "CP.4C",
+      "concept_hint": "Sound as a longitudinal pressure wave: frequency, wavelength, intensity",
+      "_in_leaf": "PS.6B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6B.hearing.sound-properties.amplitude-loudness",
+      "from_leaf": "CP.4C",
+      "concept_hint": "Decibel scale and logarithmic measure of sound intensity",
+      "_in_leaf": "PS.6B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6B.vision.eye-anatomy.cornea",
+      "from_leaf": "CP.4D",
+      "concept_hint": "Refraction of light at curved surfaces and lens optics",
+      "_in_leaf": "PS.6B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6B.vision.eye-anatomy.lens",
+      "from_leaf": "CP.4D",
+      "concept_hint": "Converging lenses, focal length, and image formation",
+      "_in_leaf": "PS.6B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6B.vision.eye-anatomy.refractive-errors",
+      "from_leaf": "CP.4D",
+      "concept_hint": "Diverging vs. converging corrective lenses and focal point shift",
+      "_in_leaf": "PS.6B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6B.sensory-processing.receptors.chemoreceptors",
+      "from_leaf": "BB.3A",
+      "concept_hint": "Receptor-ligand binding and chemical signal transduction",
+      "_in_leaf": "PS.6B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6B.other-senses.somatosensation.endorphins",
+      "from_leaf": "BB.3A",
+      "concept_hint": "Neurotransmitters and endogenous opioid (peptide) signaling",
+      "_in_leaf": "PS.6B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6C.emotion.neuroscience.limbic-system",
+      "from_leaf": "PS.6A",
+      "concept_hint": "Forebrain structures and the limbic system (biological bases of behavior)",
+      "_in_leaf": "PS.6C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6C.emotion.neuroscience.ans-emotion",
+      "from_leaf": "PS.6A",
+      "concept_hint": "Autonomic nervous system: sympathetic vs. parasympathetic divisions",
+      "_in_leaf": "PS.6C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6C.emotion.neuroscience.prefrontal-cortex",
+      "from_leaf": "PS.6A",
+      "concept_hint": "Cortical regions and the prefrontal cortex (executive function)",
+      "_in_leaf": "PS.6C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6C.emotion.neuroscience.fear-conditioning",
+      "from_leaf": "PS.6B",
+      "concept_hint": "Classical conditioning and acquisition of conditioned responses",
+      "_in_leaf": "PS.6C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6C.stress.physiology.cortisol",
+      "from_leaf": "BB.3B",
+      "concept_hint": "Cortisol and adrenal cortex hormones (glucocorticoids)",
+      "_in_leaf": "PS.6C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6C.emotion.neuroscience.epinephrine",
+      "from_leaf": "BB.3B",
+      "concept_hint": "Epinephrine/norepinephrine from the adrenal medulla",
+      "_in_leaf": "PS.6C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6C.stress.health-effects.immunosuppression",
+      "from_leaf": "BB.3A",
+      "concept_hint": "Immune system: lymphocytes and immune function",
+      "_in_leaf": "PS.6C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6C.stress.health-effects.cardiovascular",
+      "from_leaf": "BB.2C",
+      "concept_hint": "Cardiovascular system: blood pressure and atherosclerosis",
+      "_in_leaf": "PS.6C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6C.stress.definitions.appraisal-model",
+      "from_leaf": "PS.7A",
+      "concept_hint": "Cognition and attitude/appraisal processes",
+      "_in_leaf": "PS.6C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.6C.stress.coping.learned-helplessness",
+      "from_leaf": "PS.6B",
+      "concept_hint": "Operant conditioning and uncontrollable aversive outcomes",
+      "_in_leaf": "PS.6C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.7A.sensation.hearing.middle-ear",
+      "from_leaf": "CP.4B",
+      "concept_hint": "Sound waves and properties of mechanical waves",
+      "_in_leaf": "PS.7A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.7A.sensation.thresholds.weber-fraction",
+      "from_leaf": "CP.4D",
+      "concept_hint": "Logarithmic scales and stimulus intensity",
+      "_in_leaf": "PS.7A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.7A.cognition.development.piaget-stages",
+      "from_leaf": "PS.6A",
+      "concept_hint": "Theories of cognitive and lifespan development",
+      "_in_leaf": "PS.7A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.7A.consciousness.drugs.addiction",
+      "from_leaf": "PS.6C",
+      "concept_hint": "Reinforcement schedules and conditioned drug response",
+      "_in_leaf": "PS.7A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.7A.language.development.learning-theory",
+      "from_leaf": "PS.6C",
+      "concept_hint": "Operant conditioning and reinforcement",
+      "_in_leaf": "PS.7A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.7A.cognition.intelligence.iq",
+      "from_leaf": "PS.10A",
+      "concept_hint": "Normal distribution and standardized scores",
+      "_in_leaf": "PS.7A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.7B.presence-of-others.social-facilitation.dominant-response",
+      "from_leaf": "PS.6C",
+      "concept_hint": "Arousal theory and the Yerkes-Dodson law of motivation",
+      "_in_leaf": "PS.7B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.7B.presence-of-others.social-facilitation.yerkes-dodson",
+      "from_leaf": "PS.6C",
+      "concept_hint": "Yerkes-Dodson inverted-U arousal-performance curve",
+      "_in_leaf": "PS.7B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.7B.normative-influence.compliance.foot-in-the-door",
+      "from_leaf": "PS.6A",
+      "concept_hint": "Cognitive dissonance and consistency in self-perception",
+      "_in_leaf": "PS.7B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.7B.deviance.theories.differential-association",
+      "from_leaf": "PS.6A",
+      "concept_hint": "Observational and associative (social) learning principles",
+      "_in_leaf": "PS.7B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.7B.deviance.theories.labeling",
+      "from_leaf": "PS.8A",
+      "concept_hint": "Self-concept, identity formation, and self-fulfilling prophecy",
+      "_in_leaf": "PS.7B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.7B.socialization.agents.peers-school",
+      "from_leaf": "PS.7A",
+      "concept_hint": "Group membership, in-group/out-group, and reference groups",
+      "_in_leaf": "PS.7B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.7B.socialization.agents.gender-role",
+      "from_leaf": "PS.7A",
+      "concept_hint": "Gender identity and social construction of gender",
+      "_in_leaf": "PS.7B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.7B.deviance.definition.stigma",
+      "from_leaf": "PS.7A",
+      "concept_hint": "Prejudice, stereotypes, and discrimination",
+      "_in_leaf": "PS.7B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.7C.attitudes.formation.classical-conditioning",
+      "from_leaf": "PS.7B",
+      "concept_hint": "Classical conditioning",
+      "_in_leaf": "PS.7C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.7C.attitudes.formation.observational-learning",
+      "from_leaf": "PS.7B",
+      "concept_hint": "Observational learning (modeling)",
+      "_in_leaf": "PS.7C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.7C.social-cognitive.theory.observational-learning",
+      "from_leaf": "PS.7B",
+      "concept_hint": "Observational learning and vicarious reinforcement",
+      "_in_leaf": "PS.7C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.7C.consistency.tra-tpb.subjective-norms",
+      "from_leaf": "PS.8C",
+      "concept_hint": "Social norms and normative influence",
+      "_in_leaf": "PS.7C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.7C.persuasion.resistance.reactance",
+      "from_leaf": "PS.8B",
+      "concept_hint": "Conformity and compliance pressures",
+      "_in_leaf": "PS.7C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.8A.self-esteem.efficacy.definition",
+      "from_leaf": "PS.7A",
+      "concept_hint": "Bandura's social cognitive / observational learning theory",
+      "_in_leaf": "PS.8A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.8A.self-esteem.efficacy.learned-helplessness",
+      "from_leaf": "PS.6C",
+      "concept_hint": "Operant conditioning and reinforcement / Seligman's learned helplessness",
+      "_in_leaf": "PS.8A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.8A.self-presentation.perception.overjustification",
+      "from_leaf": "PS.6C",
+      "concept_hint": "Intrinsic vs. extrinsic motivation and reward",
+      "_in_leaf": "PS.8A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.8A.social-identity.theory.categorization",
+      "from_leaf": "PS.7B",
+      "concept_hint": "Stereotypes, prejudice, and social cognition / categorization",
+      "_in_leaf": "PS.8A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.8A.social-identity.ingroup.outgroup-homogeneity",
+      "from_leaf": "PS.7B",
+      "concept_hint": "Attribution and bias in person perception",
+      "_in_leaf": "PS.8A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.8A.self-presentation.verification.self-serving-bias",
+      "from_leaf": "PS.7B",
+      "concept_hint": "Attribution theory (internal vs. external attributions)",
+      "_in_leaf": "PS.8A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.8A.social-construction.looking-glass.self-fulfilling",
+      "from_leaf": "PS.7B",
+      "concept_hint": "Expectancy effects / Pygmalion effect in person perception",
+      "_in_leaf": "PS.8A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.8A.identity-formation.erikson.identity",
+      "from_leaf": "PS.9B",
+      "concept_hint": "Socialization, agents of socialization, and the life course",
+      "_in_leaf": "PS.8A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.8A.identity-types.multiple.role-conflict",
+      "from_leaf": "PS.9A",
+      "concept_hint": "Role strain, role conflict, and role exit",
+      "_in_leaf": "PS.8A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.8A.social-construction.mead.role-taking",
+      "from_leaf": "BB.3B",
+      "concept_hint": "Theory of mind / perspective-taking as a cognitive capacity",
+      "_in_leaf": "PS.8A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.8A.social-identity.comparison.theory",
+      "from_leaf": "PS.7B",
+      "concept_hint": "Festinger's social comparison and cognitive consistency",
+      "_in_leaf": "PS.8A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.8B.attitudes.formation.classical-conditioning",
+      "from_leaf": "PS.7A",
+      "concept_hint": "Classical conditioning (associative learning)",
+      "_in_leaf": "PS.8B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.8B.attitudes.formation.operant-conditioning",
+      "from_leaf": "PS.7A",
+      "concept_hint": "Operant conditioning (reinforcement and punishment)",
+      "_in_leaf": "PS.8B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.8B.attitudes.formation.observational-learning",
+      "from_leaf": "PS.7A",
+      "concept_hint": "Observational learning / modeling (Bandura)",
+      "_in_leaf": "PS.8B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.8B.processing-others.schemas.definition",
+      "from_leaf": "PS.7B",
+      "concept_hint": "Schemas and cognitive frameworks in memory",
+      "_in_leaf": "PS.8B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.8B.processing-others.dual-process.automatic",
+      "from_leaf": "PS.7B",
+      "concept_hint": "Dual-process theory / heuristics in cognition",
+      "_in_leaf": "PS.8B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.8B.processing-others.heuristics.availability",
+      "from_leaf": "PS.7B",
+      "concept_hint": "Availability and representativeness heuristics in problem solving and decision making",
+      "_in_leaf": "PS.8B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.8B.prejudice-bias.origins.ingroup-outgroup",
+      "from_leaf": "PS.9A",
+      "concept_hint": "Group identity and social identity theory",
+      "_in_leaf": "PS.8B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.8B.cultural-influences.cultural-relativism.definition",
+      "from_leaf": "PS.9B",
+      "concept_hint": "Culture, norms, and cultural variation",
+      "_in_leaf": "PS.8B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.8C.aggression.biological.amygdala",
+      "from_leaf": "BB.3A",
+      "concept_hint": "Amygdala and limbic system in emotion",
+      "_in_leaf": "PS.8C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.8C.aggression.biological.prefrontal-control",
+      "from_leaf": "BB.3A",
+      "concept_hint": "Prefrontal cortex and executive control",
+      "_in_leaf": "PS.8C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.8C.aggression.biological.testosterone",
+      "from_leaf": "BB.3B",
+      "concept_hint": "Hormones (testosterone) and endocrine signaling",
+      "_in_leaf": "PS.8C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.8C.aggression.social-learning.modeling",
+      "from_leaf": "PS.7A",
+      "concept_hint": "Observational learning / social learning theory (Bandura)",
+      "_in_leaf": "PS.8C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.8C.foraging-mate.game-theory.altruism-evolution",
+      "from_leaf": "PS.6A",
+      "concept_hint": "Evolution and natural selection / inclusive fitness",
+      "_in_leaf": "PS.8C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.8C.foraging-mate.mate-choice.sexual-selection",
+      "from_leaf": "PS.6A",
+      "concept_hint": "Sexual selection and differential reproductive success",
+      "_in_leaf": "PS.8C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.8C.discrimination.bias.explicit-vs-implicit",
+      "from_leaf": "PS.7A",
+      "concept_hint": "Implicit vs. explicit attitudes and automatic processing",
+      "_in_leaf": "PS.8C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.8C.communication.modes.nonverbal",
+      "from_leaf": "PS.4A",
+      "concept_hint": "Emotional expression and universal facial expressions",
+      "_in_leaf": "PS.8C",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.9A.social-institutions.family.violence",
+      "from_leaf": "PS.8B",
+      "concept_hint": "Aggression and prosocial behavior",
+      "_in_leaf": "PS.9A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.9A.demographics.race-ethnicity.patterns-relations",
+      "from_leaf": "PS.8B",
+      "concept_hint": "Intergroup relations, prejudice, and discrimination",
+      "_in_leaf": "PS.9A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.9A.social-interaction.groups.group-conformity",
+      "from_leaf": "PS.8A",
+      "concept_hint": "Conformity, compliance, and group decision-making",
+      "_in_leaf": "PS.9A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.9A.theoretical-approaches.exchange-rational-choice.exchange",
+      "from_leaf": "PS.8A",
+      "concept_hint": "Attraction and social exchange in relationships",
+      "_in_leaf": "PS.9A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.9B.demographic-structure.gender.gender-inequality",
+      "from_leaf": "PS.9A",
+      "concept_hint": "Social inequality and power/privilege",
+      "_in_leaf": "PS.9B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.9B.demographic-structure.race-ethnicity.assimilation",
+      "from_leaf": "PS.8C",
+      "concept_hint": "In-group/out-group and intergroup contact",
+      "_in_leaf": "PS.9B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.9B.demographic-processes.fertility.total-fertility-rate",
+      "from_leaf": "PS.7C",
+      "concept_hint": "Attitudes, norms, and decision-making affecting behavior",
+      "_in_leaf": "PS.9B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.9B.social-movements-change.collective-behavior.contagion-emergent-norm",
+      "from_leaf": "PS.8C",
+      "concept_hint": "Deindividuation and group influence on behavior",
+      "_in_leaf": "PS.9B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.9B.demographic-structure.race-ethnicity.segregation",
+      "from_leaf": "PS.9A",
+      "concept_hint": "Spatial inequality and residential segregation",
+      "_in_leaf": "PS.9B",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.10A.foundations.theory.symbolic-interactionist",
+      "from_leaf": "PS.8B",
+      "concept_hint": "Symbolic interactionism (theoretical approach in sociology)",
+      "_in_leaf": "PS.10A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.10A.foundations.theory.conflict-marx",
+      "from_leaf": "PS.8B",
+      "concept_hint": "Conflict theory (theoretical approach in sociology)",
+      "_in_leaf": "PS.10A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.10A.social-class.cultural-capital.anomie",
+      "from_leaf": "PS.9A",
+      "concept_hint": "Anomie / strain theory and deviance",
+      "_in_leaf": "PS.10A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.10A.health-disparities.access.racial-health-disparities",
+      "from_leaf": "PS.9B",
+      "concept_hint": "Prejudice, discrimination, and racism",
+      "_in_leaf": "PS.10A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.10A.foundations.status.master-status",
+      "from_leaf": "PS.9B",
+      "concept_hint": "Stigma and labeling",
+      "_in_leaf": "PS.10A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.10A.spatial.residential.urbanization",
+      "from_leaf": "PS.9B",
+      "concept_hint": "Demographic shifts and social change (urbanization)",
+      "_in_leaf": "PS.10A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "PS.10A.health-disparities.determinants.weathering-allostatic",
+      "from_leaf": "PS.6C",
+      "concept_hint": "Stress, the stress response, and physiological effects of chronic stress",
+      "_in_leaf": "PS.10A",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CARS.FOC.text-based-inference.implicit-assumptions.identifying-assumption",
+      "from_leaf": "CARS.RW",
+      "concept_hint": "Identifying the author's argument structure (claims, evidence, and reasoning) within the text",
+      "_in_leaf": "CARS.FOC",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CARS.FOC.text-structure.organizational-patterns.thesis-antithesis",
+      "from_leaf": "CARS.RW",
+      "concept_hint": "Evaluating how the author integrates and responds to opposing viewpoints",
+      "_in_leaf": "CARS.FOC",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CARS.FOC.text-based-inference.context-from-passage.author-vs-reported-view",
+      "from_leaf": "CARS.RW",
+      "concept_hint": "Distinguishing the author's position from rival positions the author represents or attributes to others",
+      "_in_leaf": "CARS.FOC",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CARS.RW.comprehension.literal.paraphrase",
+      "from_leaf": "CARS.FOC",
+      "concept_hint": "Foundations of comprehension: building basic understanding of a text before reasoning within it",
+      "_in_leaf": "CARS.RW",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CARS.RW.inference.validity.outside-knowledge",
+      "from_leaf": "CARS.RB",
+      "concept_hint": "Reasoning beyond the text uses outside ideas; within-text reasoning must exclude them, so the boundary must be understood",
+      "_in_leaf": "CARS.RW",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CARS.RB.foundations.passage-mastery.main-idea-anchor",
+      "from_leaf": "CARS.FOC",
+      "concept_hint": "Comprehension of the passage's main idea, purpose, and central thesis",
+      "_in_leaf": "CARS.RB",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CARS.RB.foundations.passage-mastery.authors-purpose",
+      "from_leaf": "CARS.FOC",
+      "concept_hint": "Determining authorial purpose, tone, and rhetorical intent",
+      "_in_leaf": "CARS.RB",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CARS.RB.argument-analysis-substrate.argument-structure.claim-vs-evidence",
+      "from_leaf": "CARS.RW",
+      "concept_hint": "Identifying argument components and distinguishing claim from supporting evidence",
+      "_in_leaf": "CARS.RB",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CARS.RB.argument-analysis-substrate.inference.supported-inference",
+      "from_leaf": "CARS.FOC",
+      "concept_hint": "Drawing inferences that are directly implied by the passage",
+      "_in_leaf": "CARS.RB",
+      "why": "no match in from_leaf"
+    },
+    {
+      "dst": "CARS.RB.applying-extrapolating.synthesis.combine-passage-themes",
+      "from_leaf": "CARS.RW",
+      "concept_hint": "Integrating distinct passage components into a coherent whole",
+      "_in_leaf": "CARS.RB",
+      "why": "no match in from_leaf"
+    }
+  ],
+  "warnings": []
+}

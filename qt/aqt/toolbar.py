@@ -22,6 +22,81 @@ class HideMode(enum.IntEnum):
     ALWAYS = 1
 
 
+# charged_up: inline-SVG glyphs for the top toolbar (Apple-HIG unified bar).
+# 20x20 viewBox, 1.6px strokes, currentColor so they tint with fg / active
+# accent. Each is paired with a text label in _centerLinks (never icon-only).
+_TOOLBAR_ICONS: dict[str, str] = {
+    # house — return to Nexus
+    "home": (
+        '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" '
+        'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'
+        '<path d="M3.5 9.2 10 3.75l6.5 5.45"/>'
+        '<path d="M5 8.3V15.5a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V8.3"/>'
+        '<path d="M8.25 16.5v-4a.75.75 0 0 1 .75-.75h2a.75.75 0 0 1 .75.75v4"/>'
+        "</svg>"
+    ),
+    # stacked cards — decks
+    "decks": (
+        '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" '
+        'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'
+        '<rect x="3.75" y="6.75" width="12.5" height="9.5" rx="1.75"/>'
+        '<path d="M6 4.75h8"/><path d="M5 6.75V15.5"/>'
+        "</svg>"
+    ),
+    # plus — add
+    "add": (
+        '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" '
+        'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'
+        '<path d="M10 4.5v11"/><path d="M4.5 10h11"/>'
+        "</svg>"
+    ),
+    # magnifier — browse
+    "browse": (
+        '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" '
+        'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'
+        '<circle cx="8.75" cy="8.75" r="4.75"/><path d="M12.4 12.4 16 16"/>'
+        "</svg>"
+    ),
+    # bar chart — stats
+    "stats": (
+        '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" '
+        'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'
+        '<path d="M5 15V9.5"/><path d="M10 15V5"/><path d="M15 15v-3.5"/>'
+        "</svg>"
+    ),
+    # linked nodes — the knowledge-graph Map
+    "graph": (
+        '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" '
+        'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'
+        '<circle cx="5.25" cy="6" r="2"/><circle cx="14.75" cy="6" r="2"/>'
+        '<circle cx="10" cy="14.5" r="2"/>'
+        '<path d="M6.9 7.2 8.6 13"/><path d="M13.1 7.2 11.4 13"/>'
+        '<path d="M7.25 6h5.5"/>'
+        "</svg>"
+    ),
+    # circular arrows — sync
+    "sync": (
+        '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" '
+        'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'
+        '<path d="M15.5 6.5A6 6 0 0 0 4.6 8"/>'
+        '<path d="M4.5 13.5A6 6 0 0 0 15.4 12"/>'
+        '<path d="M15.5 4v2.5H13"/><path d="M4.5 16v-2.5H7"/>'
+        "</svg>"
+    ),
+}
+
+# charged_up: which toolbar item id owns the "active" highlight for each
+# MainWindowState. Modal surfaces (Add, Browse) are not states, so they never
+# hold a persistent active state — that is expected.
+_STATE_TO_ACTIVE_ITEM: dict[str, str] = {
+    "home": "home",
+    "deckBrowser": "decks",
+    "overview": "decks",
+    "review": "decks",
+    "knowledgeGraph": "graph",
+}
+
+
 # wrapper class for set_bridge_command()
 class TopToolbar:
     def __init__(self, toolbar: Toolbar) -> None:
@@ -285,10 +360,13 @@ class Toolbar:
         web_context = web_context or TopToolbar(self)
         link_handler = link_handler or self._linkHandler
         self.web.set_bridge_command(link_handler, web_context)
-        body = self._body.format(
-            toolbar_content=self._centerLinks(),
-            left_tray_content=self._left_tray_content(),
-            right_tray_content=self._right_tray_content(),
+        # Use .replace() rather than str.format(): the template embeds a
+        # <script> block whose literal { } braces would otherwise be parsed as
+        # format fields ("unexpected '{' in field name").
+        body = (
+            self._body.replace("{toolbar_content}", self._centerLinks())
+            .replace("{left_tray_content}", self._left_tray_content())
+            .replace("{right_tray_content}", self._right_tray_content())
         )
         self.web.stdHtml(
             body,
@@ -313,6 +391,7 @@ class Toolbar:
         func: Callable,
         tip: str | None = None,
         id: str | None = None,
+        icon: str | None = None,
     ) -> str:
         """Generates HTML link element and registers link handler
 
@@ -326,6 +405,8 @@ class Toolbar:
                                    over the link (default: {None})
             id: {Optional[str]} -- Optional id attribute to supply the link with
                                    (default: {None})
+            icon: {Optional[str]} -- Optional inline SVG markup rendered before
+                                     the label (default: {None})
 
         Returns:
             str -- HTML link element
@@ -335,21 +416,41 @@ class Toolbar:
 
         title_attr = f'title="{tip}"' if tip else ""
         id_attr = f'id="{id}"' if id else ""
+        # charged_up: an inline-SVG glyph, always paired with the text label
+        # (HIG: consistent iconography + a plain word, so a new user never has
+        # to guess). Falls back to a label-only pill if no icon is supplied.
+        icon_markup = f'<span class="hicon">{icon}</span>' if icon else ""
+
+        # charged_up: initial "you are here" highlight for the current screen.
+        # Subsequent state changes update it live via set_active_item() (JS).
+        active_item = _STATE_TO_ACTIVE_ITEM.get(getattr(self.mw, "state", "") or "")
+        active_cls = " active" if id and id == active_item else ""
 
         return (
-            f"""<a class=hitem tabindex="-1" aria-label="{label}" """
+            f"""<a class="hitem{active_cls}" tabindex="-1" aria-label="{label}" """
             f"""{title_attr} {id_attr} href=# onclick="return pycmd('{cmd}')">"""
-            f"""{label}</a>"""
+            f"""{icon_markup}<span class="hlabel">{label}</span></a>"""
         )
 
     def _centerLinks(self) -> str:
         links = [
+            # charged_up: Home returns to the Nexus screen; placed first so the
+            # bar reads left-to-right as a clear "you are here" map.
+            self.create_link(
+                "home",
+                tr.actions_home() if hasattr(tr, "actions_home") else "Home",
+                self._homeLinkHandler,
+                tip=tr.actions_shortcut_key(val="H"),
+                id="home",
+                icon=_TOOLBAR_ICONS["home"],
+            ),
             self.create_link(
                 "decks",
                 tr.actions_decks(),
                 self._deckLinkHandler,
                 tip=tr.actions_shortcut_key(val="D"),
                 id="decks",
+                icon=_TOOLBAR_ICONS["decks"],
             ),
             self.create_link(
                 "add",
@@ -357,6 +458,7 @@ class Toolbar:
                 self._addLinkHandler,
                 tip=tr.actions_shortcut_key(val="A"),
                 id="add",
+                icon=_TOOLBAR_ICONS["add"],
             ),
             self.create_link(
                 "browse",
@@ -364,6 +466,7 @@ class Toolbar:
                 self._browseLinkHandler,
                 tip=tr.actions_shortcut_key(val="B"),
                 id="browse",
+                icon=_TOOLBAR_ICONS["browse"],
             ),
             self.create_link(
                 "stats",
@@ -371,14 +474,18 @@ class Toolbar:
                 self._statsLinkHandler,
                 tip=tr.actions_shortcut_key(val="T"),
                 id="stats",
+                icon=_TOOLBAR_ICONS["stats"],
             ),
-            # charged_up: the MCAT knowledge-graph VIEW, integrated as a main-window screen.
+            # charged_up: the MCAT knowledge-graph VIEW, integrated as a
+            # main-window screen. Labelled "Map" for intuitiveness — it reads
+            # like "the map of what I know", not an abstract "graph".
             self.create_link(
                 "graph",
-                tr.qt_misc_graph(),
+                "Map",
                 self._graphLinkHandler,
                 tip=tr.actions_shortcut_key(val="G"),
                 id="graph",
+                icon=_TOOLBAR_ICONS["graph"],
             ),
         ]
 
@@ -413,9 +520,14 @@ class Toolbar:
         label = "sync"
         self.link_handlers[label] = self._syncLinkHandler
 
+        # charged_up: match the icon + label vocabulary of the center items.
+        # The sync-state color (needs-sync) lands on the whole pill via the
+        # #sync .normal-sync / .full-sync rules, so it's obvious at a glance;
+        # the spinner still replaces the glyph while a sync is running.
+        icon = _TOOLBAR_ICONS["sync"]
         return f"""
 <a class=hitem tabindex="-1" aria-label="{name}" title="{title}" id="{label}" href=# onclick="return pycmd('{label}')"
->{name}<img id=sync-spinner src='/_anki/imgs/refresh.svg'>
+><span class="hicon">{icon}<img id=sync-spinner src='/_anki/imgs/refresh.svg'></span><span class="hlabel">{name}</span>
 </a>"""
 
     def set_sync_active(self, active: bool) -> None:
@@ -437,6 +549,17 @@ class Toolbar:
         if link in self.link_handlers:
             self.link_handlers[link]()
         return False
+
+    def set_active_item(self, state: str) -> None:
+        # charged_up: highlight the toolbar item that owns this screen so the
+        # user always knows where they are. Modal surfaces (Add/Browse) aren't
+        # states, so they clear the highlight — expected.
+        item_id = _STATE_TO_ACTIVE_ITEM.get(state, "")
+        self.web.eval(f"if (window.setActiveToolbarItem) setActiveToolbarItem('{item_id}')")
+
+    def _homeLinkHandler(self) -> None:
+        # charged_up: return to the Nexus front-door screen.
+        self.mw.moveToState("home")
 
     def _deckLinkHandler(self) -> None:
         self.mw.moveToState("deckBrowser")
@@ -473,6 +596,19 @@ class Toolbar:
   <div class="toolbar">{toolbar_content}</div>
   <div class="right-tray">{right_tray_content}</div>
 </div>
+<script>
+// charged_up: live "you are here" highlight, updated by set_active_item() on
+// every state change without redrawing the whole bar.
+window.setActiveToolbarItem = function (id) {
+  document.querySelectorAll('.hitem').forEach(function (el) {
+    el.classList.remove('active');
+  });
+  if (id) {
+    var el = document.getElementById(id);
+    if (el) { el.classList.add('active'); }
+  }
+};
+</script>
 """
 
 

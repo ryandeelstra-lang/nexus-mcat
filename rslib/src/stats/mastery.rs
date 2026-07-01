@@ -15,6 +15,7 @@ use anki_proto::stats::mastery_query_response::Topic;
 use anki_proto::stats::MasteryQueryRequest;
 use anki_proto::stats::MasteryQueryResponse;
 use fsrs::FSRS;
+use fsrs::FSRS5_DEFAULT_DECAY;
 use fsrs::FSRS6_DEFAULT_DECAY;
 
 use crate::prelude::*;
@@ -77,11 +78,19 @@ impl Collection {
                 acc.reviewed_card_count += 1;
             }
             if let Some(state) = card.memory_state {
-                let elapsed = card
-                    .last_review_time
-                    .map(|t| now.elapsed_secs_since(t) as u32)
-                    .unwrap_or_default();
-                let decay = card.decay.unwrap_or(FSRS6_DEFAULT_DECAY);
+                // Mirror stats/card.rs's per-card retrievability so the dashboard/graph agree with
+                // the card-info screen, but stay READ-ONLY: when the card has no stored
+                // last_review_time, fall back to the revlog's last review (no write-back) instead of
+                // defaulting elapsed to 0 — otherwise a card with state but a null timestamp would
+                // read as freshly reviewed (retrievability ~1.0) and inflate mastered_count.
+                let last_review_time = match card.last_review_time {
+                    Some(t) => t,
+                    None => self.storage.time_of_last_review(card.id)?.unwrap_or_default(),
+                };
+                let elapsed = now.elapsed_secs_since(last_review_time) as u32;
+                // FSRS-5 default decay for a card lacking a stored value — matching every other
+                // per-card retrievability site in the engine (card.rs, browser_table.rs, sqlite.rs).
+                let decay = card.decay.unwrap_or(FSRS5_DEFAULT_DECAY);
                 let r = fsrs.current_retrievability_seconds(state.into(), elapsed, decay);
                 acc.cards_with_state += 1;
                 acc.recall_sum += r;
@@ -436,6 +445,104 @@ mod test {
         assert!(
             (t.decay - 0.5).abs() > 1e-6,
             "decay must not be the FSRS-5 0.5 constant"
+        );
+        Ok(())
+    }
+
+    /// Force an FSRS memory state onto a card while leaving the per-card `decay`
+    /// and/or `last_review_time` NULL — to exercise the fallback paths that the
+    /// regular `set_state` (which always populates both) never reaches.
+    fn set_state_raw(
+        col: &mut Collection,
+        cid: CardId,
+        stability: f32,
+        difficulty: f32,
+        decay: Option<f32>,
+        last_review_secs_ago: Option<i64>,
+    ) {
+        let mut card = col.storage.get_card(cid).unwrap().unwrap();
+        card.memory_state = Some(FsrsMemoryState {
+            stability,
+            difficulty,
+        });
+        card.decay = decay;
+        card.last_review_time =
+            last_review_secs_ago.map(|s| TimestampSecs::now().adding_secs(-s));
+        if card.reps == 0 {
+            card.reps = 1;
+        }
+        col.storage.update_card(&card).unwrap();
+    }
+
+    #[test]
+    fn mastery_query_null_decay_uses_fsrs5_default() -> Result<()> {
+        // A card with memory_state but NO stored `decay` must fall back to the FSRS-5
+        // default (0.5) — exactly what card-info / the browser (stats/card.rs) compute —
+        // NOT the FSRS-6 default, or the dashboard/graph recall silently disagrees with
+        // the card-info screen for the same card.
+        let mut col = Collection::new();
+        let cp = DeckAdder::new("MCAT::C-P").add(&mut col);
+        let nt = col.basic_notetype();
+        let n = NoteAdder::new(&nt)
+            .fields(&["q", "a"])
+            .deck(cp.id)
+            .add(&mut col);
+        let cid = first_card_of(&mut col, n.id);
+        // Mid-range retrievability (large elapsed/stability ratio) so the decay exponent
+        // actually has leverage — at near-1.0 retrievability the two defaults are
+        // indistinguishable.
+        let elapsed: i64 = 447 * 86_400;
+        set_state_raw(&mut col, cid, 10.0, 5.0, None, Some(elapsed));
+
+        let r = topic(&col.mastery_query(req("", 0.9))?, cp.id.0).average_recall;
+
+        let fsrs = FSRS::new(None).unwrap();
+        let state = FsrsMemoryState {
+            stability: 10.0,
+            difficulty: 5.0,
+        };
+        let expected =
+            fsrs.current_retrievability_seconds(state.into(), elapsed as u32, FSRS5_DEFAULT_DECAY);
+        let fsrs6 =
+            fsrs.current_retrievability_seconds(state.into(), elapsed as u32, FSRS6_DEFAULT_DECAY);
+        assert!(
+            (expected - fsrs6).abs() > 1e-3,
+            "test is only meaningful if the two defaults differ here ({expected} vs {fsrs6})"
+        );
+        assert!(
+            (r - expected).abs() < 1e-4,
+            "null-decay recall {r} must match the FSRS-5 default {expected} (card-info parity), not FSRS-6 {fsrs6}"
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn mastery_query_null_last_review_not_counted_fresh() -> Result<()> {
+        // A card carrying memory_state but NO last_review_time (and no revlog) must NOT be
+        // treated as freshly reviewed (elapsed=0 -> retrievability ~1 -> mastered). It falls
+        // back to the revlog's last-review time (here: none -> epoch -> very stale), so it is
+        // honestly NOT mastered and never inflates mastered_count.
+        let mut col = Collection::new();
+        let cp = DeckAdder::new("MCAT::C-P").add(&mut col);
+        let nt = col.basic_notetype();
+        let n = NoteAdder::new(&nt)
+            .fields(&["q", "a"])
+            .deck(cp.id)
+            .add(&mut col);
+        let cid = first_card_of(&mut col, n.id);
+        set_state_raw(&mut col, cid, 100.0, 5.0, Some(0.2), None);
+
+        let resp = col.mastery_query(req("", 0.9))?;
+        let t = topic(&resp, cp.id.0);
+        assert_eq!(t.cards_with_state, 1, "the card still carries FSRS state");
+        assert_eq!(
+            t.mastered_count, 0,
+            "a card with no last-review time must not be counted as freshly mastered"
+        );
+        assert!(
+            t.average_recall < 0.5,
+            "recall must reflect an unknown/stale review time, not ~1.0 (got {})",
+            t.average_recall
         );
         Ok(())
     }

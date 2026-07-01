@@ -176,3 +176,110 @@ tr:hover:not(.top-level-drag-row) {
 #studiedToday {
     margin: 2em 0;
 }
+
+/* ============================================================================
+ * charged_up · Apple-HIG deck list
+ * A clean, rounded content list on an elevated card — not a 1990s data table.
+ * Appended so it overrides the upstream table rules above (equal specificity,
+ * later wins). The graph-backdrop scrim above is left intact.
+ * ============================================================================ */
+body {
+    margin: 0;
+    padding: 44px 24px 36px;
+    -webkit-font-smoothing: antialiased;
+}
+
+table {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 8px;
+    border-collapse: separate;
+    border-spacing: 0;
+
+    .fancy & {
+        border: 1px solid var(--border-subtle);
+        border-radius: 16px;
+        background: var(--canvas-elevated);
+        @include elevation(2);
+        &:hover {
+            @include elevation(2);
+        }
+    }
+}
+
+th {
+    border-bottom: none;
+    padding: 2px 14px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--fg-subtle);
+    &.count {
+        text-align: right;
+    }
+}
+
+tr.deck td {
+    border: none;
+    padding: 11px 14px;
+    font-size: 15px;
+    vertical-align: middle;
+}
+
+a.deck {
+    color: var(--fg);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    min-width: 0;
+}
+
+/* Big-Sur-style rounded, accent-tinted selection + hover */
+.current td,
+tr.deck:hover:not(.top-level-drag-row) td {
+    background: rgba(0, 122, 255, 0.08);
+    &:first-child {
+        border-top-left-radius: 11px;
+        border-bottom-left-radius: 11px;
+    }
+    &:last-child {
+        border-top-right-radius: 11px;
+        border-bottom-right-radius: 11px;
+    }
+    .gears {
+        visibility: visible;
+    }
+}
+.current td {
+    background: rgba(0, 122, 255, 0.13);
+}
+
+/* counts — tabular figures, right-aligned; zeros recede */
+tr.deck td[align="end"] {
+    font-variant-numeric: tabular-nums;
+    font-size: 14px;
+    min-width: 3.4em;
+    text-align: right;
+}
+.zero-count {
+    color: var(--fg-faint, rgba(0, 0, 0, 0.25));
+}
+
+/* gear — a calm glyph that appears on hover */
+.gears {
+    width: 15px;
+    height: 15px;
+    opacity: 0.5;
+    transition: opacity var(--transition) ease;
+    &:hover {
+        opacity: 0.9;
+    }
+}
+
+#studiedToday {
+    margin: 22px 0 0;
+    text-align: center;
+    color: var(--fg-subtle);
+    font-size: 13px;
+}

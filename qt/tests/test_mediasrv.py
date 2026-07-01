@@ -237,6 +237,52 @@ class TestKnowledgeGraphWiring:
         assert hasattr(Toolbar, "_graphLinkHandler")
 
 
+class TestScoresLoaderSurfacesBrokenEngine:
+    """charged_up: the scores bridge is the single source of truth for the readiness/mastery numbers
+    a student trusts. A genuinely-broken engine (present, but with a broken transitive import) must
+    SURFACE as an error, not masquerade as 'scores engine is not available in this build' — that
+    silent degrade hides a misconfiguration behind a 'feature not shipped' message."""
+
+    def test_present_but_broken_scores_package_surfaces(self, monkeypatch) -> None:
+        import importlib
+        import importlib.util as importlib_util
+
+        from aqt import mediasrv
+
+        real_import_module = importlib.import_module
+
+        def fake_import(name, *args, **kwargs):
+            if name == "scores.display":
+                raise ImportError("scores.display has a broken transitive import")
+            return real_import_module(name, *args, **kwargs)
+
+        monkeypatch.setattr(importlib, "import_module", fake_import)
+        # scores/ IS present (find_spec locates it) but importing it fails -> must surface, not hide.
+        monkeypatch.setattr(
+            importlib_util, "find_spec", lambda name, *a, **k: object() if name == "scores" else None
+        )
+        with pytest.raises(ImportError):
+            mediasrv._load_scores_display()
+
+    def test_genuinely_absent_scores_degrades_to_none(self, monkeypatch) -> None:
+        import importlib
+        import importlib.util as importlib_util
+
+        from aqt import mediasrv
+
+        real_import_module = importlib.import_module
+
+        def fake_import(name, *args, **kwargs):
+            if name == "scores.display":
+                raise ImportError("scores not bundled")
+            return real_import_module(name, *args, **kwargs)
+
+        monkeypatch.setattr(importlib, "import_module", fake_import)
+        # scores/ is genuinely not bundled -> honest degrade to None is preserved.
+        monkeypatch.setattr(importlib_util, "find_spec", lambda name, *a, **k: None)
+        assert mediasrv._load_scores_display() is None
+
+
 class TestEditorPageCSP:
     def test_editor_csp_does_not_block_user_embeds(self) -> None:
         csp = _editor_content_security_policy(port=12345)

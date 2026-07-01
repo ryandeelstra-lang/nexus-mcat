@@ -15,7 +15,7 @@
 import { expect, type Page, type Route, test } from "@playwright/test";
 
 import { dashLocked, dashSynthetic } from "./mocks/dashboard";
-import { masteryPartial, masteryRich } from "./mocks/mastery";
+import { i18nResourcesBytes, masteryPartial, masteryRich } from "./mocks/mastery";
 
 const OUT = "out/screenshots";
 
@@ -27,6 +27,14 @@ interface Mocks {
 async function mockEngine(page: Page, mocks: Mocks): Promise<void> {
     await page.route("**/_anki/**", async (route: Route) => {
         const url = route.request().url();
+        if (url.includes("/i18nResources")) {
+            // Required for the root layout's load() to resolve so the route actually mounts.
+            return route.fulfill({
+                status: 200,
+                contentType: "application/binary",
+                body: i18nResourcesBytes(),
+            });
+        }
         if (url.includes("/masteryQuery")) {
             if (!mocks.mastery) {
                 return route.fulfill({ status: 500, body: "" });
@@ -107,6 +115,39 @@ test.describe("three-scores dashboard", () => {
         await page.waitForSelector(".caveat");
         await page.waitForTimeout(500);
         await page.screenshot({ path: `${OUT}/dash-synthetic.png` });
+    });
+});
+
+test.describe("knowledge-graph 3D interactions", () => {
+    test.use({ viewport: { width: 1240, height: 860 } });
+
+    test("section zoom (semantic drill-in)", async ({ page }) => {
+        await mockEngine(page, { mastery: masteryRich() });
+        await page.goto("/knowledge-graph");
+        await page.waitForSelector("svg.kg-svg circle");
+        await page.click("circle[data-id=\"B-B\"][data-kind=\"section\"]", { force: true });
+        await page.waitForSelector(".kg-crumb");
+        await page.waitForTimeout(1100); // let the camera fly-in settle
+        await page.screenshot({ path: `${OUT}/graph-zoom.png` });
+    });
+
+    test("focus chain (prerequisites)", async ({ page }) => {
+        await mockEngine(page, { mastery: masteryRich() });
+        await page.goto("/knowledge-graph");
+        await page.waitForSelector("svg.kg-svg circle");
+        await page.click("circle[data-id=\"CP.5B\"]", { force: true });
+        await page.waitForTimeout(600);
+        await page.screenshot({ path: `${OUT}/graph-focus.png` });
+    });
+
+    test("hover tooltip", async ({ page }) => {
+        await mockEngine(page, { mastery: masteryRich() });
+        await page.goto("/knowledge-graph");
+        await page.waitForSelector("svg.kg-svg circle");
+        await page.hover("circle[data-id=\"P-S\"][data-kind=\"section\"]", { force: true });
+        await page.waitForSelector(".kg-tooltip");
+        await page.waitForTimeout(300);
+        await page.screenshot({ path: `${OUT}/graph-hover.png` });
     });
 });
 

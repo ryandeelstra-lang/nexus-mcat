@@ -5,6 +5,7 @@
 @use "../../../../../ts/lib/sass/vars" as *;
 @use "../../../../../ts/lib/sass/card-counts";
 @use "../../../../../ts/lib/sass/button-mixins" as button;
+@use "../../../../../ts/lib/sass/elevation" as *;
 
 /* charged_up: same calm static graph backdrop as the deck list (see deckbrowser.scss). The host
  * makes mw.web transparent here; this scrim keeps the overview legible while the graph reads
@@ -26,11 +27,7 @@ body::before {
 }
 
 .smallLink {
-    font-size: 10px;
-}
-
-h3 {
-    margin-bottom: 0;
+    font-size: 12px;
 }
 
 .descfont {
@@ -56,6 +53,185 @@ h3 {
     text-align: center;
 }
 
+/* ============================================================================
+ * charged_up · Apple-HIG deck overview
+ * A calm, centered screen: an explicit Back affordance, a Title1 deck name, a
+ * clean New/Learning/Due stat row on an elevated white card, and ONE prominent
+ * primary "Start Review" action. Matches the deckbrowser.scss vocabulary
+ * (rounded white card, tertiary uppercase labels, tabular counts, soft
+ * elevation, #007AFF accent). The graph-backdrop scrim above is left intact.
+ * ============================================================================ */
+body {
+    margin: 0;
+    padding: 20px 24px 40px;
+    -webkit-font-smoothing: antialiased;
+}
+
+.overview {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Explicit Back affordance — a plain, always-visible "‹ Decks" link, left-aligned. */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    float: left;
+    margin: 4px 0 8px;
+    padding: 4px 10px 4px 4px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: #007aff;
+    text-decoration: none;
+    -webkit-user-select: none;
+    user-select: none;
+    transition: background var(--transition, 180ms) ease;
+
+    &:hover {
+        background: rgba(0, 122, 255, 0.1);
+    }
+}
+[dir="rtl"] .back-link {
+    float: right;
+    padding: 4px 4px 4px 10px;
+}
+
+/* Title1 — the deck name. Clears the floated back-link. */
+.deck-title {
+    clear: both;
+    margin: 8px 0 24px;
+    padding-top: 4px;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--fg);
+}
+
+.smallLink {
+    display: inline-block;
+    margin-bottom: 16px;
+    color: color(fg-subtle);
+}
+
+/* The elevated white card that holds the stats + primary action. */
+.overview-card {
+    max-width: 460px;
+    margin: 0 auto;
+    padding: 24px 24px 28px;
+    border-radius: 16px;
+    background: var(--canvas-elevated);
+    border: 1px solid var(--border-subtle);
+    @include elevation(2);
+}
+
+/* Stat row — New / Learning / Due, each a big tabular number over a small
+ * uppercase tertiary label, separated by hairlines. */
+.stat-row {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.stat {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 8px;
+}
+
+.stat-value {
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+}
+
+.stat-label {
+    margin-top: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--fg-subtle);
+}
+
+/* Hairline dividers between the three stats. */
+.stat-sep {
+    flex: 0 0 1px;
+    align-self: center;
+    width: 1px;
+    height: 34px;
+    background: var(--border-subtle);
+}
+
+/* Bury delta chip stays subtle and only shows when non-empty (see card-counts). */
+.stat-value .bury-count {
+    font-size: 13px;
+    font-weight: 600;
+    margin-inline-start: 3px;
+    vertical-align: super;
+}
+
+/* One prominent primary action. */
+.action-row {
+    display: flex;
+    justify-content: center;
+}
+
 #study {
-    @include button.base($primary: true);
+    @include button.base($primary: true, $border: false);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 220px;
+    height: 44px;
+    padding: 0 28px;
+    border-radius: 10px;
+    background: #007aff;
+    color: #fff;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    box-shadow: 0 6px 20px rgba(0, 122, 255, 0.28);
+    transition:
+        transform var(--transition, 180ms) cubic-bezier(0.2, 0, 0.2, 1),
+        box-shadow var(--transition, 180ms) cubic-bezier(0.2, 0, 0.2, 1),
+        filter var(--transition, 180ms) cubic-bezier(0.2, 0, 0.2, 1);
+
+    &:hover {
+        background: #007aff;
+        filter: brightness(1.05);
+        transform: translateY(-1px);
+        box-shadow: 0 8px 24px rgba(0, 122, 255, 0.34);
+    }
+    &:active {
+        transform: translateY(0);
+        filter: brightness(0.96);
+        box-shadow: 0 3px 10px rgba(0, 122, 255, 0.26);
+    }
+    &:focus-visible {
+        outline: 3px solid rgba(0, 122, 255, 0.4);
+        outline-offset: 2px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #study,
+    .back-link {
+        transition: none;
+    }
+    #study:hover,
+    #study:active {
+        transform: none;
+    }
 }

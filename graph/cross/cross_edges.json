@@ -1,0 +1,3443 @@
+{
+  "version": 1,
+  "edges": [
+    {
+      "src": "CP.5A.water-as-solvent.like-dissolves-like.principle",
+      "dst": "CP.5C.principles.basis.polarity",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Polarity-based separation rests on the like-dissolves-like principle"
+    },
+    {
+      "src": "CP.5A.water-as-solvent.like-dissolves-like.principle",
+      "dst": "CP.5C.principles.partition-coefficient.like-dissolves-like",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Partition coefficient governed by like-dissolves-like solubility"
+    },
+    {
+      "src": "CP.5A.solutions-solubility.factors",
+      "dst": "CP.5C.principles.basis.solubility",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Solubility-based separation requires understanding solubility and its factors"
+    },
+    {
+      "src": "CP.5B.dipole-polarity.symmetry.polar-vs-nonpolar",
+      "dst": "CP.5C.principles.basis.polarity",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Separating by polarity requires predicting molecular polarity"
+    },
+    {
+      "src": "CP.5A.colligative.vapor-pressure.vapor-pressure",
+      "dst": "CP.5C.principles.basis.volatility",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Volatility-based separation rests on vapor pressure"
+    },
+    {
+      "src": "CP.5A.colligative.vapor-pressure.raoults-law",
+      "dst": "CP.5C.distillation.principles.raoults-law",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Distillation of ideal mixtures uses Raoult's law directly"
+    },
+    {
+      "src": "CP.5A.colligative.vapor-pressure.vapor-pressure",
+      "dst": "CP.5C.distillation.principles.vapor-pressure",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Boiling point in distillation is set by vapor pressure"
+    },
+    {
+      "src": "CP.5B.physical-properties.phase-transitions.bp-trend",
+      "dst": "CP.5C.distillation.simple.bp-gap",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Simple distillation by boiling-point difference relies on IMF-driven bp"
+    },
+    {
+      "src": "CP.5A.solutions-solubility.terminology.miscibility",
+      "dst": "CP.5C.extraction.liquid-liquid.immiscibility",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Liquid-liquid extraction needs an immiscible solvent pair"
+    },
+    {
+      "src": "CP.5C.principles.basis.density",
+      "dst": "CP.5C.extraction.liquid-liquid.layer-identification",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Identifying layers by density follows density-difference principle"
+    },
+    {
+      "src": "CP.5A.water-as-solvent.like-dissolves-like.hydrophilic",
+      "dst": "CP.5C.extraction.liquid-liquid.partitioning",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Solute partitioning in extraction depends on hydrophilic/hydrophobic character"
+    },
+    {
+      "src": "CP.5A.water-ionization.ph-scale.ph-defn",
+      "dst": "CP.5C.extraction.acid-base.protonation",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Acid-base extraction is governed by pH controlling protonation state"
+    },
+    {
+      "src": "CP.5A.water-ionization.ph-scale.ph-defn",
+      "dst": "CP.5C.extraction.acid-base.pka-vs-ph",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Ionization in acid-base extraction set by pKa relative to pH"
+    },
+    {
+      "src": "CP.5A.solutions-solubility.solubility-rules.electrolytes",
+      "dst": "CP.5C.extraction.acid-base.charged-water-soluble",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Charged species being water-soluble follows from electrolyte/ion behavior in water"
+    },
+    {
+      "src": "CP.5A.solutions-solubility.factors.ph-effect",
+      "dst": "CP.5C.extraction.acid-base.protonation",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "pH effect on solubility underlies acid-base extraction protonation logic"
+    },
+    {
+      "src": "CP.5A.physical-properties.thermal.high-bp-mp",
+      "dst": "CP.5C.distillation.vacuum.reduced-pressure",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Vacuum distillation lowers bp by lowering pressure, building on bp/vapor-pressure relation"
+    },
+    {
+      "src": "CP.5B.electronegativity-polarity.bond-character.polar-covalent",
+      "dst": "CP.5C.chromatography.general.elution-order",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Elution order from polarity requires understanding polar bonds"
+    },
+    {
+      "src": "CP.5A.water-as-solvent.like-dissolves-like.principle",
+      "dst": "CP.5C.chromatography.general.differential-affinity",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Differential affinity to phases is a like-dissolves-like phenomenon"
+    },
+    {
+      "src": "CP.5A.solutions-solubility.terminology.solute-solvent",
+      "dst": "CP.5C.principles.partition-coefficient.definition",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Partition coefficient defined via solute concentration in two solvents"
+    },
+    {
+      "src": "CP.5C.principles.basis.charge",
+      "dst": "CP.5C.chromatography.ion-exchange.charged-resin",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Ion-exchange separates by charge"
+    },
+    {
+      "src": "CP.5C.principles.basis.charge",
+      "dst": "CP.5C.electrophoresis.principles.charge-to-mass",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Electrophoretic mobility depends on charge-to-mass ratio"
+    },
+    {
+      "src": "CP.5A.water-ionization.ph-scale.ph-defn",
+      "dst": "CP.5C.electrophoresis.isoelectric-focusing.pi",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "IEF relies on pH gradient and net charge at the pI"
+    },
+    {
+      "src": "CP.5A.solutions-solubility.factors.temp-solids",
+      "dst": "CP.5C.crystallization.recrystallization.solubility-temp",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Recrystallization exploits solubility increasing with temperature"
+    },
+    {
+      "src": "CP.5A.colligative.bp-fp.fp-depression",
+      "dst": "CP.5C.principles.purity.melting-range",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Impurities depress and broaden melting range (colligative effect) \u2014 basis for purity test"
+    },
+    {
+      "src": "CP.5B.lewis-structures.drawing.lewis-symbol",
+      "dst": "CP.5D.amino-acids.structure.four-groups",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Amino acid structure builds on Lewis bonding of substituent groups"
+    },
+    {
+      "src": "CP.5A.water-ionization.ph-scale.ph-defn",
+      "dst": "CP.5D.amino-acids.acid-base.isoelectric-point",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Isoelectric point requires the pH scale"
+    },
+    {
+      "src": "CP.5A.water-ionization.amphoterism.amphoteric",
+      "dst": "CP.5D.amino-acids.acid-base.zwitterion",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Amino acid zwitterion is an amphoteric species like amphoteric water"
+    },
+    {
+      "src": "CP.5A.water-ionization.ph-scale.ph-defn",
+      "dst": "CP.5D.amino-acids.acid-base.titration",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Amino acid titration curves require pH understanding"
+    },
+    {
+      "src": "CP.5B.dipole-polarity.symmetry.polar-vs-nonpolar",
+      "dst": "CP.5D.amino-acids.classification.hydrophobic-hydrophilic",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Classifying side chains as hydrophobic/hydrophilic requires polarity prediction"
+    },
+    {
+      "src": "CP.5A.water-as-solvent.hydrophobic-effect.protein-folding",
+      "dst": "CP.5D.proteins.tertiary.hydrophobic",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Hydrophobic core packing is driven by the hydrophobic effect"
+    },
+    {
+      "src": "CP.5B.intermolecular-forces.hydrogen-bonding.requirement",
+      "dst": "CP.5D.proteins.secondary.hbonding",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Backbone H-bonding in secondary structure requires H-bond fundamentals"
+    },
+    {
+      "src": "CP.5B.lewis-structures.resonance.definition",
+      "dst": "CP.5D.proteins.peptide-bond.resonance",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Peptide bond planarity is a resonance phenomenon"
+    },
+    {
+      "src": "CP.5B.covalent-bond.types.double-bond",
+      "dst": "CP.5D.proteins.peptide-bond.resonance",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Partial double-bond character of peptide bond builds on bond order concepts"
+    },
+    {
+      "src": "CP.5B.intermolecular-forces.london.instantaneous-dipole",
+      "dst": "CP.5D.proteins.tertiary.vdw",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Van der Waals/London forces stabilizing tertiary structure"
+    },
+    {
+      "src": "CP.5A.water-ionization.ph-scale.ph-defn",
+      "dst": "CP.5D.amino-acids.acid-base.histidine-buffer",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Histidine physiological buffering requires pH/pKa"
+    },
+    {
+      "src": "CP.5E.kinetics-theory.activation.ea",
+      "dst": "CP.5D.enzymes.basics.lower-ea",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Enzymes lower activation energy \u2014 requires Ea concept"
+    },
+    {
+      "src": "CP.5E.mechanisms.catalysis.thermo-unchanged",
+      "dst": "CP.5D.enzymes.basics.no-keq-change",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Enzymes (catalysts) leave equilibrium/\u0394G unchanged"
+    },
+    {
+      "src": "CP.5E.kinetics-rates.rate-law.differential",
+      "dst": "CP.5D.enzymes.kinetics.michaelis-menten",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Michaelis-Menten kinetics builds on rate-law foundations"
+    },
+    {
+      "src": "CP.5E.mechanisms.catalysis.enzymes",
+      "dst": "CP.5D.enzymes.basics.transition-state",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Enzyme transition-state stabilization extends catalysis fundamentals"
+    },
+    {
+      "src": "CP.5E.kinetics-theory.activation.transition-state",
+      "dst": "CP.5D.enzymes.basics.transition-state",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Transition-state stabilization requires the transition-state concept"
+    },
+    {
+      "src": "CP.5B.covalent-bond.parameters.bond-dissociation-energy",
+      "dst": "CP.5D.nucleotides.energy.atp",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "ATP energy currency builds on bond energy concepts"
+    },
+    {
+      "src": "CP.5B.intermolecular-forces.hydrogen-bonding.donor-acceptor",
+      "dst": "CP.5D.nucleotides.nucleic-acids.base-pairing",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Watson-Crick base pairing is hydrogen bonding"
+    },
+    {
+      "src": "CP.5B.dipole-polarity.symmetry.symmetric-cancel",
+      "dst": "CP.5D.lipids.fatty-acids.amphipathic",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Amphipathic character requires recognizing polar vs nonpolar regions"
+    },
+    {
+      "src": "CP.5A.water-as-solvent.like-dissolves-like.amphipathic",
+      "dst": "CP.5D.lipids.fatty-acids.micelle",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Micelle formation is an amphipathic self-assembly in water"
+    },
+    {
+      "src": "CP.5A.water-as-solvent.hydrophobic-effect.membrane-assembly",
+      "dst": "CP.5D.lipids.membrane.bilayer",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Lipid bilayer assembly driven by the hydrophobic effect"
+    },
+    {
+      "src": "CP.5D.carbohydrates.monosaccharides.stereochem",
+      "dst": "CP.5D.carbohydrates.cyclic.anomeric-carbon",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Anomeric carbon understanding builds on sugar stereochemistry"
+    },
+    {
+      "src": "CP.5A.water-ionization.ph-scale.ph-defn",
+      "dst": "BB.1A.amino-acids.acid-base.isoelectric-point",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Isoelectric point requires the pH scale"
+    },
+    {
+      "src": "CP.5A.water-ionization.amphoterism.amphoteric",
+      "dst": "BB.1A.amino-acids.general-structure.zwitterion",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Amino acid zwitterion mirrors amphoteric behavior"
+    },
+    {
+      "src": "CP.5A.water-ionization.ph-scale.ph-defn",
+      "dst": "BB.1A.amino-acids.acid-base.henderson-hasselbalch",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Henderson-Hasselbalch application requires pH/pKa understanding"
+    },
+    {
+      "src": "CP.5A.water-ionization.ph-scale.ph-defn",
+      "dst": "BB.1A.amino-acids.acid-base.net-charge",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Net charge at a given pH requires the pH scale"
+    },
+    {
+      "src": "CP.5A.water-ionization.ph-scale.ph-defn",
+      "dst": "BB.1A.amino-acids.acid-base.titration-curve",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Amino acid titration curve requires pH understanding"
+    },
+    {
+      "src": "CP.5B.lewis-structures.resonance.definition",
+      "dst": "BB.1A.peptide-bond.properties.resonance",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Peptide bond partial double-bond character is resonance"
+    },
+    {
+      "src": "CP.5B.intermolecular-forces.hydrogen-bonding.requirement",
+      "dst": "BB.1A.protein-structure.secondary.hbond-backbone",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Backbone H-bonding in secondary structure requires H-bond fundamentals"
+    },
+    {
+      "src": "CP.5A.water-as-solvent.hydrophobic-effect.protein-folding",
+      "dst": "BB.1A.protein-structure.tertiary.hydrophobic-interactions",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Hydrophobic interactions in tertiary structure driven by the hydrophobic effect"
+    },
+    {
+      "src": "CP.5A.water-as-solvent.hydrophobic-effect.effect",
+      "dst": "BB.1A.protein-structure.stabilizing-forces.entropy-driven",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Entropy-driven hydrophobic effect underlies protein stabilizing forces"
+    },
+    {
+      "src": "CP.5B.intermolecular-forces.london.instantaneous-dipole",
+      "dst": "BB.1A.protein-structure.tertiary.van-der-waals",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Van der Waals/London forces stabilizing tertiary structure"
+    },
+    {
+      "src": "CP.5B.covalent-bond.formation.electron-sharing",
+      "dst": "BB.1A.protein-structure.tertiary.disulfide-bonds",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Disulfide covalent bonds build on covalent bonding fundamentals"
+    },
+    {
+      "src": "CP.5E.entropy.predicting.phase-order",
+      "dst": "BB.1A.protein-folding.native-state.thermodynamic-hypothesis",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Anfinsen thermodynamic folding hypothesis rests on entropy/free-energy reasoning"
+    },
+    {
+      "src": "CP.5E.enthalpy.special.phase-change",
+      "dst": "BB.1A.protein-folding.denaturation.heat",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Heat denaturation builds on thermal energy disrupting weak interactions"
+    },
+    {
+      "src": "CP.5E.first-law.internal-energy.conservation",
+      "dst": "BB.1D.bioenergetics.thermo.first-law",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Biological first law is the chemistry first law applied to cells"
+    },
+    {
+      "src": "CP.5E.entropy.laws.second-law",
+      "dst": "BB.1D.bioenergetics.thermo.second-law",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Biological second law extends the thermodynamic second law"
+    },
+    {
+      "src": "CP.5E.gibbs.definition.equation",
+      "dst": "BB.1D.bioenergetics.thermo.delta-g",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "\u0394G = \u0394H - T\u0394S in bioenergetics is the same Gibbs equation"
+    },
+    {
+      "src": "CP.5E.gibbs.definition.spontaneity",
+      "dst": "BB.1D.bioenergetics.thermo.spontaneity",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Sign of \u0394G determining spontaneity carries directly into bioenergetics"
+    },
+    {
+      "src": "CP.5E.gibbs.standard.k-relation",
+      "dst": "BB.1D.bioenergetics.thermo.delta-g-vs-keq",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "\u0394G\u00b0' to Keq relation is \u0394G\u00b0 = -RT ln K applied biologically"
+    },
+    {
+      "src": "CP.5E.gibbs.standard.q-relation",
+      "dst": "BB.1D.bioenergetics.thermo.actual-delta-g",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Actual \u0394G vs concentrations uses \u0394G = \u0394G\u00b0 + RT ln Q"
+    },
+    {
+      "src": "CP.5E.gibbs.coupling.concept",
+      "dst": "BB.1D.bioenergetics.coupling.reaction-coupling",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Biological reaction coupling is exergonic-endergonic coupling"
+    },
+    {
+      "src": "CP.5E.thermo-kinetics-link.distinction.independent",
+      "dst": "BB.1D.bioenergetics.thermo.thermo-vs-kinetics",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Thermodynamics vs kinetics distinction carries into metabolism"
+    },
+    {
+      "src": "CP.5B.covalent-bond.parameters.bond-dissociation-energy",
+      "dst": "BB.1D.bioenergetics.coupling.high-energy-phosphate",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "High-energy phosphate bonds build on bond energy concepts"
+    },
+    {
+      "src": "CP.4E.electron-config.valence-core.valence",
+      "dst": "BB.1D.bioenergetics.redox.oxidation-reduction",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Biological redox (electron transfer) requires electron/valence understanding"
+    },
+    {
+      "src": "CP.5E.gibbs.standard.k-relation",
+      "dst": "BB.1D.bioenergetics.redox.delta-g-vs-emf",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "\u0394G\u00b0' = -nF\u0394E\u00b0' links free energy to redox potential"
+    },
+    {
+      "src": "CP.5E.gibbs.definition.spontaneity",
+      "dst": "BB.1D.bioenergetics.redox.reduction-potential-direction",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Electron flow toward higher reduction potential follows from spontaneity/free energy"
+    },
+    {
+      "src": "CP.5E.kinetics-rates.rate-law.rate-constant",
+      "dst": "BB.1D.glycolysis.regulation.pfk1-control",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Rate-limiting enzyme regulation builds on rate-constant/rate-law concepts"
+    },
+    {
+      "src": "CP.5E.mechanisms.rds.concept",
+      "dst": "BB.1D.metabolism-overview.regulation.committed-step",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Committed/rate-limiting step is the metabolic rate-determining step"
+    },
+    {
+      "src": "CP.5E.mechanisms.catalysis.definition",
+      "dst": "BB.1D.glycolysis.steps.hexokinase",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Enzyme-catalyzed glycolytic steps require catalyst fundamentals"
+    },
+    {
+      "src": "CP.5E.entropy.predicting.gas-moles",
+      "dst": "BB.1D.oxphos.chemiosmosis.proton-gradient",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "Proton-motive force is a concentration/electrochemical gradient grounded in thermodynamics"
+    },
+    {
+      "src": "CP.5A.water-ionization.ph-scale.ph-defn",
+      "dst": "BB.1D.oxphos.chemiosmosis.pmf-components",
+      "bridge": "genchem->orgo+biochem",
+      "rationale": "pH component of proton-motive force requires pH understanding"
+    },
+    {
+      "src": "CP.4C.charge-current.charge.two-types",
+      "dst": "BB.3A.signaling.resting.ion-distribution",
+      "bridge": "physics->physiology",
+      "rationale": "Ion gradients across the membrane are charge separations; needs charge concept"
+    },
+    {
+      "src": "CP.4C.ohms-law.voltage.definition",
+      "dst": "BB.3A.signaling.resting.value",
+      "bridge": "physics->physiology",
+      "rationale": "Resting membrane potential IS a potential difference across the membrane"
+    },
+    {
+      "src": "CP.4C.ohms-law.voltage.definition",
+      "dst": "BB.3B.nervous.signaling.resting-potential",
+      "bridge": "physics->physiology",
+      "rationale": "Membrane potential is a voltage; needs the potential-difference concept"
+    },
+    {
+      "src": "CP.4C.cell-potential.nernst.equation",
+      "dst": "BB.3A.signaling.resting.nernst",
+      "bridge": "physics->physiology",
+      "rationale": "Neuronal equilibrium potential is the Nernst equation applied to one ion"
+    },
+    {
+      "src": "CP.4C.cell-potential.nernst.equation",
+      "dst": "BB.3B.nervous.signaling.equilibrium-potential",
+      "bridge": "physics->physiology",
+      "rationale": "Equilibrium potential is computed via the Nernst equation"
+    },
+    {
+      "src": "CP.4C.cell-potential.nernst.concentration-effect",
+      "dst": "BB.3A.signaling.resting.nernst",
+      "bridge": "physics->physiology",
+      "rationale": "Equilibrium potential depends on the ion concentration ratio per Nernst"
+    },
+    {
+      "src": "CP.4C.charge-current.charge.two-types",
+      "dst": "BB.3A.signaling.ap.depolarization",
+      "bridge": "physics->physiology",
+      "rationale": "Depolarization is positive Na+ charge flowing inward; needs charge sign"
+    },
+    {
+      "src": "CP.4C.charge-current.current.charge-carriers",
+      "dst": "BB.3A.signaling.ap.depolarization",
+      "bridge": "physics->physiology",
+      "rationale": "Ions are the charge carriers driving membrane current during the AP"
+    },
+    {
+      "src": "CP.4C.charge-current.current.definition",
+      "dst": "BB.3A.signaling.conduction.velocity",
+      "bridge": "physics->physiology",
+      "rationale": "Ionic current spread along the axon underlies conduction; needs I=Q/t"
+    },
+    {
+      "src": "CP.4C.ohms-law.resistance.resistivity",
+      "dst": "BB.3A.signaling.conduction.velocity",
+      "bridge": "physics->physiology",
+      "rationale": "Axon diameter changes axial resistance (R=rhoL/A), setting conduction speed"
+    },
+    {
+      "src": "CP.4C.capacitance.basics.definition",
+      "dst": "BB.3A.signaling.ap.depolarization",
+      "bridge": "physics->physiology",
+      "rationale": "The membrane is a capacitor; charging/discharging it produces voltage change"
+    },
+    {
+      "src": "CP.4C.capacitance.basics.parallel-plate",
+      "dst": "BB.3A.neuron.glia.myelin-insulation",
+      "bridge": "physics->physiology",
+      "rationale": "Myelin increases membrane spacing/thickness, lowering capacitance for faster signaling"
+    },
+    {
+      "src": "CP.4C.rc.charging.time-constant",
+      "dst": "BB.3A.signaling.conduction.saltatory",
+      "bridge": "physics->physiology",
+      "rationale": "Membrane RC time constant governs how fast the AP regenerates between nodes"
+    },
+    {
+      "src": "CP.4C.rc.charging.time-constant",
+      "dst": "BB.3B.nervous.signaling.saltatory",
+      "bridge": "physics->physiology",
+      "rationale": "Saltatory speed depends on the membrane RC charging time constant"
+    },
+    {
+      "src": "CP.4C.capacitance.dielectrics.dielectric-constant",
+      "dst": "BB.3A.neuron.glia.myelin",
+      "bridge": "physics->physiology",
+      "rationale": "Myelin acts as a dielectric insulator around the axon"
+    },
+    {
+      "src": "CP.4C.power.power-equations.i2r",
+      "dst": "BB.3A.neuron.glia.myelin-insulation",
+      "bridge": "physics->physiology",
+      "rationale": "Insulation reduces current leakage; framed via resistive loss"
+    },
+    {
+      "src": "CP.4C.cell-potential.nernst.equation",
+      "dst": "BB.3B.nervous.signaling.na-k-pump",
+      "bridge": "physics->physiology",
+      "rationale": "Pump-maintained gradients set the Nernst potentials the membrane rests at"
+    },
+    {
+      "src": "CP.4B.fluid-properties.basic.pressure-def",
+      "dst": "BB.3B.circulatory.vessels.blood-pressure",
+      "bridge": "physics->physiology",
+      "rationale": "Blood pressure is force per area; needs the pressure definition"
+    },
+    {
+      "src": "CP.4B.fluid-properties.basic.pressure-def",
+      "dst": "BB.3A.endocrine.glands.heart-anp",
+      "bridge": "physics->physiology",
+      "rationale": "ANP responds to blood pressure/stretch, a fluid pressure"
+    },
+    {
+      "src": "CP.4B.fluid-dynamics.flow-types.flow-rate",
+      "dst": "BB.3B.circulatory.conduction.cardiac-output",
+      "bridge": "physics->physiology",
+      "rationale": "Cardiac output is volumetric blood flow rate (Q=A*v)"
+    },
+    {
+      "src": "CP.4B.fluid-dynamics.continuity.equation",
+      "dst": "BB.3B.circulatory.vessels.flow-velocity",
+      "bridge": "physics->physiology",
+      "rationale": "Velocity drops where total cross-section rises, per continuity A1v1=A2v2"
+    },
+    {
+      "src": "CP.4B.fluid-dynamics.viscous-flow.poiseuille",
+      "dst": "BB.3B.circulatory.vessels.peripheral-resistance",
+      "bridge": "physics->physiology",
+      "rationale": "Vascular resistance follows Poiseuille's law (radius, viscosity, length)"
+    },
+    {
+      "src": "CP.4B.fluid-dynamics.viscous-flow.r4-dependence",
+      "dst": "BB.3B.circulatory.vessels.peripheral-resistance",
+      "bridge": "physics->physiology",
+      "rationale": "Vasoconstriction's huge resistance effect comes from r^4 dependence"
+    },
+    {
+      "src": "CP.4B.fluid-dynamics.viscous-flow.resistance",
+      "dst": "BB.3B.circulatory.vessels.peripheral-resistance",
+      "bridge": "physics->physiology",
+      "rationale": "Peripheral resistance is fluid flow resistance"
+    },
+    {
+      "src": "CP.4B.fluid-statics.hydrostatic-pressure.depth-equation",
+      "dst": "BB.3B.circulatory.vessels.veins",
+      "bridge": "physics->physiology",
+      "rationale": "Venous return against gravity needs hydrostatic pressure (rho g h)"
+    },
+    {
+      "src": "CP.4B.fluid-dynamics.bernoulli.bernoulli-effect",
+      "dst": "BB.3B.circulatory.vessels.flow-velocity",
+      "bridge": "physics->physiology",
+      "rationale": "Pressure-velocity tradeoff in vessels rests on the Bernoulli effect"
+    },
+    {
+      "src": "CP.4B.circulatory.fluid-exchange.starling",
+      "dst": "BB.3B.circulatory.vessels.capillary-exchange",
+      "bridge": "physics->physiology",
+      "rationale": "Capillary filtration/reabsorption IS the Starling-forces balance"
+    },
+    {
+      "src": "CP.4B.circulatory.fluid-exchange.oncotic",
+      "dst": "BB.3B.circulatory.blood.oncotic-pressure",
+      "bridge": "physics->physiology",
+      "rationale": "Plasma oncotic pressure is the colloid osmotic pressure of Starling forces"
+    },
+    {
+      "src": "CP.4B.fluid-statics.hydrostatic-pressure.depth-equation",
+      "dst": "BB.3B.circulatory.vessels.capillary-exchange",
+      "bridge": "physics->physiology",
+      "rationale": "Capillary hydrostatic pressure drives filtration in Starling balance"
+    },
+    {
+      "src": "CP.4B.gas-laws.ideal-gas.boyle",
+      "dst": "BB.3B.respiratory.mechanics.boyle-law",
+      "bridge": "physics->physiology",
+      "rationale": "Breathing mechanics directly applies Boyle's law (volume up, pressure down)"
+    },
+    {
+      "src": "CP.4B.fluid-properties.basic.pressure-def",
+      "dst": "BB.3B.respiratory.mechanics.pleural-pressure",
+      "bridge": "physics->physiology",
+      "rationale": "Intrapleural pressure is a gas pressure; needs the pressure concept"
+    },
+    {
+      "src": "CP.4B.gas-laws.partial-pressure.partial-pressure-gradient",
+      "dst": "BB.3B.respiratory.gas-exchange.partial-pressure",
+      "bridge": "physics->physiology",
+      "rationale": "Gas exchange is driven by partial pressure gradients"
+    },
+    {
+      "src": "CP.4B.gas-laws.partial-pressure.dalton",
+      "dst": "BB.3B.respiratory.gas-exchange.partial-pressure",
+      "bridge": "physics->physiology",
+      "rationale": "Alveolar partial pressures come from Dalton's law"
+    },
+    {
+      "src": "CP.4B.gas-exchange.diffusion.ficks-law",
+      "dst": "BB.3B.respiratory.gas-exchange.diffusion",
+      "bridge": "physics->physiology",
+      "rationale": "Alveolar diffusion rate is governed by Fick's law"
+    },
+    {
+      "src": "CP.4B.gas-exchange.diffusion.passive",
+      "dst": "BB.3B.respiratory.gas-exchange.diffusion",
+      "bridge": "physics->physiology",
+      "rationale": "Gas crosses the alveolar membrane by passive diffusion down its gradient"
+    },
+    {
+      "src": "CP.4B.gas-laws.solubility.henry",
+      "dst": "BB.3B.respiratory.gas-exchange.diffusion",
+      "bridge": "physics->physiology",
+      "rationale": "Gas dissolving into blood follows Henry's law solubility"
+    },
+    {
+      "src": "CP.4B.gas-exchange.alveolar.laplace",
+      "dst": "BB.3B.respiratory.anatomy.alveoli",
+      "bridge": "physics->physiology",
+      "rationale": "Surfactant and alveolar stability are explained by Laplace's law"
+    },
+    {
+      "src": "CP.4B.gas-transport.oxygen.dissociation-curve",
+      "dst": "BB.3B.circulatory.blood.oxygen-dissociation",
+      "bridge": "physics->physiology",
+      "rationale": "Same oxygen-hemoglobin dissociation curve, physics-side foundation"
+    },
+    {
+      "src": "CP.4B.gas-transport.oxygen.cooperativity",
+      "dst": "BB.3B.circulatory.blood.hemoglobin",
+      "bridge": "physics->physiology",
+      "rationale": "Hemoglobin O2 carriage relies on cooperative binding"
+    },
+    {
+      "src": "CP.4B.gas-transport.oxygen.fetal-hb",
+      "dst": "BB.3B.circulatory.blood.fetal-hemoglobin",
+      "bridge": "physics->physiology",
+      "rationale": "Fetal hemoglobin's leftward shift is the same concept"
+    },
+    {
+      "src": "CP.4B.gas-transport.co2.bicarbonate",
+      "dst": "BB.3B.circulatory.blood.co2-transport",
+      "bridge": "physics->physiology",
+      "rationale": "CO2 transport as bicarbonate is the shared mechanism"
+    },
+    {
+      "src": "CP.4B.acid-base.bicarbonate-buffer.henderson",
+      "dst": "BB.3B.respiratory.regulation.ph-buffering",
+      "bridge": "physics->physiology",
+      "rationale": "Respiratory pH control rests on the bicarbonate buffer/Henderson-Hasselbalch"
+    },
+    {
+      "src": "CP.4B.acid-base.respiratory-compensation.ventilation-co2",
+      "dst": "BB.3B.respiratory.regulation.chemoreceptors",
+      "bridge": "physics->physiology",
+      "rationale": "Chemoreceptor CO2/pH drive maps to ventilation regulating CO2"
+    },
+    {
+      "src": "CP.4A.forces.types.tension",
+      "dst": "BB.3B.musculoskeletal.contraction.cross-bridge",
+      "bridge": "physics->physiology",
+      "rationale": "Muscle generates tension; cross-bridge force is a tension force"
+    },
+    {
+      "src": "CP.4A.equilibrium.torque.definition",
+      "dst": "BB.3B.musculoskeletal.skeletal.joint-types",
+      "bridge": "physics->physiology",
+      "rationale": "Joint/lever mechanics require torque (tau=rFsin theta)"
+    },
+    {
+      "src": "CP.4A.equilibrium.levers.mechanical-advantage",
+      "dst": "BB.3B.musculoskeletal.skeletal.joint-types",
+      "bridge": "physics->physiology",
+      "rationale": "Body joints are levers; needs mechanical-advantage concept"
+    },
+    {
+      "src": "CP.4A.forces.types.spring",
+      "dst": "BB.3B.musculoskeletal.contraction.length-tension",
+      "bridge": "physics->physiology",
+      "rationale": "Passive muscle elasticity behaves spring-like for length-tension"
+    },
+    {
+      "src": "CP.4A.work-energy.kinetic.definition",
+      "dst": "BB.3B.musculoskeletal.contraction.energy",
+      "bridge": "physics->physiology",
+      "rationale": "Muscle work/energy systems build on kinetic energy and work concepts"
+    },
+    {
+      "src": "CP.4D.sound.bio.ear",
+      "dst": "BB.3B.nervous.sensory.transduction",
+      "bridge": "physics->physiology",
+      "rationale": "Auditory transduction in the ear converts sound to receptor signal"
+    },
+    {
+      "src": "CP.4D.optics.eye.image-formation",
+      "dst": "BB.3B.nervous.sensory.transduction",
+      "bridge": "physics->physiology",
+      "rationale": "Visual transduction begins with the eye forming a retinal image"
+    },
+    {
+      "src": "CP.4D.optics.eye.accommodation",
+      "dst": "BB.3B.nervous.sensory.receptor-types",
+      "bridge": "physics->physiology",
+      "rationale": "Photoreceptor sensing depends on the eye focusing light (accommodation)"
+    },
+    {
+      "src": "BB.1A.protein-structure.tertiary.hydrophobic-interactions",
+      "dst": "BB.2A.plasma-membrane.composition.self-assembly",
+      "bridge": "biochem->cell+molec",
+      "rationale": "The hydrophobic effect that drives bilayer self-assembly is the same force students first meet stabilizing protein tertiary structure."
+    },
+    {
+      "src": "BB.1A.protein-structure.tertiary.hydrophobic-core",
+      "dst": "BB.2A.plasma-membrane.composition.amphipathic",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Amphipathic phospholipid orientation (hydrophobic tails in, polar heads out) mirrors the hydrophobic-core/polar-surface logic of folded proteins."
+    },
+    {
+      "src": "BB.1A.protein-function.binding.membrane-transport",
+      "dst": "BB.2A.membrane-transport.passive.carriers",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Carrier proteins are a concrete instance of the membrane transport proteins introduced as a protein function."
+    },
+    {
+      "src": "BB.1A.protein-function.binding.membrane-transport",
+      "dst": "BB.2A.membrane-transport.passive.channels",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Channel proteins are membrane transport proteins; the protein-function category sets up the structural basis."
+    },
+    {
+      "src": "BB.1A.protein-function.binding.binding-affinity",
+      "dst": "BB.2A.membrane-transport.passive.facilitated-diffusion",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Facilitated diffusion via binding/release of solute depends on understanding reversible ligand binding."
+    },
+    {
+      "src": "BB.1A.protein-function.binding.binding-affinity",
+      "dst": "BB.2A.cell-signaling.receptors.ligand-properties",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Receptor-ligand recognition and location reasoning rests on binding-affinity/specificity from protein function."
+    },
+    {
+      "src": "BB.1A.protein-function.signaling.receptors",
+      "dst": "BB.2A.cell-signaling.receptors.rtk",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Receptor tyrosine kinases are a specific receptor-protein type; the general receptor-protein concept is prerequisite."
+    },
+    {
+      "src": "BB.1A.protein-function.signaling.receptors",
+      "dst": "BB.2A.plasma-membrane.proteins.receptors",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Cell-surface receptors as membrane proteins build directly on the receptor-protein function category."
+    },
+    {
+      "src": "BB.1A.protein-function.signaling.g-proteins",
+      "dst": "BB.2A.cell-signaling.transduction.gpcr",
+      "bridge": "biochem->cell+molec",
+      "rationale": "GPCR signaling cannot be understood without the G protein as a signaling protein."
+    },
+    {
+      "src": "BB.1A.protein-function.motor.kinesin-dynein",
+      "dst": "BB.2A.cytoskeleton.microtubules.motor-proteins",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Kinesin/dynein motors on microtubules are the same motor proteins introduced under protein function."
+    },
+    {
+      "src": "BB.1A.protein-function.motor.myosin",
+      "dst": "BB.2A.cytoskeleton.microfilaments.myosin",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Actin-myosin interaction in the cytoskeleton relies on the myosin motor protein concept."
+    },
+    {
+      "src": "BB.1A.protein-function.motor.atp-coupling",
+      "dst": "BB.2A.cytoskeleton.microfilaments.myosin",
+      "bridge": "biochem->cell+molec",
+      "rationale": "ATP-powered motor movement underlies actin-myosin force generation."
+    },
+    {
+      "src": "BB.1A.protein-function.structural.tubulin-actin",
+      "dst": "BB.2A.cytoskeleton.microfilaments.actin",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Actin filament structure builds on tubulin/actin as cytoskeletal structural proteins."
+    },
+    {
+      "src": "BB.1A.protein-function.structural.tubulin-actin",
+      "dst": "BB.2A.cytoskeleton.microtubules.tubulin",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Microtubule tubulin structure builds on tubulin/actin as cytoskeletal structural proteins."
+    },
+    {
+      "src": "BB.1A.protein-function.structural.actin",
+      "dst": "BB.2A.cytoskeleton.microfilaments.polymerization",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Actin polymerization dynamics presume knowing actin as a structural filament protein."
+    },
+    {
+      "src": "BB.1A.protein-function.structural.collagen",
+      "dst": "BB.2A.connective-tissue.matrix.collagen",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Collagen in the ECM is the same structural protein first taught under protein function."
+    },
+    {
+      "src": "BB.1A.protein-function.structural.elastin",
+      "dst": "BB.2A.connective-tissue.matrix.elastin",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Elastin/elastic fibers in connective tissue build on elastin as a structural protein."
+    },
+    {
+      "src": "BB.1A.protein-function.adhesion.cams",
+      "dst": "BB.2A.cell-adhesion.molecules",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Cell adhesion molecules as a protein function directly underlie the CAM section."
+    },
+    {
+      "src": "BB.1A.protein-function.adhesion.cams",
+      "dst": "BB.2A.cell-adhesion.molecules.cadherins",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Cadherins are a specific CAM type; the CAM protein-function concept is prerequisite."
+    },
+    {
+      "src": "BB.1A.protein-function.adhesion.cams",
+      "dst": "BB.2A.cell-adhesion.molecules.integrins",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Integrins are CAMs; understanding them depends on the adhesion-protein concept."
+    },
+    {
+      "src": "BB.1A.conjugated-proteins.types.glycoproteins",
+      "dst": "BB.2A.plasma-membrane.composition.glycoproteins",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Membrane glycoproteins/glycocalyx build on the glycoprotein conjugated-protein concept."
+    },
+    {
+      "src": "BB.1D.bioenergetics.coupling.atp-hydrolysis",
+      "dst": "BB.2A.membrane-transport.active.primary",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Primary active transport is defined by ATP hydrolysis driving uphill transport."
+    },
+    {
+      "src": "BB.1D.bioenergetics.coupling.atp-hydrolysis",
+      "dst": "BB.2A.membrane-transport.active.sodium-potassium-pump",
+      "bridge": "biochem->cell+molec",
+      "rationale": "The Na+/K+ ATPase couples ATP hydrolysis to ion pumping; ATP-as-currency is prerequisite."
+    },
+    {
+      "src": "BB.1D.bioenergetics.coupling.reaction-coupling",
+      "dst": "BB.2A.membrane-transport.active.secondary",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Secondary active transport couples a favorable ion gradient to uphill solute movement \u2014 the coupling concept generalized."
+    },
+    {
+      "src": "BB.1D.bioenergetics.thermo.spontaneity",
+      "dst": "BB.2A.membrane-transport.passive.simple-diffusion",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Passive diffusion down a gradient is the spontaneous (negative \u0394G) case students must grasp first."
+    },
+    {
+      "src": "BB.1D.bioenergetics.coupling.atp-hydrolysis",
+      "dst": "BB.2A.membrane-transport.active.calcium-pump",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Calcium ATPase pumps require ATP-hydrolysis energy coupling."
+    },
+    {
+      "src": "BB.1D.bioenergetics.coupling.atp-hydrolysis",
+      "dst": "BB.2A.membrane-transport.bulk.exocytosis",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Vesicle trafficking/exocytosis is an energy-requiring process grounded in ATP as energy currency."
+    },
+    {
+      "src": "BB.1A.protein-folding.denaturation.definition",
+      "dst": "BB.2A.epithelial-tissue.specialized.regeneration",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Weak/optional: protein integrity concepts loosely inform tissue function \u2014 lower confidence."
+    },
+    {
+      "src": "BB.1B.replication.mechanism.semiconservative",
+      "dst": "BB.2C.cell-cycle.phases.s",
+      "bridge": "biochem->cell+molec",
+      "rationale": "S-phase IS DNA replication; the semiconservative replication mechanism is its content."
+    },
+    {
+      "src": "BB.1B.replication.fidelity.telomerase",
+      "dst": "BB.2C.cell-cycle.telomeres.telomerase",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Cell-cycle telomerase is the same enzyme detailed under replication fidelity."
+    },
+    {
+      "src": "BB.1B.replication.fidelity.end-replication-problem",
+      "dst": "BB.2C.cell-cycle.telomeres.shortening",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Telomere shortening / Hayflick limit follows directly from the end-replication problem."
+    },
+    {
+      "src": "BB.1B.replication.fidelity.telomerase-cancer",
+      "dst": "BB.2C.cancer.properties.immortality",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Replicative immortality of cancer cells is the telomerase-cancer link applied."
+    },
+    {
+      "src": "BB.1B.gene-regulation.cancer.tumor-suppressors",
+      "dst": "BB.2C.cell-cycle.checkpoints.p53",
+      "bridge": "biochem->cell+molec",
+      "rationale": "p53 as a checkpoint regulator builds on the tumor-suppressor concept."
+    },
+    {
+      "src": "BB.1B.gene-regulation.cancer.tumor-suppressors",
+      "dst": "BB.2C.cancer.dysregulation.tumor-suppressors",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Cancer tumor-suppressor dysregulation directly reuses the tumor-suppressor gene concept."
+    },
+    {
+      "src": "BB.1B.gene-regulation.cancer.oncogenes",
+      "dst": "BB.2C.cancer.dysregulation.oncogenes",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Oncogenes/proto-oncogenes in cancer build on the same concept from gene regulation."
+    },
+    {
+      "src": "BB.1B.gene-regulation.differential-expression.same-genome",
+      "dst": "BB.2C.differentiation.basis.differential-expression",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Differentiation by differential gene expression is the same-genome/different-expression idea applied to development."
+    },
+    {
+      "src": "BB.1B.gene-regulation.differential-expression.same-genome",
+      "dst": "BB.2C.differentiation.basis.genomic-equivalence",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Genomic equivalence rests on understanding that all cells share one genome but differ in expression."
+    },
+    {
+      "src": "BB.1B.gene-regulation.epigenetics.dna-methylation",
+      "dst": "BB.2C.differentiation.basis.epigenetics",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Epigenetic control of cell fate builds on DNA methylation from gene regulation."
+    },
+    {
+      "src": "BB.1B.gene-regulation.eukaryotic.transcription-factors",
+      "dst": "BB.2C.differentiation.signaling.transcription-factors",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Tissue-specific transcription factors directing fate build on eukaryotic activators/TFs."
+    },
+    {
+      "src": "BB.1B.gene-regulation.prokaryotic.operon",
+      "dst": "BB.2B.genetics.gene-expression.operon",
+      "bridge": "biochem->cell+molec",
+      "rationale": "The prokaryotic operon concept is the direct foundation for the microbiology operon section."
+    },
+    {
+      "src": "BB.1B.gene-regulation.prokaryotic.inducible",
+      "dst": "BB.2B.genetics.gene-expression.lac-operon",
+      "bridge": "biochem->cell+molec",
+      "rationale": "The lac operon (inducible) is the same example developed under gene regulation."
+    },
+    {
+      "src": "BB.1B.gene-regulation.prokaryotic.repressible",
+      "dst": "BB.2B.genetics.gene-expression.trp-operon",
+      "bridge": "biochem->cell+molec",
+      "rationale": "The trp operon (repressible) reuses the repressible-system concept from gene regulation."
+    },
+    {
+      "src": "BB.1B.gene-regulation.prokaryotic.positive-control",
+      "dst": "BB.2B.genetics.gene-expression.positive-control",
+      "bridge": "biochem->cell+molec",
+      "rationale": "CAP/cAMP positive control in microbiology is identical to the gene-regulation concept."
+    },
+    {
+      "src": "BB.1B.transcription.stages.coupled-prokaryotic",
+      "dst": "BB.2B.genetics.gene-expression.coupled",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Coupled transcription-translation in prokaryotes is taught first under transcription stages."
+    },
+    {
+      "src": "BB.1B.transcription.machinery.polycistronic",
+      "dst": "BB.2B.genetics.gene-expression.polycistronic",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Polycistronic mRNA is introduced in transcription machinery and reused in prokaryote genetics."
+    },
+    {
+      "src": "BB.1B.recombination.transformation",
+      "dst": "BB.2B.genetics.htg.transformation",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Bacterial transformation as horizontal gene transfer builds on the recombination concept."
+    },
+    {
+      "src": "BB.1B.recombination.transduction",
+      "dst": "BB.2B.genetics.htg.transduction",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Phage-mediated transduction is the same mechanism in both sections."
+    },
+    {
+      "src": "BB.1B.recombination.conjugation",
+      "dst": "BB.2B.genetics.htg.conjugation",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Bacterial conjugation as HGT builds directly on the recombination conjugation concept."
+    },
+    {
+      "src": "BB.1B.recombination.transposons",
+      "dst": "BB.2B.genetics.transposon",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Transposons in prokaryote genetics build on the jumping-genes concept from recombination."
+    },
+    {
+      "src": "BB.1B.viral-genetics.retrovirus",
+      "dst": "BB.2B.viruses.genome.retrovirus",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Retroviruses in viral structure build on the retrovirus concept from molecular biology."
+    },
+    {
+      "src": "BB.1B.viral-genetics.reverse-transcriptase",
+      "dst": "BB.2B.viruses.genome.retrovirus",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Understanding retroviruses requires the reverse transcriptase concept."
+    },
+    {
+      "src": "BB.1B.viral-genetics.lytic-lysogenic",
+      "dst": "BB.2B.viral-life-cycle.phage.lytic",
+      "bridge": "biochem->cell+molec",
+      "rationale": "The lytic phage cycle builds on the lytic-vs-lysogenic distinction introduced in viral genetics."
+    },
+    {
+      "src": "BB.1B.viral-genetics.lytic-lysogenic",
+      "dst": "BB.2B.viral-life-cycle.phage.lysogenic",
+      "bridge": "biochem->cell+molec",
+      "rationale": "The lysogenic phage cycle builds on the lytic-vs-lysogenic distinction."
+    },
+    {
+      "src": "BB.1A.protein-function.signaling.antibodies",
+      "dst": "BB.2A.cell-adhesion.molecules.igsf",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Immunoglobulin-superfamily CAMs build on antibody/immunoglobulin protein structure."
+    },
+    {
+      "src": "BB.1A.protein-structure.quaternary.subunit-assembly",
+      "dst": "BB.2A.intercellular-junctions.gap.structure",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Gap junction connexon assembly from subunits draws on quaternary subunit-assembly understanding."
+    },
+    {
+      "src": "BB.1A.protein-structure.tertiary.disulfide-bonds",
+      "dst": "BB.2A.connective-tissue.matrix.collagen",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Weak: covalent crosslinking concepts inform fibrous matrix proteins \u2014 lower confidence."
+    },
+    {
+      "src": "BB.1D.bioenergetics.coupling.atp-hydrolysis",
+      "dst": "BB.2C.cell-cycle.control.cdks",
+      "bridge": "biochem->cell+molec",
+      "rationale": "CDK kinase activity (phosphoryl transfer from ATP) presumes ATP as the phosphate/energy donor."
+    },
+    {
+      "src": "BB.1A.protein-structure.primary.point-mutation-effect",
+      "dst": "BB.2C.cancer.dysregulation.ras",
+      "bridge": "biochem->cell+molec",
+      "rationale": "Ras oncogene activation by a point mutation builds on how sequence changes alter protein function."
+    },
+    {
+      "src": "BB.2A.membrane-potential.resting.definition",
+      "dst": "BB.3A.signaling.resting.value",
+      "bridge": "cell->systems",
+      "rationale": "Resting membrane potential mechanics underlie the neuron's ~-70mV resting potential."
+    },
+    {
+      "src": "BB.2A.membrane-potential.resting.k-leak",
+      "dst": "BB.3A.signaling.resting.k-leak",
+      "bridge": "cell->systems",
+      "rationale": "K+ leak channels setting resting potential are the same concept applied to neurons."
+    },
+    {
+      "src": "BB.2A.membrane-potential.resting.nernst",
+      "dst": "BB.3A.signaling.resting.nernst",
+      "bridge": "cell->systems",
+      "rationale": "Nernst equation must be understood before computing neuronal equilibrium potentials."
+    },
+    {
+      "src": "BB.2A.membrane-potential.resting.goldman",
+      "dst": "BB.3A.signaling.resting.goldman",
+      "bridge": "cell->systems",
+      "rationale": "Goldman equation for multi-ion potential is prerequisite to neuronal resting potential."
+    },
+    {
+      "src": "BB.2A.membrane-transport.active.sodium-potassium-pump",
+      "dst": "BB.3A.signaling.resting.na-k-pump",
+      "bridge": "cell->systems",
+      "rationale": "Na+/K+ ATPase maintains the ion gradients that establish neuronal resting potential."
+    },
+    {
+      "src": "BB.2A.membrane-transport.active.electrochemical-gradient",
+      "dst": "BB.3A.signaling.resting.ion-distribution",
+      "bridge": "cell->systems",
+      "rationale": "Electrochemical gradients define the ion concentration gradients across the neuron membrane."
+    },
+    {
+      "src": "BB.2A.membrane-potential.excitability.depolarization",
+      "dst": "BB.3A.signaling.ap.depolarization",
+      "bridge": "cell->systems",
+      "rationale": "Membrane depolarization concept underlies the action potential depolarization phase."
+    },
+    {
+      "src": "BB.2A.membrane-transport.passive.gated-channels",
+      "dst": "BB.3A.signaling.ap.vg-na",
+      "bridge": "cell->systems",
+      "rationale": "Gated channel behavior is prerequisite to voltage-gated Na+ channel states."
+    },
+    {
+      "src": "BB.2A.membrane-transport.passive.gated-channels",
+      "dst": "BB.3A.signaling.ap.vg-k",
+      "bridge": "cell->systems",
+      "rationale": "Gated channel behavior is prerequisite to voltage-gated K+ channels."
+    },
+    {
+      "src": "BB.2A.membrane-potential.excitability.signaling-role",
+      "dst": "BB.3A.signaling.graded",
+      "bridge": "cell->systems",
+      "rationale": "Membrane potential as an intracellular signal underlies graded potentials."
+    },
+    {
+      "src": "BB.2A.membrane-transport.bulk.exocytosis",
+      "dst": "BB.3A.signaling.synapse.ca-trigger",
+      "bridge": "cell->systems",
+      "rationale": "Exocytosis mechanism underlies Ca2+-triggered synaptic vesicle release."
+    },
+    {
+      "src": "BB.2A.cell-signaling.receptors.ligand-gated",
+      "dst": "BB.3A.signaling.synapse.ionotropic",
+      "bridge": "cell->systems",
+      "rationale": "Ligand-gated ion channel receptors are exactly the ionotropic postsynaptic receptors."
+    },
+    {
+      "src": "BB.2A.cell-signaling.transduction.gpcr",
+      "dst": "BB.3A.signaling.synapse.metabotropic",
+      "bridge": "cell->systems",
+      "rationale": "GPCR signal transduction underlies metabotropic synaptic receptors."
+    },
+    {
+      "src": "BB.2A.intercellular-junctions.gap.electrical-coupling",
+      "dst": "BB.3A.signaling.synapse.electrical",
+      "bridge": "cell->systems",
+      "rationale": "Gap-junction electrical coupling is the basis for electrical synapses."
+    },
+    {
+      "src": "BB.2A.cell-signaling.transduction.termination",
+      "dst": "BB.3A.signaling.synapse.termination",
+      "bridge": "cell->systems",
+      "rationale": "Signal termination mechanisms underlie neurotransmitter reuptake/degradation."
+    },
+    {
+      "src": "BB.2A.cytoskeleton.microtubules.motor-proteins",
+      "dst": "BB.3A.neuron.structure.transport",
+      "bridge": "cell->systems",
+      "rationale": "Kinesin/dynein motors are the machinery of axonal transport."
+    },
+    {
+      "src": "BB.2A.cell-signaling.modes.synaptic",
+      "dst": "BB.3A.signaling.synapse.chemical",
+      "bridge": "cell->systems",
+      "rationale": "Synaptic signaling mode is the basis for the chemical synapse mechanism."
+    },
+    {
+      "src": "BB.2A.cell-signaling.modes.endocrine",
+      "dst": "BB.3A.endocrine.principles.signaling-types",
+      "bridge": "cell->systems",
+      "rationale": "Endocrine signaling mode underlies the hormone signaling-type principles."
+    },
+    {
+      "src": "BB.2A.cell-signaling.receptors.intracellular",
+      "dst": "BB.3A.endocrine.principles.steroid",
+      "bridge": "cell->systems",
+      "rationale": "Intracellular/nuclear receptors are the receptors steroid hormones act through."
+    },
+    {
+      "src": "BB.2A.cell-signaling.transduction.second-messengers",
+      "dst": "BB.3A.endocrine.principles.second-messenger",
+      "bridge": "cell->systems",
+      "rationale": "Second messengers underlie peptide-hormone second-messenger cascades."
+    },
+    {
+      "src": "BB.2A.cell-signaling.transduction.cascade-amplification",
+      "dst": "BB.3A.endocrine.principles.amplification",
+      "bridge": "cell->systems",
+      "rationale": "Signal cascade amplification is the basis for hormone signal amplification."
+    },
+    {
+      "src": "BB.2A.cell-signaling.receptors.ligand-properties",
+      "dst": "BB.3A.endocrine.principles.solubility-onset",
+      "bridge": "cell->systems",
+      "rationale": "Ligand solubility/receptor location determines hormone solubility, onset, and duration."
+    },
+    {
+      "src": "BB.2A.cell-signaling.fate.apoptosis",
+      "dst": "BB.3A.cns.organization.embryology",
+      "bridge": "cell->systems",
+      "rationale": "Apoptosis shapes neural-tube/brain-vesicle development through programmed cell death."
+    },
+    {
+      "src": "BB.2A.nervous-tissue.neurons",
+      "dst": "BB.3A.neuron.structure",
+      "bridge": "cell->systems",
+      "rationale": "Neuron cell-type knowledge is foundational to detailed neuronal structure."
+    },
+    {
+      "src": "BB.2A.nervous-tissue.glia",
+      "dst": "BB.3A.neuron.glia",
+      "bridge": "cell->systems",
+      "rationale": "Glial cell tissue overview is prerequisite to the specific glial cell types."
+    },
+    {
+      "src": "BB.2A.connective-tissue.types.bone-cells",
+      "dst": "BB.3B.musculoskeletal.skeletal.bone-cells",
+      "bridge": "cell->systems",
+      "rationale": "Bone cell types (osteoblast/cyte/clast) are reused directly in the skeletal system."
+    },
+    {
+      "src": "BB.2A.connective-tissue.matrix.collagen",
+      "dst": "BB.3B.musculoskeletal.skeletal.bone-matrix",
+      "bridge": "cell->systems",
+      "rationale": "Collagen knowledge underlies the bone matrix of collagen and hydroxyapatite."
+    },
+    {
+      "src": "BB.2A.connective-tissue.types.blood",
+      "dst": "BB.3B.circulatory.blood.plasma",
+      "bridge": "cell->systems",
+      "rationale": "Blood-as-connective-tissue framing precedes detailed blood composition."
+    },
+    {
+      "src": "BB.2A.muscle-tissue.skeletal",
+      "dst": "BB.3B.musculoskeletal.muscle-types.skeletal",
+      "bridge": "cell->systems",
+      "rationale": "Skeletal muscle tissue type is prerequisite to organ-level skeletal muscle."
+    },
+    {
+      "src": "BB.2A.muscle-tissue.cardiac",
+      "dst": "BB.3B.circulatory.heart.cardiac-muscle",
+      "bridge": "cell->systems",
+      "rationale": "Cardiac muscle tissue underlies cardiac muscle and the functional syncytium."
+    },
+    {
+      "src": "BB.2A.muscle-tissue.smooth",
+      "dst": "BB.3B.musculoskeletal.muscle-types.smooth",
+      "bridge": "cell->systems",
+      "rationale": "Smooth muscle tissue type is prerequisite to organ-level smooth muscle."
+    },
+    {
+      "src": "BB.2A.cytoskeleton.microfilaments.myosin",
+      "dst": "BB.3B.musculoskeletal.contraction.cross-bridge",
+      "bridge": "cell->systems",
+      "rationale": "Actin-myosin interaction is the molecular basis of the cross-bridge cycle."
+    },
+    {
+      "src": "BB.2A.cytoskeleton.microfilaments.actin",
+      "dst": "BB.3B.musculoskeletal.contraction.sliding-filament",
+      "bridge": "cell->systems",
+      "rationale": "Actin filament structure underlies the sliding filament theory."
+    },
+    {
+      "src": "BB.2A.membrane-transport.active.calcium-pump",
+      "dst": "BB.3B.musculoskeletal.contraction.t-tubules",
+      "bridge": "cell->systems",
+      "rationale": "Ca2+ ATPase pumps govern SR calcium handling in T-tubule/SR coupling."
+    },
+    {
+      "src": "BB.2A.epithelial-tissue.layers.simple",
+      "dst": "BB.3B.respiratory.anatomy.alveoli",
+      "bridge": "cell->systems",
+      "rationale": "Simple (squamous) epithelium is the alveolar gas-exchange surface."
+    },
+    {
+      "src": "BB.2A.epithelial-tissue.specialized.glandular",
+      "dst": "BB.3A.endocrine.principles.definition",
+      "bridge": "cell->systems",
+      "rationale": "Glandular epithelium is the tissue basis of hormone-secreting endocrine glands."
+    },
+    {
+      "src": "BB.2A.epithelial-tissue.general.basement-membrane",
+      "dst": "BB.3B.excretory.anatomy.glomerulus",
+      "bridge": "cell->systems",
+      "rationale": "Basement membrane structure is central to the glomerular filtration barrier."
+    },
+    {
+      "src": "BB.2A.membrane-transport.passive.aquaporins",
+      "dst": "BB.3B.excretory.regulation.adh",
+      "bridge": "cell->systems",
+      "rationale": "Aquaporins are the channels ADH inserts to control renal water reabsorption."
+    },
+    {
+      "src": "BB.2A.membrane-transport.osmosis.osmoregulation",
+      "dst": "BB.3B.excretory.processes.loop-henle",
+      "bridge": "cell->systems",
+      "rationale": "Osmoregulation underlies the loop of Henle countercurrent multiplier."
+    },
+    {
+      "src": "BB.2A.membrane-transport.active.secondary",
+      "dst": "BB.3B.excretory.processes.reabsorption",
+      "bridge": "cell->systems",
+      "rationale": "Secondary active transport drives much of tubular reabsorption."
+    },
+    {
+      "src": "BB.2A.membrane-transport.passive.facilitated-diffusion",
+      "dst": "BB.3B.digestive.lower.nutrient-absorption",
+      "bridge": "cell->systems",
+      "rationale": "Facilitated diffusion is a key nutrient-absorption pathway in the intestine."
+    },
+    {
+      "src": "BB.2A.intercellular-junctions.tight.epithelial-barrier",
+      "dst": "BB.3B.nervous.cns.blood-brain-barrier",
+      "bridge": "cell->systems",
+      "rationale": "Tight-junction epithelial barriers form the blood-brain barrier."
+    },
+    {
+      "src": "BB.2A.cell-adhesion.molecules.integrins",
+      "dst": "BB.3B.circulatory.blood.platelets-clotting",
+      "bridge": "cell->systems",
+      "rationale": "Integrins mediate platelet adhesion during the clotting cascade."
+    },
+    {
+      "src": "BB.2A.connective-tissue.types.cartilage",
+      "dst": "BB.3B.musculoskeletal.skeletal.endochondral",
+      "bridge": "cell->systems",
+      "rationale": "Cartilage knowledge is prerequisite to endochondral bone formation."
+    },
+    {
+      "src": "BB.2A.cytoskeleton.cilia-flagella.cilia-vs-flagella",
+      "dst": "BB.3B.respiratory.anatomy.mucociliary",
+      "bridge": "cell->systems",
+      "rationale": "Cilia structure/beating underlies the mucociliary escalator."
+    },
+    {
+      "src": "BB.2C.meiosis.overview.definition",
+      "dst": "BB.3B.reproductive.male.spermatogenesis",
+      "bridge": "cell->systems",
+      "rationale": "Meiosis is the cell-division basis of spermatogenesis."
+    },
+    {
+      "src": "BB.2C.gametogenesis.spermatogenesis.process",
+      "dst": "BB.3B.reproductive.male.spermatogenesis",
+      "bridge": "cell->systems",
+      "rationale": "Cell-level spermatogenesis process maps directly to the male reproductive system."
+    },
+    {
+      "src": "BB.2C.gametogenesis.oogenesis.process",
+      "dst": "BB.3B.reproductive.female.oogenesis",
+      "bridge": "cell->systems",
+      "rationale": "Cell-level oogenesis process maps directly to the female reproductive system."
+    },
+    {
+      "src": "BB.2C.gametogenesis.oogenesis.arrest",
+      "dst": "BB.3B.reproductive.female.menstrual-cycle",
+      "bridge": "cell->systems",
+      "rationale": "Meiotic arrest in oogenesis is integral to the ovarian/menstrual cycle."
+    },
+    {
+      "src": "BB.2C.specialization.germ-layers.ectoderm",
+      "dst": "BB.3A.cns.organization.embryology",
+      "bridge": "cell->systems",
+      "rationale": "Ectoderm gives rise to the nervous system, grounding brain embryology."
+    },
+    {
+      "src": "BB.2C.differentiation.potency.pluripotent",
+      "dst": "BB.3B.circulatory.blood.hematopoiesis",
+      "bridge": "cell->systems",
+      "rationale": "Stem-cell potency underlies hematopoietic differentiation of blood cells."
+    },
+    {
+      "src": "BB.2C.stem-cells.types.hematopoietic",
+      "dst": "BB.3B.circulatory.blood.hematopoiesis",
+      "bridge": "cell->systems",
+      "rationale": "Hematopoietic stem cells are the source cells of hematopoiesis."
+    },
+    {
+      "src": "BB.2C.cell-cycle.control.growth-factors",
+      "dst": "BB.3A.endocrine.hypo-pit.gh",
+      "bridge": "cell->systems",
+      "rationale": "Growth-factor/external-signal control of the cycle underlies growth-hormone action."
+    },
+    {
+      "src": "BB.2A.cell-signaling.modes.paracrine",
+      "dst": "BB.3A.endocrine.principles.signaling-types",
+      "bridge": "cell->systems",
+      "rationale": "Paracrine signaling is one of the hormone signaling types compared at systems level."
+    },
+    {
+      "src": "BB.2A.membrane-potential.excitability.depolarization",
+      "dst": "BB.3A.signaling.ap.hyperpolarization",
+      "bridge": "cell->systems",
+      "rationale": "Depolarization/hyperpolarization concept underlies the AP undershoot phase."
+    },
+    {
+      "src": "BB.2A.cell-signaling.receptors.rtk",
+      "dst": "BB.3A.endocrine.principles.peptide",
+      "bridge": "cell->systems",
+      "rationale": "Receptor tyrosine kinases mediate signaling of many peptide hormones (e.g., insulin)."
+    },
+    {
+      "src": "BB.2A.membrane-transport.bulk.exocytosis",
+      "dst": "BB.3A.signaling.synapse.nmj",
+      "bridge": "cell->systems",
+      "rationale": "Vesicle exocytosis underlies acetylcholine release at the neuromuscular junction."
+    },
+    {
+      "src": "BB.2A.cell-signaling.receptors.ligand-gated",
+      "dst": "BB.3B.musculoskeletal.contraction.nmj",
+      "bridge": "cell->systems",
+      "rationale": "Ligand-gated (ACh) receptors trigger end-plate potentials at the NMJ."
+    },
+    {
+      "src": "BB.2A.connective-tissue.matrix.elastin",
+      "dst": "BB.3B.circulatory.vessels.arteries",
+      "bridge": "cell->systems",
+      "rationale": "Elastin/elastic fibers give arteries their compliance and recoil."
+    },
+    {
+      "src": "BB.2A.connective-tissue.matrix.ground-substance",
+      "dst": "BB.3B.immune.lymphatic.lymph-drainage",
+      "bridge": "cell->systems",
+      "rationale": "Ground substance/interstitial fluid is what lymphatics drain."
+    },
+    {
+      "src": "BB.2A.epithelial-tissue.specialized.glandular",
+      "dst": "BB.3B.digestive.accessory.pancreas-enzymes",
+      "bridge": "cell->systems",
+      "rationale": "Glandular epithelium is the exocrine tissue secreting pancreatic enzymes."
+    },
+    {
+      "src": "BB.2A.cell-signaling.fate.apoptosis",
+      "dst": "BB.3B.immune.adaptive.self-tolerance",
+      "bridge": "cell->systems",
+      "rationale": "Apoptosis underlies clonal deletion that enforces immune self-tolerance."
+    },
+    {
+      "src": "CP.5A.water-as-solvent.hydrophobic-effect.protein-folding",
+      "dst": "BB.1A.protein-folding.native-state.solvation",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Hydrophobic effect in water is the driving force behind protein folding"
+    },
+    {
+      "src": "CP.5A.water-as-solvent.hydrophobic-effect.effect",
+      "dst": "BB.1A.protein-structure.tertiary.hydrophobic-interactions",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Entropy-driven hydrophobic effect underlies tertiary hydrophobic interactions"
+    },
+    {
+      "src": "CP.5A.water-as-solvent.hydrophobic-effect.effect",
+      "dst": "BB.1A.protein-structure.tertiary.hydrophobic-core",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Hydrophobic effect explains why nonpolar residues bury in the core"
+    },
+    {
+      "src": "CP.5A.water-as-solvent.hydrophobic-effect.effect",
+      "dst": "BB.1A.protein-structure.stabilizing-forces.entropy-driven",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "The entropy/hydrophobic-effect concept is taught first in water chemistry"
+    },
+    {
+      "src": "CP.5A.water-as-solvent.like-dissolves-like.amphipathic",
+      "dst": "BB.1A.protein-structure.tertiary.hydrophobic-core",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Amphipathic distribution of residues drives core-vs-surface packing"
+    },
+    {
+      "src": "CP.5A.water-ionization.ph-scale.ph-defn",
+      "dst": "BB.1A.amino-acids.acid-base.net-charge",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "pH definition is prerequisite to computing residue charge at a given pH"
+    },
+    {
+      "src": "CP.5A.water-ionization.ph-scale.ph-defn",
+      "dst": "BB.1A.amino-acids.acid-base.titration-curve",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "pH scale underlies reading amino acid titration curves"
+    },
+    {
+      "src": "CP.5A.water-ionization.ph-scale.acidic-basic-neutral",
+      "dst": "BB.1A.amino-acids.acid-base.isoelectric-point",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Understanding acidic/basic ranges is needed to grasp pI"
+    },
+    {
+      "src": "CP.5A.water-ionization.autoionization.kw",
+      "dst": "BB.1A.amino-acids.acid-base.henderson-hasselbalch",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Water autoionization/Kw grounds the acid-base equilibria behind Henderson-Hasselbalch"
+    },
+    {
+      "src": "CP.5A.solutions-solubility.terminology.aqueous",
+      "dst": "BB.1A.protein-analysis.electrophoresis.principle",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Aqueous solution behavior underlies electrophoresis of charged proteins"
+    },
+    {
+      "src": "CP.5A.colligative.osmotic.tonicity",
+      "dst": "BB.1A.protein-folding.native-state.solvation",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Solute/water relationships connect to protein solvation behavior"
+    },
+    {
+      "src": "CP.5B.electronegativity-polarity.bond-character.polar-covalent",
+      "dst": "BB.1A.protein-structure.tertiary.hydrogen-bonds",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Polar covalent bonds are the basis for side-chain hydrogen bonding"
+    },
+    {
+      "src": "CP.5B.intermolecular-forces.hydrogen-bonding.donor-acceptor",
+      "dst": "BB.1A.protein-structure.secondary.hbond-backbone",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "H-bond donor/acceptor concept is needed for backbone H-bonding in secondary structure"
+    },
+    {
+      "src": "CP.5B.intermolecular-forces.hydrogen-bonding.requirement",
+      "dst": "BB.1A.protein-structure.secondary.alpha-helix",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "H-bonding (N,O,F) requirement underlies alpha-helix stabilization"
+    },
+    {
+      "src": "CP.5B.intermolecular-forces.hydrogen-bonding.requirement",
+      "dst": "BB.1A.protein-structure.secondary.beta-sheet",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "H-bonding requirement underlies beta-sheet stabilization"
+    },
+    {
+      "src": "CP.5B.intermolecular-forces.hydrogen-bonding.donor-acceptor",
+      "dst": "BB.1B.nucleic-acids.dna-structure.complementary-pairing",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "H-bond donor/acceptor logic underlies Watson-Crick base pairing"
+    },
+    {
+      "src": "CP.5B.intermolecular-forces.london",
+      "dst": "BB.1A.protein-structure.tertiary.van-der-waals",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "London dispersion is the van der Waals force stabilizing tertiary structure"
+    },
+    {
+      "src": "CP.5B.intermolecular-forces.ion-dipole.hydration",
+      "dst": "BB.1A.amino-acids.classification.hydrophobicity",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Hydration/solvation governs hydrophobicity classification"
+    },
+    {
+      "src": "CP.5B.intermolecular-forces.overview.strength-order",
+      "dst": "BB.1A.protein-structure.stabilizing-forces.which-force-per-level",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Relative IMF strength ordering is needed to assign forces per structural level"
+    },
+    {
+      "src": "CP.5B.lewis-structures.resonance.delocalization-stability",
+      "dst": "BB.1A.peptide-bond.properties.resonance",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Resonance/delocalization concept underlies peptide-bond partial double-bond character"
+    },
+    {
+      "src": "CP.5B.hybridization-orbitals.sigma-pi.rotation",
+      "dst": "BB.1A.peptide-bond.properties.planarity",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Restricted rotation about pi-bond character explains peptide-bond planarity"
+    },
+    {
+      "src": "CP.5B.dipole-polarity.symmetry.polar-vs-nonpolar",
+      "dst": "BB.1A.amino-acids.classification.nonpolar",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Predicting polar vs nonpolar molecules grounds nonpolar side-chain classification"
+    },
+    {
+      "src": "CP.5B.covalent-bond.formation.electron-sharing",
+      "dst": "BB.1A.protein-structure.tertiary.disulfide-bonds",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Covalent bonding underlies the disulfide covalent crosslink"
+    },
+    {
+      "src": "CP.5B.electronegativity-polarity.bond-character.ionic",
+      "dst": "BB.1A.protein-structure.tertiary.salt-bridges",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Ionic interactions underlie salt bridges between charged residues"
+    },
+    {
+      "src": "CP.5D.amino-acids.structure.alpha-carbon",
+      "dst": "BB.1A.amino-acids.general-structure.alpha-carbon",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Same alpha-carbon concept carried from chem to biochem amino acids"
+    },
+    {
+      "src": "CP.5D.amino-acids.structure.chirality",
+      "dst": "BB.1A.amino-acids.stereochemistry.chirality",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Amino acid chirality foundation reused in biochem stereochemistry"
+    },
+    {
+      "src": "CP.5D.amino-acids.acid-base.zwitterion",
+      "dst": "BB.1A.amino-acids.general-structure.zwitterion",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Zwitterion concept is foundational and carried forward"
+    },
+    {
+      "src": "CP.5D.amino-acids.acid-base.isoelectric-point",
+      "dst": "BB.1A.amino-acids.acid-base.isoelectric-point",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "pI concept taught in chem foundations is prerequisite to biochem pI"
+    },
+    {
+      "src": "CP.5D.amino-acids.reactions.peptide-bond-formation",
+      "dst": "BB.1A.peptide-bond.formation.condensation",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Peptide bond formation chemistry grounds biochem condensation reaction"
+    },
+    {
+      "src": "CP.5D.proteins.peptide-bond.resonance",
+      "dst": "BB.1A.peptide-bond.properties.resonance",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Peptide bond resonance/planarity is directly carried into biochem"
+    },
+    {
+      "src": "CP.5D.proteins.secondary.alpha-helix",
+      "dst": "BB.1A.protein-structure.secondary.alpha-helix",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Alpha helix foundation reused in biochem secondary structure"
+    },
+    {
+      "src": "CP.5D.proteins.tertiary.hydrophobic",
+      "dst": "BB.1A.protein-structure.tertiary.hydrophobic-core",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Hydrophobic core packing concept carried forward"
+    },
+    {
+      "src": "CP.5D.enzymes.kinetics.michaelis-menten",
+      "dst": "BB.1D.metabolism-overview.regulation.committed-step",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Enzyme kinetics underlies rate-limiting committed-step regulation"
+    },
+    {
+      "src": "CP.5D.enzymes.regulation.allosteric",
+      "dst": "BB.1D.metabolism-overview.regulation.allosteric",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Allosteric regulation concept directly reused in metabolic regulation"
+    },
+    {
+      "src": "CP.5D.enzymes.regulation.feedback",
+      "dst": "BB.1D.metabolism-overview.regulation.feedback-inhibition",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Feedback inhibition foundation reused in metabolism"
+    },
+    {
+      "src": "CP.5D.enzymes.regulation.covalent",
+      "dst": "BB.1D.metabolism-overview.regulation.covalent-modification",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Covalent modification (phosphorylation) regulation carried into metabolism"
+    },
+    {
+      "src": "CP.5D.enzymes.cofactors.coenzyme-def",
+      "dst": "BB.1D.bioenergetics.redox.nad-nadh",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Coenzyme concept underlies NAD+/NADH electron carriers"
+    },
+    {
+      "src": "CP.5D.enzymes.basics.lower-ea",
+      "dst": "BB.1D.bioenergetics.thermo.thermo-vs-kinetics",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Enzymes lowering Ea grounds the thermodynamics-vs-kinetics distinction in metabolism"
+    },
+    {
+      "src": "CP.5D.carbohydrates.monosaccharides.common-sugars",
+      "dst": "BB.1D.glycolysis.overview.glucose-uptake",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Knowing glucose as a monosaccharide is prerequisite to glucose uptake in glycolysis"
+    },
+    {
+      "src": "CP.5D.carbohydrates.complex.glycogen",
+      "dst": "BB.1D.glycogen.structure.branched-polymer",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Glycogen structure from chem foundations grounds glycogen metabolism"
+    },
+    {
+      "src": "CP.5D.carbohydrates.complex.glycosidic-bond",
+      "dst": "BB.1D.glycogen.glycogenolysis.phosphorolysis",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Glycosidic linkages are what phosphorolysis cleaves"
+    },
+    {
+      "src": "CP.5D.lipids.fatty-acids.structure",
+      "dst": "BB.1D.lipid.beta-oxidation.four-steps",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Fatty acid structure is prerequisite to beta-oxidation chemistry"
+    },
+    {
+      "src": "CP.5D.lipids.fatty-acids.saturation",
+      "dst": "BB.1D.lipid.beta-oxidation.unsaturated",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Saturation concept needed for unsaturated fatty acid oxidation"
+    },
+    {
+      "src": "CP.5D.lipids.triacylglycerols.structure",
+      "dst": "BB.1D.lipid.mobilization.lipolysis",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Triacylglycerol structure grounds lipolysis/mobilization"
+    },
+    {
+      "src": "CP.5D.nucleotides.energy.atp",
+      "dst": "BB.1D.bioenergetics.coupling.atp-hydrolysis",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "ATP as energy currency is prerequisite to ATP hydrolysis coupling"
+    },
+    {
+      "src": "CP.5D.nucleotides.components.three-parts",
+      "dst": "BB.1B.nucleic-acids.nucleotides.composition",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Base/sugar/phosphate composition carried into nucleic acid structure"
+    },
+    {
+      "src": "CP.5D.nucleotides.components.purines",
+      "dst": "BB.1B.nucleic-acids.nucleotides.purines",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Purine identity foundation reused in biochem nucleotides"
+    },
+    {
+      "src": "CP.5D.nucleotides.components.ribose-deoxyribose",
+      "dst": "BB.1B.nucleic-acids.nucleotides.deoxyribose-ribose",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Ribose vs deoxyribose distinction carried forward"
+    },
+    {
+      "src": "CP.5D.nucleotides.nucleic-acids.base-pairing",
+      "dst": "BB.1B.nucleic-acids.dna-structure.complementary-pairing",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Watson-Crick base pairing foundation reused"
+    },
+    {
+      "src": "CP.5D.nucleotides.nucleic-acids.phosphodiester",
+      "dst": "BB.1B.nucleic-acids.nucleotides.phosphodiester",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Phosphodiester backbone concept carried forward"
+    },
+    {
+      "src": "CP.5D.nucleotides.nucleic-acids.antiparallel",
+      "dst": "BB.1B.nucleic-acids.dna-structure.antiparallel",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Antiparallel strand orientation foundation reused"
+    },
+    {
+      "src": "CP.5D.nucleotides.nucleic-acids.denaturation",
+      "dst": "BB.1B.nucleic-acids.dna-structure.denaturation-melting",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "DNA denaturation/Tm concept carried into biochem"
+    },
+    {
+      "src": "CP.5E.gibbs.definition.equation",
+      "dst": "BB.1D.bioenergetics.thermo.delta-g",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Gibbs free energy equation is directly prerequisite to biochem deltaG"
+    },
+    {
+      "src": "CP.5E.gibbs.definition.spontaneity",
+      "dst": "BB.1D.bioenergetics.thermo.spontaneity",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Sign of deltaG determining spontaneity carried into bioenergetics"
+    },
+    {
+      "src": "CP.5E.gibbs.standard.k-relation",
+      "dst": "BB.1D.bioenergetics.thermo.delta-g-vs-keq",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "deltaG = -RT lnK relation reused for biochem Keq relationship"
+    },
+    {
+      "src": "CP.5E.gibbs.standard.q-relation",
+      "dst": "BB.1D.bioenergetics.thermo.actual-delta-g",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "deltaG = deltaG\u00b0 + RT lnQ grounds actual deltaG vs concentrations"
+    },
+    {
+      "src": "CP.5E.gibbs.coupling.concept",
+      "dst": "BB.1D.bioenergetics.coupling.reaction-coupling",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Reaction coupling concept directly carried into bioenergetics"
+    },
+    {
+      "src": "CP.5E.first-law.internal-energy.conservation",
+      "dst": "BB.1D.bioenergetics.thermo.first-law",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "First law/energy conservation reused as biochem first law"
+    },
+    {
+      "src": "CP.5E.entropy.laws.second-law",
+      "dst": "BB.1D.bioenergetics.thermo.second-law",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Second law of thermodynamics carried into bioenergetics"
+    },
+    {
+      "src": "CP.5E.entropy.concept.definition",
+      "dst": "BB.1A.protein-structure.stabilizing-forces.entropy-driven",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Entropy concept underpins the entropy-driven hydrophobic effect"
+    },
+    {
+      "src": "CP.5E.gibbs.definition.equation",
+      "dst": "BB.1D.bioenergetics.thermo.delta-g",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "deltaG = deltaH - TdeltaS equation is the foundation for biochem free energy"
+    },
+    {
+      "src": "CP.5E.gibbs.standard.q-vs-k-direction",
+      "dst": "BB.1D.bioenergetics.thermo.equilibrium",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Q vs K direction grounds chemical equilibrium reasoning in metabolism"
+    },
+    {
+      "src": "CP.5E.thermo-kinetics-link.distinction.independent",
+      "dst": "BB.1D.bioenergetics.thermo.thermo-vs-kinetics",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Independence of thermodynamics and kinetics carried directly forward"
+    },
+    {
+      "src": "CP.5E.kinetics-theory.activation.ea",
+      "dst": "BB.1D.bioenergetics.thermo.near-equilibrium-vs-irreversible",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Activation energy concept underlies metabolically irreversible reactions"
+    },
+    {
+      "src": "CP.5E.enthalpy.definition.delta-h",
+      "dst": "BB.1D.bioenergetics.thermo.delta-g",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Enthalpy (deltaH) is a component of the Gibbs equation for biochem deltaG"
+    },
+    {
+      "src": "CP.5E.gibbs.standard.formation",
+      "dst": "BB.1D.bioenergetics.thermo.standard-delta-g",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Standard free energy of reaction grounds biochem standard deltaG\u00b0'"
+    },
+    {
+      "src": "CP.5E.mechanisms.catalysis.definition",
+      "dst": "BB.1D.bioenergetics.thermo.thermo-vs-kinetics",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Catalyst lowering Ea without changing thermodynamics underlies the distinction"
+    },
+    {
+      "src": "CP.5A.water-ionization.ph-scale.ph-poh-relation",
+      "dst": "BB.1A.amino-acids.acid-base.buffering",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "pH/pOH relationship grounds buffering capacity near pKa"
+    },
+    {
+      "src": "CP.5D.amino-acids.acid-base.histidine-buffer",
+      "dst": "BB.1A.amino-acids.special-residues.histidine-buffer",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Histidine physiological buffering carried directly into biochem"
+    },
+    {
+      "src": "CP.5D.amino-acids.classification.nonpolar",
+      "dst": "BB.1A.amino-acids.classification.nonpolar",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Nonpolar side-chain classification foundation reused"
+    },
+    {
+      "src": "CP.5D.amino-acids.reactions.disulfide-formation",
+      "dst": "BB.1A.amino-acids.special-residues.cysteine-disulfide",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Disulfide bond formation chemistry grounds cysteine disulfide bonds"
+    },
+    {
+      "src": "CP.5D.proteins.folding.denaturation",
+      "dst": "BB.1A.protein-folding.denaturation.definition",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Denaturation concept carried into biochem protein folding"
+    },
+    {
+      "src": "CP.5D.proteins.quaternary.cooperativity",
+      "dst": "BB.1A.protein-structure.quaternary.cooperativity",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Subunit cooperativity foundation reused"
+    },
+    {
+      "src": "CP.5D.enzymes.cofactors.cofactor-def",
+      "dst": "BB.1A.conjugated-proteins.types.metalloproteins",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Metal-ion cofactors underlie metalloprotein concept"
+    },
+    {
+      "src": "CP.5D.lipids.membrane.bilayer",
+      "dst": "BB.1D.lipid.mobilization.lipoproteins",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "Amphipathic bilayer principles underlie lipoprotein transport"
+    },
+    {
+      "src": "CP.5E.kinetics-rates.orders.first-order-radioactive",
+      "dst": "BB.1B.replication.fidelity.high-fidelity",
+      "bridge": "chem-foundations->biochem",
+      "rationale": "First-order kinetics reasoning supports error-rate quantification (weaker)"
+    },
+    {
+      "src": "PS.6C.emotion.neuroscience.amygdala",
+      "dst": "PS.7A.biological-bases.brain-structures.amygdala",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Amygdala's role in emotion grounds understanding the amygdala as a brain structure"
+    },
+    {
+      "src": "PS.6C.emotion.neuroscience.amygdala",
+      "dst": "PS.7A.emotion.brain.amygdala-role",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Direct conceptual basis for amygdala's role in emotion"
+    },
+    {
+      "src": "PS.6C.emotion.neuroscience.fear-conditioning",
+      "dst": "PS.7A.emotion.brain.amygdala-role",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Amygdala fear conditioning underlies the amygdala-in-emotion treatment"
+    },
+    {
+      "src": "PS.6C.emotion.neuroscience.limbic-system",
+      "dst": "PS.7A.biological-bases.brain-structures.limbic-system",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Limbic system overview grounds the limbic-system brain structure"
+    },
+    {
+      "src": "PS.6C.emotion.neuroscience.limbic-system",
+      "dst": "PS.7A.emotion.brain.limbic-emotion",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Limbic emotion overview is the basis for limbic system in emotion"
+    },
+    {
+      "src": "PS.6C.emotion.neuroscience.hypothalamus",
+      "dst": "PS.7A.biological-bases.brain-structures.hypothalamus",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Hypothalamus in emotion grounds the hypothalamus brain structure"
+    },
+    {
+      "src": "PS.6C.emotion.neuroscience.prefrontal-cortex",
+      "dst": "PS.7A.emotion.brain.prefrontal-regulation",
+      "bridge": "psych-bio->cognition",
+      "rationale": "PFC in emotion directly underlies PFC emotion regulation"
+    },
+    {
+      "src": "PS.6C.emotion.neuroscience.prefrontal-cortex",
+      "dst": "PS.7A.biological-bases.brain-structures.prefrontal-cortex",
+      "bridge": "psych-bio->cognition",
+      "rationale": "PFC's emotion role grounds the PFC brain structure"
+    },
+    {
+      "src": "PS.6C.emotion.neuroscience.ans-emotion",
+      "dst": "PS.7A.emotion.brain.autonomic-emotion",
+      "bridge": "psych-bio->cognition",
+      "rationale": "ANS in emotion is the direct basis for autonomic arousal in emotion"
+    },
+    {
+      "src": "PS.6C.emotion.neuroscience.sympathetic",
+      "dst": "PS.7A.biological-bases.nervous-system.sympathetic",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Sympathetic fight-or-flight in emotion grounds the sympathetic division"
+    },
+    {
+      "src": "PS.6C.emotion.neuroscience.parasympathetic",
+      "dst": "PS.7A.biological-bases.nervous-system.parasympathetic",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Parasympathetic rest-and-digest in emotion grounds the parasympathetic division"
+    },
+    {
+      "src": "PS.6C.emotion.neuroscience.epinephrine",
+      "dst": "PS.7A.biological-bases.neurotransmitters.epinephrine",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Epinephrine in emotional arousal grounds epinephrine as a neurotransmitter"
+    },
+    {
+      "src": "PS.6C.emotion.neuroscience.hippocampus",
+      "dst": "PS.7A.biological-bases.brain-structures.hippocampus",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Hippocampus emotional-memory role grounds the hippocampus brain structure"
+    },
+    {
+      "src": "PS.6C.emotion.neuroscience.thalamus",
+      "dst": "PS.7A.biological-bases.brain-structures.thalamus",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Thalamus sensory-relay role grounds the thalamus brain structure"
+    },
+    {
+      "src": "PS.6C.emotion.components.physiological",
+      "dst": "PS.7A.emotion.components.three-elements",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Physiological component is one of the three emotion elements"
+    },
+    {
+      "src": "PS.6C.emotion.components.behavioral",
+      "dst": "PS.7A.emotion.components.three-elements",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Behavioral component is one of the three emotion elements"
+    },
+    {
+      "src": "PS.6C.emotion.components.cognitive",
+      "dst": "PS.7A.emotion.components.three-elements",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Cognitive component is one of the three emotion elements"
+    },
+    {
+      "src": "PS.6C.emotion.universal.basic-set",
+      "dst": "PS.7A.emotion.components.universal-emotions",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Basic emotions set is the basis for universal basic emotions"
+    },
+    {
+      "src": "PS.6C.emotion.universal.facial-feedback",
+      "dst": "PS.7A.emotion.components.facial-expression",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Facial feedback hypothesis grounds facial expression and feedback"
+    },
+    {
+      "src": "PS.6C.emotion.universal.display-rules",
+      "dst": "PS.7A.emotion.components.nonverbal-display-rules",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Cultural display rules underlie nonverbal communication and display rules"
+    },
+    {
+      "src": "PS.6C.emotion.universal.nonverbal",
+      "dst": "PS.7A.emotion.components.nonverbal-display-rules",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Nonverbal expression grounds nonverbal communication and display rules"
+    },
+    {
+      "src": "PS.6C.emotion.theories.james-lange",
+      "dst": "PS.7A.emotion.theories.james-lange",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Same theory; detailed 6C treatment grounds the 7A version"
+    },
+    {
+      "src": "PS.6C.emotion.theories.cannon-bard",
+      "dst": "PS.7A.emotion.theories.cannon-bard",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Same theory; detailed 6C treatment grounds the 7A version"
+    },
+    {
+      "src": "PS.6C.emotion.theories.schachter-singer",
+      "dst": "PS.7A.emotion.theories.schachter-singer",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Same two-factor theory; 6C version grounds 7A"
+    },
+    {
+      "src": "PS.6C.emotion.theories.lazarus",
+      "dst": "PS.7A.emotion.theories.lazarus",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Same appraisal theory; 6C grounds 7A"
+    },
+    {
+      "src": "PS.6C.emotion.theories.yerkes-dodson",
+      "dst": "PS.7A.emotion.theories.yerkes-dodson",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Same Yerkes-Dodson law; 6C grounds 7A"
+    },
+    {
+      "src": "PS.6C.emotion.theories.yerkes-dodson",
+      "dst": "PS.7B.presence-of-others.social-facilitation.yerkes-dodson",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Yerkes-Dodson arousal law underlies the social-facilitation arousal link"
+    },
+    {
+      "src": "PS.6C.stress.definitions.appraisal-model",
+      "dst": "PS.7A.stress.appraisal.cognitive-appraisal",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Transactional appraisal model grounds primary/secondary appraisal"
+    },
+    {
+      "src": "PS.6C.stress.definitions.primary-appraisal",
+      "dst": "PS.7A.stress.appraisal.cognitive-appraisal",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Primary appraisal is a component of cognitive appraisal"
+    },
+    {
+      "src": "PS.6C.stress.definitions.secondary-appraisal",
+      "dst": "PS.7A.stress.appraisal.cognitive-appraisal",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Secondary appraisal is a component of cognitive appraisal"
+    },
+    {
+      "src": "PS.6C.stress.definitions.stress-def",
+      "dst": "PS.7A.stress.appraisal.definition",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Definition of stress grounds stress and stressors"
+    },
+    {
+      "src": "PS.6C.stress.definitions.stressor",
+      "dst": "PS.7A.stress.appraisal.definition",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Stressor definition grounds stress and stressors"
+    },
+    {
+      "src": "PS.6C.stress.definitions.eustress",
+      "dst": "PS.7A.stress.appraisal.eustress-distress",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Eustress grounds eustress vs distress"
+    },
+    {
+      "src": "PS.6C.stress.definitions.distress",
+      "dst": "PS.7A.stress.appraisal.eustress-distress",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Distress grounds eustress vs distress"
+    },
+    {
+      "src": "PS.6C.stress.stressor-types.srrs",
+      "dst": "PS.7A.stress.appraisal.srrs",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Same SRRS scale; 6C version grounds 7A"
+    },
+    {
+      "src": "PS.6C.stress.stressor-types.catastrophes",
+      "dst": "PS.7A.stress.appraisal.types-of-stressors",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Catastrophes are a type of stressor"
+    },
+    {
+      "src": "PS.6C.stress.stressor-types.daily-hassles",
+      "dst": "PS.7A.stress.appraisal.types-of-stressors",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Daily hassles are a type of stressor"
+    },
+    {
+      "src": "PS.6C.stress.gas.alarm",
+      "dst": "PS.7A.stress.response.gas",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Alarm stage is part of GAS"
+    },
+    {
+      "src": "PS.6C.stress.gas.resistance",
+      "dst": "PS.7A.stress.response.gas",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Resistance stage is part of GAS"
+    },
+    {
+      "src": "PS.6C.stress.gas.exhaustion",
+      "dst": "PS.7A.stress.response.gas",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Exhaustion stage is part of GAS"
+    },
+    {
+      "src": "PS.6C.stress.physiology.hpa-axis",
+      "dst": "PS.7A.stress.response.hpa-axis",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Same HPA axis; detailed 6C treatment grounds 7A"
+    },
+    {
+      "src": "PS.6C.stress.physiology.cortisol",
+      "dst": "PS.7A.biological-bases.endocrine.cortisol",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Cortisol as stress hormone grounds cortisol in the endocrine system"
+    },
+    {
+      "src": "PS.6C.stress.physiology.hpa-axis",
+      "dst": "PS.7A.biological-bases.endocrine.adrenal",
+      "bridge": "psych-bio->cognition",
+      "rationale": "HPA axis culminates in adrenal cortex, grounding adrenal glands"
+    },
+    {
+      "src": "PS.6C.stress.responses.fight-flight-freeze",
+      "dst": "PS.7A.stress.response.fight-flight-freeze",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Same fight/flight/freeze response; 6C grounds 7A"
+    },
+    {
+      "src": "PS.6C.stress.responses.tend-and-befriend",
+      "dst": "PS.7A.stress.response.tend-and-befriend",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Same tend-and-befriend response; 6C grounds 7A"
+    },
+    {
+      "src": "PS.6C.stress.health-effects.cardiovascular",
+      "dst": "PS.7A.stress.health.chronic-stress-effects",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Cardiovascular effects are part of chronic stress effects"
+    },
+    {
+      "src": "PS.6C.stress.physiology.cortisol-effects",
+      "dst": "PS.7A.stress.health.chronic-stress-effects",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Effects of chronic cortisol underlie chronic stress effects"
+    },
+    {
+      "src": "PS.6C.stress.coping.problem-focused",
+      "dst": "PS.7A.stress.health.problem-focused-coping",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Same problem-focused coping; 6C grounds 7A"
+    },
+    {
+      "src": "PS.6C.stress.coping.emotion-focused",
+      "dst": "PS.7A.stress.health.emotion-focused-coping",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Same emotion-focused coping; 6C grounds 7A"
+    },
+    {
+      "src": "PS.6C.stress.coping.perceived-control",
+      "dst": "PS.7A.stress.health.perceived-control",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Perceived control grounds perceived control and learned helplessness"
+    },
+    {
+      "src": "PS.6C.stress.coping.learned-helplessness",
+      "dst": "PS.7A.stress.health.perceived-control",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Learned helplessness grounds perceived control and learned helplessness"
+    },
+    {
+      "src": "PS.6C.stress.coping.social-support",
+      "dst": "PS.7A.stress.health.social-support",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Same social support concept; 6C grounds 7A"
+    },
+    {
+      "src": "PS.6C.stress.coping.relaxation-exercise",
+      "dst": "PS.7A.stress.health.stress-management",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Relaxation/exercise techniques are stress-management techniques"
+    },
+    {
+      "src": "PS.6C.stress.coping.biofeedback",
+      "dst": "PS.7A.stress.health.stress-management",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Biofeedback is a stress-management technique"
+    },
+    {
+      "src": "PS.6C.stress.coping.mindfulness",
+      "dst": "PS.7A.stress.health.stress-management",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Mindfulness is a stress-management technique"
+    },
+    {
+      "src": "PS.6B.attention.selective.definition",
+      "dst": "PS.7A.attention.selective.definition",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Selective attention defined; richer 6B grounds 7A"
+    },
+    {
+      "src": "PS.6B.attention.selective.cocktail-party",
+      "dst": "PS.7A.attention.selective.cocktail-party",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Same cocktail party effect; 6B grounds 7A"
+    },
+    {
+      "src": "PS.6B.attention.selective.inattentional-blindness",
+      "dst": "PS.7A.attention.selective.inattentional-blindness",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Same inattentional blindness; 6B grounds 7A"
+    },
+    {
+      "src": "PS.6B.attention.selective.change-blindness",
+      "dst": "PS.7A.attention.selective.change-blindness",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Same change blindness; 6B grounds 7A"
+    },
+    {
+      "src": "PS.6B.attention.divided.divided-attention",
+      "dst": "PS.7A.attention.divided.definition",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Divided attention defined; 6B grounds 7A"
+    },
+    {
+      "src": "PS.6B.attention.divided.automaticity",
+      "dst": "PS.7A.attention.divided.automatic-controlled",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Automatic vs controlled processing; 6B grounds 7A"
+    },
+    {
+      "src": "PS.6B.attention.filter-models.resource-model",
+      "dst": "PS.7A.attention.divided.resource-model",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Resource/capacity model; 6B grounds 7A resource model"
+    },
+    {
+      "src": "PS.6B.sensory-processing.thresholds.priming",
+      "dst": "PS.7A.memory.retrieval.retrieval-cues",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Priming is the basis for retrieval cues and priming"
+    },
+    {
+      "src": "PS.6A.perception-organization.influences.perceptual-set",
+      "dst": "PS.7A.perception.processing-direction.perceptual-set",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Perceptual set treatment grounds perceptual set under processing direction"
+    },
+    {
+      "src": "PS.6B.perception.constructive.perceptual-set",
+      "dst": "PS.7A.perception.processing-direction.perceptual-set",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Perceptual set grounds perceptual set under processing direction"
+    },
+    {
+      "src": "PS.6A.foundations.core-distinctions.top-down",
+      "dst": "PS.7A.perception.processing-direction.top-down",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Top-down processing distinction grounds top-down processing"
+    },
+    {
+      "src": "PS.6A.foundations.core-distinctions.bottom-up",
+      "dst": "PS.7A.perception.processing-direction.bottom-up",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Bottom-up processing distinction grounds bottom-up processing"
+    },
+    {
+      "src": "PS.6A.perception-organization.influences.schemata",
+      "dst": "PS.7A.cognition.development.schemas",
+      "bridge": "psych-bio->cognition",
+      "rationale": "Perceptual schemata prefigure schemas/assimilation/accommodation in cognition"
+    },
+    {
+      "src": "PS.8A.social-construction.symbolic.definition",
+      "dst": "PS.9A.theoretical-approaches.symbolic-interactionism.core-claim",
+      "bridge": "psych->social-structure",
+      "rationale": "Symbolic interactionism as a sociological theory rests on the same symbols-and-meaning premise introduced in self psychology."
+    },
+    {
+      "src": "PS.8A.social-construction.mead.social-behaviorism",
+      "dst": "PS.9A.theoretical-approaches.symbolic-interactionism.mead",
+      "bridge": "psych->social-structure",
+      "rationale": "Mead's account of the self is the foundation the symbolic-interactionist theory builds on at the macro level."
+    },
+    {
+      "src": "PS.8A.self-presentation.dramaturgy.definition",
+      "dst": "PS.9A.theoretical-approaches.symbolic-interactionism.dramaturgy",
+      "bridge": "psych->social-structure",
+      "rationale": "Goffman's dramaturgical approach is first taught in self-presentation, then reused as a pillar of symbolic interactionism."
+    },
+    {
+      "src": "PS.8A.self-presentation.dramaturgy.impression-management",
+      "dst": "PS.9A.theoretical-approaches.symbolic-interactionism.impression-management",
+      "bridge": "psych->social-structure",
+      "rationale": "Impression management is the same concept carried from individual self-presentation into the sociological frame."
+    },
+    {
+      "src": "PS.8A.self-presentation.dramaturgy.front-stage",
+      "dst": "PS.9A.theoretical-approaches.symbolic-interactionism.front-back-stage",
+      "bridge": "psych->social-structure",
+      "rationale": "Front/back stage distinction must be understood before applying it to sociological dramaturgy."
+    },
+    {
+      "src": "PS.8A.social-construction.symbolic.symbols",
+      "dst": "PS.9A.theoretical-approaches.social-constructionism.core-claim",
+      "bridge": "psych->social-structure",
+      "rationale": "The social-construction-of-self mechanism prefigures the broader claim that reality is socially constructed."
+    },
+    {
+      "src": "PS.8C.prosocial.altruism.social-exchange",
+      "dst": "PS.9A.theoretical-approaches.exchange-rational-choice.exchange",
+      "bridge": "psych->social-structure",
+      "rationale": "Social exchange theory of helping is the micro version of the sociological exchange theory."
+    },
+    {
+      "src": "PS.7C.behavior-change.motivation.intrinsic-extrinsic",
+      "dst": "PS.9A.theoretical-approaches.exchange-rational-choice.rational-choice",
+      "bridge": "psych->social-structure",
+      "rationale": "Cost-benefit/incentive reasoning underpins rational choice theory."
+    },
+    {
+      "src": "PS.7B.socialization.definition.core",
+      "dst": "PS.9A.social-institutions.definition.functions",
+      "bridge": "psych->social-structure",
+      "rationale": "Understanding socialization is needed to grasp how institutions function as transmitters of norms."
+    },
+    {
+      "src": "PS.7B.socialization.agents.family",
+      "dst": "PS.9A.social-institutions.family",
+      "bridge": "psych->social-structure",
+      "rationale": "Family as primary socializing agent is prerequisite to studying the family as a social institution."
+    },
+    {
+      "src": "PS.7B.socialization.agents.peers-school",
+      "dst": "PS.9A.social-institutions.education",
+      "bridge": "psych->social-structure",
+      "rationale": "School as socializing agent grounds the study of education as an institution."
+    },
+    {
+      "src": "PS.8B.prejudice-bias.stereotypes.self-fulfilling-prophecy",
+      "dst": "PS.9A.social-institutions.education.teacher-expectancy",
+      "bridge": "psych->social-structure",
+      "rationale": "Teacher-expectancy effect is a self-fulfilling prophecy applied in the classroom."
+    },
+    {
+      "src": "PS.7B.socialization.agents.media-religion-workplace",
+      "dst": "PS.9A.social-institutions.media.role",
+      "bridge": "psych->social-structure",
+      "rationale": "Media as a socializing agent is prerequisite to media as an institution."
+    },
+    {
+      "src": "PS.7B.socialization.agents.media-religion-workplace",
+      "dst": "PS.9A.social-institutions.religion.functions",
+      "bridge": "psych->social-structure",
+      "rationale": "Religion as socializing agent precedes its institutional functions."
+    },
+    {
+      "src": "PS.7B.normative-influence.norms.definition",
+      "dst": "PS.9A.culture.norms.definition",
+      "bridge": "psych->social-structure",
+      "rationale": "The concept of a social norm is required before the cultural taxonomy of norms."
+    },
+    {
+      "src": "PS.7B.normative-influence.norms.folkways-mores-taboos",
+      "dst": "PS.9A.culture.norms.folkways",
+      "bridge": "psych->social-structure",
+      "rationale": "Folkways/mores/taboos are first defined in social influence and reused in the culture section."
+    },
+    {
+      "src": "PS.7B.normative-influence.norms.folkways-mores-taboos",
+      "dst": "PS.9A.culture.norms.mores",
+      "bridge": "psych->social-structure",
+      "rationale": "Mores are introduced in the norms typology before the culture treatment."
+    },
+    {
+      "src": "PS.7B.normative-influence.norms.folkways-mores-taboos",
+      "dst": "PS.9A.culture.norms.taboos",
+      "bridge": "psych->social-structure",
+      "rationale": "Taboos are introduced in the norms typology before the culture treatment."
+    },
+    {
+      "src": "PS.7B.socialization.norm-formation.sanctions",
+      "dst": "PS.9A.culture.norms.sanctions",
+      "bridge": "psych->social-structure",
+      "rationale": "Sanctions as norm-reinforcers are first taught in socialization."
+    },
+    {
+      "src": "PS.7B.socialization.norm-formation.values-beliefs",
+      "dst": "PS.9A.culture.values-beliefs.values",
+      "bridge": "psych->social-structure",
+      "rationale": "Values vs beliefs distinction precedes cultural values."
+    },
+    {
+      "src": "PS.7B.socialization.norm-formation.values-beliefs",
+      "dst": "PS.9A.culture.values-beliefs.beliefs",
+      "bridge": "psych->social-structure",
+      "rationale": "Beliefs as products of socialization ground cultural beliefs."
+    },
+    {
+      "src": "PS.7A.language.thought.whorf-hypothesis",
+      "dst": "PS.9A.culture.symbols-language.sapir-whorf",
+      "bridge": "psych->social-structure",
+      "rationale": "The Whorfian linguistic-relativity hypothesis is the same idea reframed as the Sapir-Whorf cultural concept."
+    },
+    {
+      "src": "PS.7A.language.structure.semantics",
+      "dst": "PS.9A.culture.symbols-language.language",
+      "bridge": "psych->social-structure",
+      "rationale": "Language structure grounds language as a carrier of nonmaterial culture."
+    },
+    {
+      "src": "PS.7B.collective-behavior.multiculturalism.subculture-counterculture",
+      "dst": "PS.9A.culture.variation.subculture",
+      "bridge": "psych->social-structure",
+      "rationale": "Subculture is first introduced under collective behavior before the culture-variation section."
+    },
+    {
+      "src": "PS.7B.collective-behavior.multiculturalism.subculture-counterculture",
+      "dst": "PS.9A.culture.variation.counterculture",
+      "bridge": "psych->social-structure",
+      "rationale": "Counterculture is introduced under collective behavior before culture variation."
+    },
+    {
+      "src": "PS.9A.culture.variation.ethnocentrism",
+      "dst": "PS.9A.culture.variation.cultural-relativism",
+      "bridge": "psych->social-structure",
+      "rationale": "Ethnocentrism is the contrast needed to understand cultural relativism (within-section but ethnocentrism also seeded in PS.8B)."
+    },
+    {
+      "src": "PS.8B.prejudice-bias.origins.ethnocentrism",
+      "dst": "PS.9A.culture.variation.ethnocentrism",
+      "bridge": "psych->social-structure",
+      "rationale": "Ethnocentrism from prejudice section is prerequisite to its cultural-variation treatment."
+    },
+    {
+      "src": "PS.7B.collective-behavior.assimilation.definition",
+      "dst": "PS.9A.culture.transmission-change.assimilation",
+      "bridge": "psych->social-structure",
+      "rationale": "Assimilation is first defined under collective behavior, then reused in cultural change."
+    },
+    {
+      "src": "PS.7B.collective-behavior.multiculturalism.definition",
+      "dst": "PS.9A.culture.transmission-change.multiculturalism",
+      "bridge": "psych->social-structure",
+      "rationale": "Multiculturalism is defined earlier and reapplied to cultural change."
+    },
+    {
+      "src": "PS.8A.social-construction.looking-glass.self-fulfilling",
+      "dst": "PS.9A.social-construction-reality.process.self-fulfilling",
+      "bridge": "psych->social-structure",
+      "rationale": "Self-fulfilling prophecy from the looking-glass self underpins the sociological construction of reality."
+    },
+    {
+      "src": "PS.8B.social-perception.components.situation",
+      "dst": "PS.9A.social-construction-reality.process.definition-of-situation",
+      "bridge": "psych->social-structure",
+      "rationale": "The situation component of social perception feeds the Thomas-theorem definition of the situation."
+    },
+    {
+      "src": "PS.8A.social-identity.ingroup.ingroup",
+      "dst": "PS.9A.social-interaction.groups.in-out-group",
+      "bridge": "psych->social-structure",
+      "rationale": "In-group/out-group from social identity grounds the sociological group typology."
+    },
+    {
+      "src": "PS.8A.social-identity.reference.definition",
+      "dst": "PS.9A.social-interaction.groups.reference-group",
+      "bridge": "psych->social-structure",
+      "rationale": "Reference group from social identity is the same concept in the interaction section."
+    },
+    {
+      "src": "PS.7B.group-decision-making.groupthink.definition",
+      "dst": "PS.9A.social-interaction.groups.group-conformity",
+      "bridge": "psych->social-structure",
+      "rationale": "Groupthink is prerequisite to the conformity/groupthink treatment of groups."
+    },
+    {
+      "src": "PS.7B.normative-influence.conformity.definition",
+      "dst": "PS.9A.social-interaction.groups.group-conformity",
+      "bridge": "psych->social-structure",
+      "rationale": "Conformity must be understood before group conformity dynamics."
+    },
+    {
+      "src": "PS.9A.social-institutions.government-economy.weber-authority",
+      "dst": "PS.9A.social-interaction.organizations.bureaucracy",
+      "bridge": "psych->social-structure",
+      "rationale": "Weber's authority types are foundational to Weber's bureaucracy (within 9A but cross-block dependency on rational-legal authority)."
+    },
+    {
+      "src": "PS.7A.stress.health.perceived-control",
+      "dst": "PS.8A.self-esteem.efficacy.learned-helplessness",
+      "bridge": "psych->social-structure",
+      "rationale": "Learned helplessness via perceived control links to self-efficacy (kept within-flow); excluded if not target."
+    },
+    {
+      "src": "PS.8B.prejudice-bias.power-prestige-class.power",
+      "dst": "PS.10A.foundations.definitions.power",
+      "bridge": "psych->social-structure",
+      "rationale": "Power as a bias driver is prerequisite to power as a stratification dimension."
+    },
+    {
+      "src": "PS.8B.prejudice-bias.power-prestige-class.prestige",
+      "dst": "PS.10A.foundations.definitions.prestige",
+      "bridge": "psych->social-structure",
+      "rationale": "Prestige introduced in bias section grounds prestige as a stratification dimension."
+    },
+    {
+      "src": "PS.8C.discrimination.power-prestige-class.privilege",
+      "dst": "PS.10A.foundations.definitions.privilege",
+      "bridge": "psych->social-structure",
+      "rationale": "Privilege from discrimination is the same construct in stratification foundations."
+    },
+    {
+      "src": "PS.9A.social-interaction.status.ascribed",
+      "dst": "PS.10A.foundations.status.ascribed-status",
+      "bridge": "psych->social-structure",
+      "rationale": "Ascribed status is defined in social interaction before stratification reuses it."
+    },
+    {
+      "src": "PS.9A.social-interaction.status.achieved",
+      "dst": "PS.10A.foundations.status.achieved-status",
+      "bridge": "psych->social-structure",
+      "rationale": "Achieved status precedes its role in stratification systems."
+    },
+    {
+      "src": "PS.9A.social-interaction.status.master",
+      "dst": "PS.10A.foundations.status.master-status",
+      "bridge": "psych->social-structure",
+      "rationale": "Master status from interaction grounds the stratification treatment."
+    },
+    {
+      "src": "PS.8A.social-identity.comparison.theory",
+      "dst": "PS.10A.poverty.types.relative-deprivation",
+      "bridge": "psych->social-structure",
+      "rationale": "Social comparison processes underpin relative deprivation."
+    },
+    {
+      "src": "PS.8A.social-identity.comparison.upward",
+      "dst": "PS.10A.poverty.types.relative-poverty",
+      "bridge": "psych->social-structure",
+      "rationale": "Upward social comparison is the mechanism behind relative poverty perception."
+    },
+    {
+      "src": "PS.8B.attribution.fundamental-attribution-error.definition",
+      "dst": "PS.10A.poverty.mechanisms.blaming-victim",
+      "bridge": "psych->social-structure",
+      "rationale": "Fundamental attribution error is the cognitive basis for blaming the victim for poverty."
+    },
+    {
+      "src": "PS.8B.social-perception.just-world.victim-blaming",
+      "dst": "PS.10A.poverty.mechanisms.blaming-victim",
+      "bridge": "psych->social-structure",
+      "rationale": "Just-world victim blaming directly grounds the structural-vs-individual poverty debate."
+    },
+    {
+      "src": "PS.8B.prejudice-bias.definitions.individual-vs-institutional",
+      "dst": "PS.10A.spatial.environmental.environmental-racism",
+      "bridge": "psych->social-structure",
+      "rationale": "Institutional discrimination is prerequisite to environmental racism as institutional inequality."
+    },
+    {
+      "src": "PS.8B.prejudice-bias.origins.ingroup-outgroup",
+      "dst": "PS.10A.spatial.residential.segregation",
+      "bridge": "psych->social-structure",
+      "rationale": "In-group/out-group dynamics underpin residential segregation."
+    },
+    {
+      "src": "PS.7A.stress.health.chronic-stress-effects",
+      "dst": "PS.10A.health-disparities.determinants.weathering-allostatic",
+      "bridge": "psych->social-structure",
+      "rationale": "Effects of chronic stress are the physiological basis of weathering and allostatic load."
+    },
+    {
+      "src": "PS.7A.stress.response.hpa-axis",
+      "dst": "PS.10A.health-disparities.determinants.weathering-allostatic",
+      "bridge": "psych->social-structure",
+      "rationale": "HPA-axis activation is the mechanism linking chronic stress to allostatic load."
+    },
+    {
+      "src": "PS.8A.identity-types.multiple.intersectionality",
+      "dst": "PS.10A.intersectionality.bases.intersectionality",
+      "bridge": "psych->social-structure",
+      "rationale": "Intersectionality from identity types is the same construct in inequality."
+    },
+    {
+      "src": "PS.8B.prejudice-bias.definitions.discrimination",
+      "dst": "PS.10A.health-disparities.access.racial-health-disparities",
+      "bridge": "psych->social-structure",
+      "rationale": "Discrimination is prerequisite to understanding racial health disparities."
+    },
+    {
+      "src": "PS.8A.identity-types.gender.gender-roles",
+      "dst": "PS.9B.demographic-structure.gender.gender-roles",
+      "bridge": "psych->social-structure",
+      "rationale": "Gender-role socialization grounds gender roles as demographic structure."
+    },
+    {
+      "src": "PS.8A.identity-types.gender.sex-vs-gender",
+      "dst": "PS.9B.demographic-structure.gender.sex-vs-gender",
+      "bridge": "psych->social-structure",
+      "rationale": "Sex vs gender distinction from identity types precedes the demographic treatment."
+    },
+    {
+      "src": "PS.8A.identity-types.gender.definition",
+      "dst": "PS.9B.demographic-structure.gender.gender-identity",
+      "bridge": "psych->social-structure",
+      "rationale": "Gender identity is first defined in identity types before demographic structure."
+    },
+    {
+      "src": "PS.8A.identity-types.ethnic.ethnicity-vs-race",
+      "dst": "PS.9B.demographic-structure.race-ethnicity.ethnicity",
+      "bridge": "psych->social-structure",
+      "rationale": "Ethnicity-vs-race distinction precedes ethnicity as demographic structure."
+    },
+    {
+      "src": "PS.8A.identity-types.ethnic.racial-identity",
+      "dst": "PS.9B.demographic-structure.race-ethnicity.race",
+      "bridge": "psych->social-structure",
+      "rationale": "Racial identity grounds race as a social-construction demographic category."
+    },
+    {
+      "src": "PS.7B.collective-behavior.assimilation.melting-pot",
+      "dst": "PS.9B.demographic-structure.race-ethnicity.assimilation",
+      "bridge": "psych->social-structure",
+      "rationale": "Melting-pot/assimilation concept precedes demographic assimilation patterns."
+    },
+    {
+      "src": "PS.7B.collective-behavior.amalgamation",
+      "dst": "PS.9B.demographic-structure.race-ethnicity.amalgamation",
+      "bridge": "psych->social-structure",
+      "rationale": "Amalgamation is first introduced in collective behavior."
+    },
+    {
+      "src": "PS.7B.collective-behavior.multiculturalism.definition",
+      "dst": "PS.9B.demographic-structure.race-ethnicity.multiculturalism",
+      "bridge": "psych->social-structure",
+      "rationale": "Multiculturalism defined in collective behavior precedes the demographic pluralism treatment."
+    },
+    {
+      "src": "PS.8A.identity-types.sexual-orientation.definition",
+      "dst": "PS.9B.demographic-structure.sexual-orientation.sexual-orientation",
+      "bridge": "psych->social-structure",
+      "rationale": "Sexual orientation identity precedes sexual orientation as demographic structure."
+    },
+    {
+      "src": "PS.8A.identity-types.sexual-orientation.vs-gender",
+      "dst": "PS.9B.demographic-structure.sexual-orientation.orientation-vs-identity",
+      "bridge": "psych->social-structure",
+      "rationale": "Orientation-vs-gender distinction is carried directly into demographics."
+    },
+    {
+      "src": "PS.7B.collective-behavior.fads-mass.mass-hysteria",
+      "dst": "PS.9B.social-movements-change.collective-behavior.mass-hysteria-fads",
+      "bridge": "psych->social-structure",
+      "rationale": "Mass hysteria from collective behavior is reused in the demographic-change section."
+    },
+    {
+      "src": "PS.7B.collective-behavior.fads-mass.riots-mobs",
+      "dst": "PS.9B.social-movements-change.collective-behavior.crowds-mobs",
+      "bridge": "psych->social-structure",
+      "rationale": "Riots/mobs/panics are prerequisite to crowds, mobs, and riots in social change."
+    },
+    {
+      "src": "PS.7B.presence-of-others.deindividuation.examples",
+      "dst": "PS.9B.social-movements-change.collective-behavior.contagion-emergent-norm",
+      "bridge": "psych->social-structure",
+      "rationale": "Deindividuation in mobs underpins contagion theory of collective behavior."
+    },
+    {
+      "src": "PS.8C.aggression.frustration-aggression.principle",
+      "dst": "PS.9B.social-movements-change.social-movements.relative-deprivation",
+      "bridge": "psych->social-structure",
+      "rationale": "Frustration-aggression grounds relative-deprivation theory of social movements."
+    },
+    {
+      "src": "PS.7B.collective-behavior.acculturation",
+      "dst": "PS.9A.culture.transmission-change.diffusion",
+      "bridge": "psych->social-structure",
+      "rationale": "Acculturation/cultural contact is prerequisite to cultural diffusion."
+    },
+    {
+      "src": "PS.8A.social-identity.theory.definition",
+      "dst": "PS.10A.intersectionality.bases.class-race-gender",
+      "bridge": "psych->social-structure",
+      "rationale": "Social identity theory grounds the intersecting group-membership bases of inequality."
+    },
+    {
+      "src": "CP.5C.electrophoresis.sds-page",
+      "dst": "BB.1A.protein-analysis.electrophoresis.sds-page",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "SDS-PAGE technique is the lab basis for protein-size separation"
+    },
+    {
+      "src": "CP.5C.electrophoresis.sds-page.sds-denatures",
+      "dst": "BB.1A.protein-analysis.electrophoresis.sds-page",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Understanding SDS denaturation/coating underlies SDS-PAGE protein analysis"
+    },
+    {
+      "src": "CP.5C.electrophoresis.isoelectric-focusing",
+      "dst": "BB.1A.protein-analysis.electrophoresis.isoelectric-focusing",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "IEF separation technique is prerequisite to protein IEF analysis"
+    },
+    {
+      "src": "CP.5C.electrophoresis.isoelectric-focusing.pi",
+      "dst": "BB.1A.protein-analysis.electrophoresis.isoelectric-focusing",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Migration to pI principle grounds protein IEF"
+    },
+    {
+      "src": "CP.5C.electrophoresis.2d",
+      "dst": "BB.1A.protein-analysis.electrophoresis.two-d-gel",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "2D gel technique underlies 2D protein analysis"
+    },
+    {
+      "src": "CP.5C.electrophoresis.native-page",
+      "dst": "BB.1A.protein-analysis.electrophoresis.native-page",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Native PAGE technique is prerequisite to its protein-analysis use"
+    },
+    {
+      "src": "CP.5C.electrophoresis.principles",
+      "dst": "BB.1A.protein-analysis.electrophoresis.principle",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "General gel electrophoresis principles underlie protein electrophoresis principle"
+    },
+    {
+      "src": "CP.5C.electrophoresis.principles.charge-to-mass",
+      "dst": "BB.1A.protein-analysis.electrophoresis.principle",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Charge-to-mass mobility is the basis of electrophoretic protein separation"
+    },
+    {
+      "src": "CP.5C.chromatography.general",
+      "dst": "BB.1A.protein-analysis.chromatography.principle",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "General chromatographic principles underlie protein chromatography"
+    },
+    {
+      "src": "CP.5C.chromatography.general.stationary-mobile",
+      "dst": "BB.1A.protein-analysis.chromatography.principle",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Stationary/mobile phase concept is foundational to protein chromatography"
+    },
+    {
+      "src": "CP.5C.chromatography.size-exclusion",
+      "dst": "BB.1A.protein-analysis.chromatography.size-exclusion",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Size-exclusion technique is the lab basis for protein size-exclusion"
+    },
+    {
+      "src": "CP.5C.chromatography.ion-exchange",
+      "dst": "BB.1A.protein-analysis.chromatography.ion-exchange",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Ion-exchange technique underlies protein ion-exchange chromatography"
+    },
+    {
+      "src": "CP.5C.chromatography.affinity",
+      "dst": "BB.1A.protein-analysis.chromatography.affinity",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Affinity chromatography technique is prerequisite to protein affinity purification"
+    },
+    {
+      "src": "CP.5C.chromatography.affinity.his-tag",
+      "dst": "BB.1A.protein-analysis.chromatography.affinity",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "His-tag affinity purification exemplifies protein affinity chromatography"
+    },
+    {
+      "src": "CP.5D.proteins.primary",
+      "dst": "BB.1A.protein-structure.primary",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Primary structure foundation carries directly into BB protein primary structure"
+    },
+    {
+      "src": "CP.5D.proteins.primary.sequence",
+      "dst": "BB.1A.protein-structure.primary.sequence",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Amino acid sequence concept is prerequisite"
+    },
+    {
+      "src": "CP.5D.proteins.primary.determines-folding",
+      "dst": "BB.1A.protein-structure.primary.sequence-determines-fold",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Sequence-determines-fold principle is the same dependency"
+    },
+    {
+      "src": "CP.5D.proteins.secondary",
+      "dst": "BB.1A.protein-structure.secondary",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Secondary structure fundamentals precede BB secondary structure"
+    },
+    {
+      "src": "CP.5D.proteins.secondary.alpha-helix",
+      "dst": "BB.1A.protein-structure.secondary.alpha-helix",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Alpha helix knowledge is prerequisite"
+    },
+    {
+      "src": "CP.5D.proteins.secondary.beta-sheet",
+      "dst": "BB.1A.protein-structure.secondary.beta-sheet",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Beta sheet knowledge is prerequisite"
+    },
+    {
+      "src": "CP.5D.proteins.secondary.hbonding",
+      "dst": "BB.1A.protein-structure.secondary.hbond-backbone",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Backbone H-bonding underlies secondary structure stabilization"
+    },
+    {
+      "src": "CP.5D.proteins.tertiary",
+      "dst": "BB.1A.protein-structure.tertiary",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Tertiary structure fundamentals precede BB tertiary structure"
+    },
+    {
+      "src": "CP.5D.proteins.tertiary.hydrophobic",
+      "dst": "BB.1A.protein-structure.tertiary.hydrophobic-interactions",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Hydrophobic core packing underlies tertiary hydrophobic interactions"
+    },
+    {
+      "src": "CP.5D.proteins.tertiary.disulfide",
+      "dst": "BB.1A.protein-structure.tertiary.disulfide-bonds",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Disulfide bonds in folding are prerequisite"
+    },
+    {
+      "src": "CP.5D.proteins.tertiary.salt-bridges",
+      "dst": "BB.1A.protein-structure.tertiary.salt-bridges",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Salt bridge concept is prerequisite"
+    },
+    {
+      "src": "CP.5D.proteins.quaternary",
+      "dst": "BB.1A.protein-structure.quaternary",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Quaternary structure fundamentals precede BB quaternary structure"
+    },
+    {
+      "src": "CP.5D.proteins.quaternary.hemoglobin",
+      "dst": "BB.1A.protein-structure.quaternary.hemoglobin-example",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Hemoglobin as quaternary model is the same dependency"
+    },
+    {
+      "src": "CP.5D.proteins.quaternary.cooperativity",
+      "dst": "BB.1A.protein-structure.quaternary.cooperativity",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Cooperativity/allostery is prerequisite"
+    },
+    {
+      "src": "CP.5D.proteins.peptide-bond",
+      "dst": "BB.1A.peptide-bond.properties",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Peptide bond properties foundation precedes BB peptide bond properties"
+    },
+    {
+      "src": "CP.5D.proteins.peptide-bond.resonance",
+      "dst": "BB.1A.peptide-bond.properties.resonance",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Peptide bond resonance/planarity is the same concept"
+    },
+    {
+      "src": "CP.5D.proteins.peptide-bond.trans-preference",
+      "dst": "BB.1A.peptide-bond.properties.trans-preference",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Trans conformation preference is prerequisite"
+    },
+    {
+      "src": "CP.5D.proteins.peptide-bond.phi-psi",
+      "dst": "BB.1A.peptide-bond.properties.phi-psi",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Phi/psi angles are prerequisite to Ramachandran"
+    },
+    {
+      "src": "CP.5D.proteins.peptide-bond.n-c-terminus",
+      "dst": "BB.1A.peptide-bond.formation.n-and-c-termini",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "N/C-terminus concept is prerequisite"
+    },
+    {
+      "src": "CP.5D.proteins.peptide-bond.directionality",
+      "dst": "BB.1A.peptide-bond.formation.directionality",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Sequence directionality is prerequisite"
+    },
+    {
+      "src": "CP.5D.amino-acids.reactions.peptide-bond-formation",
+      "dst": "BB.1A.peptide-bond.formation.condensation",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Peptide bond formation as condensation is prerequisite"
+    },
+    {
+      "src": "CP.5D.amino-acids.analysis.hydrolysis",
+      "dst": "BB.1A.peptide-bond.formation.hydrolysis",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Peptide bond hydrolysis concept is prerequisite"
+    },
+    {
+      "src": "CP.5D.amino-acids.structure",
+      "dst": "BB.1A.amino-acids.general-structure",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "General amino acid structure is the foundation for BB amino acid structure"
+    },
+    {
+      "src": "CP.5D.amino-acids.structure.alpha-carbon",
+      "dst": "BB.1A.amino-acids.general-structure.alpha-carbon",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Alpha carbon center is the same concept"
+    },
+    {
+      "src": "CP.5D.amino-acids.structure.chirality",
+      "dst": "BB.1A.amino-acids.stereochemistry.chirality",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Amino acid chirality is prerequisite"
+    },
+    {
+      "src": "CP.5D.amino-acids.structure.glycine-achiral",
+      "dst": "BB.1A.amino-acids.stereochemistry.glycine-achiral",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Glycine achirality is the same concept"
+    },
+    {
+      "src": "CP.5D.amino-acids.structure.l-configuration",
+      "dst": "BB.1A.amino-acids.stereochemistry.l-amino-acids",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "L-amino acids in proteins is prerequisite"
+    },
+    {
+      "src": "CP.5D.amino-acids.structure.absolute-config",
+      "dst": "BB.1A.amino-acids.stereochemistry.d-l-vs-r-s",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "D/L vs R/S notation is the same dependency"
+    },
+    {
+      "src": "CP.5D.amino-acids.classification",
+      "dst": "BB.1A.amino-acids.classification",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Side-chain classification foundation precedes BB classification"
+    },
+    {
+      "src": "CP.5D.amino-acids.classification.nonpolar",
+      "dst": "BB.1A.amino-acids.classification.nonpolar",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Nonpolar side chains are prerequisite"
+    },
+    {
+      "src": "CP.5D.amino-acids.classification.polar-uncharged",
+      "dst": "BB.1A.amino-acids.classification.polar-uncharged",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Polar uncharged side chains are prerequisite"
+    },
+    {
+      "src": "CP.5D.amino-acids.classification.acidic",
+      "dst": "BB.1A.amino-acids.classification.acidic",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Acidic side chains are prerequisite"
+    },
+    {
+      "src": "CP.5D.amino-acids.classification.basic",
+      "dst": "BB.1A.amino-acids.classification.basic",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Basic side chains are prerequisite"
+    },
+    {
+      "src": "CP.5D.amino-acids.classification.aromatic",
+      "dst": "BB.1A.amino-acids.classification.aromatic",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Aromatic side chains are prerequisite"
+    },
+    {
+      "src": "CP.5D.amino-acids.classification.sulfur",
+      "dst": "BB.1A.amino-acids.classification.sulfur-containing",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Sulfur-containing amino acids are prerequisite"
+    },
+    {
+      "src": "CP.5D.amino-acids.classification.essential",
+      "dst": "BB.1A.amino-acids.classification.essential",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Essential amino acid concept is prerequisite"
+    },
+    {
+      "src": "CP.5D.amino-acids.classification.hydrophobic-hydrophilic",
+      "dst": "BB.1A.amino-acids.classification.hydrophobicity",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Hydrophobic/hydrophilic R-group concept underlies hydropathy"
+    },
+    {
+      "src": "CP.5D.amino-acids.classification.amphoteric",
+      "dst": "BB.1A.amino-acids.general-structure.amphoteric",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Amphoteric nature is the same concept"
+    },
+    {
+      "src": "CP.5D.amino-acids.classification.proline",
+      "dst": "BB.1A.amino-acids.special-residues.proline",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Proline as cyclic imino acid is prerequisite"
+    },
+    {
+      "src": "CP.5D.amino-acids.acid-base.zwitterion",
+      "dst": "BB.1A.amino-acids.general-structure.zwitterion",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Zwitterion concept is the same dependency"
+    },
+    {
+      "src": "CP.5D.amino-acids.acid-base.isoelectric-point",
+      "dst": "BB.1A.amino-acids.acid-base.isoelectric-point",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Isoelectric point (pI) is the same concept"
+    },
+    {
+      "src": "CP.5D.amino-acids.acid-base.side-chain-pka",
+      "dst": "BB.1A.amino-acids.acid-base.pka-values",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Side-chain pKa values are prerequisite"
+    },
+    {
+      "src": "CP.5D.amino-acids.acid-base.titration",
+      "dst": "BB.1A.amino-acids.acid-base.titration-curve",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Amino acid titration curves are prerequisite"
+    },
+    {
+      "src": "CP.5D.amino-acids.acid-base.histidine-buffer",
+      "dst": "BB.1A.amino-acids.special-residues.histidine-buffer",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Histidine physiological buffering is the same concept"
+    },
+    {
+      "src": "CP.5D.amino-acids.reactions.disulfide-formation",
+      "dst": "BB.1A.amino-acids.special-residues.cysteine-disulfide",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Disulfide bond formation underlies cysteine disulfide bonds"
+    },
+    {
+      "src": "CP.5D.proteins.folding.denaturation",
+      "dst": "BB.1A.protein-folding.denaturation.definition",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Denaturation concept is prerequisite"
+    },
+    {
+      "src": "CP.5D.proteins.folding.chaperones",
+      "dst": "BB.1A.protein-folding.native-state.chaperones",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Chaperone concept is prerequisite"
+    },
+    {
+      "src": "CP.5D.proteins.folding.disulfide-reduction",
+      "dst": "BB.1A.protein-folding.denaturation.reducing-agents",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Disulfide reduction underlies reducing-agent denaturation"
+    },
+    {
+      "src": "CP.5D.proteins.folding.solvation",
+      "dst": "BB.1A.protein-folding.native-state.solvation",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Solvation/entropy concept is prerequisite"
+    },
+    {
+      "src": "CP.5D.proteins.folding.conjugated",
+      "dst": "BB.1A.conjugated-proteins.types.prosthetic-group",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Conjugated proteins/prosthetic groups are prerequisite"
+    },
+    {
+      "src": "CP.5D.proteins.shape.fibrous",
+      "dst": "BB.1A.protein-function.structural.fibrous-vs-globular",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Fibrous protein concept underlies fibrous vs globular"
+    },
+    {
+      "src": "CP.5D.proteins.shape.globular",
+      "dst": "BB.1A.protein-function.structural.fibrous-vs-globular",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Globular protein concept underlies fibrous vs globular"
+    },
+    {
+      "src": "CP.5D.proteins.function.structural",
+      "dst": "BB.1A.protein-function.structural",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Structural protein function is prerequisite"
+    },
+    {
+      "src": "CP.5D.proteins.function.motor",
+      "dst": "BB.1A.protein-function.motor",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Motor protein function is prerequisite"
+    },
+    {
+      "src": "CP.5D.proteins.function.binding",
+      "dst": "BB.1A.protein-function.binding",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Binding/transport protein function is prerequisite"
+    },
+    {
+      "src": "CP.5D.proteins.function.immune",
+      "dst": "BB.1A.protein-function.signaling.antibodies",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Antibody function is prerequisite"
+    },
+    {
+      "src": "CP.5D.proteins.function.receptors",
+      "dst": "BB.1A.protein-function.signaling.receptors",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Receptor/signaling protein function is prerequisite"
+    },
+    {
+      "src": "CP.5D.proteins.separation.quantification",
+      "dst": "BB.1A.protein-analysis.quantification.uv-absorbance",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Protein quantification (UV) is prerequisite"
+    },
+    {
+      "src": "CP.5D.amino-acids.classification.tyrosine-uv",
+      "dst": "BB.1A.protein-analysis.quantification.uv-absorbance",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Tyrosine 280nm absorbance underlies UV protein quantification"
+    },
+    {
+      "src": "CP.5D.amino-acids.analysis.edman",
+      "dst": "BB.1A.protein-analysis.quantification.edman-degradation",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Edman degradation/sequencing is the same concept"
+    },
+    {
+      "src": "CP.5D.enzymes.basics.lower-ea",
+      "dst": "BB.1D.bioenergetics.thermo.thermo-vs-kinetics",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Enzymes lowering Ea grounds thermodynamics vs kinetics"
+    },
+    {
+      "src": "CP.5D.enzymes.basics.no-keq-change",
+      "dst": "BB.1D.bioenergetics.thermo.thermo-vs-kinetics",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Enzymes don't change Keq/dG underlies thermo vs kinetics"
+    },
+    {
+      "src": "CP.5D.enzymes.regulation.allosteric",
+      "dst": "BB.1D.metabolism-overview.regulation.allosteric",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Allosteric regulation concept is prerequisite for metabolic regulation"
+    },
+    {
+      "src": "CP.5D.enzymes.regulation.feedback",
+      "dst": "BB.1D.metabolism-overview.regulation.feedback-inhibition",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Feedback inhibition concept is prerequisite"
+    },
+    {
+      "src": "CP.5D.enzymes.regulation.covalent",
+      "dst": "BB.1D.metabolism-overview.regulation.covalent-modification",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Covalent modification concept is prerequisite"
+    },
+    {
+      "src": "CP.5D.enzymes.cofactors.coenzyme-def",
+      "dst": "BB.1D.bioenergetics.redox.vitamin-derivation",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Coenzyme concept underlies vitamin-derived redox carriers"
+    },
+    {
+      "src": "CP.5D.nucleotides.energy.atp",
+      "dst": "BB.1D.bioenergetics.coupling.atp-hydrolysis",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "ATP as energy currency is prerequisite to ATP hydrolysis coupling"
+    },
+    {
+      "src": "CP.5D.nucleotides.energy.atp",
+      "dst": "BB.1D.bioenergetics.coupling.atp-structure",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "ATP knowledge is prerequisite to ATP structure in bioenergetics"
+    },
+    {
+      "src": "CP.5D.nucleotides.energy.gtp",
+      "dst": "BB.1D.bioenergetics.coupling.other-nucleotides",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "GTP/other NTPs concept is prerequisite"
+    },
+    {
+      "src": "CP.5D.nucleotides.energy.cofactor-nucleotides",
+      "dst": "BB.1D.bioenergetics.redox.nad-nadh",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Nucleotide coenzymes underlie NAD+/NADH redox carriers"
+    },
+    {
+      "src": "CP.5D.nucleotides.energy.camp",
+      "dst": "BB.1D.glycogen.regulation.camp-cascade",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Cyclic AMP second messenger underlies cAMP/PKA cascade"
+    },
+    {
+      "src": "CP.5D.carbohydrates.monosaccharides.common-sugars",
+      "dst": "BB.1D.glycolysis.overview.glucose-uptake",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Knowing glucose/common sugars precedes glucose uptake in glycolysis"
+    },
+    {
+      "src": "CP.5D.carbohydrates.reactions.esterification",
+      "dst": "BB.1D.glycolysis.steps.phosphorylation-trapping",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Sugar phosphorylation underlies glucose trapping via phosphorylation"
+    },
+    {
+      "src": "CP.5D.carbohydrates.complex.starch",
+      "dst": "BB.1D.glycogen.structure.branched-polymer",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Starch (amylopectin) branching grounds glycogen branched polymer"
+    },
+    {
+      "src": "CP.5D.carbohydrates.complex.glycogen",
+      "dst": "BB.1D.glycogen.structure",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Glycogen structure knowledge is prerequisite to glycogen metabolism"
+    },
+    {
+      "src": "CP.5D.carbohydrates.complex.glycosidic-bond",
+      "dst": "BB.1D.glycogen.glycogenolysis.phosphorolysis",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Glycosidic linkage knowledge underlies phosphorolytic cleavage"
+    },
+    {
+      "src": "CP.5D.carbohydrates.feeder",
+      "dst": "BB.1D.glycolysis.feeder",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Other sugars feeding glycolysis depends on di/polysaccharide knowledge"
+    },
+    {
+      "src": "CP.5D.carbohydrates.complex.disaccharides",
+      "dst": "BB.1D.glycolysis.feeder.galactose",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Disaccharide knowledge (lactose) precedes galactose entry"
+    },
+    {
+      "src": "CP.5D.lipids.fatty-acids.structure",
+      "dst": "BB.1D.lipid.beta-oxidation.four-steps",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Fatty acid structure is prerequisite to beta-oxidation chemistry"
+    },
+    {
+      "src": "CP.5D.lipids.triacylglycerols.structure",
+      "dst": "BB.1D.lipid.mobilization.lipolysis",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Triacylglycerol structure precedes lipolysis"
+    },
+    {
+      "src": "CP.5D.lipids.fatty-acids.saturation",
+      "dst": "BB.1D.lipid.beta-oxidation.unsaturated",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Saturation knowledge underlies unsaturated fatty acid oxidation"
+    },
+    {
+      "src": "CP.5D.lipids.fatty-acids.amphipathic",
+      "dst": "BB.1D.lipid.mobilization.albumin-transport",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "FA amphipathic character underlies albumin transport requirement"
+    },
+    {
+      "src": "CP.5D.lipids.membrane.bilayer",
+      "dst": "BB.2A.plasma-membrane.composition.phospholipid-bilayer",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Lipid bilayer/amphipathicity is prerequisite to plasma membrane bilayer"
+    },
+    {
+      "src": "CP.5D.lipids.membrane.phospholipids",
+      "dst": "BB.2A.plasma-membrane.composition.amphipathic",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Phospholipid knowledge underlies amphipathic membrane structure"
+    },
+    {
+      "src": "CP.5D.lipids.fatty-acids.amphipathic",
+      "dst": "BB.2A.plasma-membrane.composition.self-assembly",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Amphipathic character drives bilayer self-assembly/hydrophobic effect"
+    },
+    {
+      "src": "CP.5D.lipids.membrane.fluidity",
+      "dst": "BB.2A.plasma-membrane.composition.saturation",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Membrane fluidity factors underlie saturation effect on fluidity"
+    },
+    {
+      "src": "CP.5D.lipids.membrane.cholesterol",
+      "dst": "BB.2A.plasma-membrane.composition.cholesterol",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Cholesterol in membranes is prerequisite to cholesterol fluidity buffer"
+    },
+    {
+      "src": "CP.5D.lipids.membrane.sphingolipids",
+      "dst": "BB.2A.plasma-membrane.composition.sphingolipids",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Sphingolipid knowledge is prerequisite"
+    },
+    {
+      "src": "CP.5D.lipids.membrane.glycolipids",
+      "dst": "BB.2A.plasma-membrane.composition.glycolipids",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Glycolipid knowledge is prerequisite"
+    },
+    {
+      "src": "CP.5D.lipids.membrane.phosphoglycerides",
+      "dst": "BB.2A.plasma-membrane.composition.phosphoglycerides",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Phosphoglyceride knowledge is prerequisite"
+    },
+    {
+      "src": "CP.5D.lipids.fatty-acids.saturation",
+      "dst": "BB.2A.plasma-membrane.composition.saturation",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Saturated vs unsaturated FA underlies membrane saturation/fluidity"
+    },
+    {
+      "src": "CP.5D.lipids.signaling.second-messengers",
+      "dst": "BB.2A.cell-signaling.transduction.second-messengers",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Lipid second messengers underlie signaling second messengers"
+    },
+    {
+      "src": "CP.5D.lipids.triacylglycerols.waxes",
+      "dst": "BB.2A.plasma-membrane.composition.waxes",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Wax knowledge is prerequisite"
+    },
+    {
+      "src": "CP.5C.filtration-centrifugation.centrifugation.differential",
+      "dst": "BB.2A.plasma-membrane.dynamics.recycling",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Differential centrifugation is the lab method to isolate membrane fractions"
+    },
+    {
+      "src": "CP.5C.chromatography.affinity.specific-binding",
+      "dst": "BB.2A.cell-signaling.receptors.ligand-properties",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Immobilized ligand specific binding parallels receptor-ligand specificity basis"
+    },
+    {
+      "src": "CP.5D.amino-acids.analysis.electrophoresis",
+      "dst": "BB.1A.protein-analysis.electrophoresis.principle",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Electrophoretic separation by charge underlies protein electrophoresis"
+    },
+    {
+      "src": "CP.5D.proteins.separation.sds-page",
+      "dst": "BB.1A.protein-analysis.electrophoresis.sds-page",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Protein SDS-PAGE knowledge is directly prerequisite"
+    },
+    {
+      "src": "CP.5D.proteins.separation.isoelectric-focusing",
+      "dst": "BB.1A.protein-analysis.electrophoresis.isoelectric-focusing",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Protein IEF knowledge is directly prerequisite"
+    },
+    {
+      "src": "CP.5D.proteins.separation.chromatography",
+      "dst": "BB.1A.protein-analysis.chromatography.principle",
+      "bridge": "orgo-lab->biomolecules",
+      "rationale": "Protein chromatography knowledge is directly prerequisite"
+    }
+  ]
+}

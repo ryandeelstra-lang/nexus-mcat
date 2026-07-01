@@ -901,18 +901,26 @@ class AnkiQt(QMainWindow):
             self.graph_web.hide()
             self.web.page().setBackgroundColor(theme_manager.qcolor(colors.CANVAS))
 
-    def _load_graph_web(self, mode: str, *, force: bool) -> None:
+    def _load_graph_web(self, mode: str, *, force: bool, tab: str | None = None) -> None:
         """Load the knowledge-graph route into the dedicated webview, in 'full' (explorable) or
-        'backdrop' (dim, static) mode. Reload only when the mode changes, unless force=True (the
-        explore screen forces a reload so the live mastery glow is fresh each visit)."""
-        if force or self._graph_web_mode != mode:
-            suffix = "" if mode == "full" else f"?mode={mode}"
+        'backdrop' (dim, static) mode. In 'full' mode an optional tab ('scores') opens that tab
+        directly. Reload only when the mode/tab changes, unless force=True (the explore screen
+        forces a reload so the live mastery glow is fresh each visit)."""
+        key = mode if tab is None else f"{mode}:{tab}"
+        if force or self._graph_web_mode != key:
+            if mode == "full":
+                suffix = f"?tab={tab}" if tab else ""
+            else:
+                suffix = f"?mode={mode}"
             self.graph_web.load_sveltekit_page(f"knowledge-graph{suffix}")
-            self._graph_web_mode = mode
+            self._graph_web_mode = key
 
     def _knowledgeGraphState(self, oldState: MainWindowState) -> None:
         # Full, interactive Graph screen — rendered in the SAME window (no separate dialog).
-        self._load_graph_web("full", force=True)
+        # home:scores routes here with a pending "scores" tab so it opens on the Scores tab.
+        tab = getattr(self, "_pending_graph_tab", None)
+        self._pending_graph_tab = None
+        self._load_graph_web("full", force=True, tab=tab)
         self.web.hide()
         self.graph_web.show()
         self.graph_web.setFocus()
@@ -944,7 +952,8 @@ class AnkiQt(QMainWindow):
         if cmd == "home:study":
             self.moveToState("deckBrowser")
         elif cmd in ("home:map", "home:scores"):
-            # v1: the three scores live inside the graph screen's Scores tab
+            # the three scores live inside the graph screen's Scores tab; open it directly
+            self._pending_graph_tab = "scores" if cmd == "home:scores" else None
             self.moveToState("knowledgeGraph")
         elif cmd == "home:browse":
             self.onBrowse()

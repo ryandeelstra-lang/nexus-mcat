@@ -12,17 +12,16 @@ of the already-built engine; neither writes to the collection.
     import KnowledgeGraph from "./KnowledgeGraph.svelte";
     import StudyCard from "./StudyCard.svelte";
 
-    let tab: "map" | "scores" = "map";
     // ssr is disabled for this app, so window is always available here. The host loads the route in
     // one of three modes via ?mode=: "backdrop" (calm static map behind the deck/overview screens),
     // "study" (the card loop floating in front of the dim map — cards are home), or none (the full
-    // explorable graph + scores).
-    const mode =
-        typeof window !== "undefined"
-            ? new URLSearchParams(window.location.search).get("mode")
-            : null;
+    // explorable graph + scores). ?tab=scores opens directly on the Scores tab (from home:scores).
+    const params =
+        typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
+    const mode = params?.get("mode") ?? null;
     const backdrop = mode === "backdrop";
     const study = mode === "study";
+    let tab: "map" | "scores" = params?.get("tab") === "scores" ? "scores" : "map";
 </script>
 
 {#if backdrop}

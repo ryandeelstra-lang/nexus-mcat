@@ -17,8 +17,8 @@
 //
 // Env: CDP_PORT (default 8080), SHOT_WAIT_MS (settle after nav, default 2500).
 
-const fs = require("fs");
-const path = require("path");
+import fs from "node:fs";
+import path from "node:path";
 
 const PORT = process.env.CDP_PORT || "8080";
 const ENDPOINT = `http://127.0.0.1:${PORT}`;

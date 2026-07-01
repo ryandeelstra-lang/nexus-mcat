@@ -72,7 +72,7 @@ $vars: (
             default: (
                 "Default text/icon color",
                 (
-                    light: palette(darkgray, 9),
+                    light: #1b1d2a,
                     dark: palette(lightgray, 0),
                 ),
             ),
@@ -109,7 +109,7 @@ $vars: (
             default: (
                 "Window background",
                 (
-                    light: palette(lightgray, 2),
+                    light: #fbfbfd,
                     dark: palette(darkgray, 5),
                 ),
             ),
@@ -223,7 +223,7 @@ $vars: (
                 bg: (
                     "Background color of primary button",
                     (
-                        light: color.scale(palette(blue, 6), $lightness: 5%),
+                        light: palette(blue, 5),
                         dark: color.scale(palette(blue, 7), $saturation: -10%),
                     ),
                 ),
@@ -238,7 +238,7 @@ $vars: (
                     end: (
                         "End value of primary button gradient",
                         (
-                            light: color.scale(palette(blue, 6), $lightness: 5%),
+                            light: palette(blue, 5),
                             dark: color.scale(palette(blue, 7), $saturation: -10%),
                         ),
                     ),

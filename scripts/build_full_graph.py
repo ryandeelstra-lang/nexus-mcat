@@ -174,6 +174,72 @@ def build() -> dict:
     out_edges = [{"src": e["src"], "dst": e["dst"], "kind": e["kind"]}
                  for e in concept_edges if e["src"] in by_id and e["dst"] in by_id]
 
+    # ---- BACKBONE edges: the interconnecting web between topics / categories / sections ------------
+    # Topics aren't standalone, so we surface higher-level prerequisite links by AGGREGATING the real
+    # concept-level prereqs up to the topic, category, and section altitudes (plus the curated category
+    # DAG from the spine sidecar). These few (~1k) long-range edges are what the renderer draws at EVERY
+    # zoom level, so the map reads as one connected constellation instead of isolated galaxies.
+    import collections
+
+    def _anc(nid: str, kinds: tuple[str, ...]) -> str | None:
+        cur, g = nid, 0
+        while cur and g < 16:
+            nd = by_id.get(cur)
+            if not nd:
+                return None
+            if nd["kind"] in kinds:
+                return cur
+            cur = nd.get("parent")
+            g += 1
+        return None
+
+    CATK = ("category", "cars")
+    sec_pairs: set = set()
+    cat_pairs: set = set()
+    topic_w: collections.Counter = collections.Counter()
+    for e in concept_edges:
+        if e["kind"] != "prerequisite":
+            continue
+        a, b = by_id.get(e["src"]), by_id.get(e["dst"])
+        if not a or not b:
+            continue
+        if a.get("section") and b.get("section") and a["section"] != b["section"]:
+            sec_pairs.add((a["section"], b["section"]))
+        cs, cd = _anc(e["src"], CATK), _anc(e["dst"], CATK)
+        if cs and cd and cs != cd:
+            cat_pairs.add((cs, cd))
+        ts, td = _anc(e["src"], ("topic",)), _anc(e["dst"], ("topic",))
+        if ts and td and ts != td:
+            topic_w[(ts, td)] += 1
+    # the curated category prerequisite DAG (from the spine sidecar) — hand-verified cross links
+    try:
+        sc = json.loads((ROOT / "graph" / "sidecar.json").read_text(encoding="utf-8"))
+        cat_ids = {n["id"] for n in order if n["kind"] in CATK}
+        for e in sc.get("edges", []):
+            if e.get("kind") == "prerequisite" and e["src"] in cat_ids and e["dst"] in cat_ids:
+                cat_pairs.add((e["src"], e["dst"]))
+    except (OSError, json.JSONDecodeError):
+        pass
+
+    seen_pair: set = set()
+    backbone: list[dict] = []
+
+    def _add_backbone(pairs) -> None:
+        for a, b in pairs:
+            if a == b or a not in by_id or b not in by_id:
+                continue
+            key = frozenset((a, b))
+            if key in seen_pair:
+                continue
+            seen_pair.add(key)
+            backbone.append({"src": a, "dst": b, "kind": "prerequisite"})
+
+    _add_backbone(sec_pairs)
+    _add_backbone(cat_pairs)
+    # keep the strongest topic-topic links (by how many concept prereqs support them) — airy, not a hairball
+    _add_backbone(p for p, _ in topic_w.most_common(1000))
+    out_edges += backbone
+
     graph = {"version": 1, "source": "spine + concept_graph + cards_gen",
              "node_count": len(out_nodes), "edge_count": len(out_edges),
              "nodes": out_nodes, "edges": out_edges}

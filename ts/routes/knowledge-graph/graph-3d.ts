@@ -44,6 +44,21 @@ const APPEAR_BY_KIND: Record<string, number> = {
     card: 0.85,
 };
 
+const KIND_TIER: Record<string, number> = {
+    section: 0,
+    fc: 1,
+    category: 2,
+    cars: 2,
+    topic: 3,
+    subtopic: 4,
+    concept: 5,
+    card: 6,
+};
+const tierOf = (n: SidecarNode): number => n.tier ?? KIND_TIER[n.kind] ?? 5;
+// Backbone edges connect topic-or-higher nodes (tier <= 3) — the interconnecting web that is drawn at
+// EVERY zoom level. Everything deeper (concept/card leaf links) is drawn only when the scene is sparse.
+const BACKBONE_MAX_TIER = 3;
+
 const SECTION_SHORT: Record<string, string> = { "C-P": "C/P", "B-B": "B/B", "P-S": "P/S", "CARS": "CARS" };
 const SECTION_LONG: Record<string, string> = {
     "C-P": "Chem / Phys",
@@ -96,6 +111,7 @@ interface EdgeRT {
     src: string;
     dst: string;
     prereq: boolean;
+    backbone: boolean; // connects tier<=3 nodes -> part of the always-drawn interconnecting web
     line: SVGLineElement | null;
 }
 
@@ -159,7 +175,11 @@ export function createGraph3D(svgEl: SVGSVGElement, graph: Sidecar, cb: Graph3DC
 
     const edges: EdgeRT[] = graph.edges
         .filter((e) => byId.has(e.src) && byId.has(e.dst))
-        .map((e) => ({ src: e.src, dst: e.dst, prereq: e.kind === "prerequisite", line: null }));
+        .map((e) => {
+            const prereq = e.kind === "prerequisite";
+            const maxTier = Math.max(tierOf(byId.get(e.src)!.n), tierOf(byId.get(e.dst)!.n));
+            return { src: e.src, dst: e.dst, prereq, backbone: prereq && maxTier <= BACKBONE_MAX_TIER, line: null };
+        });
 
     const sectionCentroid = new Map<string, { nx: number; ny: number; nz: number }>();
     {
@@ -415,12 +435,15 @@ export function createGraph3D(svgEl: SVGSVGElement, graph: Sidecar, cb: Graph3DC
     }
 
     function paintEdges(): void {
-        const showEdges = activeList.length <= EDGE_MAX;
+        // The backbone web (topic/category/section prereq links) is ALWAYS drawn — that's what makes the
+        // map read as one interconnected constellation. The dense concept/card leaf links draw only when
+        // the scene is sparse enough to stay airy (never a hairball).
+        const showLeaf = activeList.length <= EDGE_MAX;
         for (const e of edges) {
             const a = byId.get(e.src), b = byId.get(e.dst);
             const bothActive = !!a && !!b && a.active && b.active;
             const onChain = chain != null && !!a && !!b && chain.has(a.n.id) && chain.has(b.n.id);
-            const draw = onChain || (showEdges && bothActive && e.prereq);
+            const draw = onChain || (bothActive && (e.backbone || (showLeaf && e.prereq)));
             if (!draw || !a || !b) {
                 if (e.line) {
                     e.line.setAttribute("stroke-opacity", "0");
@@ -429,7 +452,6 @@ export function createGraph3D(svgEl: SVGSVGElement, graph: Sidecar, cb: Graph3DC
             }
             if (!e.line) {
                 e.line = document.createElementNS(SVGNS, "line");
-                e.line.setAttribute("stroke", "#1B1D2A");
                 e.line.setAttribute("stroke-linecap", "round");
                 edgeLayer.appendChild(e.line);
             }
@@ -438,8 +460,22 @@ export function createGraph3D(svgEl: SVGSVGElement, graph: Sidecar, cb: Graph3DC
             e.line.setAttribute("y1", a.sy.toFixed(2));
             e.line.setAttribute("x2", b.sx.toFixed(2));
             e.line.setAttribute("y2", b.sy.toFixed(2));
-            e.line.setAttribute("stroke-opacity", ((onChain ? 0.5 : 0.14) * rev).toFixed(3));
-            e.line.setAttribute("stroke-width", onChain ? "1.6" : "0.8");
+            if (onChain) {
+                // the focused prerequisite chain lights up in ink
+                e.line.setAttribute("stroke", "#1B1D2A");
+                e.line.setAttribute("stroke-opacity", (0.5 * rev).toFixed(3));
+                e.line.setAttribute("stroke-width", "1.6");
+            } else if (e.backbone) {
+                // the interconnecting web: thin, faint, light-grey straight lines (the reference look)
+                e.line.setAttribute("stroke", "#8B93A7");
+                e.line.setAttribute("stroke-opacity", (0.34 * rev).toFixed(3));
+                e.line.setAttribute("stroke-width", "0.8");
+            } else {
+                // dense leaf links recede almost to a whisper
+                e.line.setAttribute("stroke", "#8B93A7");
+                e.line.setAttribute("stroke-opacity", (0.12 * rev).toFixed(3));
+                e.line.setAttribute("stroke-width", "0.6");
+            }
         }
     }
 

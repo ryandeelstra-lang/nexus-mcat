@@ -142,6 +142,12 @@ async function shoot(t, outfile) {
     console.log("opened deck: " + opened);
     await sleep(2200);
 
+    // 2b. capture the overview (deck screen) before studying
+    const ovCap = await pageWith(".overview, #study");
+    if (ovCap) {
+        await shoot(ovCap, path.join(outdir, "overview.png"));
+    }
+
     // 3. overview -> study (click the Study button)
     const ov = await pageWith("#study, .overview");
     if (ov) {

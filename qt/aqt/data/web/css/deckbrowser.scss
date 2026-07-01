@@ -238,7 +238,7 @@ a.deck {
 /* Big-Sur-style rounded, accent-tinted selection + hover */
 .current td,
 tr.deck:hover:not(.top-level-drag-row) td {
-    background: rgba(0, 122, 255, 0.08);
+    background: rgba(59, 130, 246, 0.08);
     &:first-child {
         border-top-left-radius: 11px;
         border-bottom-left-radius: 11px;
@@ -252,7 +252,7 @@ tr.deck:hover:not(.top-level-drag-row) td {
     }
 }
 .current td {
-    background: rgba(0, 122, 255, 0.13);
+    background: rgba(59, 130, 246, 0.13);
 }
 
 /* counts — tabular figures, right-aligned; zeros recede */

@@ -127,7 +127,7 @@ License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
         color: var(--fg, rgba(0, 0, 0, 0.85));
 
         :global(a) {
-            color: var(--accent, #007aff);
+            color: var(--accent, #3b82f6);
             text-decoration: none;
         }
         :global(a:hover) {
@@ -143,12 +143,12 @@ License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
         animation: mark-pop 260ms cubic-bezier(0.2, 0, 0.2, 1) both;
     }
     .mark-ring {
-        fill: rgba(0, 122, 255, 0.1);
-        stroke: rgba(0, 122, 255, 0.28);
+        fill: rgba(59, 130, 246, 0.1);
+        stroke: rgba(59, 130, 246, 0.28);
         stroke-width: 2;
     }
     .mark-check {
-        stroke: var(--accent, #007aff);
+        stroke: var(--accent, #3b82f6);
         stroke-width: 5;
         stroke-linecap: round;
         stroke-linejoin: round;
@@ -207,12 +207,12 @@ License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
         min-width: 168px;
         padding: 10px 22px;
         border-radius: 10px;
-        background: var(--accent, #007aff);
+        background: var(--accent, #3b82f6);
         color: #ffffff;
         font-size: 15px;
         font-weight: 590;
         letter-spacing: -0.01em;
-        box-shadow: 0 2px 8px rgba(0, 122, 255, 0.24);
+        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.24);
         transition:
             transform 150ms cubic-bezier(0.2, 0, 0.2, 1),
             filter 150ms cubic-bezier(0.2, 0, 0.2, 1),
@@ -221,14 +221,14 @@ License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
         &:hover {
             filter: brightness(1.05);
             transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(0, 122, 255, 0.3);
+            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
         }
         &:active {
             transform: translateY(0);
             filter: brightness(0.96);
         }
         &:focus-visible {
-            outline: 2px solid var(--accent, #007aff);
+            outline: 2px solid var(--accent, #3b82f6);
             outline-offset: 2px;
         }
     }

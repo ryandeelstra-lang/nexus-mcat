@@ -85,14 +85,14 @@ body {
     font-size: 15px;
     font-weight: 500;
     letter-spacing: -0.01em;
-    color: #007aff;
+    color: #3b82f6;
     text-decoration: none;
     -webkit-user-select: none;
     user-select: none;
     transition: background var(--transition, 180ms) ease;
 
     &:hover {
-        background: rgba(0, 122, 255, 0.1);
+        background: rgba(59, 130, 246, 0.1);
     }
 }
 [dir="rtl"] .back-link {
@@ -197,30 +197,30 @@ body {
     height: 44px;
     padding: 0 28px;
     border-radius: 10px;
-    background: #007aff;
+    background: #3b82f6;
     color: #fff;
     font-size: 17px;
     font-weight: 600;
     letter-spacing: -0.01em;
-    box-shadow: 0 6px 20px rgba(0, 122, 255, 0.28);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.28);
     transition:
         transform var(--transition, 180ms) cubic-bezier(0.2, 0, 0.2, 1),
         box-shadow var(--transition, 180ms) cubic-bezier(0.2, 0, 0.2, 1),
         filter var(--transition, 180ms) cubic-bezier(0.2, 0, 0.2, 1);
 
     &:hover {
-        background: #007aff;
+        background: #3b82f6;
         filter: brightness(1.05);
         transform: translateY(-1px);
-        box-shadow: 0 8px 24px rgba(0, 122, 255, 0.34);
+        box-shadow: 0 8px 24px rgba(59, 130, 246, 0.34);
     }
     &:active {
         transform: translateY(0);
         filter: brightness(0.96);
-        box-shadow: 0 3px 10px rgba(0, 122, 255, 0.26);
+        box-shadow: 0 3px 10px rgba(59, 130, 246, 0.26);
     }
     &:focus-visible {
-        outline: 3px solid rgba(0, 122, 255, 0.4);
+        outline: 3px solid rgba(59, 130, 246, 0.4);
         outline-offset: 2px;
     }
 }

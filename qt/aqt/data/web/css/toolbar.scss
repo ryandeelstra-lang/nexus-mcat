@@ -160,7 +160,7 @@ body {
 /* charged_up: Apple-HIG toolbar — icon + label pills, a clear active "you are
  * here" state, translucent material. Appended so it overrides the legacy
  * .hitem rules above. Keep it thin and deferential. */
-$accent: #007aff;
+$accent: #3b82f6;
 
 body .toolbar {
     display: inline-flex;
@@ -210,7 +210,7 @@ body.fancy:not(.flat) .hitem {
     }
     &.active {
         color: $accent !important;
-        background: rgba(0, 122, 255, 0.12) !important;
+        background: rgba(59, 130, 246, 0.12) !important;
     }
 }
 

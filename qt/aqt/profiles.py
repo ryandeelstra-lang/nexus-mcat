@@ -610,7 +610,9 @@ create table if not exists profiles
         return theme_manager.night_mode
 
     def theme(self) -> Theme:
-        return Theme(self.meta.get("theme", 0))
+        # charged_up: LIGHT is the product default (premium near-white, matching the Nexus surface);
+        # dark remains available as an explicit opt-in in Preferences.
+        return Theme(self.meta.get("theme", Theme.LIGHT.value))
 
     def set_theme(self, theme: Theme) -> None:
         self.meta["theme"] = theme.value

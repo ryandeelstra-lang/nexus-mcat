@@ -44,7 +44,17 @@ html {
 }
 
 body {
-    font-family: inherit;
+    // charged_up: SF system font (Apple-HIG native on macOS), Inter as the cross-platform fallback
+    font-family:
+        -apple-system,
+        "SF Pro Text",
+        "SF Pro Display",
+        system-ui,
+        Inter,
+        "Helvetica Neue",
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
     &:not(.isMac),
     &:not(.isMac) * {

@@ -156,3 +156,80 @@ body {
 .full-sync {
     color: color(state-learn) !important;
 }
+
+/* charged_up: Apple-HIG toolbar — icon + label pills, a clear active "you are
+ * here" state, translucent material. Appended so it overrides the legacy
+ * .hitem rules above. Keep it thin and deferential. */
+$accent: #3b82f6;
+
+body .toolbar {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 5px 6px;
+    border-radius: 12px;
+}
+
+body.fancy .toolbar {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    box-shadow:
+        0 1px 0 rgba(0, 0, 0, 0.04),
+        0 6px 20px rgba(0, 0, 0, 0.06);
+}
+
+body .hitem,
+body.fancy .hitem,
+body.fancy:not(.flat) .hitem {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px !important;
+    margin: 0;
+    border: 1px solid transparent !important;
+    border-radius: 8px !important;
+    background: transparent !important;
+    color: rgba(0, 0, 0, 0.5) !important;
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: -0.01em;
+    text-decoration: none !important;
+    cursor: pointer;
+    transition:
+        background 0.16s cubic-bezier(0.2, 0, 0.2, 1),
+        color 0.16s cubic-bezier(0.2, 0, 0.2, 1);
+
+    &:hover {
+        background: rgba(0, 0, 0, 0.05) !important;
+        color: rgba(0, 0, 0, 0.85) !important;
+        text-decoration: none !important;
+    }
+    &:active {
+        background: rgba(0, 0, 0, 0.08) !important;
+    }
+    &.active {
+        color: $accent !important;
+        background: rgba(59, 130, 246, 0.12) !important;
+    }
+}
+
+.hicon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    svg {
+        width: 18px;
+        height: 18px;
+        display: block;
+    }
+}
+
+.hlabel {
+    line-height: 1;
+}
+
+/* keep the sync spinner tucked next to the sync glyph */
+#sync .hicon {
+    position: relative;
+}

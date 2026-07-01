@@ -424,6 +424,7 @@ def is_sveltekit_page(path: str) -> bool:
         "image-occlusion",
         "knowledge-graph",
         "scores-dashboard",
+        "home",
     ]
 
 
@@ -713,7 +714,9 @@ def _load_scores_display():  # type: ignore[no-untyped-def]
     didn't bundle it) so the endpoint can degrade honestly instead of crashing. Imported dynamically
     so the qt type-check never has to resolve a package outside the aqt source tree."""
     import importlib
+    import importlib.util
     import sys
+    import traceback
     from pathlib import Path
 
     try:
@@ -725,10 +728,18 @@ def _load_scores_display():  # type: ignore[no-untyped-def]
         if str(repo_root) not in sys.path:
             # append (not insert) so a repo-root `scores/` can never shadow a site-package
             sys.path.append(str(repo_root))
+        # Distinguish "not bundled" (honest degrade) from "present but broken". A genuinely-broken
+        # scores package (a broken transitive import) must SURFACE, not masquerade as 'not available'
+        # — this bridge is the single source of truth for the numbers a student trusts.
+        if importlib.util.find_spec("scores") is None:
+            return None
         try:
             return importlib.import_module("scores.display")
         except ImportError:
-            return None
+            # scores/ IS present but its own import failed: log it and re-raise so the post-handler
+            # wrapper turns it into a diagnosable error instead of a silent 'not available'.
+            print(traceback.format_exc(), file=sys.stderr)
+            raise
 
 
 def scores_dashboard() -> bytes:
@@ -802,7 +813,17 @@ exposed_backend_list = [
     "get_image_occlusion_note",
     "update_image_occlusion_note",
     "get_image_occlusion_fields",
+    # CardRenderingService
+    # charged_up: render the due card into the study surface's SANDBOXED iframe (read-only).
+    "render_existing_card",
     # SchedulerService
+    # charged_up: the integrated study surface (knowledge-graph ?mode=study) runs the REAL review
+    # loop in the api-access graph webview — fetch the next due card, then answer it. answer_card
+    # WRITES the revlog like any review; it is only reachable through the (default-gated) graph
+    # screen, so flag-off behaviour is unchanged. Card markup is rendered into a sandboxed iframe
+    # (no same-origin) so untrusted card HTML can never reach this RPC surface.
+    "get_queued_cards",
+    "answer_card",
     "compute_fsrs_params",
     "compute_optimal_retention",
     "set_wants_abort",

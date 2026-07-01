@@ -26,7 +26,15 @@ from anki import hooks
 from anki._backend import RustBackend as _RustBackend
 from anki._legacy import deprecated
 from anki.buildinfo import version as version_str
-from anki.collection import Collection, Config, GithubRelease, OpChanges, UndoStatus
+from anki.collection import (
+    Collection,
+    Config,
+    GithubRelease,
+    ImportAnkiPackageOptions,
+    ImportAnkiPackageRequest,
+    OpChanges,
+    UndoStatus,
+)
 from anki.decks import DeckDict, DeckId
 from anki.hooks import runHook
 from anki.notes import NoteId
@@ -90,6 +98,7 @@ MainWindowState = Literal[
     "resetRequired",
     "profileManager",
     "knowledgeGraph",
+    "home",
 ]
 
 
@@ -177,6 +186,7 @@ class AnkiQt(QMainWindow):
     # charged_up: dedicated api-access webview for the integrated knowledge-graph screen/backdrop,
     # plus the route mode currently loaded into it ("full" | "backdrop" | None when unloaded).
     graph_web: AnkiWebView
+    home_web: AnkiWebView
     _graph_web_mode: str | None
 
     def __init__(
@@ -672,7 +682,10 @@ class AnkiQt(QMainWindow):
             self.update_undo_actions()
             gui_hooks.collection_did_load(self.col)
             self.apply_collection_options()
-            self.moveToState("deckBrowser")
+            # charged_up: on first run, import the bundled prefilled MCAT deck (idempotent).
+            self._maybe_import_starter_deck()
+            # charged_up: open on the Nexus home (the front door), not the raw deck list.
+            self.moveToState("home")
         except Exception:
             # dump error to stderr so it gets picked up by errors.py
             traceback.print_exc()
@@ -778,6 +791,8 @@ class AnkiQt(QMainWindow):
         getattr(self, f"_{state}State", lambda *_: None)(oldState, *args)
         if state != "resetRequired":
             self.bottomWeb.adjustHeightToFit()
+        # charged_up: keep the toolbar's "you are here" highlight in sync.
+        self.toolbar.set_active_item(state)
         gui_hooks.state_did_change(state, oldState)
 
     def _deckBrowserState(self, oldState: MainWindowState) -> None:
@@ -824,6 +839,46 @@ class AnkiQt(QMainWindow):
             self.toolbarWeb.show()
             self.bottomWeb.show()
 
+    # charged_up: first-run prefilled MCAT deck
+    ##########################################################################
+
+    def _starter_deck_path(self) -> str | None:
+        """Path to the bundled prefilled MCAT deck (.apkg): env override wins, else the packaged
+        aqt/data resource. Returns None when not found (import is then skipped gracefully)."""
+        override = os.environ.get("CHARGED_UP_STARTER_DECK", "").strip()
+        if override:
+            return override if os.path.exists(override) else None
+        path = os.path.join(os.path.dirname(__file__), "data", "mcat-starter.apkg")
+        return path if os.path.exists(path) else None
+
+    def _maybe_import_starter_deck(self) -> None:
+        """On first run (no MCAT deck yet), silently import the bundled prefilled DOK-1 deck and make
+        it the current deck, so the graph's study surface (?mode=study) serves it. Idempotent — skips
+        once an MCAT deck exists. Additive only: importing does not bump the collection schema
+        (V18 -> V18), consistent with the read-free/act-additive integrity rule."""
+        if self.col is None or self.col.decks.by_name("MCAT") is not None:
+            return
+        apkg = self._starter_deck_path()
+        if not apkg:
+            return
+        try:
+            self.col.import_anki_package(
+                ImportAnkiPackageRequest(
+                    package_path=apkg,
+                    options=ImportAnkiPackageOptions(
+                        merge_notetypes=False,
+                        with_scheduling=True,
+                        with_deck_configs=True,
+                    ),
+                )
+            )
+            mcat = self.col.decks.by_name("MCAT")
+            if mcat is not None:
+                self.col.decks.set_current(mcat["id"])
+        except Exception:
+            # Never block startup on the starter-deck import — log and continue.
+            traceback.print_exc()
+
     # charged_up: the integrated MCAT knowledge-graph screen
     ##########################################################################
 
@@ -832,7 +887,11 @@ class AnkiQt(QMainWindow):
         overview), with mw.web transparent in front so it shows through. Every other screen keeps
         mw.web opaque and the backdrop hidden — the reviewer's card rendering is never touched. The
         full 'knowledgeGraph' screen manages graph_web itself, so leave it alone here."""
-        if state == "knowledgeGraph":
+        # charged_up: the Nexus home owns the central area in the 'home' state (see _homeState);
+        # keep it hidden in every other state.
+        if state != "home":
+            self.home_web.hide()
+        if state in ("knowledgeGraph", "home"):
             return
         if state in ("deckBrowser", "overview"):
             self._load_graph_web("backdrop", force=False)
@@ -842,18 +901,28 @@ class AnkiQt(QMainWindow):
             self.graph_web.hide()
             self.web.page().setBackgroundColor(theme_manager.qcolor(colors.CANVAS))
 
-    def _load_graph_web(self, mode: str, *, force: bool) -> None:
+    def _load_graph_web(
+        self, mode: str, *, force: bool, tab: str | None = None
+    ) -> None:
         """Load the knowledge-graph route into the dedicated webview, in 'full' (explorable) or
-        'backdrop' (dim, static) mode. Reload only when the mode changes, unless force=True (the
-        explore screen forces a reload so the live mastery glow is fresh each visit)."""
-        if force or self._graph_web_mode != mode:
-            suffix = "" if mode == "full" else f"?mode={mode}"
+        'backdrop' (dim, static) mode. In 'full' mode an optional tab ('scores') opens that tab
+        directly. Reload only when the mode/tab changes, unless force=True (the explore screen
+        forces a reload so the live mastery glow is fresh each visit)."""
+        key = mode if tab is None else f"{mode}:{tab}"
+        if force or self._graph_web_mode != key:
+            if mode == "full":
+                suffix = f"?tab={tab}" if tab else ""
+            else:
+                suffix = f"?mode={mode}"
             self.graph_web.load_sveltekit_page(f"knowledge-graph{suffix}")
-            self._graph_web_mode = mode
+            self._graph_web_mode = key
 
     def _knowledgeGraphState(self, oldState: MainWindowState) -> None:
         # Full, interactive Graph screen — rendered in the SAME window (no separate dialog).
-        self._load_graph_web("full", force=True)
+        # home:scores routes here with a pending "scores" tab so it opens on the Scores tab.
+        tab = getattr(self, "_pending_graph_tab", None)
+        self._pending_graph_tab = None
+        self._load_graph_web("full", force=True, tab=tab)
         self.web.hide()
         self.graph_web.show()
         self.graph_web.setFocus()
@@ -863,6 +932,37 @@ class AnkiQt(QMainWindow):
         # Hand the central area back to mw.web for the next screen.
         self.graph_web.hide()
         self.web.show()
+
+    # charged_up: Nexus — the in-app landing/home (the front door the app opens to).
+    ##########################################################################
+
+    def _homeState(self, oldState: MainWindowState) -> None:
+        self.home_web.load_sveltekit_page("home")
+        self.home_web.set_bridge_command(self._on_home_cmd, self)
+        self.web.hide()
+        self.graph_web.hide()
+        self.home_web.show()
+        self.home_web.setFocus()
+        self.toolbar.redraw()
+
+    def _homeCleanup(self, newState: MainWindowState) -> None:
+        self.home_web.hide()
+        self.web.show()
+
+    def _on_home_cmd(self, cmd: str) -> None:
+        # JS -> Python bridge for the Nexus home buttons (ts/routes/home/Home.svelte).
+        if cmd == "home:study":
+            self.moveToState("deckBrowser")
+        elif cmd in ("home:map", "home:scores"):
+            # the three scores live inside the graph screen's Scores tab; open it directly
+            self._pending_graph_tab = "scores" if cmd == "home:scores" else None
+            self.moveToState("knowledgeGraph")
+        elif cmd == "home:browse":
+            self.onBrowse()
+        elif cmd == "home:add":
+            self.onAddCard()
+        elif cmd == "home:sync":
+            self.on_sync_button_clicked()
 
     # Resetting state
     ##########################################################################
@@ -1020,7 +1120,15 @@ title="{}" {}>{}</button>""".format(
         self.centralStack.setStackingMode(QStackedLayout.StackingMode.StackAll)
         self.centralStack.addWidget(self.graph_web)  # behind
         self.centralStack.addWidget(self.web)  # in front
+        # charged_up: Nexus home — a dedicated webview for the front-door landing, on top when shown,
+        # hidden in every other state (see _update_graph_backdrop / _homeState).
+        self.home_web = AnkiWebView(kind=AnkiWebViewKind.HOME)
+        self.home_web.disable_zoom()
+        self.centralStack.addWidget(
+            self.home_web
+        )  # in front (shown only in 'home' state)
         self.graph_web.hide()
+        self.home_web.hide()
         # bottom area
         sweb = self.bottomWeb = BottomWebView(self)
         sweb.setFocusPolicy(Qt.FocusPolicy.WheelFocus)

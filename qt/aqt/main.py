@@ -901,7 +901,9 @@ class AnkiQt(QMainWindow):
             self.graph_web.hide()
             self.web.page().setBackgroundColor(theme_manager.qcolor(colors.CANVAS))
 
-    def _load_graph_web(self, mode: str, *, force: bool, tab: str | None = None) -> None:
+    def _load_graph_web(
+        self, mode: str, *, force: bool, tab: str | None = None
+    ) -> None:
         """Load the knowledge-graph route into the dedicated webview, in 'full' (explorable) or
         'backdrop' (dim, static) mode. In 'full' mode an optional tab ('scores') opens that tab
         directly. Reload only when the mode/tab changes, unless force=True (the explore screen

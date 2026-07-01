@@ -17,7 +17,9 @@ of the already-built engine; neither writes to the collection.
     // "study" (the card loop floating in front of the dim map — cards are home), or none (the full
     // explorable graph + scores). ?tab=scores opens directly on the Scores tab (from home:scores).
     const params =
-        typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
+        typeof window !== "undefined"
+            ? new URLSearchParams(window.location.search)
+            : null;
     const mode = params?.get("mode") ?? null;
     const backdrop = mode === "backdrop";
     const study = mode === "study";

@@ -24,3 +24,6 @@ ts/.svelte-kit
 docs/_build/
 docs/autoapi/
 .complexipy_cache
+
+# charged_up: generated prefilled-deck build artifacts (built by scripts/build_full_deck.py)
+qt/aqt/data/mcat-starter.apkg

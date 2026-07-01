@@ -1,13 +1,18 @@
 // Copyright: Ankitects Pty Ltd and contributors
 // License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
 
-// charged_up: a TRUE 3D knowledge-graph engine, rendered in SVG with an in-house perspective
+// charged_up (Nexus): a TRUE 3D knowledge-graph engine, rendered in SVG with an in-house perspective
 // projection — zero new dependencies (no three.js/WebGL, so it runs on every video driver and never
 // trips the Yarn age-gate; Decision 33). The baked x/y/z become a real point cloud: we rotate it
 // (slow ambient orbit + drag), project with perspective (near nodes grow, far nodes recede and fade),
 // and depth-sort each frame. Node hue = section identity; bloom = mastery (the live RPC, never a
-// fabricated number). Click a section "galaxy" to fly in (semantic zoom); click a topic to light its
-// prerequisite chain. Build the DOM once, then animate by updating attributes — smooth, jank-free.
+// fabricated number).
+//
+// SCALE (2026-07-01): the graph now carries the full AAMC outline — hundreds of topic/subtopic nodes.
+// STRICT SEMANTIC ZOOM + LEVEL-OF-DETAIL CULLING is what keeps it smooth and never a hairball: only the
+// nodes at the *visible altitude* are projected/painted each frame; the rest are culled to display:none
+// and cost nothing. Overview shows section galaxies (+ their categories as you raise detail); drill into
+// a section to reveal its categories, into a category to reveal its topics, into a topic for subtopics.
 
 import { select } from "d3";
 
@@ -23,19 +28,29 @@ const FOCAL = 2.0; // perspective focal length
 const SCREEN = 235; // world→screen scale
 const ORBIT_SPEED = 0.0019; // radians/frame ambient yaw — calm, never a jittery sim
 const PITCH = -0.34; // a gentle 3/4 "from slightly above" tilt
-// --- semantic-zoom "detail"/resolution model (Decision 31): a degree-of-interest gate, decoupled from
-// camera zoom. Raising `detail` lowers the grain threshold so finer nodes fade in; it never dumps the
-// whole graph (only ~48 spine nodes exist, and finer grain reveals outward from the focus/frontier). ---
-const DETAIL_BAND = 0.16; // soft crossfade width as detail crosses a grain tier
-const FOCUS_BOOST = 0.34; // a focused section's descendants reveal this much earlier (degree-of-interest)
 const DEFAULT_DETAIL = 0.5; // opens calm: 4 section galaxies + their foundational-concept clusters
-// GRAIN[kind] = the detail level at which a node kind begins to appear (0 = always visible).
-const GRAIN: Record<string, number> = {
+const REVEAL_EASE = 0.14; // per-frame crossfade toward a node's visible/hidden target
+const CULL_EPS = 0.02; // below this reveal (and hidden) a node is display:none and skipped entirely
+
+// Altitude of each node kind (0 = section galaxy .. 4 = subtopic leaf). Drives the strict semantic-zoom
+// visibility gate below — the whole point is that only one altitude's worth of nodes is ever on screen.
+const DEPTH: Record<string, number> = {
     section: 0,
-    fc: 0.34,
-    category: 0.62,
-    cars: 0.62,
-    topic: 0.86,
+    fc: 1,
+    category: 2,
+    cars: 2,
+    topic: 3,
+    subtopic: 4,
+};
+
+// Camera zoom as you drill deeper (the "fly in"): overview is 1, each altitude tightens.
+const FOCUS_ZOOM: Record<string, number> = {
+    section: 2.0,
+    fc: 2.5,
+    category: 3.3,
+    cars: 3.3,
+    topic: 4.1,
+    subtopic: 4.6,
 };
 
 const SECTION_SHORT: Record<string, string> = {
@@ -61,8 +76,8 @@ export interface HoverInfo {
 export interface Graph3DCallbacks {
     /** Fired on node hover (null on leave). clientX/clientY locate the tooltip in the page. */
     onHover?: (info: HoverInfo | null, clientX: number, clientY: number) => void;
-    /** Fired when a section is focused/cleared, so the host can show a breadcrumb. */
-    onSectionFocus?: (section: { id: string; label: string } | null) => void;
+    /** Fired when the focused node changes (null when back at the overview), so the host can show a breadcrumb. */
+    onSectionFocus?: (focus: { id: string; label: string } | null) => void;
 }
 
 export interface Graph3D {
@@ -87,6 +102,8 @@ interface NodeRT {
     sy: number;
     rz: number; // rotated depth (for sorting)
     factor: number; // perspective factor (near>far)
+    reveal: number; // eased 0..1 visibility (level-of-detail crossfade)
+    shown: boolean; // is the group currently attached/visible (for cheap cull toggling)
 }
 
 interface EdgeRT {
@@ -98,10 +115,6 @@ interface EdgeRT {
 
 const lerp = (a: number, b: number, t: number): number => a + (b - a) * t;
 const clamp = (v: number, lo: number, hi: number): number => Math.max(lo, Math.min(hi, v));
-const smooth = (t: number): number => {
-    const c = clamp(t, 0, 1);
-    return c * c * (3 - 2 * c); // smoothstep — eases the grain crossfade
-};
 
 export function createGraph3D(
     svgEl: SVGSVGElement,
@@ -156,6 +169,10 @@ export function createGraph3D(
             return { src: e.src, dst: e.dst, prereq: e.kind === "prerequisite", line };
         });
 
+    // Labels are created for the readable altitudes only (section / fc / category / cars); topics rely on hover.
+    const hasLabel = (kind: string): boolean =>
+        kind === "section" || kind === "fc" || kind === "category" || kind === "cars";
+
     const nodes: NodeRT[] = sidecar.nodes.map((n) => {
         const group = document.createElementNS(SVGNS, "g");
         group.setAttribute("class", "kg-node-group");
@@ -167,7 +184,7 @@ export function createGraph3D(
         circle.setAttribute("data-section", n.section);
         group.appendChild(circle);
         let label: SVGTextElement | null = null;
-        if (n.kind === "section" || n.kind === "fc") {
+        if (hasLabel(n.kind)) {
             label = document.createElementNS(SVGNS, "text");
             label.setAttribute("text-anchor", "middle");
             label.setAttribute("class", "kg-label");
@@ -189,7 +206,7 @@ export function createGraph3D(
             nx: (n.x - cx) * norm,
             ny: -(n.y - cy) * norm, // flip so the sidecar's +y reads as "up"
             nz: (n.z - cz) * norm,
-            baseR: KIND_RADIUS[n.kind] ?? 6,
+            baseR: KIND_RADIUS[n.kind] ?? 5,
             group,
             circle,
             label,
@@ -197,6 +214,8 @@ export function createGraph3D(
             sy: CY,
             rz: 0,
             factor: 1,
+            reveal: 0,
+            shown: true,
         };
     });
     const byId = new Map(nodes.map((r) => [r.n.id, r]));
@@ -218,6 +237,21 @@ export function createGraph3D(
         }
     }
 
+    // ---- ancestry helpers (walk the containment parent chain) ----
+    const parentOf = (id: string): string | null => byId.get(id)?.n.parent ?? null;
+    // is `anc` an ancestor-or-self of `id`?
+    const isDescOrSelf = (id: string, anc: string): boolean => {
+        let cur: string | null = id;
+        let guard = 0;
+        while (cur && guard++ < 12) {
+            if (cur === anc) {
+                return true;
+            }
+            cur = parentOf(cur);
+        }
+        return false;
+    };
+
     // ---- mutable view + data state ----
     let mastery: Record<string, NodeState> = {};
     let bestNext: string | null = null;
@@ -229,13 +263,12 @@ export function createGraph3D(
     let targetZoom = 1;
     let reduced = false;
     let detail = DEFAULT_DETAIL; // semantic-zoom "resolution": 0 = overview .. 1 = finest grain
-    let targetDetail = DEFAULT_DETAIL;
     let entrance = 0; // 0→1 entrance ramp (nodes bloom in)
     let dragging = false;
     let dragMoved = false;
     let lastX = 0;
     let lastY = 0;
-    let sectionFocusId: string | null = null;
+    let focusId: string | null = null; // the drilled node (section/category/topic) — the semantic-zoom root
     let focusNodeId: string | null = null; // node whose prerequisite chain is lit
     let chain: Set<string> | null = null; // focused node's prerequisite chain
     let running = false;
@@ -246,32 +279,65 @@ export function createGraph3D(
         return !!(m && m.hasState);
     };
 
-    // Grain gate: a node's effective "appear at this detail" level. The single best-next frontier gap is
-    // always visible (highest degree-of-interest), and a focused section's descendants reveal earlier so
-    // raising detail expands outward from where the user is looking — never a global hairball dump.
-    const grainOf = (n: SidecarNode): number => {
-        if (n.id === bestNext) {
-            return 0;
-        }
-        let g = GRAIN[n.kind] ?? 0.62;
-        if (sectionFocusId) {
-            const fs = byId.get(sectionFocusId)?.n.section;
-            if (fs && n.section === fs) {
-                g = Math.max(0, g - FOCUS_BOOST);
+    // STRICT SEMANTIC-ZOOM visibility gate. Returns whether a node belongs to the currently visible
+    // altitude, given the drill focus + the detail slider. Bounded by construction: unfocused shows at
+    // most the 48-node spine; a focus adds only its own subtree (a few levels) + siblings + anchors.
+    // topics/subtopics NEVER show without drilling into a category, so it can never become a hairball.
+    // How many altitudes below the focus to reveal: default shows ONE (drill a category → its topics),
+    // high detail shows TWO (→ its subtopics too). Keeps each drill step calm, never a wall of leaves.
+    const revealLevels = (): number => (detail < 0.55 ? 1 : 2);
+    function isVisible(n: SidecarNode): boolean {
+        const nd = DEPTH[n.kind] ?? 3;
+        if (focusId === null) {
+            if (nd <= 1) {
+                return true; // sections + foundational concepts
             }
+            if (n.kind === "category" || n.kind === "cars") {
+                return detail > 0.33; // raise detail to reveal the whole category spine (still bounded, 34)
+            }
+            return false; // topics/subtopics need a drill
         }
-        return g;
-    };
-    const revealOf = (n: SidecarNode): number => smooth((detail - grainOf(n)) / DETAIL_BAND);
+        const f = byId.get(focusId)?.n;
+        if (!f) {
+            return nd <= 1;
+        }
+        if (n.id === focusId) {
+            return true;
+        }
+        if (isDescOrSelf(focusId, n.id)) {
+            return true; // n is an ancestor of the focus (the breadcrumb path)
+        }
+        if (isDescOrSelf(n.id, focusId)) {
+            // n is under the focus. A section focus reveals its content CATEGORIES directly (FCs are just
+            // context), so the map reads section → categories → topics → subtopics like map zoom levels.
+            const fd = DEPTH[f.kind] ?? 0;
+            const extra = fd === 0 ? 1 : 0; // section focus gets one extra altitude (its categories)
+            const maxDepth = fd + revealLevels() + extra;
+            if (nd > maxDepth) {
+                return false;
+            }
+            if (nd >= 3 && fd < 2) {
+                return false; // topics/subtopics only once you've drilled into a category
+            }
+            return true;
+        }
+        if (n.parent && n.parent === f.parent) {
+            return true; // siblings of the focus, for context
+        }
+        return n.kind === "section"; // the 4 section galaxies stay as faint anchors
+    }
 
     function project(): void {
         const cosY = Math.cos(yaw), sinY = Math.sin(yaw);
         const cosX = Math.cos(pitch), sinX = Math.sin(pitch);
-        // recompute the pan that centres a focused section (rotation may still change via drag)
+        // recompute the pan that centres the focused node (rotation may still change via drag)
         let targetPanX = 0, targetPanY = 0;
-        if (sectionFocusId) {
-            const sec = byId.get(sectionFocusId);
-            const c = sec ? sectionCentroid.get(sec.n.section) : undefined;
+        if (focusId) {
+            const fr = byId.get(focusId);
+            // a section focus centres on the galaxy centroid; deeper focus centres on the node itself
+            const c = fr && fr.n.kind === "section" ? sectionCentroid.get(fr.n.section) : fr
+                ? { nx: fr.nx, ny: fr.ny, nz: fr.nz }
+                : undefined;
             if (c) {
                 const p = projectPoint(c.nx, c.ny, c.nz, cosY, sinY, cosX, sinX, 0, 0, targetZoom);
                 targetPanX = CX - p.sx;
@@ -282,8 +348,21 @@ export function createGraph3D(
         panY = lerp(panY, targetPanY, 0.12);
         zoom = lerp(zoom, targetZoom, 0.12);
 
+        // Active set = nodes with any reveal (the culled ones are skipped entirely — the perf win).
+        const active: NodeRT[] = [];
         let minF = Infinity, maxF = -Infinity;
         for (const r of nodes) {
+            if (r.reveal < CULL_EPS) {
+                if (r.shown) {
+                    r.group.style.display = "none";
+                    r.shown = false;
+                }
+                continue;
+            }
+            if (!r.shown) {
+                r.group.style.display = "";
+                r.shown = true;
+            }
             const p = projectPoint(r.nx, r.ny, r.nz, cosY, sinY, cosX, sinX, panX, panY, zoom);
             r.sx = p.sx;
             r.sy = p.sy;
@@ -295,16 +374,16 @@ export function createGraph3D(
             if (p.factor > maxF) {
                 maxF = p.factor;
             }
+            active.push(r);
         }
         const fSpan = maxF - minF || 1;
 
-        // depth sort (far first) so nearer nodes paint on top
-        const order = [...nodes].sort((a, b) => a.rz - b.rz);
-        for (const r of order) {
-            nodeLayer.appendChild(r.group); // re-append in depth order
+        // depth sort (far first) so nearer nodes paint on top — only the ACTIVE set is sorted/re-appended
+        active.sort((a, b) => a.rz - b.rz);
+        for (const r of active) {
+            nodeLayer.appendChild(r.group);
         }
-
-        for (const r of nodes) {
+        for (const r of active) {
             const depthN = (r.factor - minF) / fSpan; // 0 far .. 1 near
             paintNode(r, depthN);
         }
@@ -339,21 +418,28 @@ export function createGraph3D(
         };
     }
 
+    // A node is "on the focus path or in the focused subtree" => full brightness; other visible nodes
+    // (anchors / siblings / ancestors' other branches) are context => dimmed so the focus pops.
+    function isContext(id: string): boolean {
+        if (focusId === null) {
+            return false;
+        }
+        return !(isDescOrSelf(id, focusId) || isDescOrSelf(focusId, id));
+    }
+
     function paintNode(r: NodeRT, depthN: number): void {
         const { n, circle, group, label } = r;
         const isBest = n.id === bestNext;
         const isLit = lit(n.id);
-        const dim = (sectionFocusId && n.section !== byId.get(sectionFocusId)?.n.section)
-            || (chain != null && !chain.has(n.id));
+        const dim = isContext(n.id) || (chain != null && !chain.has(n.id));
         const ent = 1 - (1 - entrance) ** 3; // ease-out entrance
-        // reveal = the semantic-zoom "detail" gate for this node's grain (0 hidden .. 1 shown).
-        const reveal = revealOf(n);
+        const reveal = r.reveal;
         const radius = r.baseR * r.factor * zoom * (0.72 + 0.42 * depthN) * (0.25 + 0.75 * ent)
-            * (0.4 + 0.6 * reveal);
+            * (0.35 + 0.65 * reveal);
         group.setAttribute("transform", `translate(${r.sx.toFixed(2)},${r.sy.toFixed(2)})`);
         circle.setAttribute("r", radius.toFixed(2));
-        // below the reveal floor the node is faded out — don't let an invisible node catch clicks.
-        circle.style.pointerEvents = reveal < 0.15 ? "none" : "auto";
+        // below the reveal floor the node is faded out — don't let a ghost node catch clicks.
+        circle.style.pointerEvents = reveal < 0.2 ? "none" : "auto";
 
         // fill opacity: un-lit gap = colored-but-dim; lit saturates with recall; far nodes recede
         // (gentle atmosphere — keep lit nodes vivid even on the far side); reveal gates by detail.
@@ -390,13 +476,25 @@ export function createGraph3D(
         circle.classList.toggle("kg-best-next", isBest);
 
         if (label) {
-            const showFc = n.kind === "fc"
-                && (!sectionFocusId || byId.get(sectionFocusId)?.n.section === n.section);
-            const visible = n.kind === "section" || showFc;
-            const labelOpacity = visible && !dim ? reveal * (0.55 + 0.45 * depthN) : 0;
+            // Declutter: sections are always labelled; FC labels show at the overview or within the
+            // focused section; the 34 long category names show ONLY once you've drilled into their section
+            // (never all at once at the overview). Topics/subtopics rely on hover — they carry no label DOM.
+            const f = focusId ? byId.get(focusId)?.n : null;
+            let showLabel = false;
+            if (n.kind === "section") {
+                showLabel = true;
+            } else if (n.kind === "fc") {
+                showLabel = !f || f.section === n.section;
+            } else if (n.kind === "category" || n.kind === "cars") {
+                showLabel = !!f && f.section === n.section;
+            }
+            const labelOpacity = showLabel && !dim ? clamp(reveal, 0, 1) * (0.55 + 0.45 * depthN) : 0;
             label.setAttribute("opacity", labelOpacity.toFixed(2));
             label.setAttribute("y", (-radius - 7).toString());
-            label.setAttribute("font-size", (n.kind === "section" ? 13 : 10).toString());
+            label.setAttribute(
+                "font-size",
+                (n.kind === "section" ? 13 : n.kind === "fc" ? 10 : 9).toString(),
+            );
         }
     }
 
@@ -405,11 +503,15 @@ export function createGraph3D(
         if (!a || !b) {
             return;
         }
-        const dimA = (sectionFocusId && a.n.section !== byId.get(sectionFocusId)?.n.section)
+        // an edge is only as present as its faintest endpoint's reveal (no orphan lines into culled nodes)
+        const eReveal = Math.min(a.reveal, b.reveal);
+        if (eReveal < CULL_EPS) {
+            e.line.setAttribute("stroke-opacity", "0");
+            return;
+        }
+        const dimA = isContext(a.n.id) || isContext(b.n.id)
             || (chain != null && !(chain.has(a.n.id) && chain.has(b.n.id)));
         const onChain = chain != null && chain.has(a.n.id) && chain.has(b.n.id);
-        // an edge is only as present as its faintest endpoint's detail-reveal (no orphan lines).
-        const eReveal = Math.min(revealOf(a.n), revealOf(b.n));
         e.line.setAttribute("x1", a.sx.toFixed(2));
         e.line.setAttribute("y1", a.sy.toFixed(2));
         e.line.setAttribute("x2", b.sx.toFixed(2));
@@ -433,23 +535,37 @@ export function createGraph3D(
 
     // ---- animation loop (only runs while there's motion) ----
     function settled(): boolean {
-        const ambient = !reduced && !sectionFocusId && !dragging;
+        const ambient = !reduced && !focusId && !dragging;
+        let revealSettling = false;
+        for (const r of nodes) {
+            const target = isVisible(r.n) ? 1 : 0;
+            if (Math.abs(r.reveal - target) > 0.001) {
+                revealSettling = true;
+                break;
+            }
+        }
         const animating = entrance < 1
             || Math.abs(zoom - targetZoom) > 0.001
             || Math.abs(panX) > 0.5 || Math.abs(panY) > 0.5
-            || Math.abs(detail - targetDetail) > 0.001;
+            || revealSettling;
         return !ambient && !animating;
     }
     function tick(): void {
         if (entrance < 1) {
             entrance = Math.min(1, entrance + 0.05);
         }
-        if (Math.abs(detail - targetDetail) > 0.001) {
-            detail = lerp(detail, targetDetail, 0.22); // crossfade grain in/out as the slider moves
-        } else {
-            detail = targetDetail;
+        // ease every node toward its semantic-zoom visibility target (the crossfade in/out)
+        for (const r of nodes) {
+            const target = isVisible(r.n) ? 1 : 0;
+            if (reduced) {
+                r.reveal = target;
+            } else if (Math.abs(r.reveal - target) > 0.001) {
+                r.reveal = lerp(r.reveal, target, REVEAL_EASE);
+            } else {
+                r.reveal = target;
+            }
         }
-        if (!reduced && !sectionFocusId && !dragging) {
+        if (!reduced && !focusId && !dragging) {
             yaw += ORBIT_SPEED;
         }
         project();
@@ -504,13 +620,14 @@ export function createGraph3D(
         r.circle.classList.remove("kg-hover");
         cb.onHover?.(null, 0, 0);
     }
+    // A node with children DRILLS (semantic zoom); a leaf toggles its prerequisite-chain highlight.
+    const hasChildren = (id: string): boolean => nodes.some((r) => r.n.parent === id);
     function onCircleClick(r: NodeRT): void {
         if (dragMoved) {
             return; // it was an orbit drag, not a click
         }
-        if (r.n.kind === "section") {
-            // click a section "galaxy" to fly in; click it again to fly back out
-            focusSection(sectionFocusId === r.n.id ? null : r.n.id);
+        if (hasChildren(r.n.id)) {
+            focusNode(focusId === r.n.id ? parentOf(r.n.id) : r.n.id);
         } else if (focusNodeId === r.n.id) {
             focusNodeId = null;
             chain = null;
@@ -521,13 +638,16 @@ export function createGraph3D(
             kick();
         }
     }
-    function focusSection(id: string | null): void {
-        sectionFocusId = id;
+    function focusNode(id: string | null): void {
+        focusId = id;
         focusNodeId = null;
         chain = null;
-        targetZoom = id ? 2.4 : 1;
-        const sec = id ? byId.get(id)?.n : null;
-        cb.onSectionFocus?.(sec ? { id: sec.id, label: SECTION_LONG[sec.section] ?? sec.label } : null);
+        const node = id ? byId.get(id)?.n : null;
+        targetZoom = node ? (FOCUS_ZOOM[node.kind] ?? 2.4) : 1;
+        const crumbLabel = node
+            ? node.kind === "section" ? (SECTION_LONG[node.section] ?? node.label) : node.label
+            : "";
+        cb.onSectionFocus?.(node ? { id: node.id, label: crumbLabel } : null);
         kick();
     }
 
@@ -575,12 +695,15 @@ export function createGraph3D(
         }
         kick();
     }
+    // Clicking empty space pops UP one altitude (drill out), then finally back to the overview.
     function onBackgroundClick(ev: MouseEvent): void {
         if (ev.target === svgEl && !dragMoved) {
-            focusNodeId = null;
-            chain = null;
-            if (sectionFocusId) {
-                focusSection(null);
+            if (focusNodeId) {
+                focusNodeId = null;
+                chain = null;
+                kick();
+            } else if (focusId) {
+                focusNode(parentOf(focusId));
             } else {
                 kick();
             }
@@ -604,15 +727,12 @@ export function createGraph3D(
             kick();
         },
         setDetail(d) {
-            targetDetail = clamp(d, 0, 1);
-            if (reduced) {
-                detail = targetDetail; // no crossfade under reduced motion — snap
-            }
+            detail = clamp(d, 0, 1);
             kick();
         },
         clearFocus() {
             chain = null;
-            focusSection(null);
+            focusNode(null);
         },
         setReducedMotion(r) {
             reduced = r;

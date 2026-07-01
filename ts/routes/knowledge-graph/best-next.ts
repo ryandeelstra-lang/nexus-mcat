@@ -12,11 +12,21 @@ const MET = 0.6; // a prerequisite counts as "met" at this recall
 const WEAK = 0.85; // a leaf is still worth recommending below this recall
 
 export function computeBestNext(sidecar: Sidecar, mastery: Record<string, NodeState>): string | null {
+    // Only category / CARS nodes carry live RPC mastery state, so the "start here" pointer reasons over
+    // the category-level prerequisite DAG ONLY. Topic/subtopic prerequisite edges (which have no per-node
+    // state) are ignored here — otherwise an always-0-recall topic pointing into a category would make
+    // that category's prereqs look permanently unmet and silence the pointer.
+    const stateful = new Set(
+        sidecar.nodes.filter((n) => n.kind === "category" || n.kind === "cars").map((n) => n.id),
+    );
     const incoming = new Map<string, string[]>();
     const outDegree = new Map<string, number>();
     for (const e of sidecar.edges) {
         if (e.kind !== "prerequisite") {
             continue;
+        }
+        if (!stateful.has(e.src) || !stateful.has(e.dst)) {
+            continue; // skip topic-level edges — the pointer is a category-grain decision
         }
         const existing = incoming.get(e.dst);
         if (existing) {

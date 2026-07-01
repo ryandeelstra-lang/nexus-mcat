@@ -1,0 +1,28 @@
+# Consensus verification for MCAT section C-P (prefix "CP.").
+# Produced by the independent C-P verifier per docs/data/topics/_SPEC_VERIFY.md.
+# All dst ids are in section C-P. Endpoints are exact ids from docs/data/mcat_topics.yaml.
+section: "C-P"
+drop:
+  - { src: "CP.4E.T01", dst: "CP.5B.T03", reason: "not a real prerequisite: src is Atomic Nucleus (nucleus, isotopes, decay, binding energy), not electronic structure. Hybridization depends on atomic orbitals (CP.4E.T02); the edge's own orbital rationale is mis-sourced. Orbitals -> hybridization is already preserved via CP.4E.T02 -> CP.5B.T01 -> CP.5B.T03" }
+add:
+  # stoichiometry -> solutions / acids-bases
+  - { src: "CP.4E.T05.S04", dst: "CP.5A.T04.S01", rationale: "The mole concept and Avogadro number define molarity and the other concentration units", confidence: "high" }
+  - { src: "CP.4E.T05", dst: "CP.5A.T05", rationale: "Titration and neutralization equivalence-point calculations are mole-ratio (stoichiometry) problems", confidence: "high" }
+  # chemical equilibrium -> acid-base and solubility equilibria (5E is the general parent concept)
+  - { src: "CP.5E.T09.S02", dst: "CP.5A.T02.S05", rationale: "Ka, Kb, and pKa are equilibrium constants defined by the law of mass action", confidence: "high" }
+  - { src: "CP.5E.T09.S03", dst: "CP.5A.T04.S03", rationale: "The common-ion effect is an application of Le Chatelier's principle", confidence: "medium" }
+  # gas phase -> thermodynamics
+  - { src: "CP.4B.T02.S05", dst: "CP.5E.T02.S03", rationale: "PV work and PV diagrams for gas processes build on the ideal gas law relating P, V, and T", confidence: "high" }
+  # bonding -> thermochemistry
+  - { src: "CP.5B.T05.S01", dst: "CP.5E.T03.S04", rationale: "Estimating reaction enthalpy from bond dissociation energies builds on the bond-energy concept introduced in bonding", confidence: "medium" }
+  # thermodynamics / equilibrium -> electrochemistry
+  - { src: "CP.5E.T06", dst: "CP.4C.T04.S05", rationale: "Gibbs free energy underlies the thermodynamic meaning of cell potential (delta-G = -nFE)", confidence: "medium" }
+  - { src: "CP.5E.T09.S04", dst: "CP.4C.T04.S07", rationale: "Concentration cells and the Nernst equation depend on the reaction quotient", confidence: "medium" }
+  # intermolecular forces -> thermodynamics
+  - { src: "CP.5B.T06", dst: "CP.5E.T05.S03", rationale: "Intermolecular-force strength governs molecular order and thus the relative entropy of solid, liquid, and gas phases", confidence: "medium" }
+  # kinetics -> equilibrium
+  - { src: "CP.5E.T07", dst: "CP.5E.T09.S01", rationale: "Dynamic equilibrium is understood as equal forward and reverse reaction rates", confidence: "medium" }
+topics_flag:
+  - { id: "CP.5B.T03.S03", issue: "conceptual overlap with CP.5B.T01.S02 Resonance Structures - resonance is represented in two places" }
+  - { id: "CP.5D.T04.S01", issue: "display name 'Nomenclature and Physical Properties' is identical across CP.5D.T04.S01 / T05.S01 / T06.S01 / T08.S01 - ambiguous node labels in the graph view" }
+  - { id: "CP.4A.T05.S04", issue: "display name 'Conservation of Energy' duplicates CP.5E.T02.S01 (mechanics vs thermodynamics) - ambiguous node labels" }

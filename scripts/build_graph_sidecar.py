@@ -4,11 +4,15 @@
 
 """charged_up: build the knowledge-graph sidecar (Block I / T-GRAPH).
 
-A versioned, <100KB JSON sidecar the 3D VIEW renders from — 48 nodes (4 sections + 10 Foundational
-Concepts + 31 content categories + 3 CARS) built FROM docs/data/mcat_taxonomy.yaml (single source),
-`contains` hierarchy edges, a curated `prerequisite` DAG, and a few `related` edges. Positions are baked
-deterministically (no live physics). Lives OUTSIDE collection.anki2 — reads ONLY the taxonomy YAML and
-opens no collection (no schema bump, no engine import)."""
+A versioned JSON sidecar the 3D VIEW renders from. The FROZEN spine is 48 nodes (4 sections + 10
+Foundational Concepts + 31 content categories + 3 CARS) built FROM docs/data/mcat_taxonomy.yaml (single
+source). BENEATH the content categories, an ADDITIVE topic layer (Nexus outline grain, Decision 2026-07-01)
+adds every AAMC-outline `topic` / `subtopic` node plus a verified topic-level `prerequisite` DAG and a few
+`related` edges — a much denser, "every MCAT topic" graph. The spine's 31/34 coverage denominators are
+untouched (topics are additive, structural, and carry NO deck path — their mastery rolls up from the
+existing category decks; no fabricated per-topic numbers). `contains` hierarchy edges come free from the
+parent links. Positions are baked deterministically (no live physics). Lives OUTSIDE collection.anki2 —
+reads ONLY the taxonomy YAML and opens no collection (no schema bump, no engine import)."""
 
 from __future__ import annotations
 
@@ -19,8 +23,36 @@ from pathlib import Path
 
 import yaml  # type: ignore[import-untyped]
 
+# Golden ratio → the golden angle, for even Fibonacci-sphere placement of a parent's children.
+_GOLDEN_ANGLE = math.pi * (3.0 - math.sqrt(5.0))
+# Cluster radii: a topic shell around its content-category; subtopics in a smaller shell around their
+# topic. The shell grows with the child count (via _shell_radius) so a dense category (many topics)
+# spreads out instead of packing into a ball — key to "not a hairball" when a category is drilled.
+TOPIC_RADIUS = 5.0
+SUBTOPIC_RADIUS = 2.4
+
+
+def _shell_radius(base: float, n: int) -> float:
+    """Grow a cluster's radius with its child count so dense clusters breathe (capped)."""
+    return base * min(1.9, 1.0 + 0.05 * max(0, n - 1))
+
+
+def _fib_sphere(i: int, n: int, r: float) -> tuple[float, float, float]:
+    """Deterministic offset of child `i` of `n` on a sphere of radius `r` (even golden-angle spread).
+
+    A single child sits slightly off-axis (not on the pole) so it never overlaps its parent's label."""
+    if n <= 1:
+        return (r * 0.62, 0.0, r * 0.35)
+    y = 1.0 - 2.0 * (i + 0.5) / n  # -1 .. 1 (polar height)
+    rad = math.sqrt(max(0.0, 1.0 - y * y))
+    theta = _GOLDEN_ANGLE * i
+    return (r * math.cos(theta) * rad, r * y, r * math.sin(theta) * rad)
+
 ROOT = Path(__file__).resolve().parents[1]
 TAXONOMY = ROOT / "docs" / "data" / "mcat_taxonomy.yaml"
+# The ADDITIVE topic layer (every AAMC-outline topic/subtopic + the verified topic prerequisite DAG).
+# Kept in its own file so the FROZEN spine taxonomy (and its CI golden-set tests) stays pristine.
+TOPICS = ROOT / "docs" / "data" / "mcat_topics.yaml"
 OUT = ROOT / "graph" / "sidecar.json"
 # Bundled copy the SvelteKit knowledge-graph route imports (vite inlines it at build).
 TS_OUT = ROOT / "ts" / "lib" / "graph-sidecar.json"
@@ -44,6 +76,13 @@ def build() -> dict:
     sections = tax["sections"]
     fcs = tax["foundational_concepts"]
     leaves = tax["leaves"]
+
+    # Merge in the additive topic layer, if present (kept in a separate file — see TOPICS above).
+    if TOPICS.exists():
+        tl = yaml.safe_load(TOPICS.read_text(encoding="utf-8")) or {}
+        tax["topics"] = tl.get("topics", []) or []
+        tax["topic_prerequisites"] = tl.get("topic_prerequisites", []) or []
+        tax["topic_related"] = tl.get("topic_related", []) or []
 
     nodes: list[dict] = []
 
@@ -107,7 +146,35 @@ def build() -> dict:
     # (keyed by deck_name, e.g. "MCAT::B-B::1A") onto sidecar nodes (keyed by leaf_id, e.g. "BB.1A").
     leaf_path = {leaf["leaf_id"]: leaf["path"] for leaf in leaves}
     for n in nodes:
-        n["path"] = leaf_path.get(n["id"])  # deck path for category/cars; None for section/fc
+        p = leaf_path.get(n["id"])
+        if p is not None:
+            n["path"] = p  # deck path for category/cars leaves only (section/fc/topics carry none)
+
+    # ---- ADDITIVE topic layer (Nexus outline grain) ----------------------------------------------
+    # Every AAMC-outline topic / subtopic beneath the content categories. Topics cluster on a sphere
+    # around their content-category node; subtopics cluster around their topic. Structural only: no
+    # deck path (mastery rolls UP from the category decks at render time — never fabricated per topic).
+    topics = tax.get("topics", []) or []
+    node_by_id = {n["id"]: n for n in nodes}
+    for kind, radius in (("topic", TOPIC_RADIUS), ("subtopic", SUBTOPIC_RADIUS)):
+        by_parent: dict[str, list] = {}
+        for t in topics:
+            if t.get("kind") == kind:
+                by_parent.setdefault(t["parent"], []).append(t)
+        for parent_id, sibs in by_parent.items():
+            p = node_by_id.get(parent_id)
+            if p is None:
+                raise ValueError(f"{kind} '{sibs[0]['id']}' references unknown parent '{parent_id}'")
+            shell = _shell_radius(radius, len(sibs))
+            for i, t in enumerate(sibs):
+                dx, dy, dz = _fib_sphere(i, len(sibs), shell)
+                node = {
+                    "id": t["id"], "label": t["name"], "kind": kind, "parent": parent_id,
+                    "section": p["section"],  # inherit hue from the parent — always consistent
+                    "x": round(p["x"] + dx, 2), "y": round(p["y"] + dy, 2), "z": round(p["z"] + dz, 2),
+                }  # no deck path: topic/subtopic nodes are structural (mastery rolls up from category decks)
+                nodes.append(node)
+                node_by_id[t["id"]] = node
 
     edges: list[dict] = []
     for fc in fcs:
@@ -117,6 +184,16 @@ def build() -> dict:
         edges.append({"src": parent_id, "dst": leaf["leaf_id"], "kind": "contains"})
     edges += [{"src": a, "dst": b, "kind": "prerequisite"} for a, b in PREREQ_EDGES]
     edges += [{"src": a, "dst": b, "kind": "related"} for a, b in RELATED_EDGES]
+
+    # Additive topic layer: containment (parent -> child), the verified topic prerequisite DAG, and
+    # topic `related` links. Rationale/confidence live in the taxonomy YAML (provenance) but are NOT
+    # emitted to the sidecar — the render only needs src/dst/kind, keeping the artifact lean.
+    for t in topics:
+        edges.append({"src": t["parent"], "dst": t["id"], "kind": "contains"})
+    for e in (tax.get("topic_prerequisites", []) or []):
+        edges.append({"src": e["src"], "dst": e["dst"], "kind": "prerequisite"})
+    for e in (tax.get("topic_related", []) or []):
+        edges.append({"src": e["a"], "dst": e["b"], "kind": "related"})
 
     sidecar = {
         "version": 1,

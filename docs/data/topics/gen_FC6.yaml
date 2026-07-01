@@ -1,0 +1,241 @@
+# charged_up / Nexus knowledge graph — topic layer for Foundational Concept FC6.
+# Section P-S (Psychological, Social, and Biological Foundations of Behavior).
+# Grounded in AAMC "What's on the MCAT Exam?" content outline (© 2020 AAMC).
+# Scope: PS.6A (Sensing), PS.6B (Making sense), PS.6C (Responding).
+fc: "FC6"
+section: "P-S"
+categories:
+  - id: "PS.6A"
+    name: "Sensing the environment"
+    topics:
+      - id: "PS.6A.T01"
+        name: "Sensation and Psychophysics"
+        subtopics:
+          - { id: "PS.6A.T01.S01", name: "Absolute Threshold" }
+          - { id: "PS.6A.T01.S02", name: "Difference Threshold and Weber's Law" }
+          - { id: "PS.6A.T01.S03", name: "Signal Detection Theory" }
+          - { id: "PS.6A.T01.S04", name: "Sensory Adaptation" }
+          - { id: "PS.6A.T01.S05", name: "Psychophysics" }
+      - id: "PS.6A.T02"
+        name: "Sensory Receptors and Transduction"
+        subtopics:
+          - { id: "PS.6A.T02.S01", name: "Sensory Transduction" }
+          - { id: "PS.6A.T02.S02", name: "Types of Sensory Receptors" }
+          - { id: "PS.6A.T02.S03", name: "Sensory Pathways" }
+      - id: "PS.6A.T03"
+        name: "Vision"
+        subtopics:
+          - { id: "PS.6A.T03.S01", name: "Structure and Function of the Eye" }
+          - { id: "PS.6A.T03.S02", name: "Visual Pathways in the Brain" }
+          - { id: "PS.6A.T03.S03", name: "Parallel Processing" }
+          - { id: "PS.6A.T03.S04", name: "Feature Detection" }
+      - id: "PS.6A.T04"
+        name: "Hearing"
+        subtopics:
+          - { id: "PS.6A.T04.S01", name: "Structure and Function of the Ear" }
+          - { id: "PS.6A.T04.S02", name: "Sensory Reception by Hair Cells" }
+          - { id: "PS.6A.T04.S03", name: "Auditory Pathways in the Brain" }
+      - id: "PS.6A.T05"
+        name: "Other Senses"
+        subtopics:
+          - { id: "PS.6A.T05.S01", name: "Somatosensation and Pain Perception" }
+          - { id: "PS.6A.T05.S02", name: "Taste" }
+          - { id: "PS.6A.T05.S03", name: "Olfaction" }
+          - { id: "PS.6A.T05.S04", name: "Pheromones" }
+          - { id: "PS.6A.T05.S05", name: "Kinesthetic Sense" }
+          - { id: "PS.6A.T05.S06", name: "Vestibular Sense" }
+      - id: "PS.6A.T06"
+        name: "Perception"
+        subtopics:
+          - { id: "PS.6A.T06.S01", name: "Bottom-Up and Top-Down Processing" }
+          - { id: "PS.6A.T06.S02", name: "Perceptual Organization" }
+          - { id: "PS.6A.T06.S03", name: "Gestalt Principles" }
+  - id: "PS.6B"
+    name: "Making sense of the environment"
+    topics:
+      - id: "PS.6B.T01"
+        name: "Consciousness"
+        subtopics:
+          - { id: "PS.6B.T01.S01", name: "Alertness and States of Consciousness" }
+          - { id: "PS.6B.T01.S02", name: "Sleep Stages and Cycles" }
+          - { id: "PS.6B.T01.S03", name: "Circadian Rhythms" }
+          - { id: "PS.6B.T01.S04", name: "Dreaming" }
+          - { id: "PS.6B.T01.S05", name: "Sleep-Wake Disorders" }
+          - { id: "PS.6B.T01.S06", name: "Hypnosis and Meditation" }
+          - { id: "PS.6B.T01.S07", name: "Consciousness-Altering Drugs" }
+          - { id: "PS.6B.T01.S08", name: "Drug Addiction and the Reward Pathway" }
+      - id: "PS.6B.T02"
+        name: "Attention"
+        subtopics:
+          - { id: "PS.6B.T02.S01", name: "Selective Attention" }
+          - { id: "PS.6B.T02.S02", name: "Divided Attention" }
+      - id: "PS.6B.T03"
+        name: "Memory Encoding and Storage"
+        subtopics:
+          - { id: "PS.6B.T03.S01", name: "Process of Encoding Information" }
+          - { id: "PS.6B.T03.S02", name: "Processes That Aid Encoding" }
+          - { id: "PS.6B.T03.S03", name: "Sensory Memory" }
+          - { id: "PS.6B.T03.S04", name: "Working and Short-Term Memory" }
+          - { id: "PS.6B.T03.S05", name: "Long-Term Memory" }
+          - { id: "PS.6B.T03.S06", name: "Semantic Networks and Spreading Activation" }
+      - id: "PS.6B.T04"
+        name: "Memory Retrieval"
+        subtopics:
+          - { id: "PS.6B.T04.S01", name: "Recall, Recognition, and Relearning" }
+          - { id: "PS.6B.T04.S02", name: "Retrieval Cues" }
+          - { id: "PS.6B.T04.S03", name: "Emotion and Memory Retrieval" }
+          - { id: "PS.6B.T04.S04", name: "Processes That Aid Retrieval" }
+      - id: "PS.6B.T05"
+        name: "Forgetting and Memory Dysfunction"
+        subtopics:
+          - { id: "PS.6B.T05.S01", name: "Decay" }
+          - { id: "PS.6B.T05.S02", name: "Interference" }
+          - { id: "PS.6B.T05.S03", name: "Aging and Memory" }
+          - { id: "PS.6B.T05.S04", name: "Memory Dysfunctions" }
+          - { id: "PS.6B.T05.S05", name: "Memory Construction and Source Monitoring" }
+      - id: "PS.6B.T06"
+        name: "Neural Basis of Memory and Learning"
+        subtopics:
+          - { id: "PS.6B.T06.S01", name: "Neural Plasticity" }
+          - { id: "PS.6B.T06.S02", name: "Long-Term Potentiation" }
+          - { id: "PS.6B.T06.S03", name: "Memory and Learning" }
+      - id: "PS.6B.T07"
+        name: "Cognition and Information Processing"
+        subtopics:
+          - { id: "PS.6B.T07.S01", name: "Information-Processing Model" }
+          - { id: "PS.6B.T07.S02", name: "Biological Factors That Affect Cognition" }
+      - id: "PS.6B.T08"
+        name: "Cognitive Development"
+        subtopics:
+          - { id: "PS.6B.T08.S01", name: "Piaget's Stages of Cognitive Development" }
+          - { id: "PS.6B.T08.S02", name: "Cognitive Changes in Late Adulthood" }
+          - { id: "PS.6B.T08.S03", name: "Role of Culture in Cognitive Development" }
+          - { id: "PS.6B.T08.S04", name: "Heredity and Environment in Cognition" }
+      - id: "PS.6B.T09"
+        name: "Problem Solving and Decision Making"
+        subtopics:
+          - { id: "PS.6B.T09.S01", name: "Types of Problem Solving" }
+          - { id: "PS.6B.T09.S02", name: "Approaches to Problem Solving" }
+          - { id: "PS.6B.T09.S03", name: "Barriers to Effective Problem Solving" }
+          - { id: "PS.6B.T09.S04", name: "Heuristics and Biases" }
+      - id: "PS.6B.T10"
+        name: "Intelligence"
+        subtopics:
+          - { id: "PS.6B.T10.S01", name: "Theories of Intelligence" }
+          - { id: "PS.6B.T10.S02", name: "Heredity and Environment in Intelligence" }
+          - { id: "PS.6B.T10.S03", name: "Variations in Intellectual Ability" }
+      - id: "PS.6B.T11"
+        name: "Language"
+        subtopics:
+          - { id: "PS.6B.T11.S01", name: "Theories of Language Development" }
+          - { id: "PS.6B.T11.S02", name: "Influence of Language on Cognition" }
+          - { id: "PS.6B.T11.S03", name: "Brain Areas That Control Language and Speech" }
+  - id: "PS.6C"
+    name: "Responding to the world"
+    topics:
+      - id: "PS.6C.T01"
+        name: "Components and Types of Emotion"
+        subtopics:
+          - { id: "PS.6C.T01.S01", name: "Three Components of Emotion" }
+          - { id: "PS.6C.T01.S02", name: "Universal Emotions" }
+          - { id: "PS.6C.T01.S03", name: "Adaptive Role of Emotion" }
+      - id: "PS.6C.T02"
+        name: "Theories of Emotion"
+        subtopics:
+          - { id: "PS.6C.T02.S01", name: "James-Lange Theory" }
+          - { id: "PS.6C.T02.S02", name: "Cannon-Bard Theory" }
+          - { id: "PS.6C.T02.S03", name: "Schachter-Singer Theory" }
+      - id: "PS.6C.T03"
+        name: "Biological Basis of Emotion"
+        subtopics:
+          - { id: "PS.6C.T03.S01", name: "Brain Regions Involved in Emotion" }
+          - { id: "PS.6C.T03.S02", name: "The Limbic System and Emotion" }
+          - { id: "PS.6C.T03.S03", name: "Emotion and the Autonomic Nervous System" }
+          - { id: "PS.6C.T03.S04", name: "Physiological Markers of Emotion" }
+      - id: "PS.6C.T04"
+        name: "The Nature of Stress"
+        subtopics:
+          - { id: "PS.6C.T04.S01", name: "Cognitive Appraisal of Stress" }
+          - { id: "PS.6C.T04.S02", name: "Types of Stressors" }
+          - { id: "PS.6C.T04.S03", name: "Effects of Stress on Psychological Functions" }
+      - id: "PS.6C.T05"
+        name: "Stress Responses and Management"
+        subtopics:
+          - { id: "PS.6C.T05.S01", name: "Physiological Stress Response" }
+          - { id: "PS.6C.T05.S02", name: "General Adaptation Syndrome" }
+          - { id: "PS.6C.T05.S03", name: "Emotional and Behavioral Responses to Stress" }
+          - { id: "PS.6C.T05.S04", name: "Managing Stress" }
+
+prerequisites:
+  # --- Within PS.6A: transduction -> specific senses -> perception ---
+  - { src: "PS.6A.T02.S01", dst: "PS.6A.T02.S03", rationale: "Signals must be transduced before traveling sensory pathways", confidence: "high" }
+  - { src: "PS.6A.T02", dst: "PS.6A.T03", rationale: "Vision is a specialized instance of sensory transduction", confidence: "high" }
+  - { src: "PS.6A.T02", dst: "PS.6A.T04", rationale: "Hearing is a specialized instance of sensory transduction", confidence: "high" }
+  - { src: "PS.6A.T02", dst: "PS.6A.T05", rationale: "The other senses are specialized instances of transduction", confidence: "high" }
+  - { src: "PS.6A.T03.S01", dst: "PS.6A.T03.S02", rationale: "Eye anatomy precedes central visual pathways", confidence: "high" }
+  - { src: "PS.6A.T03.S02", dst: "PS.6A.T03.S03", rationale: "Parallel processing occurs along visual pathways", confidence: "high" }
+  - { src: "PS.6A.T03.S02", dst: "PS.6A.T03.S04", rationale: "Feature detection occurs in visual cortical pathways", confidence: "high" }
+  - { src: "PS.6A.T04.S01", dst: "PS.6A.T04.S02", rationale: "Ear anatomy precedes hair-cell mechanotransduction", confidence: "high" }
+  - { src: "PS.6A.T04.S02", dst: "PS.6A.T04.S03", rationale: "Hair-cell signals feed central auditory pathways", confidence: "high" }
+  - { src: "PS.6A.T01", dst: "PS.6A.T06", rationale: "Perception builds on basic sensation and detection", confidence: "high" }
+  - { src: "PS.6A.T03", dst: "PS.6A.T06", rationale: "Perceptual organization is largely studied in vision", confidence: "high" }
+  - { src: "PS.6A.T04", dst: "PS.6A.T06", rationale: "Auditory scene analysis is a perceptual process", confidence: "medium" }
+  - { src: "PS.6A.T06.S01", dst: "PS.6A.T06.S02", rationale: "Top-down and bottom-up processing shape perceptual organization", confidence: "medium" }
+  - { src: "PS.6A.T06.S01", dst: "PS.6A.T06.S03", rationale: "Gestalt grouping reflects top-down organizing principles", confidence: "medium" }
+  # --- PS.6A -> PS.6B and within PS.6B ---
+  - { src: "PS.6A.T06", dst: "PS.6B.T02", rationale: "Attention selects among perceived inputs", confidence: "medium" }
+  - { src: "PS.6B.T01.S01", dst: "PS.6B.T02", rationale: "Alertness is required to deploy attention", confidence: "medium" }
+  - { src: "PS.6B.T02", dst: "PS.6B.T03", rationale: "Attention gates what information is encoded", confidence: "high" }
+  - { src: "PS.6B.T03.S01", dst: "PS.6B.T03.S02", rationale: "Encoding process precedes strategies that aid encoding", confidence: "medium" }
+  - { src: "PS.6B.T03.S03", dst: "PS.6B.T03.S04", rationale: "Sensory memory feeds working memory", confidence: "high" }
+  - { src: "PS.6B.T03.S04", dst: "PS.6B.T03.S05", rationale: "Working memory transfers to long-term storage", confidence: "high" }
+  - { src: "PS.6B.T01.S02", dst: "PS.6B.T03.S05", rationale: "Sleep consolidates long-term memories", confidence: "medium" }
+  - { src: "PS.6B.T03", dst: "PS.6B.T04", rationale: "Information must be stored before it can be retrieved", confidence: "high" }
+  - { src: "PS.6B.T04.S02", dst: "PS.6B.T04.S01", rationale: "Retrieval cues enable recall and recognition", confidence: "medium" }
+  - { src: "PS.6B.T03", dst: "PS.6B.T05", rationale: "Forgetting is a failure of stored or retrieved memory", confidence: "medium" }
+  - { src: "PS.6B.T06.S01", dst: "PS.6B.T06.S02", rationale: "Long-term potentiation is a form of neural plasticity", confidence: "high" }
+  - { src: "PS.6B.T06.S02", dst: "PS.6B.T06.S03", rationale: "LTP is the synaptic basis of memory and learning", confidence: "high" }
+  - { src: "PS.6B.T03", dst: "PS.6B.T06", rationale: "Neural mechanisms explain how memories are stored", confidence: "medium" }
+  - { src: "PS.6B.T03", dst: "PS.6B.T07", rationale: "Cognition operates on stored knowledge", confidence: "high" }
+  - { src: "PS.6B.T07", dst: "PS.6B.T09", rationale: "Problem solving and decision making are cognitive processes", confidence: "high" }
+  - { src: "PS.6B.T03.S04", dst: "PS.6B.T09", rationale: "Working memory supports reasoning and problem solving", confidence: "high" }
+  - { src: "PS.6B.T07", dst: "PS.6B.T08", rationale: "Cognitive development describes how cognition changes over life", confidence: "medium" }
+  - { src: "PS.6B.T07", dst: "PS.6B.T10", rationale: "Intelligence is measured cognitive ability", confidence: "medium" }
+  - { src: "PS.6B.T07", dst: "PS.6B.T11", rationale: "Language and cognition are mutually dependent processes", confidence: "medium" }
+  # --- PS.6B -> PS.6C and within PS.6C ---
+  - { src: "PS.6B.T07", dst: "PS.6C.T02.S03", rationale: "Two-factor theory requires cognitive appraisal of arousal", confidence: "medium" }
+  - { src: "PS.6C.T01", dst: "PS.6C.T02", rationale: "Theories explain the components of emotion", confidence: "high" }
+  - { src: "PS.6C.T01", dst: "PS.6C.T03", rationale: "Biological substrates underlie emotional experience", confidence: "medium" }
+  - { src: "PS.6C.T01", dst: "PS.6C.T04", rationale: "Stress involves emotional appraisal and response", confidence: "medium" }
+  - { src: "PS.6C.T04", dst: "PS.6C.T05", rationale: "Appraisal and stressors precede stress responses", confidence: "high" }
+  - { src: "PS.6B.T07", dst: "PS.6C.T04.S01", rationale: "Cognitive appraisal of stress is a cognitive process", confidence: "medium" }
+  - { src: "PS.6C.T04.S01", dst: "PS.6C.T04.S03", rationale: "Appraisal shapes stress's effect on psychological functions", confidence: "medium" }
+  - { src: "PS.6C.T05.S01", dst: "PS.6C.T05.S02", rationale: "General adaptation syndrome models the physiological response over time", confidence: "medium" }
+  - { src: "PS.6C.T03", dst: "PS.6C.T05.S01", rationale: "Emotion and stress share autonomic physiological pathways", confidence: "medium" }
+
+cross_prerequisites:
+  # --- INTO FC6 from nervous-system / endocrine biology (BB.3A) and sensory physics (CP.4D) ---
+  - { src_hint: "BB.3A: Nervous System", dst: "PS.6A.T02", rationale: "Sensory receptors and afferent neurons are nervous-system structures", confidence: "high" }
+  - { src_hint: "BB.3A: Central Nervous System", dst: "PS.6A.T03.S02", rationale: "Visual pathways project to CNS processing regions", confidence: "medium" }
+  - { src_hint: "BB.3A: Central Nervous System", dst: "PS.6B.T01.S01", rationale: "Arousal is regulated by the brainstem reticular activating system", confidence: "medium" }
+  - { src_hint: "BB.3A: Central Nervous System", dst: "PS.6B.T06.S01", rationale: "Neural plasticity is a property of CNS neurons and synapses", confidence: "high" }
+  - { src_hint: "BB.3A: Synaptic Transmission", dst: "PS.6B.T06.S02", rationale: "Long-term potentiation is a change in synaptic strength", confidence: "high" }
+  - { src_hint: "BB.3A: Nervous System", dst: "PS.6B.T01.S08", rationale: "The dopaminergic reward pathway is a neural circuit", confidence: "high" }
+  - { src_hint: "BB.3A: Nervous System", dst: "PS.6B.T07.S02", rationale: "Biological factors affecting cognition are neural in origin", confidence: "medium" }
+  - { src_hint: "BB.3A: Central Nervous System", dst: "PS.6B.T11.S03", rationale: "Broca's and Wernicke's areas are specific cortical regions", confidence: "high" }
+  - { src_hint: "BB.3A: Limbic System", dst: "PS.6C.T03.S02", rationale: "The limbic system, notably the amygdala, generates emotion", confidence: "high" }
+  - { src_hint: "BB.3A: Autonomic Nervous System", dst: "PS.6C.T03.S03", rationale: "Emotional arousal is mediated by the autonomic nervous system", confidence: "high" }
+  - { src_hint: "BB.3A: Nervous and Endocrine Systems", dst: "PS.6C.T05.S01", rationale: "Stress runs via the sympathetic nervous system and HPA axis", confidence: "high" }
+  - { src_hint: "CP.4D: Geometrical Optics", dst: "PS.6A.T03.S01", rationale: "Refraction by the lens explains image formation in the eye", confidence: "high" }
+  - { src_hint: "CP.4D: Sound", dst: "PS.6A.T04.S01", rationale: "Sound-wave physics underlies the mechanics of the ear", confidence: "high" }
+  # --- OUT OF FC6 into behavior/learning (FC7) ---
+  - { src: "PS.6B.T06.S03", dst_hint: "PS.7A: Learning", rationale: "Neural memory mechanisms underlie associative learning", confidence: "medium" }
+  - { src: "PS.6C.T01.S03", dst_hint: "PS.7A: Motivation", rationale: "Emotions play an adaptive, motivating role in behavior", confidence: "low" }
+
+related:
+  - { a: "PS.6A.T01.S03", b: "PS.6B.T09.S04", rationale: "Signal detection and heuristics both address decisions under uncertainty" }
+  - { a: "PS.6A.T05.S02", b: "PS.6A.T05.S03", rationale: "Taste and smell jointly produce flavor perception" }
+  - { a: "PS.6B.T05.S01", b: "PS.6B.T05.S02", rationale: "Decay and interference are competing theories of forgetting" }
+  - { a: "PS.6B.T11.S02", b: "PS.6B.T07.S01", rationale: "Linguistic relativity links language to cognition" }
+  - { a: "PS.6C.T02.S01", b: "PS.6C.T02.S02", rationale: "Cannon-Bard was formulated in response to James-Lange" }
+  - { a: "PS.6C.T03.S02", b: "PS.6B.T04.S03", rationale: "The limbic system modulates emotionally charged memory" }

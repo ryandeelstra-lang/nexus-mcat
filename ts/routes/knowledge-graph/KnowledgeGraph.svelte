@@ -135,13 +135,20 @@ unavailable (no open collection), the map still renders as un-lit structure — 
         aria-label="MCAT knowledge graph"
     ></svg>
 
+    {#if !backdrop}
+        <div class="kg-brand" aria-hidden="true">
+            <span class="kg-brand-mark">Nexus</span>
+            <span class="kg-brand-sub">the MCAT, mapped</span>
+        </div>
+    {/if}
+
     {#if !backdrop && crumb}
         <button class="kg-crumb" on:click={() => controller?.clearFocus()}>
-            ← All sections ·
+            ← Overview ·
             <strong>{crumb.label}</strong>
         </button>
     {:else if !backdrop}
-        <div class="kg-orbit-hint">drag to orbit · click a galaxy to zoom in</div>
+        <div class="kg-orbit-hint">drag to orbit · click to zoom in · click empty space to zoom out</div>
     {/if}
 
     {#if !backdrop}
@@ -225,7 +232,35 @@ unavailable (no open collection), the map still renders as un-lit structure — 
         transform: scale(1.45);
     }
 
-    // Breadcrumb (zoom-out) chip — top-left, shown while a section galaxy is focused.
+    // Product wordmark — a quiet, premium top-center mark. The graph IS the product ("Nexus").
+    .kg-brand {
+        position: absolute;
+        top: 14px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1px;
+        pointer-events: none;
+        user-select: none;
+    }
+    .kg-brand-mark {
+        font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        font-weight: 700;
+        font-size: 17px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #1b1d2a;
+    }
+    .kg-brand-sub {
+        font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        font-size: 10.5px;
+        letter-spacing: 0.06em;
+        color: rgba(27, 29, 42, 0.42);
+    }
+
+    // Breadcrumb (zoom-out) chip — top-left, shown while a node is focused (drilled in).
     .kg-crumb {
         position: absolute;
         top: 16px;

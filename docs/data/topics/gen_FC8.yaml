@@ -1,0 +1,216 @@
+# Topic layer for Foundational Concept FC8 (P-S) — Content Categories PS.8A "Self-identity",
+# PS.8B "Social thinking", PS.8C "Social interactions".
+# Grounded in AAMC "What's on the MCAT Exam?" content outline (© 2020 AAMC).
+# 2-level scheme (topic -> subtopic): every AAMC outline leaf preserved as a subtopic; the
+# outline's ▪-level clusters promoted to sibling topics. Ordered foundational-first
+# (self-concept -> identity formation; attribution -> stereotype -> prejudice; status -> role -> group).
+# Discrimination lives only in 8C per the outline; prejudice (8B) is its within-FC prerequisite.
+fc: "FC8"
+section: "P-S"
+categories:
+  - id: "PS.8A"
+    name: "Self-identity"
+    topics:
+      - id: "PS.8A.T01"
+        name: "Self-Concept and Self-Identity"
+        subtopics:
+          - { id: "PS.8A.T01.S01", name: "Self-Concept" }
+          - { id: "PS.8A.T01.S02", name: "Self-Identity" }
+          - { id: "PS.8A.T01.S03", name: "Self-Schema" }
+          - { id: "PS.8A.T01.S04", name: "Identity Salience and Hierarchy" }
+      - id: "PS.8A.T02"
+        name: "Self-Esteem, Self-Efficacy, and Locus of Control"
+        subtopics:
+          - { id: "PS.8A.T02.S01", name: "Self-Esteem" }
+          - { id: "PS.8A.T02.S02", name: "Self-Efficacy" }
+          - { id: "PS.8A.T02.S03", name: "Locus of Control" }
+      - id: "PS.8A.T03"
+        name: "Types of Identity"
+        subtopics:
+          - { id: "PS.8A.T03.S01", name: "Racial and Ethnic Identity" }
+          - { id: "PS.8A.T03.S02", name: "Gender Identity" }
+          - { id: "PS.8A.T03.S03", name: "Age Identity" }
+          - { id: "PS.8A.T03.S04", name: "Sexual Orientation Identity" }
+          - { id: "PS.8A.T03.S05", name: "Class Identity" }
+      - id: "PS.8A.T04"
+        name: "Social Identity Theory"
+        subtopics:
+          - { id: "PS.8A.T04.S01", name: "Personal vs Social Identity" }
+          - { id: "PS.8A.T04.S02", name: "In-Group Favoritism and Self-Esteem" }
+      - id: "PS.8A.T05"
+        name: "Influence of Individuals on Identity Formation"
+        subtopics:
+          - { id: "PS.8A.T05.S01", name: "Cooley's Looking-Glass Self" }
+          - { id: "PS.8A.T05.S02", name: "Imitation and Role-Taking" }
+          - { id: "PS.8A.T05.S03", name: "Mead's I and Me" }
+          - { id: "PS.8A.T05.S04", name: "Mead's Generalized Other" }
+          - { id: "PS.8A.T05.S05", name: "Mead's Stages of Self-Development" }
+      - id: "PS.8A.T06"
+        name: "Group, Culture, and Socialization Influences"
+        subtopics:
+          - { id: "PS.8A.T06.S01", name: "Reference Groups" }
+          - { id: "PS.8A.T06.S02", name: "Socialization and Identity" }
+          - { id: "PS.8A.T06.S03", name: "Cultural Influence on Identity" }
+      - id: "PS.8A.T07"
+        name: "Theories of Identity Development"
+        subtopics:
+          - { id: "PS.8A.T07.S01", name: "Freud's Psychosexual Development" }
+          - { id: "PS.8A.T07.S02", name: "Erikson's Psychosocial Development" }
+          - { id: "PS.8A.T07.S03", name: "Kohlberg's Moral Development" }
+          - { id: "PS.8A.T07.S04", name: "Gilligan's Care-Based Moral Reasoning" }
+          - { id: "PS.8A.T07.S05", name: "Vygotsky's Sociocultural Development" }
+  - id: "PS.8B"
+    name: "Social thinking"
+    topics:
+      - id: "PS.8B.T01"
+        name: "Attribution Theory"
+        subtopics:
+          - { id: "PS.8B.T01.S01", name: "Dispositional Attribution" }
+          - { id: "PS.8B.T01.S02", name: "Situational Attribution" }
+          - { id: "PS.8B.T01.S03", name: "Correspondent Inference Theory" }
+          - { id: "PS.8B.T01.S04", name: "Role of Culture in Attribution" }
+      - id: "PS.8B.T02"
+        name: "Attributional Biases"
+        subtopics:
+          - { id: "PS.8B.T02.S01", name: "Fundamental Attribution Error" }
+          - { id: "PS.8B.T02.S02", name: "Actor-Observer Bias" }
+          - { id: "PS.8B.T02.S03", name: "Self-Serving Bias" }
+          - { id: "PS.8B.T02.S04", name: "Just-World Hypothesis" }
+      - id: "PS.8B.T03"
+        name: "Social Perception of Others"
+        subtopics:
+          - { id: "PS.8B.T03.S01", name: "Self-Perception and Perception of Others" }
+          - { id: "PS.8B.T03.S02", name: "Environmental Influences on Perception" }
+          - { id: "PS.8B.T03.S03", name: "Halo Effect" }
+      - id: "PS.8B.T04"
+        name: "Stereotypes"
+        subtopics:
+          - { id: "PS.8B.T04.S01", name: "Nature of Stereotypes" }
+          - { id: "PS.8B.T04.S02", name: "Cognitive Basis of Stereotyping" }
+      - id: "PS.8B.T05"
+        name: "Processes Related to Stereotypes"
+        subtopics:
+          - { id: "PS.8B.T05.S01", name: "Self-Fulfilling Prophecy" }
+          - { id: "PS.8B.T05.S02", name: "Stereotype Threat" }
+      - id: "PS.8B.T06"
+        name: "Prejudice, Stigma, and Bias"
+        subtopics:
+          - { id: "PS.8B.T06.S01", name: "Nature of Prejudice" }
+          - { id: "PS.8B.T06.S02", name: "Role of Emotion in Prejudice" }
+          - { id: "PS.8B.T06.S03", name: "Role of Cognition in Prejudice" }
+          - { id: "PS.8B.T06.S04", name: "Power, Prestige, and Class in Prejudice" }
+          - { id: "PS.8B.T06.S05", name: "Stigma" }
+      - id: "PS.8B.T07"
+        name: "Ethnocentrism and Cultural Relativism"
+        subtopics:
+          - { id: "PS.8B.T07.S01", name: "Ethnocentrism" }
+          - { id: "PS.8B.T07.S02", name: "Cultural Relativism" }
+  - id: "PS.8C"
+    name: "Social interactions"
+    topics:
+      - id: "PS.8C.T01"
+        name: "Status"
+        subtopics:
+          - { id: "PS.8C.T01.S01", name: "Ascribed Status" }
+          - { id: "PS.8C.T01.S02", name: "Achieved Status" }
+          - { id: "PS.8C.T01.S03", name: "Master Status" }
+      - id: "PS.8C.T02"
+        name: "Roles"
+        subtopics:
+          - { id: "PS.8C.T02.S01", name: "Social Roles" }
+          - { id: "PS.8C.T02.S02", name: "Role Conflict" }
+          - { id: "PS.8C.T02.S03", name: "Role Strain" }
+          - { id: "PS.8C.T02.S04", name: "Role Exit" }
+      - id: "PS.8C.T03"
+        name: "Groups and Networks"
+        subtopics:
+          - { id: "PS.8C.T03.S01", name: "Primary and Secondary Groups" }
+          - { id: "PS.8C.T03.S02", name: "In-Group vs Out-Group" }
+          - { id: "PS.8C.T03.S03", name: "Group Size (Dyads and Triads)" }
+          - { id: "PS.8C.T03.S04", name: "Social Networks" }
+      - id: "PS.8C.T04"
+        name: "Organizations and Bureaucracy"
+        subtopics:
+          - { id: "PS.8C.T04.S01", name: "Formal Organizations" }
+          - { id: "PS.8C.T04.S02", name: "Characteristics of Ideal Bureaucracy" }
+          - { id: "PS.8C.T04.S03", name: "Iron Law of Oligarchy" }
+          - { id: "PS.8C.T04.S04", name: "McDonaldization" }
+      - id: "PS.8C.T05"
+        name: "Communication"
+        subtopics:
+          - { id: "PS.8C.T05.S01", name: "Verbal Communication" }
+          - { id: "PS.8C.T05.S02", name: "Nonverbal Communication" }
+          - { id: "PS.8C.T05.S03", name: "Animal Signals and Communication" }
+      - id: "PS.8C.T06"
+        name: "Expressing and Detecting Emotion"
+        subtopics:
+          - { id: "PS.8C.T06.S01", name: "Universality of Emotional Expression" }
+          - { id: "PS.8C.T06.S02", name: "Role of Gender in Emotional Expression" }
+          - { id: "PS.8C.T06.S03", name: "Role of Culture in Emotional Expression" }
+      - id: "PS.8C.T07"
+        name: "Presentation of Self"
+        subtopics:
+          - { id: "PS.8C.T07.S01", name: "Impression Management" }
+          - { id: "PS.8C.T07.S02", name: "Dramaturgical Approach (Front vs Back Stage)" }
+      - id: "PS.8C.T08"
+        name: "Social Behavior"
+        subtopics:
+          - { id: "PS.8C.T08.S01", name: "Attraction" }
+          - { id: "PS.8C.T08.S02", name: "Aggression" }
+          - { id: "PS.8C.T08.S03", name: "Attachment" }
+          - { id: "PS.8C.T08.S04", name: "Altruism" }
+          - { id: "PS.8C.T08.S05", name: "Social Support" }
+      - id: "PS.8C.T09"
+        name: "Biological Explanations of Social Behavior"
+        subtopics:
+          - { id: "PS.8C.T09.S01", name: "Foraging Behavior" }
+          - { id: "PS.8C.T09.S02", name: "Mating Behavior and Mate Choice" }
+          - { id: "PS.8C.T09.S03", name: "Game Theory" }
+          - { id: "PS.8C.T09.S04", name: "Inclusive Fitness and Altruism" }
+      - id: "PS.8C.T10"
+        name: "Discrimination"
+        subtopics:
+          - { id: "PS.8C.T10.S01", name: "Individual vs Institutional Discrimination" }
+          - { id: "PS.8C.T10.S02", name: "Prejudice and Discrimination Relationship" }
+          - { id: "PS.8C.T10.S03", name: "Power, Prestige, and Class in Discrimination" }
+prerequisites:
+  # 8A — self-concept is the atom the rest of self-identity builds on
+  - { src: "PS.8A.T01", dst: "PS.8A.T02", rationale: "Self-concept precedes evaluating self-esteem and efficacy", confidence: "high" }
+  - { src: "PS.8A.T01", dst: "PS.8A.T03", rationale: "Self-identity framing precedes specific identity types", confidence: "high" }
+  - { src: "PS.8A.T01", dst: "PS.8A.T04", rationale: "Self-concept underlies personal vs social identity", confidence: "high" }
+  - { src: "PS.8A.T01", dst: "PS.8A.T05", rationale: "Must grasp self-concept before theories of its formation", confidence: "high" }
+  - { src: "PS.8A.T01", dst: "PS.8A.T07", rationale: "Self-identity framing precedes developmental theories", confidence: "medium" }
+  - { src: "PS.8A.T03", dst: "PS.8A.T04", rationale: "Race, gender, class identities are bases of social identity", confidence: "medium" }
+  - { src: "PS.8A.T05", dst: "PS.8A.T06", rationale: "Individual influences precede group and cultural ones", confidence: "medium" }
+  - { src: "PS.8A.T04.S01", dst: "PS.8A.T04.S02", rationale: "Personal vs social identity precedes in-group favoritism", confidence: "high" }
+  - { src: "PS.8A.T07.S01", dst: "PS.8A.T07.S02", rationale: "Erikson extended Freud's stages psychosocially", confidence: "high" }
+  - { src: "PS.8A.T07.S03", dst: "PS.8A.T07.S04", rationale: "Gilligan critiqued and built on Kohlberg's model", confidence: "high" }
+  # 8B — attribution -> biases; stereotype (cognitive) -> prejudice (affective)
+  - { src: "PS.8B.T01", dst: "PS.8B.T02", rationale: "Normative attribution precedes systematic attribution errors", confidence: "high" }
+  - { src: "PS.8B.T01", dst: "PS.8B.T03", rationale: "Attribution shapes how we perceive other people", confidence: "medium" }
+  - { src: "PS.8B.T04", dst: "PS.8B.T05", rationale: "Stereotype concept precedes stereotype-driven processes", confidence: "high" }
+  - { src: "PS.8B.T04", dst: "PS.8B.T06", rationale: "Stereotypes (cognitive) underlie prejudice (affective)", confidence: "high" }
+  - { src: "PS.8B.T06", dst: "PS.8B.T07", rationale: "Prejudice underlies ethnocentric in-group bias", confidence: "medium" }
+  # 8C — status carries roles; groups precede organizations; behavior precedes its biology
+  - { src: "PS.8C.T01", dst: "PS.8C.T02", rationale: "Statuses carry the roles people enact", confidence: "high" }
+  - { src: "PS.8C.T03", dst: "PS.8C.T04", rationale: "Organizations are large formal groups", confidence: "high" }
+  - { src: "PS.8C.T05", dst: "PS.8C.T06", rationale: "Communication underlies emotional expression and detection", confidence: "medium" }
+  - { src: "PS.8C.T06", dst: "PS.8C.T07", rationale: "Managing emotional display underlies self-presentation", confidence: "medium" }
+  - { src: "PS.8C.T08", dst: "PS.8C.T09", rationale: "Define social behaviors before their biological explanations", confidence: "high" }
+  - { src: "PS.8C.T08.S04", dst: "PS.8C.T09.S04", rationale: "Altruism concept precedes inclusive-fitness explanation", confidence: "high" }
+  # Cross-category within FC8
+  - { src: "PS.8B.T06", dst: "PS.8C.T10", rationale: "Prejudice (attitude) precedes discrimination (behavior)", confidence: "high" }
+  - { src: "PS.8A.T04", dst: "PS.8B.T07", rationale: "Social identity and in-group bias underlie ethnocentrism", confidence: "medium" }
+cross_prerequisites:
+  # FC8 depends on FC7 attitudes and FC6 cognition/emotion. Far end = hint; owned end = exact FC8 id.
+  - { src_hint: "PS.7A: Attitudes", dst: "PS.8B.T06", rationale: "Prejudice is a negative attitude toward a group", confidence: "high" }
+  - { src_hint: "PS.7A: Attitudes", dst: "PS.8B.T07", rationale: "Ethnocentrism is an attitude favoring one's own culture", confidence: "medium" }
+  - { src_hint: "PS.6B: Cognition", dst: "PS.8B.T01", rationale: "Attribution is causal cognition about behavior", confidence: "high" }
+  - { src_hint: "PS.6B: Cognition", dst: "PS.8B.T04", rationale: "Stereotypes are schemas applied to social groups", confidence: "high" }
+  - { src_hint: "PS.6B: Cognition", dst: "PS.8A.T01", rationale: "Self-schema is a cognitive structure about the self", confidence: "medium" }
+  - { src_hint: "PS.6C: Emotion", dst: "PS.8C.T06", rationale: "Understanding emotion precedes its expression and detection", confidence: "high" }
+related:
+  - { a: "PS.8A.T04", b: "PS.8C.T03", rationale: "Social identity drives in-group/out-group group dynamics" }
+  - { a: "PS.8A.T02", b: "PS.8B.T02", rationale: "Self-serving bias protects self-esteem" }
+  - { a: "PS.8A.T05", b: "PS.8C.T07", rationale: "Looking-glass self parallels impression management" }
+  - { a: "PS.8C.T08.S01", b: "PS.8C.T08.S03", rationale: "Attraction and attachment shape close relationships" }

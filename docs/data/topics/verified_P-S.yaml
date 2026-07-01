@@ -1,0 +1,40 @@
+section: "P-S"
+
+# Independent consensus verification of the P-S (Psychological, Social, and Biological
+# Foundations of Behavior) prerequisite edges. Endpoints are EXACT ids from mcat_topics.yaml.
+# Every dst below is a PS.* id (this section's scope). Conservative on drops; the value-add is
+# the missing cross-domain B-B(physiology) -> P-S(behavior) links and the within-P-S progression.
+
+drop:
+  # All three are mis-sourced under the current taxonomy: BB.3A.T07 is now "Autonomic Nervous
+  # System," which is not a prerequisite for the CNS/cortical/synaptic targets below. Their
+  # rationales describe CNS/cortex/synaptic mechanisms, not autonomic function. Repaired by adds.
+  - { src: "BB.3A.T07", dst: "PS.6B.T11.S03", reason: "not a real prereq — the Autonomic Nervous System does not underlie Broca's/Wernicke's cortical language areas; sourced correctly from PS.7A.T01.S06 (cortical lateralization) in add" }
+  - { src: "BB.3A.T07", dst: "PS.6B.T06.S01", reason: "not a real prereq — neural plasticity is a synaptic (not autonomic) property; re-sourced from BB.3A.T05 (Synaptic Transmission) in add" }
+  - { src: "BB.3A.T07", dst: "PS.6A.T03.S02", reason: "not a real prereq — the Autonomic Nervous System does not underlie central visual pathways; PS.6A.T03.S01 (eye anatomy) already grounds this dst" }
+
+add:
+  # ---- Cross-domain: B-B nervous/endocrine physiology -> P-S biological bases of behavior (7A) ----
+  - { src: "BB.3A.T02", dst: "PS.7A.T01.S01", rationale: "Neuron structure and glia are the biological substrate for the behavioral treatment of neurons and the reflex arc", confidence: "high" }
+  - { src: "BB.3A.T05", dst: "PS.7A.T01.S02", rationale: "Synaptic transmission (neurotransmitter release/receptors) underlies neurotransmitters-and-behavior", confidence: "high" }
+  - { src: "BB.3A.T01", dst: "PS.7A.T01.S03", rationale: "Nervous-system organization (CNS/PNS, somatic vs autonomic divisions) grounds the peripheral nervous system in behavior", confidence: "high" }
+  - { src: "BB.3A.T05", dst: "PS.7A.T08.S01", rationale: "Neurotransmitter/receptor biology underlies the dopamine dysregulation of schizophrenia", confidence: "medium" }
+  - { src: "BB.3A.T05", dst: "PS.7A.T08.S02", rationale: "Neurotransmitter/receptor biology underlies the monoamine account of depression", confidence: "medium" }
+  - { src: "BB.3A.T08", dst: "PS.7A.T02.S01", rationale: "Endocrine glands and hormones are the biology behind the components of the endocrine system", confidence: "high" }
+  - { src: "BB.3A.T09", dst: "PS.7A.T02.S02", rationale: "Mechanisms of hormone action explain how the endocrine system exerts effects on behavior", confidence: "medium" }
+  # ---- Cross-domain: B-B nervous/endocrine physiology -> P-S emotion & stress (6C), learning (6B) ----
+  - { src: "BB.3A.T10", dst: "PS.6C.T05.S01", rationale: "The hypothalamic-pituitary-adrenal (neuroendocrine) axis is the slow arm of the physiological stress response", confidence: "high" }
+  - { src: "BB.3A.T07", dst: "PS.6C.T05.S01", rationale: "Sympathetic (autonomic) fight-or-flight activation is the fast arm of the physiological stress response", confidence: "high" }
+  - { src: "BB.3A.T05", dst: "PS.6B.T06.S01", rationale: "Neural plasticity is a change in synaptic strength, grounded in synaptic transmission (repairs the dropped autonomic edge)", confidence: "high" }
+  # ---- Within-P-S progression / cross-category links a single-scope generator missed ----
+  - { src: "PS.7A.T01.S06", dst: "PS.6B.T11.S03", rationale: "Lateralization of cortical functions grounds the localization of language/speech areas (Broca/Wernicke)", confidence: "high" }
+  - { src: "PS.7A.T01.S04", dst: "PS.6C.T03.S01", rationale: "Knowledge of CNS/brain structure precedes the specific brain regions involved in emotion", confidence: "medium" }
+  - { src: "PS.7A.T09.S01", dst: "PS.7B.T01.S01", rationale: "Individual arousal (motivation) is the mechanism behind social facilitation — individual behavior underlies social process", confidence: "medium" }
+  - { src: "PS.8A.T04.S02", dst: "PS.8B.T06.S01", rationale: "In-group favoritism from social identity is a foundational driver of prejudice — self-identity underlies social thinking", confidence: "medium" }
+  # ---- Social structure (9A) + demographics (9B) -> social inequality (10A) ----
+  - { src: "PS.9B.T03", dst: "PS.10A.T05.S02", rationale: "Understanding race and ethnicity as a demographic dimension precedes racial/ethnic health disparities", confidence: "high" }
+  - { src: "PS.9B.T02", dst: "PS.10A.T05.S03", rationale: "Understanding gender as a demographic dimension precedes gender-based health disparities", confidence: "high" }
+  - { src: "PS.9B.T03", dst: "PS.10A.T04.S01", rationale: "Race/ethnicity as a demographic dimension underlies racialized residential segregation", confidence: "medium" }
+  - { src: "PS.9A.T07", dst: "PS.10A.T06.S01", rationale: "The health-and-medicine institution frames the uneven distribution and quality of care", confidence: "medium" }
+
+topics_flag: []

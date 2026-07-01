@@ -17,8 +17,8 @@ export interface SidecarNode {
     x: number;
     y: number;
     z: number;
-    /** Deck path (e.g. "MCAT::B-B::1A") for leaf nodes; null for section/fc. */
-    path: string | null;
+    /** Deck path (e.g. "MCAT::B-B::1A") for content-category / CARS leaves; absent for section/fc/topics. */
+    path?: string | null;
 }
 
 export interface SidecarEdge {
@@ -55,6 +55,8 @@ export const KIND_RADIUS: Record<string, number> = {
     fc: 9,
     category: 6,
     cars: 6,
+    topic: 3.4,
+    subtopic: 2,
 };
 
 const WIDTH = 1000;
@@ -164,15 +166,19 @@ export function renderGraph(
     // The earned-light bloom filters (shared with the 3D engine).
     buildGlowDefs(svg);
 
-    const xs = sidecar.nodes.map((n) => n.x);
-    const ys = sidecar.nodes.map((n) => n.y);
-    const zs = sidecar.nodes.map((n) => n.z);
+    // The 2D / backdrop path draws only the SPINE (sections → FCs → categories/CARS). The dense topic
+    // layer belongs to the interactive 3D view's semantic zoom; behind study screens it would be noise.
+    const spine = sidecar.nodes.filter((n) => n.kind !== "topic" && n.kind !== "subtopic");
+
+    const xs = spine.map((n) => n.x);
+    const ys = spine.map((n) => n.y);
+    const zs = spine.map((n) => n.z);
     const sx = scaleLinear().domain([min(xs) ?? 0, max(xs) ?? 1]).range([70, WIDTH - 70]);
     const sy = scaleLinear().domain([min(ys) ?? 0, max(ys) ?? 1]).range([70, HEIGHT - 70]);
     const zmin = min(zs) ?? 0;
     const zmax = max(zs) ?? 1;
     const depth = (z: number): number => (zmax > zmin ? (z - zmin) / (zmax - zmin) : 0.5); // 0 far .. 1 near
-    const pos = new Map(sidecar.nodes.map((n) => [n.id, { x: sx(n.x), y: sy(n.y) }]));
+    const pos = new Map(spine.map((n) => [n.id, { x: sx(n.x), y: sy(n.y) }]));
     const xy = (id: string): { x: number; y: number } => pos.get(id) ?? { x: 0, y: 0 };
     const lit = (n: SidecarNode): boolean => {
         const m = mastery[n.id];
@@ -196,7 +202,7 @@ export function renderGraph(
         .attr("stroke-linecap", "round");
 
     // Nodes, painted far -> near so nearer (higher-z) nodes sit on top.
-    const ordered = [...sidecar.nodes].sort((a, b) => a.z - b.z);
+    const ordered = [...spine].sort((a, b) => a.z - b.z);
     const nodes = root.append("g").attr("class", "kg-nodes");
     const g = nodes
         .selectAll("g")

@@ -1,0 +1,340 @@
+fc: "FC4"
+section: "C-P"
+categories:
+  - id: "CP.4A"
+    name: "Translational motion, forces, work, energy, and equilibrium in living systems"
+    topics:
+      - id: "CP.4A.T01"
+        name: "Translational Motion"
+        subtopics:
+          - { id: "CP.4A.T01.S01", name: "Units and Dimensions" }
+          - { id: "CP.4A.T01.S02", name: "Vectors and Components" }
+          - { id: "CP.4A.T01.S03", name: "Vector Addition" }
+          - { id: "CP.4A.T01.S04", name: "Speed and Velocity" }
+          - { id: "CP.4A.T01.S05", name: "Acceleration" }
+      - id: "CP.4A.T02"
+        name: "Force"
+        subtopics:
+          - { id: "CP.4A.T02.S01", name: "Newton's First Law and Inertia" }
+          - { id: "CP.4A.T02.S02", name: "Newton's Second Law" }
+          - { id: "CP.4A.T02.S03", name: "Newton's Third Law" }
+          - { id: "CP.4A.T02.S04", name: "Static and Kinetic Friction" }
+          - { id: "CP.4A.T02.S05", name: "Center of Mass" }
+      - id: "CP.4A.T03"
+        name: "Equilibrium"
+        subtopics:
+          - { id: "CP.4A.T03.S01", name: "Vector Analysis of Forces on a Point Object" }
+          - { id: "CP.4A.T03.S02", name: "Torque and Lever Arms" }
+      - id: "CP.4A.T04"
+        name: "Work"
+        subtopics:
+          - { id: "CP.4A.T04.S01", name: "Work Done by a Constant Force" }
+          - { id: "CP.4A.T04.S02", name: "Mechanical Advantage" }
+          - { id: "CP.4A.T04.S03", name: "Work-Energy Theorem" }
+          - { id: "CP.4A.T04.S04", name: "Conservative Forces" }
+      - id: "CP.4A.T05"
+        name: "Energy of Point Object Systems"
+        subtopics:
+          - { id: "CP.4A.T05.S01", name: "Kinetic Energy" }
+          - { id: "CP.4A.T05.S02", name: "Gravitational Potential Energy" }
+          - { id: "CP.4A.T05.S03", name: "Spring Potential Energy" }
+          - { id: "CP.4A.T05.S04", name: "Conservation of Energy" }
+          - { id: "CP.4A.T05.S05", name: "Power" }
+      - id: "CP.4A.T06"
+        name: "Momentum"
+        subtopics:
+          - { id: "CP.4A.T06.S01", name: "Momentum and Impulse" }
+          - { id: "CP.4A.T06.S02", name: "Conservation of Linear Momentum" }
+          - { id: "CP.4A.T06.S03", name: "Elastic and Inelastic Collisions" }
+      - id: "CP.4A.T07"
+        name: "Periodic Motion"
+        subtopics:
+          - { id: "CP.4A.T07.S01", name: "Amplitude, Frequency, and Phase" }
+          - { id: "CP.4A.T07.S02", name: "Transverse and Longitudinal Waves" }
+          - { id: "CP.4A.T07.S03", name: "Wavelength and Propagation Speed" }
+
+  - id: "CP.4B"
+    name: "Importance of fluids for the circulation of blood, gas movement, and gas exchange"
+    topics:
+      - id: "CP.4B.T01"
+        name: "Fluids"
+        subtopics:
+          - { id: "CP.4B.T01.S01", name: "Density and Specific Gravity" }
+          - { id: "CP.4B.T01.S02", name: "Buoyancy and Archimedes' Principle" }
+          - { id: "CP.4B.T01.S03", name: "Hydrostatic Pressure and Pascal's Law" }
+          - { id: "CP.4B.T01.S04", name: "Viscosity and Poiseuille Flow" }
+          - { id: "CP.4B.T01.S05", name: "Continuity Equation" }
+          - { id: "CP.4B.T01.S06", name: "Turbulence at High Velocities" }
+          - { id: "CP.4B.T01.S07", name: "Surface Tension" }
+          - { id: "CP.4B.T01.S08", name: "Bernoulli's Equation" }
+          - { id: "CP.4B.T01.S09", name: "Venturi Effect and Pitot Tube" }
+      - id: "CP.4B.T02"
+        name: "Gas Phase"
+        subtopics:
+          - { id: "CP.4B.T02.S01", name: "Absolute Temperature and the Kelvin Scale" }
+          - { id: "CP.4B.T02.S02", name: "Pressure and the Mercury Barometer" }
+          - { id: "CP.4B.T02.S03", name: "Molar Volume at STP" }
+          - { id: "CP.4B.T02.S04", name: "Boyle's, Charles's, and Avogadro's Laws" }
+          - { id: "CP.4B.T02.S05", name: "Ideal Gas Law" }
+          - { id: "CP.4B.T02.S06", name: "Kinetic Molecular Theory of Gases" }
+          - { id: "CP.4B.T02.S07", name: "Deviation of Real Gases from Ideal Behavior" }
+          - { id: "CP.4B.T02.S08", name: "Partial Pressure and Mole Fraction" }
+          - { id: "CP.4B.T02.S09", name: "Dalton's Law of Partial Pressures" }
+      - id: "CP.4B.T03"
+        name: "Circulatory System"
+        subtopics:
+          - { id: "CP.4B.T03.S01", name: "Arterial and Venous Systems" }
+          - { id: "CP.4B.T03.S02", name: "Structural and Functional Differences" }
+          - { id: "CP.4B.T03.S03", name: "Pressure and Flow Characteristics" }
+          - { id: "CP.4B.T03.S04", name: "Capillary Beds" }
+          - { id: "CP.4B.T03.S05", name: "Gas and Solute Exchange" }
+          - { id: "CP.4B.T03.S06", name: "Heat Exchange and Peripheral Resistance" }
+
+  - id: "CP.4C"
+    name: "Electrochemistry and electrical circuits and their elements"
+    topics:
+      - id: "CP.4C.T01"
+        name: "Electrostatics"
+        subtopics:
+          - { id: "CP.4C.T01.S01", name: "Charge and Conservation of Charge" }
+          - { id: "CP.4C.T01.S02", name: "Conductors and Insulators" }
+          - { id: "CP.4C.T01.S03", name: "Coulomb's Law" }
+          - { id: "CP.4C.T01.S04", name: "Electric Field" }
+          - { id: "CP.4C.T01.S05", name: "Field Lines and Charge Distributions" }
+          - { id: "CP.4C.T01.S06", name: "Electric Potential and Potential Difference" }
+      - id: "CP.4C.T02"
+        name: "Circuit Elements"
+        subtopics:
+          - { id: "CP.4C.T02.S01", name: "Electric Current and Sign Conventions" }
+          - { id: "CP.4C.T02.S02", name: "Electromotive Force and Voltage" }
+          - { id: "CP.4C.T02.S03", name: "Resistance and Ohm's Law" }
+          - { id: "CP.4C.T02.S04", name: "Resistors in Series and Parallel" }
+          - { id: "CP.4C.T02.S05", name: "Resistivity" }
+          - { id: "CP.4C.T02.S06", name: "Capacitance and Dielectrics" }
+          - { id: "CP.4C.T02.S07", name: "Energy of a Charged Capacitor" }
+          - { id: "CP.4C.T02.S08", name: "Capacitors in Series and Parallel" }
+          - { id: "CP.4C.T02.S09", name: "Discharge of a Capacitor Through a Resistor" }
+          - { id: "CP.4C.T02.S10", name: "Conductivity and Meters" }
+      - id: "CP.4C.T03"
+        name: "Magnetism"
+        subtopics:
+          - { id: "CP.4C.T03.S01", name: "Magnetic Field" }
+          - { id: "CP.4C.T03.S02", name: "Lorentz Force on Moving Charges" }
+      - id: "CP.4C.T04"
+        name: "Electrochemistry"
+        subtopics:
+          - { id: "CP.4C.T04.S01", name: "Electrolytic Cells and Electrolysis" }
+          - { id: "CP.4C.T04.S02", name: "Anode, Cathode, and Electrolytes" }
+          - { id: "CP.4C.T04.S03", name: "Faraday's Law of Electrolysis" }
+          - { id: "CP.4C.T04.S04", name: "Galvanic (Voltaic) Cells and Half-Reactions" }
+          - { id: "CP.4C.T04.S05", name: "Reduction Potentials and Cell Potential" }
+          - { id: "CP.4C.T04.S06", name: "Direction of Electron Flow" }
+          - { id: "CP.4C.T04.S07", name: "Concentration Cells" }
+          - { id: "CP.4C.T04.S08", name: "Batteries" }
+      - id: "CP.4C.T05"
+        name: "Nerve Cell Electrical Properties"
+        subtopics:
+          - { id: "CP.4C.T05.S01", name: "Myelin Sheath and Schwann Cells" }
+          - { id: "CP.4C.T05.S02", name: "Nodes of Ranvier and Impulse Propagation" }
+
+  - id: "CP.4D"
+    name: "How light and sound interact with matter"
+    topics:
+      - id: "CP.4D.T01"
+        name: "Sound"
+        subtopics:
+          - { id: "CP.4D.T01.S01", name: "Production of Sound" }
+          - { id: "CP.4D.T01.S02", name: "Speed of Sound in Solids, Liquids, and Gases" }
+          - { id: "CP.4D.T01.S03", name: "Intensity and the Decibel Scale" }
+          - { id: "CP.4D.T01.S04", name: "Attenuation" }
+          - { id: "CP.4D.T01.S05", name: "Doppler Effect" }
+          - { id: "CP.4D.T01.S06", name: "Pitch" }
+          - { id: "CP.4D.T01.S07", name: "Resonance in Pipes and Strings" }
+          - { id: "CP.4D.T01.S08", name: "Ultrasound" }
+          - { id: "CP.4D.T01.S09", name: "Shock Waves" }
+      - id: "CP.4D.T02"
+        name: "Light and Electromagnetic Radiation"
+        subtopics:
+          - { id: "CP.4D.T02.S01", name: "Interference and Young's Double-Slit Experiment" }
+          - { id: "CP.4D.T02.S02", name: "Thin Films and Diffraction Gratings" }
+          - { id: "CP.4D.T02.S03", name: "Single-Slit and X-Ray Diffraction" }
+          - { id: "CP.4D.T02.S04", name: "Polarization of Light" }
+          - { id: "CP.4D.T02.S05", name: "Properties of Electromagnetic Radiation" }
+          - { id: "CP.4D.T02.S06", name: "Electromagnetic Spectrum and Photon Energy" }
+          - { id: "CP.4D.T02.S07", name: "Visible Spectrum and Color" }
+      - id: "CP.4D.T03"
+        name: "Geometrical Optics"
+        subtopics:
+          - { id: "CP.4D.T03.S01", name: "Reflection from Plane Surfaces" }
+          - { id: "CP.4D.T03.S02", name: "Refraction and Snell's Law" }
+          - { id: "CP.4D.T03.S03", name: "Dispersion" }
+          - { id: "CP.4D.T03.S04", name: "Total Internal Reflection" }
+          - { id: "CP.4D.T03.S05", name: "Spherical Mirrors" }
+          - { id: "CP.4D.T03.S06", name: "Thin Lenses and Diopters" }
+          - { id: "CP.4D.T03.S07", name: "Combination of Lenses" }
+          - { id: "CP.4D.T03.S08", name: "Lens Aberration" }
+          - { id: "CP.4D.T03.S09", name: "Optical Instruments and the Human Eye" }
+
+  - id: "CP.4E"
+    name: "Atoms, nuclear decay, electronic structure, and atomic chemical behavior"
+    topics:
+      - id: "CP.4E.T01"
+        name: "Atomic Nucleus"
+        subtopics:
+          - { id: "CP.4E.T01.S01", name: "Atomic Number and Atomic Weight" }
+          - { id: "CP.4E.T01.S02", name: "Neutrons, Protons, and Isotopes" }
+          - { id: "CP.4E.T01.S03", name: "Nuclear Forces and Binding Energy" }
+          - { id: "CP.4E.T01.S04", name: "Radioactive Decay (Alpha, Beta, Gamma)" }
+          - { id: "CP.4E.T01.S05", name: "Half-Life and Exponential Decay" }
+      - id: "CP.4E.T02"
+        name: "Electronic Structure"
+        subtopics:
+          - { id: "CP.4E.T02.S01", name: "Orbital Structure and Principal Quantum Number" }
+          - { id: "CP.4E.T02.S02", name: "Bohr Model and Planck's Relation" }
+          - { id: "CP.4E.T02.S03", name: "Ground and Excited States" }
+          - { id: "CP.4E.T02.S04", name: "Absorption and Emission Line Spectra" }
+          - { id: "CP.4E.T02.S05", name: "Pauli Exclusion Principle" }
+          - { id: "CP.4E.T02.S06", name: "Conventional Electron Configuration Notation" }
+          - { id: "CP.4E.T02.S07", name: "Paramagnetism and Diamagnetism" }
+          - { id: "CP.4E.T02.S08", name: "Effective Nuclear Charge" }
+          - { id: "CP.4E.T02.S09", name: "Photoelectric Effect" }
+      - id: "CP.4E.T03"
+        name: "Periodic Table Groups by Electronic Structure"
+        subtopics:
+          - { id: "CP.4E.T03.S01", name: "Groups and Electronic Structure" }
+          - { id: "CP.4E.T03.S02", name: "Alkali and Alkaline Earth Metals" }
+          - { id: "CP.4E.T03.S03", name: "Halogens and Noble Gases" }
+          - { id: "CP.4E.T03.S04", name: "Oxygen Group and Representative Elements" }
+          - { id: "CP.4E.T03.S05", name: "Transition Metals" }
+          - { id: "CP.4E.T03.S06", name: "Metals and Nonmetals" }
+      - id: "CP.4E.T04"
+        name: "Periodic Trends in Chemical Properties"
+        subtopics:
+          - { id: "CP.4E.T04.S01", name: "Valence Electrons" }
+          - { id: "CP.4E.T04.S02", name: "Ionization Energy" }
+          - { id: "CP.4E.T04.S03", name: "Electron Affinity" }
+          - { id: "CP.4E.T04.S04", name: "Electronegativity" }
+          - { id: "CP.4E.T04.S05", name: "Atomic and Ionic Radii" }
+      - id: "CP.4E.T05"
+        name: "Stoichiometry"
+        subtopics:
+          - { id: "CP.4E.T05.S01", name: "Molecular Weight" }
+          - { id: "CP.4E.T05.S02", name: "Empirical Versus Molecular Formula" }
+          - { id: "CP.4E.T05.S03", name: "Percent Composition by Mass" }
+          - { id: "CP.4E.T05.S04", name: "Mole Concept and Avogadro's Number" }
+          - { id: "CP.4E.T05.S05", name: "Oxidation Numbers" }
+          - { id: "CP.4E.T05.S06", name: "Oxidizing and Reducing Agents and Disproportionation" }
+          - { id: "CP.4E.T05.S07", name: "Writing and Balancing Chemical Equations" }
+          - { id: "CP.4E.T05.S08", name: "Limiting Reactants and Theoretical Yield" }
+
+prerequisites:
+  # --- Within CP.4A: mechanics learning sequence ---
+  - { src: "CP.4A.T01", dst: "CP.4A.T02", rationale: "Kinematics precedes dynamics of forces", confidence: "high" }
+  - { src: "CP.4A.T02", dst: "CP.4A.T03", rationale: "Forces are the basis of equilibrium analysis", confidence: "high" }
+  - { src: "CP.4A.T02", dst: "CP.4A.T04", rationale: "Force is required to define mechanical work", confidence: "high" }
+  - { src: "CP.4A.T04", dst: "CP.4A.T05", rationale: "Work connects directly to energy", confidence: "high" }
+  - { src: "CP.4A.T02", dst: "CP.4A.T06", rationale: "Force and impulse underlie momentum", confidence: "high" }
+  - { src: "CP.4A.T05", dst: "CP.4A.T06", rationale: "Kinetic energy classifies elastic vs inelastic collisions", confidence: "medium" }
+  - { src: "CP.4A.T02", dst: "CP.4A.T07", rationale: "Restoring force drives simple harmonic motion", confidence: "medium" }
+  - { src: "CP.4A.T01", dst: "CP.4A.T07", rationale: "Motion basics precede oscillatory motion", confidence: "medium" }
+  - { src: "CP.4A.T01.S02", dst: "CP.4A.T01.S03", rationale: "Vector components precede vector addition", confidence: "high" }
+  - { src: "CP.4A.T04.S01", dst: "CP.4A.T04.S03", rationale: "Work definition precedes work-energy theorem", confidence: "high" }
+  - { src: "CP.4A.T05.S01", dst: "CP.4A.T05.S04", rationale: "Kinetic energy is needed for energy conservation", confidence: "high" }
+  - { src: "CP.4A.T05.S02", dst: "CP.4A.T05.S04", rationale: "Potential energy is needed for energy conservation", confidence: "high" }
+  # --- Within CP.4B: fluids and gases ---
+  - { src: "CP.4B.T01", dst: "CP.4B.T03", rationale: "Fluid dynamics governs blood circulation", confidence: "high" }
+  - { src: "CP.4B.T02", dst: "CP.4B.T03", rationale: "Gas laws underlie gas exchange in circulation", confidence: "medium" }
+  - { src: "CP.4B.T01.S01", dst: "CP.4B.T01.S02", rationale: "Density is required for buoyant force", confidence: "high" }
+  - { src: "CP.4B.T01.S03", dst: "CP.4B.T01.S02", rationale: "Pressure gradients produce buoyancy", confidence: "medium" }
+  - { src: "CP.4B.T01.S05", dst: "CP.4B.T01.S08", rationale: "Continuity precedes Bernoulli's equation", confidence: "high" }
+  - { src: "CP.4B.T01.S08", dst: "CP.4B.T01.S09", rationale: "Bernoulli explains the Venturi effect", confidence: "high" }
+  - { src: "CP.4B.T02.S04", dst: "CP.4B.T02.S05", rationale: "Component gas laws combine into the ideal gas law", confidence: "high" }
+  - { src: "CP.4B.T02.S05", dst: "CP.4B.T02.S06", rationale: "Ideal gas behavior is explained by kinetic theory", confidence: "medium" }
+  - { src: "CP.4B.T02.S05", dst: "CP.4B.T02.S07", rationale: "Ideal behavior is the baseline for real-gas deviation", confidence: "high" }
+  - { src: "CP.4B.T02.S08", dst: "CP.4B.T02.S09", rationale: "Partial pressure underlies Dalton's law", confidence: "high" }
+  - { src: "CP.4B.T03.S01", dst: "CP.4B.T03.S02", rationale: "Vessel types precede their structural differences", confidence: "medium" }
+  - { src: "CP.4B.T03.S04", dst: "CP.4B.T03.S05", rationale: "Capillary structure enables gas and solute exchange", confidence: "high" }
+  # --- Within CP.4C: electricity, magnetism, electrochemistry ---
+  - { src: "CP.4C.T01", dst: "CP.4C.T02", rationale: "Electrostatics underpins circuit behavior", confidence: "high" }
+  - { src: "CP.4C.T01", dst: "CP.4C.T03", rationale: "Charge concepts precede magnetic forces", confidence: "medium" }
+  - { src: "CP.4C.T02", dst: "CP.4C.T04", rationale: "Current and voltage underlie electrochemical cells", confidence: "medium" }
+  - { src: "CP.4C.T02", dst: "CP.4C.T05", rationale: "Membranes act as resistors and capacitors", confidence: "high" }
+  - { src: "CP.4C.T01", dst: "CP.4C.T05", rationale: "Membrane potential rests on electric potential", confidence: "medium" }
+  - { src: "CP.4C.T04", dst: "CP.4C.T05", rationale: "Electrochemical gradients drive nerve signaling", confidence: "medium" }
+  - { src: "CP.4C.T01.S01", dst: "CP.4C.T01.S03", rationale: "Charge precedes Coulomb's law", confidence: "high" }
+  - { src: "CP.4C.T01.S03", dst: "CP.4C.T01.S04", rationale: "Coulomb's law defines the electric field", confidence: "high" }
+  - { src: "CP.4C.T01.S04", dst: "CP.4C.T01.S05", rationale: "Field concept precedes field-line diagrams", confidence: "high" }
+  - { src: "CP.4C.T01.S04", dst: "CP.4C.T01.S06", rationale: "Electric field integrates to electric potential", confidence: "high" }
+  - { src: "CP.4C.T02.S03", dst: "CP.4C.T02.S04", rationale: "Ohm's law precedes resistor networks", confidence: "high" }
+  - { src: "CP.4C.T02.S06", dst: "CP.4C.T02.S07", rationale: "Capacitance precedes stored-energy analysis", confidence: "high" }
+  - { src: "CP.4C.T02.S06", dst: "CP.4C.T02.S08", rationale: "Capacitance precedes capacitor networks", confidence: "high" }
+  - { src: "CP.4C.T02.S06", dst: "CP.4C.T02.S09", rationale: "Capacitance precedes RC discharge behavior", confidence: "medium" }
+  - { src: "CP.4C.T04.S04", dst: "CP.4C.T04.S05", rationale: "Half-reactions precede cell potentials", confidence: "high" }
+  - { src: "CP.4C.T04.S05", dst: "CP.4C.T04.S06", rationale: "Cell potential sets electron-flow direction", confidence: "high" }
+  - { src: "CP.4C.T04.S05", dst: "CP.4C.T04.S07", rationale: "Cell potential underlies concentration cells", confidence: "medium" }
+  - { src: "CP.4C.T04.S05", dst: "CP.4C.T04.S08", rationale: "Cell potential underlies battery voltage", confidence: "medium" }
+  - { src: "CP.4C.T05.S01", dst: "CP.4C.T05.S02", rationale: "Myelination enables saltatory conduction", confidence: "high" }
+  # --- Within CP.4D: sound and light ---
+  - { src: "CP.4D.T02", dst: "CP.4D.T03", rationale: "Wave optics precedes ray-based geometrical optics", confidence: "high" }
+  - { src: "CP.4D.T01.S02", dst: "CP.4D.T01.S05", rationale: "Speed of sound underlies the Doppler effect", confidence: "medium" }
+  - { src: "CP.4D.T02.S01", dst: "CP.4D.T02.S02", rationale: "Interference underlies thin-film and grating effects", confidence: "high" }
+  - { src: "CP.4D.T02.S05", dst: "CP.4D.T02.S06", rationale: "EM properties precede the spectrum and photon energy", confidence: "high" }
+  - { src: "CP.4D.T03.S02", dst: "CP.4D.T03.S04", rationale: "Refraction precedes total internal reflection", confidence: "high" }
+  - { src: "CP.4D.T03.S02", dst: "CP.4D.T03.S03", rationale: "Refraction underlies dispersion by wavelength", confidence: "medium" }
+  - { src: "CP.4D.T03.S06", dst: "CP.4D.T03.S07", rationale: "Single lenses precede lens combinations", confidence: "high" }
+  - { src: "CP.4D.T03.S06", dst: "CP.4D.T03.S08", rationale: "Lens behavior precedes lens aberration", confidence: "medium" }
+  - { src: "CP.4D.T03.S05", dst: "CP.4D.T03.S09", rationale: "Mirrors are components of optical instruments", confidence: "medium" }
+  - { src: "CP.4D.T03.S06", dst: "CP.4D.T03.S09", rationale: "Lenses are components of optical instruments", confidence: "high" }
+  # --- Within CP.4E: atomic structure and chemistry ---
+  - { src: "CP.4E.T02", dst: "CP.4E.T03", rationale: "Electronic structure defines periodic groups", confidence: "high" }
+  - { src: "CP.4E.T03", dst: "CP.4E.T04", rationale: "Group classification precedes periodic trends", confidence: "high" }
+  - { src: "CP.4E.T01", dst: "CP.4E.T05", rationale: "Atomic weight underlies stoichiometric mass", confidence: "high" }
+  - { src: "CP.4E.T01.S01", dst: "CP.4E.T01.S02", rationale: "Atomic number defines isotopes", confidence: "high" }
+  - { src: "CP.4E.T01.S04", dst: "CP.4E.T01.S05", rationale: "Decay modes precede half-life kinetics", confidence: "high" }
+  - { src: "CP.4E.T02.S01", dst: "CP.4E.T02.S06", rationale: "Orbitals precede electron configuration", confidence: "high" }
+  - { src: "CP.4E.T02.S05", dst: "CP.4E.T02.S06", rationale: "Pauli principle constrains electron configuration", confidence: "high" }
+  - { src: "CP.4E.T02.S02", dst: "CP.4E.T02.S03", rationale: "Bohr model defines ground and excited states", confidence: "high" }
+  - { src: "CP.4E.T02.S03", dst: "CP.4E.T02.S04", rationale: "State transitions produce line spectra", confidence: "high" }
+  - { src: "CP.4E.T02.S06", dst: "CP.4E.T02.S07", rationale: "Configuration determines para/diamagnetism", confidence: "high" }
+  - { src: "CP.4E.T02.S08", dst: "CP.4E.T04.S02", rationale: "Effective nuclear charge drives ionization energy", confidence: "high" }
+  - { src: "CP.4E.T02.S08", dst: "CP.4E.T04.S05", rationale: "Effective nuclear charge governs atomic radii", confidence: "high" }
+  - { src: "CP.4E.T04.S01", dst: "CP.4E.T04.S02", rationale: "Valence electrons underlie ionization energy", confidence: "high" }
+  - { src: "CP.4E.T04.S01", dst: "CP.4E.T04.S04", rationale: "Valence electrons underlie electronegativity", confidence: "medium" }
+  - { src: "CP.4E.T05.S01", dst: "CP.4E.T05.S02", rationale: "Molecular weight precedes formula determination", confidence: "high" }
+  - { src: "CP.4E.T05.S01", dst: "CP.4E.T05.S03", rationale: "Molecular weight precedes percent composition", confidence: "high" }
+  - { src: "CP.4E.T05.S04", dst: "CP.4E.T05.S02", rationale: "Mole concept underlies empirical formulas", confidence: "medium" }
+  - { src: "CP.4E.T05.S05", dst: "CP.4E.T05.S06", rationale: "Oxidation numbers identify oxidizing/reducing agents", confidence: "high" }
+  - { src: "CP.4E.T05.S05", dst: "CP.4E.T05.S07", rationale: "Oxidation states are needed to balance redox", confidence: "high" }
+  - { src: "CP.4E.T05.S07", dst: "CP.4E.T05.S08", rationale: "Balanced equations precede limiting-reactant work", confidence: "high" }
+  # --- Cross-category within FC4 (physics/chem foundations feeding one another) ---
+  - { src: "CP.4A.T02", dst: "CP.4B.T01", rationale: "Force per area defines fluid pressure", confidence: "high" }
+  - { src: "CP.4A.T05.S04", dst: "CP.4B.T01.S08", rationale: "Bernoulli is conservation of energy for fluids", confidence: "high" }
+  - { src: "CP.4A.T04", dst: "CP.4C.T01.S06", rationale: "Work per charge defines electric potential", confidence: "medium" }
+  - { src: "CP.4A.T07", dst: "CP.4D.T01", rationale: "Periodic wave motion underlies sound", confidence: "high" }
+  - { src: "CP.4A.T07", dst: "CP.4D.T02", rationale: "Wave motion underlies electromagnetic waves", confidence: "medium" }
+  - { src: "CP.4D.T02.S06", dst: "CP.4E.T02.S04", rationale: "Photon energy underlies atomic line spectra", confidence: "medium" }
+  - { src: "CP.4E.T05.S05", dst: "CP.4C.T04.S01", rationale: "Oxidation states underlie electrolysis", confidence: "high" }
+  - { src: "CP.4E.T05.S06", dst: "CP.4C.T04.S04", rationale: "Redox agents define galvanic half-reactions", confidence: "medium" }
+
+cross_prerequisites:
+  - { src: "CP.4A.T05", dst_hint: "CP.5E: Chemical Thermodynamics", rationale: "Mechanical energy and conservation underlie thermodynamics", confidence: "high" }
+  - { src: "CP.4A.T02", dst_hint: "BB.3B: Musculoskeletal System", rationale: "Forces, torque, and levers describe muscle and joint mechanics", confidence: "medium" }
+  - { src: "CP.4B.T01", dst_hint: "BB.3B: Respiratory System", rationale: "Pressure and flow drive ventilation and blood flow", confidence: "medium" }
+  - { src: "CP.4B.T02", dst_hint: "BB.3B: Gas Exchange", rationale: "Partial pressures govern alveolar gas exchange", confidence: "high" }
+  - { src: "CP.4B.T02.S06", dst_hint: "CP.5E: Reaction Kinetics", rationale: "Kinetic molecular theory underlies collision theory of rates", confidence: "medium" }
+  - { src: "CP.4C.T04", dst_hint: "BB.1D: Electron Transport Chain", rationale: "Reduction potentials drive biological electron transport", confidence: "high" }
+  - { src: "CP.4C.T05", dst_hint: "BB.3A: Nervous System", rationale: "Membrane electrophysiology underlies action potentials", confidence: "high" }
+  - { src: "CP.4C.T01", dst_hint: "BB.3A: Action Potential", rationale: "Resting membrane potential rests on electrostatics", confidence: "medium" }
+  - { src: "CP.4E.T02", dst_hint: "CP.5B: Covalent Bonding", rationale: "Atomic orbitals underlie covalent bond formation", confidence: "high" }
+  - { src: "CP.4E.T04", dst_hint: "CP.5B: Intermolecular Interactions", rationale: "Electronegativity governs bond polarity and IMFs", confidence: "high" }
+  - { src: "CP.4E.T05", dst_hint: "CP.5E: Chemical Kinetics", rationale: "Balanced equations and moles underlie rate and equilibrium laws", confidence: "high" }
+  - { src: "CP.4E.T05.S04", dst_hint: "CP.5A: Solutions and Concentration", rationale: "Mole concept underlies molarity and solution chemistry", confidence: "medium" }
+  - { src: "CP.4D.T02.S06", dst_hint: "CP.5D: Spectroscopy", rationale: "Photon energy underlies molecular absorption spectroscopy", confidence: "low" }
+
+related:
+  - { a: "CP.4A.T07", b: "CP.4D.T01", rationale: "Wave motion connects mechanics to acoustics" }
+  - { a: "CP.4C.T03", b: "CP.4D.T02", rationale: "Electromagnetic radiation unifies magnetism and light" }
+  - { a: "CP.4E.T02", b: "CP.4D.T02", rationale: "Electronic transitions produce and absorb light" }
+  - { a: "CP.4B.T02", b: "CP.4A.T05", rationale: "Kinetic theory links molecular motion to energy" }
+  - { a: "CP.4C.T01", b: "CP.4A.T05", rationale: "Potential energy spans mechanics and electrostatics" }
+  - { a: "CP.4A.T06", b: "CP.4A.T05", rationale: "Collisions couple momentum and kinetic energy" }

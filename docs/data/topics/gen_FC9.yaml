@@ -1,0 +1,184 @@
+fc: "FC9"
+section: "P-S"
+categories:
+  - id: "PS.9A"
+    name: "Understanding social structure"
+    topics:
+      - id: "PS.9A.T01"
+        name: "Theoretical Approaches"
+        subtopics:
+          - { id: "PS.9A.T01.S01", name: "Microsociology Versus Macrosociology" }
+          - { id: "PS.9A.T01.S02", name: "Functionalism" }
+          - { id: "PS.9A.T01.S03", name: "Conflict Theory" }
+          - { id: "PS.9A.T01.S04", name: "Symbolic Interactionism" }
+          - { id: "PS.9A.T01.S05", name: "Social Constructionism" }
+          - { id: "PS.9A.T01.S06", name: "Exchange and Rational Choice Theory" }
+          - { id: "PS.9A.T01.S07", name: "Feminist Theory" }
+      - id: "PS.9A.T02"
+        name: "Culture"
+        subtopics:
+          - { id: "PS.9A.T02.S01", name: "Elements of Culture" }
+          - { id: "PS.9A.T02.S02", name: "Material Versus Symbolic Culture" }
+          - { id: "PS.9A.T02.S03", name: "Culture Lag" }
+          - { id: "PS.9A.T02.S04", name: "Culture Shock" }
+          - { id: "PS.9A.T02.S05", name: "Assimilation" }
+          - { id: "PS.9A.T02.S06", name: "Multiculturalism" }
+          - { id: "PS.9A.T02.S07", name: "Subcultures and Countercultures" }
+          - { id: "PS.9A.T02.S08", name: "Mass Media and Popular Culture" }
+          - { id: "PS.9A.T02.S09", name: "Evolution and Human Culture" }
+          - { id: "PS.9A.T02.S10", name: "Cultural Transmission and Diffusion" }
+      - id: "PS.9A.T03"
+        name: "Family and Kinship"
+        subtopics:
+          - { id: "PS.9A.T03.S01", name: "Forms of Kinship" }
+          - { id: "PS.9A.T03.S02", name: "Diversity in Family Forms" }
+          - { id: "PS.9A.T03.S03", name: "Marriage and Divorce" }
+          - { id: "PS.9A.T03.S04", name: "Violence in the Family" }
+      - id: "PS.9A.T04"
+        name: "Education"
+        subtopics:
+          - { id: "PS.9A.T04.S01", name: "Hidden Curriculum" }
+          - { id: "PS.9A.T04.S02", name: "Teacher Expectancy" }
+          - { id: "PS.9A.T04.S03", name: "Educational Segregation and Stratification" }
+      - id: "PS.9A.T05"
+        name: "Religion"
+        subtopics:
+          - { id: "PS.9A.T05.S01", name: "Religiosity" }
+          - { id: "PS.9A.T05.S02", name: "Types of Religious Organizations" }
+          - { id: "PS.9A.T05.S03", name: "Religion and Social Change" }
+      - id: "PS.9A.T06"
+        name: "Government and Economy"
+        subtopics:
+          - { id: "PS.9A.T06.S01", name: "Power and Authority" }
+          - { id: "PS.9A.T06.S02", name: "Comparative Economic and Political Systems" }
+          - { id: "PS.9A.T06.S03", name: "Division of Labor" }
+      - id: "PS.9A.T07"
+        name: "Health and Medicine"
+        subtopics:
+          - { id: "PS.9A.T07.S01", name: "Medicalization" }
+          - { id: "PS.9A.T07.S02", name: "The Sick Role" }
+          - { id: "PS.9A.T07.S03", name: "Delivery of Health Care" }
+          - { id: "PS.9A.T07.S04", name: "Illness Experience" }
+          - { id: "PS.9A.T07.S05", name: "Social Epidemiology" }
+  - id: "PS.9B"
+    name: "Demographic characteristics and processes"
+    topics:
+      - id: "PS.9B.T01"
+        name: "Age"
+        subtopics:
+          - { id: "PS.9B.T01.S01", name: "Aging and the Life Course" }
+          - { id: "PS.9B.T01.S02", name: "Age Cohorts" }
+          - { id: "PS.9B.T01.S03", name: "Social Significance of Aging" }
+      - id: "PS.9B.T02"
+        name: "Gender"
+        subtopics:
+          - { id: "PS.9B.T02.S01", name: "Sex Versus Gender" }
+          - { id: "PS.9B.T02.S02", name: "Social Construction of Gender" }
+          - { id: "PS.9B.T02.S03", name: "Gender Segregation" }
+      - id: "PS.9B.T03"
+        name: "Race and Ethnicity"
+        subtopics:
+          - { id: "PS.9B.T03.S01", name: "Social Construction of Race" }
+          - { id: "PS.9B.T03.S02", name: "Racialization" }
+          - { id: "PS.9B.T03.S03", name: "Racial Formation" }
+      - id: "PS.9B.T04"
+        name: "Immigration Status"
+        subtopics:
+          - { id: "PS.9B.T04.S01", name: "Patterns of Immigration" }
+          - { id: "PS.9B.T04.S02", name: "Intersections With Race and Ethnicity" }
+      - id: "PS.9B.T05"
+        name: "Sexual Orientation"
+        subtopics:
+          - { id: "PS.9B.T05.S01", name: "Sexual Orientation as a Demographic Category" }
+          - { id: "PS.9B.T05.S02", name: "Social Construction of Sexual Orientation" }
+      - id: "PS.9B.T06"
+        name: "Fertility, Migration, and Mortality"
+        subtopics:
+          - { id: "PS.9B.T06.S01", name: "Fertility and Mortality Rates" }
+          - { id: "PS.9B.T06.S02", name: "Push and Pull Factors in Migration" }
+      - id: "PS.9B.T07"
+        name: "Theories of Demographic Change"
+        subtopics:
+          - { id: "PS.9B.T07.S01", name: "Malthusian Theory" }
+          - { id: "PS.9B.T07.S02", name: "Demographic Transition" }
+      - id: "PS.9B.T08"
+        name: "Population Growth and Decline"
+        subtopics:
+          - { id: "PS.9B.T08.S01", name: "Population Growth and Decline Rates" }
+          - { id: "PS.9B.T08.S02", name: "Population Projections" }
+          - { id: "PS.9B.T08.S03", name: "Population Pyramids" }
+      - id: "PS.9B.T09"
+        name: "Urbanization"
+        subtopics:
+          - { id: "PS.9B.T09.S01", name: "Industrialization and Urban Growth" }
+          - { id: "PS.9B.T09.S02", name: "Suburbanization and Urban Decline" }
+          - { id: "PS.9B.T09.S03", name: "Gentrification and Urban Renewal" }
+      - id: "PS.9B.T10"
+        name: "Social Movements"
+        subtopics:
+          - { id: "PS.9B.T10.S01", name: "Relative Deprivation" }
+          - { id: "PS.9B.T10.S02", name: "Organization of Social Movements" }
+          - { id: "PS.9B.T10.S03", name: "Movement Strategies and Tactics" }
+      - id: "PS.9B.T11"
+        name: "Globalization"
+        subtopics:
+          - { id: "PS.9B.T11.S01", name: "Factors Contributing to Globalization" }
+          - { id: "PS.9B.T11.S02", name: "Perspectives on Globalization" }
+          - { id: "PS.9B.T11.S03", name: "Social Changes From Globalization" }
+prerequisites:
+  # --- Within 9A: theory lenses feed institutional analysis ---
+  - { src: "PS.9A.T01.S02", dst: "PS.9A.T07.S02", rationale: "The sick role is a functionalist (Parsons) construct", confidence: "high" }
+  - { src: "PS.9A.T01.S03", dst: "PS.9A.T04.S03", rationale: "Conflict theory explains educational stratification", confidence: "high" }
+  - { src: "PS.9A.T01.S04", dst: "PS.9A.T07.S04", rationale: "Illness experience is read through symbolic interactionism", confidence: "medium" }
+  # --- Within 9A: culture internal structure ---
+  - { src: "PS.9A.T02.S01", dst: "PS.9A.T02.S07", rationale: "Grasp cultural elements before subcultures", confidence: "high" }
+  - { src: "PS.9A.T02.S01", dst: "PS.9A.T02.S10", rationale: "Know cultural elements before how they spread", confidence: "high" }
+  - { src: "PS.9A.T02.S02", dst: "PS.9A.T02.S03", rationale: "Culture lag = material outpaces nonmaterial culture", confidence: "high" }
+  - { src: "PS.9A.T02.S01", dst: "PS.9A.T02.S05", rationale: "Assimilation is adopting another culture's elements", confidence: "medium" }
+  # --- Within 9A: family, education, religion, government, health ---
+  - { src: "PS.9A.T03.S01", dst: "PS.9A.T03.S02", rationale: "Kinship forms frame family diversity", confidence: "high" }
+  - { src: "PS.9A.T03.S01", dst: "PS.9A.T03.S03", rationale: "Kinship structures underlie marriage patterns", confidence: "medium" }
+  - { src: "PS.9A.T04.S01", dst: "PS.9A.T04.S03", rationale: "Hidden curriculum reproduces stratification", confidence: "medium" }
+  - { src: "PS.9A.T05.S01", dst: "PS.9A.T05.S03", rationale: "Levels of religiosity drive religious change", confidence: "medium" }
+  - { src: "PS.9A.T05.S02", dst: "PS.9A.T05.S03", rationale: "Church/sect/cult types shape secularization", confidence: "medium" }
+  - { src: "PS.9A.T06.S01", dst: "PS.9A.T06.S02", rationale: "Authority types underlie political systems", confidence: "medium" }
+  - { src: "PS.9A.T07.S02", dst: "PS.9A.T07.S04", rationale: "The sick role frames the illness experience", confidence: "medium" }
+  # --- 9A theory -> 9B demographic constructs ---
+  - { src: "PS.9A.T01.S05", dst: "PS.9B.T02.S02", rationale: "Constructionism is applied to gender", confidence: "high" }
+  - { src: "PS.9A.T01.S05", dst: "PS.9B.T03.S01", rationale: "Constructionism is applied to race", confidence: "high" }
+  - { src: "PS.9A.T01.S05", dst: "PS.9B.T05.S02", rationale: "Constructionism frames sexual orientation", confidence: "medium" }
+  - { src: "PS.9A.T01.S03", dst: "PS.9B.T10.S01", rationale: "Conflict theory underlies relative deprivation", confidence: "medium" }
+  - { src: "PS.9A.T02.S10", dst: "PS.9B.T11.S03", rationale: "Globalization accelerates cultural diffusion", confidence: "medium" }
+  - { src: "PS.9A.T06.S02", dst: "PS.9B.T11.S01", rationale: "Economic interdependence drives globalization", confidence: "medium" }
+  # --- Within 9B: demographic characteristics ---
+  - { src: "PS.9B.T02.S01", dst: "PS.9B.T02.S02", rationale: "Sex/gender distinction precedes gender construction", confidence: "high" }
+  - { src: "PS.9B.T02.S02", dst: "PS.9B.T02.S03", rationale: "Constructed gender roles produce segregation", confidence: "medium" }
+  - { src: "PS.9B.T03.S01", dst: "PS.9B.T03.S02", rationale: "Race construction underlies racialization", confidence: "medium" }
+  - { src: "PS.9B.T03.S02", dst: "PS.9B.T03.S03", rationale: "Racialization feeds racial formation", confidence: "medium" }
+  - { src: "PS.9B.T03.S01", dst: "PS.9B.T04.S02", rationale: "Race concepts precede race-immigration intersections", confidence: "medium" }
+  - { src: "PS.9B.T04.S01", dst: "PS.9B.T04.S02", rationale: "Immigration patterns set up intersecting identities", confidence: "medium" }
+  # --- Within 9B: demographic processes ---
+  - { src: "PS.9B.T01.S02", dst: "PS.9B.T08.S03", rationale: "Population pyramids visualize age cohorts", confidence: "high" }
+  - { src: "PS.9B.T06.S01", dst: "PS.9B.T07.S02", rationale: "Transition theory tracks fertility/mortality shifts", confidence: "high" }
+  - { src: "PS.9B.T06.S01", dst: "PS.9B.T08.S01", rationale: "Fertility and mortality drive population change", confidence: "high" }
+  - { src: "PS.9B.T07.S02", dst: "PS.9B.T08.S01", rationale: "Transition stages explain growth and decline", confidence: "medium" }
+  - { src: "PS.9B.T08.S01", dst: "PS.9B.T08.S02", rationale: "Growth rates enable population projections", confidence: "high" }
+  - { src: "PS.9B.T06.S02", dst: "PS.9B.T09.S01", rationale: "Migration push/pull fuels urban growth", confidence: "medium" }
+  - { src: "PS.9B.T09.S01", dst: "PS.9B.T09.S02", rationale: "Urban growth precedes suburban flight and decline", confidence: "high" }
+  - { src: "PS.9B.T09.S02", dst: "PS.9B.T09.S03", rationale: "Renewal responds to prior urban decline", confidence: "high" }
+  - { src: "PS.9B.T10.S01", dst: "PS.9B.T10.S02", rationale: "Deprivation motivates movement formation", confidence: "medium" }
+  - { src: "PS.9B.T10.S02", dst: "PS.9B.T10.S03", rationale: "Organization precedes tactical choices", confidence: "high" }
+  - { src: "PS.9B.T11.S01", dst: "PS.9B.T11.S02", rationale: "Understand drivers before evaluating them", confidence: "medium" }
+  - { src: "PS.9B.T11.S01", dst: "PS.9B.T11.S03", rationale: "Global drivers produce downstream social change", confidence: "high" }
+cross_prerequisites:
+  - { src_hint: "PS.8C: Elements of Social Interaction", dst: "PS.9A.T01.S01", rationale: "Micro-level interaction underpins macro social structure", confidence: "high" }
+  - { src_hint: "PS.8C: Status and Role", dst: "PS.9A.T03.S01", rationale: "Kinship is a system of ascribed statuses and roles", confidence: "medium" }
+  - { src_hint: "PS.8C: Organizations and Bureaucracy", dst: "PS.9A.T06.S03", rationale: "Bureaucratic organization structures division of labor", confidence: "medium" }
+  - { src_hint: "PS.8C: Social Networks", dst: "PS.9B.T10.S02", rationale: "Social networks mobilize and organize movements", confidence: "high" }
+  - { src_hint: "PS.8C: Social Interaction", dst: "PS.9A.T02.S10", rationale: "Interaction is the channel of cultural transmission", confidence: "medium" }
+related:
+  - { a: "PS.9A.T02", b: "PS.9A.T05", rationale: "Religion is a central element of a society's culture" }
+  - { a: "PS.9B.T02", b: "PS.9B.T05", rationale: "Gender and sexual orientation are linked identity dimensions" }
+  - { a: "PS.9B.T03", b: "PS.9B.T04", rationale: "Race, ethnicity, and immigration status frequently intersect" }
+  - { a: "PS.9A.T01.S03", b: "PS.9A.T01.S07", rationale: "Feminist theory shares conflict theory's power lens" }
+  - { a: "PS.9A.T07.S05", b: "PS.9B.T01", rationale: "Social epidemiology maps health onto demographic groups" }

@@ -1,0 +1,338 @@
+fc: "FC5"
+section: "C-P"
+categories:
+  # =========================================================================
+  - id: "CP.5A"
+    name: "Unique nature of water and its solutions"
+    topics:
+      - id: "CP.5A.T01"
+        name: "Ionization of Water and pH"
+        subtopics:
+          - { id: "CP.5A.T01.S01", name: "Autoionization of Water and Kw" }
+          - { id: "CP.5A.T01.S02", name: "The pH and pOH Scales" }
+          - { id: "CP.5A.T01.S03", name: "pH of Pure Water" }
+      - id: "CP.5A.T02"
+        name: "Acids and Bases"
+        subtopics:
+          - { id: "CP.5A.T02.S01", name: "Arrhenius, Bronsted-Lowry, and Lewis Definitions" }
+          - { id: "CP.5A.T02.S02", name: "Conjugate Acid-Base Pairs" }
+          - { id: "CP.5A.T02.S03", name: "Strong Acids and Bases" }
+          - { id: "CP.5A.T02.S04", name: "Weak Acids and Bases" }
+          - { id: "CP.5A.T02.S05", name: "Ka, Kb, and pKa" }
+      - id: "CP.5A.T03"
+        name: "Ions in Solution"
+        subtopics:
+          - { id: "CP.5A.T03.S01", name: "Anions and Cations" }
+          - { id: "CP.5A.T03.S02", name: "Common Ion Names, Formulas, and Charges" }
+          - { id: "CP.5A.T03.S03", name: "Hydration and the Hydronium Ion" }
+      - id: "CP.5A.T04"
+        name: "Solubility and Solubility Equilibria"
+        subtopics:
+          - { id: "CP.5A.T04.S01", name: "Units of Concentration" }
+          - { id: "CP.5A.T04.S02", name: "Solubility Product Constant Ksp" }
+          - { id: "CP.5A.T04.S03", name: "Common-Ion Effect" }
+          - { id: "CP.5A.T04.S04", name: "Complex Ion Formation and Solubility" }
+          - { id: "CP.5A.T04.S05", name: "Solubility and pH" }
+      - id: "CP.5A.T05"
+        name: "Titration"
+        subtopics:
+          - { id: "CP.5A.T05.S01", name: "Titration Curves and Equivalence Point" }
+          - { id: "CP.5A.T05.S02", name: "Acid-Base Indicators" }
+          - { id: "CP.5A.T05.S03", name: "Neutralization Reactions" }
+          - { id: "CP.5A.T05.S04", name: "Redox Titration" }
+      - id: "CP.5A.T06"
+        name: "Buffers"
+        subtopics:
+          - { id: "CP.5A.T06.S01", name: "Buffer Systems and Mechanism" }
+          - { id: "CP.5A.T06.S02", name: "Henderson-Hasselbalch Equation" }
+          - { id: "CP.5A.T06.S03", name: "Buffer Capacity" }
+          - { id: "CP.5A.T06.S04", name: "Influence on Titration Curves" }
+  # =========================================================================
+  - id: "CP.5B"
+    name: "Nature of molecules and intermolecular interactions"
+    topics:
+      - id: "CP.5B.T01"
+        name: "Covalent Bonding and Lewis Structures"
+        subtopics:
+          - { id: "CP.5B.T01.S01", name: "Lewis Electron Dot Structures" }
+          - { id: "CP.5B.T01.S02", name: "Resonance Structures" }
+          - { id: "CP.5B.T01.S03", name: "Formal Charge" }
+          - { id: "CP.5B.T01.S04", name: "Lewis Acids and Bases" }
+      - id: "CP.5B.T02"
+        name: "Bond Polarity and Electronegativity"
+        subtopics:
+          - { id: "CP.5B.T02.S01", name: "Electronegativity and Charge Distribution" }
+          - { id: "CP.5B.T02.S02", name: "Partial Ionic Character" }
+          - { id: "CP.5B.T02.S03", name: "Dipole Moment" }
+      - id: "CP.5B.T03"
+        name: "Molecular Orbitals and Hybridization"
+        subtopics:
+          - { id: "CP.5B.T03.S01", name: "Sigma and Pi Bonds" }
+          - { id: "CP.5B.T03.S02", name: "Hybrid Orbitals (sp, sp2, sp3)" }
+          - { id: "CP.5B.T03.S03", name: "Delocalized Electrons and Resonance" }
+      - id: "CP.5B.T04"
+        name: "Molecular Geometry and VSEPR"
+        subtopics:
+          - { id: "CP.5B.T04.S01", name: "VSEPR Theory" }
+          - { id: "CP.5B.T04.S02", name: "Electronic and Molecular Geometry" }
+          - { id: "CP.5B.T04.S03", name: "Bond Angles and Molecular Shape" }
+      - id: "CP.5B.T05"
+        name: "Multiple Bonds"
+        subtopics:
+          - { id: "CP.5B.T05.S01", name: "Bond Length and Bond Energy" }
+          - { id: "CP.5B.T05.S02", name: "Molecular Rigidity and Restricted Rotation" }
+      - id: "CP.5B.T06"
+        name: "Intermolecular Forces (Liquid Phase)"
+        subtopics:
+          - { id: "CP.5B.T06.S01", name: "Hydrogen Bonding" }
+          - { id: "CP.5B.T06.S02", name: "Dipole-Dipole Interactions" }
+          - { id: "CP.5B.T06.S03", name: "London Dispersion Forces" }
+          - { id: "CP.5B.T06.S04", name: "Ion-Dipole Interactions" }
+  # =========================================================================
+  - id: "CP.5C"
+    name: "Separation and purification methods"
+    topics:
+      - id: "CP.5C.T01"
+        name: "Extraction"
+        subtopics:
+          - { id: "CP.5C.T01.S01", name: "Liquid-Liquid Extraction" }
+          - { id: "CP.5C.T01.S02", name: "Distribution Between Immiscible Solvents" }
+          - { id: "CP.5C.T01.S03", name: "Aqueous-Organic Acid-Base Extraction" }
+      - id: "CP.5C.T02"
+        name: "Distillation"
+        subtopics:
+          - { id: "CP.5C.T02.S01", name: "Simple Distillation" }
+          - { id: "CP.5C.T02.S02", name: "Fractional Distillation" }
+          - { id: "CP.5C.T02.S03", name: "Separation by Boiling Point" }
+      - id: "CP.5C.T03"
+        name: "Chromatography Principles"
+        subtopics:
+          - { id: "CP.5C.T03.S01", name: "Stationary and Mobile Phases" }
+          - { id: "CP.5C.T03.S02", name: "Partitioning and Retention" }
+      - id: "CP.5C.T04"
+        name: "Chromatographic Methods"
+        subtopics:
+          - { id: "CP.5C.T04.S01", name: "Column Chromatography" }
+          - { id: "CP.5C.T04.S02", name: "Gas-Liquid Chromatography" }
+          - { id: "CP.5C.T04.S03", name: "High-Pressure Liquid Chromatography (HPLC)" }
+          - { id: "CP.5C.T04.S04", name: "Paper Chromatography" }
+          - { id: "CP.5C.T04.S05", name: "Thin-Layer Chromatography (TLC)" }
+      - id: "CP.5C.T05"
+        name: "Separation and Purification of Proteins"
+        subtopics:
+          - { id: "CP.5C.T05.S01", name: "Gel Electrophoresis" }
+          - { id: "CP.5C.T05.S02", name: "Size-Exclusion Chromatography" }
+          - { id: "CP.5C.T05.S03", name: "Ion-Exchange Chromatography" }
+          - { id: "CP.5C.T05.S04", name: "Affinity Chromatography" }
+          - { id: "CP.5C.T05.S05", name: "Quantitative Analysis" }
+  # =========================================================================
+  - id: "CP.5D"
+    name: "Structure, function, and reactivity of biologically relevant molecules"
+    topics:
+      - id: "CP.5D.T01"
+        name: "Nomenclature and Functional Groups"
+        subtopics:
+          - { id: "CP.5D.T01.S01", name: "IUPAC Nomenclature" }
+          - { id: "CP.5D.T01.S02", name: "Identifying Functional Groups" }
+          - { id: "CP.5D.T01.S03", name: "Degrees of Unsaturation" }
+      - id: "CP.5D.T02"
+        name: "Isomerism"
+        subtopics:
+          - { id: "CP.5D.T02.S01", name: "Structural (Constitutional) Isomers" }
+          - { id: "CP.5D.T02.S02", name: "Conformational Isomers" }
+          - { id: "CP.5D.T02.S03", name: "Stereoisomers Overview" }
+      - id: "CP.5D.T03"
+        name: "Stereochemistry and Chirality"
+        subtopics:
+          - { id: "CP.5D.T03.S01", name: "Chirality and Stereocenters" }
+          - { id: "CP.5D.T03.S02", name: "Absolute Configuration (R/S)" }
+          - { id: "CP.5D.T03.S03", name: "Enantiomers and Diastereomers" }
+          - { id: "CP.5D.T03.S04", name: "Meso Compounds" }
+          - { id: "CP.5D.T03.S05", name: "Optical Activity and Specific Rotation" }
+          - { id: "CP.5D.T03.S06", name: "Racemic Mixtures and Enantiomer Separation" }
+      - id: "CP.5D.T04"
+        name: "Alcohols"
+        subtopics:
+          - { id: "CP.5D.T04.S01", name: "Nomenclature and Physical Properties" }
+          - { id: "CP.5D.T04.S02", name: "Acidity and Hydrogen Bonding" }
+          - { id: "CP.5D.T04.S03", name: "Oxidation of Alcohols" }
+          - { id: "CP.5D.T04.S04", name: "Substitution Reactions (SN1/SN2)" }
+          - { id: "CP.5D.T04.S05", name: "Preparation of Tosylates and Mesylates" }
+      - id: "CP.5D.T05"
+        name: "Aldehydes and Ketones"
+        subtopics:
+          - { id: "CP.5D.T05.S01", name: "Nomenclature and Physical Properties" }
+          - { id: "CP.5D.T05.S02", name: "Nucleophilic Addition" }
+          - { id: "CP.5D.T05.S03", name: "Acetal and Imine Formation" }
+          - { id: "CP.5D.T05.S04", name: "Keto-Enol Tautomerism" }
+          - { id: "CP.5D.T05.S05", name: "Aldol Condensation" }
+          - { id: "CP.5D.T05.S06", name: "Oxidation and Reduction" }
+      - id: "CP.5D.T06"
+        name: "Carboxylic Acids"
+        subtopics:
+          - { id: "CP.5D.T06.S01", name: "Nomenclature and Physical Properties" }
+          - { id: "CP.5D.T06.S02", name: "Acidity and Substituent Effects" }
+          - { id: "CP.5D.T06.S03", name: "Esterification" }
+          - { id: "CP.5D.T06.S04", name: "Decarboxylation" }
+      - id: "CP.5D.T07"
+        name: "Carboxylic Acid Derivatives"
+        subtopics:
+          - { id: "CP.5D.T07.S01", name: "Anhydrides, Esters, and Amides" }
+          - { id: "CP.5D.T07.S02", name: "Nucleophilic Acyl Substitution" }
+          - { id: "CP.5D.T07.S03", name: "Relative Reactivity of Acyl Derivatives" }
+          - { id: "CP.5D.T07.S04", name: "Hydrolysis Reactions" }
+      - id: "CP.5D.T08"
+        name: "Amines"
+        subtopics:
+          - { id: "CP.5D.T08.S01", name: "Nomenclature and Physical Properties" }
+          - { id: "CP.5D.T08.S02", name: "Basicity of Amines" }
+          - { id: "CP.5D.T08.S03", name: "Amine Reactions (Imine/Enamine, Amide Formation)" }
+      - id: "CP.5D.T09"
+        name: "Spectroscopy and Structure Determination"
+        subtopics:
+          - { id: "CP.5D.T09.S01", name: "Infrared (IR) Spectroscopy" }
+          - { id: "CP.5D.T09.S02", name: "Nuclear Magnetic Resonance (NMR) Spectroscopy" }
+          - { id: "CP.5D.T09.S03", name: "Mass Spectrometry (MS)" }
+          - { id: "CP.5D.T09.S04", name: "Ultraviolet-Visible Spectroscopy" }
+  # =========================================================================
+  - id: "CP.5E"
+    name: "Principles of chemical thermodynamics and kinetics"
+    topics:
+      - id: "CP.5E.T01"
+        name: "Thermodynamic Systems and State Functions"
+        subtopics:
+          - { id: "CP.5E.T01.S01", name: "System, Surroundings, and Boundaries" }
+          - { id: "CP.5E.T01.S02", name: "State Functions vs Path Functions" }
+          - { id: "CP.5E.T01.S03", name: "Zeroth Law and Temperature" }
+      - id: "CP.5E.T02"
+        name: "First Law of Thermodynamics"
+        subtopics:
+          - { id: "CP.5E.T02.S01", name: "Conservation of Energy" }
+          - { id: "CP.5E.T02.S02", name: "Heat, Work, and Internal Energy" }
+          - { id: "CP.5E.T02.S03", name: "PV Diagrams and Work" }
+      - id: "CP.5E.T03"
+        name: "Enthalpy and Thermochemistry"
+        subtopics:
+          - { id: "CP.5E.T03.S01", name: "Endothermic and Exothermic Processes" }
+          - { id: "CP.5E.T03.S02", name: "Standard Heats of Reaction and Formation" }
+          - { id: "CP.5E.T03.S03", name: "Hess's Law" }
+          - { id: "CP.5E.T03.S04", name: "Bond Dissociation Energy" }
+      - id: "CP.5E.T04"
+        name: "Calorimetry and Heat Capacity"
+        subtopics:
+          - { id: "CP.5E.T04.S01", name: "Calorimetry" }
+          - { id: "CP.5E.T04.S02", name: "Heat Capacity and Specific Heat" }
+          - { id: "CP.5E.T04.S03", name: "Heat Transfer (Conduction, Convection, Radiation)" }
+      - id: "CP.5E.T05"
+        name: "Entropy and the Second Law"
+        subtopics:
+          - { id: "CP.5E.T05.S01", name: "Entropy as Disorder" }
+          - { id: "CP.5E.T05.S02", name: "Second Law of Thermodynamics" }
+          - { id: "CP.5E.T05.S03", name: "Relative Entropy of Phases" }
+      - id: "CP.5E.T06"
+        name: "Gibbs Free Energy and Spontaneity"
+        subtopics:
+          - { id: "CP.5E.T06.S01", name: "Gibbs Free Energy" }
+          - { id: "CP.5E.T06.S02", name: "Spontaneity and Sign of Delta G" }
+          - { id: "CP.5E.T06.S03", name: "Gibbs Free Energy Equation" }
+          - { id: "CP.5E.T06.S04", name: "Relationship Between Delta G and K" }
+      - id: "CP.5E.T07"
+        name: "Chemical Kinetics and Rate Laws"
+        subtopics:
+          - { id: "CP.5E.T07.S01", name: "Reaction Rate" }
+          - { id: "CP.5E.T07.S02", name: "Rate Law and Rate Constant" }
+          - { id: "CP.5E.T07.S03", name: "Reaction Order" }
+          - { id: "CP.5E.T07.S04", name: "Rate-Determining Step" }
+      - id: "CP.5E.T08"
+        name: "Temperature Dependence and Catalysis"
+        subtopics:
+          - { id: "CP.5E.T08.S01", name: "Activation Energy and Transition State" }
+          - { id: "CP.5E.T08.S02", name: "Reaction Energy Profiles" }
+          - { id: "CP.5E.T08.S03", name: "Arrhenius Equation" }
+          - { id: "CP.5E.T08.S04", name: "Catalysis" }
+          - { id: "CP.5E.T08.S05", name: "Kinetic vs Thermodynamic Control" }
+      - id: "CP.5E.T09"
+        name: "Chemical Equilibrium"
+        subtopics:
+          - { id: "CP.5E.T09.S01", name: "Reversible Reactions and Dynamic Equilibrium" }
+          - { id: "CP.5E.T09.S02", name: "Law of Mass Action and Equilibrium Constant" }
+          - { id: "CP.5E.T09.S03", name: "Le Chatelier's Principle" }
+          - { id: "CP.5E.T09.S04", name: "Reaction Quotient" }
+
+prerequisites:
+  # --- within CP.5A ---
+  - { src: "CP.5A.T01", dst: "CP.5A.T02", rationale: "pH and water ionization ground acid-base chemistry", confidence: "high" }
+  - { src: "CP.5A.T01", dst: "CP.5A.T03", rationale: "Autoionization and hydronium precede ions in solution", confidence: "medium" }
+  - { src: "CP.5A.T03", dst: "CP.5A.T04", rationale: "Dissolved ions underlie solubility equilibria", confidence: "high" }
+  - { src: "CP.5A.T02", dst: "CP.5A.T05", rationale: "Acid-base strength is needed to read titrations", confidence: "high" }
+  - { src: "CP.5A.T02", dst: "CP.5A.T06", rationale: "Buffers are weak acid-conjugate base pairs", confidence: "high" }
+  - { src: "CP.5A.T06", dst: "CP.5A.T05", rationale: "Buffer region shapes the titration curve", confidence: "medium" }
+  # --- within CP.5B ---
+  - { src: "CP.5B.T01", dst: "CP.5B.T02", rationale: "Lewis structures precede judging bond polarity", confidence: "high" }
+  - { src: "CP.5B.T01", dst: "CP.5B.T03", rationale: "Bonding picture precedes orbital hybridization", confidence: "high" }
+  - { src: "CP.5B.T01", dst: "CP.5B.T04", rationale: "VSEPR is applied to a Lewis structure", confidence: "high" }
+  - { src: "CP.5B.T01", dst: "CP.5B.T05", rationale: "Lewis structures precede multiple bonding", confidence: "high" }
+  - { src: "CP.5B.T03", dst: "CP.5B.T05", rationale: "Pi bonds define double and triple bonds", confidence: "high" }
+  - { src: "CP.5B.T02", dst: "CP.5B.T06", rationale: "Bond dipoles drive dipole and hydrogen bonding", confidence: "high" }
+  - { src: "CP.5B.T04", dst: "CP.5B.T06", rationale: "Geometry sets net molecular polarity for IMFs", confidence: "high" }
+  # --- within CP.5C ---
+  - { src: "CP.5C.T03", dst: "CP.5C.T04", rationale: "Chromatography principles precede specific methods", confidence: "high" }
+  - { src: "CP.5C.T03", dst: "CP.5C.T05", rationale: "Partition principles underlie protein chromatography", confidence: "high" }
+  - { src: "CP.5C.T04", dst: "CP.5C.T05", rationale: "General column methods precede protein-specific ones", confidence: "medium" }
+  # --- within CP.5D ---
+  - { src: "CP.5D.T01", dst: "CP.5D.T02", rationale: "Structure and naming precede isomer analysis", confidence: "high" }
+  - { src: "CP.5D.T02", dst: "CP.5D.T03", rationale: "Isomer types precede stereochemistry and chirality", confidence: "high" }
+  - { src: "CP.5D.T01", dst: "CP.5D.T04", rationale: "Functional group basics precede alcohol chemistry", confidence: "high" }
+  - { src: "CP.5D.T01", dst: "CP.5D.T05", rationale: "Functional group basics precede carbonyl chemistry", confidence: "high" }
+  - { src: "CP.5D.T01", dst: "CP.5D.T06", rationale: "Functional group basics precede carboxylic acids", confidence: "high" }
+  - { src: "CP.5D.T01", dst: "CP.5D.T08", rationale: "Functional group basics precede amine chemistry", confidence: "high" }
+  - { src: "CP.5D.T04", dst: "CP.5D.T05", rationale: "Oxidation of alcohols yields aldehydes and ketones", confidence: "high" }
+  - { src: "CP.5D.T05", dst: "CP.5D.T06", rationale: "Oxidation of aldehydes yields carboxylic acids", confidence: "high" }
+  - { src: "CP.5D.T06", dst: "CP.5D.T07", rationale: "Carboxylic acids precede their acyl derivatives", confidence: "high" }
+  - { src: "CP.5D.T05", dst: "CP.5D.T08", rationale: "Carbonyl chemistry underlies imine and enamine reactions", confidence: "medium" }
+  - { src: "CP.5D.T01", dst: "CP.5D.T09", rationale: "Functional groups needed to interpret spectra", confidence: "high" }
+  - { src: "CP.5D.T05", dst: "CP.5D.T09", rationale: "Carbonyl gives signature IR and NMR peaks", confidence: "medium" }
+  # --- within CP.5E ---
+  - { src: "CP.5E.T01", dst: "CP.5E.T02", rationale: "State functions frame the first law", confidence: "high" }
+  - { src: "CP.5E.T02", dst: "CP.5E.T03", rationale: "First law and heat precede enthalpy", confidence: "high" }
+  - { src: "CP.5E.T03", dst: "CP.5E.T04", rationale: "Enthalpy changes are measured by calorimetry", confidence: "medium" }
+  - { src: "CP.5E.T01", dst: "CP.5E.T05", rationale: "State functions frame entropy and the second law", confidence: "high" }
+  - { src: "CP.5E.T03", dst: "CP.5E.T06", rationale: "Enthalpy is a term in Gibbs free energy", confidence: "high" }
+  - { src: "CP.5E.T05", dst: "CP.5E.T06", rationale: "Entropy is a term in Gibbs free energy", confidence: "high" }
+  - { src: "CP.5E.T06", dst: "CP.5E.T09", rationale: "Free energy relates to the equilibrium constant", confidence: "high" }
+  - { src: "CP.5E.T07", dst: "CP.5E.T08", rationale: "Rate laws precede temperature and catalysis effects", confidence: "high" }
+  - { src: "CP.5E.T07", dst: "CP.5E.T09", rationale: "Equilibrium is where forward and reverse rates balance", confidence: "medium" }
+  - { src: "CP.5E.T06", dst: "CP.5E.T08", rationale: "Thermodynamics grounds kinetic vs thermodynamic control", confidence: "high" }
+  - { src: "CP.5E.T09", dst: "CP.5E.T08", rationale: "Equilibrium concept underlies thermodynamic control", confidence: "medium" }
+  # --- cross-category, within FC5 ---
+  - { src: "CP.5B.T06", dst: "CP.5A.T04", rationale: "Hydrogen bonding drives aqueous solubility", confidence: "high" }
+  - { src: "CP.5A.T04", dst: "CP.5C.T01", rationale: "Differential solubility drives extraction", confidence: "high" }
+  - { src: "CP.5B.T06", dst: "CP.5C.T02", rationale: "Intermolecular forces set boiling points for distillation", confidence: "high" }
+  - { src: "CP.5B.T02", dst: "CP.5C.T04", rationale: "Polarity governs chromatographic separation", confidence: "high" }
+  - { src: "CP.5A.T02", dst: "CP.5C.T05", rationale: "Charge and pI drive electrophoresis and ion exchange", confidence: "medium" }
+  - { src: "CP.5B.T01", dst: "CP.5D.T01", rationale: "Lewis bonding underlies functional group structure", confidence: "high" }
+  - { src: "CP.5B.T04", dst: "CP.5D.T03", rationale: "Tetrahedral geometry enables chirality", confidence: "high" }
+  - { src: "CP.5B.T03", dst: "CP.5D.T03", rationale: "Hybridization sets three-dimensional shape", confidence: "medium" }
+  - { src: "CP.5B.T02", dst: "CP.5D.T05", rationale: "Carbonyl polarity drives nucleophilic addition", confidence: "high" }
+  - { src: "CP.5B.T03", dst: "CP.5D.T06", rationale: "Resonance stabilizes the carboxylate anion", confidence: "high" }
+  - { src: "CP.5A.T02", dst: "CP.5D.T06", rationale: "Acid-base theory explains carboxylic acidity", confidence: "high" }
+  - { src: "CP.5A.T02", dst: "CP.5D.T08", rationale: "Acid-base theory explains amine basicity", confidence: "high" }
+  - { src: "CP.5A.T02", dst: "CP.5D.T04", rationale: "Acid-base theory explains alcohol acidity", confidence: "medium" }
+  - { src: "CP.5B.T01", dst: "CP.5D.T07", rationale: "Nucleophile-electrophile ideas drive acyl substitution", confidence: "medium" }
+  - { src: "CP.5E.T09", dst: "CP.5A.T02", rationale: "Equilibrium constants underlie Ka and Kb", confidence: "medium" }
+  - { src: "CP.5E.T09", dst: "CP.5A.T04", rationale: "Equilibrium constants underlie Ksp", confidence: "medium" }
+  - { src: "CP.5B.T05", dst: "CP.5E.T03", rationale: "Bond energies feed bond dissociation enthalpies", confidence: "medium" }
+
+cross_prerequisites:
+  - { src_hint: "CP.4E: Electron Configuration", dst: "CP.5B.T01", rationale: "Valence electrons determine covalent bonding", confidence: "high" }
+  - { src_hint: "CP.4E: Periodic Trends", dst: "CP.5B.T02", rationale: "Electronegativity trends set bond polarity", confidence: "high" }
+  - { src_hint: "CP.4E: Atomic Orbitals", dst: "CP.5B.T03", rationale: "Atomic orbitals combine into hybrid orbitals", confidence: "high" }
+  - { src_hint: "CP.4E: Atomic Structure", dst: "CP.5A.T03", rationale: "Atomic structure explains ion formation and charge", confidence: "medium" }
+  - { src_hint: "CP.4E: Nuclear Structure", dst: "CP.5D.T09", rationale: "Nuclear spin is the basis of NMR", confidence: "medium" }
+  - { src_hint: "CP.4A: Work and Energy", dst: "CP.5E.T02", rationale: "Physics energy and work ground the first law", confidence: "medium" }
+  - { src_hint: "BB.1A: Amino Acids", dst: "CP.5C.T05", rationale: "Amino acid charge drives protein separation", confidence: "medium" }
+
+related:
+  - { a: "CP.5B.T03", b: "CP.5B.T04", rationale: "Hybridization and VSEPR both predict molecular shape" }
+  - { a: "CP.5C.T02", b: "CP.5C.T04", rationale: "Distillation and chromatography both separate mixtures" }
+  - { a: "CP.5D.T09", b: "CP.5C.T04", rationale: "Spectroscopy and chromatography aid compound identification" }

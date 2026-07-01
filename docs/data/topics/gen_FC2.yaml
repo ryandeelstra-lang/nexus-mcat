@@ -1,0 +1,264 @@
+# Topic layer for Foundational Concept FC2 (section B-B).
+# Source: AAMC "What's on the MCAT Exam?" content outline (© 2020 AAMC).
+# Categories: BB.2A (cells/membranes/organelles/tissues), BB.2B (prokaryotes & viruses),
+# BB.2C (cell division, differentiation, specialization).
+fc: "FC2"
+section: "B-B"
+
+categories:
+  - id: "BB.2A"
+    name: "Assemblies of molecules, cells, and groups of cells within single cellular and multicellular organisms"
+    topics:
+      - id: "BB.2A.T01"
+        name: "Plasma Membrane Structure and Composition"
+        subtopics:
+          - { id: "BB.2A.T01.S01", name: "General Cell-Containment Function" }
+          - { id: "BB.2A.T01.S02", name: "Membrane Lipids: Phospholipids, Steroids, Waxes" }
+          - { id: "BB.2A.T01.S03", name: "Membrane Proteins" }
+          - { id: "BB.2A.T01.S04", name: "Fluid Mosaic Model" }
+          - { id: "BB.2A.T01.S05", name: "Membrane Fluidity and Dynamics" }
+      - id: "BB.2A.T02"
+        name: "Membrane Transport"
+        subtopics:
+          - { id: "BB.2A.T02.S01", name: "Thermodynamics of Transport" }
+          - { id: "BB.2A.T02.S02", name: "Simple Diffusion and Passive Transport" }
+          - { id: "BB.2A.T02.S03", name: "Osmosis and Osmotic Pressure" }
+          - { id: "BB.2A.T02.S04", name: "Facilitated Diffusion and Channels" }
+          - { id: "BB.2A.T02.S05", name: "Active Transport" }
+          - { id: "BB.2A.T02.S06", name: "Sodium-Potassium Pump" }
+      - id: "BB.2A.T03"
+        name: "Membrane Potential"
+        subtopics:
+          - { id: "BB.2A.T03.S01", name: "Resting Membrane Potential" }
+          - { id: "BB.2A.T03.S02", name: "Electrochemical Gradients and Equilibrium Potential" }
+      - id: "BB.2A.T04"
+        name: "Membrane Receptors"
+        subtopics:
+          - { id: "BB.2A.T04.S01", name: "Receptor Types" }
+          - { id: "BB.2A.T04.S02", name: "Signal Transduction Overview" }
+      - id: "BB.2A.T05"
+        name: "Exocytosis and Endocytosis"
+        subtopics:
+          - { id: "BB.2A.T05.S01", name: "Endocytosis: Phagocytosis, Pinocytosis, Receptor-Mediated" }
+          - { id: "BB.2A.T05.S02", name: "Exocytosis" }
+      - id: "BB.2A.T06"
+        name: "Intercellular Junctions"
+        subtopics:
+          - { id: "BB.2A.T06.S01", name: "Gap Junctions" }
+          - { id: "BB.2A.T06.S02", name: "Tight Junctions" }
+          - { id: "BB.2A.T06.S03", name: "Desmosomes" }
+      - id: "BB.2A.T07"
+        name: "Defining Characteristics of Eukaryotic Cells"
+        subtopics:
+          - { id: "BB.2A.T07.S01", name: "Membrane-Bound Nucleus" }
+          - { id: "BB.2A.T07.S02", name: "Membrane-Bound Organelles and Compartmentalization" }
+          - { id: "BB.2A.T07.S03", name: "Mitotic Division" }
+      - id: "BB.2A.T08"
+        name: "The Nucleus"
+        subtopics:
+          - { id: "BB.2A.T08.S01", name: "Storage of Genetic Information" }
+          - { id: "BB.2A.T08.S02", name: "Nucleolus" }
+          - { id: "BB.2A.T08.S03", name: "Nuclear Envelope and Nuclear Pores" }
+      - id: "BB.2A.T09"
+        name: "Endoplasmic Reticulum"
+        subtopics:
+          - { id: "BB.2A.T09.S01", name: "Rough Endoplasmic Reticulum" }
+          - { id: "BB.2A.T09.S02", name: "Smooth Endoplasmic Reticulum" }
+          - { id: "BB.2A.T09.S03", name: "Membrane and Secreted-Protein Biosynthesis" }
+      - id: "BB.2A.T10"
+        name: "Golgi Apparatus"
+        subtopics:
+          - { id: "BB.2A.T10.S01", name: "Structure and Cisternae" }
+          - { id: "BB.2A.T10.S02", name: "Modification, Packaging, and Secretion" }
+      - id: "BB.2A.T11"
+        name: "Mitochondria"
+        subtopics:
+          - { id: "BB.2A.T11.S01", name: "Site of ATP Production" }
+          - { id: "BB.2A.T11.S02", name: "Inner and Outer Membrane Structure" }
+          - { id: "BB.2A.T11.S03", name: "Self-Replication and Endosymbiosis" }
+      - id: "BB.2A.T12"
+        name: "Lysosomes and Peroxisomes"
+        subtopics:
+          - { id: "BB.2A.T12.S01", name: "Lysosomes and Hydrolytic Enzymes" }
+          - { id: "BB.2A.T12.S02", name: "Peroxisomes" }
+      - id: "BB.2A.T13"
+        name: "Cytoskeleton"
+        subtopics:
+          - { id: "BB.2A.T13.S01", name: "Microfilaments" }
+          - { id: "BB.2A.T13.S02", name: "Microtubules" }
+          - { id: "BB.2A.T13.S03", name: "Intermediate Filaments" }
+          - { id: "BB.2A.T13.S04", name: "Cilia and Flagella" }
+          - { id: "BB.2A.T13.S05", name: "Centrioles and Microtubule Organizing Centers" }
+      - id: "BB.2A.T14"
+        name: "Eukaryotic Tissues"
+        subtopics:
+          - { id: "BB.2A.T14.S01", name: "Epithelial Tissue" }
+          - { id: "BB.2A.T14.S02", name: "Connective Tissue" }
+
+  - id: "BB.2B"
+    name: "The structure, growth, physiology, and genetics of prokaryotes and viruses"
+    topics:
+      - id: "BB.2B.T01"
+        name: "Cell Theory"
+        subtopics:
+          - { id: "BB.2B.T01.S01", name: "Development of Cell Theory" }
+          - { id: "BB.2B.T01.S02", name: "Tenets of Cell Theory" }
+      - id: "BB.2B.T02"
+        name: "Prokaryotic Cell Classification and Structure"
+        subtopics:
+          - { id: "BB.2B.T02.S01", name: "Domains Archaea and Bacteria" }
+          - { id: "BB.2B.T02.S02", name: "Bacterial Shapes: Bacilli, Spirilli, Cocci" }
+          - { id: "BB.2B.T02.S03", name: "Absence of Nucleus and Membrane-Bound Organelles" }
+          - { id: "BB.2B.T02.S04", name: "Bacterial Cell Wall" }
+          - { id: "BB.2B.T02.S05", name: "Flagellar Propulsion" }
+      - id: "BB.2B.T03"
+        name: "Prokaryotic Growth and Physiology"
+        subtopics:
+          - { id: "BB.2B.T03.S01", name: "Reproduction by Binary Fission" }
+          - { id: "BB.2B.T03.S02", name: "Exponential Growth" }
+          - { id: "BB.2B.T03.S03", name: "Aerobic and Anaerobic Variants" }
+          - { id: "BB.2B.T03.S04", name: "Parasitic and Symbiotic Relationships" }
+          - { id: "BB.2B.T03.S05", name: "Chemotaxis" }
+          - { id: "BB.2B.T03.S06", name: "Antibiotic Resistance and Adaptability" }
+      - id: "BB.2B.T04"
+        name: "Prokaryotic Genetics"
+        subtopics:
+          - { id: "BB.2B.T04.S01", name: "Plasmids and Extragenomic DNA" }
+          - { id: "BB.2B.T04.S02", name: "Conjugation" }
+          - { id: "BB.2B.T04.S03", name: "Transformation" }
+          - { id: "BB.2B.T04.S04", name: "Transduction" }
+          - { id: "BB.2B.T04.S05", name: "Transposons" }
+      - id: "BB.2B.T05"
+        name: "Viral Structure"
+        subtopics:
+          - { id: "BB.2B.T05.S01", name: "Nucleic Acid and Capsid" }
+          - { id: "BB.2B.T05.S02", name: "Enveloped and Nonenveloped Viruses" }
+          - { id: "BB.2B.T05.S03", name: "Genomic Content: DNA or RNA" }
+          - { id: "BB.2B.T05.S04", name: "Bacteriophage Structure" }
+          - { id: "BB.2B.T05.S05", name: "Size and Lack of Organelles" }
+      - id: "BB.2B.T06"
+        name: "Viral Life Cycle"
+        subtopics:
+          - { id: "BB.2B.T06.S01", name: "Obligate Intracellular Parasitism" }
+          - { id: "BB.2B.T06.S02", name: "Attachment and Entry" }
+          - { id: "BB.2B.T06.S03", name: "Host-Dependent Replication" }
+          - { id: "BB.2B.T06.S04", name: "Self-Assembly and Release" }
+          - { id: "BB.2B.T06.S05", name: "Lytic and Lysogenic Cycles" }
+      - id: "BB.2B.T07"
+        name: "Retroviruses and Subviral Particles"
+        subtopics:
+          - { id: "BB.2B.T07.S01", name: "Retrovirus Life Cycle and Reverse Transcriptase" }
+          - { id: "BB.2B.T07.S02", name: "Integration into Host Genome and HIV" }
+          - { id: "BB.2B.T07.S03", name: "Prions" }
+          - { id: "BB.2B.T07.S04", name: "Viroids" }
+
+  - id: "BB.2C"
+    name: "Processes of cell division, differentiation, and specialization"
+    topics:
+      - id: "BB.2C.T01"
+        name: "The Cell Cycle"
+        subtopics:
+          - { id: "BB.2C.T01.S01", name: "Interphase: G1, S, and G2" }
+          - { id: "BB.2C.T01.S02", name: "G0 and Growth Arrest" }
+          - { id: "BB.2C.T01.S03", name: "M Phase Overview" }
+      - id: "BB.2C.T02"
+        name: "Mitosis"
+        subtopics:
+          - { id: "BB.2C.T02.S01", name: "Prophase" }
+          - { id: "BB.2C.T02.S02", name: "Metaphase" }
+          - { id: "BB.2C.T02.S03", name: "Anaphase" }
+          - { id: "BB.2C.T02.S04", name: "Telophase and Cytokinesis" }
+          - { id: "BB.2C.T02.S05", name: "Spindle Apparatus, Centrioles, and Asters" }
+          - { id: "BB.2C.T02.S06", name: "Chromatids, Centromeres, and Kinetochores" }
+      - id: "BB.2C.T03"
+        name: "Control of the Cell Cycle"
+        subtopics:
+          - { id: "BB.2C.T03.S01", name: "Cell Cycle Checkpoints" }
+          - { id: "BB.2C.T03.S02", name: "Cyclins and Cyclin-Dependent Kinases" }
+          - { id: "BB.2C.T03.S03", name: "Growth Factors and Signals" }
+      - id: "BB.2C.T04"
+        name: "Cancer and Loss of Cell Cycle Control"
+        subtopics:
+          - { id: "BB.2C.T04.S01", name: "Oncogenes and Tumor Suppressor Genes" }
+          - { id: "BB.2C.T04.S02", name: "Loss of Cell Cycle Control" }
+          - { id: "BB.2C.T04.S03", name: "Characteristics of Cancer Cells and Metastasis" }
+      - id: "BB.2C.T05"
+        name: "Apoptosis"
+        subtopics:
+          - { id: "BB.2C.T05.S01", name: "Programmed Cell Death" }
+          - { id: "BB.2C.T05.S02", name: "Apoptotic Pathways and Execution" }
+      - id: "BB.2C.T06"
+        name: "Cell Differentiation and Specialization"
+        subtopics:
+          - { id: "BB.2C.T06.S01", name: "Determination and Differentiation" }
+          - { id: "BB.2C.T06.S02", name: "Differential Gene Expression in Development" }
+          - { id: "BB.2C.T06.S03", name: "Morphogenesis" }
+      - id: "BB.2C.T07"
+        name: "Stem Cells"
+        subtopics:
+          - { id: "BB.2C.T07.S01", name: "Stem Cell Potency" }
+          - { id: "BB.2C.T07.S02", name: "Embryonic and Adult Stem Cells" }
+
+prerequisites:
+  # --- Within BB.2A: membranes ---
+  - { src: "BB.2A.T01", dst: "BB.2A.T02", rationale: "Membrane structure enables transport mechanisms", confidence: "high" }
+  - { src: "BB.2A.T02", dst: "BB.2A.T03", rationale: "Ion channels and pumps establish membrane potential", confidence: "high" }
+  - { src: "BB.2A.T01", dst: "BB.2A.T04", rationale: "Receptors are integral membrane proteins", confidence: "high" }
+  - { src: "BB.2A.T01", dst: "BB.2A.T05", rationale: "Vesicle trafficking requires membrane dynamics", confidence: "high" }
+  - { src: "BB.2A.T01", dst: "BB.2A.T06", rationale: "Junctions physically link adjacent membranes", confidence: "medium" }
+  # --- Within BB.2A: eukaryotic cell and organelles ---
+  - { src: "BB.2A.T07", dst: "BB.2A.T08", rationale: "Nucleus is the defining eukaryotic organelle", confidence: "high" }
+  - { src: "BB.2A.T07", dst: "BB.2A.T09", rationale: "ER is a membrane-bound eukaryotic organelle", confidence: "high" }
+  - { src: "BB.2A.T07", dst: "BB.2A.T11", rationale: "Mitochondria are membrane-bound organelles", confidence: "high" }
+  - { src: "BB.2A.T07", dst: "BB.2A.T12", rationale: "Lysosomes and peroxisomes are organelles", confidence: "high" }
+  - { src: "BB.2A.T07", dst: "BB.2A.T13", rationale: "Cytoskeleton organizes the eukaryotic cytoplasm", confidence: "medium" }
+  - { src: "BB.2A.T08", dst: "BB.2A.T09", rationale: "Nuclear envelope is continuous with the ER", confidence: "medium" }
+  - { src: "BB.2A.T09", dst: "BB.2A.T10", rationale: "Secretory pathway flows from ER to Golgi", confidence: "high" }
+  - { src: "BB.2A.T10", dst: "BB.2A.T05", rationale: "Golgi packages vesicles for exocytosis", confidence: "medium" }
+  # --- Within BB.2A: tissues ---
+  - { src: "BB.2A.T07", dst: "BB.2A.T14", rationale: "Tissues are assemblies of eukaryotic cells", confidence: "high" }
+  - { src: "BB.2A.T06", dst: "BB.2A.T14", rationale: "Epithelial integrity depends on junctions", confidence: "medium" }
+  # --- Within BB.2B: prokaryotes ---
+  - { src: "BB.2B.T01", dst: "BB.2B.T02", rationale: "Cell theory frames the study of prokaryotes", confidence: "medium" }
+  - { src: "BB.2B.T02", dst: "BB.2B.T03", rationale: "Cell structure underlies growth and physiology", confidence: "high" }
+  - { src: "BB.2B.T02", dst: "BB.2B.T04", rationale: "Genome organization builds on cell structure", confidence: "medium" }
+  # --- Within BB.2B: viruses ---
+  - { src: "BB.2B.T02", dst: "BB.2B.T05", rationale: "Viruses are contrasted with cellular structure", confidence: "medium" }
+  - { src: "BB.2B.T05", dst: "BB.2B.T06", rationale: "Viral structure determines the infection mechanism", confidence: "high" }
+  - { src: "BB.2B.T06", dst: "BB.2B.T07", rationale: "Retroviral cycle extends the generalized viral cycle", confidence: "high" }
+  - { src: "BB.2B.T06", dst: "BB.2B.T04.S04", rationale: "Transduction relies on the phage life cycle", confidence: "high" }
+  # --- Within BB.2C: cell division ---
+  - { src: "BB.2C.T01", dst: "BB.2C.T02", rationale: "Mitosis is the M phase of the cell cycle", confidence: "high" }
+  - { src: "BB.2C.T01", dst: "BB.2C.T03", rationale: "Control mechanisms regulate cycle phases", confidence: "high" }
+  - { src: "BB.2C.T03", dst: "BB.2C.T04", rationale: "Cancer arises from lost cell cycle control", confidence: "high" }
+  - { src: "BB.2C.T03", dst: "BB.2C.T05", rationale: "Apoptosis is a controlled cell-fate decision", confidence: "medium" }
+  - { src: "BB.2C.T01", dst: "BB.2C.T06", rationale: "Division precedes differentiation in development", confidence: "medium" }
+  - { src: "BB.2C.T01", dst: "BB.2C.T07", rationale: "Stem cell self-renewal uses the cell cycle", confidence: "medium" }
+  # --- Cross-category within FC2 (BB.2A -> BB.2C) ---
+  - { src: "BB.2A.T07", dst: "BB.2C.T01", rationale: "Eukaryotic organization underlies the cell cycle", confidence: "high" }
+  - { src: "BB.2A.T13", dst: "BB.2C.T02", rationale: "Spindle formation needs microtubules and centrioles", confidence: "high" }
+  - { src: "BB.2A.T08", dst: "BB.2C.T02", rationale: "Mitosis reorganizes the nuclear envelope", confidence: "medium" }
+
+cross_prerequisites:
+  # --- Into FC2 from FC1 biochemistry (proteins, gene expression) ---
+  - { src_hint: "BB.1A: Protein Structure", dst: "BB.2A.T01", rationale: "Membrane proteins are folded polypeptides", confidence: "high" }
+  - { src_hint: "BB.1A: Protein Structure", dst: "BB.2A.T02", rationale: "Channels, carriers, and pumps are proteins", confidence: "high" }
+  - { src_hint: "BB.1A: Protein Structure", dst: "BB.2A.T04", rationale: "Receptors are membrane proteins", confidence: "high" }
+  - { src_hint: "BB.1B: Translation", dst: "BB.2A.T09", rationale: "Translation feeds rough-ER protein processing", confidence: "high" }
+  - { src_hint: "BB.1B: Control of Gene Expression", dst: "BB.2C.T06", rationale: "Differential gene expression drives differentiation", confidence: "high" }
+  - { src_hint: "BB.1B: Eukaryotic Chromosome Organization", dst: "BB.2C.T02", rationale: "Chromatin packing precedes chromosome segregation", confidence: "medium" }
+  - { src_hint: "BB.1B: Transcription", dst: "BB.2B.T07", rationale: "Reverse transcription inverts the transcription step", confidence: "medium" }
+  # --- Into FC2 from FC5 chemistry (thermodynamics, lipids, solutions) ---
+  - { src_hint: "CP.5E: Chemical Thermodynamics", dst: "BB.2A.T02", rationale: "Free energy sets passive vs active transport", confidence: "medium" }
+  - { src_hint: "CP.5D: Lipids", dst: "BB.2A.T01", rationale: "Amphipathic lipids self-assemble the bilayer", confidence: "medium" }
+  - { src_hint: "CP.5A: Water and Solutions", dst: "BB.2A.T02.S03", rationale: "Solution properties govern osmosis", confidence: "medium" }
+  # --- Out of FC2 into FC3 physiology ---
+  - { src: "BB.2A.T03", dst_hint: "BB.3A: Action Potential", rationale: "Resting potential underlies action potentials", confidence: "high" }
+  - { src: "BB.2A.T14", dst_hint: "BB.3B: Organ Systems", rationale: "Tissues assemble into organs and systems", confidence: "medium" }
+
+related:
+  - { a: "BB.2A.T07", b: "BB.2B.T02", rationale: "Eukaryotic vs prokaryotic cell organization" }
+  - { a: "BB.2C.T02", b: "BB.2B.T03", rationale: "Eukaryotic mitosis parallels prokaryotic fission" }
+  - { a: "BB.2B.T04", b: "BB.2B.T05", rationale: "Transduction links bacterial genetics and viruses" }
+  - { a: "BB.2C.T06", b: "BB.2C.T07", rationale: "Differentiation potential defines stem cells" }
+  - { a: "BB.2B.T03.S06", b: "BB.2B.T04.S01", rationale: "Plasmids carry antibiotic-resistance genes" }

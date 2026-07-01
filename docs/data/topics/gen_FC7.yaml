@@ -1,0 +1,261 @@
+fc: "FC7"
+section: "P-S"
+# Foundational Concept 7 — "Biological, psychological, and sociocultural factors
+# influence behavior and behavior change." Grounded in the AAMC "What's on the
+# MCAT Exam?" content outline (© 2020 AAMC). Scope: content categories 7A/7B/7C.
+categories:
+  - id: "PS.7A"
+    name: "Individual influences on behavior"
+    topics:
+      - id: "PS.7A.T01"
+        name: "The Nervous System"
+        subtopics:
+          - { id: "PS.7A.T01.S01", name: "Neurons and the Reflex Arc" }
+          - { id: "PS.7A.T01.S02", name: "Neurotransmitters and Behavior" }
+          - { id: "PS.7A.T01.S03", name: "Peripheral Nervous System" }
+          - { id: "PS.7A.T01.S04", name: "Central Nervous System and the Brain" }
+          - { id: "PS.7A.T01.S05", name: "Forebrain, Midbrain, and Hindbrain" }
+          - { id: "PS.7A.T01.S06", name: "Lateralization of Cortical Functions" }
+          - { id: "PS.7A.T01.S07", name: "Methods of Studying the Brain" }
+      - id: "PS.7A.T02"
+        name: "The Endocrine System"
+        subtopics:
+          - { id: "PS.7A.T02.S01", name: "Components of the Endocrine System" }
+          - { id: "PS.7A.T02.S02", name: "Effects of the Endocrine System on Behavior" }
+      - id: "PS.7A.T03"
+        name: "Behavioral Genetics"
+        subtopics:
+          - { id: "PS.7A.T03.S01", name: "Genes, Temperament, and Heredity" }
+          - { id: "PS.7A.T03.S02", name: "Adaptive Value of Traits and Behaviors" }
+          - { id: "PS.7A.T03.S03", name: "Interaction of Heredity and Environment" }
+          - { id: "PS.7A.T03.S04", name: "Regulatory Genes and Behavior" }
+          - { id: "PS.7A.T03.S05", name: "Behavioral Variation in Natural Populations" }
+      - id: "PS.7A.T04"
+        name: "Genetic and Environmental Influences on Development"
+        subtopics:
+          - { id: "PS.7A.T04.S01", name: "Experience and Behavior" }
+          - { id: "PS.7A.T04.S02", name: "Prenatal Development" }
+          - { id: "PS.7A.T04.S03", name: "Motor Development" }
+          - { id: "PS.7A.T04.S04", name: "Developmental Changes in Adolescence" }
+      - id: "PS.7A.T05"
+        name: "Personality"
+        subtopics:
+          - { id: "PS.7A.T05.S01", name: "Psychoanalytic Perspective" }
+          - { id: "PS.7A.T05.S02", name: "Humanistic Perspective" }
+          - { id: "PS.7A.T05.S03", name: "Trait Perspective" }
+          - { id: "PS.7A.T05.S04", name: "Social Cognitive Perspective" }
+          - { id: "PS.7A.T05.S05", name: "Biological Perspective" }
+          - { id: "PS.7A.T05.S06", name: "Behaviorist Perspective" }
+          - { id: "PS.7A.T05.S07", name: "Situational Approach to Behavior" }
+      - id: "PS.7A.T06"
+        name: "Understanding Psychological Disorders"
+        subtopics:
+          - { id: "PS.7A.T06.S01", name: "Biomedical vs Biopsychosocial Approaches" }
+          - { id: "PS.7A.T06.S02", name: "Classifying Psychological Disorders" }
+          - { id: "PS.7A.T06.S03", name: "Rates of Psychological Disorders" }
+      - id: "PS.7A.T07"
+        name: "Types of Psychological Disorders"
+        subtopics:
+          - { id: "PS.7A.T07.S01", name: "Anxiety Disorders" }
+          - { id: "PS.7A.T07.S02", name: "Obsessive-Compulsive Disorder" }
+          - { id: "PS.7A.T07.S03", name: "Trauma- and Stressor-Related Disorders" }
+          - { id: "PS.7A.T07.S04", name: "Somatic Symptom and Related Disorders" }
+          - { id: "PS.7A.T07.S05", name: "Bipolar and Related Disorders" }
+          - { id: "PS.7A.T07.S06", name: "Depressive Disorders" }
+          - { id: "PS.7A.T07.S07", name: "Schizophrenia" }
+          - { id: "PS.7A.T07.S08", name: "Dissociative Disorders" }
+          - { id: "PS.7A.T07.S09", name: "Personality Disorders" }
+      - id: "PS.7A.T08"
+        name: "Biological Bases of Nervous System Disorders"
+        subtopics:
+          - { id: "PS.7A.T08.S01", name: "Neurochemistry of Schizophrenia" }
+          - { id: "PS.7A.T08.S02", name: "Neurochemistry of Depression" }
+          - { id: "PS.7A.T08.S03", name: "Alzheimer's Disease" }
+          - { id: "PS.7A.T08.S04", name: "Parkinson's Disease" }
+          - { id: "PS.7A.T08.S05", name: "Stem Cell-Based Neuron Regeneration" }
+      - id: "PS.7A.T09"
+        name: "Motivation"
+        subtopics:
+          - { id: "PS.7A.T09.S01", name: "Instinct and Arousal" }
+          - { id: "PS.7A.T09.S02", name: "Drives and Needs" }
+          - { id: "PS.7A.T09.S03", name: "Drive Reduction Theory" }
+          - { id: "PS.7A.T09.S04", name: "Incentive Theory" }
+          - { id: "PS.7A.T09.S05", name: "Cognitive and Need-Based Theories" }
+          - { id: "PS.7A.T09.S06", name: "Biological and Sociocultural Motivators" }
+      - id: "PS.7A.T10"
+        name: "Attitudes"
+        subtopics:
+          - { id: "PS.7A.T10.S01", name: "Components of Attitudes" }
+          - { id: "PS.7A.T10.S02", name: "How Behavior Influences Attitudes" }
+          - { id: "PS.7A.T10.S03", name: "How Attitudes Influence Behavior" }
+          - { id: "PS.7A.T10.S04", name: "Cognitive Dissonance Theory" }
+
+  - id: "PS.7B"
+    name: "Social processes that influence human behavior"
+    topics:
+      - id: "PS.7B.T01"
+        name: "Presence of Others and Individual Behavior"
+        subtopics:
+          - { id: "PS.7B.T01.S01", name: "Social Facilitation" }
+          - { id: "PS.7B.T01.S02", name: "Deindividuation" }
+          - { id: "PS.7B.T01.S03", name: "Bystander Effect" }
+          - { id: "PS.7B.T01.S04", name: "Social Loafing" }
+      - id: "PS.7B.T02"
+        name: "Conformity and Obedience"
+        subtopics:
+          - { id: "PS.7B.T02.S01", name: "Peer Pressure" }
+          - { id: "PS.7B.T02.S02", name: "Conformity" }
+          - { id: "PS.7B.T02.S03", name: "Obedience" }
+          - { id: "PS.7B.T02.S04", name: "Social Control" }
+      - id: "PS.7B.T03"
+        name: "Group Decision-Making Processes"
+        subtopics:
+          - { id: "PS.7B.T03.S01", name: "Group Polarization" }
+          - { id: "PS.7B.T03.S02", name: "Groupthink" }
+      - id: "PS.7B.T04"
+        name: "Normative and Non-Normative Behavior"
+        subtopics:
+          - { id: "PS.7B.T04.S01", name: "Social Norms" }
+          - { id: "PS.7B.T04.S02", name: "Folkways, Mores, and Taboos" }
+          - { id: "PS.7B.T04.S03", name: "Sanctions" }
+          - { id: "PS.7B.T04.S04", name: "Anomie" }
+          - { id: "PS.7B.T04.S05", name: "Deviance" }
+          - { id: "PS.7B.T04.S06", name: "Perspectives on Deviance" }
+          - { id: "PS.7B.T04.S07", name: "Collective Behavior" }
+      - id: "PS.7B.T05"
+        name: "Socialization"
+        subtopics:
+          - { id: "PS.7B.T05.S01", name: "The Process of Socialization" }
+          - { id: "PS.7B.T05.S02", name: "Family as an Agent of Socialization" }
+          - { id: "PS.7B.T05.S03", name: "Peers as an Agent of Socialization" }
+          - { id: "PS.7B.T05.S04", name: "Mass Media as an Agent of Socialization" }
+          - { id: "PS.7B.T05.S05", name: "Workplace as an Agent of Socialization" }
+
+  - id: "PS.7C"
+    name: "Attitude and behavior change"
+    topics:
+      - id: "PS.7C.T01"
+        name: "Habituation and Dishabituation"
+        subtopics:
+          - { id: "PS.7C.T01.S01", name: "Habituation" }
+          - { id: "PS.7C.T01.S02", name: "Dishabituation" }
+      - id: "PS.7C.T02"
+        name: "Classical Conditioning"
+        subtopics:
+          - { id: "PS.7C.T02.S01", name: "Neutral, Conditioned, and Unconditioned Stimuli" }
+          - { id: "PS.7C.T02.S02", name: "Conditioned and Unconditioned Responses" }
+          - { id: "PS.7C.T02.S03", name: "Acquisition and Extinction" }
+          - { id: "PS.7C.T02.S04", name: "Spontaneous Recovery" }
+          - { id: "PS.7C.T02.S05", name: "Generalization and Discrimination" }
+      - id: "PS.7C.T03"
+        name: "Operant Conditioning"
+        subtopics:
+          - { id: "PS.7C.T03.S01", name: "Shaping and Extinction" }
+          - { id: "PS.7C.T03.S02", name: "Positive and Negative Reinforcement" }
+          - { id: "PS.7C.T03.S03", name: "Primary and Conditioned Reinforcers" }
+          - { id: "PS.7C.T03.S04", name: "Punishment" }
+          - { id: "PS.7C.T03.S05", name: "Reinforcement Schedules" }
+          - { id: "PS.7C.T03.S06", name: "Escape and Avoidance Learning" }
+      - id: "PS.7C.T04"
+        name: "Cognitive and Biological Factors in Learning"
+        subtopics:
+          - { id: "PS.7C.T04.S01", name: "Cognitive Processes in Associative Learning" }
+          - { id: "PS.7C.T04.S02", name: "Biological Predispositions and Instinctive Drift" }
+      - id: "PS.7C.T05"
+        name: "Observational Learning"
+        subtopics:
+          - { id: "PS.7C.T05.S01", name: "Modeling" }
+          - { id: "PS.7C.T05.S02", name: "Mirror Neurons" }
+          - { id: "PS.7C.T05.S03", name: "Vicarious Emotions and the Brain" }
+          - { id: "PS.7C.T05.S04", name: "Applications of Observational Learning" }
+      - id: "PS.7C.T06"
+        name: "Theories of Attitude and Behavior Change"
+        subtopics:
+          - { id: "PS.7C.T06.S01", name: "Elaboration Likelihood Model" }
+          - { id: "PS.7C.T06.S02", name: "Social Cognitive Theory" }
+          - { id: "PS.7C.T06.S03", name: "Factors That Affect Attitude Change" }
+
+prerequisites:
+  # --- 7A: biological bases ---
+  - { src: "PS.7A.T01.S01", dst: "PS.7A.T01.S02", rationale: "Neuronal structure precedes chemical signaling", confidence: "high" }
+  - { src: "PS.7A.T01.S04", dst: "PS.7A.T01.S05", rationale: "CNS overview before brain subdivisions", confidence: "high" }
+  - { src: "PS.7A.T01.S04", dst: "PS.7A.T01.S06", rationale: "Brain structure before cortical lateralization", confidence: "medium" }
+  - { src: "PS.7A.T02.S01", dst: "PS.7A.T02.S02", rationale: "Know the glands before their behavioral effects", confidence: "high" }
+  - { src: "PS.7A.T03.S01", dst: "PS.7A.T03.S03", rationale: "Heredity basics before gene-environment interaction", confidence: "high" }
+  - { src: "PS.7A.T03.S03", dst: "PS.7A.T04.S01", rationale: "Gene-environment interaction underlies experience effects", confidence: "high" }
+  - { src: "PS.7A.T04.S02", dst: "PS.7A.T04.S03", rationale: "Prenatal development precedes motor development", confidence: "medium" }
+  - { src: "PS.7A.T04.S03", dst: "PS.7A.T04.S04", rationale: "Motor development precedes adolescent changes", confidence: "medium" }
+  # --- 7A: disorders ---
+  - { src: "PS.7A.T06.S01", dst: "PS.7A.T06.S02", rationale: "Diagnostic approaches before classification systems", confidence: "medium" }
+  - { src: "PS.7A.T06.S02", dst: "PS.7A.T07", rationale: "Classification framework before enumerating disorders", confidence: "high" }
+  - { src: "PS.7A.T01.S02", dst: "PS.7A.T08.S01", rationale: "Neurotransmitter function underlies schizophrenia neurochemistry", confidence: "high" }
+  - { src: "PS.7A.T01.S02", dst: "PS.7A.T08.S02", rationale: "Neurotransmitter function underlies depression neurochemistry", confidence: "high" }
+  - { src: "PS.7A.T07.S07", dst: "PS.7A.T08.S01", rationale: "Know the disorder before its biological basis", confidence: "medium" }
+  - { src: "PS.7A.T07.S06", dst: "PS.7A.T08.S02", rationale: "Know the disorder before its biological basis", confidence: "medium" }
+  # --- 7A: motivation and attitudes ---
+  - { src: "PS.7A.T09.S02", dst: "PS.7A.T09.S03", rationale: "Drives and needs underlie drive reduction theory", confidence: "high" }
+  - { src: "PS.7A.T09.S01", dst: "PS.7A.T09.S05", rationale: "Instinct and arousal frame later motivation theories", confidence: "medium" }
+  - { src: "PS.7A.T10.S01", dst: "PS.7A.T10.S02", rationale: "Attitude components before behavior-to-attitude link", confidence: "high" }
+  - { src: "PS.7A.T10.S01", dst: "PS.7A.T10.S03", rationale: "Attitude components before attitude-to-behavior link", confidence: "high" }
+  - { src: "PS.7A.T10.S02", dst: "PS.7A.T10.S04", rationale: "Behavior-attitude link sets up cognitive dissonance", confidence: "high" }
+  # --- 7B: social processes ---
+  - { src: "PS.7B.T02.S02", dst: "PS.7B.T03.S02", rationale: "Conformity pressure drives groupthink", confidence: "high" }
+  - { src: "PS.7B.T02.S02", dst: "PS.7B.T03.S01", rationale: "Conformity underlies group polarization", confidence: "medium" }
+  - { src: "PS.7B.T04.S01", dst: "PS.7B.T04.S02", rationale: "Norms concept before folkways, mores, taboos", confidence: "high" }
+  - { src: "PS.7B.T04.S01", dst: "PS.7B.T04.S03", rationale: "Norms concept before sanctions that enforce them", confidence: "medium" }
+  - { src: "PS.7B.T04.S01", dst: "PS.7B.T04.S04", rationale: "Norms concept before anomie (normlessness)", confidence: "medium" }
+  - { src: "PS.7B.T04.S01", dst: "PS.7B.T04.S05", rationale: "Norms define what counts as deviance", confidence: "high" }
+  - { src: "PS.7B.T04.S05", dst: "PS.7B.T04.S06", rationale: "Deviance concept before theories explaining it", confidence: "high" }
+  - { src: "PS.7B.T04.S01", dst: "PS.7B.T05.S01", rationale: "Norms are what socialization transmits", confidence: "medium" }
+  - { src: "PS.7B.T05.S01", dst: "PS.7B.T02.S02", rationale: "Socialization instills the tendency to conform", confidence: "medium" }
+  # --- 7C: learning chain ---
+  - { src: "PS.7C.T01", dst: "PS.7C.T02", rationale: "Non-associative learning before associative learning", confidence: "medium" }
+  - { src: "PS.7C.T02.S01", dst: "PS.7C.T02.S02", rationale: "Stimulus terms before response terms", confidence: "high" }
+  - { src: "PS.7C.T02.S02", dst: "PS.7C.T02.S03", rationale: "Response pairing before acquisition and extinction", confidence: "high" }
+  - { src: "PS.7C.T02.S03", dst: "PS.7C.T02.S04", rationale: "Extinction concept before spontaneous recovery", confidence: "high" }
+  - { src: "PS.7C.T02.S03", dst: "PS.7C.T02.S05", rationale: "Acquisition before generalization and discrimination", confidence: "medium" }
+  - { src: "PS.7C.T02", dst: "PS.7C.T03", rationale: "Classical conditioning grounds operant conditioning", confidence: "high" }
+  - { src: "PS.7C.T03.S02", dst: "PS.7C.T03.S03", rationale: "Reinforcement before primary vs conditioned reinforcers", confidence: "medium" }
+  - { src: "PS.7C.T03.S02", dst: "PS.7C.T03.S04", rationale: "Reinforcement before contrasting punishment", confidence: "medium" }
+  - { src: "PS.7C.T03.S02", dst: "PS.7C.T03.S05", rationale: "Reinforcement before reinforcement schedules", confidence: "high" }
+  - { src: "PS.7C.T03.S02", dst: "PS.7C.T03.S06", rationale: "Reinforcement before escape and avoidance learning", confidence: "medium" }
+  - { src: "PS.7C.T02", dst: "PS.7C.T04.S01", rationale: "Associative learning before its cognitive account", confidence: "high" }
+  - { src: "PS.7C.T03", dst: "PS.7C.T04.S01", rationale: "Operant learning before its cognitive account", confidence: "medium" }
+  - { src: "PS.7C.T02", dst: "PS.7C.T04.S02", rationale: "Conditioning before biological constraints on it", confidence: "medium" }
+  - { src: "PS.7C.T03", dst: "PS.7C.T05.S01", rationale: "Vicarious reinforcement extends operant modeling", confidence: "medium" }
+  - { src: "PS.7C.T02", dst: "PS.7C.T05", rationale: "Associative learning before observational learning", confidence: "medium" }
+  # --- 7C: learning -> attitude/behavior change (load-bearing) ---
+  - { src: "PS.7C.T02", dst: "PS.7C.T06", rationale: "Classical conditioning is a mechanism of behavior change", confidence: "high" }
+  - { src: "PS.7C.T03", dst: "PS.7C.T06", rationale: "Operant conditioning is a mechanism of behavior change", confidence: "high" }
+  - { src: "PS.7C.T05", dst: "PS.7C.T06.S02", rationale: "Social cognitive theory is built on observational learning", confidence: "high" }
+  - { src: "PS.7C.T05.S01", dst: "PS.7C.T06.S02", rationale: "Modeling is the core of social cognitive theory", confidence: "high" }
+  - { src: "PS.7C.T06.S01", dst: "PS.7C.T06.S03", rationale: "ELM routes frame the factors that change attitudes", confidence: "medium" }
+  # --- cross-category within FC7 (7A/7B/7C) ---
+  - { src: "PS.7A.T10.S01", dst: "PS.7C.T06", rationale: "Understand attitudes before theories that change them", confidence: "high" }
+  - { src: "PS.7A.T10.S04", dst: "PS.7C.T06.S03", rationale: "Cognitive dissonance informs attitude-change factors", confidence: "medium" }
+  - { src: "PS.7C.T02", dst: "PS.7A.T05.S06", rationale: "Behaviorist personality theory rests on classical conditioning", confidence: "high" }
+  - { src: "PS.7C.T03", dst: "PS.7A.T05.S06", rationale: "Behaviorist personality theory rests on operant conditioning", confidence: "high" }
+  - { src: "PS.7C.T05", dst: "PS.7A.T05.S04", rationale: "Social cognitive personality theory rests on observational learning", confidence: "high" }
+  - { src: "PS.7C.T03", dst: "PS.7B.T05.S01", rationale: "Reinforcement is a mechanism of socialization", confidence: "medium" }
+  - { src: "PS.7C.T05.S01", dst: "PS.7B.T05.S01", rationale: "Modeling is a mechanism of socialization", confidence: "medium" }
+  - { src: "PS.7C.T03.S02", dst: "PS.7A.T09.S04", rationale: "Reinforcers are the incentives in incentive theory", confidence: "medium" }
+  - { src: "PS.7A.T01.S01", dst: "PS.7C.T05.S02", rationale: "Neuron basics before mirror neuron function", confidence: "medium" }
+
+cross_prerequisites:
+  # FC7 depends on FC6 cognition (6B) and emotion (6C); far end given as a hint.
+  - { src_hint: "PS.6B: Memory", dst: "PS.7C.T02", rationale: "Conditioned associations require memory encoding and retrieval", confidence: "medium" }
+  - { src_hint: "PS.6B: Memory", dst: "PS.7C.T05", rationale: "Observational learning requires retaining modeled behavior", confidence: "medium" }
+  - { src_hint: "PS.6B: Cognition", dst: "PS.7C.T04.S01", rationale: "Cognitive processing shapes what associations are learned", confidence: "high" }
+  - { src_hint: "PS.6B: Cognition", dst: "PS.7C.T06.S01", rationale: "ELM central route depends on cognitive elaboration", confidence: "high" }
+  - { src_hint: "PS.6B: Attention", dst: "PS.7C.T05.S01", rationale: "Modeling requires attending to the model", confidence: "medium" }
+  - { src_hint: "PS.6B: Cognition", dst: "PS.7A.T10.S04", rationale: "Cognitive dissonance is a cognition-driven process", confidence: "medium" }
+  - { src_hint: "PS.6C: Emotion", dst: "PS.7A.T09.S01", rationale: "Emotional arousal is a core input to motivation", confidence: "medium" }
+  - { src_hint: "PS.6C: Emotion", dst: "PS.7A.T10.S01", rationale: "The affective component of attitudes is emotion-based", confidence: "medium" }
+
+related:
+  - { a: "PS.7A.T05.S05", b: "PS.7A.T03.S01", rationale: "Biological personality theory draws on temperament and heredity" }
+  - { a: "PS.7B.T02.S02", b: "PS.7B.T02.S03", rationale: "Conformity and obedience are both social-influence processes" }
+  - { a: "PS.7B.T01.S01", b: "PS.7B.T01.S04", rationale: "Contrasting effects of others' presence on performance" }
+  - { a: "PS.7B.T03.S01", b: "PS.7B.T03.S02", rationale: "Related group decision-making phenomena" }
+  - { a: "PS.7C.T02", b: "PS.7C.T03", rationale: "The two forms of associative learning" }
+  - { a: "PS.7C.T06.S01", b: "PS.7C.T06.S02", rationale: "Two major frameworks for attitude and behavior change" }

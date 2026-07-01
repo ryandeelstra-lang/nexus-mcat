@@ -89,6 +89,7 @@ it shows the structured "prove this topic" abstention, never a fabricated number
 
 <div class="dash">
     <header class="dash-head">
+        <div class="kicker">Nexus · Test-day readiness</div>
         <h1>Your three honest scores</h1>
         <p class="sub">
             Two scores show a value with a confidence range; Readiness stays silent
@@ -99,14 +100,20 @@ it shows the structured "prove this topic" abstention, never a fabricated number
     {#if error}
         <div class="notice">{error}</div>
     {:else if !data}
-        <div class="notice">Reading your collection…</div>
+        <div class="notice notice-loading">
+            <span class="pulse" aria-hidden="true"></span>
+            <span>Reading your collection…</span>
+        </div>
     {:else if data.available === false}
         <div class="notice">{data.reason ?? "scores engine unavailable"}</div>
     {:else}
         {#if synthetic}
             <div class="caveat">
-                ⚠ These scores are computed on <strong>synthetic</strong>
-                practice data — not a real readiness estimate.
+                <span class="caveat-mark" aria-hidden="true"></span>
+                <span>
+                    These scores are computed on <strong>synthetic</strong>
+                    practice data — not a real readiness estimate.
+                </span>
             </div>
         {/if}
 
@@ -115,29 +122,38 @@ it shows the structured "prove this topic" abstention, never a fabricated number
             {#if data.memory}
                 <section class="card memory">
                     <div class="card-kind">Memory</div>
-                    <div class="big">{pct(data.memory.point)}</div>
-                    <div class="range">
-                        <span>range</span>
-                        <div class="range-bar">
-                            <div
-                                class="range-fill"
-                                style="left:{clamp01(data.memory.range[0]) *
-                                    100}%;right:{(1 - clamp01(data.memory.range[1])) *
-                                    100}%"
-                            ></div>
-                        </div>
-                        <span>
-                            {pct(data.memory.range[0])}–{pct(data.memory.range[1])}
+                    <div class="hero-top">
+                        <div class="big">{pct(data.memory.point)}</div>
+                        <span
+                            class="chip {data.memory.confidence === 'low'
+                                ? 'chip-warn'
+                                : ''}"
+                        >
+                            {data.memory.confidence === "low"
+                                ? "low confidence"
+                                : "calibrated"}
                         </span>
                     </div>
-                    <div
-                        class="chip {data.memory.confidence === 'low'
-                            ? 'chip-warn'
-                            : ''}"
-                    >
-                        {data.memory.confidence === "low"
-                            ? "low confidence"
-                            : "calibrated"}
+                    <div class="band">
+                        <div
+                            class="band-range"
+                            style="left:{clamp01(data.memory.range[0]) *
+                                100}%;right:{(1 - clamp01(data.memory.range[1])) *
+                                100}%"
+                        ></div>
+                        <div
+                            class="band-point"
+                            style="left:{clamp01(data.memory.point) * 100}%"
+                        ></div>
+                    </div>
+                    <div class="band-scale">
+                        <span>0%</span>
+                        <span class="band-caption">
+                            Confidence range {pct(data.memory.range[0])}–{pct(
+                                data.memory.range[1],
+                            )}
+                        </span>
+                        <span>100%</span>
                     </div>
                     <p class="evidence">{data.memory.evidence}</p>
                     {#if data.memory.missing_data}
@@ -171,42 +187,45 @@ it shows the structured "prove this topic" abstention, never a fabricated number
                             Prove this topic to unlock your trajectory
                         </div>
                         <p class="evidence">{data.readiness.reason}</p>
-                        {#if data.readiness.graded_reviews_required}
-                            <div class="meter">
-                                <span class="meter-label">graded reviews</span>
-                                <div class="meter-bar">
+                        <div class="gates">
+                            {#if data.readiness.graded_reviews_required}
+                                <div class="gate">
                                     <div
-                                        class="meter-fill"
-                                        style="width:{clamp01(
+                                        class="ring"
+                                        style="--p:{clamp01(
                                             (data.readiness.graded_reviews ?? 0) /
                                                 data.readiness.graded_reviews_required,
-                                        ) * 100}%"
-                                    ></div>
+                                        ) * 100}"
+                                    >
+                                        <span class="ring-num">
+                                            {data.readiness.graded_reviews ?? 0}
+                                        </span>
+                                    </div>
+                                    <div class="gate-cap">
+                                        of {data.readiness.graded_reviews_required} graded
+                                        reviews
+                                    </div>
                                 </div>
-                                <span class="meter-val">
-                                    {data.readiness.graded_reviews ?? 0} / {data
-                                        .readiness.graded_reviews_required}
-                                </span>
-                            </div>
-                        {/if}
-                        {#if data.readiness.coverage_required_pct}
-                            <div class="meter">
-                                <span class="meter-label">category coverage</span>
-                                <div class="meter-bar">
+                            {/if}
+                            {#if data.readiness.coverage_required_pct}
+                                <div class="gate">
                                     <div
-                                        class="meter-fill"
-                                        style="width:{clamp01(
+                                        class="ring"
+                                        style="--p:{clamp01(
                                             data.readiness.coverage_pct /
                                                 data.readiness.coverage_required_pct,
-                                        ) * 100}%"
-                                    ></div>
+                                        ) * 100}"
+                                    >
+                                        <span class="ring-num">
+                                            {data.readiness.coverage_pct}%
+                                        </span>
+                                    </div>
+                                    <div class="gate-cap">
+                                        of {data.readiness.coverage_required_pct}% categories
+                                    </div>
                                 </div>
-                                <span class="meter-val">
-                                    {data.readiness.coverage_pct}% / {data.readiness
-                                        .coverage_required_pct}%
-                                </span>
-                            </div>
-                        {/if}
+                            {/if}
+                        </div>
                     {/if}
                 </section>
             {/if}
@@ -249,19 +268,33 @@ it shows the structured "prove this topic" abstention, never a fabricated number
                 </div>
             </section>
         {/if}
+
+        <p class="honesty">
+            Nexus never fabricates a number. Every score — and every "not yet" — comes
+            straight from the engine; Readiness stays silent until you've cleared the
+            evidence floor.
+        </p>
     {/if}
 </div>
 
 <style lang="scss">
-    // charged_up premium scores surface — near-white field, dark ink, Inter. Layout: a full-width
-    // Memory hero, a paired Performance/Readiness row, then a Coverage footer. Visual only; the engine
-    // still owns every number and every abstention.
+    // charged_up premium scores surface — a near-white field, dark ink, Inter. Layout: a full-width
+    // Memory hero (headline value + confidence band), a paired Performance/Readiness row (the readiness
+    // floor shown as quiet progress rings), then a Coverage footer and an honesty footnote. Visual only;
+    // the engine still owns every number and every abstention.
+    $ink: #1b1d2a;
+    $blue: #3b82f6;
+    $teal: #14b8a6;
+    $amber: #f59e0b;
+    $purple: #8b5cf6;
+    $slate: #94a3b8;
+
     .dash {
         min-height: 100%;
         max-width: 920px;
         margin: 0 auto;
-        padding: 40px clamp(18px, 4vw, 44px) 56px;
-        color: #1b1d2a;
+        padding: 48px clamp(18px, 4vw, 44px) 64px;
+        color: $ink;
         background: var(--canvas, #fbfbfd);
         box-sizing: border-box;
         font-family:
@@ -271,49 +304,101 @@ it shows the structured "prove this topic" abstention, never a fabricated number
             "Segoe UI",
             Roboto,
             sans-serif;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    // ── Header ───────────────────────────────────────────────────────────────
+    .dash-head {
+        margin-bottom: 34px;
+    }
+    .kicker {
+        margin-bottom: 12px;
+        font-size: 11px;
+        font-weight: 640;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba($ink, 0.42);
     }
     .dash-head h1 {
-        margin: 0 0 6px;
-        font-size: 28px;
+        margin: 0 0 8px;
+        font-size: 30px;
         font-weight: 680;
-        letter-spacing: -0.02em;
+        letter-spacing: -0.025em;
+        line-height: 1.1;
     }
     .sub {
-        margin: 0 0 26px;
-        color: rgba(27, 29, 42, 0.55);
-        font-size: 14.5px;
-        line-height: 1.5;
+        margin: 0;
         max-width: 56ch;
-    }
-    // Calm centered empty-state panel (engine unavailable / loading) — intentional, never error-red.
-    .notice {
-        margin-top: 8px;
-        padding: 40px 24px;
-        text-align: center;
-        color: rgba(27, 29, 42, 0.55);
+        color: rgba($ink, 0.55);
         font-size: 15px;
-        background: var(--canvas-elevated, #ffffff);
-        border: 1px solid var(--border-subtle, rgba(27, 29, 42, 0.08));
-        border-radius: 18px;
+        line-height: 1.55;
+    }
+
+    // ── Calm notices (loading / unavailable) — intentional panels, never error-red ──
+    .notice {
+        position: relative;
+        margin-top: 8px;
+        padding: 48px 28px;
+        text-align: center;
+        color: rgba($ink, 0.5);
+        font-size: 15px;
+        background:
+            radial-gradient(120% 140% at 50% 0%, rgba($ink, 0.015), transparent 60%),
+            var(--canvas-elevated, #ffffff);
+        border: 1px solid rgba($ink, 0.07);
+        border-radius: 20px;
         box-shadow:
-            0 1px 2px rgba(27, 29, 42, 0.04),
-            0 10px 30px rgba(27, 29, 42, 0.05);
+            0 1px 2px rgba($ink, 0.03),
+            0 12px 34px -8px rgba($ink, 0.06);
     }
+    .notice-loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+    }
+    .pulse {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: $blue;
+        box-shadow: 0 0 0 0 rgba($blue, 0.4);
+    }
+
+    // ── Synthetic-data banner — calm amber "heads up", not an error ──
     .caveat {
-        margin-bottom: 20px;
-        padding: 12px 16px;
-        border-radius: 12px;
-        background: rgba(245, 158, 11, 0.1);
-        border: 1px solid rgba(245, 158, 11, 0.45);
-        color: #92580a;
-        font-size: 14px;
+        display: flex;
+        align-items: flex-start;
+        gap: 11px;
+        margin-bottom: 22px;
+        padding: 13px 16px;
+        border-radius: 14px;
+        background: rgba($amber, 0.08);
+        border: 1px solid rgba($amber, 0.28);
+        color: #8a5206;
+        font-size: 13.5px;
+        line-height: 1.5;
+
+        strong {
+            font-weight: 680;
+        }
     }
+    .caveat-mark {
+        flex: none;
+        margin-top: 4px;
+        width: 8px;
+        height: 8px;
+        border-radius: 2px;
+        background: $amber;
+        box-shadow: 0 0 0 3px rgba($amber, 0.16);
+    }
+
+    // ── Card grid: Memory hero, then a paired row ──
     .cards {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 18px;
     }
-    // Memory is the hero — full width, larger.
     .memory {
         grid-column: 1 / -1;
     }
@@ -322,141 +407,226 @@ it shows the structured "prove this topic" abstention, never a fabricated number
             grid-template-columns: 1fr;
         }
     }
+
     .card {
         position: relative;
-        padding: 22px 24px;
-        border-radius: 18px;
+        padding: 26px 28px;
+        border-radius: 20px;
         background: var(--canvas-elevated, #ffffff);
-        border: 1px solid var(--border-subtle, rgba(27, 29, 42, 0.07));
+        border: 1px solid rgba($ink, 0.06);
         box-shadow:
-            0 1px 2px rgba(27, 29, 42, 0.04),
-            0 10px 30px rgba(27, 29, 42, 0.06);
+            0 1px 2px rgba($ink, 0.03),
+            0 10px 26px -6px rgba($ink, 0.05),
+            0 30px 60px -24px rgba($ink, 0.07);
         overflow: hidden;
     }
-    // 4px left accent bar in the locked section hues — every surface speaks the graph's color language.
+    // Soft hue wash in the top-right corner — each surface quietly speaks its section color,
+    // replacing the old hard accent bar.
     .card::before {
         content: "";
         position: absolute;
-        inset: 0 auto 0 0;
-        width: 4px;
+        inset: 0;
+        pointer-events: none;
+        background: radial-gradient(
+            130% 120% at 100% 0%,
+            var(--glow, transparent),
+            transparent 58%
+        );
     }
-    .memory::before {
-        background: #3b82f6;
+    .memory {
+        --glow: rgba($blue, 0.1);
     }
-    .performance::before {
-        background: #94a3b8;
+    .performance {
+        --glow: rgba($slate, 0.12);
     }
-    .readiness::before {
-        background: #14b8a6;
+    .readiness {
+        --glow: rgba($teal, 0.1);
     }
     .coverage {
+        --glow: rgba($purple, 0.1);
         margin-top: 18px;
     }
-    .coverage::before {
-        background: #8b5cf6;
-    }
+
     .card-kind {
-        font-size: 11.5px;
-        letter-spacing: 0.1em;
+        margin-bottom: 16px;
+        font-size: 11px;
+        font-weight: 640;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
-        color: rgba(27, 29, 42, 0.45);
-        margin-bottom: 12px;
-        font-weight: 600;
+        color: rgba($ink, 0.45);
     }
-    .big {
-        font-size: 54px;
-        font-weight: 720;
-        line-height: 1;
-        letter-spacing: -0.03em;
+    .memory .card-kind {
+        color: #2563eb;
     }
-    .pending,
-    .locked {
-        font-size: 18px;
-        font-weight: 620;
-        color: rgba(27, 29, 42, 0.82);
-        margin-bottom: 6px;
+    .performance .card-kind {
+        color: #64748b;
     }
-    .locked {
-        color: #0f9488;
+    .readiness .card-kind {
+        color: #0d9488;
     }
-    .range {
+    .coverage .card-kind {
+        color: #7c3aed;
+    }
+
+    // ── Memory hero ──
+    .hero-top {
         display: flex;
         align-items: center;
-        gap: 10px;
-        margin: 14px 0 4px;
-        max-width: 460px;
-        font-size: 12px;
-        color: rgba(27, 29, 42, 0.55);
+        gap: 16px;
     }
-    .range-bar {
+    .big {
+        font-size: 60px;
+        font-weight: 700;
+        line-height: 0.95;
+        letter-spacing: -0.035em;
+        font-variant-numeric: tabular-nums;
+    }
+    // Confidence band: a subtle full-scale track, a saturated gradient segment for the range,
+    // and a haloed point marker for the headline estimate.
+    .band {
         position: relative;
-        flex: 1;
-        height: 8px;
+        height: 12px;
+        margin: 22px 0 10px;
         border-radius: 999px;
-        background: rgba(27, 29, 42, 0.07);
+        background: rgba($ink, 0.06);
+        box-shadow: inset 0 0 0 1px rgba($ink, 0.02);
     }
-    .range-fill {
+    .band-range {
         position: absolute;
         top: 0;
         bottom: 0;
-        background: linear-gradient(90deg, #60a5fa, #3b82f6);
         border-radius: 999px;
+        background: linear-gradient(90deg, rgba($blue, 0.45), rgba($blue, 0.85));
     }
+    .band-point {
+        position: absolute;
+        top: 50%;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background: #ffffff;
+        border: 3px solid $blue;
+        transform: translate(-50%, -50%);
+        box-shadow:
+            0 1px 4px rgba($ink, 0.22),
+            0 0 0 4px rgba($blue, 0.1);
+    }
+    .band-scale {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        font-size: 11.5px;
+        color: rgba($ink, 0.4);
+        font-variant-numeric: tabular-nums;
+    }
+    .band-caption {
+        color: rgba($ink, 0.55);
+        font-weight: 550;
+    }
+
     .chip {
-        display: inline-block;
-        margin-top: 12px;
-        padding: 3px 11px;
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 12px;
         border-radius: 999px;
         font-size: 12px;
-        font-weight: 550;
-        background: rgba(20, 184, 166, 0.12);
-        color: #0f9488;
+        font-weight: 560;
+        background: rgba($blue, 0.1);
+        color: #2563eb;
+        border: 1px solid rgba($blue, 0.18);
     }
     .chip-warn {
-        background: rgba(245, 158, 11, 0.14);
-        color: #92580a;
+        background: rgba($amber, 0.12);
+        color: #b45309;
+        border-color: rgba($amber, 0.3);
     }
+
+    // ── Pending / locked states ──
+    .pending,
+    .locked {
+        margin-bottom: 6px;
+        font-size: 18px;
+        font-weight: 640;
+        letter-spacing: -0.01em;
+        color: rgba($ink, 0.8);
+    }
+    .locked {
+        color: #0d9488;
+    }
+
     .evidence {
-        margin: 14px 0 0;
+        margin: 12px 0 0;
+        max-width: 62ch;
         font-size: 13.5px;
-        line-height: 1.55;
-        color: rgba(27, 29, 42, 0.62);
-        max-width: 64ch;
+        line-height: 1.6;
+        color: rgba($ink, 0.6);
     }
     .missing {
-        margin: 6px 0 0;
+        margin: 8px 0 0;
+        max-width: 62ch;
         font-size: 12.5px;
-        color: rgba(27, 29, 42, 0.45);
-        max-width: 64ch;
+        line-height: 1.55;
+        color: rgba($ink, 0.42);
     }
-    .meter {
-        margin-top: 14px;
-        font-size: 12px;
-        color: rgba(27, 29, 42, 0.55);
+
+    // ── Readiness floor rings (progress toward the give-up floor, drawn with conic-gradient) ──
+    .gates {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        margin-top: 20px;
     }
-    .meter-label {
-        display: block;
-        margin-bottom: 5px;
+    .gate {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        width: 104px;
     }
-    .meter-bar {
-        height: 8px;
-        border-radius: 999px;
-        background: rgba(27, 29, 42, 0.07);
-        overflow: hidden;
+    .ring {
+        position: relative;
+        display: grid;
+        place-items: center;
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        background: conic-gradient(
+            from -90deg,
+            #5eead4 0deg,
+            $teal calc(var(--p, 0) * 3.6deg),
+            rgba($ink, 0.07) calc(var(--p, 0) * 3.6deg)
+        );
     }
-    .meter-fill {
-        height: 100%;
-        background: linear-gradient(90deg, #2dd4bf, #14b8a6);
-        border-radius: 999px;
+    .ring::before {
+        content: "";
+        position: absolute;
+        inset: 9px;
+        border-radius: 50%;
+        background: var(--canvas-elevated, #ffffff);
+        box-shadow: inset 0 0 0 1px rgba($ink, 0.03);
     }
-    .meter-val {
-        display: block;
-        margin-top: 5px;
-        color: rgba(27, 29, 42, 0.45);
+    .ring-num {
+        position: relative;
+        z-index: 1;
+        font-size: 22px;
+        font-weight: 680;
+        letter-spacing: -0.02em;
+        color: rgba($ink, 0.82);
+        font-variant-numeric: tabular-nums;
     }
+    .gate-cap {
+        text-align: center;
+        font-size: 11.5px;
+        line-height: 1.4;
+        color: rgba($ink, 0.5);
+        font-variant-numeric: tabular-nums;
+    }
+
+    // ── Coverage footer ──
     .cov-row {
         display: flex;
-        gap: 36px;
+        gap: 40px;
         flex-wrap: wrap;
     }
     .cov-stat {
@@ -464,16 +634,97 @@ it shows the structured "prove this topic" abstention, never a fabricated number
         min-width: 180px;
     }
     .cov-num {
-        font-size: 28px;
+        font-size: 30px;
         font-weight: 700;
-        letter-spacing: -0.02em;
+        letter-spacing: -0.025em;
+        font-variant-numeric: tabular-nums;
     }
     .cov-cap {
+        margin: 4px 0 12px;
         font-size: 12px;
-        color: rgba(27, 29, 42, 0.5);
-        margin: 2px 0 10px;
+        line-height: 1.45;
+        color: rgba($ink, 0.5);
     }
-    .coverage .meter-fill {
-        background: linear-gradient(90deg, #a78bfa, #8b5cf6);
+    .meter-bar {
+        height: 8px;
+        border-radius: 999px;
+        background: rgba($ink, 0.06);
+        overflow: hidden;
+    }
+    .meter-fill {
+        height: 100%;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #a78bfa, $purple);
+    }
+
+    // ── Honesty footnote — quiet "fine print" that earns trust ──
+    .honesty {
+        margin: 30px 0 0;
+        padding-top: 20px;
+        max-width: 68ch;
+        border-top: 1px solid rgba($ink, 0.06);
+        font-size: 12.5px;
+        line-height: 1.6;
+        color: rgba($ink, 0.4);
+    }
+
+    // ── Meaning-bearing motion only, and only when the viewer allows it ──
+    @media (prefers-reduced-motion: no-preference) {
+        .dash-head,
+        .caveat,
+        .card,
+        .honesty {
+            opacity: 0;
+            animation: fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        .dash-head {
+            animation-delay: 0.02s;
+        }
+        .caveat {
+            animation-delay: 0.06s;
+        }
+        .memory {
+            animation-delay: 0.1s;
+        }
+        .performance {
+            animation-delay: 0.15s;
+        }
+        .readiness {
+            animation-delay: 0.2s;
+        }
+        .coverage {
+            animation-delay: 0.25s;
+        }
+        .honesty {
+            animation-delay: 0.3s;
+        }
+        .pulse {
+            animation: pulse 1.6s ease-in-out infinite;
+        }
+    }
+
+    @keyframes fade-up {
+        from {
+            opacity: 0;
+            transform: translateY(9px);
+        }
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+    @keyframes pulse {
+        0% {
+            opacity: 1;
+            box-shadow: 0 0 0 0 rgba($blue, 0.4);
+        }
+        70% {
+            opacity: 0.65;
+            box-shadow: 0 0 0 9px rgba($blue, 0);
+        }
+        100% {
+            opacity: 1;
+            box-shadow: 0 0 0 0 rgba($blue, 0);
+        }
     }
 </style>

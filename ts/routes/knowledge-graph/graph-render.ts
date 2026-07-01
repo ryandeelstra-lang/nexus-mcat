@@ -158,6 +158,16 @@ export function buildGlowDefs(svg: SVGElement): void {
             merge.append("feMergeNode").attr("in", "SourceGraphic");
         }
     }
+
+    // Section "galaxy" ambient halos: a soft radial haze (hue -> transparent) the 3D view paints BEHIND
+    // each section node, so even a sparse Overview reads as luminous and alive — never four lonely dots.
+    // objectBoundingBox units (the default) => the haze scales with whatever radius we give the circle.
+    for (const [section, hue] of Object.entries(SECTION_COLOR)) {
+        const halo = defs.append("radialGradient").attr("id", `kg-halo-${section}`);
+        halo.append("stop").attr("offset", "0%").attr("stop-color", hue).attr("stop-opacity", 0.2);
+        halo.append("stop").attr("offset", "45%").attr("stop-color", hue).attr("stop-opacity", 0.07);
+        halo.append("stop").attr("offset", "100%").attr("stop-color", hue).attr("stop-opacity", 0);
+    }
 }
 
 export function renderGraph(

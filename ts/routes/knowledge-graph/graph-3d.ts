@@ -25,7 +25,7 @@ const CX = VIEW_W / 2;
 const CY = VIEW_H / 2;
 const CAM_D = 2.6;
 const FOCAL = 2.0;
-const SCREEN = 235;
+const SCREEN = 320; // world->screen projection scale — sized so the constellation fills the frame
 const ORBIT_SPEED = 0.0019;
 const PITCH = -0.34;
 const ORBIT_MAX = 1600; // above this many visible nodes, stop the ambient orbit (calm static scene)
@@ -105,11 +105,15 @@ interface NodeRT {
     factor: number;
     reveal: number; // eased opacity 0..1
     active: boolean; // appear <= detail
+    lastFilter: string; // last-applied glow filter attr ("" = none) — avoids per-frame re-rasterization
+    halo: SVGCircleElement | null; // section galaxies only: the soft ambient haze painted behind the node
+    depthN: number; // last painted normalized depth 0..1 (cached so edges can fade atmospherically, cheap)
 }
 
 interface EdgeRT {
-    src: string;
-    dst: string;
+    // Direct node references (resolved once at build) so the per-frame edge loop never re-hits the id map.
+    a: NodeRT;
+    b: NodeRT;
     prereq: boolean;
     backbone: boolean; // connects tier<=3 nodes -> part of the always-drawn interconnecting web
     line: SVGLineElement | null;
@@ -123,14 +127,39 @@ export function createGraph3D(svgEl: SVGSVGElement, graph: Sidecar, cb: Graph3DC
     root.selectAll("*").remove();
     buildGlowDefs(svgEl);
 
-    const xs = graph.nodes.map((n) => n.x);
-    const ys = graph.nodes.map((n) => n.y);
-    const zs = graph.nodes.map((n) => n.z);
-    const mid = (a: number[]): number => (Math.min(...a) + Math.max(...a)) / 2;
-    const cx = mid(xs), cy = mid(ys), cz = mid(zs);
-    const halfExtent = Math.max(
-        ...graph.nodes.map((n) => Math.max(Math.abs(n.x - cx), Math.abs(n.y - cy), Math.abs(n.z - cz))),
-    ) || 1;
+    // Center + extent in a SINGLE pass. (Spreading ~12.5k coords into Math.min/Math.max(...) is both
+    // wasteful and can blow the engine's argument limit; two tight loops are O(n) and allocation-free.)
+    let minX = Infinity, minY = Infinity, minZ = Infinity;
+    let maxX = -Infinity, maxY = -Infinity, maxZ = -Infinity;
+    for (const n of graph.nodes) {
+        if (n.x < minX) {
+            minX = n.x;
+        }
+        if (n.x > maxX) {
+            maxX = n.x;
+        }
+        if (n.y < minY) {
+            minY = n.y;
+        }
+        if (n.y > maxY) {
+            maxY = n.y;
+        }
+        if (n.z < minZ) {
+            minZ = n.z;
+        }
+        if (n.z > maxZ) {
+            maxZ = n.z;
+        }
+    }
+    const cx = (minX + maxX) / 2, cy = (minY + maxY) / 2, cz = (minZ + maxZ) / 2;
+    let halfExtent = 0;
+    for (const n of graph.nodes) {
+        const d = Math.max(Math.abs(n.x - cx), Math.abs(n.y - cy), Math.abs(n.z - cz));
+        if (d > halfExtent) {
+            halfExtent = d;
+        }
+    }
+    halfExtent = halfExtent || 1;
     const norm = 1 / halfExtent;
 
     const prereqOut = new Map<string, string[]>();
@@ -170,16 +199,23 @@ export function createGraph3D(svgEl: SVGSVGElement, graph: Sidecar, cb: Graph3DC
         factor: 1,
         reveal: 0,
         active: false,
+        lastFilter: "",
+        halo: null,
+        depthN: 0,
     }));
     const byId = new Map(nodes.map((r) => [r.n.id, r]));
 
-    const edges: EdgeRT[] = graph.edges
-        .filter((e) => byId.has(e.src) && byId.has(e.dst))
-        .map((e) => {
-            const prereq = e.kind === "prerequisite";
-            const maxTier = Math.max(tierOf(byId.get(e.src)!.n), tierOf(byId.get(e.dst)!.n));
-            return { src: e.src, dst: e.dst, prereq, backbone: prereq && maxTier <= BACKBONE_MAX_TIER, line: null };
-        });
+    const edges: EdgeRT[] = [];
+    for (const e of graph.edges) {
+        const a = byId.get(e.src);
+        const b = byId.get(e.dst);
+        if (!a || !b) {
+            continue;
+        }
+        const prereq = e.kind === "prerequisite";
+        const maxTier = Math.max(tierOf(a.n), tierOf(b.n));
+        edges.push({ a, b, prereq, backbone: prereq && maxTier <= BACKBONE_MAX_TIER, line: null });
+    }
 
     const sectionCentroid = new Map<string, { nx: number; ny: number; nz: number }>();
     {
@@ -231,6 +267,15 @@ export function createGraph3D(svgEl: SVGSVGElement, graph: Sidecar, cb: Graph3DC
     let running = false;
     let raf = 0;
     let activeList: NodeRT[] = [];
+    // Nodes pre-sorted by their appear threshold so the slider can walk a cursor (O(delta)) instead of
+    // rescanning all ~12.5k nodes on every input event.
+    const nodesByAppear = [...nodes].sort((a, b) => a.appear - b.appear);
+    let activeCount = 0;
+    // The painter's-order depth sort + DOM re-append only needs to run when the depth order can have
+    // changed — i.e. rotation moved (rz depends solely on yaw+pitch) or the active set changed.
+    let needsSort = true;
+    let lastSortYaw = NaN;
+    let lastSortPitch = NaN;
 
     const lit = (id: string): boolean => {
         const m = mastery[id];
@@ -242,6 +287,15 @@ export function createGraph3D(svgEl: SVGSVGElement, graph: Sidecar, cb: Graph3DC
             return;
         }
         const group = document.createElementNS(SVGNS, "g");
+        // Section galaxies carry a soft ambient halo (watercolor haze) painted BEHIND the node — so even
+        // a sparse Overview feels luminous and alive. Non-interactive; sized per-frame in paintNode.
+        if (r.n.kind === "section") {
+            const halo = document.createElementNS(SVGNS, "circle");
+            halo.setAttribute("fill", `url(#kg-halo-${r.n.section})`);
+            halo.style.pointerEvents = "none";
+            group.appendChild(halo);
+            r.halo = halo;
+        }
         const circle = document.createElementNS(SVGNS, "circle");
         circle.setAttribute("class", "kg-node");
         circle.setAttribute("fill", color(r.n.section));
@@ -259,6 +313,9 @@ export function createGraph3D(svgEl: SVGSVGElement, graph: Sidecar, cb: Graph3DC
             label.setAttribute("text-anchor", "middle");
             label.setAttribute("font-family", "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif");
             label.setAttribute("font-weight", r.n.kind === "section" ? "650" : "500");
+            if (r.n.kind === "section") {
+                label.setAttribute("letter-spacing", "0.08em"); // section codes read as quiet tracked caps
+            }
             label.setAttribute("fill", r.n.kind === "section" ? "#1B1D2A" : "rgba(27,29,42,0.6)");
             label.setAttribute("stroke", "#FBFBFD");
             label.setAttribute("stroke-width", "3.2");
@@ -273,29 +330,32 @@ export function createGraph3D(svgEl: SVGSVGElement, graph: Sidecar, cb: Graph3DC
     }
 
     // Recompute which nodes are within the slider threshold; create/hide DOM accordingly. Called only
-    // when the slider (or data) changes — the per-frame loop then iterates just the active set.
+    // when the slider (or data) changes — the per-frame loop then iterates just the active set. Walks a
+    // cursor over the appear-sorted list so each slider step is O(delta), not O(all nodes).
     function recomputeActive(): void {
-        const next: NodeRT[] = [];
-        for (const r of nodes) {
-            const on = r.appear <= detail + 1e-6;
-            if (on) {
-                r.active = true;
-                ensureDom(r);
-                next.push(r);
-            } else if (r.active) {
-                r.active = false;
-                r.reveal = 0;
-                if (r.group) {
-                    r.group.style.display = "none";
-                }
-            }
-        }
-        for (const r of next) {
+        const threshold = detail + 1e-6;
+        // Stream nodes IN as the threshold rises (parents-before-children order is baked into `appear`).
+        while (activeCount < nodesByAppear.length && nodesByAppear[activeCount].appear <= threshold) {
+            const r = nodesByAppear[activeCount];
+            r.active = true;
+            ensureDom(r);
             if (r.group) {
                 r.group.style.display = "";
             }
+            activeCount++;
         }
-        activeList = next;
+        // …and back OUT as it falls.
+        while (activeCount > 0 && nodesByAppear[activeCount - 1].appear > threshold) {
+            const r = nodesByAppear[activeCount - 1];
+            r.active = false;
+            r.reveal = 0;
+            if (r.group) {
+                r.group.style.display = "none";
+            }
+            activeCount--;
+        }
+        activeList = nodesByAppear.slice(0, activeCount);
+        needsSort = true; // membership changed -> force one depth re-sort next frame
         cb.onCount?.(activeList.length, nodes.length);
     }
 
@@ -356,14 +416,19 @@ export function createGraph3D(svgEl: SVGSVGElement, graph: Sidecar, cb: Graph3DC
         }
         const span = (maxF - minF) || 1;
 
-        // depth-sort only when the active set is small enough to re-append cheaply
-        if (activeList.length <= ORBIT_MAX) {
+        // Depth-sort + DOM re-append only when the active set is small enough to reorder cheaply AND the
+        // order can actually have changed: rz depends solely on yaw+pitch, so a pure reveal / zoom / pan
+        // frame keeps the existing DOM order correct — skipping up to ORBIT_MAX appendChild calls a frame.
+        if (activeList.length <= ORBIT_MAX && (needsSort || yaw !== lastSortYaw || pitch !== lastSortPitch)) {
             activeList.sort((a, b) => a.rz - b.rz);
             for (const r of activeList) {
                 if (r.group) {
                     nodeLayer.appendChild(r.group);
                 }
             }
+            lastSortYaw = yaw;
+            lastSortPitch = pitch;
+            needsSort = false;
         }
         for (const r of activeList) {
             paintNode(r, (r.factor - minF) / span);
@@ -380,24 +445,38 @@ export function createGraph3D(svgEl: SVGSVGElement, graph: Sidecar, cb: Graph3DC
         const isLit = lit(n.id);
         const dim = chain != null && !chain.has(n.id);
         const rev = r.reveal;
+        r.depthN = depthN; // cache for the atmospheric edge fade (see paintEdges) — no extra projection
         const radius = r.baseR * r.factor * zoom * (0.72 + 0.42 * depthN);
         group.setAttribute("transform", `translate(${r.sx.toFixed(2)},${r.sy.toFixed(2)})`);
         circle.setAttribute("r", radius.toFixed(2));
         circle.style.pointerEvents = rev < 0.3 ? "none" : "auto";
+        if (r.halo) {
+            // Ambient galaxy haze: scales with the node's projected size, fades in with reveal, and dims
+            // slightly with depth (and when a focus chain quiets the rest) — calm, never a spotlight.
+            r.halo.setAttribute("r", (radius * 6.5).toFixed(2));
+            r.halo.setAttribute("fill-opacity", ((0.7 + 0.3 * depthN) * (dim ? 0.35 : 1) * rev).toFixed(3));
+        }
 
         const m = mastery[n.id];
         const base = !m || !m.hasState ? 0.45 : 0.7 + 0.3 * clamp(m.recall, 0, 1);
         const atmos = 0.7 + 0.3 * depthN;
         circle.setAttribute("fill-opacity", ((dim ? 0.1 : base) * atmos * rev).toFixed(3));
 
-        if (dim) {
-            circle.removeAttribute("filter");
-        } else if (isBest) {
-            circle.setAttribute("filter", `url(#kg-glow-${n.section}-strong)`);
-        } else if (isLit) {
-            circle.setAttribute("filter", `url(#kg-glow-${n.section}-soft)`);
-        } else {
-            circle.removeAttribute("filter");
+        // The glow is a Gaussian-blur SVG filter (GPU-rasterized). It depends only on node STATE
+        // (best/lit/dim), not on the per-frame geometry — so only touch the attribute when it actually
+        // changes, or every rotating lit node forces a needless filter re-rasterization each frame.
+        const wantFilter = dim || (!isBest && !isLit)
+            ? ""
+            : isBest
+            ? `url(#kg-glow-${n.section}-strong)`
+            : `url(#kg-glow-${n.section}-soft)`;
+        if (wantFilter !== r.lastFilter) {
+            if (wantFilter) {
+                circle.setAttribute("filter", wantFilter);
+            } else {
+                circle.removeAttribute("filter");
+            }
+            r.lastFilter = wantFilter;
         }
 
         if (isBest) {
@@ -440,11 +519,11 @@ export function createGraph3D(svgEl: SVGSVGElement, graph: Sidecar, cb: Graph3DC
         // the scene is sparse enough to stay airy (never a hairball).
         const showLeaf = activeList.length <= EDGE_MAX;
         for (const e of edges) {
-            const a = byId.get(e.src), b = byId.get(e.dst);
-            const bothActive = !!a && !!b && a.active && b.active;
-            const onChain = chain != null && !!a && !!b && chain.has(a.n.id) && chain.has(b.n.id);
+            const a = e.a, b = e.b;
+            const bothActive = a.active && b.active;
+            const onChain = chain != null && chain.has(a.n.id) && chain.has(b.n.id);
             const draw = onChain || (bothActive && (e.backbone || (showLeaf && e.prereq)));
-            if (!draw || !a || !b) {
+            if (!draw) {
                 if (e.line) {
                     e.line.setAttribute("stroke-opacity", "0");
                 }
@@ -456,24 +535,27 @@ export function createGraph3D(svgEl: SVGSVGElement, graph: Sidecar, cb: Graph3DC
                 edgeLayer.appendChild(e.line);
             }
             const rev = Math.min(a.reveal, b.reveal);
+            // Atmospheric depth: nearer links read a touch stronger, far links recede into the haze.
+            // Cheap — reuses the per-node depthN cached in paintNode (no extra projection, no allocation).
+            const depthFac = 0.6 + 0.4 * ((a.depthN + b.depthN) * 0.5);
             e.line.setAttribute("x1", a.sx.toFixed(2));
             e.line.setAttribute("y1", a.sy.toFixed(2));
             e.line.setAttribute("x2", b.sx.toFixed(2));
             e.line.setAttribute("y2", b.sy.toFixed(2));
             if (onChain) {
-                // the focused prerequisite chain lights up in ink
+                // the focused prerequisite chain lights up in ink (kept crisp — it's the message)
                 e.line.setAttribute("stroke", "#1B1D2A");
                 e.line.setAttribute("stroke-opacity", (0.5 * rev).toFixed(3));
                 e.line.setAttribute("stroke-width", "1.6");
             } else if (e.backbone) {
                 // the interconnecting web: thin, faint, light-grey straight lines (the reference look)
                 e.line.setAttribute("stroke", "#8B93A7");
-                e.line.setAttribute("stroke-opacity", (0.34 * rev).toFixed(3));
+                e.line.setAttribute("stroke-opacity", (0.34 * rev * depthFac).toFixed(3));
                 e.line.setAttribute("stroke-width", "0.8");
             } else {
                 // dense leaf links recede almost to a whisper
                 e.line.setAttribute("stroke", "#8B93A7");
-                e.line.setAttribute("stroke-opacity", (0.12 * rev).toFixed(3));
+                e.line.setAttribute("stroke-opacity", (0.12 * rev * depthFac).toFixed(3));
                 e.line.setAttribute("stroke-width", "0.6");
             }
         }

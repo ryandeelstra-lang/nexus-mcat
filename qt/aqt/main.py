@@ -100,6 +100,8 @@ MainWindowState = Literal[
     "knowledgeGraph",
     "home",
     "stats",
+    "add",
+    "browse",
 ]
 
 
@@ -899,6 +901,10 @@ class AnkiQt(QMainWindow):
             self.home_web.hide()
         if state != "stats":
             self.stats_web.hide()
+        if state != "add" and getattr(self, "_addcards_embedded", None) is not None:
+            self._addcards_embedded.hide()
+        if state != "browse" and getattr(self, "_browser_embedded", None) is not None:
+            self._browser_embedded.hide()
         if state in ("knowledgeGraph", "home"):
             return
         if state in ("deckBrowser", "overview"):
@@ -969,6 +975,68 @@ class AnkiQt(QMainWindow):
             browser.search_for(query)
         return False
 
+    # charged_up: in-window Add screen (the AddCards editor, no popup window).
+    ##########################################################################
+
+    def _addState(self, oldState: MainWindowState) -> None:
+        # Host the AddCards editor inside the central stack instead of a separate
+        # window. A single embedded instance is created lazily and reused; its
+        # content is preserved across navigation (no destructive close).
+        from aqt.addcards import AddCards
+
+        if getattr(self, "_addcards_embedded", None) is None:
+            self._addcards_embedded = AddCards(self, embedded=True)
+            self.centralStack.addWidget(self._addcards_embedded)
+        else:
+            # refresh notetype/deck defaults when the editor is empty
+            self._addcards_embedded.reopen(self)
+        self._addcards_embedded._add_return_state = (
+            oldState if oldState != "add" else "deckBrowser"
+        )
+        self.web.hide()
+        self.graph_web.hide()
+        self.home_web.hide()
+        self.stats_web.hide()
+        self._addcards_embedded.show()
+        self._addcards_embedded.setFocus()
+        self.toolbar.redraw()
+
+    def _addCleanup(self, newState: MainWindowState) -> None:
+        if getattr(self, "_addcards_embedded", None) is not None:
+            self._addcards_embedded.hide()
+        self.web.show()
+
+    # charged_up: in-window Browse screen (the full Browser, no popup window).
+    ##########################################################################
+
+    def _browseState(self, oldState: MainWindowState, *args: Any) -> None:
+        # Host the full Browser inside the central stack instead of a separate
+        # window. A single embedded instance is created lazily and reused; its
+        # search/selection are preserved across navigation (no destructive close).
+        from aqt.browser import Browser
+
+        if getattr(self, "_browser_embedded", None) is None:
+            self._browser_embedded = Browser(self, embedded=True)
+            self.centralStack.addWidget(self._browser_embedded)
+        self._browser_embedded._browse_return_state = (
+            oldState if oldState != "browse" else "deckBrowser"
+        )
+        self.web.hide()
+        self.graph_web.hide()
+        self.home_web.hide()
+        self.stats_web.hide()
+        if getattr(self, "_addcards_embedded", None) is not None:
+            self._addcards_embedded.hide()
+        self._browser_embedded.show()
+        self._browser_embedded.setFocus()
+        self._browser_embedded.form.searchEdit.setFocus()
+        self.toolbar.redraw()
+
+    def _browseCleanup(self, newState: MainWindowState) -> None:
+        if getattr(self, "_browser_embedded", None) is not None:
+            self._browser_embedded.hide()
+        self.web.show()
+
     # charged_up: Nexus — the in-app landing/home (the front door the app opens to).
     ##########################################################################
 
@@ -994,9 +1062,9 @@ class AnkiQt(QMainWindow):
             self._pending_graph_tab = "scores" if cmd == "home:scores" else None
             self.moveToState("knowledgeGraph")
         elif cmd == "home:browse":
-            self.onBrowse()
+            self.moveToState("browse")
         elif cmd == "home:add":
-            self.onAddCard()
+            self.moveToState("add")
         elif cmd == "home:sync":
             self.on_sync_button_clicked()
 
@@ -1168,6 +1236,10 @@ title="{}" {}>{}</button>""".format(
         self.stats_web = AnkiWebView(kind=AnkiWebViewKind.DECK_STATS)
         self.stats_web.disable_zoom()
         self.centralStack.addWidget(self.stats_web)
+        # charged_up: the in-window Add + Browse screens (AddCards / Browser,
+        # embedded) are created lazily on first use; None until then.
+        self._addcards_embedded = None
+        self._browser_embedded = None
         self.graph_web.hide()
         self.home_web.hide()
         self.stats_web.hide()

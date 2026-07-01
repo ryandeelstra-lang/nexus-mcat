@@ -362,3 +362,76 @@ class TestChargedUpHeadlessChrome:
         assert 'moveToState("stats")' in src
         # The old popup path (mw.onStats -> aqt.dialogs.open) must be gone.
         assert "onStats" not in src
+
+    def test_add_is_an_integrated_main_window_state(self) -> None:
+        from aqt.main import AnkiQt
+
+        assert hasattr(AnkiQt, "_addState")
+        assert hasattr(AnkiQt, "_addCleanup")
+
+    def test_add_is_a_known_window_state(self) -> None:
+        import typing
+
+        from aqt.main import MainWindowState
+
+        assert "add" in typing.get_args(MainWindowState)
+
+    def test_add_link_opens_in_window_not_a_popup_dialog(self) -> None:
+        import inspect
+
+        from aqt.toolbar import Toolbar
+
+        assert 'moveToState("add")' in inspect.getsource(Toolbar._addLinkHandler)
+
+    def test_addcards_embedded_mode_is_gated_and_non_destructive(self) -> None:
+        import inspect
+
+        from aqt.addcards import AddCards
+
+        # The embedded flag exists and defaults off (dialog path stays unchanged).
+        params = inspect.signature(AddCards.__init__).parameters
+        assert "embedded" in params
+        assert params["embedded"].default is False
+        # Embedded mode must not pop a window (self.show gated behind `not embedded`).
+        assert "if not embedded:" in inspect.getsource(AddCards.__init__)
+        # ...and must not run the destructive dialog cleanup on close.
+        assert "self._embedded" in inspect.getsource(AddCards.closeEvent)
+
+    def test_browse_is_an_integrated_main_window_state(self) -> None:
+        from aqt.main import AnkiQt
+
+        assert hasattr(AnkiQt, "_browseState")
+        assert hasattr(AnkiQt, "_browseCleanup")
+
+    def test_browse_is_a_known_window_state(self) -> None:
+        import typing
+
+        from aqt.main import MainWindowState
+
+        assert "browse" in typing.get_args(MainWindowState)
+
+    def test_browse_link_opens_in_window_not_a_popup_dialog(self) -> None:
+        import inspect
+
+        from aqt.toolbar import Toolbar
+
+        assert 'moveToState("browse")' in inspect.getsource(Toolbar._browseLinkHandler)
+
+    def test_browser_embedded_is_gated_strips_menu_bar_and_non_destructive(
+        self,
+    ) -> None:
+        import inspect
+
+        from aqt.browser.browser import Browser
+
+        # Gated embedded flag; the dialog path (deep links / add-ons) is unchanged.
+        params = inspect.signature(Browser.__init__).parameters
+        assert "embedded" in params
+        assert params["embedded"].default is False
+        # Embedded mode drops the Anki menu bar for ownership...
+        assert hasattr(Browser, "_charged_up_strip_menu_bar")
+        assert "menubar.hide()" in inspect.getsource(
+            Browser._charged_up_strip_menu_bar
+        )
+        # ...and closes non-destructively (instance reused, not torn down).
+        assert "self._embedded" in inspect.getsource(Browser.closeEvent)

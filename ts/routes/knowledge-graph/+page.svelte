@@ -38,12 +38,14 @@ of the already-built engine; neither writes to the collection.
 {:else}
     <div class="kg-page">
         <nav class="kg-tabs">
-            <button class:active={tab === "map"} on:click={() => (tab = "map")}>
-                Map
-            </button>
-            <button class:active={tab === "scores"} on:click={() => (tab = "scores")}>
-                Scores
-            </button>
+            <div class="kg-switch">
+                <button class:active={tab === "map"} on:click={() => (tab = "map")}>
+                    Map
+                </button>
+                <button class:active={tab === "scores"} on:click={() => (tab = "scores")}>
+                    Scores
+                </button>
+            </div>
         </nav>
         <div class="kg-body">
             {#if tab === "map"}
@@ -76,42 +78,53 @@ of the already-built engine; neither writes to the collection.
             sans-serif;
     }
 
+    // A centered segmented control (pill switcher) — premium and quiet: the two read-only surfaces
+    // share one soft track. Behavior is unchanged; only the chrome is refined.
     .kg-tabs {
         display: flex;
-        gap: 6px;
-        padding: 12px 18px 0;
+        justify-content: center;
+        padding: 14px 18px;
         background: var(--canvas, #fbfbfd);
-        border-bottom: 1px solid var(--border-subtle, rgba(27, 29, 42, 0.08));
+        border-bottom: 1px solid var(--border-subtle, rgba(27, 29, 42, 0.06));
+    }
+
+    .kg-switch {
+        display: inline-flex;
+        gap: 2px;
+        padding: 3px;
+        border-radius: 999px;
+        background: rgba(27, 29, 42, 0.05);
+        box-shadow: inset 0 0 0 1px rgba(27, 29, 42, 0.04);
     }
 
     .kg-tabs button {
         appearance: none;
         border: none;
         background: transparent;
-        color: rgba(27, 29, 42, 0.5);
+        color: rgba(27, 29, 42, 0.55);
         font: inherit;
-        font-size: 14px;
+        font-size: 13.5px;
         font-weight: 550;
-        padding: 9px 18px;
-        border-radius: 10px 10px 0 0;
+        padding: 7px 22px;
+        border-radius: 999px;
         cursor: pointer;
         transition:
             color 0.15s ease,
-            background 0.15s ease;
+            background 0.2s ease,
+            box-shadow 0.2s ease;
     }
 
     .kg-tabs button:hover {
         color: rgba(27, 29, 42, 0.82);
     }
 
-    // The active tab reads as a white "raised card tab" on the near-white field — Linear/Arc restraint.
+    // The active segment lifts onto a white thumb with a soft shadow — Linear/Arc restraint.
     .kg-tabs button.active {
         color: #1b1d2a;
         background: var(--canvas-elevated, #ffffff);
         box-shadow:
-            0 -1px 0 var(--border-subtle, rgba(27, 29, 42, 0.08)),
-            -1px 0 0 var(--border-subtle, rgba(27, 29, 42, 0.08)),
-            1px 0 0 var(--border-subtle, rgba(27, 29, 42, 0.08));
+            0 1px 2px rgba(27, 29, 42, 0.08),
+            0 2px 8px rgba(27, 29, 42, 0.06);
     }
 
     .kg-body {

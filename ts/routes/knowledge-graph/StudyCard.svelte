@@ -135,33 +135,63 @@ happens.
 <svelte:window on:keydown={onKeydown} />
 
 <div class="study-stage">
-    <button class="study-back" on:click={backToMap}>← Map</button>
-
-    {#if phase !== "nocol" && phase !== "loading"}
-        <div class="study-counts">
-            <span class="count count-new">{counts.new} new</span>
-            <span class="count count-learn">{counts.learning} learning</span>
-            <span class="count count-review">{counts.review} review</span>
-        </div>
-    {/if}
+    <button class="study-back" on:click={backToMap}>
+        <span class="study-back-arrow" aria-hidden="true">←</span> Map
+    </button>
 
     <div class="study-panel">
         {#if phase === "loading"}
-            <div class="study-msg">Loading your next card…</div>
+            <div class="study-msg">
+                <div class="study-spinner" aria-hidden="true"></div>
+                <p>Loading your next card…</p>
+            </div>
         {:else if phase === "nocol"}
             <div class="study-msg">
+                <div class="study-glyph glyph-node" aria-hidden="true"></div>
                 <strong>Open your MCAT deck to start studying.</strong>
                 <p>Your cards appear here, in front of the map.</p>
             </div>
         {:else if phase === "empty"}
             <div class="study-msg">
-                <strong>You're caught up.</strong>
+                <div class="study-glyph glyph-done" aria-hidden="true"></div>
+                <strong>You're all caught up.</strong>
                 <p>Nothing is due right now — the map holds your progress.</p>
                 <button class="study-primary" on:click={backToMap}>
                     Back to the map
                 </button>
             </div>
         {:else}
+            <header class="session-strip">
+                <div class="session-legend">
+                    <span class="legend">
+                        <i class="dot dot-new" aria-hidden="true"></i>
+                        <span class="num">{counts.new}</span>
+                        <span class="legend-label">new</span>
+                    </span>
+                    <span class="legend">
+                        <i class="dot dot-learn" aria-hidden="true"></i>
+                        <span class="num">{counts.learning}</span>
+                        <span class="legend-label">learning</span>
+                    </span>
+                    <span class="legend">
+                        <i class="dot dot-review" aria-hidden="true"></i>
+                        <span class="num">{counts.review}</span>
+                        <span class="legend-label">review</span>
+                    </span>
+                </div>
+                <div class="session-track" aria-hidden="true">
+                    {#if counts.new > 0}
+                        <span class="seg seg-new" style="flex: {counts.new}"></span>
+                    {/if}
+                    {#if counts.learning > 0}
+                        <span class="seg seg-learn" style="flex: {counts.learning}"></span>
+                    {/if}
+                    {#if counts.review > 0}
+                        <span class="seg seg-review" style="flex: {counts.review}"></span>
+                    {/if}
+                </div>
+            </header>
+
             <div class="study-card-frame">
                 <iframe
                     title="card"
@@ -174,7 +204,7 @@ happens.
             <div class="study-actions">
                 {#if phase === "question"}
                     <button class="study-primary" on:click={reveal}>
-                        Show answer <kbd>space</kbd>
+                        Show answer <kbd>Space</kbd>
                     </button>
                 {:else}
                     <div class="study-grades">
@@ -182,25 +212,29 @@ happens.
                             class="grade grade-again"
                             on:click={() => grade(CardAnswer_Rating.AGAIN)}
                         >
-                            Again <kbd>1</kbd>
+                            <span class="grade-label">Again</span>
+                            <kbd>1</kbd>
                         </button>
                         <button
                             class="grade grade-hard"
                             on:click={() => grade(CardAnswer_Rating.HARD)}
                         >
-                            Hard <kbd>2</kbd>
+                            <span class="grade-label">Hard</span>
+                            <kbd>2</kbd>
                         </button>
                         <button
                             class="grade grade-good"
                             on:click={() => grade(CardAnswer_Rating.GOOD)}
                         >
-                            Good <kbd>3</kbd>
+                            <span class="grade-label">Good</span>
+                            <kbd>3</kbd>
                         </button>
                         <button
                             class="grade grade-easy"
                             on:click={() => grade(CardAnswer_Rating.EASY)}
                         >
-                            Easy <kbd>4</kbd>
+                            <span class="grade-label">Easy</span>
+                            <kbd>4</kbd>
                         </button>
                     </div>
                 {/if}
@@ -223,78 +257,168 @@ happens.
             "Segoe UI",
             Roboto,
             sans-serif;
+        color: #1b1d2a;
         // A soft scrim so the card pops without hiding the map behind it.
         background: radial-gradient(
-            circle at 50% 42%,
-            rgba(251, 251, 253, 0.34),
-            rgba(251, 251, 253, 0.72)
+            120% 90% at 50% 40%,
+            rgba(251, 251, 253, 0.28),
+            rgba(251, 251, 253, 0.7)
         );
     }
 
     .study-back {
         position: absolute;
-        top: 16px;
-        left: 16px;
+        top: 18px;
+        left: 18px;
+        z-index: 2;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
         appearance: none;
-        border: none;
+        border: 1px solid rgba(27, 29, 42, 0.05);
         border-radius: 999px;
-        padding: 7px 14px;
+        padding: 7px 15px 7px 13px;
         font: inherit;
         font-size: 13px;
-        color: rgba(27, 29, 42, 0.7);
-        background: rgba(255, 255, 255, 0.86);
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        color: rgba(27, 29, 42, 0.66);
+        background: rgba(255, 255, 255, 0.82);
         box-shadow:
             0 1px 2px rgba(27, 29, 42, 0.06),
-            0 8px 24px rgba(27, 29, 42, 0.1);
-        backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(6px);
+            0 10px 26px rgba(27, 29, 42, 0.1);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
         cursor: pointer;
+        transition:
+            color 0.15s ease,
+            background 0.15s ease,
+            transform 0.15s ease;
     }
     .study-back:hover {
         color: #1b1d2a;
+        background: rgba(255, 255, 255, 0.95);
+        transform: translateY(-1px);
     }
-
-    .study-counts {
-        position: absolute;
-        top: 18px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 8px;
-        font-size: 12px;
+    .study-back:active {
+        transform: translateY(0);
     }
-    .count {
-        padding: 4px 10px;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.78);
-        box-shadow: 0 1px 2px rgba(27, 29, 42, 0.05);
+    .study-back-arrow {
+        font-size: 14px;
+        line-height: 1;
+        transition: transform 0.15s ease;
     }
-    .count-new {
-        color: #2563eb;
-    }
-    .count-learn {
-        color: #d97706;
-    }
-    .count-review {
-        color: #059669;
+    .study-back:hover .study-back-arrow {
+        transform: translateX(-2px);
     }
 
     // The floating card — premium frosted panel over the dim map.
     .study-panel {
+        position: relative;
         width: min(680px, 90vw);
         min-height: 320px;
         display: flex;
         flex-direction: column;
-        gap: 20px;
-        padding: 32px 32px 26px;
-        border-radius: 22px;
-        background: rgba(255, 255, 255, 0.9);
-        border: 1px solid rgba(27, 29, 42, 0.06);
+        gap: 22px;
+        padding: 26px 30px 24px;
+        border-radius: 24px;
+        // Kept >= 0.9 opaque + heavy blur so card text stays legible over the live backdrop.
+        background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.94),
+            rgba(255, 255, 255, 0.9)
+        );
+        border: 1px solid rgba(27, 29, 42, 0.07);
         box-shadow:
-            0 2px 8px rgba(27, 29, 42, 0.06),
-            0 24px 64px rgba(27, 29, 42, 0.16);
-        backdrop-filter: blur(14px) saturate(1.1);
-        -webkit-backdrop-filter: blur(14px) saturate(1.1);
+            0 1px 1px rgba(27, 29, 42, 0.04),
+            0 6px 16px rgba(27, 29, 42, 0.07),
+            0 28px 68px rgba(27, 29, 42, 0.18);
+        backdrop-filter: blur(16px) saturate(1.15);
+        -webkit-backdrop-filter: blur(16px) saturate(1.15);
+        animation: panel-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    // A faint hairline of light along the top edge — the quiet "premium" tell.
+    .study-panel::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 22px;
+        left: 22px;
+        height: 1px;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.9) 18%,
+            rgba(255, 255, 255, 0.9) 82%,
+            transparent
+        );
+        pointer-events: none;
+    }
+
+    // Session strip — the due mix as one quiet, integrated header (not floating pills).
+    .session-strip {
+        display: flex;
+        flex-direction: column;
+        gap: 11px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid rgba(27, 29, 42, 0.06);
+        animation: rise 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    .session-legend {
+        display: flex;
+        gap: 16px;
+        font-size: 12.5px;
+    }
+    .legend {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        flex: none;
+    }
+    .dot-new {
+        background: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+    }
+    .dot-learn {
+        background: #f59e0b;
+        box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.12);
+    }
+    .dot-review {
+        background: #14b8a6;
+        box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.12);
+    }
+    .num {
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+        color: #1b1d2a;
+    }
+    .legend-label {
+        color: rgba(27, 29, 42, 0.5);
+    }
+    .session-track {
+        display: flex;
+        gap: 3px;
+        height: 4px;
+        border-radius: 999px;
+        overflow: hidden;
+        background: rgba(27, 29, 42, 0.06);
+    }
+    .seg {
+        min-width: 8px;
+    }
+    .seg-new {
+        background: #3b82f6;
+    }
+    .seg-learn {
+        background: #f59e0b;
+    }
+    .seg-review {
+        background: #14b8a6;
     }
 
     .study-card-frame {
@@ -313,30 +437,42 @@ happens.
         display: flex;
         justify-content: center;
     }
+    // Gentle rise on each new question/answer swap — meaning: fresh content arrived.
+    .study-actions > * {
+        animation: rise 0.28s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    }
 
     .study-primary {
         appearance: none;
         border: none;
-        border-radius: 12px;
-        padding: 12px 26px;
+        border-radius: 13px;
+        padding: 12px 24px;
         font: inherit;
         font-size: 15px;
         font-weight: 560;
+        letter-spacing: 0.01em;
         color: #fff;
-        background: #1b1d2a;
+        background: linear-gradient(180deg, #292c3d, #1b1d2a);
         cursor: pointer;
         display: inline-flex;
         align-items: center;
         gap: 10px;
+        box-shadow:
+            0 1px 2px rgba(27, 29, 42, 0.2),
+            0 8px 20px rgba(27, 29, 42, 0.22);
         transition:
-            transform 0.12s ease,
-            opacity 0.12s ease;
+            transform 0.14s ease,
+            box-shadow 0.14s ease;
     }
     .study-primary:hover {
-        opacity: 0.9;
+        transform: translateY(-1px);
+        box-shadow:
+            0 2px 4px rgba(27, 29, 42, 0.22),
+            0 12px 30px rgba(27, 29, 42, 0.26);
     }
     .study-primary:active {
-        transform: translateY(1px);
+        transform: translateY(0);
+        box-shadow: 0 1px 2px rgba(27, 29, 42, 0.2);
     }
 
     .study-grades {
@@ -347,70 +483,225 @@ happens.
     }
     .grade {
         appearance: none;
-        border: 1px solid rgba(27, 29, 42, 0.1);
-        border-radius: 12px;
-        padding: 12px 8px;
+        border: 1px solid rgba(27, 29, 42, 0.09);
+        border-radius: 13px;
+        padding: 13px 8px;
         font: inherit;
-        font-size: 14px;
-        font-weight: 550;
-        background: rgba(255, 255, 255, 0.9);
+        background: rgba(255, 255, 255, 0.72);
         cursor: pointer;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 5px;
+        gap: 7px;
         transition:
-            transform 0.12s ease,
-            background 0.12s ease;
+            transform 0.14s ease,
+            border-color 0.14s ease,
+            background 0.14s ease,
+            box-shadow 0.14s ease;
+    }
+    .grade-label {
+        font-size: 14px;
+        font-weight: 560;
+        letter-spacing: 0.01em;
     }
     .grade:hover {
-        transform: translateY(-1px);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(27, 29, 42, 0.1);
     }
     .grade:active {
         transform: translateY(0);
+        box-shadow: none;
     }
     // Calm, never an alarm — "Again" is a soft rose, not a red buzzer (UX ruling 2).
-    .grade-again {
+    .grade-again .grade-label {
         color: #b4456b;
     }
-    .grade-hard {
+    .grade-again:hover {
+        border-color: rgba(180, 69, 107, 0.35);
+        background: rgba(180, 69, 107, 0.07);
+    }
+    .grade-again:hover kbd {
+        color: #b4456b;
+    }
+    .grade-hard .grade-label {
         color: #b06d12;
     }
-    .grade-good {
+    .grade-hard:hover {
+        border-color: rgba(176, 109, 18, 0.35);
+        background: rgba(176, 109, 18, 0.07);
+    }
+    .grade-hard:hover kbd {
+        color: #b06d12;
+    }
+    .grade-good .grade-label {
         color: #1b8a5a;
     }
-    .grade-easy {
+    .grade-good:hover {
+        border-color: rgba(27, 138, 90, 0.35);
+        background: rgba(27, 138, 90, 0.07);
+    }
+    .grade-good:hover kbd {
+        color: #1b8a5a;
+    }
+    .grade-easy .grade-label {
+        color: #2563eb;
+    }
+    .grade-easy:hover {
+        border-color: rgba(37, 99, 235, 0.35);
+        background: rgba(37, 99, 235, 0.07);
+    }
+    .grade-easy:hover kbd {
         color: #2563eb;
     }
 
     kbd {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 18px;
+        height: 18px;
+        padding: 0 5px;
         font-family: inherit;
         font-size: 11px;
         font-weight: 500;
-        color: rgba(27, 29, 42, 0.4);
+        line-height: 1;
+        color: rgba(27, 29, 42, 0.42);
         background: rgba(27, 29, 42, 0.05);
-        border-radius: 5px;
-        padding: 1px 6px;
+        border: 1px solid rgba(27, 29, 42, 0.07);
+        border-radius: 6px;
+        box-shadow: inset 0 -1px 0 rgba(27, 29, 42, 0.05);
+        transition: color 0.14s ease;
     }
     .study-primary kbd {
-        color: rgba(255, 255, 255, 0.7);
-        background: rgba(255, 255, 255, 0.15);
+        color: rgba(255, 255, 255, 0.72);
+        background: rgba(255, 255, 255, 0.16);
+        border-color: rgba(255, 255, 255, 0.14);
+        box-shadow: none;
     }
 
     .study-msg {
         margin: auto;
+        max-width: 360px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         text-align: center;
-        color: rgba(27, 29, 42, 0.6);
-        line-height: 1.5;
+        gap: 4px;
+        color: rgba(27, 29, 42, 0.58);
+        line-height: 1.55;
+        animation: rise 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
     .study-msg strong {
-        display: block;
+        margin-top: 6px;
         font-size: 18px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
         color: #1b1d2a;
-        margin-bottom: 6px;
     }
     .study-msg p {
-        margin: 0 0 16px;
+        margin: 0;
         font-size: 14px;
+    }
+    .study-msg .study-primary {
+        margin-top: 18px;
+    }
+
+    .study-spinner {
+        width: 28px;
+        height: 28px;
+        margin-bottom: 12px;
+        border-radius: 50%;
+        border: 2px solid rgba(27, 29, 42, 0.1);
+        border-top-color: rgba(27, 29, 42, 0.45);
+        animation: spin 0.8s linear infinite;
+    }
+
+    // A calm "map node" mark for the empty states — echoes the graph backdrop.
+    .study-glyph {
+        position: relative;
+        width: 46px;
+        height: 46px;
+        margin-bottom: 10px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(27, 29, 42, 0.14);
+    }
+    .glyph-node {
+        border-color: rgba(59, 130, 246, 0.4);
+    }
+    .glyph-node::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        background: rgba(59, 130, 246, 0.85);
+        transform: translate(-50%, -50%);
+    }
+    .glyph-done {
+        border-color: rgba(20, 184, 166, 0.45);
+    }
+    .glyph-done::after {
+        content: "";
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        width: 8px;
+        height: 14px;
+        border: solid rgba(20, 184, 166, 0.95);
+        border-width: 0 2px 2px 0;
+        border-radius: 1px;
+        transform: translate(-50%, -58%) rotate(45deg);
+    }
+
+    @keyframes panel-in {
+        from {
+            opacity: 0;
+            transform: translateY(10px) scale(0.99);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+    @keyframes rise {
+        from {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    // Motion is a courtesy, not a demand.
+    @media (prefers-reduced-motion: reduce) {
+        .study-panel,
+        .session-strip,
+        .study-actions > *,
+        .study-msg,
+        .study-spinner {
+            animation: none;
+        }
+        .study-back,
+        .study-back-arrow,
+        .study-primary,
+        .grade,
+        kbd {
+            transition: none;
+        }
+        .study-back:hover,
+        .study-back:hover .study-back-arrow,
+        .study-primary:hover,
+        .grade:hover {
+            transform: none;
+        }
     }
 </style>

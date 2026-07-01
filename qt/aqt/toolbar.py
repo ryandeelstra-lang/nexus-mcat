@@ -95,6 +95,8 @@ _STATE_TO_ACTIVE_ITEM: dict[str, str] = {
     "review": "decks",
     "knowledgeGraph": "graph",
     "stats": "stats",
+    "add": "add",
+    "browse": "browse",
 }
 
 
@@ -576,10 +578,12 @@ class Toolbar:
             self.mw.onOverview()
 
     def _addLinkHandler(self) -> None:
-        self.mw.onAddCard()
+        # charged_up: add cards in-window (no popup dialog).
+        self.mw.moveToState("add")
 
     def _browseLinkHandler(self) -> None:
-        self.mw.onBrowse()
+        # charged_up: browse in-window (no popup dialog).
+        self.mw.moveToState("browse")
 
     def _statsLinkHandler(self) -> None:
         # charged_up: review stats live in-window now (no popup dialog).

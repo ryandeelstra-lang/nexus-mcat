@@ -125,7 +125,7 @@ prefers-reduced-motion (renders one static frame). Kept dim — the copy always 
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         ctx.clearRect(0, 0, w, h);
 
-        const yaw = reduced ? 0.45 : t * 0.00006; // slow ambient rotation
+        const yaw = reduced ? 0.45 : t * 0.00005; // slower, calmer ambient rotation
         const pitch = 0.34;
         const cy = Math.cos(yaw);
         const sy = Math.sin(yaw);
@@ -134,7 +134,8 @@ prefers-reduced-motion (renders one static frame). Kept dim — the copy always 
         const focal = 5.2;
         const scale = Math.min(w, h) * 0.32;
         const ox = w / 2;
-        const oy = h / 2;
+        // a barely-there vertical breathing so the field feels alive but calm
+        const oy = h / 2 + (reduced ? 0 : Math.sin(t * 0.00034) * h * 0.008);
 
         const P = nodes.map((n) => {
             const x = n.x * cy - n.z * sy;
@@ -151,16 +152,16 @@ prefers-reduced-motion (renders one static frame). Kept dim — the copy always 
             };
         });
 
-        // edges behind
-        ctx.lineWidth = 1;
+        // edges behind — hairline toward the back, a touch firmer up front
         for (const [a, b] of edges) {
             const pa = P[a];
             const pb = P[b];
             const d = (pa.depth + pb.depth) / 2;
-            const alpha = Math.min(0.2, Math.max(0, (d - 0.62) * 0.26));
+            const alpha = Math.min(0.22, Math.max(0, (d - 0.6) * 0.3));
             if (alpha <= 0.012) {
                 continue;
             }
+            ctx.lineWidth = Math.max(0.5, (d - 0.5) * 1.1);
             ctx.strokeStyle = hexA(pa.hue, alpha);
             ctx.beginPath();
             ctx.moveTo(pa.sx, pa.sy);
@@ -168,15 +169,20 @@ prefers-reduced-motion (renders one static frame). Kept dim — the copy always 
             ctx.stroke();
         }
 
-        // nodes, far-to-near
+        // nodes, far-to-near — near nodes carry a soft, tinted two-step bloom
         const order = P.map((_, i) => i).sort((i, j) => P[i].depth - P[j].depth);
         for (const i of order) {
             const p = P[i];
-            const a = Math.min(0.85, Math.max(0.05, (p.depth - 0.56) * 0.95));
-            if (p.depth > 1.02) {
+            const a = Math.min(0.88, Math.max(0.045, (p.depth - 0.55) * 0.98));
+            if (p.depth > 1.0) {
+                const g = p.depth - 1;
                 ctx.beginPath();
-                ctx.arc(p.sx, p.sy, p.r * 2.8, 0, TAU);
-                ctx.fillStyle = hexA(p.hue, 0.05 * (p.depth - 1));
+                ctx.arc(p.sx, p.sy, p.r * 3.4, 0, TAU);
+                ctx.fillStyle = hexA(p.hue, 0.05 * g);
+                ctx.fill();
+                ctx.beginPath();
+                ctx.arc(p.sx, p.sy, p.r * 1.9, 0, TAU);
+                ctx.fillStyle = hexA(p.hue, 0.07 * g);
                 ctx.fill();
             }
             ctx.beginPath();

@@ -50,9 +50,10 @@ unavailable (no open collection), the map still renders as un-lit structure — 
     let controller: Graph3D | null = null;
     let tooltip: { title: string; sub: string; x: number; y: number } | null = null;
     let crumb: { id: string; label: string } | null = null;
-    // The detail slider is a GLOBAL level-of-detail: 0 = the 4 section galaxies (default), 1 = every
-    // concept + card. It ADDS nodes as it climbs; it never resizes them.
-    let detail = 0;
+    // The detail slider is a GLOBAL level-of-detail: it ADDS nodes as it climbs; it never resizes them.
+    // We open at a calm category-grain Overview (~48 nodes: the 4 galaxies + foundational concepts +
+    // content categories + CARS) instead of four lonely dots. 0 = just the galaxies, 1 = every card.
+    let detail = 0.2;
 
     function onDetail(e: Event): void {
         detail = Number((e.currentTarget as HTMLInputElement).value);
@@ -176,7 +177,7 @@ unavailable (no open collection), the map still renders as un-lit structure — 
             <strong>{crumb.label}</strong>
         </button>
     {:else if !backdrop}
-        <div class="kg-orbit-hint">drag to orbit · click to zoom in · click empty space to zoom out</div>
+        <div class="kg-orbit-hint">drag to orbit · click to zoom</div>
     {/if}
 
     {#if !backdrop}
@@ -196,6 +197,15 @@ unavailable (no open collection), the map still renders as un-lit structure — 
         </div>
         <div class="kg-count" aria-live="polite">
             {visibleCount.toLocaleString()} / {totalCount.toLocaleString()} nodes
+        </div>
+    {/if}
+
+    {#if !backdrop}
+        <div class="kg-legend" aria-hidden="true">
+            <span class="kg-legend-item"><i style="background:#3b82f6"></i>C/P</span>
+            <span class="kg-legend-item"><i style="background:#14b8a6"></i>B/B</span>
+            <span class="kg-legend-item"><i style="background:#f59e0b"></i>P/S</span>
+            <span class="kg-legend-item"><i style="background:#8b5cf6"></i>CARS</span>
         </div>
     {/if}
 
@@ -266,29 +276,35 @@ unavailable (no open collection), the map still renders as un-lit structure — 
     // Product wordmark — a quiet, premium top-center mark. The graph IS the product ("Nexus").
     .kg-brand {
         position: absolute;
-        top: 14px;
+        top: 15px;
         left: 50%;
         transform: translateX(-50%);
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 1px;
+        gap: 3px;
         pointer-events: none;
         user-select: none;
     }
     .kg-brand-mark {
         font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
         font-weight: 700;
-        font-size: 17px;
-        letter-spacing: 0.14em;
+        font-size: 18px;
+        // a quiet uppercase tracked wordmark — premium restraint (Linear/Arc)
+        letter-spacing: 0.24em;
+        // nudge left to offset the trailing letter-spacing so the tracked caps read optically centered
+        margin-right: -0.24em;
         text-transform: uppercase;
         color: #1b1d2a;
     }
     .kg-brand-sub {
         font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-        font-size: 10.5px;
-        letter-spacing: 0.06em;
-        color: rgba(27, 29, 42, 0.42);
+        font-size: 9.5px;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        margin-right: -0.2em;
+        text-transform: uppercase;
+        color: rgba(27, 29, 42, 0.4);
     }
 
     // Breadcrumb (zoom-out) chip — top-left, shown while a node is focused (drilled in).
@@ -321,14 +337,53 @@ unavailable (no open collection), the map still renders as un-lit structure — 
         color: #1b1d2a;
     }
 
-    // Subtle orbit affordance — bottom-right.
+    // Subtle orbit affordance — bottom-right. Retired on narrow widths (see media query) so it never
+    // collides with the centered start-here pill.
     .kg-orbit-hint {
         position: absolute;
         right: 18px;
         bottom: 18px;
         font-size: 12px;
+        letter-spacing: 0.01em;
         color: rgba(27, 29, 42, 0.34);
+        white-space: nowrap;
         pointer-events: none;
+    }
+
+    // Quiet section legend — bottom-left. The four locked hues + short codes; hidden in backdrop mode
+    // (it lives only inside the interactive markup) and on narrow widths (media query below).
+    .kg-legend {
+        position: absolute;
+        left: 16px;
+        bottom: 16px;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 7px 13px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.7);
+        box-shadow:
+            0 1px 2px rgba(27, 29, 42, 0.05),
+            0 6px 18px rgba(27, 29, 42, 0.06);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        pointer-events: none;
+        user-select: none;
+    }
+    .kg-legend-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 11px;
+        letter-spacing: 0.02em;
+        color: rgba(27, 29, 42, 0.55);
+        white-space: nowrap;
+    }
+    .kg-legend-item i {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
     }
 
     // Resolution / "detail" slider — a calm frosted pill (top-right). Raising it reveals finer grain
@@ -363,15 +418,17 @@ unavailable (no open collection), the map still renders as un-lit structure — 
         cursor: pointer;
     }
 
-    // Live node-count readout under the detail slider (top-right) — makes the "adding nodes" tangible.
+    // Live node-count readout — right-aligned just beneath the detail slider (shares its right edge),
+    // so the "adding nodes" feedback reads as part of the slider rather than floating loose.
     .kg-count {
         position: absolute;
-        top: 54px;
-        right: 18px;
+        top: 60px;
+        right: 20px;
         font-size: 11px;
         font-variant-numeric: tabular-nums;
         letter-spacing: 0.02em;
-        color: rgba(27, 29, 42, 0.45);
+        text-align: right;
+        color: rgba(27, 29, 42, 0.42);
         user-select: none;
         pointer-events: none;
     }
@@ -411,6 +468,7 @@ unavailable (no open collection), the map still renders as un-lit structure — 
         left: 50%;
         bottom: 18px;
         transform: translateX(-50%);
+        box-sizing: border-box;
         display: flex;
         align-items: center;
         gap: 8px;
@@ -434,11 +492,22 @@ unavailable (no open collection), the map still renders as un-lit structure — 
         -webkit-backdrop-filter: blur(6px);
     }
 
+    // The structure-preview hint is a full sentence — let it use a wider frame and center-wrap gently.
+    .kg-hint {
+        max-width: min(520px, calc(100% - 48px));
+        text-align: center;
+    }
+
     // .kg-starthere is a button (the launchpad → study) — reset native chrome, keep the frosted pill.
+    // It carries a live category label (sometimes very long), so it's width-capped and the label below
+    // ellipsizes rather than wrapping to two ragged lines. Reserves side room for the legend/orbit hint;
+    // on narrow widths those retire and the pill reclaims the width (media query below).
     .kg-starthere {
         appearance: none;
         font: inherit;
         font-size: 13px;
+        max-width: min(420px, calc(100% - 400px));
+        white-space: nowrap;
         cursor: pointer;
         transition:
             transform 0.12s ease,
@@ -454,6 +523,10 @@ unavailable (no open collection), the map still renders as un-lit structure — 
     .kg-starthere strong {
         color: #1b1d2a;
         font-weight: 600;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     .kg-dot {
@@ -495,6 +568,18 @@ unavailable (no open collection), the map still renders as un-lit structure — 
         .kg-dot,
         :global(.kg-best-next) {
             animation: none;
+        }
+    }
+
+    // On narrower widths the bottom-corner chrome would crowd the centered pill — retire the legend and
+    // orbit hint, and let the start-here pill reclaim the full width.
+    @media (max-width: 900px) {
+        .kg-legend,
+        .kg-orbit-hint {
+            display: none;
+        }
+        .kg-starthere {
+            max-width: calc(100% - 32px);
         }
     }
 </style>

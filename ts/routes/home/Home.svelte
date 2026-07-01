@@ -28,7 +28,11 @@ License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
     <header class="brand">Nexus</header>
 
     <section class="hero">
-        <h1>Perfect MCAT score<br />guaranteed</h1>
+        <h1>
+            Perfect MCAT score
+            <br />
+            guaranteed
+        </h1>
         <p class="sub">Backed by Alpha School</p>
 
         <div class="cta-row">
@@ -60,7 +64,13 @@ License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
         overflow: hidden;
         background: #fbfbfd;
         color: #1b1d2a;
-        font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        font-family:
+            Inter,
+            system-ui,
+            -apple-system,
+            "Segoe UI",
+            Roboto,
+            sans-serif;
         display: flex;
         flex-direction: column;
         align-items: center;

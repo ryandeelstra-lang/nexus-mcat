@@ -259,7 +259,9 @@ class TestScoresLoaderSurfacesBrokenEngine:
         monkeypatch.setattr(importlib, "import_module", fake_import)
         # scores/ IS present (find_spec locates it) but importing it fails -> must surface, not hide.
         monkeypatch.setattr(
-            importlib_util, "find_spec", lambda name, *a, **k: object() if name == "scores" else None
+            importlib_util,
+            "find_spec",
+            lambda name, *a, **k: object() if name == "scores" else None,
         )
         with pytest.raises(ImportError):
             mediasrv._load_scores_display()

@@ -78,18 +78,23 @@ impl Collection {
                 acc.reviewed_card_count += 1;
             }
             if let Some(state) = card.memory_state {
-                // Mirror stats/card.rs's per-card retrievability so the dashboard/graph agree with
-                // the card-info screen, but stay READ-ONLY: when the card has no stored
-                // last_review_time, fall back to the revlog's last review (no write-back) instead of
-                // defaulting elapsed to 0 — otherwise a card with state but a null timestamp would
+                // Mirror stats/card.rs's per-card retrievability so the dashboard/graph agree
+                // with the card-info screen, but stay READ-ONLY: when the card
+                // has no stored last_review_time, fall back to the revlog's
+                // last review (no write-back) instead of defaulting elapsed to
+                // 0 — otherwise a card with state but a null timestamp would
                 // read as freshly reviewed (retrievability ~1.0) and inflate mastered_count.
                 let last_review_time = match card.last_review_time {
                     Some(t) => t,
-                    None => self.storage.time_of_last_review(card.id)?.unwrap_or_default(),
+                    None => self
+                        .storage
+                        .time_of_last_review(card.id)?
+                        .unwrap_or_default(),
                 };
                 let elapsed = now.elapsed_secs_since(last_review_time) as u32;
                 // FSRS-5 default decay for a card lacking a stored value — matching every other
-                // per-card retrievability site in the engine (card.rs, browser_table.rs, sqlite.rs).
+                // per-card retrievability site in the engine (card.rs, browser_table.rs,
+                // sqlite.rs).
                 let decay = card.decay.unwrap_or(FSRS5_DEFAULT_DECAY);
                 let r = fsrs.current_retrievability_seconds(state.into(), elapsed, decay);
                 acc.cards_with_state += 1;
@@ -449,9 +454,10 @@ mod test {
         Ok(())
     }
 
-    /// Force an FSRS memory state onto a card while leaving the per-card `decay`
-    /// and/or `last_review_time` NULL — to exercise the fallback paths that the
-    /// regular `set_state` (which always populates both) never reaches.
+    /// Force an FSRS memory state onto a card while leaving the per-card
+    /// `decay` and/or `last_review_time` NULL — to exercise the fallback
+    /// paths that the regular `set_state` (which always populates both)
+    /// never reaches.
     fn set_state_raw(
         col: &mut Collection,
         cid: CardId,
@@ -466,8 +472,7 @@ mod test {
             difficulty,
         });
         card.decay = decay;
-        card.last_review_time =
-            last_review_secs_ago.map(|s| TimestampSecs::now().adding_secs(-s));
+        card.last_review_time = last_review_secs_ago.map(|s| TimestampSecs::now().adding_secs(-s));
         if card.reps == 0 {
             card.reps = 1;
         }
@@ -477,9 +482,9 @@ mod test {
     #[test]
     fn mastery_query_null_decay_uses_fsrs5_default() -> Result<()> {
         // A card with memory_state but NO stored `decay` must fall back to the FSRS-5
-        // default (0.5) — exactly what card-info / the browser (stats/card.rs) compute —
-        // NOT the FSRS-6 default, or the dashboard/graph recall silently disagrees with
-        // the card-info screen for the same card.
+        // default (0.5) — exactly what card-info / the browser (stats/card.rs) compute
+        // — NOT the FSRS-6 default, or the dashboard/graph recall silently
+        // disagrees with the card-info screen for the same card.
         let mut col = Collection::new();
         let cp = DeckAdder::new("MCAT::C-P").add(&mut col);
         let nt = col.basic_notetype();
@@ -488,9 +493,9 @@ mod test {
             .deck(cp.id)
             .add(&mut col);
         let cid = first_card_of(&mut col, n.id);
-        // Mid-range retrievability (large elapsed/stability ratio) so the decay exponent
-        // actually has leverage — at near-1.0 retrievability the two defaults are
-        // indistinguishable.
+        // Mid-range retrievability (large elapsed/stability ratio) so the decay
+        // exponent actually has leverage — at near-1.0 retrievability the two
+        // defaults are indistinguishable.
         let elapsed: i64 = 447 * 86_400;
         set_state_raw(&mut col, cid, 10.0, 5.0, None, Some(elapsed));
 
@@ -518,10 +523,11 @@ mod test {
 
     #[test]
     fn mastery_query_null_last_review_not_counted_fresh() -> Result<()> {
-        // A card carrying memory_state but NO last_review_time (and no revlog) must NOT be
-        // treated as freshly reviewed (elapsed=0 -> retrievability ~1 -> mastered). It falls
-        // back to the revlog's last-review time (here: none -> epoch -> very stale), so it is
-        // honestly NOT mastered and never inflates mastered_count.
+        // A card carrying memory_state but NO last_review_time (and no revlog) must NOT
+        // be treated as freshly reviewed (elapsed=0 -> retrievability ~1 ->
+        // mastered). It falls back to the revlog's last-review time (here: none
+        // -> epoch -> very stale), so it is honestly NOT mastered and never
+        // inflates mastered_count.
         let mut col = Collection::new();
         let cp = DeckAdder::new("MCAT::C-P").add(&mut col);
         let nt = col.basic_notetype();

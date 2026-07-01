@@ -15,7 +15,12 @@ unavailable (no open collection), the map still renders as un-lit structure — 
 
     import { computeBestNext } from "./best-next";
     import { createGraph3D, type Graph3D, type HoverInfo } from "./graph-3d";
-    import { type NodeState, renderGraph, type Sidecar } from "./graph-render";
+    import {
+        type NodeState,
+        renderGraph,
+        rollupMastery,
+        type Sidecar,
+    } from "./graph-render";
 
     // Backdrop mode: a calm, dim, static structure map rendered behind the study-flow screens.
     // No live RPC, no interaction, no chrome — just the spine setting the scene.
@@ -36,6 +41,13 @@ unavailable (no open collection), the map still renders as un-lit structure — 
     let controller: Graph3D | null = null;
     let tooltip: { title: string; sub: string; x: number; y: number } | null = null;
     let crumb: { id: string; label: string } | null = null;
+    // Resolution: a calm degree-of-interest "detail" slider (0 = overview .. 1 = finest grain).
+    let detail = 0.5;
+
+    function onDetail(e: Event): void {
+        detail = Number((e.currentTarget as HTMLInputElement).value);
+        controller?.setDetail(detail);
+    }
 
     async function loadMastery(): Promise<void> {
         try {
@@ -50,10 +62,13 @@ unavailable (no open collection), the map still renders as un-lit structure — 
                     next[id] = {
                         recall: topic.averageRecall,
                         hasState: topic.cardsWithState > 0,
+                        cards: topic.cardsWithState,
                     };
                 }
             }
-            mastery = next;
+            // Roll leaf state up into the section / foundational-concept galaxies (card-weighted, honest)
+            // so the calm Overview altitude reads "where you are" at a glance.
+            mastery = rollupMastery(graph, next);
             bestNext = computeBestNext(graph, mastery);
             status = "live";
         } catch {
@@ -75,10 +90,11 @@ unavailable (no open collection), the map still renders as un-lit structure — 
                 tooltip = info
                     ? {
                           title: info.label,
+                          // Gaps read as "not yet" (Dweck) — never a red/failure state.
                           sub:
-                              info.unlocks > 0
+                              (info.unlocks > 0
                                   ? `${info.sectionLabel} · unlocks ${info.unlocks}`
-                                  : info.sectionLabel,
+                                  : info.sectionLabel) + (info.lit ? "" : " · not yet"),
                           x,
                           y,
                       }
@@ -93,6 +109,7 @@ unavailable (no open collection), the map still renders as un-lit structure — 
             typeof window !== "undefined" &&
                 window.matchMedia("(prefers-reduced-motion: reduce)").matches,
         );
+        c.setDetail(detail);
         loadMastery().then(() => c.setMastery(mastery, bestNext));
     });
 
@@ -125,6 +142,23 @@ unavailable (no open collection), the map still renders as un-lit structure — 
         </button>
     {:else if !backdrop}
         <div class="kg-orbit-hint">drag to orbit · click a galaxy to zoom in</div>
+    {/if}
+
+    {#if !backdrop}
+        <div class="kg-detail" role="group" aria-label="Graph detail">
+            <span class="kg-detail-end">Overview</span>
+            <input
+                class="kg-detail-range"
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value={detail}
+                on:input={onDetail}
+                aria-label="Graph detail — from a calm overview to finer grain"
+            />
+            <span class="kg-detail-end">More detail</span>
+        </div>
     {/if}
 
     {#if !backdrop && status === "structure"}
@@ -229,6 +263,38 @@ unavailable (no open collection), the map still renders as un-lit structure — 
         font-size: 12px;
         color: rgba(27, 29, 42, 0.34);
         pointer-events: none;
+    }
+
+    // Resolution / "detail" slider — a calm frosted pill (top-right). Raising it reveals finer grain
+    // (degree-of-interest semantic zoom); lowering it returns to the calm overview. Section-agnostic
+    // neutral accent so it never implies one section's hue.
+    .kg-detail {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.86);
+        box-shadow:
+            0 1px 2px rgba(27, 29, 42, 0.06),
+            0 8px 24px rgba(27, 29, 42, 0.1);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+    }
+    .kg-detail-end {
+        font-size: 11px;
+        letter-spacing: 0.02em;
+        color: rgba(27, 29, 42, 0.5);
+        user-select: none;
+        white-space: nowrap;
+    }
+    .kg-detail-range {
+        width: 132px;
+        accent-color: rgba(27, 29, 42, 0.55);
+        cursor: pointer;
     }
 
     // Hover tooltip — fixed to the cursor (clientX/clientY).

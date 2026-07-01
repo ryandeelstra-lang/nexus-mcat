@@ -37,6 +37,8 @@ export interface Sidecar {
 export interface NodeState {
     recall: number;
     hasState: boolean;
+    /** cards_with_state from the RPC — the weight for card-weighted parent rollups (leaves only). */
+    cards?: number;
 }
 
 // Locked section palette (docs/17-UI-UX.md §section palette, 2026-06-29). Hue = section identity;
@@ -65,6 +67,43 @@ const GLOW_SUFFIX = ["soft", "strong"] as const;
 export function color(section: string): string {
     // Fallback is a neutral slate (the give-up "opportunity" tone), never a failure grey.
     return SECTION_COLOR[section] ?? "#94A3B8";
+}
+
+// Card-weighted mastery rollup (docs/14 rollup math): a parent (section / foundational-concept) node's
+// state is the card-count-weighted mean of its descendant leaves' LIVE RPC recall. Honest by
+// construction — derived only from real leaf state, never fabricated; a parent gains state only if some
+// descendant leaf has state. Leaves keep their own state untouched. This is what lets the calm Overview
+// altitude read "where you are" (section galaxies glow by their rolled-up mastery), with zoom never
+// disagreeing with itself (same denominator the RPC already uses per leaf).
+export function rollupMastery(
+    sidecar: Sidecar,
+    leaf: Record<string, NodeState>,
+): Record<string, NodeState> {
+    const byId = new Map(sidecar.nodes.map((n) => [n.id, n]));
+    const out: Record<string, NodeState> = { ...leaf };
+    const acc = new Map<string, { rc: number; cards: number }>();
+    for (const n of sidecar.nodes) {
+        const st = leaf[n.id];
+        if (!st || !st.hasState) {
+            continue;
+        }
+        const cards = st.cards ?? 1;
+        let p = n.parent;
+        while (p) {
+            const a = acc.get(p) ?? { rc: 0, cards: 0 };
+            a.rc += st.recall * cards;
+            a.cards += cards;
+            acc.set(p, a);
+            p = byId.get(p)?.parent ?? null;
+        }
+    }
+    for (const [id, a] of acc) {
+        // Never overwrite a leaf that already carries its own RPC state.
+        if (!out[id] && a.cards > 0) {
+            out[id] = { recall: a.rc / a.cards, hasState: true, cards: a.cards };
+        }
+    }
+    return out;
 }
 
 // The per-section "watercolor bloom" filters (soft + strong) — shared by the 2D and 3D renderers.

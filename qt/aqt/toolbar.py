@@ -555,7 +555,9 @@ class Toolbar:
         # user always knows where they are. Modal surfaces (Add/Browse) aren't
         # states, so they clear the highlight — expected.
         item_id = _STATE_TO_ACTIVE_ITEM.get(state, "")
-        self.web.eval(f"if (window.setActiveToolbarItem) setActiveToolbarItem('{item_id}')")
+        self.web.eval(
+            f"if (window.setActiveToolbarItem) setActiveToolbarItem('{item_id}')"
+        )
 
     def _homeLinkHandler(self) -> None:
         # charged_up: return to the Nexus front-door screen.

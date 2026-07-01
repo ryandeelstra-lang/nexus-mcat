@@ -23,6 +23,20 @@ const FOCAL = 2.0; // perspective focal length
 const SCREEN = 235; // world→screen scale
 const ORBIT_SPEED = 0.0019; // radians/frame ambient yaw — calm, never a jittery sim
 const PITCH = -0.34; // a gentle 3/4 "from slightly above" tilt
+// --- semantic-zoom "detail"/resolution model (Decision 31): a degree-of-interest gate, decoupled from
+// camera zoom. Raising `detail` lowers the grain threshold so finer nodes fade in; it never dumps the
+// whole graph (only ~48 spine nodes exist, and finer grain reveals outward from the focus/frontier). ---
+const DETAIL_BAND = 0.16; // soft crossfade width as detail crosses a grain tier
+const FOCUS_BOOST = 0.34; // a focused section's descendants reveal this much earlier (degree-of-interest)
+const DEFAULT_DETAIL = 0.5; // opens calm: 4 section galaxies + their foundational-concept clusters
+// GRAIN[kind] = the detail level at which a node kind begins to appear (0 = always visible).
+const GRAIN: Record<string, number> = {
+    section: 0,
+    fc: 0.34,
+    category: 0.62,
+    cars: 0.62,
+    topic: 0.86,
+};
 
 const SECTION_SHORT: Record<string, string> = {
     "C-P": "C/P",
@@ -53,6 +67,8 @@ export interface Graph3DCallbacks {
 
 export interface Graph3D {
     setMastery(mastery: Record<string, NodeState>, bestNext: string | null): void;
+    /** Set the semantic-zoom resolution (0 = calm overview .. 1 = finest grain). */
+    setDetail(detail: number): void;
     clearFocus(): void;
     setReducedMotion(reduced: boolean): void;
     destroy(): void;
@@ -82,6 +98,10 @@ interface EdgeRT {
 
 const lerp = (a: number, b: number, t: number): number => a + (b - a) * t;
 const clamp = (v: number, lo: number, hi: number): number => Math.max(lo, Math.min(hi, v));
+const smooth = (t: number): number => {
+    const c = clamp(t, 0, 1);
+    return c * c * (3 - 2 * c); // smoothstep — eases the grain crossfade
+};
 
 export function createGraph3D(
     svgEl: SVGSVGElement,
@@ -208,6 +228,8 @@ export function createGraph3D(
     let panY = 0;
     let targetZoom = 1;
     let reduced = false;
+    let detail = DEFAULT_DETAIL; // semantic-zoom "resolution": 0 = overview .. 1 = finest grain
+    let targetDetail = DEFAULT_DETAIL;
     let entrance = 0; // 0→1 entrance ramp (nodes bloom in)
     let dragging = false;
     let dragMoved = false;
@@ -223,6 +245,24 @@ export function createGraph3D(
         const m = mastery[id];
         return !!(m && m.hasState);
     };
+
+    // Grain gate: a node's effective "appear at this detail" level. The single best-next frontier gap is
+    // always visible (highest degree-of-interest), and a focused section's descendants reveal earlier so
+    // raising detail expands outward from where the user is looking — never a global hairball dump.
+    const grainOf = (n: SidecarNode): number => {
+        if (n.id === bestNext) {
+            return 0;
+        }
+        let g = GRAIN[n.kind] ?? 0.62;
+        if (sectionFocusId) {
+            const fs = byId.get(sectionFocusId)?.n.section;
+            if (fs && n.section === fs) {
+                g = Math.max(0, g - FOCUS_BOOST);
+            }
+        }
+        return g;
+    };
+    const revealOf = (n: SidecarNode): number => smooth((detail - grainOf(n)) / DETAIL_BAND);
 
     function project(): void {
         const cosY = Math.cos(yaw), sinY = Math.sin(yaw);
@@ -306,16 +346,21 @@ export function createGraph3D(
         const dim = (sectionFocusId && n.section !== byId.get(sectionFocusId)?.n.section)
             || (chain != null && !chain.has(n.id));
         const ent = 1 - (1 - entrance) ** 3; // ease-out entrance
-        const radius = r.baseR * r.factor * zoom * (0.72 + 0.42 * depthN) * (0.25 + 0.75 * ent);
+        // reveal = the semantic-zoom "detail" gate for this node's grain (0 hidden .. 1 shown).
+        const reveal = revealOf(n);
+        const radius = r.baseR * r.factor * zoom * (0.72 + 0.42 * depthN) * (0.25 + 0.75 * ent)
+            * (0.4 + 0.6 * reveal);
         group.setAttribute("transform", `translate(${r.sx.toFixed(2)},${r.sy.toFixed(2)})`);
         circle.setAttribute("r", radius.toFixed(2));
+        // below the reveal floor the node is faded out — don't let an invisible node catch clicks.
+        circle.style.pointerEvents = reveal < 0.15 ? "none" : "auto";
 
         // fill opacity: un-lit gap = colored-but-dim; lit saturates with recall; far nodes recede
-        // (gentle atmosphere — keep lit nodes vivid even on the far side).
+        // (gentle atmosphere — keep lit nodes vivid even on the far side); reveal gates by detail.
         const m = mastery[n.id];
         const base = !m || !m.hasState ? 0.45 : 0.7 + 0.3 * clamp(m.recall, 0, 1);
         const atmos = 0.7 + 0.3 * depthN;
-        circle.setAttribute("fill-opacity", ((dim ? 0.12 : base) * atmos * ent).toFixed(3));
+        circle.setAttribute("fill-opacity", ((dim ? 0.12 : base) * atmos * ent * reveal).toFixed(3));
 
         // earned bloom: lit nodes (and best-next, stronger) gain a section-tinted halo
         if (dim) {
@@ -348,7 +393,8 @@ export function createGraph3D(
             const showFc = n.kind === "fc"
                 && (!sectionFocusId || byId.get(sectionFocusId)?.n.section === n.section);
             const visible = n.kind === "section" || showFc;
-            label.setAttribute("opacity", visible && !dim ? (0.55 + 0.45 * depthN).toFixed(2) : "0");
+            const labelOpacity = visible && !dim ? reveal * (0.55 + 0.45 * depthN) : 0;
+            label.setAttribute("opacity", labelOpacity.toFixed(2));
             label.setAttribute("y", (-radius - 7).toString());
             label.setAttribute("font-size", (n.kind === "section" ? 13 : 10).toString());
         }
@@ -362,6 +408,8 @@ export function createGraph3D(
         const dimA = (sectionFocusId && a.n.section !== byId.get(sectionFocusId)?.n.section)
             || (chain != null && !(chain.has(a.n.id) && chain.has(b.n.id)));
         const onChain = chain != null && chain.has(a.n.id) && chain.has(b.n.id);
+        // an edge is only as present as its faintest endpoint's detail-reveal (no orphan lines).
+        const eReveal = Math.min(revealOf(a.n), revealOf(b.n));
         e.line.setAttribute("x1", a.sx.toFixed(2));
         e.line.setAttribute("y1", a.sy.toFixed(2));
         e.line.setAttribute("x2", b.sx.toFixed(2));
@@ -379,7 +427,7 @@ export function createGraph3D(
             width = e.prereq ? 1.1 : 0.6;
         }
         e.line.setAttribute("stroke", "#1B1D2A");
-        e.line.setAttribute("stroke-opacity", opacity.toString());
+        e.line.setAttribute("stroke-opacity", (opacity * eReveal).toString());
         e.line.setAttribute("stroke-width", width.toString());
     }
 
@@ -388,12 +436,18 @@ export function createGraph3D(
         const ambient = !reduced && !sectionFocusId && !dragging;
         const animating = entrance < 1
             || Math.abs(zoom - targetZoom) > 0.001
-            || Math.abs(panX) > 0.5 || Math.abs(panY) > 0.5;
+            || Math.abs(panX) > 0.5 || Math.abs(panY) > 0.5
+            || Math.abs(detail - targetDetail) > 0.001;
         return !ambient && !animating;
     }
     function tick(): void {
         if (entrance < 1) {
             entrance = Math.min(1, entrance + 0.05);
+        }
+        if (Math.abs(detail - targetDetail) > 0.001) {
+            detail = lerp(detail, targetDetail, 0.22); // crossfade grain in/out as the slider moves
+        } else {
+            detail = targetDetail;
         }
         if (!reduced && !sectionFocusId && !dragging) {
             yaw += ORBIT_SPEED;
@@ -547,6 +601,13 @@ export function createGraph3D(
             mastery = m;
             bestNext = bn;
             project();
+            kick();
+        },
+        setDetail(d) {
+            targetDetail = clamp(d, 0, 1);
+            if (reduced) {
+                detail = targetDetail; // no crossfade under reduced motion — snap
+            }
             kick();
         },
         clearFocus() {

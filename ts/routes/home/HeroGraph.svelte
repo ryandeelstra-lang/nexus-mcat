@@ -74,7 +74,9 @@ prefers-reduced-motion (renders one static frame). Kept dim — the copy always 
             // interconnect the hubs into a spine
             for (let a = 0; a < hubsPer; a++) {
                 for (let b = a + 1; b < hubsPer; b++) {
-                    if (r() < 0.45) edges.push([hubIdx[a], hubIdx[b]]);
+                    if (r() < 0.45) {
+                        edges.push([hubIdx[a], hubIdx[b]]);
+                    }
                 }
             }
             // leaves scattered around a random hub, webbed to neighbours
@@ -107,11 +109,15 @@ prefers-reduced-motion (renders one static frame). Kept dim — the copy always 
 
     function draw(t: number): void {
         const ctx = canvas.getContext("2d");
-        if (!ctx) return;
+        if (!ctx) {
+            return;
+        }
         const dpr = Math.min(window.devicePixelRatio || 1, 2);
         const w = canvas.clientWidth;
         const h = canvas.clientHeight;
-        if (w === 0 || h === 0) return;
+        if (w === 0 || h === 0) {
+            return;
+        }
         if (canvas.width !== w * dpr || canvas.height !== h * dpr) {
             canvas.width = w * dpr;
             canvas.height = h * dpr;
@@ -131,7 +137,7 @@ prefers-reduced-motion (renders one static frame). Kept dim — the copy always 
         const oy = h / 2;
 
         const P = nodes.map((n) => {
-            let x = n.x * cy - n.z * sy;
+            const x = n.x * cy - n.z * sy;
             let z = n.x * sy + n.z * cy;
             const y = n.y * cp - z * sp;
             z = n.y * sp + z * cp;
@@ -152,7 +158,9 @@ prefers-reduced-motion (renders one static frame). Kept dim — the copy always 
             const pb = P[b];
             const d = (pa.depth + pb.depth) / 2;
             const alpha = Math.min(0.2, Math.max(0, (d - 0.62) * 0.26));
-            if (alpha <= 0.012) continue;
+            if (alpha <= 0.012) {
+                continue;
+            }
             ctx.strokeStyle = hexA(pa.hue, alpha);
             ctx.beginPath();
             ctx.moveTo(pa.sx, pa.sy);
@@ -189,7 +197,9 @@ prefers-reduced-motion (renders one static frame). Kept dim — the copy always 
             window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         build();
         ro = new ResizeObserver(() => {
-            if (reduced) draw(0);
+            if (reduced) {
+                draw(0);
+            }
         });
         ro.observe(canvas);
         if (reduced) {

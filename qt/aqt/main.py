@@ -1113,7 +1113,9 @@ title="{}" {}>{}</button>""".format(
         # hidden in every other state (see _update_graph_backdrop / _homeState).
         self.home_web = AnkiWebView(kind=AnkiWebViewKind.HOME)
         self.home_web.disable_zoom()
-        self.centralStack.addWidget(self.home_web)  # in front (shown only in 'home' state)
+        self.centralStack.addWidget(
+            self.home_web
+        )  # in front (shown only in 'home' state)
         self.graph_web.hide()
         self.home_web.hide()
         # bottom area

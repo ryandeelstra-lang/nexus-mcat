@@ -771,23 +771,29 @@ async fn regular_sync(ctx: &SyncTestContext) -> Result<()> {
 }
 
 // ===================================================================================================
-// MCAT fork — Block E: sync without loss / double-count + LWW conflict (charged_up)
+// MCAT fork — Block E: sync without loss / double-count + LWW conflict
+// (charged_up)
 // ===================================================================================================
 //
-// Appended, additive tests only. No existing test above is modified and NO engine source is changed:
-// Anki's append-only revlog (dedup by the millisecond `RevlogId` PK, `INSERT OR IGNORE`) and its
-// mtime last-write-wins merge already provide the behavior the MCAT rubric requires. These tests PIN
-// that behavior against the real in-process `anki-sync-server` harness and lock it as a regression
-// gate. The documented conflict rule (D7) lives in docs/mcat/CONFLICT-RULE.md.
+// Appended, additive tests only. No existing test above is modified and NO
+// engine source is changed: Anki's append-only revlog (dedup by the millisecond
+// `RevlogId` PK, `INSERT OR IGNORE`) and its mtime last-write-wins merge
+// already provide the behavior the MCAT rubric requires. These tests PIN
+// that behavior against the real in-process `anki-sync-server` harness and lock
+// it as a regression gate. The documented conflict rule (D7) lives in
+// docs/mcat/CONFLICT-RULE.md.
 //
 // Requirement map (docs 03/19, Decision 9):
-//   t3_revlog_dedup_primitive           -> 7b / C6 / I1  (the SQLite INSERT-OR-IGNORE primitive; hardening L4)
-//   t2_two_collection_roundtrip         -> C6 / 7b       (state round-trips across two collections)
-//   t4_twenty_reviews_land_once         -> 7b / C6       (the headline: 10 + 10 distinct -> 20 land once)
-//   s1_conflict_lww_by_mtime            -> D7 / 7b       (same object on both -> later mtime wins)
-//   c7_offline_review_then_reconnect    -> C7 / 7b       (offline reviews land on reconnect)
-//   s2b_midsync_interrupt_is_clean      -> 7g / C7 / I1  (interrupted sync + replay -> no loss/double)
-//   s2c_wrong_clock_revlog_id_collision -> I1 / D7       (honest clock-skew limitation: one row survives)
+//   t3_revlog_dedup_primitive           -> 7b / C6 / I1  (the SQLite
+// INSERT-OR-IGNORE primitive; hardening L4)   t2_two_collection_roundtrip
+// -> C6 / 7b       (state round-trips across two collections)
+//   t4_twenty_reviews_land_once         -> 7b / C6       (the headline: 10 + 10
+// distinct -> 20 land once)   s1_conflict_lww_by_mtime            -> D7 / 7b
+// (same object on both -> later mtime wins)   c7_offline_review_then_reconnect
+// -> C7 / 7b       (offline reviews land on reconnect)
+//   s2b_midsync_interrupt_is_clean      -> 7g / C7 / I1  (interrupted sync +
+// replay -> no loss/double)   s2c_wrong_clock_revlog_id_collision -> I1 / D7
+// (honest clock-skew limitation: one row survives)
 #[cfg(test)]
 mod mcat_block_e {
     use std::collections::HashSet;
@@ -796,11 +802,13 @@ mod mcat_block_e {
     use crate::scheduler::answering::CardAnswer;
     use crate::scheduler::answering::Rating;
 
-    // ---- helpers ----------------------------------------------------------------------------------
+    // ---- helpers
+    // ----------------------------------------------------------------------------------
 
-    /// Review a card by id with an explicit answer time (which becomes the revlog id), without
-    /// requiring the in-memory study queue (`from_queue: false`). A revlog row with id == `at` is
-    /// written and the collection is marked modified, so the next normal sync pushes it.
+    /// Review a card by id with an explicit answer time (which becomes the
+    /// revlog id), without requiring the in-memory study queue
+    /// (`from_queue: false`). A revlog row with id == `at` is written and
+    /// the collection is marked modified, so the next normal sync pushes it.
     fn review_card(col: &mut Collection, cid: CardId, at: TimestampMillis) -> Result<()> {
         let states = col.get_scheduling_states(cid)?;
         col.answer_card(&mut CardAnswer {
@@ -816,7 +824,8 @@ mod mcat_block_e {
         Ok(())
     }
 
-    /// Add `n` distinct Basic notes (deck 1). Card ids are re-queried by callers after sync.
+    /// Add `n` distinct Basic notes (deck 1). Card ids are re-queried by
+    /// callers after sync.
     fn seed_cards(col: &mut Collection, n: usize) {
         let nt = col.get_notetype_by_name("Basic").unwrap().unwrap();
         for i in 0..n {
@@ -830,7 +839,8 @@ mod mcat_block_e {
         col.storage.db_scalar::<u32>("select count() from revlog")
     }
 
-    /// Every revlog id in the collection, ascending — for set/equality assertions.
+    /// Every revlog id in the collection, ascending — for set/equality
+    /// assertions.
     fn sorted_revlog_ids(col: &Collection) -> Result<Vec<i64>> {
         let mut ids: Vec<i64> = col
             .storage
@@ -842,11 +852,13 @@ mod mcat_block_e {
         Ok(ids)
     }
 
-    // ---- T3: the revlog dedup PRIMITIVE -----------------------------------------------------------
-    // Pins ONLY the storage-layer primitive the sync MERGE path relies on (`merge_revlog` calls
-    // `add_revlog_entry(.., false)`): the same id inserted twice lands once; distinct ids land twice;
-    // and two DIFFERENT reviews of the SAME card (distinct ids) BOTH persist — dedup is keyed on the
-    // revlog id, never on the card. The cross-device merge invariant itself is T4/s2c. (hardening L4)
+    // ---- T3: the revlog dedup PRIMITIVE
+    // ----------------------------------------------------------- Pins ONLY the
+    // storage-layer primitive the sync MERGE path relies on (`merge_revlog` calls
+    // `add_revlog_entry(.., false)`): the same id inserted twice lands once;
+    // distinct ids land twice; and two DIFFERENT reviews of the SAME card
+    // (distinct ids) BOTH persist — dedup is keyed on the revlog id, never on
+    // the card. The cross-device merge invariant itself is T4/s2c. (hardening L4)
     #[test]
     fn t3_revlog_dedup_primitive() -> Result<()> {
         let col = Collection::new();
@@ -879,7 +891,8 @@ mod mcat_block_e {
         );
         assert_eq!(revlog_count(&col)?, 2);
 
-        // L4 corner: the SAME card reviewed twice (two different ms ids, same cid) keeps BOTH rows
+        // L4 corner: the SAME card reviewed twice (two different ms ids, same cid)
+        // keeps BOTH rows
         let same_card = CardId(99);
         let a = RevlogEntry {
             id: RevlogId(2_000),
@@ -904,7 +917,8 @@ mod mcat_block_e {
         Ok(())
     }
 
-    // ---- T2: two-collection round-trip ------------------------------------------------------------
+    // ---- T2: two-collection round-trip
+    // ------------------------------------------------------------
     #[tokio::test]
     async fn t2_two_collection_roundtrip() -> Result<()> {
         with_active_server(|client| async move {
@@ -931,7 +945,8 @@ mod mcat_block_e {
         .await
     }
 
-    // ---- T4: the 7b headline — 10 reviews on A + 10 different on B -> sync -> 20 land once ---------
+    // ---- T4: the 7b headline — 10 reviews on A + 10 different on B -> sync -> 20
+    // land once ---------
     #[tokio::test]
     async fn t4_twenty_reviews_land_once() -> Result<()> {
         with_active_server(|client| async move {
@@ -969,8 +984,9 @@ mod mcat_block_e {
                 "same card ids on both sides after the full sync"
             );
 
-            // OFFLINE (no sync between): review 10 DISTINCT cards on col1, 10 OTHER cards on col2.
-            // Explicit, strictly-increasing answer times => 20 distinct revlog ids (no clock collision).
+            // OFFLINE (no sync between): review 10 DISTINCT cards on col1, 10 OTHER cards
+            // on col2. Explicit, strictly-increasing answer times => 20
+            // distinct revlog ids (no clock collision).
             let base = TimestampMillis::now().0;
             for (i, &cid) in cards1[0..10].iter().enumerate() {
                 review_card(&mut col1, cid, TimestampMillis(base + i as i64))?;
@@ -1003,7 +1019,8 @@ mod mcat_block_e {
         .await
     }
 
-    // ---- S1: same object edited offline on both -> LWW-by-mtime (later mtime wins) -----------------
+    // ---- S1: same object edited offline on both -> LWW-by-mtime (later mtime
+    // wins) -----------------
     #[tokio::test]
     async fn s1_conflict_lww_by_mtime() -> Result<()> {
         with_active_server(|client| async move {
@@ -1027,14 +1044,16 @@ mod mcat_block_e {
             let _ = ctx.normal_sync(&mut col2).await;
             ctx.full_download(col2).await;
 
-            // OFFLINE edits to the SAME note on both; col2 edits LATER (strictly-greater mtime)
+            // OFFLINE edits to the SAME note on both; col2 edits LATER (strictly-greater
+            // mtime)
             let mut col1 = ctx.col1();
             let mut n1 = col1.storage.get_note(nid)?.unwrap();
             n1.set_field(1, "col1-edit")?;
             col1.update_note(&mut n1)?;
 
-            // note mtime is seconds-granularity, so sleep past a 1s boundary to make col2's edit
-            // strictly newer (the LWW comparison is `existing.mtime < entry.mtime`, chunks.rs)
+            // note mtime is seconds-granularity, so sleep past a 1s boundary to make col2's
+            // edit strictly newer (the LWW comparison is `existing.mtime <
+            // entry.mtime`, chunks.rs)
             std::thread::sleep(std::time::Duration::from_millis(1100));
 
             let mut col2 = ctx.col2();
@@ -1060,7 +1079,8 @@ mod mcat_block_e {
         .await
     }
 
-    // ---- C7: offline review then reconnect -> the offline reviews land ----------------------------
+    // ---- C7: offline review then reconnect -> the offline reviews land
+    // ----------------------------
     #[tokio::test]
     async fn c7_offline_review_then_reconnect() -> Result<()> {
         with_active_server(|client| async move {
@@ -1073,8 +1093,8 @@ mod mcat_block_e {
             let _ = ctx.normal_sync(&mut col2).await;
             ctx.full_download(col2).await;
 
-            // "airplane mode": review on col1 with NO sync (the engine-level half of C7; the on-device
-            // airplane-mode recording is the HUMAN half).
+            // "airplane mode": review on col1 with NO sync (the engine-level half of C7;
+            // the on-device airplane-mode recording is the HUMAN half).
             let mut col1 = ctx.col1();
             let cards = col1.search_cards("", SortMode::NoOrder)?;
             let base = TimestampMillis::now().0;
@@ -1089,8 +1109,9 @@ mod mcat_block_e {
                 "col2 hasn't seen the offline reviews yet"
             );
 
-            // reconnect: the offline reviews land on the other device (reuse the same handles —
-            // a second open handle to the same .anki2 file would hit a SQLite lock)
+            // reconnect: the offline reviews land on the other device (reuse the same
+            // handles — a second open handle to the same .anki2 file would hit
+            // a SQLite lock)
             ctx.normal_sync(&mut col1).await;
             ctx.normal_sync(&mut col2).await;
             assert_eq!(
@@ -1103,7 +1124,8 @@ mod mcat_block_e {
         .await
     }
 
-    // ---- S2b: interrupted sync + replay -> no corruption, no loss, no double-count ----------------
+    // ---- S2b: interrupted sync + replay -> no corruption, no loss, no
+    // double-count ----------------
     #[tokio::test]
     async fn s2b_midsync_interrupt_is_clean() -> Result<()> {
         with_active_server(|client| async move {
@@ -1126,7 +1148,8 @@ mod mcat_block_e {
                 review_card(&mut col1, cid, TimestampMillis(base + i as i64))?;
             }
 
-            // INTERRUPTED sync: a session is started, then the connection drops (abort) before finish.
+            // INTERRUPTED sync: a session is started, then the connection drops (abort)
+            // before finish.
             let start_req = StartRequest {
                 client_usn: Default::default(),
                 local_is_newer: false,
@@ -1152,7 +1175,8 @@ mod mcat_block_e {
                 "and propagate to col2 — none lost, none doubled"
             );
 
-            // REPLAY: a redundant re-sync (as after a flaky reconnect) adds nothing — idempotent.
+            // REPLAY: a redundant re-sync (as after a flaky reconnect) adds nothing —
+            // idempotent.
             let out = ctx.normal_sync(&mut col1).await;
             assert_eq!(out.required, SyncActionRequired::NoChanges);
             assert_eq!(revlog_count(&col1)?, 5, "re-sync must not double-count");
@@ -1161,10 +1185,12 @@ mod mcat_block_e {
         .await
     }
 
-    // ---- S2c: wrong-clock — two devices stamp DIFFERENT reviews with the SAME id ------------------
-    // HONEST LIMITATION (documented in CONFLICT-RULE.md): because the RevlogId IS a wall-clock ms and
-    // the merge does not uniquify, a TRUE cross-device id collision resolves to EXACTLY ONE surviving
-    // row. We do NOT claim both reviews land; we assert the deterministic single-survivor outcome.
+    // ---- S2c: wrong-clock — two devices stamp DIFFERENT reviews with the SAME id
+    // ------------------ HONEST LIMITATION (documented in CONFLICT-RULE.md):
+    // because the RevlogId IS a wall-clock ms and the merge does not uniquify,
+    // a TRUE cross-device id collision resolves to EXACTLY ONE surviving
+    // row. We do NOT claim both reviews land; we assert the deterministic
+    // single-survivor outcome.
     #[tokio::test]
     async fn s2c_wrong_clock_revlog_id_collision() -> Result<()> {
         with_active_server(|client| async move {
@@ -1193,7 +1219,8 @@ mod mcat_block_e {
             ctx.normal_sync(&mut col2).await;
             ctx.normal_sync(&mut col1).await;
 
-            // the colliding id resolves to exactly ONE row on each side (one review is shadowed)
+            // the colliding id resolves to exactly ONE row on each side (one review is
+            // shadowed)
             assert_eq!(
                 revlog_count(&col1)?,
                 1,

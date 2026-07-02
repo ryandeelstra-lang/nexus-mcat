@@ -1,0 +1,26 @@
+# charged_up: a tiny build-time tool that emits ios/.../ServiceIndices.swift from Anki's
+# DescriptorPool, so the Swift FFI client never hard-codes (service, method) u32 indices
+# — it derives them exactly as Anki's own codegen does (positional pool index for services;
+# per-service method index, with collection methods delegated after the backend trait
+# methods). See rslib/proto_gen/src/lib.rs::get_services + rslib/rust_interface.rs.
+#
+# Its own [workspace] table detaches it from the main Anki workspace, so `just check`'s
+# unscoped `cargo --all` never builds it. Run it via scripts/generate_service_indices.sh.
+[package]
+name = "service-index-dumper"
+version = "0.1.0"
+edition = "2021"
+license = "AGPL-3.0-or-later"
+publish = false
+
+[[bin]]
+name = "service-index-dumper"
+path = "src/main.rs"
+
+[dependencies]
+# Same prost-reflect the engine's codegen uses (root Cargo.toml [workspace.dependencies]),
+# so DescriptorPool indexing is byte-identical to run_service_method's dispatch.
+anyhow = "1"
+prost-reflect = "0.14.7"
+
+[workspace]

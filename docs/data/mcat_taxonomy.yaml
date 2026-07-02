@@ -1,0 +1,70 @@
+# charged_up MCAT taxonomy — the frozen coverage spine (Decision 22).
+# Source: AAMC, "What's on the MCAT Exam?" (© 2020 Association of American Medical Colleges).
+#   https://students-residents.aamc.org/prepare-mcat-exam/whats-mcat-exam-pdf-outline
+# Verbatim AAMC content-category + Foundational-Concept titles; CARS = 3 reasoning skills.
+#
+# Coverage denominators (Decision 22): the readiness GATE divides by the 31 AAMC content
+# categories (is_content_category: true); the displayed coverage MAP divides by all 34 leaves
+# (31 content categories + 3 CARS reasoning-skill leaves). FC10 has exactly ONE category (10A).
+version: 1
+source: "AAMC — What's on the MCAT Exam? (© 2020 AAMC)"
+source_url: "https://students-residents.aamc.org/prepare-mcat-exam/whats-mcat-exam-pdf-outline"
+
+sections:
+  - abbrev: "C-P"
+    name: "Chemical and Physical Foundations of Biological Systems"
+  - abbrev: "CARS"
+    name: "Critical Analysis and Reasoning Skills"
+  - abbrev: "B-B"
+    name: "Biological and Biochemical Foundations of Living Systems"
+  - abbrev: "P-S"
+    name: "Psychological, Social, and Biological Foundations of Behavior"
+
+foundational_concepts:
+  - { id: "FC1", section: "B-B", statement: "Biomolecules have unique properties that determine how they contribute to the structure and function of cells and how they participate in the processes necessary to maintain life." }
+  - { id: "FC2", section: "B-B", statement: "Highly organized assemblies of molecules, cells, and organs interact to carry out the functions of living organisms." }
+  - { id: "FC3", section: "B-B", statement: "Complex systems of tissues and organs sense the internal and external environments of multicellular organisms, and through integrated functioning, maintain a stable internal environment within an ever-changing external environment." }
+  - { id: "FC4", section: "C-P", statement: "Complex living organisms transport materials, sense their environment, process signals, and respond to changes using processes understood in terms of physical principles." }
+  - { id: "FC5", section: "C-P", statement: "The principles that govern chemical interactions and reactions form the basis for a broader understanding of the molecular dynamics of living systems." }
+  - { id: "FC6", section: "P-S", statement: "Biological, psychological, and sociocultural factors influence the ways that individuals perceive, think about, and react to the world." }
+  - { id: "FC7", section: "P-S", statement: "Biological, psychological, and sociocultural factors influence behavior and behavior change." }
+  - { id: "FC8", section: "P-S", statement: "Psychological, sociocultural, and biological factors influence the way we think about ourselves and others, as well as how we interact with others." }
+  - { id: "FC9", section: "P-S", statement: "Cultural and social differences influence well-being." }
+  - { id: "FC10", section: "P-S", statement: "Social stratification and access to resources influence well-being." }
+
+# 34 leaves: 31 content categories (is_content_category: true) + 3 CARS reasoning skills (false).
+leaves:
+  - { id: "1A", leaf_id: "BB.1A", section: "B-B", fc: "FC1", path: "MCAT::B-B::1A", is_content_category: true, name: "Structure and function of proteins and their constituent amino acids" }
+  - { id: "1B", leaf_id: "BB.1B", section: "B-B", fc: "FC1", path: "MCAT::B-B::1B", is_content_category: true, name: "Transmission of genetic information from the gene to the protein" }
+  - { id: "1C", leaf_id: "BB.1C", section: "B-B", fc: "FC1", path: "MCAT::B-B::1C", is_content_category: true, name: "Transmission of heritable information from generation to generation and the processes that increase genetic diversity" }
+  - { id: "1D", leaf_id: "BB.1D", section: "B-B", fc: "FC1", path: "MCAT::B-B::1D", is_content_category: true, name: "Principles of bioenergetics and fuel molecule metabolism" }
+  - { id: "2A", leaf_id: "BB.2A", section: "B-B", fc: "FC2", path: "MCAT::B-B::2A", is_content_category: true, name: "Assemblies of molecules, cells, and groups of cells within single cellular and multicellular organisms" }
+  - { id: "2B", leaf_id: "BB.2B", section: "B-B", fc: "FC2", path: "MCAT::B-B::2B", is_content_category: true, name: "The structure, growth, physiology, and genetics of prokaryotes and viruses" }
+  - { id: "2C", leaf_id: "BB.2C", section: "B-B", fc: "FC2", path: "MCAT::B-B::2C", is_content_category: true, name: "Processes of cell division, differentiation, and specialization" }
+  - { id: "3A", leaf_id: "BB.3A", section: "B-B", fc: "FC3", path: "MCAT::B-B::3A", is_content_category: true, name: "Structure and functions of the nervous and endocrine systems and ways these systems coordinate the organ systems" }
+  - { id: "3B", leaf_id: "BB.3B", section: "B-B", fc: "FC3", path: "MCAT::B-B::3B", is_content_category: true, name: "Structure and integrative functions of the main organ systems" }
+  - { id: "4A", leaf_id: "CP.4A", section: "C-P", fc: "FC4", path: "MCAT::C-P::4A", is_content_category: true, name: "Translational motion, forces, work, energy, and equilibrium in living systems" }
+  - { id: "4B", leaf_id: "CP.4B", section: "C-P", fc: "FC4", path: "MCAT::C-P::4B", is_content_category: true, name: "Importance of fluids for the circulation of blood, gas movement, and gas exchange" }
+  - { id: "4C", leaf_id: "CP.4C", section: "C-P", fc: "FC4", path: "MCAT::C-P::4C", is_content_category: true, name: "Electrochemistry and electrical circuits and their elements" }
+  - { id: "4D", leaf_id: "CP.4D", section: "C-P", fc: "FC4", path: "MCAT::C-P::4D", is_content_category: true, name: "How light and sound interact with matter" }
+  - { id: "4E", leaf_id: "CP.4E", section: "C-P", fc: "FC4", path: "MCAT::C-P::4E", is_content_category: true, name: "Atoms, nuclear decay, electronic structure, and atomic chemical behavior" }
+  - { id: "5A", leaf_id: "CP.5A", section: "C-P", fc: "FC5", path: "MCAT::C-P::5A", is_content_category: true, name: "Unique nature of water and its solutions" }
+  - { id: "5B", leaf_id: "CP.5B", section: "C-P", fc: "FC5", path: "MCAT::C-P::5B", is_content_category: true, name: "Nature of molecules and intermolecular interactions" }
+  - { id: "5C", leaf_id: "CP.5C", section: "C-P", fc: "FC5", path: "MCAT::C-P::5C", is_content_category: true, name: "Separation and purification methods" }
+  - { id: "5D", leaf_id: "CP.5D", section: "C-P", fc: "FC5", path: "MCAT::C-P::5D", is_content_category: true, name: "Structure, function, and reactivity of biologically relevant molecules" }
+  - { id: "5E", leaf_id: "CP.5E", section: "C-P", fc: "FC5", path: "MCAT::C-P::5E", is_content_category: true, name: "Principles of chemical thermodynamics and kinetics" }
+  - { id: "6A", leaf_id: "PS.6A", section: "P-S", fc: "FC6", path: "MCAT::P-S::6A", is_content_category: true, name: "Sensing the environment" }
+  - { id: "6B", leaf_id: "PS.6B", section: "P-S", fc: "FC6", path: "MCAT::P-S::6B", is_content_category: true, name: "Making sense of the environment" }
+  - { id: "6C", leaf_id: "PS.6C", section: "P-S", fc: "FC6", path: "MCAT::P-S::6C", is_content_category: true, name: "Responding to the world" }
+  - { id: "7A", leaf_id: "PS.7A", section: "P-S", fc: "FC7", path: "MCAT::P-S::7A", is_content_category: true, name: "Individual influences on behavior" }
+  - { id: "7B", leaf_id: "PS.7B", section: "P-S", fc: "FC7", path: "MCAT::P-S::7B", is_content_category: true, name: "Social processes that influence human behavior" }
+  - { id: "7C", leaf_id: "PS.7C", section: "P-S", fc: "FC7", path: "MCAT::P-S::7C", is_content_category: true, name: "Attitude and behavior change" }
+  - { id: "8A", leaf_id: "PS.8A", section: "P-S", fc: "FC8", path: "MCAT::P-S::8A", is_content_category: true, name: "Self-identity" }
+  - { id: "8B", leaf_id: "PS.8B", section: "P-S", fc: "FC8", path: "MCAT::P-S::8B", is_content_category: true, name: "Social thinking" }
+  - { id: "8C", leaf_id: "PS.8C", section: "P-S", fc: "FC8", path: "MCAT::P-S::8C", is_content_category: true, name: "Social interactions" }
+  - { id: "9A", leaf_id: "PS.9A", section: "P-S", fc: "FC9", path: "MCAT::P-S::9A", is_content_category: true, name: "Understanding social structure" }
+  - { id: "9B", leaf_id: "PS.9B", section: "P-S", fc: "FC9", path: "MCAT::P-S::9B", is_content_category: true, name: "Demographic characteristics and processes" }
+  - { id: "10A", leaf_id: "PS.10A", section: "P-S", fc: "FC10", path: "MCAT::P-S::10A", is_content_category: true, name: "Social inequality" }
+  - { id: "FOC", leaf_id: "CARS.FOC", section: "CARS", fc: null, path: "MCAT::CARS::Foundations of Comprehension", is_content_category: false, name: "Foundations of Comprehension" }
+  - { id: "RW", leaf_id: "CARS.RW", section: "CARS", fc: null, path: "MCAT::CARS::Reasoning Within the Text", is_content_category: false, name: "Reasoning Within the Text" }
+  - { id: "RB", leaf_id: "CARS.RB", section: "CARS", fc: null, path: "MCAT::CARS::Reasoning Beyond the Text", is_content_category: false, name: "Reasoning Beyond the Text" }

@@ -1,0 +1,285 @@
+/* Copyright: Ankitects Pty Ltd and contributors
+ * License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html */
+@use "../../../../../ts/lib/sass/root-vars";
+@use "../../../../../ts/lib/sass/vars" as *;
+@use "../../../../../ts/lib/sass/card-counts";
+@use "../../../../../ts/lib/sass/elevation" as *;
+
+table {
+    padding: 1rem;
+
+    .fancy & {
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--border-radius-medium);
+
+        @include elevation(1, $opacity-boost: -0.08);
+        &:hover {
+            @include elevation(2);
+        }
+        background: var(--canvas-glass);
+    }
+}
+
+a.deck {
+    color: color(fg);
+    text-decoration: none;
+    min-width: 5em;
+    display: inline-block;
+}
+
+a.deck:hover {
+    text-decoration: underline;
+}
+
+th {
+    border-bottom: 1px solid color(border-subtle);
+    padding-bottom: 5px;
+}
+
+tr.deck td {
+    padding: 1px 12px;
+    border-bottom: 1px solid var(--border-subtle);
+
+    .fancy & {
+        border: unset;
+        padding: 4px 12px;
+    }
+}
+
+tr.top-level-drag-row td {
+    border-bottom: 1px solid transparent;
+}
+
+td {
+    white-space: nowrap;
+}
+
+tr.drag-hover td {
+    border-bottom: 1px solid color(border);
+}
+
+body {
+    margin: 2em 1em 1em 1em;
+    -webkit-user-select: none;
+}
+
+/* charged_up: the MCAT knowledge graph shows as a calm, dim, static backdrop behind the deck list.
+ * The host makes mw.web transparent for this screen and renders the graph in a webview behind it;
+ * here we drop the page background and lay a near-opaque themed scrim so the deck content stays
+ * fully legible (themed, not forced dark) while the graph reads faintly through. Tune the scrim
+ * `opacity` to taste: lower = more graph, higher = calmer. */
+html {
+    background: transparent;
+}
+body {
+    background: transparent;
+}
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: var(--canvas);
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.current,
+tr:hover:not(.top-level-drag-row) {
+    td {
+        background: color(border-subtle);
+        &:first-child {
+            border-top-left-radius: prop(border-radius-medium);
+            border-bottom-left-radius: prop(border-radius-medium);
+        }
+        &:last-child {
+            border-top-right-radius: prop(border-radius-medium);
+            border-bottom-right-radius: prop(border-radius-medium);
+        }
+        .gears {
+            visibility: visible;
+        }
+    }
+}
+[dir="rtl"] {
+    .current,
+    tr:hover:not(.top-level-drag-row) {
+        td {
+            background: color(canvas-inset);
+            &:first-child {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+                border-top-right-radius: prop(border-radius-medium);
+                border-bottom-right-radius: prop(border-radius-medium);
+            }
+            &:last-child {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+                border-top-left-radius: prop(border-radius-medium);
+                border-bottom-left-radius: prop(border-radius-medium);
+            }
+        }
+    }
+}
+
+.decktd {
+    min-width: 15em;
+    max-width: calc(100vw - 300px);
+    overflow: hidden;
+}
+
+.count {
+    min-width: 4em;
+    text-align: right;
+}
+
+.optscol {
+    width: 2em;
+}
+
+.collapse {
+    color: color(fg);
+    text-decoration: none;
+    display: inline-block;
+    width: 1em;
+}
+
+.filtered {
+    color: color(fg-link) !important;
+}
+
+.gears {
+    width: 1em;
+    height: 1em;
+    opacity: 0.5;
+    padding-top: 0.2em;
+    cursor: pointer;
+    visibility: hidden;
+}
+
+.nightMode {
+    .gears {
+        filter: invert(180);
+    }
+}
+
+.callout {
+    background: color(border);
+    padding: 1em;
+    margin: 1em;
+
+    div {
+        margin: 1em;
+    }
+}
+
+#studiedToday {
+    margin: 2em 0;
+}
+
+/* ============================================================================
+ * charged_up · Apple-HIG deck list
+ * A clean, rounded content list on an elevated card — not a 1990s data table.
+ * Appended so it overrides the upstream table rules above (equal specificity,
+ * later wins). The graph-backdrop scrim above is left intact.
+ * ============================================================================ */
+body {
+    margin: 0;
+    padding: 44px 24px 36px;
+    -webkit-font-smoothing: antialiased;
+}
+
+table {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 8px;
+    border-collapse: separate;
+    border-spacing: 0;
+
+    .fancy & {
+        border: 1px solid var(--border-subtle);
+        border-radius: 16px;
+        background: var(--canvas-elevated);
+        @include elevation(2);
+        &:hover {
+            @include elevation(2);
+        }
+    }
+}
+
+th {
+    border-bottom: none;
+    padding: 2px 14px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--fg-subtle);
+    &.count {
+        text-align: right;
+    }
+}
+
+tr.deck td {
+    border: none;
+    padding: 11px 14px;
+    font-size: 15px;
+    vertical-align: middle;
+}
+
+a.deck {
+    color: var(--fg);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    min-width: 0;
+}
+
+/* Big-Sur-style rounded, accent-tinted selection + hover */
+.current td,
+tr.deck:hover:not(.top-level-drag-row) td {
+    background: rgba(59, 130, 246, 0.08);
+    &:first-child {
+        border-top-left-radius: 11px;
+        border-bottom-left-radius: 11px;
+    }
+    &:last-child {
+        border-top-right-radius: 11px;
+        border-bottom-right-radius: 11px;
+    }
+    .gears {
+        visibility: visible;
+    }
+}
+.current td {
+    background: rgba(59, 130, 246, 0.13);
+}
+
+/* counts — tabular figures, right-aligned; zeros recede */
+tr.deck td[align="end"] {
+    font-variant-numeric: tabular-nums;
+    font-size: 14px;
+    min-width: 3.4em;
+    text-align: right;
+}
+.zero-count {
+    color: var(--fg-faint, rgba(0, 0, 0, 0.25));
+}
+
+/* gear — a calm glyph that appears on hover */
+.gears {
+    width: 15px;
+    height: 15px;
+    opacity: 0.5;
+    transition: opacity var(--transition) ease;
+    &:hover {
+        opacity: 0.9;
+    }
+}
+
+#studiedToday {
+    margin: 22px 0 0;
+    text-align: center;
+    color: var(--fg-subtle);
+    font-size: 13px;
+}

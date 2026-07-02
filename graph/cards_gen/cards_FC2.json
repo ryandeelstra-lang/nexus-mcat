@@ -1,0 +1,3197 @@
+{
+ "fc": "FC2",
+ "cards": [
+  {
+   "id": "BB.2A.plasma-membrane.composition.phospholipid-bilayer.c1",
+   "parent": "BB.2A.plasma-membrane.composition.phospholipid-bilayer",
+   "leaf": "BB.2A",
+   "label": "Why do phospholipid tails point inward when a bilayer forms in water?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.composition.phospholipid-bilayer.c2",
+   "parent": "BB.2A.plasma-membrane.composition.phospholipid-bilayer",
+   "leaf": "BB.2A",
+   "label": "In a bilayer, which region faces the cytosol and extracellular fluid?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.composition.amphipathic.c1",
+   "parent": "BB.2A.plasma-membrane.composition.amphipathic",
+   "leaf": "BB.2A",
+   "label": "Which part of a phospholipid is polar and which part is nonpolar?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.composition.amphipathic.c2",
+   "parent": "BB.2A.plasma-membrane.composition.amphipathic",
+   "leaf": "BB.2A",
+   "label": "What structural feature makes a phospholipid amphipathic?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.composition.self-assembly.c1",
+   "parent": "BB.2A.plasma-membrane.composition.self-assembly",
+   "leaf": "BB.2A",
+   "label": "What thermodynamic force drives lipids to self-assemble into a bilayer?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.composition.saturation.c1",
+   "parent": "BB.2A.plasma-membrane.composition.saturation",
+   "leaf": "BB.2A",
+   "label": "How do cis double bonds in fatty-acid tails affect membrane fluidity?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.composition.saturation.c2",
+   "parent": "BB.2A.plasma-membrane.composition.saturation",
+   "leaf": "BB.2A",
+   "label": "Why do saturated straight tails lower membrane fluidity?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.composition.temperature.c1",
+   "parent": "BB.2A.plasma-membrane.composition.temperature",
+   "leaf": "BB.2A",
+   "label": "How does lowering temperature change plasma-membrane fluidity?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.composition.cholesterol.c1",
+   "parent": "BB.2A.plasma-membrane.composition.cholesterol",
+   "leaf": "BB.2A",
+   "label": "How does cholesterol buffer fluidity at high versus low temperature?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.composition.cholesterol.c2",
+   "parent": "BB.2A.plasma-membrane.composition.cholesterol",
+   "leaf": "BB.2A",
+   "label": "How does membrane cholesterol affect small-molecule permeability?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.composition.glycolipids.c1",
+   "parent": "BB.2A.plasma-membrane.composition.glycolipids",
+   "leaf": "BB.2A",
+   "label": "On which membrane face are glycolipid carbohydrate chains located?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.composition.glycoproteins.c1",
+   "parent": "BB.2A.plasma-membrane.composition.glycoproteins",
+   "leaf": "BB.2A",
+   "label": "What role does the glycoprotein glycocalyx serve at the cell surface?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.composition.sphingolipids.c1",
+   "parent": "BB.2A.plasma-membrane.composition.sphingolipids",
+   "leaf": "BB.2A",
+   "label": "In which membrane microdomain are sphingolipids concentrated?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.composition.phosphoglycerides.c1",
+   "parent": "BB.2A.plasma-membrane.composition.phosphoglycerides",
+   "leaf": "BB.2A",
+   "label": "What backbone defines a phosphoglyceride like phosphatidylcholine?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.composition.waxes.c1",
+   "parent": "BB.2A.plasma-membrane.composition.waxes",
+   "leaf": "BB.2A",
+   "label": "What two components are ester-linked to form a wax?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.proteins.integral.c1",
+   "parent": "BB.2A.plasma-membrane.proteins.integral",
+   "leaf": "BB.2A",
+   "label": "Why must integral membrane proteins be extracted with detergents?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.proteins.integral.c2",
+   "parent": "BB.2A.plasma-membrane.proteins.integral",
+   "leaf": "BB.2A",
+   "label": "Where within the bilayer are integral proteins embedded?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.proteins.transmembrane.c1",
+   "parent": "BB.2A.plasma-membrane.proteins.transmembrane",
+   "leaf": "BB.2A",
+   "label": "What secondary structures let transmembrane proteins span the bilayer?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.proteins.transmembrane.c2",
+   "parent": "BB.2A.plasma-membrane.proteins.transmembrane",
+   "leaf": "BB.2A",
+   "label": "How does a transmembrane protein differ from other integral proteins?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.proteins.peripheral.c1",
+   "parent": "BB.2A.plasma-membrane.proteins.peripheral",
+   "leaf": "BB.2A",
+   "label": "How can peripheral membrane proteins be removed from the membrane?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.proteins.peripheral.c2",
+   "parent": "BB.2A.plasma-membrane.proteins.peripheral",
+   "leaf": "BB.2A",
+   "label": "How do peripheral proteins associate with the bilayer?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.proteins.lipid-anchored.c1",
+   "parent": "BB.2A.plasma-membrane.proteins.lipid-anchored",
+   "leaf": "BB.2A",
+   "label": "How is a GPI-anchored protein attached to the membrane?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.proteins.functions.c1",
+   "parent": "BB.2A.plasma-membrane.proteins.functions",
+   "leaf": "BB.2A",
+   "label": "Name three major functions of plasma-membrane proteins."
+  },
+  {
+   "id": "BB.2A.plasma-membrane.proteins.functions.c2",
+   "parent": "BB.2A.plasma-membrane.proteins.functions",
+   "leaf": "BB.2A",
+   "label": "Which membrane-protein function underlies cell-cell recognition?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.proteins.receptors.c1",
+   "parent": "BB.2A.plasma-membrane.proteins.receptors",
+   "leaf": "BB.2A",
+   "label": "What does a cell-surface receptor trigger after binding its ligand?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.proteins.enzymes.c1",
+   "parent": "BB.2A.plasma-membrane.proteins.enzymes",
+   "leaf": "BB.2A",
+   "label": "Give an example of a membrane-bound enzyme in cell signaling."
+  },
+  {
+   "id": "BB.2A.plasma-membrane.fluid-mosaic.model.c1",
+   "parent": "BB.2A.plasma-membrane.fluid-mosaic.model",
+   "leaf": "BB.2A",
+   "label": "What does the fluid mosaic model say about membrane component motion?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.fluid-mosaic.model.c2",
+   "parent": "BB.2A.plasma-membrane.fluid-mosaic.model",
+   "leaf": "BB.2A",
+   "label": "In the fluid mosaic model, what is the fluid and what is the mosaic?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.fluid-mosaic.lateral-diffusion.c1",
+   "parent": "BB.2A.plasma-membrane.fluid-mosaic.lateral-diffusion",
+   "leaf": "BB.2A",
+   "label": "Why is lateral diffusion common but flip-flop rare in a membrane?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.fluid-mosaic.flip-flop.c1",
+   "parent": "BB.2A.plasma-membrane.fluid-mosaic.flip-flop",
+   "leaf": "BB.2A",
+   "label": "Why is lipid flip-flop slow, and what enzyme catalyzes it?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.fluid-mosaic.asymmetry.c1",
+   "parent": "BB.2A.plasma-membrane.fluid-mosaic.asymmetry",
+   "leaf": "BB.2A",
+   "label": "Which membrane leaflet carries the carbohydrate groups?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.fluid-mosaic.lipid-rafts.c1",
+   "parent": "BB.2A.plasma-membrane.fluid-mosaic.lipid-rafts",
+   "leaf": "BB.2A",
+   "label": "What lipids enrich a lipid raft, and what do rafts organize?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.fluid-mosaic.selective-permeability.c1",
+   "parent": "BB.2A.plasma-membrane.fluid-mosaic.selective-permeability",
+   "leaf": "BB.2A",
+   "label": "Which molecules cross the bilayer freely and which are blocked?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.fluid-mosaic.selective-permeability.c2",
+   "parent": "BB.2A.plasma-membrane.fluid-mosaic.selective-permeability",
+   "leaf": "BB.2A",
+   "label": "Why can O2 cross the membrane freely but Na+ cannot?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.dynamics.fusion.c1",
+   "parent": "BB.2A.plasma-membrane.dynamics.fusion",
+   "leaf": "BB.2A",
+   "label": "What protein family mediates vesicle-membrane fusion in exocytosis?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.dynamics.budding.c1",
+   "parent": "BB.2A.plasma-membrane.dynamics.budding",
+   "leaf": "BB.2A",
+   "label": "How does membrane budding generate a transport vesicle?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.dynamics.recycling.c1",
+   "parent": "BB.2A.plasma-membrane.dynamics.recycling",
+   "leaf": "BB.2A",
+   "label": "How do endocytosis and exocytosis balance membrane surface area?"
+  },
+  {
+   "id": "BB.2A.plasma-membrane.specializations.microvilli.c1",
+   "parent": "BB.2A.plasma-membrane.specializations.microvilli",
+   "leaf": "BB.2A",
+   "label": "How do microvilli increase absorption at the apical surface?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.passive.simple-diffusion.c1",
+   "parent": "BB.2A.membrane-transport.passive.simple-diffusion",
+   "leaf": "BB.2A",
+   "label": "Which kinds of solutes cross the membrane by simple diffusion?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.passive.simple-diffusion.c2",
+   "parent": "BB.2A.membrane-transport.passive.simple-diffusion",
+   "leaf": "BB.2A",
+   "label": "What determines the direction of simple diffusion across a membrane?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.passive.facilitated-diffusion.c1",
+   "parent": "BB.2A.membrane-transport.passive.facilitated-diffusion",
+   "leaf": "BB.2A",
+   "label": "How does facilitated diffusion move polar solutes without ATP?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.passive.facilitated-diffusion.c2",
+   "parent": "BB.2A.membrane-transport.passive.facilitated-diffusion",
+   "leaf": "BB.2A",
+   "label": "How does facilitated diffusion differ from simple diffusion?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.passive.channels.c1",
+   "parent": "BB.2A.membrane-transport.passive.channels",
+   "leaf": "BB.2A",
+   "label": "How do channel proteins allow very rapid ion movement?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.passive.channels.c2",
+   "parent": "BB.2A.membrane-transport.passive.channels",
+   "leaf": "BB.2A",
+   "label": "What determines which ion a channel protein conducts?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.passive.gated-channels.c1",
+   "parent": "BB.2A.membrane-transport.passive.gated-channels",
+   "leaf": "BB.2A",
+   "label": "Name three stimuli that can open a gated ion channel."
+  },
+  {
+   "id": "BB.2A.membrane-transport.passive.carriers.c1",
+   "parent": "BB.2A.membrane-transport.passive.carriers",
+   "leaf": "BB.2A",
+   "label": "How does a carrier protein move a solute across the membrane?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.passive.saturation-kinetics.c1",
+   "parent": "BB.2A.membrane-transport.passive.saturation-kinetics",
+   "leaf": "BB.2A",
+   "label": "Why does carrier transport saturate while simple diffusion does not?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.passive.aquaporins.c1",
+   "parent": "BB.2A.membrane-transport.passive.aquaporins",
+   "leaf": "BB.2A",
+   "label": "What does an aquaporin channel move across the membrane?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.osmosis.definition.c1",
+   "parent": "BB.2A.membrane-transport.osmosis.definition",
+   "leaf": "BB.2A",
+   "label": "In which direction does water move during osmosis?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.osmosis.definition.c2",
+   "parent": "BB.2A.membrane-transport.osmosis.definition",
+   "leaf": "BB.2A",
+   "label": "What kind of membrane is required for osmosis to occur?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.osmosis.osmotic-pressure.c1",
+   "parent": "BB.2A.membrane-transport.osmosis.osmotic-pressure",
+   "leaf": "BB.2A",
+   "label": "What does each term mean in the osmotic pressure equation Pi = iMRT?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.osmosis.osmolarity.c1",
+   "parent": "BB.2A.membrane-transport.osmosis.osmolarity",
+   "leaf": "BB.2A",
+   "label": "Why must ionic dissociation be counted when computing osmolarity?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.osmosis.hypertonic.c1",
+   "parent": "BB.2A.membrane-transport.osmosis.hypertonic",
+   "leaf": "BB.2A",
+   "label": "What happens to a cell placed in a hypertonic solution?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.osmosis.hypertonic.c2",
+   "parent": "BB.2A.membrane-transport.osmosis.hypertonic",
+   "leaf": "BB.2A",
+   "label": "Why does a red blood cell crenate in a hypertonic environment?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.osmosis.hypotonic.c1",
+   "parent": "BB.2A.membrane-transport.osmosis.hypotonic",
+   "leaf": "BB.2A",
+   "label": "What happens to an animal cell in a hypotonic solution?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.osmosis.hypotonic.c2",
+   "parent": "BB.2A.membrane-transport.osmosis.hypotonic",
+   "leaf": "BB.2A",
+   "label": "Why can a hypotonic solution cause a cell to lyse?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.osmosis.isotonic.c1",
+   "parent": "BB.2A.membrane-transport.osmosis.isotonic",
+   "leaf": "BB.2A",
+   "label": "Why is there no net water movement in an isotonic solution?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.osmosis.isotonic.c2",
+   "parent": "BB.2A.membrane-transport.osmosis.isotonic",
+   "leaf": "BB.2A",
+   "label": "How do solute concentrations compare across an isotonic membrane?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.osmosis.osmoregulation.c1",
+   "parent": "BB.2A.membrane-transport.osmosis.osmoregulation",
+   "leaf": "BB.2A",
+   "label": "Name one mechanism cells use to survive osmotic stress."
+  },
+  {
+   "id": "BB.2A.membrane-transport.active.primary.c1",
+   "parent": "BB.2A.membrane-transport.active.primary",
+   "leaf": "BB.2A",
+   "label": "What energy source does primary active transport use directly?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.active.primary.c2",
+   "parent": "BB.2A.membrane-transport.active.primary",
+   "leaf": "BB.2A",
+   "label": "How does primary active transport differ from facilitated diffusion?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.active.sodium-potassium-pump.c1",
+   "parent": "BB.2A.membrane-transport.active.sodium-potassium-pump",
+   "leaf": "BB.2A",
+   "label": "How many Na+ and K+ does the Na+/K+ ATPase move per ATP?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.active.sodium-potassium-pump.c2",
+   "parent": "BB.2A.membrane-transport.active.sodium-potassium-pump",
+   "leaf": "BB.2A",
+   "label": "Why is the Na+/K+ pump essential for the resting potential?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.active.calcium-pump.c1",
+   "parent": "BB.2A.membrane-transport.active.calcium-pump",
+   "leaf": "BB.2A",
+   "label": "What do PMCA and SERCA pumps do to cytosolic calcium?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.active.proton-pump.c1",
+   "parent": "BB.2A.membrane-transport.active.proton-pump",
+   "leaf": "BB.2A",
+   "label": "Give an example of a proton pump and the gradient it builds."
+  },
+  {
+   "id": "BB.2A.membrane-transport.active.secondary.c1",
+   "parent": "BB.2A.membrane-transport.active.secondary",
+   "leaf": "BB.2A",
+   "label": "What energy source powers secondary active transport?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.active.secondary.c2",
+   "parent": "BB.2A.membrane-transport.active.secondary",
+   "leaf": "BB.2A",
+   "label": "How can a Na+ gradient drive glucose uptake against its gradient?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.active.symport.c1",
+   "parent": "BB.2A.membrane-transport.active.symport",
+   "leaf": "BB.2A",
+   "label": "In which direction does a symporter move its two solutes?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.active.antiport.c1",
+   "parent": "BB.2A.membrane-transport.active.antiport",
+   "leaf": "BB.2A",
+   "label": "How does an antiporter move its two solutes relative to each other?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.active.electrochemical-gradient.c1",
+   "parent": "BB.2A.membrane-transport.active.electrochemical-gradient",
+   "leaf": "BB.2A",
+   "label": "What two components make up an ion's electrochemical gradient?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.bulk.endocytosis.c1",
+   "parent": "BB.2A.membrane-transport.bulk.endocytosis",
+   "leaf": "BB.2A",
+   "label": "How does endocytosis bring material into the cell?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.bulk.endocytosis.c2",
+   "parent": "BB.2A.membrane-transport.bulk.endocytosis",
+   "leaf": "BB.2A",
+   "label": "Why does endocytosis require energy from ATP?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.bulk.phagocytosis.c1",
+   "parent": "BB.2A.membrane-transport.bulk.phagocytosis",
+   "leaf": "BB.2A",
+   "label": "What kind of material does phagocytosis engulf?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.bulk.pinocytosis.c1",
+   "parent": "BB.2A.membrane-transport.bulk.pinocytosis",
+   "leaf": "BB.2A",
+   "label": "How does pinocytosis differ from phagocytosis?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.bulk.receptor-mediated.c1",
+   "parent": "BB.2A.membrane-transport.bulk.receptor-mediated",
+   "leaf": "BB.2A",
+   "label": "What structure clusters receptors in receptor-mediated endocytosis?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.bulk.exocytosis.c1",
+   "parent": "BB.2A.membrane-transport.bulk.exocytosis",
+   "leaf": "BB.2A",
+   "label": "How does exocytosis both release cargo and add membrane?"
+  },
+  {
+   "id": "BB.2A.membrane-transport.bulk.exocytosis.c2",
+   "parent": "BB.2A.membrane-transport.bulk.exocytosis",
+   "leaf": "BB.2A",
+   "label": "What must a vesicle do with the plasma membrane during exocytosis?"
+  },
+  {
+   "id": "BB.2A.membrane-potential.resting.definition.c1",
+   "parent": "BB.2A.membrane-potential.resting.definition",
+   "leaf": "BB.2A",
+   "label": "What is the approximate resting membrane potential of a neuron?"
+  },
+  {
+   "id": "BB.2A.membrane-potential.resting.definition.c2",
+   "parent": "BB.2A.membrane-potential.resting.definition",
+   "leaf": "BB.2A",
+   "label": "Why is a resting cell's interior negative relative to outside?"
+  },
+  {
+   "id": "BB.2A.membrane-potential.resting.ion-distribution.c1",
+   "parent": "BB.2A.membrane-potential.resting.ion-distribution",
+   "leaf": "BB.2A",
+   "label": "Which ion is more concentrated inside the cell at rest?"
+  },
+  {
+   "id": "BB.2A.membrane-potential.resting.k-leak.c1",
+   "parent": "BB.2A.membrane-potential.resting.k-leak",
+   "leaf": "BB.2A",
+   "label": "Why does the resting potential sit near the K+ equilibrium potential?"
+  },
+  {
+   "id": "BB.2A.membrane-potential.resting.nernst.c1",
+   "parent": "BB.2A.membrane-potential.resting.nernst",
+   "leaf": "BB.2A",
+   "label": "What does the Nernst equation calculate for a single ion?"
+  },
+  {
+   "id": "BB.2A.membrane-potential.resting.goldman.c1",
+   "parent": "BB.2A.membrane-potential.resting.goldman",
+   "leaf": "BB.2A",
+   "label": "How does the Goldman equation differ from the Nernst equation?"
+  },
+  {
+   "id": "BB.2A.membrane-potential.resting.pump-contribution.c1",
+   "parent": "BB.2A.membrane-potential.resting.pump-contribution",
+   "leaf": "BB.2A",
+   "label": "How does the Na+/K+ pump support the resting membrane potential?"
+  },
+  {
+   "id": "BB.2A.membrane-potential.excitability.depolarization.c1",
+   "parent": "BB.2A.membrane-potential.excitability.depolarization",
+   "leaf": "BB.2A",
+   "label": "How does depolarization differ from hyperpolarization?"
+  },
+  {
+   "id": "BB.2A.membrane-potential.excitability.signaling-role.c1",
+   "parent": "BB.2A.membrane-potential.excitability.signaling-role",
+   "leaf": "BB.2A",
+   "label": "In which cell types do voltage changes serve as rapid signals?"
+  },
+  {
+   "id": "BB.2A.intercellular-junctions.tight.structure.c1",
+   "parent": "BB.2A.intercellular-junctions.tight.structure",
+   "leaf": "BB.2A",
+   "label": "What do tight junctions prevent between adjacent cells?"
+  },
+  {
+   "id": "BB.2A.intercellular-junctions.tight.structure.c2",
+   "parent": "BB.2A.intercellular-junctions.tight.structure",
+   "leaf": "BB.2A",
+   "label": "Which proteins fuse membranes at a tight junction?"
+  },
+  {
+   "id": "BB.2A.intercellular-junctions.tight.epithelial-barrier.c1",
+   "parent": "BB.2A.intercellular-junctions.tight.epithelial-barrier",
+   "leaf": "BB.2A",
+   "label": "Give an example of a body barrier formed by tight junctions."
+  },
+  {
+   "id": "BB.2A.intercellular-junctions.desmosomes.structure.c1",
+   "parent": "BB.2A.intercellular-junctions.desmosomes.structure",
+   "leaf": "BB.2A",
+   "label": "Which cytoskeletal filament do desmosomes anchor for strength?"
+  },
+  {
+   "id": "BB.2A.intercellular-junctions.desmosomes.structure.c2",
+   "parent": "BB.2A.intercellular-junctions.desmosomes.structure",
+   "leaf": "BB.2A",
+   "label": "What is the mechanical role of desmosomes between cells?"
+  },
+  {
+   "id": "BB.2A.intercellular-junctions.desmosomes.hemidesmosomes.c1",
+   "parent": "BB.2A.intercellular-junctions.desmosomes.hemidesmosomes",
+   "leaf": "BB.2A",
+   "label": "What do hemidesmosomes anchor the cell to, and via what protein?"
+  },
+  {
+   "id": "BB.2A.intercellular-junctions.adherens.c1",
+   "parent": "BB.2A.intercellular-junctions.adherens",
+   "leaf": "BB.2A",
+   "label": "Which cytoskeletal filament connects to an adherens junction?"
+  },
+  {
+   "id": "BB.2A.intercellular-junctions.gap.structure.c1",
+   "parent": "BB.2A.intercellular-junctions.gap.structure",
+   "leaf": "BB.2A",
+   "label": "What passes directly between cells through gap junctions?"
+  },
+  {
+   "id": "BB.2A.intercellular-junctions.gap.structure.c2",
+   "parent": "BB.2A.intercellular-junctions.gap.structure",
+   "leaf": "BB.2A",
+   "label": "What protein channels form a gap junction?"
+  },
+  {
+   "id": "BB.2A.intercellular-junctions.gap.electrical-coupling.c1",
+   "parent": "BB.2A.intercellular-junctions.gap.electrical-coupling",
+   "leaf": "BB.2A",
+   "label": "How do gap junctions synchronize cardiac muscle contraction?"
+  },
+  {
+   "id": "BB.2A.intercellular-junctions.plasmodesmata.c1",
+   "parent": "BB.2A.intercellular-junctions.plasmodesmata",
+   "leaf": "BB.2A",
+   "label": "What plant structure is functionally analogous to gap junctions?"
+  },
+  {
+   "id": "BB.2A.cytoskeleton.microfilaments.actin.c1",
+   "parent": "BB.2A.cytoskeleton.microfilaments.actin",
+   "leaf": "BB.2A",
+   "label": "What monomer polymerizes to form a microfilament?"
+  },
+  {
+   "id": "BB.2A.cytoskeleton.microfilaments.actin.c2",
+   "parent": "BB.2A.cytoskeleton.microfilaments.actin",
+   "leaf": "BB.2A",
+   "label": "What is the approximate diameter of an actin microfilament?"
+  },
+  {
+   "id": "BB.2A.cytoskeleton.microfilaments.polymerization.c1",
+   "parent": "BB.2A.cytoskeleton.microfilaments.polymerization",
+   "leaf": "BB.2A",
+   "label": "At which actin filament end does rapid growth occur?"
+  },
+  {
+   "id": "BB.2A.cytoskeleton.microfilaments.functions.c1",
+   "parent": "BB.2A.cytoskeleton.microfilaments.functions",
+   "leaf": "BB.2A",
+   "label": "Name two cellular processes driven by microfilaments."
+  },
+  {
+   "id": "BB.2A.cytoskeleton.microfilaments.functions.c2",
+   "parent": "BB.2A.cytoskeleton.microfilaments.functions",
+   "leaf": "BB.2A",
+   "label": "Which cytoskeletal filament forms the cytokinesis contractile ring?"
+  },
+  {
+   "id": "BB.2A.cytoskeleton.microfilaments.myosin.c1",
+   "parent": "BB.2A.cytoskeleton.microfilaments.myosin",
+   "leaf": "BB.2A",
+   "label": "What does the motor protein myosin do along actin filaments?"
+  },
+  {
+   "id": "BB.2A.cytoskeleton.microfilaments.cytokinesis.c1",
+   "parent": "BB.2A.cytoskeleton.microfilaments.cytokinesis",
+   "leaf": "BB.2A",
+   "label": "What structure pinches an animal cell in two during cytokinesis?"
+  },
+  {
+   "id": "BB.2A.cytoskeleton.microtubules.tubulin.c1",
+   "parent": "BB.2A.cytoskeleton.microtubules.tubulin",
+   "leaf": "BB.2A",
+   "label": "What protein dimer builds a microtubule?"
+  },
+  {
+   "id": "BB.2A.cytoskeleton.microtubules.tubulin.c2",
+   "parent": "BB.2A.cytoskeleton.microtubules.tubulin",
+   "leaf": "BB.2A",
+   "label": "What is the approximate diameter of a hollow microtubule?"
+  },
+  {
+   "id": "BB.2A.cytoskeleton.microtubules.dynamic-instability.c1",
+   "parent": "BB.2A.cytoskeleton.microtubules.dynamic-instability",
+   "leaf": "BB.2A",
+   "label": "What is dynamic instability of microtubules?"
+  },
+  {
+   "id": "BB.2A.cytoskeleton.microtubules.functions.c1",
+   "parent": "BB.2A.cytoskeleton.microtubules.functions",
+   "leaf": "BB.2A",
+   "label": "Name two cellular structures built from microtubules."
+  },
+  {
+   "id": "BB.2A.cytoskeleton.microtubules.functions.c2",
+   "parent": "BB.2A.cytoskeleton.microtubules.functions",
+   "leaf": "BB.2A",
+   "label": "Which cytoskeletal element forms the mitotic spindle?"
+  },
+  {
+   "id": "BB.2A.cytoskeleton.microtubules.motor-proteins.c1",
+   "parent": "BB.2A.cytoskeleton.microtubules.motor-proteins",
+   "leaf": "BB.2A",
+   "label": "In which directions do kinesin and dynein carry cargo?"
+  },
+  {
+   "id": "BB.2A.cytoskeleton.microtubules.centrioles.c1",
+   "parent": "BB.2A.cytoskeleton.microtubules.centrioles",
+   "leaf": "BB.2A",
+   "label": "What microtubule arrangement defines a centriole?"
+  },
+  {
+   "id": "BB.2A.cytoskeleton.microtubules.basal-body.c1",
+   "parent": "BB.2A.cytoskeleton.microtubules.basal-body",
+   "leaf": "BB.2A",
+   "label": "What structures do basal bodies anchor and template?"
+  },
+  {
+   "id": "BB.2A.cytoskeleton.intermediate.structure.c1",
+   "parent": "BB.2A.cytoskeleton.intermediate.structure",
+   "leaf": "BB.2A",
+   "label": "What is the approximate diameter of an intermediate filament?"
+  },
+  {
+   "id": "BB.2A.cytoskeleton.intermediate.structure.c2",
+   "parent": "BB.2A.cytoskeleton.intermediate.structure",
+   "leaf": "BB.2A",
+   "label": "Name two proteins that form intermediate filaments."
+  },
+  {
+   "id": "BB.2A.cytoskeleton.intermediate.functions.c1",
+   "parent": "BB.2A.cytoskeleton.intermediate.functions",
+   "leaf": "BB.2A",
+   "label": "What mechanical role do intermediate filaments play?"
+  },
+  {
+   "id": "BB.2A.cytoskeleton.cilia-flagella.axoneme.c1",
+   "parent": "BB.2A.cytoskeleton.cilia-flagella.axoneme",
+   "leaf": "BB.2A",
+   "label": "What microtubule arrangement defines a motile axoneme?"
+  },
+  {
+   "id": "BB.2A.cytoskeleton.cilia-flagella.axoneme.c2",
+   "parent": "BB.2A.cytoskeleton.cilia-flagella.axoneme",
+   "leaf": "BB.2A",
+   "label": "How many outer doublets surround the central pair in an axoneme?"
+  },
+  {
+   "id": "BB.2A.cytoskeleton.cilia-flagella.dynein-arms.c1",
+   "parent": "BB.2A.cytoskeleton.cilia-flagella.dynein-arms",
+   "leaf": "BB.2A",
+   "label": "How do dynein arms produce ciliary and flagellar beating?"
+  },
+  {
+   "id": "BB.2A.cytoskeleton.cilia-flagella.cilia-vs-flagella.c1",
+   "parent": "BB.2A.cytoskeleton.cilia-flagella.cilia-vs-flagella",
+   "leaf": "BB.2A",
+   "label": "How do cilia differ from flagella in length and number?"
+  },
+  {
+   "id": "BB.2A.cytoskeleton.cilia-flagella.eukaryotic-vs-prokaryotic.c1",
+   "parent": "BB.2A.cytoskeleton.cilia-flagella.eukaryotic-vs-prokaryotic",
+   "leaf": "BB.2A",
+   "label": "How does a prokaryotic flagellum move compared to a eukaryotic one?"
+  },
+  {
+   "id": "BB.2A.epithelial-tissue.general.polarity.c1",
+   "parent": "BB.2A.epithelial-tissue.general.polarity",
+   "leaf": "BB.2A",
+   "label": "What junction maintains apical-basal polarity in epithelia?"
+  },
+  {
+   "id": "BB.2A.epithelial-tissue.general.basement-membrane.c1",
+   "parent": "BB.2A.epithelial-tissue.general.basement-membrane",
+   "leaf": "BB.2A",
+   "label": "What does the basement membrane anchor epithelium to?"
+  },
+  {
+   "id": "BB.2A.epithelial-tissue.general.avascular.c1",
+   "parent": "BB.2A.epithelial-tissue.general.avascular",
+   "leaf": "BB.2A",
+   "label": "How do avascular epithelia obtain their nutrients?"
+  },
+  {
+   "id": "BB.2A.epithelial-tissue.general.functions.c1",
+   "parent": "BB.2A.epithelial-tissue.general.functions",
+   "leaf": "BB.2A",
+   "label": "Name three functions of epithelial tissue."
+  },
+  {
+   "id": "BB.2A.epithelial-tissue.shapes.squamous.c1",
+   "parent": "BB.2A.epithelial-tissue.shapes.squamous",
+   "leaf": "BB.2A",
+   "label": "What function are flat squamous epithelial cells specialized for?"
+  },
+  {
+   "id": "BB.2A.epithelial-tissue.shapes.cuboidal.c1",
+   "parent": "BB.2A.epithelial-tissue.shapes.cuboidal",
+   "leaf": "BB.2A",
+   "label": "Where are cuboidal epithelial cells typically found?"
+  },
+  {
+   "id": "BB.2A.epithelial-tissue.shapes.columnar.c1",
+   "parent": "BB.2A.epithelial-tissue.shapes.columnar",
+   "leaf": "BB.2A",
+   "label": "Which tract is lined by columnar epithelium?"
+  },
+  {
+   "id": "BB.2A.epithelial-tissue.layers.simple.c1",
+   "parent": "BB.2A.epithelial-tissue.layers.simple",
+   "leaf": "BB.2A",
+   "label": "How many cell layers make up a simple epithelium?"
+  },
+  {
+   "id": "BB.2A.epithelial-tissue.layers.stratified.c1",
+   "parent": "BB.2A.epithelial-tissue.layers.stratified",
+   "leaf": "BB.2A",
+   "label": "What advantage does stratified epithelium provide?"
+  },
+  {
+   "id": "BB.2A.epithelial-tissue.layers.pseudostratified.c1",
+   "parent": "BB.2A.epithelial-tissue.layers.pseudostratified",
+   "leaf": "BB.2A",
+   "label": "Why does pseudostratified epithelium only appear layered?"
+  },
+  {
+   "id": "BB.2A.epithelial-tissue.layers.transitional.c1",
+   "parent": "BB.2A.epithelial-tissue.layers.transitional",
+   "leaf": "BB.2A",
+   "label": "What function does transitional epithelium serve in the bladder?"
+  },
+  {
+   "id": "BB.2A.epithelial-tissue.specialized.glandular.c1",
+   "parent": "BB.2A.epithelial-tissue.specialized.glandular",
+   "leaf": "BB.2A",
+   "label": "How do endocrine and exocrine glands differ in how they secrete?"
+  },
+  {
+   "id": "BB.2A.epithelial-tissue.specialized.parenchyma.c1",
+   "parent": "BB.2A.epithelial-tissue.specialized.parenchyma",
+   "leaf": "BB.2A",
+   "label": "How does parenchyma differ from stroma in an organ?"
+  },
+  {
+   "id": "BB.2A.epithelial-tissue.specialized.regeneration.c1",
+   "parent": "BB.2A.epithelial-tissue.specialized.regeneration",
+   "leaf": "BB.2A",
+   "label": "Where do replacement cells for epithelium come from?"
+  },
+  {
+   "id": "BB.2A.connective-tissue.matrix.collagen.c1",
+   "parent": "BB.2A.connective-tissue.matrix.collagen",
+   "leaf": "BB.2A",
+   "label": "What mechanical property does collagen give the matrix?"
+  },
+  {
+   "id": "BB.2A.connective-tissue.matrix.collagen.c2",
+   "parent": "BB.2A.connective-tissue.matrix.collagen",
+   "leaf": "BB.2A",
+   "label": "Which protein is the most abundant in the human body?"
+  },
+  {
+   "id": "BB.2A.connective-tissue.matrix.elastin.c1",
+   "parent": "BB.2A.connective-tissue.matrix.elastin",
+   "leaf": "BB.2A",
+   "label": "What property does elastin give skin, lungs, and arteries?"
+  },
+  {
+   "id": "BB.2A.connective-tissue.matrix.reticular.c1",
+   "parent": "BB.2A.connective-tissue.matrix.reticular",
+   "leaf": "BB.2A",
+   "label": "Which collagen type forms reticular fibers?"
+  },
+  {
+   "id": "BB.2A.connective-tissue.matrix.ground-substance.c1",
+   "parent": "BB.2A.connective-tissue.matrix.ground-substance",
+   "leaf": "BB.2A",
+   "label": "What molecules make up connective-tissue ground substance?"
+  },
+  {
+   "id": "BB.2A.connective-tissue.matrix.adhesion-proteins.c1",
+   "parent": "BB.2A.connective-tissue.matrix.adhesion-proteins",
+   "leaf": "BB.2A",
+   "label": "What do fibronectin and laminin link cells to?"
+  },
+  {
+   "id": "BB.2A.connective-tissue.matrix.fibroblasts.c1",
+   "parent": "BB.2A.connective-tissue.matrix.fibroblasts",
+   "leaf": "BB.2A",
+   "label": "What do fibroblasts secrete in connective tissue?"
+  },
+  {
+   "id": "BB.2A.connective-tissue.cells.macrophages.c1",
+   "parent": "BB.2A.connective-tissue.cells.macrophages",
+   "leaf": "BB.2A",
+   "label": "What is the role of resident macrophages in connective tissue?"
+  },
+  {
+   "id": "BB.2A.connective-tissue.cells.mast-cells.c1",
+   "parent": "BB.2A.connective-tissue.cells.mast-cells",
+   "leaf": "BB.2A",
+   "label": "What do mast cells release during inflammation?"
+  },
+  {
+   "id": "BB.2A.connective-tissue.cells.adipocytes.c1",
+   "parent": "BB.2A.connective-tissue.cells.adipocytes",
+   "leaf": "BB.2A",
+   "label": "What do adipocytes store within the cell?"
+  },
+  {
+   "id": "BB.2A.connective-tissue.types.loose.c1",
+   "parent": "BB.2A.connective-tissue.types.loose",
+   "leaf": "BB.2A",
+   "label": "What is the role of loose (areolar) connective tissue?"
+  },
+  {
+   "id": "BB.2A.connective-tissue.types.dense.c1",
+   "parent": "BB.2A.connective-tissue.types.dense",
+   "leaf": "BB.2A",
+   "label": "What structures are built from dense connective tissue?"
+  },
+  {
+   "id": "BB.2A.connective-tissue.types.bone.c1",
+   "parent": "BB.2A.connective-tissue.types.bone",
+   "leaf": "BB.2A",
+   "label": "Besides structural support, what does bone store?"
+  },
+  {
+   "id": "BB.2A.connective-tissue.types.bone-cells.c1",
+   "parent": "BB.2A.connective-tissue.types.bone-cells",
+   "leaf": "BB.2A",
+   "label": "Which bone cell resorbs bone matrix?"
+  },
+  {
+   "id": "BB.2A.connective-tissue.types.cartilage.c1",
+   "parent": "BB.2A.connective-tissue.types.cartilage",
+   "leaf": "BB.2A",
+   "label": "What cell type resides within cartilage?"
+  },
+  {
+   "id": "BB.2A.connective-tissue.types.blood.c1",
+   "parent": "BB.2A.connective-tissue.types.blood",
+   "leaf": "BB.2A",
+   "label": "Why is blood classified as a connective tissue?"
+  },
+  {
+   "id": "BB.2A.connective-tissue.types.adipose.c1",
+   "parent": "BB.2A.connective-tissue.types.adipose",
+   "leaf": "BB.2A",
+   "label": "Name two functions of adipose tissue besides energy storage."
+  },
+  {
+   "id": "BB.2A.muscle-tissue.overview.c1",
+   "parent": "BB.2A.muscle-tissue.overview",
+   "leaf": "BB.2A",
+   "label": "What filament interaction generates force in muscle tissue?"
+  },
+  {
+   "id": "BB.2A.muscle-tissue.skeletal.c1",
+   "parent": "BB.2A.muscle-tissue.skeletal",
+   "leaf": "BB.2A",
+   "label": "Is skeletal muscle voluntary or involuntary, striated or smooth?"
+  },
+  {
+   "id": "BB.2A.muscle-tissue.cardiac.c1",
+   "parent": "BB.2A.muscle-tissue.cardiac",
+   "leaf": "BB.2A",
+   "label": "What structures couple cardiac cells for synchronized contraction?"
+  },
+  {
+   "id": "BB.2A.muscle-tissue.smooth.c1",
+   "parent": "BB.2A.muscle-tissue.smooth",
+   "leaf": "BB.2A",
+   "label": "Where is smooth muscle found, and is it under voluntary control?"
+  },
+  {
+   "id": "BB.2A.nervous-tissue.overview.c1",
+   "parent": "BB.2A.nervous-tissue.overview",
+   "leaf": "BB.2A",
+   "label": "What is the primary function of nervous tissue?"
+  },
+  {
+   "id": "BB.2A.nervous-tissue.neurons.c1",
+   "parent": "BB.2A.nervous-tissue.neurons",
+   "leaf": "BB.2A",
+   "label": "Which neuron parts receive versus transmit the signal?"
+  },
+  {
+   "id": "BB.2A.nervous-tissue.glia.c1",
+   "parent": "BB.2A.nervous-tissue.glia",
+   "leaf": "BB.2A",
+   "label": "Name two supporting functions of glial cells."
+  },
+  {
+   "id": "BB.2A.cell-adhesion.molecules.cadherins.c1",
+   "parent": "BB.2A.cell-adhesion.molecules.cadherins",
+   "leaf": "BB.2A",
+   "label": "What ion do cadherins require for cell-cell adhesion?"
+  },
+  {
+   "id": "BB.2A.cell-adhesion.molecules.integrins.c1",
+   "parent": "BB.2A.cell-adhesion.molecules.integrins",
+   "leaf": "BB.2A",
+   "label": "What do integrins connect the extracellular matrix to?"
+  },
+  {
+   "id": "BB.2A.cell-adhesion.molecules.selectins.c1",
+   "parent": "BB.2A.cell-adhesion.molecules.selectins",
+   "leaf": "BB.2A",
+   "label": "What do selectins bind during leukocyte rolling?"
+  },
+  {
+   "id": "BB.2A.cell-adhesion.molecules.igsf.c1",
+   "parent": "BB.2A.cell-adhesion.molecules.igsf",
+   "leaf": "BB.2A",
+   "label": "Do immunoglobulin-superfamily CAMs require calcium for adhesion?"
+  },
+  {
+   "id": "BB.2A.cell-adhesion.recognition.glycocalyx.c1",
+   "parent": "BB.2A.cell-adhesion.recognition.glycocalyx",
+   "leaf": "BB.2A",
+   "label": "How does the glycocalyx enable cell-cell recognition?"
+  },
+  {
+   "id": "BB.2A.cell-adhesion.recognition.markers.c1",
+   "parent": "BB.2A.cell-adhesion.recognition.markers",
+   "leaf": "BB.2A",
+   "label": "What do MHC surface markers help the immune system distinguish?"
+  },
+  {
+   "id": "BB.2A.cell-adhesion.recognition.contact-inhibition.c1",
+   "parent": "BB.2A.cell-adhesion.recognition.contact-inhibition",
+   "leaf": "BB.2A",
+   "label": "What is contact inhibition, and what cancels it in cancer?"
+  },
+  {
+   "id": "BB.2A.cell-signaling.modes.endocrine.c1",
+   "parent": "BB.2A.cell-signaling.modes.endocrine",
+   "leaf": "BB.2A",
+   "label": "How do endocrine signals reach their distant target cells?"
+  },
+  {
+   "id": "BB.2A.cell-signaling.modes.paracrine.c1",
+   "parent": "BB.2A.cell-signaling.modes.paracrine",
+   "leaf": "BB.2A",
+   "label": "What cells does a paracrine signal act on?"
+  },
+  {
+   "id": "BB.2A.cell-signaling.modes.autocrine.c1",
+   "parent": "BB.2A.cell-signaling.modes.autocrine",
+   "leaf": "BB.2A",
+   "label": "Which cell does an autocrine signal act upon?"
+  },
+  {
+   "id": "BB.2A.cell-signaling.modes.synaptic.c1",
+   "parent": "BB.2A.cell-signaling.modes.synaptic",
+   "leaf": "BB.2A",
+   "label": "What molecule carries a synaptic signal across the synapse?"
+  },
+  {
+   "id": "BB.2A.cell-signaling.modes.direct.c1",
+   "parent": "BB.2A.cell-signaling.modes.direct",
+   "leaf": "BB.2A",
+   "label": "How does juxtacrine signaling pass molecules between cells?"
+  },
+  {
+   "id": "BB.2A.cell-signaling.receptors.ligand-properties.c1",
+   "parent": "BB.2A.cell-signaling.receptors.ligand-properties",
+   "leaf": "BB.2A",
+   "label": "Why do steroid ligands bind intracellular rather than surface receptors?"
+  },
+  {
+   "id": "BB.2A.cell-signaling.receptors.rtk.c1",
+   "parent": "BB.2A.cell-signaling.receptors.rtk",
+   "leaf": "BB.2A",
+   "label": "What do receptor tyrosine kinases do after ligand binding?"
+  },
+  {
+   "id": "BB.2A.cell-signaling.receptors.ligand-gated.c1",
+   "parent": "BB.2A.cell-signaling.receptors.ligand-gated",
+   "leaf": "BB.2A",
+   "label": "What does a ligand-gated ion channel do when its ligand binds?"
+  },
+  {
+   "id": "BB.2A.cell-signaling.receptors.intracellular.c1",
+   "parent": "BB.2A.cell-signaling.receptors.intracellular",
+   "leaf": "BB.2A",
+   "label": "How do intracellular receptors change gene expression?"
+  },
+  {
+   "id": "BB.2A.cell-signaling.transduction.gpcr.c1",
+   "parent": "BB.2A.cell-signaling.transduction.gpcr",
+   "leaf": "BB.2A",
+   "label": "What does a GPCR activate after binding its ligand?"
+  },
+  {
+   "id": "BB.2A.cell-signaling.transduction.second-messengers.c1",
+   "parent": "BB.2A.cell-signaling.transduction.second-messengers",
+   "leaf": "BB.2A",
+   "label": "Name three common intracellular second messengers."
+  },
+  {
+   "id": "BB.2A.cell-signaling.transduction.cascade-amplification.c1",
+   "parent": "BB.2A.cell-signaling.transduction.cascade-amplification",
+   "leaf": "BB.2A",
+   "label": "How does a kinase cascade amplify a small signal?"
+  },
+  {
+   "id": "BB.2A.cell-signaling.transduction.termination.c1",
+   "parent": "BB.2A.cell-signaling.transduction.termination",
+   "leaf": "BB.2A",
+   "label": "Name two ways a signal-transduction pathway is switched off."
+  },
+  {
+   "id": "BB.2A.cell-signaling.fate.apoptosis.c1",
+   "parent": "BB.2A.cell-signaling.fate.apoptosis",
+   "leaf": "BB.2A",
+   "label": "What triggers apoptosis, and why does it avoid inflammation?"
+  },
+  {
+   "id": "BB.2A.cell-signaling.fate.differentiation.c1",
+   "parent": "BB.2A.cell-signaling.fate.differentiation",
+   "leaf": "BB.2A",
+   "label": "What directs a stem cell to differentiate into a specialized type?"
+  },
+  {
+   "id": "BB.2A.organism-organization.hierarchy.tissue.c1",
+   "parent": "BB.2A.organism-organization.hierarchy.tissue",
+   "leaf": "BB.2A",
+   "label": "What defines a tissue?"
+  },
+  {
+   "id": "BB.2A.organism-organization.hierarchy.organ.c1",
+   "parent": "BB.2A.organism-organization.hierarchy.organ",
+   "leaf": "BB.2A",
+   "label": "What distinguishes an organ from a tissue?"
+  },
+  {
+   "id": "BB.2A.organism-organization.hierarchy.organ-system.c1",
+   "parent": "BB.2A.organism-organization.hierarchy.organ-system",
+   "leaf": "BB.2A",
+   "label": "What is an organ system?"
+  },
+  {
+   "id": "BB.2A.organism-organization.tissue-types.c1",
+   "parent": "BB.2A.organism-organization.tissue-types",
+   "leaf": "BB.2A",
+   "label": "Name the four primary tissue types of the body."
+  },
+  {
+   "id": "BB.2A.organism-organization.emergence.c1",
+   "parent": "BB.2A.organism-organization.emergence",
+   "leaf": "BB.2A",
+   "label": "What are emergent properties in biological organization?"
+  },
+  {
+   "id": "BB.2A.organism-organization.stem-cells.c1",
+   "parent": "BB.2A.organism-organization.stem-cells",
+   "leaf": "BB.2A",
+   "label": "What two abilities define a stem cell?"
+  },
+  {
+   "id": "BB.2B.prokaryote-classification.domains.three-domains.c1",
+   "parent": "BB.2B.prokaryote-classification.domains.three-domains",
+   "leaf": "BB.2B",
+   "label": "What molecule's sequence is used to define the three domains of life?"
+  },
+  {
+   "id": "BB.2B.prokaryote-classification.domains.archaea-features.c1",
+   "parent": "BB.2B.prokaryote-classification.domains.archaea-features",
+   "leaf": "BB.2B",
+   "label": "Name two features that distinguish archaea from bacteria."
+  },
+  {
+   "id": "BB.2B.prokaryote-classification.domains.extremophiles.c1",
+   "parent": "BB.2B.prokaryote-classification.domains.extremophiles",
+   "leaf": "BB.2B",
+   "label": "Name two types of extremophilic archaea."
+  },
+  {
+   "id": "BB.2B.prokaryote-classification.domains.archaea-eukaryote-shared.c1",
+   "parent": "BB.2B.prokaryote-classification.domains.archaea-eukaryote-shared",
+   "leaf": "BB.2B",
+   "label": "Which traits make archaea more like eukaryotes than bacteria?"
+  },
+  {
+   "id": "BB.2B.prokaryote-classification.shape.cocci.c1",
+   "parent": "BB.2B.prokaryote-classification.shape.cocci",
+   "leaf": "BB.2B",
+   "label": "What shape are cocci, and what does 'strepto-' arrangement mean?"
+  },
+  {
+   "id": "BB.2B.prokaryote-classification.shape.bacilli.c1",
+   "parent": "BB.2B.prokaryote-classification.shape.bacilli",
+   "leaf": "BB.2B",
+   "label": "What shape defines a bacillus?"
+  },
+  {
+   "id": "BB.2B.prokaryote-classification.shape.spirilla.c1",
+   "parent": "BB.2B.prokaryote-classification.shape.spirilla",
+   "leaf": "BB.2B",
+   "label": "What shape are spirilla and spirochetes?"
+  },
+  {
+   "id": "BB.2B.prokaryote-classification.shape.arrangement.c1",
+   "parent": "BB.2B.prokaryote-classification.shape.arrangement",
+   "leaf": "BB.2B",
+   "label": "What does the prefix 'staphylo-' describe about bacterial arrangement?"
+  },
+  {
+   "id": "BB.2B.prokaryote-classification.size.no-nucleus.c1",
+   "parent": "BB.2B.prokaryote-classification.size.no-nucleus",
+   "leaf": "BB.2B",
+   "label": "Where is prokaryotic DNA housed without a true nucleus?"
+  },
+  {
+   "id": "BB.2B.prokaryote-classification.size.no-nucleus.c2",
+   "parent": "BB.2B.prokaryote-classification.size.no-nucleus",
+   "leaf": "BB.2B",
+   "label": "What membrane-bound structures do prokaryotes lack?"
+  },
+  {
+   "id": "BB.2B.prokaryote-classification.size.smaller.c1",
+   "parent": "BB.2B.prokaryote-classification.size.smaller",
+   "leaf": "BB.2B",
+   "label": "What ribosome type (by S value) do prokaryotes have?"
+  },
+  {
+   "id": "BB.2B.prokaryote-classification.size.unicellular.c1",
+   "parent": "BB.2B.prokaryote-classification.size.unicellular",
+   "leaf": "BB.2B",
+   "label": "Do prokaryotic colonies form truly differentiated tissues?"
+  },
+  {
+   "id": "BB.2B.cell-structure.envelope.plasma-membrane.c1",
+   "parent": "BB.2B.cell-structure.envelope.plasma-membrane",
+   "leaf": "BB.2B",
+   "label": "What metabolic chain is hosted by the prokaryotic plasma membrane?"
+  },
+  {
+   "id": "BB.2B.cell-structure.envelope.plasma-membrane.c2",
+   "parent": "BB.2B.cell-structure.envelope.plasma-membrane",
+   "leaf": "BB.2B",
+   "label": "What is the prokaryotic plasma membrane structurally made of?"
+  },
+  {
+   "id": "BB.2B.cell-structure.envelope.membrane-invagination.c1",
+   "parent": "BB.2B.cell-structure.envelope.membrane-invagination",
+   "leaf": "BB.2B",
+   "label": "Why do prokaryotes localize respiration to membrane infoldings?"
+  },
+  {
+   "id": "BB.2B.cell-structure.envelope.peptidoglycan.c1",
+   "parent": "BB.2B.cell-structure.envelope.peptidoglycan",
+   "leaf": "BB.2B",
+   "label": "What polymer makes up the bacterial cell wall?"
+  },
+  {
+   "id": "BB.2B.cell-structure.envelope.peptidoglycan.c2",
+   "parent": "BB.2B.cell-structure.envelope.peptidoglycan",
+   "leaf": "BB.2B",
+   "label": "What cross-links the sugar strands of peptidoglycan?"
+  },
+  {
+   "id": "BB.2B.cell-structure.envelope.nag-nam.c1",
+   "parent": "BB.2B.cell-structure.envelope.nag-nam",
+   "leaf": "BB.2B",
+   "label": "What two sugars alternate in the peptidoglycan backbone?"
+  },
+  {
+   "id": "BB.2B.cell-structure.envelope.lysozyme.c1",
+   "parent": "BB.2B.cell-structure.envelope.lysozyme",
+   "leaf": "BB.2B",
+   "label": "What bond does lysozyme hydrolyze in the bacterial wall?"
+  },
+  {
+   "id": "BB.2B.cell-structure.envelope.penicillin-target.c1",
+   "parent": "BB.2B.cell-structure.envelope.penicillin-target",
+   "leaf": "BB.2B",
+   "label": "What enzyme does penicillin inhibit in growing bacteria?"
+  },
+  {
+   "id": "BB.2B.cell-structure.envelope.osmotic-protection.c1",
+   "parent": "BB.2B.cell-structure.envelope.osmotic-protection",
+   "leaf": "BB.2B",
+   "label": "How does the cell wall protect bacteria from osmotic lysis?"
+  },
+  {
+   "id": "BB.2B.cell-structure.gram.gram-positive.c1",
+   "parent": "BB.2B.cell-structure.gram.gram-positive",
+   "leaf": "BB.2B",
+   "label": "What color do gram-positive bacteria stain, and why?"
+  },
+  {
+   "id": "BB.2B.cell-structure.gram.gram-positive.c2",
+   "parent": "BB.2B.cell-structure.gram.gram-positive",
+   "leaf": "BB.2B",
+   "label": "What is the wall structure of a gram-positive bacterium?"
+  },
+  {
+   "id": "BB.2B.cell-structure.gram.gram-negative.c1",
+   "parent": "BB.2B.cell-structure.gram.gram-negative",
+   "leaf": "BB.2B",
+   "label": "What extra outer layer do gram-negative bacteria have?"
+  },
+  {
+   "id": "BB.2B.cell-structure.gram.gram-negative.c2",
+   "parent": "BB.2B.cell-structure.gram.gram-negative",
+   "leaf": "BB.2B",
+   "label": "What color do gram-negative bacteria stain?"
+  },
+  {
+   "id": "BB.2B.cell-structure.gram.teichoic-acid.c1",
+   "parent": "BB.2B.cell-structure.gram.teichoic-acid",
+   "leaf": "BB.2B",
+   "label": "In which bacterial cell wall are teichoic acids found?"
+  },
+  {
+   "id": "BB.2B.cell-structure.gram.lps-endotoxin.c1",
+   "parent": "BB.2B.cell-structure.gram.lps-endotoxin",
+   "leaf": "BB.2B",
+   "label": "Which gram-negative outer-membrane component acts as an endotoxin?"
+  },
+  {
+   "id": "BB.2B.cell-structure.gram.endo-exotoxin.c1",
+   "parent": "BB.2B.cell-structure.gram.endo-exotoxin",
+   "leaf": "BB.2B",
+   "label": "How do endotoxins differ from exotoxins?"
+  },
+  {
+   "id": "BB.2B.cell-structure.gram.periplasm.c1",
+   "parent": "BB.2B.cell-structure.gram.periplasm",
+   "leaf": "BB.2B",
+   "label": "Where is the periplasmic space located?"
+  },
+  {
+   "id": "BB.2B.cell-structure.gram.stain-steps.c1",
+   "parent": "BB.2B.cell-structure.gram.stain-steps",
+   "leaf": "BB.2B",
+   "label": "What four reagents are used in Gram staining, in order?"
+  },
+  {
+   "id": "BB.2B.cell-structure.gram.acid-fast.c1",
+   "parent": "BB.2B.cell-structure.gram.acid-fast",
+   "leaf": "BB.2B",
+   "label": "What wall component makes mycobacteria acid-fast?"
+  },
+  {
+   "id": "BB.2B.cell-structure.external.capsule.c1",
+   "parent": "BB.2B.cell-structure.external.capsule",
+   "leaf": "BB.2B",
+   "label": "How does a bacterial capsule protect against the host?"
+  },
+  {
+   "id": "BB.2B.cell-structure.external.biofilm.c1",
+   "parent": "BB.2B.cell-structure.external.biofilm",
+   "leaf": "BB.2B",
+   "label": "Why are bacteria in a biofilm resistant to antibiotics?"
+  },
+  {
+   "id": "BB.2B.cell-structure.external.flagellum.c1",
+   "parent": "BB.2B.cell-structure.external.flagellum",
+   "leaf": "BB.2B",
+   "label": "What powers the rotation of the bacterial flagellum?"
+  },
+  {
+   "id": "BB.2B.cell-structure.external.flagellum.c2",
+   "parent": "BB.2B.cell-structure.external.flagellum",
+   "leaf": "BB.2B",
+   "label": "What are the three main parts of a bacterial flagellum?"
+  },
+  {
+   "id": "BB.2B.cell-structure.external.flagellum-structure.c1",
+   "parent": "BB.2B.cell-structure.external.flagellum-structure",
+   "leaf": "BB.2B",
+   "label": "What protein forms the bacterial flagellar filament?"
+  },
+  {
+   "id": "BB.2B.cell-structure.external.flagellum-arrangement.c1",
+   "parent": "BB.2B.cell-structure.external.flagellum-arrangement",
+   "leaf": "BB.2B",
+   "label": "What does 'peritrichous' describe about flagellar arrangement?"
+  },
+  {
+   "id": "BB.2B.cell-structure.external.chemotaxis.c1",
+   "parent": "BB.2B.cell-structure.external.chemotaxis",
+   "leaf": "BB.2B",
+   "label": "How does a bacterium move toward an attractant during chemotaxis?"
+  },
+  {
+   "id": "BB.2B.cell-structure.external.pili-fimbriae.c1",
+   "parent": "BB.2B.cell-structure.external.pili-fimbriae",
+   "leaf": "BB.2B",
+   "label": "What is the role of the sex pilus versus fimbriae?"
+  },
+  {
+   "id": "BB.2B.cell-structure.internal.nucleoid.c1",
+   "parent": "BB.2B.cell-structure.internal.nucleoid",
+   "leaf": "BB.2B",
+   "label": "What is the shape of the prokaryotic chromosome?"
+  },
+  {
+   "id": "BB.2B.cell-structure.internal.nucleoid.c2",
+   "parent": "BB.2B.cell-structure.internal.nucleoid",
+   "leaf": "BB.2B",
+   "label": "In what region is the bacterial chromosome located?"
+  },
+  {
+   "id": "BB.2B.cell-structure.internal.supercoiling.c1",
+   "parent": "BB.2B.cell-structure.internal.supercoiling",
+   "leaf": "BB.2B",
+   "label": "What enzyme supercoils the bacterial chromosome?"
+  },
+  {
+   "id": "BB.2B.cell-structure.internal.plasmid.c1",
+   "parent": "BB.2B.cell-structure.internal.plasmid",
+   "leaf": "BB.2B",
+   "label": "What is a plasmid?"
+  },
+  {
+   "id": "BB.2B.cell-structure.internal.plasmid.c2",
+   "parent": "BB.2B.cell-structure.internal.plasmid",
+   "leaf": "BB.2B",
+   "label": "How does a plasmid replicate relative to the chromosome?"
+  },
+  {
+   "id": "BB.2B.cell-structure.internal.ribosome-70s.c1",
+   "parent": "BB.2B.cell-structure.internal.ribosome-70s",
+   "leaf": "BB.2B",
+   "label": "What two subunits make up the 70S prokaryotic ribosome?"
+  },
+  {
+   "id": "BB.2B.cell-structure.internal.no-cytoskeleton.c1",
+   "parent": "BB.2B.cell-structure.internal.no-cytoskeleton",
+   "leaf": "BB.2B",
+   "label": "How do prokaryotes store nutrients within the cytoplasm?"
+  },
+  {
+   "id": "BB.2B.cell-structure.internal.endospore.c1",
+   "parent": "BB.2B.cell-structure.internal.endospore",
+   "leaf": "BB.2B",
+   "label": "Why do some bacteria form endospores?"
+  },
+  {
+   "id": "BB.2B.cell-structure.internal.sporulation.c1",
+   "parent": "BB.2B.cell-structure.internal.sporulation",
+   "leaf": "BB.2B",
+   "label": "What makes an endospore resistant to heat and chemicals?"
+  },
+  {
+   "id": "BB.2B.metabolism.nutrition.autotroph.c1",
+   "parent": "BB.2B.metabolism.nutrition.autotroph",
+   "leaf": "BB.2B",
+   "label": "What carbon source distinguishes autotrophs from heterotrophs?"
+  },
+  {
+   "id": "BB.2B.metabolism.nutrition.chemo-photo.c1",
+   "parent": "BB.2B.metabolism.nutrition.chemo-photo",
+   "leaf": "BB.2B",
+   "label": "What energy source distinguishes chemotrophs from phototrophs?"
+  },
+  {
+   "id": "BB.2B.metabolism.nutrition.four-types.c1",
+   "parent": "BB.2B.metabolism.nutrition.four-types",
+   "leaf": "BB.2B",
+   "label": "What two axes define the four nutritional categories?"
+  },
+  {
+   "id": "BB.2B.metabolism.nutrition.saprophyte-parasite.c1",
+   "parent": "BB.2B.metabolism.nutrition.saprophyte-parasite",
+   "leaf": "BB.2B",
+   "label": "How does a saprophyte obtain its nutrients?"
+  },
+  {
+   "id": "BB.2B.metabolism.nitrogen.c1",
+   "parent": "BB.2B.metabolism.nitrogen",
+   "leaf": "BB.2B",
+   "label": "What enzyme lets prokaryotes fix atmospheric nitrogen?"
+  },
+  {
+   "id": "BB.2B.metabolism.oxygen.obligate-aerobe.c1",
+   "parent": "BB.2B.metabolism.oxygen.obligate-aerobe",
+   "leaf": "BB.2B",
+   "label": "What does an obligate aerobe require to respire?"
+  },
+  {
+   "id": "BB.2B.metabolism.oxygen.obligate-aerobe.c2",
+   "parent": "BB.2B.metabolism.oxygen.obligate-aerobe",
+   "leaf": "BB.2B",
+   "label": "What is the terminal electron acceptor for an obligate aerobe?"
+  },
+  {
+   "id": "BB.2B.metabolism.oxygen.obligate-anaerobe.c1",
+   "parent": "BB.2B.metabolism.oxygen.obligate-anaerobe",
+   "leaf": "BB.2B",
+   "label": "Why is oxygen dangerous to an obligate anaerobe?"
+  },
+  {
+   "id": "BB.2B.metabolism.oxygen.obligate-anaerobe.c2",
+   "parent": "BB.2B.metabolism.oxygen.obligate-anaerobe",
+   "leaf": "BB.2B",
+   "label": "How does an obligate anaerobe generate its energy?"
+  },
+  {
+   "id": "BB.2B.metabolism.oxygen.facultative-anaerobe.c1",
+   "parent": "BB.2B.metabolism.oxygen.facultative-anaerobe",
+   "leaf": "BB.2B",
+   "label": "How does a facultative anaerobe respond to available oxygen?"
+  },
+  {
+   "id": "BB.2B.metabolism.oxygen.facultative-anaerobe.c2",
+   "parent": "BB.2B.metabolism.oxygen.facultative-anaerobe",
+   "leaf": "BB.2B",
+   "label": "What lets a facultative anaerobe survive with or without O2?"
+  },
+  {
+   "id": "BB.2B.metabolism.oxygen.aerotolerant.c1",
+   "parent": "BB.2B.metabolism.oxygen.aerotolerant",
+   "leaf": "BB.2B",
+   "label": "How do aerotolerant anaerobes handle oxygen?"
+  },
+  {
+   "id": "BB.2B.metabolism.oxygen.microaerophile.c1",
+   "parent": "BB.2B.metabolism.oxygen.microaerophile",
+   "leaf": "BB.2B",
+   "label": "What oxygen level do microaerophiles require?"
+  },
+  {
+   "id": "BB.2B.metabolism.oxygen.oxygen-toxicity.c1",
+   "parent": "BB.2B.metabolism.oxygen.oxygen-toxicity",
+   "leaf": "BB.2B",
+   "label": "What enzymes protect aerobes from reactive oxygen species?"
+  },
+  {
+   "id": "BB.2B.metabolism.respiration.membrane-etc.c1",
+   "parent": "BB.2B.metabolism.respiration.membrane-etc",
+   "leaf": "BB.2B",
+   "label": "Where does the electron transport chain occur in a prokaryote?"
+  },
+  {
+   "id": "BB.2B.metabolism.respiration.anaerobic-respiration.c1",
+   "parent": "BB.2B.metabolism.respiration.anaerobic-respiration",
+   "leaf": "BB.2B",
+   "label": "What terminal electron acceptors are used in anaerobic respiration?"
+  },
+  {
+   "id": "BB.2B.metabolism.respiration.fermentation.c1",
+   "parent": "BB.2B.metabolism.respiration.fermentation",
+   "leaf": "BB.2B",
+   "label": "What coenzyme does fermentation regenerate without an ETC?"
+  },
+  {
+   "id": "BB.2B.growth.binary-fission.mechanism.c1",
+   "parent": "BB.2B.growth.binary-fission.mechanism",
+   "leaf": "BB.2B",
+   "label": "What does binary fission produce from one parent cell?"
+  },
+  {
+   "id": "BB.2B.growth.binary-fission.mechanism.c2",
+   "parent": "BB.2B.growth.binary-fission.mechanism",
+   "leaf": "BB.2B",
+   "label": "What happens to the chromosome during binary fission?"
+  },
+  {
+   "id": "BB.2B.growth.binary-fission.asexual.c1",
+   "parent": "BB.2B.growth.binary-fission.asexual",
+   "leaf": "BB.2B",
+   "label": "Since binary fission is clonal, how do bacteria gain variation?"
+  },
+  {
+   "id": "BB.2B.growth.binary-fission.no-mitosis.c1",
+   "parent": "BB.2B.growth.binary-fission.no-mitosis",
+   "leaf": "BB.2B",
+   "label": "What eukaryotic division features does binary fission lack?"
+  },
+  {
+   "id": "BB.2B.growth.binary-fission.origin-segregation.c1",
+   "parent": "BB.2B.growth.binary-fission.origin-segregation",
+   "leaf": "BB.2B",
+   "label": "From how many origins does the bacterial chromosome replicate?"
+  },
+  {
+   "id": "BB.2B.growth.curve.lag.c1",
+   "parent": "BB.2B.growth.curve.lag",
+   "leaf": "BB.2B",
+   "label": "What are cells doing during the lag phase of growth?"
+  },
+  {
+   "id": "BB.2B.growth.curve.log.c1",
+   "parent": "BB.2B.growth.curve.log",
+   "leaf": "BB.2B",
+   "label": "What characterizes the log phase of bacterial growth?"
+  },
+  {
+   "id": "BB.2B.growth.curve.log.c2",
+   "parent": "BB.2B.growth.curve.log",
+   "leaf": "BB.2B",
+   "label": "Why is population growth exponential during the log phase?"
+  },
+  {
+   "id": "BB.2B.growth.curve.stationary.c1",
+   "parent": "BB.2B.growth.curve.stationary",
+   "leaf": "BB.2B",
+   "label": "Why do growth and death rates balance in stationary phase?"
+  },
+  {
+   "id": "BB.2B.growth.curve.stationary.c2",
+   "parent": "BB.2B.growth.curve.stationary",
+   "leaf": "BB.2B",
+   "label": "What causes a culture to enter stationary phase?"
+  },
+  {
+   "id": "BB.2B.growth.curve.death.c1",
+   "parent": "BB.2B.growth.curve.death",
+   "leaf": "BB.2B",
+   "label": "What defines the death (decline) phase of a culture?"
+  },
+  {
+   "id": "BB.2B.growth.exponential-math.c1",
+   "parent": "BB.2B.growth.exponential-math",
+   "leaf": "BB.2B",
+   "label": "In N = N0 x 2^(t/g), what does g represent?"
+  },
+  {
+   "id": "BB.2B.growth.quorum-sensing.c1",
+   "parent": "BB.2B.growth.quorum-sensing",
+   "leaf": "BB.2B",
+   "label": "What do bacteria detect during quorum sensing?"
+  },
+  {
+   "id": "BB.2B.genetics.gene-expression.operon.c1",
+   "parent": "BB.2B.genetics.gene-expression.operon",
+   "leaf": "BB.2B",
+   "label": "What is an operon?"
+  },
+  {
+   "id": "BB.2B.genetics.gene-expression.operon.c2",
+   "parent": "BB.2B.genetics.gene-expression.operon",
+   "leaf": "BB.2B",
+   "label": "What controls transcription of the genes in an operon?"
+  },
+  {
+   "id": "BB.2B.genetics.gene-expression.operon-parts.c1",
+   "parent": "BB.2B.genetics.gene-expression.operon-parts",
+   "leaf": "BB.2B",
+   "label": "Name the components of an operon."
+  },
+  {
+   "id": "BB.2B.genetics.gene-expression.inducible-repressible.c1",
+   "parent": "BB.2B.genetics.gene-expression.inducible-repressible",
+   "leaf": "BB.2B",
+   "label": "How does an inducible operon differ from a repressible one?"
+  },
+  {
+   "id": "BB.2B.genetics.gene-expression.inducible-repressible.c2",
+   "parent": "BB.2B.genetics.gene-expression.inducible-repressible",
+   "leaf": "BB.2B",
+   "label": "What switches on a normally-off inducible operon?"
+  },
+  {
+   "id": "BB.2B.genetics.gene-expression.lac-operon.c1",
+   "parent": "BB.2B.genetics.gene-expression.lac-operon",
+   "leaf": "BB.2B",
+   "label": "What molecule induces the lac operon?"
+  },
+  {
+   "id": "BB.2B.genetics.gene-expression.lac-operon.c2",
+   "parent": "BB.2B.genetics.gene-expression.lac-operon",
+   "leaf": "BB.2B",
+   "label": "Is the lac operon inducible or repressible?"
+  },
+  {
+   "id": "BB.2B.genetics.gene-expression.trp-operon.c1",
+   "parent": "BB.2B.genetics.gene-expression.trp-operon",
+   "leaf": "BB.2B",
+   "label": "What corepressor switches off the trp operon?"
+  },
+  {
+   "id": "BB.2B.genetics.gene-expression.trp-operon.c2",
+   "parent": "BB.2B.genetics.gene-expression.trp-operon",
+   "leaf": "BB.2B",
+   "label": "Is the trp operon inducible or repressible?"
+  },
+  {
+   "id": "BB.2B.genetics.gene-expression.positive-control.c1",
+   "parent": "BB.2B.genetics.gene-expression.positive-control",
+   "leaf": "BB.2B",
+   "label": "How does CAP-cAMP enhance lac operon transcription?"
+  },
+  {
+   "id": "BB.2B.genetics.gene-expression.catabolite-repression.c1",
+   "parent": "BB.2B.genetics.gene-expression.catabolite-repression",
+   "leaf": "BB.2B",
+   "label": "Why does high glucose inhibit lac operon expression?"
+  },
+  {
+   "id": "BB.2B.genetics.gene-expression.polycistronic.c1",
+   "parent": "BB.2B.genetics.gene-expression.polycistronic",
+   "leaf": "BB.2B",
+   "label": "What is polycistronic mRNA?"
+  },
+  {
+   "id": "BB.2B.genetics.gene-expression.coupled.c1",
+   "parent": "BB.2B.genetics.gene-expression.coupled",
+   "leaf": "BB.2B",
+   "label": "Why can prokaryotes couple transcription and translation?"
+  },
+  {
+   "id": "BB.2B.genetics.gene-expression.no-processing.c1",
+   "parent": "BB.2B.genetics.gene-expression.no-processing",
+   "leaf": "BB.2B",
+   "label": "Name one way prokaryotic mRNA differs from eukaryotic mRNA."
+  },
+  {
+   "id": "BB.2B.genetics.mutation.source.c1",
+   "parent": "BB.2B.genetics.mutation.source",
+   "leaf": "BB.2B",
+   "label": "How do random mutations contribute to bacterial variation?"
+  },
+  {
+   "id": "BB.2B.genetics.mutation.rapid-evolution.c1",
+   "parent": "BB.2B.genetics.mutation.rapid-evolution",
+   "leaf": "BB.2B",
+   "label": "Why do bacteria evolve antibiotic resistance so quickly?"
+  },
+  {
+   "id": "BB.2B.genetics.htg.transformation.c1",
+   "parent": "BB.2B.genetics.htg.transformation",
+   "leaf": "BB.2B",
+   "label": "What is bacterial transformation?"
+  },
+  {
+   "id": "BB.2B.genetics.htg.transformation.c2",
+   "parent": "BB.2B.genetics.htg.transformation",
+   "leaf": "BB.2B",
+   "label": "What must a bacterium be to take up naked DNA?"
+  },
+  {
+   "id": "BB.2B.genetics.htg.transduction.c1",
+   "parent": "BB.2B.genetics.htg.transduction",
+   "leaf": "BB.2B",
+   "label": "What vector carries DNA between bacteria in transduction?"
+  },
+  {
+   "id": "BB.2B.genetics.htg.transduction.c2",
+   "parent": "BB.2B.genetics.htg.transduction",
+   "leaf": "BB.2B",
+   "label": "How does transduction transfer bacterial genes?"
+  },
+  {
+   "id": "BB.2B.genetics.htg.transduction-types.c1",
+   "parent": "BB.2B.genetics.htg.transduction-types",
+   "leaf": "BB.2B",
+   "label": "How does generalized transduction differ from specialized?"
+  },
+  {
+   "id": "BB.2B.genetics.htg.conjugation.c1",
+   "parent": "BB.2B.genetics.htg.conjugation",
+   "leaf": "BB.2B",
+   "label": "What structure transfers DNA during conjugation?"
+  },
+  {
+   "id": "BB.2B.genetics.htg.conjugation.c2",
+   "parent": "BB.2B.genetics.htg.conjugation",
+   "leaf": "BB.2B",
+   "label": "How does conjugation move DNA between two cells?"
+  },
+  {
+   "id": "BB.2B.genetics.htg.f-factor.c1",
+   "parent": "BB.2B.genetics.htg.f-factor",
+   "leaf": "BB.2B",
+   "label": "What does the F plasmid encode, and which cell is the donor?"
+  },
+  {
+   "id": "BB.2B.genetics.htg.hfr.c1",
+   "parent": "BB.2B.genetics.htg.hfr",
+   "leaf": "BB.2B",
+   "label": "What lets an Hfr cell transfer chromosomal genes?"
+  },
+  {
+   "id": "BB.2B.genetics.htg.f-prime.c1",
+   "parent": "BB.2B.genetics.htg.f-prime",
+   "leaf": "BB.2B",
+   "label": "How does an F-prime plasmid arise?"
+  },
+  {
+   "id": "BB.2B.genetics.htg.r-plasmid.c1",
+   "parent": "BB.2B.genetics.htg.r-plasmid",
+   "leaf": "BB.2B",
+   "label": "What genes do R plasmids carry?"
+  },
+  {
+   "id": "BB.2B.genetics.htg.recombination.c1",
+   "parent": "BB.2B.genetics.htg.recombination",
+   "leaf": "BB.2B",
+   "label": "Why must transferred linear DNA recombine into the chromosome?"
+  },
+  {
+   "id": "BB.2B.genetics.transposon.c1",
+   "parent": "BB.2B.genetics.transposon",
+   "leaf": "BB.2B",
+   "label": "What is a transposon?"
+  },
+  {
+   "id": "BB.2B.viruses.structure.acellular.c1",
+   "parent": "BB.2B.viruses.structure.acellular",
+   "leaf": "BB.2B",
+   "label": "Why are viruses called obligate intracellular parasites?"
+  },
+  {
+   "id": "BB.2B.viruses.structure.acellular.c2",
+   "parent": "BB.2B.viruses.structure.acellular",
+   "leaf": "BB.2B",
+   "label": "What two things can a virus not do on its own?"
+  },
+  {
+   "id": "BB.2B.viruses.structure.capsid.c1",
+   "parent": "BB.2B.viruses.structure.capsid",
+   "leaf": "BB.2B",
+   "label": "What is the viral capsid made of?"
+  },
+  {
+   "id": "BB.2B.viruses.structure.capsid.c2",
+   "parent": "BB.2B.viruses.structure.capsid",
+   "leaf": "BB.2B",
+   "label": "What does the viral capsid enclose and protect?"
+  },
+  {
+   "id": "BB.2B.viruses.structure.capsid-symmetry.c1",
+   "parent": "BB.2B.viruses.structure.capsid-symmetry",
+   "leaf": "BB.2B",
+   "label": "Name two symmetries a viral capsid can adopt."
+  },
+  {
+   "id": "BB.2B.viruses.structure.envelope.c1",
+   "parent": "BB.2B.viruses.structure.envelope",
+   "leaf": "BB.2B",
+   "label": "Where does an enveloped virus acquire its lipid membrane?"
+  },
+  {
+   "id": "BB.2B.viruses.structure.glycoproteins.c1",
+   "parent": "BB.2B.viruses.structure.glycoproteins",
+   "leaf": "BB.2B",
+   "label": "What do viral envelope glycoprotein spikes do?"
+  },
+  {
+   "id": "BB.2B.viruses.structure.naked.c1",
+   "parent": "BB.2B.viruses.structure.naked",
+   "leaf": "BB.2B",
+   "label": "How are naked viruses more robust than enveloped ones?"
+  },
+  {
+   "id": "BB.2B.viruses.structure.bacteriophage.c1",
+   "parent": "BB.2B.viruses.structure.bacteriophage",
+   "leaf": "BB.2B",
+   "label": "What structures does a bacteriophage use to infect bacteria?"
+  },
+  {
+   "id": "BB.2B.viruses.structure.virion-size.c1",
+   "parent": "BB.2B.viruses.structure.virion-size",
+   "leaf": "BB.2B",
+   "label": "How do virion sizes compare with those of cells?"
+  },
+  {
+   "id": "BB.2B.viruses.structure.host-range.c1",
+   "parent": "BB.2B.viruses.structure.host-range",
+   "leaf": "BB.2B",
+   "label": "What determines a virus's host range and tropism?"
+  },
+  {
+   "id": "BB.2B.viruses.genome.dna-rna.c1",
+   "parent": "BB.2B.viruses.genome.dna-rna",
+   "leaf": "BB.2B",
+   "label": "In what nucleic-acid forms can a viral genome exist?"
+  },
+  {
+   "id": "BB.2B.viruses.genome.dna-rna.c2",
+   "parent": "BB.2B.viruses.genome.dna-rna",
+   "leaf": "BB.2B",
+   "label": "Can a viral genome be single-stranded RNA?"
+  },
+  {
+   "id": "BB.2B.viruses.genome.small-genome.c1",
+   "parent": "BB.2B.viruses.genome.small-genome",
+   "leaf": "BB.2B",
+   "label": "Why do viral genomes encode so few proteins?"
+  },
+  {
+   "id": "BB.2B.viruses.genome.positive-sense.c1",
+   "parent": "BB.2B.viruses.genome.positive-sense",
+   "leaf": "BB.2B",
+   "label": "How is positive-sense viral RNA used upon cell entry?"
+  },
+  {
+   "id": "BB.2B.viruses.genome.negative-sense.c1",
+   "parent": "BB.2B.viruses.genome.negative-sense",
+   "leaf": "BB.2B",
+   "label": "What must negative-sense RNA do before it can be translated?"
+  },
+  {
+   "id": "BB.2B.viruses.genome.rna-dependent-polymerase.c1",
+   "parent": "BB.2B.viruses.genome.rna-dependent-polymerase",
+   "leaf": "BB.2B",
+   "label": "Why must RNA viruses carry an RNA-dependent RNA polymerase?"
+  },
+  {
+   "id": "BB.2B.viruses.genome.retrovirus.c1",
+   "parent": "BB.2B.viruses.genome.retrovirus",
+   "leaf": "BB.2B",
+   "label": "What enzyme lets a retrovirus copy its RNA into DNA?"
+  },
+  {
+   "id": "BB.2B.viruses.genome.retrovirus.c2",
+   "parent": "BB.2B.viruses.genome.retrovirus",
+   "leaf": "BB.2B",
+   "label": "What does a retrovirus do with its DNA copy?"
+  },
+  {
+   "id": "BB.2B.viruses.genome.provirus.c1",
+   "parent": "BB.2B.viruses.genome.provirus",
+   "leaf": "BB.2B",
+   "label": "What enzyme inserts retroviral DNA into the host genome?"
+  },
+  {
+   "id": "BB.2B.viruses.living-debate.c1",
+   "parent": "BB.2B.viruses.living-debate",
+   "leaf": "BB.2B",
+   "label": "Why is it debated whether viruses are truly alive?"
+  },
+  {
+   "id": "BB.2B.viral-life-cycle.general.attachment.c1",
+   "parent": "BB.2B.viral-life-cycle.general.attachment",
+   "leaf": "BB.2B",
+   "label": "What does a virus bind during the attachment step?"
+  },
+  {
+   "id": "BB.2B.viral-life-cycle.general.attachment.c2",
+   "parent": "BB.2B.viral-life-cycle.general.attachment",
+   "leaf": "BB.2B",
+   "label": "Why is viral attachment host-cell specific?"
+  },
+  {
+   "id": "BB.2B.viral-life-cycle.general.entry.c1",
+   "parent": "BB.2B.viral-life-cycle.general.entry",
+   "leaf": "BB.2B",
+   "label": "Name two ways a virus can enter a host cell."
+  },
+  {
+   "id": "BB.2B.viral-life-cycle.general.uncoating.c1",
+   "parent": "BB.2B.viral-life-cycle.general.uncoating",
+   "leaf": "BB.2B",
+   "label": "What happens during viral uncoating?"
+  },
+  {
+   "id": "BB.2B.viral-life-cycle.general.replication.c1",
+   "parent": "BB.2B.viral-life-cycle.general.replication",
+   "leaf": "BB.2B",
+   "label": "What machinery does a virus hijack to replicate its genome?"
+  },
+  {
+   "id": "BB.2B.viral-life-cycle.general.replication.c2",
+   "parent": "BB.2B.viral-life-cycle.general.replication",
+   "leaf": "BB.2B",
+   "label": "What two products are made during viral replication?"
+  },
+  {
+   "id": "BB.2B.viral-life-cycle.general.assembly.c1",
+   "parent": "BB.2B.viral-life-cycle.general.assembly",
+   "leaf": "BB.2B",
+   "label": "What occurs during the viral assembly step?"
+  },
+  {
+   "id": "BB.2B.viral-life-cycle.general.release.c1",
+   "parent": "BB.2B.viral-life-cycle.general.release",
+   "leaf": "BB.2B",
+   "label": "Name the two ways progeny virions are released."
+  },
+  {
+   "id": "BB.2B.viral-life-cycle.general.release.c2",
+   "parent": "BB.2B.viral-life-cycle.general.release",
+   "leaf": "BB.2B",
+   "label": "Which release mode gives a virus its envelope?"
+  },
+  {
+   "id": "BB.2B.viral-life-cycle.general.budding-vs-lysis.c1",
+   "parent": "BB.2B.viral-life-cycle.general.budding-vs-lysis",
+   "leaf": "BB.2B",
+   "label": "How does budding differ from lysis for viral release?"
+  },
+  {
+   "id": "BB.2B.viral-life-cycle.phage.lytic.c1",
+   "parent": "BB.2B.viral-life-cycle.phage.lytic",
+   "leaf": "BB.2B",
+   "label": "What happens to the host cell in the lytic cycle?"
+  },
+  {
+   "id": "BB.2B.viral-life-cycle.phage.lytic.c2",
+   "parent": "BB.2B.viral-life-cycle.phage.lytic",
+   "leaf": "BB.2B",
+   "label": "What is a phage that only lyses its host called?"
+  },
+  {
+   "id": "BB.2B.viral-life-cycle.phage.lysogenic.c1",
+   "parent": "BB.2B.viral-life-cycle.phage.lysogenic",
+   "leaf": "BB.2B",
+   "label": "What does phage DNA do in the lysogenic cycle?"
+  },
+  {
+   "id": "BB.2B.viral-life-cycle.phage.lysogenic.c2",
+   "parent": "BB.2B.viral-life-cycle.phage.lysogenic",
+   "leaf": "BB.2B",
+   "label": "What is integrated phage DNA called?"
+  },
+  {
+   "id": "BB.2B.viral-life-cycle.phage.prophage.c1",
+   "parent": "BB.2B.viral-life-cycle.phage.prophage",
+   "leaf": "BB.2B",
+   "label": "What can trigger a prophage to enter the lytic cycle?"
+  },
+  {
+   "id": "BB.2B.viral-life-cycle.phage.lysogenic-conversion.c1",
+   "parent": "BB.2B.viral-life-cycle.phage.lysogenic-conversion",
+   "leaf": "BB.2B",
+   "label": "How can a prophage make its bacterial host pathogenic?"
+  },
+  {
+   "id": "BB.2B.viral-life-cycle.latency.c1",
+   "parent": "BB.2B.viral-life-cycle.latency",
+   "leaf": "BB.2B",
+   "label": "What is viral latency?"
+  },
+  {
+   "id": "BB.2B.viral-life-cycle.animal.cytopathic.c1",
+   "parent": "BB.2B.viral-life-cycle.animal.cytopathic",
+   "leaf": "BB.2B",
+   "label": "Name one cytopathic effect of a viral infection."
+  },
+  {
+   "id": "BB.2B.viral-life-cycle.animal.persistent-acute.c1",
+   "parent": "BB.2B.viral-life-cycle.animal.persistent-acute",
+   "leaf": "BB.2B",
+   "label": "How does a persistent infection differ from an acute one?"
+  },
+  {
+   "id": "BB.2B.viral-life-cycle.animal.antigenic-variation.c1",
+   "parent": "BB.2B.viral-life-cycle.animal.antigenic-variation",
+   "leaf": "BB.2B",
+   "label": "How do antigenic drift and antigenic shift differ?"
+  },
+  {
+   "id": "BB.2B.subviral.agents.prion.c1",
+   "parent": "BB.2B.subviral.agents.prion",
+   "leaf": "BB.2B",
+   "label": "What is a prion, and what does it notably lack?"
+  },
+  {
+   "id": "BB.2B.subviral.agents.prion-mechanism.c1",
+   "parent": "BB.2B.subviral.agents.prion-mechanism",
+   "leaf": "BB.2B",
+   "label": "What structural change does a prion induce in normal protein?"
+  },
+  {
+   "id": "BB.2B.subviral.agents.viroid.c1",
+   "parent": "BB.2B.subviral.agents.viroid",
+   "leaf": "BB.2B",
+   "label": "What are viroids made of, and what do they infect?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.phases.interphase.c1",
+   "parent": "BB.2C.cell-cycle.phases.interphase",
+   "leaf": "BB.2C",
+   "label": "Which three phases make up interphase?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.phases.interphase.c2",
+   "parent": "BB.2C.cell-cycle.phases.interphase",
+   "leaf": "BB.2C",
+   "label": "About what fraction of the cell cycle is interphase?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.phases.g1.c1",
+   "parent": "BB.2C.cell-cycle.phases.g1",
+   "leaf": "BB.2C",
+   "label": "What does the cell do during G1 phase?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.phases.g1.c2",
+   "parent": "BB.2C.cell-cycle.phases.g1",
+   "leaf": "BB.2C",
+   "label": "How many chromatids per chromosome are present in G1?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.phases.s.c1",
+   "parent": "BB.2C.cell-cycle.phases.s",
+   "leaf": "BB.2C",
+   "label": "What is produced when DNA replicates during S phase?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.phases.s.c2",
+   "parent": "BB.2C.cell-cycle.phases.s",
+   "leaf": "BB.2C",
+   "label": "How does DNA content change from 2C during S phase?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.phases.g2.c1",
+   "parent": "BB.2C.cell-cycle.phases.g2",
+   "leaf": "BB.2C",
+   "label": "What does the cell prepare during G2 phase?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.phases.g2.c2",
+   "parent": "BB.2C.cell-cycle.phases.g2",
+   "leaf": "BB.2C",
+   "label": "Which structures are duplicated in G2 for mitosis?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.phases.m-phase.c1",
+   "parent": "BB.2C.cell-cycle.phases.m-phase",
+   "leaf": "BB.2C",
+   "label": "What two processes make up M phase?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.phases.m-phase.c2",
+   "parent": "BB.2C.cell-cycle.phases.m-phase",
+   "leaf": "BB.2C",
+   "label": "Which phase is the shortest part of the cell cycle?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.phases.g0.c1",
+   "parent": "BB.2C.cell-cycle.phases.g0",
+   "leaf": "BB.2C",
+   "label": "What is the G0 phase of the cell cycle?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.phases.g0.c2",
+   "parent": "BB.2C.cell-cycle.phases.g0",
+   "leaf": "BB.2C",
+   "label": "Name a cell type that typically resides in G0."
+  },
+  {
+   "id": "BB.2C.cell-cycle.phases.ploidy-tracking.c1",
+   "parent": "BB.2C.cell-cycle.phases.ploidy-tracking",
+   "leaf": "BB.2C",
+   "label": "Does ploidy (N) change during interphase?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.phases.ploidy-tracking.c2",
+   "parent": "BB.2C.cell-cycle.phases.ploidy-tracking",
+   "leaf": "BB.2C",
+   "label": "What is the DNA content (C) after S phase in a 2N cell?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.control.cyclins.c1",
+   "parent": "BB.2C.cell-cycle.control.cyclins",
+   "leaf": "BB.2C",
+   "label": "How does cyclin concentration behave over the cell cycle?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.control.cyclins.c2",
+   "parent": "BB.2C.cell-cycle.control.cyclins",
+   "leaf": "BB.2C",
+   "label": "What do cyclins do to their partner CDKs?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.control.cdks.c1",
+   "parent": "BB.2C.cell-cycle.control.cdks",
+   "leaf": "BB.2C",
+   "label": "Why is a CDK inactive on its own?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.control.cdks.c2",
+   "parent": "BB.2C.cell-cycle.control.cdks",
+   "leaf": "BB.2C",
+   "label": "What do activated CDKs do to target proteins?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.control.cyclin-cdk-complex.c1",
+   "parent": "BB.2C.cell-cycle.control.cyclin-cdk-complex",
+   "leaf": "BB.2C",
+   "label": "What forms when a cyclin binds its CDK?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.control.cyclin-cdk-complex.c2",
+   "parent": "BB.2C.cell-cycle.control.cyclin-cdk-complex",
+   "leaf": "BB.2C",
+   "label": "What does an active cyclin-CDK complex trigger?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.control.cyclin-degradation.c1",
+   "parent": "BB.2C.cell-cycle.control.cyclin-degradation",
+   "leaf": "BB.2C",
+   "label": "How is a cyclin removed to reset the cell cycle?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.control.cdk-inhibitors.c1",
+   "parent": "BB.2C.cell-cycle.control.cdk-inhibitors",
+   "leaf": "BB.2C",
+   "label": "What do CDK inhibitors like p21 do to the cell cycle?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.control.mpf.c1",
+   "parent": "BB.2C.cell-cycle.control.mpf",
+   "leaf": "BB.2C",
+   "label": "What two proteins make up MPF, and what does it trigger?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.control.g1-s-cyclin.c1",
+   "parent": "BB.2C.cell-cycle.control.g1-s-cyclin",
+   "leaf": "BB.2C",
+   "label": "What does G1 cyclin-CDK activity drive the cell to do?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.control.restriction-point.c1",
+   "parent": "BB.2C.cell-cycle.control.restriction-point",
+   "leaf": "BB.2C",
+   "label": "What does passing the restriction point commit a cell to?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.control.growth-factors.c1",
+   "parent": "BB.2C.cell-cycle.control.growth-factors",
+   "leaf": "BB.2C",
+   "label": "How do external growth factors push a cell into the cycle?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.control.density-inhibition-normal.c1",
+   "parent": "BB.2C.cell-cycle.control.density-inhibition-normal",
+   "leaf": "BB.2C",
+   "label": "What makes normal cells stop dividing when crowded?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.control.anchorage-dependence-normal.c1",
+   "parent": "BB.2C.cell-cycle.control.anchorage-dependence-normal",
+   "leaf": "BB.2C",
+   "label": "What must normal cells attach to in order to divide?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.checkpoints.g1-checkpoint.c1",
+   "parent": "BB.2C.cell-cycle.checkpoints.g1-checkpoint",
+   "leaf": "BB.2C",
+   "label": "What does the G1/S checkpoint verify?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.checkpoints.g1-checkpoint.c2",
+   "parent": "BB.2C.cell-cycle.checkpoints.g1-checkpoint",
+   "leaf": "BB.2C",
+   "label": "What is checked before a cell commits to DNA replication?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.checkpoints.g2-checkpoint.c1",
+   "parent": "BB.2C.cell-cycle.checkpoints.g2-checkpoint",
+   "leaf": "BB.2C",
+   "label": "What does the G2/M checkpoint confirm?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.checkpoints.g2-checkpoint.c2",
+   "parent": "BB.2C.cell-cycle.checkpoints.g2-checkpoint",
+   "leaf": "BB.2C",
+   "label": "What must be complete before a cell enters mitosis?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.checkpoints.m-checkpoint.c1",
+   "parent": "BB.2C.cell-cycle.checkpoints.m-checkpoint",
+   "leaf": "BB.2C",
+   "label": "What does the spindle-assembly checkpoint verify?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.checkpoints.m-checkpoint.c2",
+   "parent": "BB.2C.cell-cycle.checkpoints.m-checkpoint",
+   "leaf": "BB.2C",
+   "label": "What must be true of kinetochores before anaphase begins?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.checkpoints.p53.c1",
+   "parent": "BB.2C.cell-cycle.checkpoints.p53",
+   "leaf": "BB.2C",
+   "label": "What does p53 do when it senses DNA damage?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.checkpoints.p53.c2",
+   "parent": "BB.2C.cell-cycle.checkpoints.p53",
+   "leaf": "BB.2C",
+   "label": "Why is p53 called the guardian of the genome?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.checkpoints.rb.c1",
+   "parent": "BB.2C.cell-cycle.checkpoints.rb",
+   "leaf": "BB.2C",
+   "label": "How does Rb restrain the G1/S transition?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.checkpoints.e2f.c1",
+   "parent": "BB.2C.cell-cycle.checkpoints.e2f",
+   "leaf": "BB.2C",
+   "label": "What genes do E2F factors activate when released from Rb?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.checkpoints.dna-damage-response.c1",
+   "parent": "BB.2C.cell-cycle.checkpoints.dna-damage-response",
+   "leaf": "BB.2C",
+   "label": "Why does detected DNA damage halt the cell cycle?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.telomeres.telomere.c1",
+   "parent": "BB.2C.cell-cycle.telomeres.telomere",
+   "leaf": "BB.2C",
+   "label": "What are telomeres, and what do they protect?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.telomeres.shortening.c1",
+   "parent": "BB.2C.cell-cycle.telomeres.shortening",
+   "leaf": "BB.2C",
+   "label": "Why do telomeres shorten with each cell division?"
+  },
+  {
+   "id": "BB.2C.cell-cycle.telomeres.telomerase.c1",
+   "parent": "BB.2C.cell-cycle.telomeres.telomerase",
+   "leaf": "BB.2C",
+   "label": "What does telomerase do, and where is it active?"
+  },
+  {
+   "id": "BB.2C.prokaryotic-division.binary-fission.process.c1",
+   "parent": "BB.2C.prokaryotic-division.binary-fission.process",
+   "leaf": "BB.2C",
+   "label": "What ring protein pinches a bacterium during binary fission?"
+  },
+  {
+   "id": "BB.2C.prokaryotic-division.binary-fission.vs-mitosis.c1",
+   "parent": "BB.2C.prokaryotic-division.binary-fission.vs-mitosis",
+   "leaf": "BB.2C",
+   "label": "Name one feature binary fission lacks compared with mitosis."
+  },
+  {
+   "id": "BB.2C.mitosis.overview.definition.c1",
+   "parent": "BB.2C.mitosis.overview.definition",
+   "leaf": "BB.2C",
+   "label": "What does mitosis produce from one parent nucleus?"
+  },
+  {
+   "id": "BB.2C.mitosis.overview.definition.c2",
+   "parent": "BB.2C.mitosis.overview.definition",
+   "leaf": "BB.2C",
+   "label": "How do the two mitotic daughter nuclei compare genetically?"
+  },
+  {
+   "id": "BB.2C.mitosis.overview.purpose.c1",
+   "parent": "BB.2C.mitosis.overview.purpose",
+   "leaf": "BB.2C",
+   "label": "Name two biological purposes of mitosis."
+  },
+  {
+   "id": "BB.2C.mitosis.overview.somatic-cells.c1",
+   "parent": "BB.2C.mitosis.overview.somatic-cells",
+   "leaf": "BB.2C",
+   "label": "In which cells does mitosis occur versus meiosis?"
+  },
+  {
+   "id": "BB.2C.mitosis.overview.karyokinesis.c1",
+   "parent": "BB.2C.mitosis.overview.karyokinesis",
+   "leaf": "BB.2C",
+   "label": "How does karyokinesis differ from cytokinesis?"
+  },
+  {
+   "id": "BB.2C.mitosis.structures.chromosome.c1",
+   "parent": "BB.2C.mitosis.structures.chromosome",
+   "leaf": "BB.2C",
+   "label": "What are the two identical halves of a replicated chromosome called?"
+  },
+  {
+   "id": "BB.2C.mitosis.structures.chromosome.c2",
+   "parent": "BB.2C.mitosis.structures.chromosome",
+   "leaf": "BB.2C",
+   "label": "Where along the chromosome are sister chromatids joined?"
+  },
+  {
+   "id": "BB.2C.mitosis.structures.centromere.c1",
+   "parent": "BB.2C.mitosis.structures.centromere",
+   "leaf": "BB.2C",
+   "label": "What holds sister chromatids together?"
+  },
+  {
+   "id": "BB.2C.mitosis.structures.centromere.c2",
+   "parent": "BB.2C.mitosis.structures.centromere",
+   "leaf": "BB.2C",
+   "label": "What protein complex assembles on the centromere?"
+  },
+  {
+   "id": "BB.2C.mitosis.structures.cohesin.c1",
+   "parent": "BB.2C.mitosis.structures.cohesin",
+   "leaf": "BB.2C",
+   "label": "What enzyme cleaves cohesin at the metaphase-anaphase transition?"
+  },
+  {
+   "id": "BB.2C.mitosis.structures.kinetochore.c1",
+   "parent": "BB.2C.mitosis.structures.kinetochore",
+   "leaf": "BB.2C",
+   "label": "What attaches to the kinetochore during mitosis?"
+  },
+  {
+   "id": "BB.2C.mitosis.structures.centrosome.c1",
+   "parent": "BB.2C.mitosis.structures.centrosome",
+   "leaf": "BB.2C",
+   "label": "What is the role of the centrosome in mitosis?"
+  },
+  {
+   "id": "BB.2C.mitosis.structures.spindle-apparatus.c1",
+   "parent": "BB.2C.mitosis.structures.spindle-apparatus",
+   "leaf": "BB.2C",
+   "label": "What is the mitotic spindle made of?"
+  },
+  {
+   "id": "BB.2C.mitosis.structures.spindle-apparatus.c2",
+   "parent": "BB.2C.mitosis.structures.spindle-apparatus",
+   "leaf": "BB.2C",
+   "label": "What does the spindle apparatus do to the chromosomes?"
+  },
+  {
+   "id": "BB.2C.mitosis.structures.aster.c1",
+   "parent": "BB.2C.mitosis.structures.aster",
+   "leaf": "BB.2C",
+   "label": "What do astral microtubules do during mitosis?"
+  },
+  {
+   "id": "BB.2C.mitosis.structures.chromatin-condensation.c1",
+   "parent": "BB.2C.mitosis.structures.chromatin-condensation",
+   "leaf": "BB.2C",
+   "label": "Why does chromatin condense at the start of mitosis?"
+  },
+  {
+   "id": "BB.2C.mitosis.phases.prophase.c1",
+   "parent": "BB.2C.mitosis.phases.prophase",
+   "leaf": "BB.2C",
+   "label": "What happens to chromatin during prophase?"
+  },
+  {
+   "id": "BB.2C.mitosis.phases.prophase.c2",
+   "parent": "BB.2C.mitosis.phases.prophase",
+   "leaf": "BB.2C",
+   "label": "Where do the centrosomes move during prophase?"
+  },
+  {
+   "id": "BB.2C.mitosis.phases.prometaphase.c1",
+   "parent": "BB.2C.mitosis.phases.prometaphase",
+   "leaf": "BB.2C",
+   "label": "What breaks down during prometaphase?"
+  },
+  {
+   "id": "BB.2C.mitosis.phases.metaphase.c1",
+   "parent": "BB.2C.mitosis.phases.metaphase",
+   "leaf": "BB.2C",
+   "label": "Where do chromosomes align during metaphase?"
+  },
+  {
+   "id": "BB.2C.mitosis.phases.metaphase.c2",
+   "parent": "BB.2C.mitosis.phases.metaphase",
+   "leaf": "BB.2C",
+   "label": "How are sister chromatids oriented at the metaphase plate?"
+  },
+  {
+   "id": "BB.2C.mitosis.phases.anaphase.c1",
+   "parent": "BB.2C.mitosis.phases.anaphase",
+   "leaf": "BB.2C",
+   "label": "What separates and moves to the poles during anaphase?"
+  },
+  {
+   "id": "BB.2C.mitosis.phases.anaphase.c2",
+   "parent": "BB.2C.mitosis.phases.anaphase",
+   "leaf": "BB.2C",
+   "label": "What happens to centromeres at the onset of anaphase?"
+  },
+  {
+   "id": "BB.2C.mitosis.phases.telophase.c1",
+   "parent": "BB.2C.mitosis.phases.telophase",
+   "leaf": "BB.2C",
+   "label": "What reforms around the chromosomes during telophase?"
+  },
+  {
+   "id": "BB.2C.mitosis.phases.telophase.c2",
+   "parent": "BB.2C.mitosis.phases.telophase",
+   "leaf": "BB.2C",
+   "label": "What happens to the spindle during telophase?"
+  },
+  {
+   "id": "BB.2C.mitosis.phases.cytokinesis.c1",
+   "parent": "BB.2C.mitosis.phases.cytokinesis",
+   "leaf": "BB.2C",
+   "label": "What is divided during cytokinesis?"
+  },
+  {
+   "id": "BB.2C.mitosis.phases.cytokinesis.c2",
+   "parent": "BB.2C.mitosis.phases.cytokinesis",
+   "leaf": "BB.2C",
+   "label": "What structure splits an animal cell during cytokinesis?"
+  },
+  {
+   "id": "BB.2C.mitosis.phases.cleavage-furrow.c1",
+   "parent": "BB.2C.mitosis.phases.cleavage-furrow",
+   "leaf": "BB.2C",
+   "label": "How does plant cytokinesis differ from animal cytokinesis?"
+  },
+  {
+   "id": "BB.2C.mitosis.phases.chromosome-movement.c1",
+   "parent": "BB.2C.mitosis.phases.chromosome-movement",
+   "leaf": "BB.2C",
+   "label": "How do kinetochore microtubules move chromatids in anaphase?"
+  },
+  {
+   "id": "BB.2C.meiosis.overview.definition.c1",
+   "parent": "BB.2C.meiosis.overview.definition",
+   "leaf": "BB.2C",
+   "label": "How many gametes does meiosis produce, and of what ploidy?"
+  },
+  {
+   "id": "BB.2C.meiosis.overview.definition.c2",
+   "parent": "BB.2C.meiosis.overview.definition",
+   "leaf": "BB.2C",
+   "label": "How do meiotic products compare genetically to the parent?"
+  },
+  {
+   "id": "BB.2C.meiosis.overview.reductional-division.c1",
+   "parent": "BB.2C.meiosis.overview.reductional-division",
+   "leaf": "BB.2C",
+   "label": "What separates in meiosis I versus meiosis II?"
+  },
+  {
+   "id": "BB.2C.meiosis.overview.reductional-division.c2",
+   "parent": "BB.2C.meiosis.overview.reductional-division",
+   "leaf": "BB.2C",
+   "label": "Which meiotic division is the reductional one?"
+  },
+  {
+   "id": "BB.2C.meiosis.overview.homologous-chromosomes.c1",
+   "parent": "BB.2C.meiosis.overview.homologous-chromosomes",
+   "leaf": "BB.2C",
+   "label": "What are homologous chromosomes?"
+  },
+  {
+   "id": "BB.2C.meiosis.overview.homologous-chromosomes.c2",
+   "parent": "BB.2C.meiosis.overview.homologous-chromosomes",
+   "leaf": "BB.2C",
+   "label": "Do homologous chromosomes carry identical alleles?"
+  },
+  {
+   "id": "BB.2C.meiosis.overview.diploid-haploid.c1",
+   "parent": "BB.2C.meiosis.overview.diploid-haploid",
+   "leaf": "BB.2C",
+   "label": "How many chromosome sets in a diploid versus haploid cell?"
+  },
+  {
+   "id": "BB.2C.meiosis.overview.diploid-haploid.c2",
+   "parent": "BB.2C.meiosis.overview.diploid-haploid",
+   "leaf": "BB.2C",
+   "label": "What restores diploidy after haploid gametes form?"
+  },
+  {
+   "id": "BB.2C.meiosis.overview.single-replication.c1",
+   "parent": "BB.2C.meiosis.overview.single-replication",
+   "leaf": "BB.2C",
+   "label": "How many DNA replications precede the two meiotic divisions?"
+  },
+  {
+   "id": "BB.2C.meiosis.overview.single-replication.c2",
+   "parent": "BB.2C.meiosis.overview.single-replication",
+   "leaf": "BB.2C",
+   "label": "Why is chromosome number halved by the end of meiosis?"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-i.prophase-i.c1",
+   "parent": "BB.2C.meiosis.meiosis-i.prophase-i",
+   "leaf": "BB.2C",
+   "label": "What pairs up during prophase I?"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-i.prophase-i.c2",
+   "parent": "BB.2C.meiosis.meiosis-i.prophase-i",
+   "leaf": "BB.2C",
+   "label": "What key genetic event occurs during prophase I?"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-i.synapsis.c1",
+   "parent": "BB.2C.meiosis.meiosis-i.synapsis",
+   "leaf": "BB.2C",
+   "label": "What protein complex holds homologs together during synapsis?"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-i.tetrad.c1",
+   "parent": "BB.2C.meiosis.meiosis-i.tetrad",
+   "leaf": "BB.2C",
+   "label": "How many chromatids make up a tetrad?"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-i.tetrad.c2",
+   "parent": "BB.2C.meiosis.meiosis-i.tetrad",
+   "leaf": "BB.2C",
+   "label": "What is a tetrad (bivalent)?"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-i.crossing-over.c1",
+   "parent": "BB.2C.meiosis.meiosis-i.crossing-over",
+   "leaf": "BB.2C",
+   "label": "What is physically exchanged during crossing over?"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-i.crossing-over.c2",
+   "parent": "BB.2C.meiosis.meiosis-i.crossing-over",
+   "leaf": "BB.2C",
+   "label": "Between which chromatids does crossing over occur?"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-i.chiasma.c1",
+   "parent": "BB.2C.meiosis.meiosis-i.chiasma",
+   "leaf": "BB.2C",
+   "label": "What is a chiasma?"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-i.metaphase-i.c1",
+   "parent": "BB.2C.meiosis.meiosis-i.metaphase-i",
+   "leaf": "BB.2C",
+   "label": "What structures align at the plate during metaphase I?"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-i.metaphase-i.c2",
+   "parent": "BB.2C.meiosis.meiosis-i.metaphase-i",
+   "leaf": "BB.2C",
+   "label": "How do homologs orient toward the poles at metaphase I?"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-i.independent-assortment.c1",
+   "parent": "BB.2C.meiosis.meiosis-i.independent-assortment",
+   "leaf": "BB.2C",
+   "label": "What is independently assorted during metaphase I?"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-i.independent-assortment.c2",
+   "parent": "BB.2C.meiosis.meiosis-i.independent-assortment",
+   "leaf": "BB.2C",
+   "label": "How many combinations arise from independent assortment of n pairs?"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-i.anaphase-i.c1",
+   "parent": "BB.2C.meiosis.meiosis-i.anaphase-i",
+   "leaf": "BB.2C",
+   "label": "What separates to the poles during anaphase I?"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-i.anaphase-i.c2",
+   "parent": "BB.2C.meiosis.meiosis-i.anaphase-i",
+   "leaf": "BB.2C",
+   "label": "Do sister chromatids separate during anaphase I?"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-i.telophase-i.c1",
+   "parent": "BB.2C.meiosis.meiosis-i.telophase-i",
+   "leaf": "BB.2C",
+   "label": "What is the ploidy and chromatid state of cells after telophase I?"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-ii.no-replication.c1",
+   "parent": "BB.2C.meiosis.meiosis-ii.no-replication",
+   "leaf": "BB.2C",
+   "label": "Is there DNA replication between meiosis I and meiosis II?"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-ii.no-replication.c2",
+   "parent": "BB.2C.meiosis.meiosis-ii.no-replication",
+   "leaf": "BB.2C",
+   "label": "What state are cells in at the start of meiosis II?"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-ii.prophase-ii.c1",
+   "parent": "BB.2C.meiosis.meiosis-ii.prophase-ii",
+   "leaf": "BB.2C",
+   "label": "What forms in prophase II, and what does not occur?"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-ii.metaphase-ii.c1",
+   "parent": "BB.2C.meiosis.meiosis-ii.metaphase-ii",
+   "leaf": "BB.2C",
+   "label": "What aligns at the metaphase plate during metaphase II?"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-ii.anaphase-ii.c1",
+   "parent": "BB.2C.meiosis.meiosis-ii.anaphase-ii",
+   "leaf": "BB.2C",
+   "label": "What separates to the poles during anaphase II?"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-ii.anaphase-ii.c2",
+   "parent": "BB.2C.meiosis.meiosis-ii.anaphase-ii",
+   "leaf": "BB.2C",
+   "label": "How is anaphase II similar to mitotic anaphase?"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-ii.telophase-ii.c1",
+   "parent": "BB.2C.meiosis.meiosis-ii.telophase-ii",
+   "leaf": "BB.2C",
+   "label": "How many cells result after telophase II completes?"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-ii.four-gametes.c1",
+   "parent": "BB.2C.meiosis.meiosis-ii.four-gametes",
+   "leaf": "BB.2C",
+   "label": "What does meiosis II ultimately produce?"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-ii.four-gametes.c2",
+   "parent": "BB.2C.meiosis.meiosis-ii.four-gametes",
+   "leaf": "BB.2C",
+   "label": "What is the chromatid state of the final meiotic products?"
+  },
+  {
+   "id": "BB.2C.meiosis.variation.recombination-source.c1",
+   "parent": "BB.2C.meiosis.variation.recombination-source",
+   "leaf": "BB.2C",
+   "label": "How does crossing over increase genetic variation?"
+  },
+  {
+   "id": "BB.2C.meiosis.variation.assortment-source.c1",
+   "parent": "BB.2C.meiosis.variation.assortment-source",
+   "leaf": "BB.2C",
+   "label": "How many gamete combinations does independent assortment give in humans?"
+  },
+  {
+   "id": "BB.2C.meiosis.variation.random-fertilization.c1",
+   "parent": "BB.2C.meiosis.variation.random-fertilization",
+   "leaf": "BB.2C",
+   "label": "How does random fertilization add to genetic diversity?"
+  },
+  {
+   "id": "BB.2C.meiosis.errors.nondisjunction.c1",
+   "parent": "BB.2C.meiosis.errors.nondisjunction",
+   "leaf": "BB.2C",
+   "label": "What is nondisjunction, and when can it occur?"
+  },
+  {
+   "id": "BB.2C.meiosis.errors.aneuploidy.c1",
+   "parent": "BB.2C.meiosis.errors.aneuploidy",
+   "leaf": "BB.2C",
+   "label": "What is an example of aneuploidy caused by nondisjunction?"
+  },
+  {
+   "id": "BB.2C.meiosis.comparison.key-differences.c1",
+   "parent": "BB.2C.meiosis.comparison.key-differences",
+   "leaf": "BB.2C",
+   "label": "How do mitosis and meiosis differ in divisions and products?"
+  },
+  {
+   "id": "BB.2C.meiosis.comparison.key-differences.c2",
+   "parent": "BB.2C.meiosis.comparison.key-differences",
+   "leaf": "BB.2C",
+   "label": "Which process uniquely involves synapsis and crossing over?"
+  },
+  {
+   "id": "BB.2C.meiosis.comparison.metaphase-alignment.c1",
+   "parent": "BB.2C.meiosis.comparison.metaphase-alignment",
+   "leaf": "BB.2C",
+   "label": "How does metaphase I alignment differ from mitotic metaphase?"
+  },
+  {
+   "id": "BB.2C.gametogenesis.spermatogenesis.process.c1",
+   "parent": "BB.2C.gametogenesis.spermatogenesis.process",
+   "leaf": "BB.2C",
+   "label": "How many functional sperm arise from one spermatogonium?"
+  },
+  {
+   "id": "BB.2C.gametogenesis.spermatogenesis.stages.c1",
+   "parent": "BB.2C.gametogenesis.spermatogenesis.stages",
+   "leaf": "BB.2C",
+   "label": "What is the cell-stage sequence of spermatogenesis?"
+  },
+  {
+   "id": "BB.2C.gametogenesis.spermatogenesis.spermiogenesis.c1",
+   "parent": "BB.2C.gametogenesis.spermatogenesis.spermiogenesis",
+   "leaf": "BB.2C",
+   "label": "What changes convert a spermatid into a spermatozoon?"
+  },
+  {
+   "id": "BB.2C.gametogenesis.oogenesis.process.c1",
+   "parent": "BB.2C.gametogenesis.oogenesis.process",
+   "leaf": "BB.2C",
+   "label": "What does oogenesis produce besides one functional ovum?"
+  },
+  {
+   "id": "BB.2C.gametogenesis.oogenesis.stages.c1",
+   "parent": "BB.2C.gametogenesis.oogenesis.stages",
+   "leaf": "BB.2C",
+   "label": "What is the cell-stage sequence of oogenesis?"
+  },
+  {
+   "id": "BB.2C.gametogenesis.oogenesis.arrest.c1",
+   "parent": "BB.2C.gametogenesis.oogenesis.arrest",
+   "leaf": "BB.2C",
+   "label": "At what meiotic stage do primary oocytes arrest?"
+  },
+  {
+   "id": "BB.2C.gametogenesis.oogenesis.polar-body.c1",
+   "parent": "BB.2C.gametogenesis.oogenesis.polar-body",
+   "leaf": "BB.2C",
+   "label": "What is the function of polar bodies in oogenesis?"
+  },
+  {
+   "id": "BB.2C.gametogenesis.comparison.key-differences.c1",
+   "parent": "BB.2C.gametogenesis.comparison.key-differences",
+   "leaf": "BB.2C",
+   "label": "How do spermatogenesis and oogenesis differ in product number?"
+  },
+  {
+   "id": "BB.2C.differentiation.basis.differential-expression.c1",
+   "parent": "BB.2C.differentiation.basis.differential-expression",
+   "leaf": "BB.2C",
+   "label": "Why do specialized cells differ if they share one genome?"
+  },
+  {
+   "id": "BB.2C.differentiation.basis.differential-expression.c2",
+   "parent": "BB.2C.differentiation.basis.differential-expression",
+   "leaf": "BB.2C",
+   "label": "What is differential gene expression?"
+  },
+  {
+   "id": "BB.2C.differentiation.basis.genomic-equivalence.c1",
+   "parent": "BB.2C.differentiation.basis.genomic-equivalence",
+   "leaf": "BB.2C",
+   "label": "What does cloning show about differentiated cell nuclei?"
+  },
+  {
+   "id": "BB.2C.differentiation.basis.epigenetics.c1",
+   "parent": "BB.2C.differentiation.basis.epigenetics",
+   "leaf": "BB.2C",
+   "label": "Name two epigenetic modifications that lock in cell fate."
+  },
+  {
+   "id": "BB.2C.differentiation.basis.determination.c1",
+   "parent": "BB.2C.differentiation.basis.determination",
+   "leaf": "BB.2C",
+   "label": "How does determination relate to differentiation?"
+  },
+  {
+   "id": "BB.2C.differentiation.potency.totipotent.c1",
+   "parent": "BB.2C.differentiation.potency.totipotent",
+   "leaf": "BB.2C",
+   "label": "What can a totipotent cell give rise to?"
+  },
+  {
+   "id": "BB.2C.differentiation.potency.totipotent.c2",
+   "parent": "BB.2C.differentiation.potency.totipotent",
+   "leaf": "BB.2C",
+   "label": "Give an example of a totipotent cell."
+  },
+  {
+   "id": "BB.2C.differentiation.potency.pluripotent.c1",
+   "parent": "BB.2C.differentiation.potency.pluripotent",
+   "leaf": "BB.2C",
+   "label": "What can a pluripotent cell become?"
+  },
+  {
+   "id": "BB.2C.differentiation.potency.pluripotent.c2",
+   "parent": "BB.2C.differentiation.potency.pluripotent",
+   "leaf": "BB.2C",
+   "label": "What can pluripotent cells not form?"
+  },
+  {
+   "id": "BB.2C.differentiation.potency.multipotent.c1",
+   "parent": "BB.2C.differentiation.potency.multipotent",
+   "leaf": "BB.2C",
+   "label": "What is the potency range of a multipotent cell?"
+  },
+  {
+   "id": "BB.2C.differentiation.potency.multipotent.c2",
+   "parent": "BB.2C.differentiation.potency.multipotent",
+   "leaf": "BB.2C",
+   "label": "Give an example of a multipotent stem cell."
+  },
+  {
+   "id": "BB.2C.differentiation.potency.unipotent.c1",
+   "parent": "BB.2C.differentiation.potency.unipotent",
+   "leaf": "BB.2C",
+   "label": "What can a unipotent cell produce?"
+  },
+  {
+   "id": "BB.2C.differentiation.potency.potency-decline.c1",
+   "parent": "BB.2C.differentiation.potency.potency-decline",
+   "leaf": "BB.2C",
+   "label": "How does cell potency change as development proceeds?"
+  },
+  {
+   "id": "BB.2C.differentiation.signaling.cytoplasmic-determinants.c1",
+   "parent": "BB.2C.differentiation.signaling.cytoplasmic-determinants",
+   "leaf": "BB.2C",
+   "label": "How do maternal cytoplasmic determinants influence cell fate?"
+  },
+  {
+   "id": "BB.2C.differentiation.signaling.induction.c1",
+   "parent": "BB.2C.differentiation.signaling.induction",
+   "leaf": "BB.2C",
+   "label": "What is induction in development?"
+  },
+  {
+   "id": "BB.2C.differentiation.signaling.induction.c2",
+   "parent": "BB.2C.differentiation.signaling.induction",
+   "leaf": "BB.2C",
+   "label": "How does one cell group influence a neighbor's fate?"
+  },
+  {
+   "id": "BB.2C.differentiation.signaling.morphogen-gradient.c1",
+   "parent": "BB.2C.differentiation.signaling.morphogen-gradient",
+   "leaf": "BB.2C",
+   "label": "How does a morphogen gradient assign different cell fates?"
+  },
+  {
+   "id": "BB.2C.differentiation.signaling.master-genes.c1",
+   "parent": "BB.2C.differentiation.signaling.master-genes",
+   "leaf": "BB.2C",
+   "label": "What do homeotic (Hox) genes control in development?"
+  },
+  {
+   "id": "BB.2C.differentiation.signaling.transcription-factors.c1",
+   "parent": "BB.2C.differentiation.signaling.transcription-factors",
+   "leaf": "BB.2C",
+   "label": "How do tissue-specific transcription factors drive differentiation?"
+  },
+  {
+   "id": "BB.2C.differentiation.signaling.apoptosis-patterning.c1",
+   "parent": "BB.2C.differentiation.signaling.apoptosis-patterning",
+   "leaf": "BB.2C",
+   "label": "Give an example of apoptosis shaping a developing structure."
+  },
+  {
+   "id": "BB.2C.stem-cells.properties.self-renewal.c1",
+   "parent": "BB.2C.stem-cells.properties.self-renewal",
+   "leaf": "BB.2C",
+   "label": "What does self-renewal mean for a stem cell?"
+  },
+  {
+   "id": "BB.2C.stem-cells.properties.self-renewal.c2",
+   "parent": "BB.2C.stem-cells.properties.self-renewal",
+   "leaf": "BB.2C",
+   "label": "How can a stem cell divide yet stay undifferentiated?"
+  },
+  {
+   "id": "BB.2C.stem-cells.properties.potency.c1",
+   "parent": "BB.2C.stem-cells.properties.potency",
+   "leaf": "BB.2C",
+   "label": "What is a stem cell's second defining property besides self-renewal?"
+  },
+  {
+   "id": "BB.2C.stem-cells.properties.asymmetric-division.c1",
+   "parent": "BB.2C.stem-cells.properties.asymmetric-division",
+   "leaf": "BB.2C",
+   "label": "What two daughters result from asymmetric stem-cell division?"
+  },
+  {
+   "id": "BB.2C.stem-cells.properties.niche.c1",
+   "parent": "BB.2C.stem-cells.properties.niche",
+   "leaf": "BB.2C",
+   "label": "What is the stem cell niche?"
+  },
+  {
+   "id": "BB.2C.stem-cells.types.embryonic.c1",
+   "parent": "BB.2C.stem-cells.types.embryonic",
+   "leaf": "BB.2C",
+   "label": "Where do embryonic stem cells come from?"
+  },
+  {
+   "id": "BB.2C.stem-cells.types.embryonic.c2",
+   "parent": "BB.2C.stem-cells.types.embryonic",
+   "leaf": "BB.2C",
+   "label": "What is the potency of embryonic stem cells?"
+  },
+  {
+   "id": "BB.2C.stem-cells.types.adult.c1",
+   "parent": "BB.2C.stem-cells.types.adult",
+   "leaf": "BB.2C",
+   "label": "What is the typical potency of adult (somatic) stem cells?"
+  },
+  {
+   "id": "BB.2C.stem-cells.types.ipsc.c1",
+   "parent": "BB.2C.stem-cells.types.ipsc",
+   "leaf": "BB.2C",
+   "label": "How are iPSCs created from differentiated cells?"
+  },
+  {
+   "id": "BB.2C.stem-cells.types.hematopoietic.c1",
+   "parent": "BB.2C.stem-cells.types.hematopoietic",
+   "leaf": "BB.2C",
+   "label": "What do hematopoietic stem cells give rise to?"
+  },
+  {
+   "id": "BB.2C.stem-cells.regeneration.tissue-renewal.c1",
+   "parent": "BB.2C.stem-cells.regeneration.tissue-renewal",
+   "leaf": "BB.2C",
+   "label": "Name a tissue continually renewed by resident stem cells."
+  },
+  {
+   "id": "BB.2C.stem-cells.regeneration.therapeutic.c1",
+   "parent": "BB.2C.stem-cells.regeneration.therapeutic",
+   "leaf": "BB.2C",
+   "label": "Give an example of a stem-cell-based therapy."
+  },
+  {
+   "id": "BB.2C.specialization.germ-layers.ectoderm.c1",
+   "parent": "BB.2C.specialization.germ-layers.ectoderm",
+   "leaf": "BB.2C",
+   "label": "What major structures does ectoderm form?"
+  },
+  {
+   "id": "BB.2C.specialization.germ-layers.mesoderm.c1",
+   "parent": "BB.2C.specialization.germ-layers.mesoderm",
+   "leaf": "BB.2C",
+   "label": "What tissues and systems arise from mesoderm?"
+  },
+  {
+   "id": "BB.2C.specialization.germ-layers.endoderm.c1",
+   "parent": "BB.2C.specialization.germ-layers.endoderm",
+   "leaf": "BB.2C",
+   "label": "What linings and organs does endoderm form?"
+  },
+  {
+   "id": "BB.2C.specialization.tissues.epithelial.c1",
+   "parent": "BB.2C.specialization.tissues.epithelial",
+   "leaf": "BB.2C",
+   "label": "What roles does epithelial tissue perform?"
+  },
+  {
+   "id": "BB.2C.specialization.tissues.connective.c1",
+   "parent": "BB.2C.specialization.tissues.connective",
+   "leaf": "BB.2C",
+   "label": "What is the role of connective tissue in the body?"
+  },
+  {
+   "id": "BB.2C.specialization.tissues.muscle.c1",
+   "parent": "BB.2C.specialization.tissues.muscle",
+   "leaf": "BB.2C",
+   "label": "What is muscle tissue specialized for?"
+  },
+  {
+   "id": "BB.2C.specialization.tissues.nervous.c1",
+   "parent": "BB.2C.specialization.tissues.nervous",
+   "leaf": "BB.2C",
+   "label": "What is nervous tissue specialized for?"
+  },
+  {
+   "id": "BB.2C.specialization.extracellular-matrix.ecm.c1",
+   "parent": "BB.2C.specialization.extracellular-matrix.ecm",
+   "leaf": "BB.2C",
+   "label": "What is the extracellular matrix made of?"
+  },
+  {
+   "id": "BB.2C.specialization.extracellular-matrix.integrins.c1",
+   "parent": "BB.2C.specialization.extracellular-matrix.integrins",
+   "leaf": "BB.2C",
+   "label": "What do integrins anchor cells to?"
+  },
+  {
+   "id": "BB.2C.specialization.communication.tight-junctions.c1",
+   "parent": "BB.2C.specialization.communication.tight-junctions",
+   "leaf": "BB.2C",
+   "label": "What do tight junctions seal, and what epithelial property do they maintain?"
+  },
+  {
+   "id": "BB.2C.specialization.communication.desmosomes.c1",
+   "parent": "BB.2C.specialization.communication.desmosomes",
+   "leaf": "BB.2C",
+   "label": "What do desmosomes provide between adjacent cells?"
+  },
+  {
+   "id": "BB.2C.specialization.communication.adherens-junctions.c1",
+   "parent": "BB.2C.specialization.communication.adherens-junctions",
+   "leaf": "BB.2C",
+   "label": "What cytoskeletal element links to an adherens junction?"
+  },
+  {
+   "id": "BB.2C.specialization.communication.gap-junctions.c1",
+   "parent": "BB.2C.specialization.communication.gap-junctions",
+   "leaf": "BB.2C",
+   "label": "What passes through gap junctions between adjacent cells?"
+  },
+  {
+   "id": "BB.2C.specialization.communication.plasmodesmata.c1",
+   "parent": "BB.2C.specialization.communication.plasmodesmata",
+   "leaf": "BB.2C",
+   "label": "What connects adjacent plant cells like gap junctions?"
+  },
+  {
+   "id": "BB.2C.specialization.communication.signaling-modes.c1",
+   "parent": "BB.2C.specialization.communication.signaling-modes",
+   "leaf": "BB.2C",
+   "label": "Name the four modes of intercellular signaling."
+  },
+  {
+   "id": "BB.2C.cell-death.apoptosis.definition.c1",
+   "parent": "BB.2C.cell-death.apoptosis.definition",
+   "leaf": "BB.2C",
+   "label": "Name two morphological features of apoptosis."
+  },
+  {
+   "id": "BB.2C.cell-death.apoptosis.definition.c2",
+   "parent": "BB.2C.cell-death.apoptosis.definition",
+   "leaf": "BB.2C",
+   "label": "What is apoptosis?"
+  },
+  {
+   "id": "BB.2C.cell-death.apoptosis.apoptotic-bodies.c1",
+   "parent": "BB.2C.cell-death.apoptosis.apoptotic-bodies",
+   "leaf": "BB.2C",
+   "label": "What happens to apoptotic bodies, and why is there no inflammation?"
+  },
+  {
+   "id": "BB.2C.cell-death.apoptosis.caspases.c1",
+   "parent": "BB.2C.cell-death.apoptosis.caspases",
+   "leaf": "BB.2C",
+   "label": "What are caspases, and what do they do in apoptosis?"
+  },
+  {
+   "id": "BB.2C.cell-death.apoptosis.intrinsic-pathway.c1",
+   "parent": "BB.2C.cell-death.apoptosis.intrinsic-pathway",
+   "leaf": "BB.2C",
+   "label": "What do mitochondria release in the intrinsic apoptosis pathway?"
+  },
+  {
+   "id": "BB.2C.cell-death.apoptosis.extrinsic-pathway.c1",
+   "parent": "BB.2C.cell-death.apoptosis.extrinsic-pathway",
+   "leaf": "BB.2C",
+   "label": "What triggers the extrinsic apoptosis pathway?"
+  },
+  {
+   "id": "BB.2C.cell-death.apoptosis.bcl2.c1",
+   "parent": "BB.2C.cell-death.apoptosis.bcl2",
+   "leaf": "BB.2C",
+   "label": "What do Bcl-2 family proteins regulate in apoptosis?"
+  },
+  {
+   "id": "BB.2C.cell-death.apoptosis.developmental-role.c1",
+   "parent": "BB.2C.cell-death.apoptosis.developmental-role",
+   "leaf": "BB.2C",
+   "label": "Give an example of apoptosis in normal development."
+  },
+  {
+   "id": "BB.2C.cell-death.necrosis.definition.c1",
+   "parent": "BB.2C.cell-death.necrosis.definition",
+   "leaf": "BB.2C",
+   "label": "How does necrosis differ from apoptosis?"
+  },
+  {
+   "id": "BB.2C.cancer.dysregulation.oncogenes.c1",
+   "parent": "BB.2C.cancer.dysregulation.oncogenes",
+   "leaf": "BB.2C",
+   "label": "How does a proto-oncogene become an oncogene?"
+  },
+  {
+   "id": "BB.2C.cancer.dysregulation.oncogenes.c2",
+   "parent": "BB.2C.cancer.dysregulation.oncogenes",
+   "leaf": "BB.2C",
+   "label": "What do oncogenes do to cell division?"
+  },
+  {
+   "id": "BB.2C.cancer.dysregulation.ras.c1",
+   "parent": "BB.2C.cancer.dysregulation.ras",
+   "leaf": "BB.2C",
+   "label": "How does a constitutively active Ras promote cancer?"
+  },
+  {
+   "id": "BB.2C.cancer.dysregulation.tumor-suppressors.c1",
+   "parent": "BB.2C.cancer.dysregulation.tumor-suppressors",
+   "leaf": "BB.2C",
+   "label": "What do tumor suppressor genes normally do?"
+  },
+  {
+   "id": "BB.2C.cancer.dysregulation.tumor-suppressors.c2",
+   "parent": "BB.2C.cancer.dysregulation.tumor-suppressors",
+   "leaf": "BB.2C",
+   "label": "Name two tumor suppressor genes."
+  },
+  {
+   "id": "BB.2C.cancer.dysregulation.two-hit.c1",
+   "parent": "BB.2C.cancer.dysregulation.two-hit",
+   "leaf": "BB.2C",
+   "label": "What does the two-hit hypothesis say about tumor suppressors?"
+  },
+  {
+   "id": "BB.2C.cancer.dysregulation.loss-of-control.c1",
+   "parent": "BB.2C.cancer.dysregulation.loss-of-control",
+   "leaf": "BB.2C",
+   "label": "What normal controls do cancer cells ignore?"
+  },
+  {
+   "id": "BB.2C.cancer.dysregulation.loss-of-control.c2",
+   "parent": "BB.2C.cancer.dysregulation.loss-of-control",
+   "leaf": "BB.2C",
+   "label": "Why do cancer cells divide without restraint?"
+  },
+  {
+   "id": "BB.2C.cancer.properties.growth-factor-independence.c1",
+   "parent": "BB.2C.cancer.properties.growth-factor-independence",
+   "leaf": "BB.2C",
+   "label": "How do cancer cells divide without external growth factors?"
+  },
+  {
+   "id": "BB.2C.cancer.properties.density-dependent.c1",
+   "parent": "BB.2C.cancer.properties.density-dependent",
+   "leaf": "BB.2C",
+   "label": "How does loss of contact inhibition affect cancer cells?"
+  },
+  {
+   "id": "BB.2C.cancer.properties.anchorage-independence.c1",
+   "parent": "BB.2C.cancer.properties.anchorage-independence",
+   "leaf": "BB.2C",
+   "label": "How does anchorage independence differ from normal cells?"
+  },
+  {
+   "id": "BB.2C.cancer.properties.immortality.c1",
+   "parent": "BB.2C.cancer.properties.immortality",
+   "leaf": "BB.2C",
+   "label": "How do cancer cells achieve replicative immortality?"
+  },
+  {
+   "id": "BB.2C.cancer.properties.angiogenesis.c1",
+   "parent": "BB.2C.cancer.properties.angiogenesis",
+   "leaf": "BB.2C",
+   "label": "Why do tumors induce angiogenesis?"
+  },
+  {
+   "id": "BB.2C.cancer.properties.benign-malignant.c1",
+   "parent": "BB.2C.cancer.properties.benign-malignant",
+   "leaf": "BB.2C",
+   "label": "How do benign and malignant tumors differ?"
+  },
+  {
+   "id": "BB.2C.cancer.properties.metastasis.c1",
+   "parent": "BB.2C.cancer.properties.metastasis",
+   "leaf": "BB.2C",
+   "label": "What is metastasis?"
+  },
+  {
+   "id": "BB.2C.cancer.properties.evade-apoptosis.c1",
+   "parent": "BB.2C.cancer.properties.evade-apoptosis",
+   "leaf": "BB.2C",
+   "label": "How does evading apoptosis help cancer cells survive?"
+  }
+ ]
+}

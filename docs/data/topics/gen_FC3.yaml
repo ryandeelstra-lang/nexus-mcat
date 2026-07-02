@@ -1,0 +1,238 @@
+fc: "FC3"
+section: "B-B"
+categories:
+  - id: "BB.3A"
+    name: "Structure and functions of the nervous and endocrine systems and ways these systems coordinate the organ systems"
+    topics:
+      - id: "BB.3A.T01"
+        name: "Nervous System Organization"
+        subtopics:
+          - { id: "BB.3A.T01.S01", name: "Central and Peripheral Nervous Systems" }
+          - { id: "BB.3A.T01.S02", name: "Somatic and Autonomic Divisions" }
+          - { id: "BB.3A.T01.S03", name: "Sensory Motor and Interneurons" }
+          - { id: "BB.3A.T01.S04", name: "Major Functions and Adaptive Control" }
+      - id: "BB.3A.T02"
+        name: "Neuron Structure and Glia"
+        subtopics:
+          - { id: "BB.3A.T02.S01", name: "Cell Body Dendrites and Axon" }
+          - { id: "BB.3A.T02.S02", name: "Myelin Sheath and Schwann Cells" }
+          - { id: "BB.3A.T02.S03", name: "Nodes of Ranvier" }
+          - { id: "BB.3A.T02.S04", name: "Glial Cells and Neuroglia" }
+      - id: "BB.3A.T03"
+        name: "Resting Membrane Potential"
+        subtopics:
+          - { id: "BB.3A.T03.S01", name: "Electrochemical Gradient" }
+          - { id: "BB.3A.T03.S02", name: "Sodium-Potassium Pump" }
+          - { id: "BB.3A.T03.S03", name: "Ion Channels and Selective Permeability" }
+      - id: "BB.3A.T04"
+        name: "Action Potential"
+        subtopics:
+          - { id: "BB.3A.T04.S01", name: "Threshold and All-or-None Response" }
+          - { id: "BB.3A.T04.S02", name: "Depolarization and Repolarization" }
+          - { id: "BB.3A.T04.S03", name: "Voltage-Gated Ion Channels" }
+          - { id: "BB.3A.T04.S04", name: "Saltatory Conduction and Propagation" }
+          - { id: "BB.3A.T04.S05", name: "Refractory Periods" }
+      - id: "BB.3A.T05"
+        name: "Synaptic Transmission"
+        subtopics:
+          - { id: "BB.3A.T05.S01", name: "Chemical Synapse and Neurotransmitter Release" }
+          - { id: "BB.3A.T05.S02", name: "Neurotransmitters and Receptors" }
+          - { id: "BB.3A.T05.S03", name: "Excitatory and Inhibitory Signals" }
+          - { id: "BB.3A.T05.S04", name: "Summation and Frequency of Firing" }
+      - id: "BB.3A.T06"
+        name: "Reflexes and Neural Circuits"
+        subtopics:
+          - { id: "BB.3A.T06.S01", name: "Reflex Arc and Feedback Loop" }
+          - { id: "BB.3A.T06.S02", name: "Role of the Spinal Cord" }
+          - { id: "BB.3A.T06.S03", name: "Supraspinal Circuits" }
+      - id: "BB.3A.T07"
+        name: "Autonomic Nervous System"
+        subtopics:
+          - { id: "BB.3A.T07.S01", name: "Sympathetic Nervous System" }
+          - { id: "BB.3A.T07.S02", name: "Parasympathetic Nervous System" }
+          - { id: "BB.3A.T07.S03", name: "Antagonistic Control" }
+      - id: "BB.3A.T08"
+        name: "Endocrine Glands and Hormones"
+        subtopics:
+          - { id: "BB.3A.T08.S01", name: "Endocrine Glands and Hormone Definitions" }
+          - { id: "BB.3A.T08.S02", name: "Major Glands Locations and Products" }
+          - { id: "BB.3A.T08.S03", name: "Types of Hormones" }
+          - { id: "BB.3A.T08.S04", name: "Hormone Transport in Blood" }
+          - { id: "BB.3A.T08.S05", name: "Specificity and Target Tissues" }
+      - id: "BB.3A.T09"
+        name: "Mechanisms of Hormone Action"
+        subtopics:
+          - { id: "BB.3A.T09.S01", name: "Peptide Hormones and Second Messengers" }
+          - { id: "BB.3A.T09.S02", name: "Steroid Hormones and Intracellular Receptors" }
+          - { id: "BB.3A.T09.S03", name: "Signal Amplification and Response" }
+      - id: "BB.3A.T10"
+        name: "Neuroendocrine Integration"
+        subtopics:
+          - { id: "BB.3A.T10.S01", name: "Hypothalamus-Pituitary Axis" }
+          - { id: "BB.3A.T10.S02", name: "Negative and Positive Feedback" }
+          - { id: "BB.3A.T10.S03", name: "Coordination of Organ Systems" }
+  - id: "BB.3B"
+    name: "Structure and integrative functions of the main organ systems"
+    topics:
+      - id: "BB.3B.T01"
+        name: "Circulatory System"
+        subtopics:
+          - { id: "BB.3B.T01.S01", name: "Functions and Thermoregulation" }
+          - { id: "BB.3B.T01.S02", name: "Four-Chambered Heart Structure" }
+          - { id: "BB.3B.T01.S03", name: "Cardiac Contraction and Conduction" }
+          - { id: "BB.3B.T01.S04", name: "Pulmonary and Systemic Circulation" }
+          - { id: "BB.3B.T01.S05", name: "Arterial and Venous Systems" }
+          - { id: "BB.3B.T01.S06", name: "Capillary Beds and Blood Pressure" }
+      - id: "BB.3B.T02"
+        name: "Blood Composition and Clotting"
+        subtopics:
+          - { id: "BB.3B.T02.S01", name: "Plasma and Formed Elements" }
+          - { id: "BB.3B.T02.S02", name: "Erythrocyte Production and Destruction" }
+          - { id: "BB.3B.T02.S03", name: "Regulation of Plasma Volume" }
+          - { id: "BB.3B.T02.S04", name: "Coagulation and Clotting" }
+      - id: "BB.3B.T03"
+        name: "Gas Transport and Hemoglobin"
+        subtopics:
+          - { id: "BB.3B.T03.S01", name: "Oxygen Transport by Hemoglobin" }
+          - { id: "BB.3B.T03.S02", name: "Oxygen Affinity and Dissociation Curve" }
+          - { id: "BB.3B.T03.S03", name: "Carbon Dioxide Transport" }
+          - { id: "BB.3B.T03.S04", name: "Nervous and Endocrine Control" }
+      - id: "BB.3B.T04"
+        name: "Lymphatic System"
+        subtopics:
+          - { id: "BB.3B.T04.S01", name: "Structure of the Lymphatic System" }
+          - { id: "BB.3B.T04.S02", name: "Fluid Balance and Return to Blood" }
+          - { id: "BB.3B.T04.S03", name: "Transport of Lipids and Proteins" }
+          - { id: "BB.3B.T04.S04", name: "Role in Immunity" }
+      - id: "BB.3B.T05"
+        name: "Immune System"
+        subtopics:
+          - { id: "BB.3B.T05.S01", name: "Innate vs Adaptive Immunity" }
+          - { id: "BB.3B.T05.S02", name: "Immune Cells and Tissues" }
+          - { id: "BB.3B.T05.S03", name: "Antigens and Antibodies" }
+          - { id: "BB.3B.T05.S04", name: "Antigen Presentation and MHC" }
+          - { id: "BB.3B.T05.S05", name: "Clonal Selection" }
+          - { id: "BB.3B.T05.S06", name: "Self vs Non-Self and Autoimmunity" }
+      - id: "BB.3B.T06"
+        name: "Respiratory System"
+        subtopics:
+          - { id: "BB.3B.T06.S01", name: "Functions and Protection" }
+          - { id: "BB.3B.T06.S02", name: "Lungs and Alveoli Structure" }
+          - { id: "BB.3B.T06.S03", name: "Breathing Mechanics" }
+          - { id: "BB.3B.T06.S04", name: "Surface Tension and Surfactant" }
+          - { id: "BB.3B.T06.S05", name: "Alveolar Gas Exchange" }
+          - { id: "BB.3B.T06.S06", name: "Respiratory Control and pH Balance" }
+      - id: "BB.3B.T07"
+        name: "Digestive System"
+        subtopics:
+          - { id: "BB.3B.T07.S01", name: "Ingestion and Oral Cavity" }
+          - { id: "BB.3B.T07.S02", name: "Stomach and Gastric Digestion" }
+          - { id: "BB.3B.T07.S03", name: "Small Intestine and Absorption" }
+          - { id: "BB.3B.T07.S04", name: "Liver Bile and Pancreas" }
+          - { id: "BB.3B.T07.S05", name: "Large Intestine and Elimination" }
+          - { id: "BB.3B.T07.S06", name: "Neural and Endocrine Control" }
+      - id: "BB.3B.T08"
+        name: "Excretory (Renal) System"
+        subtopics:
+          - { id: "BB.3B.T08.S01", name: "Homeostatic Roles of the Kidney" }
+          - { id: "BB.3B.T08.S02", name: "Kidney and Nephron Structure" }
+          - { id: "BB.3B.T08.S03", name: "Glomerular Filtration" }
+          - { id: "BB.3B.T08.S04", name: "Secretion and Reabsorption" }
+          - { id: "BB.3B.T08.S05", name: "Urine Concentration and Countercurrent" }
+          - { id: "BB.3B.T08.S06", name: "Storage and Elimination" }
+      - id: "BB.3B.T09"
+        name: "Muscular System"
+        subtopics:
+          - { id: "BB.3B.T09.S01", name: "Skeletal Smooth and Cardiac Muscle" }
+          - { id: "BB.3B.T09.S02", name: "Sarcomere Organization" }
+          - { id: "BB.3B.T09.S03", name: "Sliding Filament Model" }
+          - { id: "BB.3B.T09.S04", name: "Calcium and Troponin Regulation" }
+          - { id: "BB.3B.T09.S05", name: "Neuromuscular Junction" }
+          - { id: "BB.3B.T09.S06", name: "Muscle Functions and Thermoregulation" }
+      - id: "BB.3B.T10"
+        name: "Skeletal System"
+        subtopics:
+          - { id: "BB.3B.T10.S01", name: "Functions of the Skeleton" }
+          - { id: "BB.3B.T10.S02", name: "Bone Structure and Composition" }
+          - { id: "BB.3B.T10.S03", name: "Cartilage Ligaments and Tendons" }
+          - { id: "BB.3B.T10.S04", name: "Joint Structures" }
+          - { id: "BB.3B.T10.S05", name: "Bone Growth and Remodeling" }
+          - { id: "BB.3B.T10.S06", name: "Endoskeleton vs Exoskeleton" }
+      - id: "BB.3B.T11"
+        name: "Integumentary System"
+        subtopics:
+          - { id: "BB.3B.T11.S01", name: "Skin Structure and Layers" }
+          - { id: "BB.3B.T11.S02", name: "Thermoregulation" }
+          - { id: "BB.3B.T11.S03", name: "Osmoregulation and Water Balance" }
+          - { id: "BB.3B.T11.S04", name: "Physical Protection" }
+          - { id: "BB.3B.T11.S05", name: "Hormonal Control of Skin Functions" }
+      - id: "BB.3B.T12"
+        name: "Reproductive System"
+        subtopics:
+          - { id: "BB.3B.T12.S01", name: "Male Reproductive Structures" }
+          - { id: "BB.3B.T12.S02", name: "Female Reproductive Structures" }
+          - { id: "BB.3B.T12.S03", name: "Hormonal Control of Reproduction" }
+          - { id: "BB.3B.T12.S04", name: "Sexual Development" }
+          - { id: "BB.3B.T12.S05", name: "Menstrual Cycle" }
+          - { id: "BB.3B.T12.S06", name: "Pregnancy Parturition and Lactation" }
+      - id: "BB.3B.T13"
+        name: "Homeostasis and System Integration"
+        subtopics:
+          - { id: "BB.3B.T13.S01", name: "Principles of Homeostasis" }
+          - { id: "BB.3B.T13.S02", name: "Negative Feedback Regulation" }
+          - { id: "BB.3B.T13.S03", name: "Thermoregulation Across Systems" }
+          - { id: "BB.3B.T13.S04", name: "Fluid and Electrolyte Balance" }
+          - { id: "BB.3B.T13.S05", name: "Neuroendocrine Coordination of Organs" }
+prerequisites:
+  # --- Within BB.3A: nervous system signaling chain ---
+  - { src: "BB.3A.T02", dst: "BB.3A.T03", rationale: "Axon membrane structure underlies the resting potential", confidence: "high" }
+  - { src: "BB.3A.T03", dst: "BB.3A.T04", rationale: "Resting potential must precede action potential", confidence: "high" }
+  - { src: "BB.3A.T02", dst: "BB.3A.T04", rationale: "Myelin and nodes enable saltatory conduction", confidence: "medium" }
+  - { src: "BB.3A.T04", dst: "BB.3A.T05", rationale: "Action potential triggers neurotransmitter release", confidence: "high" }
+  - { src: "BB.3A.T05", dst: "BB.3A.T06", rationale: "Reflex arcs depend on synaptic transmission", confidence: "high" }
+  - { src: "BB.3A.T01", dst: "BB.3A.T06", rationale: "Reflex arcs use sensory and motor neurons", confidence: "medium" }
+  - { src: "BB.3A.T01", dst: "BB.3A.T07", rationale: "Autonomic system is a division of the nervous system", confidence: "high" }
+  # --- Within BB.3A: endocrine chain ---
+  - { src: "BB.3A.T08", dst: "BB.3A.T09", rationale: "Must know hormones before their action mechanisms", confidence: "high" }
+  - { src: "BB.3A.T09", dst: "BB.3A.T10", rationale: "Hormone signaling underlies feedback integration", confidence: "medium" }
+  - { src: "BB.3A.T08", dst: "BB.3A.T10", rationale: "Glands and hormones underlie feedback control", confidence: "high" }
+  - { src: "BB.3A.T07", dst: "BB.3A.T10", rationale: "Autonomic and endocrine jointly coordinate organs", confidence: "medium" }
+  # --- Within BB.3B: circulatory / blood / gas transport ---
+  - { src: "BB.3B.T02", dst: "BB.3B.T03", rationale: "Hemoglobin in blood carries respiratory gases", confidence: "high" }
+  - { src: "BB.3B.T01", dst: "BB.3B.T03", rationale: "Circulation delivers gases to and from tissues", confidence: "medium" }
+  - { src: "BB.3B.T06", dst: "BB.3B.T03", rationale: "Alveolar gas exchange loads gases onto blood", confidence: "medium" }
+  - { src: "BB.3B.T01", dst: "BB.3B.T04", rationale: "Capillary fluid dynamics form lymph", confidence: "medium" }
+  - { src: "BB.3B.T04", dst: "BB.3B.T05", rationale: "Lymphatic tissues house immune cells", confidence: "medium" }
+  - { src: "BB.3B.T01", dst: "BB.3B.T08", rationale: "Blood pressure drives glomerular filtration", confidence: "high" }
+  - { src: "BB.3B.T01", dst: "BB.3B.T11", rationale: "Cutaneous vasodilation/constriction relies on circulation", confidence: "medium" }
+  # --- Within BB.3B: integration into homeostasis ---
+  - { src: "BB.3B.T01", dst: "BB.3B.T13", rationale: "Circulation is central to whole-body homeostasis", confidence: "medium" }
+  - { src: "BB.3B.T08", dst: "BB.3B.T13", rationale: "Kidney regulates fluid, ion, and acid-base balance", confidence: "high" }
+  - { src: "BB.3B.T06", dst: "BB.3B.T13", rationale: "Respiration regulates blood gases and pH", confidence: "medium" }
+  - { src: "BB.3B.T11", dst: "BB.3B.T13", rationale: "Skin contributes to thermoregulation and osmoregulation", confidence: "medium" }
+  # --- BB.3A control OF BB.3B organ systems (within FC3) ---
+  - { src: "BB.3A.T05", dst: "BB.3B.T09", rationale: "Neuromuscular junction is a chemical synapse", confidence: "high" }
+  - { src: "BB.3A.T07", dst: "BB.3B.T01", rationale: "Autonomic tone regulates heart rate and vessels", confidence: "medium" }
+  - { src: "BB.3A.T07", dst: "BB.3B.T07", rationale: "Enteric and parasympathetic nerves control digestion", confidence: "medium" }
+  - { src: "BB.3A.T07", dst: "BB.3B.T09", rationale: "Autonomic innervation controls smooth and cardiac muscle", confidence: "medium" }
+  - { src: "BB.3A.T08", dst: "BB.3B.T12", rationale: "Sex hormones control reproductive structures and cycles", confidence: "high" }
+  - { src: "BB.3A.T08", dst: "BB.3B.T08", rationale: "ADH and aldosterone regulate renal water and ions", confidence: "medium" }
+  - { src: "BB.3A.T08", dst: "BB.3B.T02", rationale: "Hormones regulate plasma volume and erythropoiesis", confidence: "medium" }
+  - { src: "BB.3A.T08", dst: "BB.3B.T10", rationale: "PTH and calcitonin regulate bone calcium", confidence: "medium" }
+  - { src: "BB.3A.T10", dst: "BB.3B.T13", rationale: "Neuroendocrine feedback is the basis of homeostasis", confidence: "high" }
+cross_prerequisites:
+  - { src_hint: "BB.2A: Membrane Transport and Potential", dst: "BB.3A.T03", rationale: "Ion gradients and transport set the resting potential", confidence: "high" }
+  - { src_hint: "CP.4C: Electrochemistry", dst: "BB.3A.T03", rationale: "Electrochemical potential explains membrane voltage", confidence: "medium" }
+  - { src_hint: "BB.1A: Protein Structure", dst: "BB.3A.T09", rationale: "Receptors and peptide hormones are proteins", confidence: "medium" }
+  - { src_hint: "CP.5D: Lipids and Steroids", dst: "BB.3A.T08", rationale: "Steroid hormones are lipid-derived signaling molecules", confidence: "medium" }
+  - { src_hint: "CP.4B: Fluid Dynamics", dst: "BB.3B.T01", rationale: "Fluid dynamics govern blood pressure and flow", confidence: "high" }
+  - { src_hint: "CP.4B: Gas Movement and Gas Exchange", dst: "BB.3B.T06", rationale: "Partial pressures and flow drive ventilation and exchange", confidence: "medium" }
+  - { src_hint: "CP.4B: Fluid Dynamics", dst: "BB.3B.T08", rationale: "Fluid pressure drives glomerular filtration", confidence: "medium" }
+  - { src_hint: "BB.1D: Bioenergetics and ATP", dst: "BB.3B.T09", rationale: "ATP hydrolysis powers cross-bridge cycling", confidence: "medium" }
+related:
+  - { a: "BB.3A.T01", b: "BB.3A.T08", rationale: "Nervous and endocrine systems both coordinate organ systems" }
+  - { a: "BB.3A.T04", b: "BB.3B.T09", rationale: "Excitation-contraction coupling links action potentials to muscle" }
+  - { a: "BB.3B.T01", b: "BB.3B.T06", rationale: "Cardiopulmonary systems are functionally coupled" }
+  - { a: "BB.3B.T02", b: "BB.3B.T05", rationale: "Leukocytes are blood cells central to immunity" }
+  - { a: "BB.3B.T09", b: "BB.3B.T10", rationale: "Muscles and bones act together as the musculoskeletal system" }
+  - { a: "BB.3B.T08", b: "BB.3B.T11", rationale: "Kidney and skin both contribute to osmoregulation" }

@@ -1,0 +1,1390 @@
+{
+ "leaf": "PS.8C",
+ "section": "P-S",
+ "name": "Social interactions",
+ "nodes": [
+  {
+   "id": "PS.8C.self-presentation",
+   "label": "Self-presentation and managing interactions",
+   "kind": "topic",
+   "parent": "PS.8C",
+   "summary": "People actively manage how they appear to and behave toward others, expressing and presenting the self through identity, impression management, and front/back-stage behavior."
+  },
+  {
+   "id": "PS.8C.self-presentation.self-concept",
+   "label": "Expressing and presenting the self",
+   "kind": "subtopic",
+   "parent": "PS.8C.self-presentation",
+   "summary": "The self is communicated to others through identity, self-disclosure, and the deliberate or automatic shaping of one's image."
+  },
+  {
+   "id": "PS.8C.self-presentation.self-concept.definition",
+   "label": "Self-presentation defined",
+   "kind": "concept",
+   "parent": "PS.8C.self-presentation.self-concept",
+   "summary": "Self-presentation is the process of conveying a chosen image of oneself to other people.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.8C.self-presentation.self-concept.identity-vs-self-concept",
+   "label": "Identity vs. self-concept in interaction",
+   "kind": "concept",
+   "parent": "PS.8C.self-presentation.self-concept",
+   "summary": "Identity is the set of roles, group memberships, and characteristics that make up one's self-concept, whereas self-presentation is the face one shows others; interactions express both (the outward 'face' is self-presentation, not identity itself).",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.self-presentation.self-concept.self-disclosure",
+   "label": "Self-disclosure",
+   "kind": "concept",
+   "parent": "PS.8C.self-presentation.self-concept",
+   "summary": "Self-disclosure is the act of revealing personal information to others and typically deepens relationships when reciprocal.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.self-presentation.impression-management",
+   "label": "Impression management",
+   "kind": "subtopic",
+   "parent": "PS.8C.self-presentation",
+   "summary": "Impression management is the conscious or unconscious effort to control the impression others form of oneself."
+  },
+  {
+   "id": "PS.8C.self-presentation.impression-management.definition",
+   "label": "Impression management defined",
+   "kind": "concept",
+   "parent": "PS.8C.self-presentation.impression-management",
+   "summary": "Impression management is the process of attempting to influence the perceptions others have of a person, object, or event.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.8C.self-presentation.impression-management.authentic-self",
+   "label": "Authentic self",
+   "kind": "concept",
+   "parent": "PS.8C.self-presentation.impression-management",
+   "summary": "The authentic self is who a person actually is, including both positive and negative attributes.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.self-presentation.impression-management.ideal-self",
+   "label": "Ideal self",
+   "kind": "concept",
+   "parent": "PS.8C.self-presentation.impression-management",
+   "summary": "The ideal self is who a person would like to be under optimal circumstances.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.self-presentation.impression-management.tactical-self",
+   "label": "Tactical (ought) self",
+   "kind": "concept",
+   "parent": "PS.8C.self-presentation.impression-management",
+   "summary": "The tactical or ought self is who a person presents to others to meet others' expectations and standards.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.self-presentation.impression-management.self-monitoring",
+   "label": "Self-monitoring",
+   "kind": "concept",
+   "parent": "PS.8C.self-presentation.impression-management",
+   "summary": "Self-monitoring is the degree to which people observe and regulate their self-presentation to fit the social situation.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.self-presentation.dramaturgical",
+   "label": "Dramaturgical approach (Goffman)",
+   "kind": "subtopic",
+   "parent": "PS.8C.self-presentation",
+   "summary": "Goffman's dramaturgical perspective treats social interaction as theater, with people performing roles for audiences."
+  },
+  {
+   "id": "PS.8C.self-presentation.dramaturgical.definition",
+   "label": "Dramaturgical approach defined",
+   "kind": "concept",
+   "parent": "PS.8C.self-presentation.dramaturgical",
+   "summary": "The dramaturgical approach (Erving Goffman) models social interaction as a theatrical performance in which individuals create and manage impressions.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.8C.self-presentation.dramaturgical.front-stage",
+   "label": "Front stage",
+   "kind": "concept",
+   "parent": "PS.8C.self-presentation.dramaturgical",
+   "summary": "The front stage is where people perform and adhere to social conventions in front of an audience.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.8C.self-presentation.dramaturgical.back-stage",
+   "label": "Back stage",
+   "kind": "concept",
+   "parent": "PS.8C.self-presentation.dramaturgical",
+   "summary": "The back stage is where people can be themselves and step out of their public role away from the audience.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.8C.communication",
+   "label": "Communication",
+   "kind": "topic",
+   "parent": "PS.8C",
+   "summary": "Communication is the exchange of information through verbal and nonverbal channels in humans, and through signals among animals."
+  },
+  {
+   "id": "PS.8C.communication.modes",
+   "label": "Modes of human communication",
+   "kind": "subtopic",
+   "parent": "PS.8C.communication",
+   "summary": "Humans communicate through verbal (spoken/written language) and nonverbal (body language, facial expression, tone) channels."
+  },
+  {
+   "id": "PS.8C.communication.modes.definition",
+   "label": "Communication defined",
+   "kind": "concept",
+   "parent": "PS.8C.communication.modes",
+   "summary": "Communication is the process of transmitting information, ideas, and feelings between a sender and a receiver.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.communication.modes.verbal",
+   "label": "Verbal communication",
+   "kind": "concept",
+   "parent": "PS.8C.communication.modes",
+   "summary": "Verbal communication is the use of spoken or written language to convey meaning between people.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.communication.modes.nonverbal",
+   "label": "Nonverbal communication",
+   "kind": "concept",
+   "parent": "PS.8C.communication.modes",
+   "summary": "Nonverbal communication conveys meaning through facial expressions, gestures, posture, eye contact, tone of voice, and personal space.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.8C.communication.modes.paralanguage",
+   "label": "Paralanguage",
+   "kind": "concept",
+   "parent": "PS.8C.communication.modes",
+   "summary": "Paralanguage is the vocal but nonverbal element of speech, such as pitch, volume, rate, and intonation, that modifies meaning.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.communication.animal",
+   "label": "Animal signals and communication",
+   "kind": "subtopic",
+   "parent": "PS.8C.communication",
+   "summary": "Animals communicate using signals across visual, auditory, chemical, and tactile channels to coordinate behavior."
+  },
+  {
+   "id": "PS.8C.communication.animal.definition",
+   "label": "Animal signals defined",
+   "kind": "concept",
+   "parent": "PS.8C.communication.animal",
+   "summary": "Animal communication is the transfer of information from a sender to a receiver via signals such as displays, calls, and pheromones.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.communication.animal.signal-types",
+   "label": "Channels of animal signaling",
+   "kind": "concept",
+   "parent": "PS.8C.communication.animal",
+   "summary": "Animal signals span visual displays, auditory calls, chemical pheromones, and tactile cues, each suited to different ecological contexts.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.communication.animal.honest-signaling",
+   "label": "Honest signaling and deception",
+   "kind": "concept",
+   "parent": "PS.8C.communication.animal",
+   "summary": "Honest signals reliably indicate condition or intent (often because they are costly), while some animals exploit deceptive signals to manipulate receivers.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.attraction",
+   "label": "Attraction",
+   "kind": "topic",
+   "parent": "PS.8C",
+   "summary": "Attraction is the force drawing people together, governed by similarity, proximity, familiarity, physical appearance, and reciprocity."
+  },
+  {
+   "id": "PS.8C.attraction.factors",
+   "label": "Factors influencing attraction",
+   "kind": "subtopic",
+   "parent": "PS.8C.attraction",
+   "summary": "Interpersonal attraction is shaped by similarity, proximity, mere exposure, physical attractiveness, self-disclosure, and reciprocal liking."
+  },
+  {
+   "id": "PS.8C.attraction.factors.definition",
+   "label": "Attraction defined",
+   "kind": "concept",
+   "parent": "PS.8C.attraction.factors",
+   "summary": "Attraction is a force that draws people together and forms the basis of liking and relationship formation.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.8C.attraction.factors.similarity",
+   "label": "Similarity",
+   "kind": "concept",
+   "parent": "PS.8C.attraction.factors",
+   "summary": "People are more attracted to those who share similar attitudes, values, backgrounds, and interests.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.8C.attraction.factors.proximity",
+   "label": "Proximity",
+   "kind": "concept",
+   "parent": "PS.8C.attraction.factors",
+   "summary": "Physical or geographic closeness increases the likelihood of attraction and relationship formation.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.8C.attraction.factors.mere-exposure",
+   "label": "Mere exposure effect",
+   "kind": "concept",
+   "parent": "PS.8C.attraction.factors",
+   "summary": "The mere exposure (familiarity) effect is the tendency to develop a preference for stimuli simply because of repeated exposure to them.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.8C.attraction.factors.physical-attractiveness",
+   "label": "Physical attractiveness",
+   "kind": "concept",
+   "parent": "PS.8C.attraction.factors",
+   "summary": "Physical attractiveness strongly influences initial attraction and triggers a halo of positive trait attributions.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.8C.attraction.factors.halo-effect",
+   "label": "Physical attractiveness halo (\"what is beautiful is good\")",
+   "kind": "concept",
+   "parent": "PS.8C.attraction.factors",
+   "summary": "The attractiveness halo is the tendency to attribute additional positive traits (kindness, competence) to physically attractive people.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.attraction.factors.matching-hypothesis",
+   "label": "Matching hypothesis",
+   "kind": "concept",
+   "parent": "PS.8C.attraction.factors",
+   "summary": "The matching hypothesis holds that people tend to form relationships with others of similar physical attractiveness.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.attraction.factors.reciprocal-liking",
+   "label": "Reciprocity of liking",
+   "kind": "concept",
+   "parent": "PS.8C.attraction.factors",
+   "summary": "People tend to like those who like them, so reciprocated liking increases attraction.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.attraction.factors.self-disclosure-link",
+   "label": "Self-disclosure and attraction",
+   "kind": "concept",
+   "parent": "PS.8C.attraction.factors",
+   "summary": "Mutual self-disclosure builds intimacy and increases attraction over time.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.attraction.theories",
+   "label": "Theories of love and attraction",
+   "kind": "subtopic",
+   "parent": "PS.8C.attraction",
+   "summary": "Models such as the triangular theory of love describe the components and types of love relationships."
+  },
+  {
+   "id": "PS.8C.attraction.theories.triangular-love",
+   "label": "Triangular theory of love",
+   "kind": "concept",
+   "parent": "PS.8C.attraction.theories",
+   "summary": "Sternberg's triangular theory of love holds that love is composed of intimacy, passion, and commitment.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.attraction.theories.passionate-companionate",
+   "label": "Passionate vs. companionate love",
+   "kind": "concept",
+   "parent": "PS.8C.attraction.theories",
+   "summary": "Passionate love is intense and arousal-driven, while companionate love is the deep affection and bonding of long-term relationships.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.aggression",
+   "label": "Aggression",
+   "kind": "topic",
+   "parent": "PS.8C",
+   "summary": "Aggression is behavior intended to harm others, shaped by biological, frustration-driven, and learned (modeled) influences."
+  },
+  {
+   "id": "PS.8C.aggression.definition-types",
+   "label": "Definition and types of aggression",
+   "kind": "subtopic",
+   "parent": "PS.8C.aggression",
+   "summary": "Aggression includes hostile, instrumental, physical, and relational forms of behavior intended to cause harm."
+  },
+  {
+   "id": "PS.8C.aggression.definition-types.definition",
+   "label": "Aggression defined",
+   "kind": "concept",
+   "parent": "PS.8C.aggression.definition-types",
+   "summary": "Aggression is behavior with the intent to cause harm or increase social dominance.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.8C.aggression.definition-types.hostile-vs-instrumental",
+   "label": "Hostile vs. instrumental aggression",
+   "kind": "concept",
+   "parent": "PS.8C.aggression.definition-types",
+   "summary": "Hostile aggression is driven by anger and aims to harm, while instrumental aggression is a means to another goal.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.aggression.definition-types.relational",
+   "label": "Relational aggression",
+   "kind": "concept",
+   "parent": "PS.8C.aggression.definition-types",
+   "summary": "Relational aggression harms others by damaging their social relationships or status (e.g., exclusion, gossip) rather than by physical force.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.aggression.biological",
+   "label": "Biological basis of aggression",
+   "kind": "subtopic",
+   "parent": "PS.8C.aggression",
+   "summary": "Aggression has biological roots in brain structures, hormones, and neurotransmitters."
+  },
+  {
+   "id": "PS.8C.aggression.biological.amygdala",
+   "label": "Amygdala and aggression",
+   "kind": "concept",
+   "parent": "PS.8C.aggression.biological",
+   "summary": "The amygdala is a brain region central to processing fear and triggering aggressive responses.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.aggression.biological.prefrontal-control",
+   "label": "Prefrontal cortex and impulse control",
+   "kind": "concept",
+   "parent": "PS.8C.aggression.biological",
+   "summary": "The prefrontal cortex exerts top-down regulation over aggressive impulses, and reduced prefrontal control is linked to greater aggression.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.aggression.biological.testosterone",
+   "label": "Testosterone and aggression",
+   "kind": "concept",
+   "parent": "PS.8C.aggression.biological",
+   "summary": "Higher testosterone levels are correlated with increased aggressive behavior.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.aggression.biological.serotonin",
+   "label": "Serotonin and aggression",
+   "kind": "concept",
+   "parent": "PS.8C.aggression.biological",
+   "summary": "Low serotonin activity is associated with increased impulsivity and aggression.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.aggression.frustration-aggression",
+   "label": "Frustration-aggression principle",
+   "kind": "subtopic",
+   "parent": "PS.8C.aggression",
+   "summary": "Blocked goals can produce frustration that leads to aggressive behavior."
+  },
+  {
+   "id": "PS.8C.aggression.frustration-aggression.principle",
+   "label": "Frustration-aggression hypothesis",
+   "kind": "concept",
+   "parent": "PS.8C.aggression.frustration-aggression",
+   "summary": "The frustration-aggression principle holds that frustration from a blocked goal increases the likelihood of an aggressive response.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.8C.aggression.frustration-aggression.cognitive-neoassociation",
+   "label": "Cognitive-neoassociation refinement",
+   "kind": "concept",
+   "parent": "PS.8C.aggression.frustration-aggression",
+   "summary": "Frustration produces aggression mainly when it generates negative affect and aggressive cues are present.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.aggression.frustration-aggression.catharsis",
+   "label": "Catharsis hypothesis",
+   "kind": "concept",
+   "parent": "PS.8C.aggression.frustration-aggression",
+   "summary": "The catharsis hypothesis claims venting aggression reduces aggressive drive, but research generally shows venting maintains or increases aggression.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.aggression.social-learning",
+   "label": "Learned aggression",
+   "kind": "subtopic",
+   "parent": "PS.8C.aggression",
+   "summary": "Aggression can be acquired by observing and imitating aggressive models."
+  },
+  {
+   "id": "PS.8C.aggression.social-learning.modeling",
+   "label": "Modeling of aggression",
+   "kind": "concept",
+   "parent": "PS.8C.aggression.social-learning",
+   "summary": "Aggressive behavior can be learned by observing and imitating others, as shown in Bandura's Bobo doll studies.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.8C.attachment",
+   "label": "Attachment",
+   "kind": "topic",
+   "parent": "PS.8C",
+   "summary": "Attachment is an emotional bond between individuals, classified into secure and insecure styles formed early and observed in caregiver-infant relationships."
+  },
+  {
+   "id": "PS.8C.attachment.basics",
+   "label": "Attachment and its basis",
+   "kind": "subtopic",
+   "parent": "PS.8C.attachment",
+   "summary": "Attachment is an enduring emotional bond rooted in early caregiving and the need for contact comfort."
+  },
+  {
+   "id": "PS.8C.attachment.basics.definition",
+   "label": "Attachment defined",
+   "kind": "concept",
+   "parent": "PS.8C.attachment.basics",
+   "summary": "Attachment is an emotional bond formed between a person and another (typically a caregiver) that provides security.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.8C.attachment.basics.harlow",
+   "label": "Harlow's contact comfort",
+   "kind": "concept",
+   "parent": "PS.8C.attachment.basics",
+   "summary": "Harlow's monkey studies showed infants prefer a soft cloth surrogate for contact comfort over a wire surrogate that provides food.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.attachment.basics.imprinting",
+   "label": "Imprinting",
+   "kind": "concept",
+   "parent": "PS.8C.attachment.basics",
+   "summary": "Imprinting (Lorenz) is the rapid formation of an attachment to the first moving object seen during a critical period in some animals.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.attachment.basics.secure-base",
+   "label": "Secure base and safe haven",
+   "kind": "concept",
+   "parent": "PS.8C.attachment.basics",
+   "summary": "A caregiver functions as a secure base from which the infant explores and a safe haven to return to for comfort under stress.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.attachment.styles",
+   "label": "Attachment styles",
+   "kind": "subtopic",
+   "parent": "PS.8C.attachment",
+   "summary": "Ainsworth's Strange Situation identified secure and insecure attachment styles in infants."
+  },
+  {
+   "id": "PS.8C.attachment.styles.strange-situation",
+   "label": "Strange Situation",
+   "kind": "concept",
+   "parent": "PS.8C.attachment.styles",
+   "summary": "Ainsworth's Strange Situation is an observational procedure that classifies infant attachment by reactions to caregiver separation and reunion.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.attachment.styles.secure",
+   "label": "Secure attachment",
+   "kind": "concept",
+   "parent": "PS.8C.attachment.styles",
+   "summary": "Securely attached infants use the caregiver as a safe base, show distress at separation, and are comforted on reunion.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.8C.attachment.styles.avoidant",
+   "label": "Avoidant attachment",
+   "kind": "concept",
+   "parent": "PS.8C.attachment.styles",
+   "summary": "Avoidantly attached infants show little distress at separation and avoid or ignore the caregiver on reunion.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.attachment.styles.ambivalent",
+   "label": "Ambivalent (anxious-resistant) attachment",
+   "kind": "concept",
+   "parent": "PS.8C.attachment.styles",
+   "summary": "Ambivalent infants are intensely distressed at separation and show conflicted clingy-then-resistant behavior on reunion.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.attachment.styles.disorganized",
+   "label": "Disorganized attachment",
+   "kind": "concept",
+   "parent": "PS.8C.attachment.styles",
+   "summary": "Disorganized attachment is marked by inconsistent, confused, or fearful behavior toward the caregiver, often linked to neglect or abuse.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.social-support",
+   "label": "Social support",
+   "kind": "topic",
+   "parent": "PS.8C",
+   "summary": "Social support is the perceived or actual comfort, resources, and assistance provided by one's social network."
+  },
+  {
+   "id": "PS.8C.social-support.types",
+   "label": "Types of social support",
+   "kind": "subtopic",
+   "parent": "PS.8C.social-support",
+   "summary": "Social support takes emotional, esteem, informational, tangible, and network forms."
+  },
+  {
+   "id": "PS.8C.social-support.types.definition",
+   "label": "Social support defined",
+   "kind": "concept",
+   "parent": "PS.8C.social-support.types",
+   "summary": "Social support is the network of resources and assistance, perceived or actual, that others provide.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.social-support.types.emotional",
+   "label": "Emotional support",
+   "kind": "concept",
+   "parent": "PS.8C.social-support.types",
+   "summary": "Emotional support is the provision of empathy, love, trust, and caring to another person.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.social-support.types.esteem",
+   "label": "Esteem support",
+   "kind": "concept",
+   "parent": "PS.8C.social-support.types",
+   "summary": "Esteem support is the expression of confidence and encouragement that bolsters another person's sense of worth.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.social-support.types.informational",
+   "label": "Informational support",
+   "kind": "concept",
+   "parent": "PS.8C.social-support.types",
+   "summary": "Informational support is the provision of advice, guidance, or useful information to help someone cope.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.social-support.types.tangible",
+   "label": "Tangible (instrumental) support",
+   "kind": "concept",
+   "parent": "PS.8C.social-support.types",
+   "summary": "Tangible support is the provision of material goods, money, or direct services to help meet needs.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.social-support.types.network",
+   "label": "Network (companionship) support",
+   "kind": "concept",
+   "parent": "PS.8C.social-support.types",
+   "summary": "Network support gives a person a sense of belonging by connecting them to others with shared interests or experiences.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.social-support.health",
+   "label": "Social support and health",
+   "kind": "subtopic",
+   "parent": "PS.8C.social-support",
+   "summary": "Social support buffers stress and is linked to better physical and mental health outcomes."
+  },
+  {
+   "id": "PS.8C.social-support.health.buffering",
+   "label": "Stress-buffering effect of support",
+   "kind": "concept",
+   "parent": "PS.8C.social-support.health",
+   "summary": "Social support buffers the impact of stress on health by reducing appraised threat and aiding coping, improving health and longevity.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.foraging-mate",
+   "label": "Biological explanations of social behavior in animals",
+   "kind": "topic",
+   "parent": "PS.8C",
+   "summary": "Foraging, mate choice/selection, and applying game theory help explain the evolutionary basis of social behavior in animals."
+  },
+  {
+   "id": "PS.8C.foraging-mate.foraging",
+   "label": "Foraging",
+   "kind": "subtopic",
+   "parent": "PS.8C.foraging-mate",
+   "summary": "Foraging is the searching for and exploiting of food resources, balancing energy gained against costs."
+  },
+  {
+   "id": "PS.8C.foraging-mate.foraging.definition",
+   "label": "Foraging defined",
+   "kind": "concept",
+   "parent": "PS.8C.foraging-mate.foraging",
+   "summary": "Foraging is the behavior of searching for, capturing, and consuming food resources.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.foraging-mate.foraging.optimal",
+   "label": "Optimal foraging theory",
+   "kind": "concept",
+   "parent": "PS.8C.foraging-mate.foraging",
+   "summary": "Optimal foraging theory predicts animals forage to maximize net energy gain, balancing food benefits against time, effort, and predation costs.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.foraging-mate.mate-choice",
+   "label": "Mate choice and mate bias",
+   "kind": "subtopic",
+   "parent": "PS.8C.foraging-mate",
+   "summary": "Mate choice is the selection of a mate based on traits that signal fitness or resources."
+  },
+  {
+   "id": "PS.8C.foraging-mate.mate-choice.definition",
+   "label": "Mate choice defined",
+   "kind": "concept",
+   "parent": "PS.8C.foraging-mate.mate-choice",
+   "summary": "Mate choice (intersexual selection) is the selection of a mate based on attraction to particular traits.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.foraging-mate.mate-choice.mate-bias",
+   "label": "Mate bias",
+   "kind": "concept",
+   "parent": "PS.8C.foraging-mate.mate-choice",
+   "summary": "Mate bias is how an organism evaluates and chooses among potential mates, shaping the direction of sexual selection.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.foraging-mate.mate-choice.sexual-selection",
+   "label": "Sexual selection (intersexual vs. intrasexual)",
+   "kind": "concept",
+   "parent": "PS.8C.foraging-mate.mate-choice",
+   "summary": "Sexual selection favors traits that improve mating success, through intersexual selection (mate choice) and intrasexual selection (competition among same-sex rivals).",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.foraging-mate.mate-choice.direct-indirect-benefits",
+   "label": "Direct vs. indirect benefits",
+   "kind": "concept",
+   "parent": "PS.8C.foraging-mate.mate-choice",
+   "summary": "Mate choice can yield direct benefits (resources, parental care) or indirect (genetic) benefits that improve offspring fitness.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.foraging-mate.game-theory",
+   "label": "Game theory and social behavior",
+   "kind": "subtopic",
+   "parent": "PS.8C.foraging-mate",
+   "summary": "Game theory models how the fitness payoff of a behavior depends on the behaviors of others."
+  },
+  {
+   "id": "PS.8C.foraging-mate.game-theory.definition",
+   "label": "Game theory in evolution",
+   "kind": "concept",
+   "parent": "PS.8C.foraging-mate.game-theory",
+   "summary": "Game theory explains the evolution of social behavior by analyzing how a behavior's fitness payoff depends on others' strategies.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.foraging-mate.game-theory.ess",
+   "label": "Evolutionarily stable strategy",
+   "kind": "concept",
+   "parent": "PS.8C.foraging-mate.game-theory",
+   "summary": "An evolutionarily stable strategy (ESS) is a strategy that, once common in a population, cannot be invaded by an alternative strategy (e.g., hawk-dove equilibria).",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.foraging-mate.game-theory.altruism-evolution",
+   "label": "Inclusive fitness and altruism",
+   "kind": "concept",
+   "parent": "PS.8C.foraging-mate.game-theory",
+   "summary": "Inclusive fitness explains altruistic behavior as enhancing the reproductive success of relatives who share genes.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.foraging-mate.game-theory.kin-selection",
+   "label": "Kin selection",
+   "kind": "concept",
+   "parent": "PS.8C.foraging-mate.game-theory",
+   "summary": "Kin selection is the evolution of behaviors that favor the reproductive success of relatives, even at a cost to the actor, because relatives share genes.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.prosocial",
+   "label": "Prosocial behavior and altruism",
+   "kind": "topic",
+   "parent": "PS.8C",
+   "summary": "Prosocial behavior benefits others and includes altruism, helping influenced by social norms, empathy, and the bystander effect."
+  },
+  {
+   "id": "PS.8C.prosocial.altruism",
+   "label": "Altruism",
+   "kind": "subtopic",
+   "parent": "PS.8C.prosocial",
+   "summary": "Altruism is selfless helping behavior, motivated by empathy or by indirect benefits."
+  },
+  {
+   "id": "PS.8C.prosocial.altruism.prosocial-definition",
+   "label": "Prosocial behavior defined",
+   "kind": "concept",
+   "parent": "PS.8C.prosocial.altruism",
+   "summary": "Prosocial behavior is voluntary action intended to benefit another person, of which altruism is one form.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.prosocial.altruism.definition",
+   "label": "Altruism defined",
+   "kind": "concept",
+   "parent": "PS.8C.prosocial.altruism",
+   "summary": "Altruism is a form of helping behavior in which the person's intent is to benefit another, sometimes at a cost to themselves.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.8C.prosocial.altruism.empathy-altruism",
+   "label": "Empathy-altruism hypothesis",
+   "kind": "concept",
+   "parent": "PS.8C.prosocial.altruism",
+   "summary": "The empathy-altruism hypothesis holds that feeling empathy for someone in need produces genuinely altruistic helping.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.prosocial.altruism.egoism",
+   "label": "Egoism vs. altruism in helping",
+   "kind": "concept",
+   "parent": "PS.8C.prosocial.altruism",
+   "summary": "Egoistic motives frame helping as ultimately self-serving (e.g., reducing one's own distress), contrasting with the empathy-driven altruism account.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.prosocial.altruism.social-exchange",
+   "label": "Social exchange theory of helping",
+   "kind": "concept",
+   "parent": "PS.8C.prosocial.altruism",
+   "summary": "Social exchange theory frames helping as a cost-benefit calculation in which people help when perceived rewards outweigh costs.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.prosocial.altruism.reciprocal",
+   "label": "Reciprocal altruism",
+   "kind": "concept",
+   "parent": "PS.8C.prosocial.altruism",
+   "summary": "Reciprocal altruism is helping another with the expectation that the favor will be returned in the future.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.prosocial.social-norms",
+   "label": "Social behavior norms for helping",
+   "kind": "subtopic",
+   "parent": "PS.8C.prosocial",
+   "summary": "Helping is governed by reciprocity and social-responsibility norms."
+  },
+  {
+   "id": "PS.8C.prosocial.social-norms.reciprocity-norm",
+   "label": "Reciprocity norm",
+   "kind": "concept",
+   "parent": "PS.8C.prosocial.social-norms",
+   "summary": "The reciprocity norm is the expectation that people will help those who have helped them.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.prosocial.social-norms.social-responsibility",
+   "label": "Social-responsibility norm",
+   "kind": "concept",
+   "parent": "PS.8C.prosocial.social-norms",
+   "summary": "The social-responsibility norm is the expectation that people will help those who depend on them, regardless of return.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.prosocial.bystander",
+   "label": "Bystander effect",
+   "kind": "subtopic",
+   "parent": "PS.8C.prosocial",
+   "summary": "The presence of others can reduce the likelihood that any one person helps in an emergency."
+  },
+  {
+   "id": "PS.8C.prosocial.bystander.definition",
+   "label": "Bystander effect defined",
+   "kind": "concept",
+   "parent": "PS.8C.prosocial.bystander",
+   "summary": "The bystander effect is the finding that individuals are less likely to help a victim when other people are present.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.8C.prosocial.bystander.diffusion-responsibility",
+   "label": "Diffusion of responsibility",
+   "kind": "concept",
+   "parent": "PS.8C.prosocial.bystander",
+   "summary": "Diffusion of responsibility is the reduced sense of personal accountability to act when others are present to share it.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.8C.prosocial.bystander.pluralistic-ignorance",
+   "label": "Pluralistic ignorance",
+   "kind": "concept",
+   "parent": "PS.8C.prosocial.bystander",
+   "summary": "Pluralistic ignorance occurs when people misread others' inaction as a sign that no emergency exists.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.discrimination",
+   "label": "Discrimination",
+   "kind": "topic",
+   "parent": "PS.8C",
+   "summary": "Discrimination is differential behavior toward members of social groups, including individual and institutional forms and its relationship to prejudice and stereotypes."
+  },
+  {
+   "id": "PS.8C.discrimination.basics",
+   "label": "Discrimination defined",
+   "kind": "subtopic",
+   "parent": "PS.8C.discrimination",
+   "summary": "Discrimination is unjustified negative behavior toward members of a social group based on their membership."
+  },
+  {
+   "id": "PS.8C.discrimination.basics.definition",
+   "label": "Discrimination defined",
+   "kind": "concept",
+   "parent": "PS.8C.discrimination.basics",
+   "summary": "Discrimination is the differential (usually unfair) treatment of individuals based on their membership in a social group.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.8C.discrimination.basics.prejudice-vs-discrimination",
+   "label": "Prejudice vs. discrimination",
+   "kind": "concept",
+   "parent": "PS.8C.discrimination.basics",
+   "summary": "Prejudice is a negative attitude (feeling/belief), while discrimination is the negative behavior or action toward a group.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.8C.discrimination.basics.individual-vs-institutional",
+   "label": "Individual vs. institutional discrimination",
+   "kind": "concept",
+   "parent": "PS.8C.discrimination.basics",
+   "summary": "Individual discrimination is one person acting against another, while institutional discrimination is built into the policies and practices of organizations or systems.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.8C.discrimination.bias",
+   "label": "Bias",
+   "kind": "subtopic",
+   "parent": "PS.8C.discrimination",
+   "summary": "Bias is a prejudice in favor of or against a group, and may be explicit or implicit."
+  },
+  {
+   "id": "PS.8C.discrimination.bias.definition",
+   "label": "Bias defined",
+   "kind": "concept",
+   "parent": "PS.8C.discrimination.bias",
+   "summary": "Bias is a tendency or inclination, often unfair, for or against a person or group.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.discrimination.bias.explicit-vs-implicit",
+   "label": "Explicit vs. implicit bias",
+   "kind": "concept",
+   "parent": "PS.8C.discrimination.bias",
+   "summary": "Explicit bias is consciously held, while implicit bias operates automatically and outside conscious awareness.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.discrimination.power-prestige-class",
+   "label": "How power, prestige, and class facilitate discrimination",
+   "kind": "subtopic",
+   "parent": "PS.8C.discrimination",
+   "summary": "Differences in power, prestige, and class shape who can enact and who suffers discrimination."
+  },
+  {
+   "id": "PS.8C.discrimination.power-prestige-class.definition",
+   "label": "Power, prestige, and class in discrimination",
+   "kind": "concept",
+   "parent": "PS.8C.discrimination.power-prestige-class",
+   "summary": "Power (ability to influence others), prestige (social respect), and class (economic position) enable dominant groups to discriminate against subordinate groups.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.discrimination.power-prestige-class.privilege",
+   "label": "Privilege",
+   "kind": "concept",
+   "parent": "PS.8C.discrimination.power-prestige-class",
+   "summary": "Privilege is the unearned advantage held by members of dominant social groups that facilitates and sustains discrimination.",
+   "yield": "low"
+  },
+  {
+   "id": "PS.8C.discrimination.related-prejudice",
+   "label": "Relationship to prejudice and stereotypes",
+   "kind": "subtopic",
+   "parent": "PS.8C.discrimination",
+   "summary": "Discrimination is the behavioral component linked to the cognitive (stereotype) and affective (prejudice) components of intergroup bias."
+  },
+  {
+   "id": "PS.8C.discrimination.related-prejudice.stereotype",
+   "label": "Stereotype",
+   "kind": "concept",
+   "parent": "PS.8C.discrimination.related-prejudice",
+   "summary": "A stereotype is an overgeneralized belief about a group that serves as the cognitive component underlying prejudice and discrimination.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.8C.discrimination.related-prejudice.abc-model",
+   "label": "ABC components of bias",
+   "kind": "concept",
+   "parent": "PS.8C.discrimination.related-prejudice",
+   "summary": "Stereotypes are the cognitive component, prejudice the affective component, and discrimination the behavioral component of intergroup bias.",
+   "yield": "high"
+  },
+  {
+   "id": "PS.8C.discrimination.related-prejudice.ethnocentrism",
+   "label": "Ethnocentrism",
+   "kind": "concept",
+   "parent": "PS.8C.discrimination.related-prejudice",
+   "summary": "Ethnocentrism is the tendency to judge other cultures by the standards of one's own and to see one's own group as superior.",
+   "yield": "medium"
+  },
+  {
+   "id": "PS.8C.discrimination.related-prejudice.cultural-relativism",
+   "label": "Cultural relativism",
+   "kind": "concept",
+   "parent": "PS.8C.discrimination.related-prejudice",
+   "summary": "Cultural relativism is the practice of understanding a culture by its own standards rather than judging it by another's, contrasting with ethnocentrism.",
+   "yield": "low"
+  }
+ ],
+ "prerequisites": [
+  {
+   "src": "PS.8C.self-presentation.self-concept.definition",
+   "dst": "PS.8C.self-presentation.self-concept.identity-vs-self-concept"
+  },
+  {
+   "src": "PS.8C.self-presentation.self-concept.definition",
+   "dst": "PS.8C.self-presentation.self-concept.self-disclosure"
+  },
+  {
+   "src": "PS.8C.self-presentation.self-concept.definition",
+   "dst": "PS.8C.self-presentation.impression-management.definition"
+  },
+  {
+   "src": "PS.8C.self-presentation.impression-management.definition",
+   "dst": "PS.8C.self-presentation.impression-management.authentic-self"
+  },
+  {
+   "src": "PS.8C.self-presentation.impression-management.definition",
+   "dst": "PS.8C.self-presentation.impression-management.ideal-self"
+  },
+  {
+   "src": "PS.8C.self-presentation.impression-management.definition",
+   "dst": "PS.8C.self-presentation.impression-management.tactical-self"
+  },
+  {
+   "src": "PS.8C.self-presentation.impression-management.definition",
+   "dst": "PS.8C.self-presentation.impression-management.self-monitoring"
+  },
+  {
+   "src": "PS.8C.self-presentation.impression-management.definition",
+   "dst": "PS.8C.self-presentation.dramaturgical.definition"
+  },
+  {
+   "src": "PS.8C.self-presentation.dramaturgical.definition",
+   "dst": "PS.8C.self-presentation.dramaturgical.front-stage"
+  },
+  {
+   "src": "PS.8C.self-presentation.dramaturgical.definition",
+   "dst": "PS.8C.self-presentation.dramaturgical.back-stage"
+  },
+  {
+   "src": "PS.8C.communication.modes.definition",
+   "dst": "PS.8C.communication.modes.verbal"
+  },
+  {
+   "src": "PS.8C.communication.modes.definition",
+   "dst": "PS.8C.communication.modes.nonverbal"
+  },
+  {
+   "src": "PS.8C.communication.modes.nonverbal",
+   "dst": "PS.8C.communication.modes.paralanguage"
+  },
+  {
+   "src": "PS.8C.communication.modes.definition",
+   "dst": "PS.8C.communication.animal.definition"
+  },
+  {
+   "src": "PS.8C.communication.animal.definition",
+   "dst": "PS.8C.communication.animal.signal-types"
+  },
+  {
+   "src": "PS.8C.communication.animal.definition",
+   "dst": "PS.8C.communication.animal.honest-signaling"
+  },
+  {
+   "src": "PS.8C.attraction.factors.definition",
+   "dst": "PS.8C.attraction.factors.similarity"
+  },
+  {
+   "src": "PS.8C.attraction.factors.definition",
+   "dst": "PS.8C.attraction.factors.proximity"
+  },
+  {
+   "src": "PS.8C.attraction.factors.definition",
+   "dst": "PS.8C.attraction.factors.physical-attractiveness"
+  },
+  {
+   "src": "PS.8C.attraction.factors.physical-attractiveness",
+   "dst": "PS.8C.attraction.factors.halo-effect"
+  },
+  {
+   "src": "PS.8C.attraction.factors.physical-attractiveness",
+   "dst": "PS.8C.attraction.factors.matching-hypothesis"
+  },
+  {
+   "src": "PS.8C.attraction.factors.similarity",
+   "dst": "PS.8C.attraction.factors.matching-hypothesis"
+  },
+  {
+   "src": "PS.8C.attraction.factors.definition",
+   "dst": "PS.8C.attraction.factors.reciprocal-liking"
+  },
+  {
+   "src": "PS.8C.attraction.factors.definition",
+   "dst": "PS.8C.attraction.factors.self-disclosure-link"
+  },
+  {
+   "src": "PS.8C.attraction.factors.proximity",
+   "dst": "PS.8C.attraction.factors.mere-exposure"
+  },
+  {
+   "src": "PS.8C.self-presentation.self-concept.self-disclosure",
+   "dst": "PS.8C.attraction.factors.self-disclosure-link"
+  },
+  {
+   "src": "PS.8C.attraction.factors.definition",
+   "dst": "PS.8C.attraction.theories.triangular-love"
+  },
+  {
+   "src": "PS.8C.attraction.theories.triangular-love",
+   "dst": "PS.8C.attraction.theories.passionate-companionate"
+  },
+  {
+   "src": "PS.8C.aggression.definition-types.definition",
+   "dst": "PS.8C.aggression.definition-types.hostile-vs-instrumental"
+  },
+  {
+   "src": "PS.8C.aggression.definition-types.definition",
+   "dst": "PS.8C.aggression.definition-types.relational"
+  },
+  {
+   "src": "PS.8C.aggression.definition-types.definition",
+   "dst": "PS.8C.aggression.biological.amygdala"
+  },
+  {
+   "src": "PS.8C.aggression.biological.amygdala",
+   "dst": "PS.8C.aggression.biological.prefrontal-control"
+  },
+  {
+   "src": "PS.8C.aggression.definition-types.definition",
+   "dst": "PS.8C.aggression.biological.testosterone"
+  },
+  {
+   "src": "PS.8C.aggression.definition-types.definition",
+   "dst": "PS.8C.aggression.biological.serotonin"
+  },
+  {
+   "src": "PS.8C.aggression.definition-types.definition",
+   "dst": "PS.8C.aggression.frustration-aggression.principle"
+  },
+  {
+   "src": "PS.8C.aggression.frustration-aggression.principle",
+   "dst": "PS.8C.aggression.frustration-aggression.cognitive-neoassociation"
+  },
+  {
+   "src": "PS.8C.aggression.frustration-aggression.principle",
+   "dst": "PS.8C.aggression.frustration-aggression.catharsis"
+  },
+  {
+   "src": "PS.8C.aggression.definition-types.definition",
+   "dst": "PS.8C.aggression.social-learning.modeling"
+  },
+  {
+   "src": "PS.8C.attachment.basics.definition",
+   "dst": "PS.8C.attachment.basics.harlow"
+  },
+  {
+   "src": "PS.8C.attachment.basics.definition",
+   "dst": "PS.8C.attachment.basics.imprinting"
+  },
+  {
+   "src": "PS.8C.attachment.basics.definition",
+   "dst": "PS.8C.attachment.basics.secure-base"
+  },
+  {
+   "src": "PS.8C.attachment.basics.definition",
+   "dst": "PS.8C.attachment.styles.strange-situation"
+  },
+  {
+   "src": "PS.8C.attachment.basics.secure-base",
+   "dst": "PS.8C.attachment.styles.secure"
+  },
+  {
+   "src": "PS.8C.attachment.styles.strange-situation",
+   "dst": "PS.8C.attachment.styles.secure"
+  },
+  {
+   "src": "PS.8C.attachment.styles.strange-situation",
+   "dst": "PS.8C.attachment.styles.avoidant"
+  },
+  {
+   "src": "PS.8C.attachment.styles.strange-situation",
+   "dst": "PS.8C.attachment.styles.ambivalent"
+  },
+  {
+   "src": "PS.8C.attachment.styles.strange-situation",
+   "dst": "PS.8C.attachment.styles.disorganized"
+  },
+  {
+   "src": "PS.8C.attachment.styles.secure",
+   "dst": "PS.8C.attachment.styles.avoidant"
+  },
+  {
+   "src": "PS.8C.social-support.types.definition",
+   "dst": "PS.8C.social-support.types.emotional"
+  },
+  {
+   "src": "PS.8C.social-support.types.definition",
+   "dst": "PS.8C.social-support.types.esteem"
+  },
+  {
+   "src": "PS.8C.social-support.types.definition",
+   "dst": "PS.8C.social-support.types.informational"
+  },
+  {
+   "src": "PS.8C.social-support.types.definition",
+   "dst": "PS.8C.social-support.types.tangible"
+  },
+  {
+   "src": "PS.8C.social-support.types.definition",
+   "dst": "PS.8C.social-support.types.network"
+  },
+  {
+   "src": "PS.8C.social-support.types.definition",
+   "dst": "PS.8C.social-support.health.buffering"
+  },
+  {
+   "src": "PS.8C.foraging-mate.foraging.definition",
+   "dst": "PS.8C.foraging-mate.foraging.optimal"
+  },
+  {
+   "src": "PS.8C.foraging-mate.foraging.definition",
+   "dst": "PS.8C.foraging-mate.mate-choice.definition"
+  },
+  {
+   "src": "PS.8C.foraging-mate.mate-choice.definition",
+   "dst": "PS.8C.foraging-mate.mate-choice.mate-bias"
+  },
+  {
+   "src": "PS.8C.foraging-mate.mate-choice.definition",
+   "dst": "PS.8C.foraging-mate.mate-choice.sexual-selection"
+  },
+  {
+   "src": "PS.8C.foraging-mate.mate-choice.sexual-selection",
+   "dst": "PS.8C.foraging-mate.mate-choice.direct-indirect-benefits"
+  },
+  {
+   "src": "PS.8C.foraging-mate.mate-choice.definition",
+   "dst": "PS.8C.foraging-mate.game-theory.definition"
+  },
+  {
+   "src": "PS.8C.foraging-mate.game-theory.definition",
+   "dst": "PS.8C.foraging-mate.game-theory.ess"
+  },
+  {
+   "src": "PS.8C.foraging-mate.game-theory.definition",
+   "dst": "PS.8C.foraging-mate.game-theory.altruism-evolution"
+  },
+  {
+   "src": "PS.8C.foraging-mate.game-theory.altruism-evolution",
+   "dst": "PS.8C.foraging-mate.game-theory.kin-selection"
+  },
+  {
+   "src": "PS.8C.prosocial.altruism.prosocial-definition",
+   "dst": "PS.8C.prosocial.altruism.definition"
+  },
+  {
+   "src": "PS.8C.prosocial.altruism.definition",
+   "dst": "PS.8C.prosocial.altruism.empathy-altruism"
+  },
+  {
+   "src": "PS.8C.prosocial.altruism.empathy-altruism",
+   "dst": "PS.8C.prosocial.altruism.egoism"
+  },
+  {
+   "src": "PS.8C.prosocial.altruism.prosocial-definition",
+   "dst": "PS.8C.prosocial.altruism.social-exchange"
+  },
+  {
+   "src": "PS.8C.prosocial.altruism.definition",
+   "dst": "PS.8C.prosocial.altruism.reciprocal"
+  },
+  {
+   "src": "PS.8C.foraging-mate.game-theory.altruism-evolution",
+   "dst": "PS.8C.prosocial.altruism.reciprocal"
+  },
+  {
+   "src": "PS.8C.prosocial.altruism.definition",
+   "dst": "PS.8C.prosocial.social-norms.reciprocity-norm"
+  },
+  {
+   "src": "PS.8C.prosocial.altruism.definition",
+   "dst": "PS.8C.prosocial.social-norms.social-responsibility"
+  },
+  {
+   "src": "PS.8C.prosocial.altruism.prosocial-definition",
+   "dst": "PS.8C.prosocial.bystander.definition"
+  },
+  {
+   "src": "PS.8C.prosocial.bystander.definition",
+   "dst": "PS.8C.prosocial.bystander.diffusion-responsibility"
+  },
+  {
+   "src": "PS.8C.prosocial.bystander.definition",
+   "dst": "PS.8C.prosocial.bystander.pluralistic-ignorance"
+  },
+  {
+   "src": "PS.8C.discrimination.basics.definition",
+   "dst": "PS.8C.discrimination.basics.prejudice-vs-discrimination"
+  },
+  {
+   "src": "PS.8C.discrimination.basics.definition",
+   "dst": "PS.8C.discrimination.basics.individual-vs-institutional"
+  },
+  {
+   "src": "PS.8C.discrimination.basics.definition",
+   "dst": "PS.8C.discrimination.bias.definition"
+  },
+  {
+   "src": "PS.8C.discrimination.bias.definition",
+   "dst": "PS.8C.discrimination.bias.explicit-vs-implicit"
+  },
+  {
+   "src": "PS.8C.discrimination.basics.definition",
+   "dst": "PS.8C.discrimination.power-prestige-class.definition"
+  },
+  {
+   "src": "PS.8C.discrimination.power-prestige-class.definition",
+   "dst": "PS.8C.discrimination.power-prestige-class.privilege"
+  },
+  {
+   "src": "PS.8C.discrimination.basics.prejudice-vs-discrimination",
+   "dst": "PS.8C.discrimination.related-prejudice.stereotype"
+  },
+  {
+   "src": "PS.8C.discrimination.related-prejudice.stereotype",
+   "dst": "PS.8C.discrimination.related-prejudice.abc-model"
+  },
+  {
+   "src": "PS.8C.discrimination.related-prejudice.abc-model",
+   "dst": "PS.8C.discrimination.related-prejudice.ethnocentrism"
+  },
+  {
+   "src": "PS.8C.discrimination.related-prejudice.ethnocentrism",
+   "dst": "PS.8C.discrimination.related-prejudice.cultural-relativism"
+  }
+ ],
+ "related": [
+  {
+   "src": "PS.8C.self-presentation.self-concept.self-disclosure",
+   "dst": "PS.8C.attraction.factors.self-disclosure-link"
+  },
+  {
+   "src": "PS.8C.self-presentation.dramaturgical.definition",
+   "dst": "PS.8C.communication.modes.nonverbal"
+  },
+  {
+   "src": "PS.8C.attraction.factors.physical-attractiveness",
+   "dst": "PS.8C.foraging-mate.mate-choice.mate-bias"
+  },
+  {
+   "src": "PS.8C.communication.animal.honest-signaling",
+   "dst": "PS.8C.foraging-mate.mate-choice.sexual-selection"
+  },
+  {
+   "src": "PS.8C.aggression.frustration-aggression.principle",
+   "dst": "PS.8C.aggression.social-learning.modeling"
+  },
+  {
+   "src": "PS.8C.foraging-mate.game-theory.kin-selection",
+   "dst": "PS.8C.foraging-mate.game-theory.altruism-evolution"
+  },
+  {
+   "src": "PS.8C.prosocial.bystander.diffusion-responsibility",
+   "dst": "PS.8C.prosocial.bystander.pluralistic-ignorance"
+  },
+  {
+   "src": "PS.8C.prosocial.altruism.social-exchange",
+   "dst": "PS.8C.prosocial.altruism.reciprocal"
+  },
+  {
+   "src": "PS.8C.discrimination.related-prejudice.ethnocentrism",
+   "dst": "PS.8C.discrimination.power-prestige-class.definition"
+  },
+  {
+   "src": "PS.8C.prosocial.altruism.reciprocal",
+   "dst": "PS.8C.prosocial.social-norms.reciprocity-norm"
+  },
+  {
+   "src": "PS.8C.social-support.health.buffering",
+   "dst": "PS.8C.social-support.types.emotional"
+  }
+ ],
+ "external_prereqs": [
+  {
+   "dst": "PS.8C.aggression.biological.amygdala",
+   "from_leaf": "BB.3A",
+   "concept_hint": "Amygdala and limbic system in emotion"
+  },
+  {
+   "dst": "PS.8C.aggression.biological.prefrontal-control",
+   "from_leaf": "BB.3A",
+   "concept_hint": "Prefrontal cortex and executive control"
+  },
+  {
+   "dst": "PS.8C.aggression.biological.testosterone",
+   "from_leaf": "BB.3B",
+   "concept_hint": "Hormones (testosterone) and endocrine signaling"
+  },
+  {
+   "dst": "PS.8C.aggression.biological.serotonin",
+   "from_leaf": "BB.3A",
+   "concept_hint": "Neurotransmitters and synaptic signaling"
+  },
+  {
+   "dst": "PS.8C.aggression.social-learning.modeling",
+   "from_leaf": "PS.7A",
+   "concept_hint": "Observational learning / social learning theory (Bandura)"
+  },
+  {
+   "dst": "PS.8C.foraging-mate.game-theory.altruism-evolution",
+   "from_leaf": "PS.6A",
+   "concept_hint": "Evolution and natural selection / inclusive fitness"
+  },
+  {
+   "dst": "PS.8C.foraging-mate.mate-choice.sexual-selection",
+   "from_leaf": "PS.6A",
+   "concept_hint": "Sexual selection and differential reproductive success"
+  },
+  {
+   "dst": "PS.8C.discrimination.related-prejudice.abc-model",
+   "from_leaf": "PS.8B",
+   "concept_hint": "Prejudice and stereotypes as attitudes"
+  },
+  {
+   "dst": "PS.8C.discrimination.related-prejudice.stereotype",
+   "from_leaf": "PS.8B",
+   "concept_hint": "Stereotypes, stereotype threat, and self-fulfilling prophecy"
+  },
+  {
+   "dst": "PS.8C.discrimination.bias.explicit-vs-implicit",
+   "from_leaf": "PS.7A",
+   "concept_hint": "Implicit vs. explicit attitudes and automatic processing"
+  },
+  {
+   "dst": "PS.8C.communication.modes.nonverbal",
+   "from_leaf": "PS.4A",
+   "concept_hint": "Emotional expression and universal facial expressions"
+  }
+ ]
+}

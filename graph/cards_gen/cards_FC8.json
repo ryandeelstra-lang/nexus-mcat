@@ -1,0 +1,2417 @@
+{
+  "fc": "FC8",
+  "cards": [
+    {
+      "id": "PS.8A.self-concept.core.self-concept.c1",
+      "parent": "PS.8A.self-concept.core.self-concept",
+      "leaf": "PS.8A",
+      "label": "What does a person's self-concept encompass?"
+    },
+    {
+      "id": "PS.8A.self-concept.core.self-concept.c2",
+      "parent": "PS.8A.self-concept.core.self-concept",
+      "leaf": "PS.8A",
+      "label": "How does self-concept differ from a single self-schema?"
+    },
+    {
+      "id": "PS.8A.self-concept.core.self-schema.c1",
+      "parent": "PS.8A.self-concept.core.self-schema",
+      "leaf": "PS.8A",
+      "label": "What is a self-schema and what does it guide?"
+    },
+    {
+      "id": "PS.8A.self-concept.core.self-schema.c2",
+      "parent": "PS.8A.self-concept.core.self-schema",
+      "leaf": "PS.8A",
+      "label": "How does a self-schema speed processing of self-relevant information?"
+    },
+    {
+      "id": "PS.8A.self-concept.core.identity.c1",
+      "parent": "PS.8A.self-concept.core.identity",
+      "leaf": "PS.8A",
+      "label": "Within the self-concept, what does identity specifically refer to?"
+    },
+    {
+      "id": "PS.8A.self-concept.core.identity.c2",
+      "parent": "PS.8A.self-concept.core.identity",
+      "leaf": "PS.8A",
+      "label": "Which parts of the self-concept make up one's identity?"
+    },
+    {
+      "id": "PS.8A.self-concept.core.self-vs-identity.c1",
+      "parent": "PS.8A.self-concept.core.self-vs-identity",
+      "leaf": "PS.8A",
+      "label": "How does self-concept differ from identity?"
+    },
+    {
+      "id": "PS.8A.self-concept.core.self-image.c1",
+      "parent": "PS.8A.self-concept.core.self-image",
+      "leaf": "PS.8A",
+      "label": "What does a person's self-image describe?"
+    },
+    {
+      "id": "PS.8A.self-concept.core.self-awareness.c1",
+      "parent": "PS.8A.self-concept.core.self-awareness",
+      "leaf": "PS.8A",
+      "label": "What capacity defines self-awareness?"
+    },
+    {
+      "id": "PS.8A.self-concept.core.self-consciousness.c1",
+      "parent": "PS.8A.self-concept.core.self-consciousness",
+      "leaf": "PS.8A",
+      "label": "How do private and public self-consciousness differ?"
+    },
+    {
+      "id": "PS.8A.self-concept.core.self-reference-effect.c1",
+      "parent": "PS.8A.self-concept.core.self-reference-effect",
+      "leaf": "PS.8A",
+      "label": "What is the self-reference effect in memory?"
+    },
+    {
+      "id": "PS.8A.self-concept.james.i-self.c1",
+      "parent": "PS.8A.self-concept.james.i-self",
+      "leaf": "PS.8A",
+      "label": "What does James's I-self represent?"
+    },
+    {
+      "id": "PS.8A.self-concept.james.me-self.c1",
+      "parent": "PS.8A.self-concept.james.me-self",
+      "leaf": "PS.8A",
+      "label": "What does James's Me-self represent?"
+    },
+    {
+      "id": "PS.8A.self-concept.james.material-self.c1",
+      "parent": "PS.8A.self-concept.james.material-self",
+      "leaf": "PS.8A",
+      "label": "What makes up James's material self?"
+    },
+    {
+      "id": "PS.8A.self-concept.james.social-self.c1",
+      "parent": "PS.8A.self-concept.james.social-self",
+      "leaf": "PS.8A",
+      "label": "What is James's social self?"
+    },
+    {
+      "id": "PS.8A.self-concept.james.spiritual-self.c1",
+      "parent": "PS.8A.self-concept.james.spiritual-self",
+      "leaf": "PS.8A",
+      "label": "What comprises James's spiritual self?"
+    },
+    {
+      "id": "PS.8A.self-concept.dimensions.actual-self.c1",
+      "parent": "PS.8A.self-concept.dimensions.actual-self",
+      "leaf": "PS.8A",
+      "label": "What does the actual self represent?"
+    },
+    {
+      "id": "PS.8A.self-concept.dimensions.actual-self.c2",
+      "parent": "PS.8A.self-concept.dimensions.actual-self",
+      "leaf": "PS.8A",
+      "label": "In self-discrepancy theory, the actual self is compared against which selves?"
+    },
+    {
+      "id": "PS.8A.self-concept.dimensions.ideal-self.c1",
+      "parent": "PS.8A.self-concept.dimensions.ideal-self",
+      "leaf": "PS.8A",
+      "label": "What attributes does the ideal self represent?"
+    },
+    {
+      "id": "PS.8A.self-concept.dimensions.ideal-self.c2",
+      "parent": "PS.8A.self-concept.dimensions.ideal-self",
+      "leaf": "PS.8A",
+      "label": "A gap between actual and ideal selves produces which emotions?"
+    },
+    {
+      "id": "PS.8A.self-concept.dimensions.ought-self.c1",
+      "parent": "PS.8A.self-concept.dimensions.ought-self",
+      "leaf": "PS.8A",
+      "label": "What does the ought self represent?"
+    },
+    {
+      "id": "PS.8A.self-concept.dimensions.self-discrepancy.c1",
+      "parent": "PS.8A.self-concept.dimensions.self-discrepancy",
+      "leaf": "PS.8A",
+      "label": "What does Higgins's self-discrepancy theory predict?"
+    },
+    {
+      "id": "PS.8A.self-concept.dimensions.self-discrepancy.c2",
+      "parent": "PS.8A.self-concept.dimensions.self-discrepancy",
+      "leaf": "PS.8A",
+      "label": "An actual-ought discrepancy produces which emotional state?"
+    },
+    {
+      "id": "PS.8A.self-concept.dimensions.self-discrepancy-magnitude.c1",
+      "parent": "PS.8A.self-concept.dimensions.self-discrepancy-magnitude",
+      "leaf": "PS.8A",
+      "label": "How does the actual-ideal gap relate to self-esteem?"
+    },
+    {
+      "id": "PS.8A.self-concept.dimensions.regulatory-focus.c1",
+      "parent": "PS.8A.self-concept.dimensions.regulatory-focus",
+      "leaf": "PS.8A",
+      "label": "How do promotion and prevention regulatory focus differ?"
+    },
+    {
+      "id": "PS.8A.self-concept.dimensions.possible-selves.c1",
+      "parent": "PS.8A.self-concept.dimensions.possible-selves",
+      "leaf": "PS.8A",
+      "label": "What are possible selves and what do they guide?"
+    },
+    {
+      "id": "PS.8A.self-concept.dimensions.working-self-concept.c1",
+      "parent": "PS.8A.self-concept.dimensions.working-self-concept",
+      "leaf": "PS.8A",
+      "label": "What is the working self-concept?"
+    },
+    {
+      "id": "PS.8A.self-esteem.esteem.definition.c1",
+      "parent": "PS.8A.self-esteem.esteem.definition",
+      "leaf": "PS.8A",
+      "label": "Which component of the self does self-esteem represent?"
+    },
+    {
+      "id": "PS.8A.self-esteem.esteem.definition.c2",
+      "parent": "PS.8A.self-esteem.esteem.definition",
+      "leaf": "PS.8A",
+      "label": "How does self-esteem differ from self-concept?"
+    },
+    {
+      "id": "PS.8A.self-esteem.esteem.global-vs-domain.c1",
+      "parent": "PS.8A.self-esteem.esteem.global-vs-domain",
+      "leaf": "PS.8A",
+      "label": "How do global and domain-specific self-esteem differ?"
+    },
+    {
+      "id": "PS.8A.self-esteem.esteem.contingencies.c1",
+      "parent": "PS.8A.self-esteem.esteem.contingencies",
+      "leaf": "PS.8A",
+      "label": "What are contingencies of self-worth?"
+    },
+    {
+      "id": "PS.8A.self-esteem.esteem.high-low.c1",
+      "parent": "PS.8A.self-esteem.esteem.high-low",
+      "leaf": "PS.8A",
+      "label": "What outcomes are associated with low self-esteem?"
+    },
+    {
+      "id": "PS.8A.self-esteem.esteem.implicit-explicit.c1",
+      "parent": "PS.8A.self-esteem.esteem.implicit-explicit",
+      "leaf": "PS.8A",
+      "label": "How do implicit and explicit self-esteem differ?"
+    },
+    {
+      "id": "PS.8A.self-esteem.esteem.sociometer.c1",
+      "parent": "PS.8A.self-esteem.esteem.sociometer",
+      "leaf": "PS.8A",
+      "label": "According to sociometer theory, what does self-esteem gauge?"
+    },
+    {
+      "id": "PS.8A.self-esteem.efficacy.definition.c1",
+      "parent": "PS.8A.self-esteem.efficacy.definition",
+      "leaf": "PS.8A",
+      "label": "What does Bandura's self-efficacy refer to?"
+    },
+    {
+      "id": "PS.8A.self-esteem.efficacy.definition.c2",
+      "parent": "PS.8A.self-esteem.efficacy.definition",
+      "leaf": "PS.8A",
+      "label": "How does self-efficacy differ from global self-esteem?"
+    },
+    {
+      "id": "PS.8A.self-esteem.efficacy.task-specific.c1",
+      "parent": "PS.8A.self-esteem.efficacy.task-specific",
+      "leaf": "PS.8A",
+      "label": "Why is self-efficacy considered task-specific?"
+    },
+    {
+      "id": "PS.8A.self-esteem.efficacy.sources.c1",
+      "parent": "PS.8A.self-esteem.efficacy.sources",
+      "leaf": "PS.8A",
+      "label": "What are the four sources of self-efficacy?"
+    },
+    {
+      "id": "PS.8A.self-esteem.efficacy.mastery.c1",
+      "parent": "PS.8A.self-esteem.efficacy.mastery",
+      "leaf": "PS.8A",
+      "label": "Why are mastery experiences the strongest source of self-efficacy?"
+    },
+    {
+      "id": "PS.8A.self-esteem.efficacy.high-low.c1",
+      "parent": "PS.8A.self-esteem.efficacy.high-low",
+      "leaf": "PS.8A",
+      "label": "How does high self-efficacy affect persistence?"
+    },
+    {
+      "id": "PS.8A.self-esteem.efficacy.learned-helplessness.c1",
+      "parent": "PS.8A.self-esteem.efficacy.learned-helplessness",
+      "leaf": "PS.8A",
+      "label": "What produces learned helplessness?"
+    },
+    {
+      "id": "PS.8A.self-esteem.efficacy.learned-helplessness.c2",
+      "parent": "PS.8A.self-esteem.efficacy.learned-helplessness",
+      "leaf": "PS.8A",
+      "label": "How does learned helplessness relate to self-efficacy?"
+    },
+    {
+      "id": "PS.8A.self-esteem.locus.definition.c1",
+      "parent": "PS.8A.self-esteem.locus.definition",
+      "leaf": "PS.8A",
+      "label": "What does Rotter's locus of control describe?"
+    },
+    {
+      "id": "PS.8A.self-esteem.locus.definition.c2",
+      "parent": "PS.8A.self-esteem.locus.definition",
+      "leaf": "PS.8A",
+      "label": "Locus of control reflects one's perceived source of what?"
+    },
+    {
+      "id": "PS.8A.self-esteem.locus.internal.c1",
+      "parent": "PS.8A.self-esteem.locus.internal",
+      "leaf": "PS.8A",
+      "label": "What belief defines an internal locus of control?"
+    },
+    {
+      "id": "PS.8A.self-esteem.locus.internal.c2",
+      "parent": "PS.8A.self-esteem.locus.internal",
+      "leaf": "PS.8A",
+      "label": "A student who credits her grades to effort shows which locus?"
+    },
+    {
+      "id": "PS.8A.self-esteem.locus.external.c1",
+      "parent": "PS.8A.self-esteem.locus.external",
+      "leaf": "PS.8A",
+      "label": "What belief defines an external locus of control?"
+    },
+    {
+      "id": "PS.8A.self-esteem.locus.external.c2",
+      "parent": "PS.8A.self-esteem.locus.external",
+      "leaf": "PS.8A",
+      "label": "Attributing outcomes to luck or fate reflects which locus?"
+    },
+    {
+      "id": "PS.8A.self-esteem.locus.outcomes.c1",
+      "parent": "PS.8A.self-esteem.locus.outcomes",
+      "leaf": "PS.8A",
+      "label": "How does internal vs. external locus relate to well-being?"
+    },
+    {
+      "id": "PS.8A.self-esteem.distinctions.c1",
+      "parent": "PS.8A.self-esteem.distinctions",
+      "leaf": "PS.8A",
+      "label": "How do self-esteem, self-efficacy, and locus of control differ?"
+    },
+    {
+      "id": "PS.8A.identity-types.gender.definition.c1",
+      "parent": "PS.8A.identity-types.gender.definition",
+      "leaf": "PS.8A",
+      "label": "What does gender identity refer to?"
+    },
+    {
+      "id": "PS.8A.identity-types.gender.definition.c2",
+      "parent": "PS.8A.identity-types.gender.definition",
+      "leaf": "PS.8A",
+      "label": "How can gender identity relate to assigned sex?"
+    },
+    {
+      "id": "PS.8A.identity-types.gender.sex-vs-gender.c1",
+      "parent": "PS.8A.identity-types.gender.sex-vs-gender",
+      "leaf": "PS.8A",
+      "label": "How does sex differ from gender?"
+    },
+    {
+      "id": "PS.8A.identity-types.gender.sex-vs-gender.c2",
+      "parent": "PS.8A.identity-types.gender.sex-vs-gender",
+      "leaf": "PS.8A",
+      "label": "Which term denotes socially constructed roles: sex or gender?"
+    },
+    {
+      "id": "PS.8A.identity-types.gender.gender-schema.c1",
+      "parent": "PS.8A.identity-types.gender.gender-schema",
+      "leaf": "PS.8A",
+      "label": "What is a gender schema and what does it organize?"
+    },
+    {
+      "id": "PS.8A.identity-types.gender.androgyny.c1",
+      "parent": "PS.8A.identity-types.gender.androgyny",
+      "leaf": "PS.8A",
+      "label": "What defines androgyny?"
+    },
+    {
+      "id": "PS.8A.identity-types.gender.gender-roles.c1",
+      "parent": "PS.8A.identity-types.gender.gender-roles",
+      "leaf": "PS.8A",
+      "label": "How are gender roles acquired?"
+    },
+    {
+      "id": "PS.8A.identity-types.sexual-orientation.definition.c1",
+      "parent": "PS.8A.identity-types.sexual-orientation.definition",
+      "leaf": "PS.8A",
+      "label": "What does sexual orientation identity describe?"
+    },
+    {
+      "id": "PS.8A.identity-types.sexual-orientation.vs-gender.c1",
+      "parent": "PS.8A.identity-types.sexual-orientation.vs-gender",
+      "leaf": "PS.8A",
+      "label": "How does sexual orientation differ from gender identity?"
+    },
+    {
+      "id": "PS.8A.identity-types.ethnic.definition.c1",
+      "parent": "PS.8A.identity-types.ethnic.definition",
+      "leaf": "PS.8A",
+      "label": "On what shared traits is ethnic identity based?"
+    },
+    {
+      "id": "PS.8A.identity-types.ethnic.definition.c2",
+      "parent": "PS.8A.identity-types.ethnic.definition",
+      "leaf": "PS.8A",
+      "label": "From what group membership is ethnic identity derived?"
+    },
+    {
+      "id": "PS.8A.identity-types.ethnic.ethnicity-vs-race.c1",
+      "parent": "PS.8A.identity-types.ethnic.ethnicity-vs-race",
+      "leaf": "PS.8A",
+      "label": "How does ethnicity differ from race?"
+    },
+    {
+      "id": "PS.8A.identity-types.ethnic.ethnicity-vs-race.c2",
+      "parent": "PS.8A.identity-types.ethnic.ethnicity-vs-race",
+      "leaf": "PS.8A",
+      "label": "Which is based on perceived physical traits: race or ethnicity?"
+    },
+    {
+      "id": "PS.8A.identity-types.ethnic.racial-identity.c1",
+      "parent": "PS.8A.identity-types.ethnic.racial-identity",
+      "leaf": "PS.8A",
+      "label": "On what is racial identity based?"
+    },
+    {
+      "id": "PS.8A.identity-types.ethnic.acculturation-link.c1",
+      "parent": "PS.8A.identity-types.ethnic.acculturation-link",
+      "leaf": "PS.8A",
+      "label": "How can acculturation affect ethnic identity?"
+    },
+    {
+      "id": "PS.8A.identity-types.national.definition.c1",
+      "parent": "PS.8A.identity-types.national.definition",
+      "leaf": "PS.8A",
+      "label": "What is national identity based on?"
+    },
+    {
+      "id": "PS.8A.identity-types.national.nationalism.c1",
+      "parent": "PS.8A.identity-types.national.nationalism",
+      "leaf": "PS.8A",
+      "label": "What characterizes nationalism?"
+    },
+    {
+      "id": "PS.8A.identity-types.religious.definition.c1",
+      "parent": "PS.8A.identity-types.religious.definition",
+      "leaf": "PS.8A",
+      "label": "What is religious identity tied to?"
+    },
+    {
+      "id": "PS.8A.identity-types.age.definition.c1",
+      "parent": "PS.8A.identity-types.age.definition",
+      "leaf": "PS.8A",
+      "label": "What is age identity derived from?"
+    },
+    {
+      "id": "PS.8A.identity-types.class.definition.c1",
+      "parent": "PS.8A.identity-types.class.definition",
+      "leaf": "PS.8A",
+      "label": "What is class identity based on?"
+    },
+    {
+      "id": "PS.8A.identity-types.multiple.hierarchy.c1",
+      "parent": "PS.8A.identity-types.multiple.hierarchy",
+      "leaf": "PS.8A",
+      "label": "What does the hierarchy of salience organize?"
+    },
+    {
+      "id": "PS.8A.identity-types.multiple.hierarchy.c2",
+      "parent": "PS.8A.identity-types.multiple.hierarchy",
+      "leaf": "PS.8A",
+      "label": "Which identity guides behavior in a given context?"
+    },
+    {
+      "id": "PS.8A.identity-types.multiple.salience-determinants.c1",
+      "parent": "PS.8A.identity-types.multiple.salience-determinants",
+      "leaf": "PS.8A",
+      "label": "What factors determine an identity's salience?"
+    },
+    {
+      "id": "PS.8A.identity-types.multiple.intersectionality.c1",
+      "parent": "PS.8A.identity-types.multiple.intersectionality",
+      "leaf": "PS.8A",
+      "label": "What does intersectionality describe?"
+    },
+    {
+      "id": "PS.8A.identity-types.multiple.role-conflict.c1",
+      "parent": "PS.8A.identity-types.multiple.role-conflict",
+      "leaf": "PS.8A",
+      "label": "What causes identity or role conflict?"
+    },
+    {
+      "id": "PS.8A.social-identity.theory.definition.c1",
+      "parent": "PS.8A.social-identity.theory.definition",
+      "leaf": "PS.8A",
+      "label": "What does social identity theory (Tajfel & Turner) claim?"
+    },
+    {
+      "id": "PS.8A.social-identity.theory.definition.c2",
+      "parent": "PS.8A.social-identity.theory.definition",
+      "leaf": "PS.8A",
+      "label": "From what do people derive self-esteem in social identity theory?"
+    },
+    {
+      "id": "PS.8A.social-identity.theory.personal-vs-social.c1",
+      "parent": "PS.8A.social-identity.theory.personal-vs-social",
+      "leaf": "PS.8A",
+      "label": "How does personal identity differ from social identity?"
+    },
+    {
+      "id": "PS.8A.social-identity.theory.personal-vs-social.c2",
+      "parent": "PS.8A.social-identity.theory.personal-vs-social",
+      "leaf": "PS.8A",
+      "label": "Group memberships contribute to which type of identity?"
+    },
+    {
+      "id": "PS.8A.social-identity.theory.categorization.c1",
+      "parent": "PS.8A.social-identity.theory.categorization",
+      "leaf": "PS.8A",
+      "label": "What is social categorization?"
+    },
+    {
+      "id": "PS.8A.social-identity.theory.identification.c1",
+      "parent": "PS.8A.social-identity.theory.identification",
+      "leaf": "PS.8A",
+      "label": "What does social identification involve?"
+    },
+    {
+      "id": "PS.8A.social-identity.theory.comparison.c1",
+      "parent": "PS.8A.social-identity.theory.comparison",
+      "leaf": "PS.8A",
+      "label": "What is the purpose of intergroup social comparison?"
+    },
+    {
+      "id": "PS.8A.social-identity.theory.self-categorization.c1",
+      "parent": "PS.8A.social-identity.theory.self-categorization",
+      "leaf": "PS.8A",
+      "label": "What does self-categorization theory add to social identity theory?"
+    },
+    {
+      "id": "PS.8A.social-identity.comparison.theory.c1",
+      "parent": "PS.8A.social-identity.comparison.theory",
+      "leaf": "PS.8A",
+      "label": "What does Festinger's social comparison theory hold?"
+    },
+    {
+      "id": "PS.8A.social-identity.comparison.upward.c1",
+      "parent": "PS.8A.social-identity.comparison.upward",
+      "leaf": "PS.8A",
+      "label": "What is upward social comparison and its effect?"
+    },
+    {
+      "id": "PS.8A.social-identity.comparison.downward.c1",
+      "parent": "PS.8A.social-identity.comparison.downward",
+      "leaf": "PS.8A",
+      "label": "How does downward social comparison affect self-esteem?"
+    },
+    {
+      "id": "PS.8A.social-identity.ingroup.ingroup.c1",
+      "parent": "PS.8A.social-identity.ingroup.ingroup",
+      "leaf": "PS.8A",
+      "label": "What defines an in-group?"
+    },
+    {
+      "id": "PS.8A.social-identity.ingroup.ingroup.c2",
+      "parent": "PS.8A.social-identity.ingroup.ingroup",
+      "leaf": "PS.8A",
+      "label": "How does an in-group differ from an out-group?"
+    },
+    {
+      "id": "PS.8A.social-identity.ingroup.outgroup.c1",
+      "parent": "PS.8A.social-identity.ingroup.outgroup",
+      "leaf": "PS.8A",
+      "label": "What defines an out-group?"
+    },
+    {
+      "id": "PS.8A.social-identity.ingroup.outgroup.c2",
+      "parent": "PS.8A.social-identity.ingroup.outgroup",
+      "leaf": "PS.8A",
+      "label": "How are out-group members typically perceived?"
+    },
+    {
+      "id": "PS.8A.social-identity.ingroup.favoritism.c1",
+      "parent": "PS.8A.social-identity.ingroup.favoritism",
+      "leaf": "PS.8A",
+      "label": "What is in-group favoritism?"
+    },
+    {
+      "id": "PS.8A.social-identity.ingroup.outgroup-bias.c1",
+      "parent": "PS.8A.social-identity.ingroup.outgroup-bias",
+      "leaf": "PS.8A",
+      "label": "What is out-group derogation?"
+    },
+    {
+      "id": "PS.8A.social-identity.ingroup.outgroup-homogeneity.c1",
+      "parent": "PS.8A.social-identity.ingroup.outgroup-homogeneity",
+      "leaf": "PS.8A",
+      "label": "What is the out-group homogeneity effect?"
+    },
+    {
+      "id": "PS.8A.social-identity.reference.definition.c1",
+      "parent": "PS.8A.social-identity.reference.definition",
+      "leaf": "PS.8A",
+      "label": "What role does a reference group serve?"
+    },
+    {
+      "id": "PS.8A.social-identity.reference.comparison-link.c1",
+      "parent": "PS.8A.social-identity.reference.comparison-link",
+      "leaf": "PS.8A",
+      "label": "How do reference groups shape self-evaluation?"
+    },
+    {
+      "id": "PS.8A.social-construction.looking-glass.definition.c1",
+      "parent": "PS.8A.social-construction.looking-glass.definition",
+      "leaf": "PS.8A",
+      "label": "What does Cooley's looking-glass self propose?"
+    },
+    {
+      "id": "PS.8A.social-construction.looking-glass.definition.c2",
+      "parent": "PS.8A.social-construction.looking-glass.definition",
+      "leaf": "PS.8A",
+      "label": "According to the looking-glass self, what shapes the self-concept?"
+    },
+    {
+      "id": "PS.8A.social-construction.looking-glass.steps.c1",
+      "parent": "PS.8A.social-construction.looking-glass.steps",
+      "leaf": "PS.8A",
+      "label": "What are the three steps of the looking-glass self?"
+    },
+    {
+      "id": "PS.8A.social-construction.looking-glass.imagined.c1",
+      "parent": "PS.8A.social-construction.looking-glass.imagined",
+      "leaf": "PS.8A",
+      "label": "What are reflected appraisals?"
+    },
+    {
+      "id": "PS.8A.social-construction.looking-glass.self-fulfilling.c1",
+      "parent": "PS.8A.social-construction.looking-glass.self-fulfilling",
+      "leaf": "PS.8A",
+      "label": "What is a self-fulfilling prophecy?"
+    },
+    {
+      "id": "PS.8A.social-construction.mead.social-behaviorism.c1",
+      "parent": "PS.8A.social-construction.mead.social-behaviorism",
+      "leaf": "PS.8A",
+      "label": "What does Mead's social behaviorism claim about the self?"
+    },
+    {
+      "id": "PS.8A.social-construction.mead.i-and-me.c1",
+      "parent": "PS.8A.social-construction.mead.i-and-me",
+      "leaf": "PS.8A",
+      "label": "How do Mead's 'I' and 'me' differ?"
+    },
+    {
+      "id": "PS.8A.social-construction.mead.role-taking.c1",
+      "parent": "PS.8A.social-construction.mead.role-taking",
+      "leaf": "PS.8A",
+      "label": "What is role-taking?"
+    },
+    {
+      "id": "PS.8A.social-construction.mead.generalized-other.c1",
+      "parent": "PS.8A.social-construction.mead.generalized-other",
+      "leaf": "PS.8A",
+      "label": "What is the generalized other?"
+    },
+    {
+      "id": "PS.8A.social-construction.mead.generalized-other.c2",
+      "parent": "PS.8A.social-construction.mead.generalized-other",
+      "leaf": "PS.8A",
+      "label": "How is the generalized other used to evaluate behavior?"
+    },
+    {
+      "id": "PS.8A.social-construction.mead.stages.c1",
+      "parent": "PS.8A.social-construction.mead.stages",
+      "leaf": "PS.8A",
+      "label": "What are Mead's stages of self-development?"
+    },
+    {
+      "id": "PS.8A.social-construction.mead.significant-other.c1",
+      "parent": "PS.8A.social-construction.mead.significant-other",
+      "leaf": "PS.8A",
+      "label": "Who are significant others in self-development?"
+    },
+    {
+      "id": "PS.8A.social-construction.symbolic.definition.c1",
+      "parent": "PS.8A.social-construction.symbolic.definition",
+      "leaf": "PS.8A",
+      "label": "What does symbolic interactionism emphasize?"
+    },
+    {
+      "id": "PS.8A.social-construction.symbolic.symbols.c1",
+      "parent": "PS.8A.social-construction.symbolic.symbols",
+      "leaf": "PS.8A",
+      "label": "What role do shared symbols play in interaction?"
+    },
+    {
+      "id": "PS.8A.identity-formation.erikson.overview.c1",
+      "parent": "PS.8A.identity-formation.erikson.overview",
+      "leaf": "PS.8A",
+      "label": "What is at the center of each Eriksonian stage?"
+    },
+    {
+      "id": "PS.8A.identity-formation.erikson.overview.c2",
+      "parent": "PS.8A.identity-formation.erikson.overview",
+      "leaf": "PS.8A",
+      "label": "How many psychosocial stages did Erikson propose?"
+    },
+    {
+      "id": "PS.8A.identity-formation.erikson.trust.c1",
+      "parent": "PS.8A.identity-formation.erikson.trust",
+      "leaf": "PS.8A",
+      "label": "What crisis defines Erikson's infancy stage?"
+    },
+    {
+      "id": "PS.8A.identity-formation.erikson.autonomy.c1",
+      "parent": "PS.8A.identity-formation.erikson.autonomy",
+      "leaf": "PS.8A",
+      "label": "What does Erikson's toddlerhood stage resolve?"
+    },
+    {
+      "id": "PS.8A.identity-formation.erikson.initiative.c1",
+      "parent": "PS.8A.identity-formation.erikson.initiative",
+      "leaf": "PS.8A",
+      "label": "What conflict defines Erikson's preschool stage?"
+    },
+    {
+      "id": "PS.8A.identity-formation.erikson.industry.c1",
+      "parent": "PS.8A.identity-formation.erikson.industry",
+      "leaf": "PS.8A",
+      "label": "What does the industry vs. inferiority stage involve?"
+    },
+    {
+      "id": "PS.8A.identity-formation.erikson.identity.c1",
+      "parent": "PS.8A.identity-formation.erikson.identity",
+      "leaf": "PS.8A",
+      "label": "Which Eriksonian crisis defines adolescence?"
+    },
+    {
+      "id": "PS.8A.identity-formation.erikson.identity.c2",
+      "parent": "PS.8A.identity-formation.erikson.identity",
+      "leaf": "PS.8A",
+      "label": "Successful adolescent resolution produces what outcome?"
+    },
+    {
+      "id": "PS.8A.identity-formation.erikson.intimacy.c1",
+      "parent": "PS.8A.identity-formation.erikson.intimacy",
+      "leaf": "PS.8A",
+      "label": "What crisis defines Erikson's young adulthood?"
+    },
+    {
+      "id": "PS.8A.identity-formation.erikson.generativity.c1",
+      "parent": "PS.8A.identity-formation.erikson.generativity",
+      "leaf": "PS.8A",
+      "label": "What does generativity vs. stagnation involve?"
+    },
+    {
+      "id": "PS.8A.identity-formation.erikson.integrity.c1",
+      "parent": "PS.8A.identity-formation.erikson.integrity",
+      "leaf": "PS.8A",
+      "label": "What crisis defines Erikson's late adulthood?"
+    },
+    {
+      "id": "PS.8A.identity-formation.erikson.crisis.c1",
+      "parent": "PS.8A.identity-formation.erikson.crisis",
+      "leaf": "PS.8A",
+      "label": "What is an identity crisis in Erikson's theory?"
+    },
+    {
+      "id": "PS.8A.identity-formation.marcia.overview.c1",
+      "parent": "PS.8A.identity-formation.marcia.overview",
+      "leaf": "PS.8A",
+      "label": "On what two dimensions does Marcia classify identity status?"
+    },
+    {
+      "id": "PS.8A.identity-formation.marcia.overview.c2",
+      "parent": "PS.8A.identity-formation.marcia.overview",
+      "leaf": "PS.8A",
+      "label": "How many identity statuses did Marcia propose?"
+    },
+    {
+      "id": "PS.8A.identity-formation.marcia.dimensions.c1",
+      "parent": "PS.8A.identity-formation.marcia.dimensions",
+      "leaf": "PS.8A",
+      "label": "What are Marcia's two identity dimensions?"
+    },
+    {
+      "id": "PS.8A.identity-formation.marcia.diffusion.c1",
+      "parent": "PS.8A.identity-formation.marcia.diffusion",
+      "leaf": "PS.8A",
+      "label": "What defines identity diffusion?"
+    },
+    {
+      "id": "PS.8A.identity-formation.marcia.diffusion.c2",
+      "parent": "PS.8A.identity-formation.marcia.diffusion",
+      "leaf": "PS.8A",
+      "label": "Which status lacks both exploration and commitment?"
+    },
+    {
+      "id": "PS.8A.identity-formation.marcia.foreclosure.c1",
+      "parent": "PS.8A.identity-formation.marcia.foreclosure",
+      "leaf": "PS.8A",
+      "label": "What defines identity foreclosure?"
+    },
+    {
+      "id": "PS.8A.identity-formation.marcia.foreclosure.c2",
+      "parent": "PS.8A.identity-formation.marcia.foreclosure",
+      "leaf": "PS.8A",
+      "label": "Committing without exploring reflects which identity status?"
+    },
+    {
+      "id": "PS.8A.identity-formation.marcia.moratorium.c1",
+      "parent": "PS.8A.identity-formation.marcia.moratorium",
+      "leaf": "PS.8A",
+      "label": "What defines identity moratorium?"
+    },
+    {
+      "id": "PS.8A.identity-formation.marcia.moratorium.c2",
+      "parent": "PS.8A.identity-formation.marcia.moratorium",
+      "leaf": "PS.8A",
+      "label": "Which status involves exploration without commitment?"
+    },
+    {
+      "id": "PS.8A.identity-formation.marcia.achievement.c1",
+      "parent": "PS.8A.identity-formation.marcia.achievement",
+      "leaf": "PS.8A",
+      "label": "What defines identity achievement?"
+    },
+    {
+      "id": "PS.8A.identity-formation.marcia.achievement.c2",
+      "parent": "PS.8A.identity-formation.marcia.achievement",
+      "leaf": "PS.8A",
+      "label": "Which status follows exploration with firm commitment?"
+    },
+    {
+      "id": "PS.8A.identity-formation.vygotsky.overview.c1",
+      "parent": "PS.8A.identity-formation.vygotsky.overview",
+      "leaf": "PS.8A",
+      "label": "What drives development in Vygotsky's sociocultural theory?"
+    },
+    {
+      "id": "PS.8A.identity-formation.vygotsky.zpd.c1",
+      "parent": "PS.8A.identity-formation.vygotsky.zpd",
+      "leaf": "PS.8A",
+      "label": "What is the zone of proximal development?"
+    },
+    {
+      "id": "PS.8A.identity-formation.vygotsky.scaffolding.c1",
+      "parent": "PS.8A.identity-formation.vygotsky.scaffolding",
+      "leaf": "PS.8A",
+      "label": "What is scaffolding in learning?"
+    },
+    {
+      "id": "PS.8A.identity-formation.vygotsky.internalization.c1",
+      "parent": "PS.8A.identity-formation.vygotsky.internalization",
+      "leaf": "PS.8A",
+      "label": "What is internalization in Vygotsky's theory?"
+    },
+    {
+      "id": "PS.8A.identity-formation.piaget.overview.c1",
+      "parent": "PS.8A.identity-formation.piaget.overview",
+      "leaf": "PS.8A",
+      "label": "What are Piaget's four stages of cognitive development?"
+    },
+    {
+      "id": "PS.8A.identity-formation.piaget.self-recognition.c1",
+      "parent": "PS.8A.identity-formation.piaget.self-recognition",
+      "leaf": "PS.8A",
+      "label": "What does the mirror (rouge) test assess?"
+    },
+    {
+      "id": "PS.8A.identity-formation.freud.overview.c1",
+      "parent": "PS.8A.identity-formation.freud.overview",
+      "leaf": "PS.8A",
+      "label": "What shapes adult identity in Freud's psychosexual theory?"
+    },
+    {
+      "id": "PS.8A.identity-formation.freud.stages.c1",
+      "parent": "PS.8A.identity-formation.freud.stages",
+      "leaf": "PS.8A",
+      "label": "What are Freud's five psychosexual stages?"
+    },
+    {
+      "id": "PS.8A.identity-formation.freud.fixation.c1",
+      "parent": "PS.8A.identity-formation.freud.fixation",
+      "leaf": "PS.8A",
+      "label": "What is fixation in Freud's theory?"
+    },
+    {
+      "id": "PS.8A.identity-formation.kohlberg.overview.c1",
+      "parent": "PS.8A.identity-formation.kohlberg.overview",
+      "leaf": "PS.8A",
+      "label": "What are Kohlberg's three levels of moral development?"
+    },
+    {
+      "id": "PS.8A.identity-formation.kohlberg.overview.c2",
+      "parent": "PS.8A.identity-formation.kohlberg.overview",
+      "leaf": "PS.8A",
+      "label": "Kohlberg's theory describes the development of what?"
+    },
+    {
+      "id": "PS.8A.identity-formation.kohlberg.preconventional.c1",
+      "parent": "PS.8A.identity-formation.kohlberg.preconventional",
+      "leaf": "PS.8A",
+      "label": "What guides moral decisions at the preconventional level?"
+    },
+    {
+      "id": "PS.8A.identity-formation.kohlberg.preconventional.c2",
+      "parent": "PS.8A.identity-formation.kohlberg.preconventional",
+      "leaf": "PS.8A",
+      "label": "Reasoning to avoid punishment reflects which Kohlberg level?"
+    },
+    {
+      "id": "PS.8A.identity-formation.kohlberg.conventional.c1",
+      "parent": "PS.8A.identity-formation.kohlberg.conventional",
+      "leaf": "PS.8A",
+      "label": "What guides reasoning at the conventional level?"
+    },
+    {
+      "id": "PS.8A.identity-formation.kohlberg.conventional.c2",
+      "parent": "PS.8A.identity-formation.kohlberg.conventional",
+      "leaf": "PS.8A",
+      "label": "Valuing law and social approval reflects which Kohlberg level?"
+    },
+    {
+      "id": "PS.8A.identity-formation.kohlberg.postconventional.c1",
+      "parent": "PS.8A.identity-formation.kohlberg.postconventional",
+      "leaf": "PS.8A",
+      "label": "What guides reasoning at the postconventional level?"
+    },
+    {
+      "id": "PS.8A.identity-formation.kohlberg.postconventional.c2",
+      "parent": "PS.8A.identity-formation.kohlberg.postconventional",
+      "leaf": "PS.8A",
+      "label": "Appealing to universal ethics reflects which Kohlberg level?"
+    },
+    {
+      "id": "PS.8A.identity-formation.kohlberg.heinz.c1",
+      "parent": "PS.8A.identity-formation.kohlberg.heinz",
+      "leaf": "PS.8A",
+      "label": "What was the purpose of the Heinz dilemma?"
+    },
+    {
+      "id": "PS.8A.identity-formation.kohlberg.gilligan.c1",
+      "parent": "PS.8A.identity-formation.kohlberg.gilligan",
+      "leaf": "PS.8A",
+      "label": "What was Gilligan's critique of Kohlberg's model?"
+    },
+    {
+      "id": "PS.8A.identity-formation.psychoanalytic-vs-cognitive.c1",
+      "parent": "PS.8A.identity-formation.psychoanalytic-vs-cognitive",
+      "leaf": "PS.8A",
+      "label": "How do Erikson, Freud, and Kohlberg's stage theories differ?"
+    },
+    {
+      "id": "PS.8A.self-presentation.dramaturgy.definition.c1",
+      "parent": "PS.8A.self-presentation.dramaturgy.definition",
+      "leaf": "PS.8A",
+      "label": "What does Goffman's dramaturgical approach compare interaction to?"
+    },
+    {
+      "id": "PS.8A.self-presentation.dramaturgy.definition.c2",
+      "parent": "PS.8A.self-presentation.dramaturgy.definition",
+      "leaf": "PS.8A",
+      "label": "In the dramaturgical approach, how is social behavior analyzed?"
+    },
+    {
+      "id": "PS.8A.self-presentation.dramaturgy.impression-management.c1",
+      "parent": "PS.8A.self-presentation.dramaturgy.impression-management",
+      "leaf": "PS.8A",
+      "label": "What is impression management?"
+    },
+    {
+      "id": "PS.8A.self-presentation.dramaturgy.impression-management.c2",
+      "parent": "PS.8A.self-presentation.dramaturgy.impression-management",
+      "leaf": "PS.8A",
+      "label": "What is the goal of impression management?"
+    },
+    {
+      "id": "PS.8A.self-presentation.dramaturgy.front-stage.c1",
+      "parent": "PS.8A.self-presentation.dramaturgy.front-stage",
+      "leaf": "PS.8A",
+      "label": "What occurs on Goffman's front stage?"
+    },
+    {
+      "id": "PS.8A.self-presentation.dramaturgy.back-stage.c1",
+      "parent": "PS.8A.self-presentation.dramaturgy.back-stage",
+      "leaf": "PS.8A",
+      "label": "What characterizes Goffman's back stage?"
+    },
+    {
+      "id": "PS.8A.self-presentation.dramaturgy.self-monitoring.c1",
+      "parent": "PS.8A.self-presentation.dramaturgy.self-monitoring",
+      "leaf": "PS.8A",
+      "label": "What does self-monitoring measure?"
+    },
+    {
+      "id": "PS.8A.self-presentation.perception.definition.c1",
+      "parent": "PS.8A.self-presentation.perception.definition",
+      "leaf": "PS.8A",
+      "label": "What does Bem's self-perception theory propose?"
+    },
+    {
+      "id": "PS.8A.self-presentation.perception.overjustification.c1",
+      "parent": "PS.8A.self-presentation.perception.overjustification",
+      "leaf": "PS.8A",
+      "label": "What is the overjustification effect?"
+    },
+    {
+      "id": "PS.8A.self-presentation.verification.self-verification.c1",
+      "parent": "PS.8A.self-presentation.verification.self-verification",
+      "leaf": "PS.8A",
+      "label": "What does self-verification motivate people to seek?"
+    },
+    {
+      "id": "PS.8A.self-presentation.verification.self-enhancement.c1",
+      "parent": "PS.8A.self-presentation.verification.self-enhancement",
+      "leaf": "PS.8A",
+      "label": "What does the self-enhancement motive drive?"
+    },
+    {
+      "id": "PS.8A.self-presentation.verification.self-serving-bias.c1",
+      "parent": "PS.8A.self-presentation.verification.self-serving-bias",
+      "leaf": "PS.8A",
+      "label": "What is the self-serving bias?"
+    },
+    {
+      "id": "PS.8A.self-presentation.verification.self-handicapping.c1",
+      "parent": "PS.8A.self-presentation.verification.self-handicapping",
+      "leaf": "PS.8A",
+      "label": "What is self-handicapping and what does it protect?"
+    },
+    {
+      "id": "PS.8A.self-presentation.verification.spotlight.c1",
+      "parent": "PS.8A.self-presentation.verification.spotlight",
+      "leaf": "PS.8A",
+      "label": "What is the spotlight effect?"
+    },
+    {
+      "id": "PS.8A.self-presentation.regulation.definition.c1",
+      "parent": "PS.8A.self-presentation.regulation.definition",
+      "leaf": "PS.8A",
+      "label": "What does self-regulation involve?"
+    },
+    {
+      "id": "PS.8A.self-presentation.regulation.ego-depletion.c1",
+      "parent": "PS.8A.self-presentation.regulation.ego-depletion",
+      "leaf": "PS.8A",
+      "label": "What does the ego-depletion model claim about self-control?"
+    },
+    {
+      "id": "PS.8B.attitudes.components.affective.c1",
+      "parent": "PS.8B.attitudes.components.affective",
+      "leaf": "PS.8B",
+      "label": "What does the affective component of an attitude involve?"
+    },
+    {
+      "id": "PS.8B.attitudes.components.behavioral.c1",
+      "parent": "PS.8B.attitudes.components.behavioral",
+      "leaf": "PS.8B",
+      "label": "What does the behavioral component of an attitude involve?"
+    },
+    {
+      "id": "PS.8B.attitudes.components.cognitive.c1",
+      "parent": "PS.8B.attitudes.components.cognitive",
+      "leaf": "PS.8B",
+      "label": "What does the cognitive component of an attitude involve?"
+    },
+    {
+      "id": "PS.8B.attitudes.formation.direct-experience.c1",
+      "parent": "PS.8B.attitudes.formation.direct-experience",
+      "leaf": "PS.8B",
+      "label": "Why are attitudes formed through direct experience stronger?"
+    },
+    {
+      "id": "PS.8B.attitudes.formation.classical-conditioning.c1",
+      "parent": "PS.8B.attitudes.formation.classical-conditioning",
+      "leaf": "PS.8B",
+      "label": "How can classical conditioning form an attitude?"
+    },
+    {
+      "id": "PS.8B.attitudes.formation.operant-conditioning.c1",
+      "parent": "PS.8B.attitudes.formation.operant-conditioning",
+      "leaf": "PS.8B",
+      "label": "How can operant conditioning shape an attitude?"
+    },
+    {
+      "id": "PS.8B.attitudes.formation.observational-learning.c1",
+      "parent": "PS.8B.attitudes.formation.observational-learning",
+      "leaf": "PS.8B",
+      "label": "How are attitudes formed through observational learning?"
+    },
+    {
+      "id": "PS.8B.attitudes.formation.mere-exposure.c1",
+      "parent": "PS.8B.attitudes.formation.mere-exposure",
+      "leaf": "PS.8B",
+      "label": "What is the mere exposure effect?"
+    },
+    {
+      "id": "PS.8B.attitudes.formation.mere-exposure.c2",
+      "parent": "PS.8B.attitudes.formation.mere-exposure",
+      "leaf": "PS.8B",
+      "label": "How does repeated exposure change attitudes?"
+    },
+    {
+      "id": "PS.8B.attitudes.attitude-behavior.predictors.c1",
+      "parent": "PS.8B.attitudes.attitude-behavior.predictors",
+      "leaf": "PS.8B",
+      "label": "What factors increase attitude-behavior consistency?"
+    },
+    {
+      "id": "PS.8B.attitudes.attitude-behavior.predictors.c2",
+      "parent": "PS.8B.attitudes.attitude-behavior.predictors",
+      "leaf": "PS.8B",
+      "label": "Which attitude qualities best predict behavior?"
+    },
+    {
+      "id": "PS.8B.attitudes.attitude-behavior.lapiere.c1",
+      "parent": "PS.8B.attitudes.attitude-behavior.lapiere",
+      "leaf": "PS.8B",
+      "label": "What did LaPiere's study reveal about attitudes and behavior?"
+    },
+    {
+      "id": "PS.8B.attitudes.attitude-behavior.theory-of-planned-behavior.c1",
+      "parent": "PS.8B.attitudes.attitude-behavior.theory-of-planned-behavior",
+      "leaf": "PS.8B",
+      "label": "What predicts behavior in the theory of planned behavior?"
+    },
+    {
+      "id": "PS.8B.attitudes.functional-attitudes.knowledge.c1",
+      "parent": "PS.8B.attitudes.functional-attitudes.knowledge",
+      "leaf": "PS.8B",
+      "label": "What does the knowledge function of attitudes provide?"
+    },
+    {
+      "id": "PS.8B.attitudes.functional-attitudes.ego-expressive.c1",
+      "parent": "PS.8B.attitudes.functional-attitudes.ego-expressive",
+      "leaf": "PS.8B",
+      "label": "What does the ego-expressive function of attitudes do?"
+    },
+    {
+      "id": "PS.8B.attitudes.functional-attitudes.adaptive.c1",
+      "parent": "PS.8B.attitudes.functional-attitudes.adaptive",
+      "leaf": "PS.8B",
+      "label": "What does the adaptive function of attitudes achieve?"
+    },
+    {
+      "id": "PS.8B.attitudes.functional-attitudes.ego-defensive.c1",
+      "parent": "PS.8B.attitudes.functional-attitudes.ego-defensive",
+      "leaf": "PS.8B",
+      "label": "What does the ego-defensive function of attitudes protect?"
+    },
+    {
+      "id": "PS.8B.attitudes.learning-theory.principle.c1",
+      "parent": "PS.8B.attitudes.learning-theory.principle",
+      "leaf": "PS.8B",
+      "label": "How does learning theory explain attitudes?"
+    },
+    {
+      "id": "PS.8B.attitudes.elaboration-likelihood.central-route.c1",
+      "parent": "PS.8B.attitudes.elaboration-likelihood.central-route",
+      "leaf": "PS.8B",
+      "label": "What characterizes the central route to persuasion?"
+    },
+    {
+      "id": "PS.8B.attitudes.elaboration-likelihood.central-route.c2",
+      "parent": "PS.8B.attitudes.elaboration-likelihood.central-route",
+      "leaf": "PS.8B",
+      "label": "When does the central route produce durable attitude change?"
+    },
+    {
+      "id": "PS.8B.attitudes.elaboration-likelihood.peripheral-route.c1",
+      "parent": "PS.8B.attitudes.elaboration-likelihood.peripheral-route",
+      "leaf": "PS.8B",
+      "label": "What cues drive the peripheral route to persuasion?"
+    },
+    {
+      "id": "PS.8B.attitudes.elaboration-likelihood.peripheral-route.c2",
+      "parent": "PS.8B.attitudes.elaboration-likelihood.peripheral-route",
+      "leaf": "PS.8B",
+      "label": "Why is peripheral-route attitude change less durable?"
+    },
+    {
+      "id": "PS.8B.attitudes.elaboration-likelihood.elaboration.c1",
+      "parent": "PS.8B.attitudes.elaboration-likelihood.elaboration",
+      "leaf": "PS.8B",
+      "label": "What does elaboration determine in persuasion?"
+    },
+    {
+      "id": "PS.8B.attitudes.social-cognitive.reciprocal-determinism.c1",
+      "parent": "PS.8B.attitudes.social-cognitive.reciprocal-determinism",
+      "leaf": "PS.8B",
+      "label": "What three factors interact in reciprocal determinism?"
+    },
+    {
+      "id": "PS.8B.attitudes.self-perception.definition.c1",
+      "parent": "PS.8B.attitudes.self-perception.definition",
+      "leaf": "PS.8B",
+      "label": "How do people infer their attitudes in self-perception theory?"
+    },
+    {
+      "id": "PS.8B.attitudes.persuasion.source-factors.c1",
+      "parent": "PS.8B.attitudes.persuasion.source-factors",
+      "leaf": "PS.8B",
+      "label": "Which communicator traits increase persuasion?"
+    },
+    {
+      "id": "PS.8B.attitudes.persuasion.message-factors.c1",
+      "parent": "PS.8B.attitudes.persuasion.message-factors",
+      "leaf": "PS.8B",
+      "label": "Which message features affect persuasiveness?"
+    },
+    {
+      "id": "PS.8B.attitudes.persuasion.audience-factors.c1",
+      "parent": "PS.8B.attitudes.persuasion.audience-factors",
+      "leaf": "PS.8B",
+      "label": "Which audience traits moderate susceptibility to persuasion?"
+    },
+    {
+      "id": "PS.8B.attitudes.persuasion.sleeper-effect.c1",
+      "parent": "PS.8B.attitudes.persuasion.sleeper-effect",
+      "leaf": "PS.8B",
+      "label": "What is the sleeper effect in persuasion?"
+    },
+    {
+      "id": "PS.8B.attitudes.persuasion.foot-in-the-door.c1",
+      "parent": "PS.8B.attitudes.persuasion.foot-in-the-door",
+      "leaf": "PS.8B",
+      "label": "How does the foot-in-the-door technique work?"
+    },
+    {
+      "id": "PS.8B.attitudes.persuasion.door-in-the-face.c1",
+      "parent": "PS.8B.attitudes.persuasion.door-in-the-face",
+      "leaf": "PS.8B",
+      "label": "How does the door-in-the-face technique work?"
+    },
+    {
+      "id": "PS.8B.cognitive-dissonance.theory.definition.c1",
+      "parent": "PS.8B.cognitive-dissonance.theory.definition",
+      "leaf": "PS.8B",
+      "label": "What is cognitive dissonance?"
+    },
+    {
+      "id": "PS.8B.cognitive-dissonance.theory.definition.c2",
+      "parent": "PS.8B.cognitive-dissonance.theory.definition",
+      "leaf": "PS.8B",
+      "label": "What conditions produce cognitive dissonance?"
+    },
+    {
+      "id": "PS.8B.cognitive-dissonance.theory.festinger.c1",
+      "parent": "PS.8B.cognitive-dissonance.theory.festinger",
+      "leaf": "PS.8B",
+      "label": "What did the Festinger-Carlsmith $1/$20 study show?"
+    },
+    {
+      "id": "PS.8B.cognitive-dissonance.theory.festinger.c2",
+      "parent": "PS.8B.cognitive-dissonance.theory.festinger",
+      "leaf": "PS.8B",
+      "label": "Why did lower-paid subjects change their attitudes more?"
+    },
+    {
+      "id": "PS.8B.cognitive-dissonance.reduction.change-attitude.c1",
+      "parent": "PS.8B.cognitive-dissonance.reduction.change-attitude",
+      "leaf": "PS.8B",
+      "label": "How does changing an attitude reduce dissonance?"
+    },
+    {
+      "id": "PS.8B.cognitive-dissonance.reduction.add-cognition.c1",
+      "parent": "PS.8B.cognitive-dissonance.reduction.add-cognition",
+      "leaf": "PS.8B",
+      "label": "How do added consonant cognitions reduce dissonance?"
+    },
+    {
+      "id": "PS.8B.cognitive-dissonance.reduction.trivialize.c1",
+      "parent": "PS.8B.cognitive-dissonance.reduction.trivialize",
+      "leaf": "PS.8B",
+      "label": "How does trivializing reduce dissonance?"
+    },
+    {
+      "id": "PS.8B.cognitive-dissonance.reduction.free-choice.c1",
+      "parent": "PS.8B.cognitive-dissonance.reduction.free-choice",
+      "leaf": "PS.8B",
+      "label": "How does effort justification reduce dissonance?"
+    },
+    {
+      "id": "PS.8B.cognitive-dissonance.reduction.post-decision.c1",
+      "parent": "PS.8B.cognitive-dissonance.reduction.post-decision",
+      "leaf": "PS.8B",
+      "label": "What is post-decisional dissonance?"
+    },
+    {
+      "id": "PS.8B.social-perception.components.perceiver.c1",
+      "parent": "PS.8B.social-perception.components.perceiver",
+      "leaf": "PS.8B",
+      "label": "How does the perceiver influence social perception?"
+    },
+    {
+      "id": "PS.8B.social-perception.components.target.c1",
+      "parent": "PS.8B.social-perception.components.target",
+      "leaf": "PS.8B",
+      "label": "What role does the target play in social perception?"
+    },
+    {
+      "id": "PS.8B.social-perception.components.situation.c1",
+      "parent": "PS.8B.social-perception.components.situation",
+      "leaf": "PS.8B",
+      "label": "How does the situation affect social perception?"
+    },
+    {
+      "id": "PS.8B.social-perception.primacy-recency.primacy.c1",
+      "parent": "PS.8B.social-perception.primacy-recency.primacy",
+      "leaf": "PS.8B",
+      "label": "What is the primacy effect in impression formation?"
+    },
+    {
+      "id": "PS.8B.social-perception.primacy-recency.primacy.c2",
+      "parent": "PS.8B.social-perception.primacy-recency.primacy",
+      "leaf": "PS.8B",
+      "label": "Why do first impressions carry extra weight?"
+    },
+    {
+      "id": "PS.8B.social-perception.primacy-recency.recency.c1",
+      "parent": "PS.8B.social-perception.primacy-recency.recency",
+      "leaf": "PS.8B",
+      "label": "What is the recency effect in social perception?"
+    },
+    {
+      "id": "PS.8B.social-perception.reliance-on-traits.central-traits.c1",
+      "parent": "PS.8B.social-perception.reliance-on-traits.central-traits",
+      "leaf": "PS.8B",
+      "label": "What are central traits in impression formation?"
+    },
+    {
+      "id": "PS.8B.social-perception.implicit-personality.definition.c1",
+      "parent": "PS.8B.social-perception.implicit-personality.definition",
+      "leaf": "PS.8B",
+      "label": "What does implicit personality theory describe?"
+    },
+    {
+      "id": "PS.8B.social-perception.halo-effect.definition.c1",
+      "parent": "PS.8B.social-perception.halo-effect.definition",
+      "leaf": "PS.8B",
+      "label": "What is the halo effect?"
+    },
+    {
+      "id": "PS.8B.social-perception.halo-effect.definition.c2",
+      "parent": "PS.8B.social-perception.halo-effect.definition",
+      "leaf": "PS.8B",
+      "label": "How does one favorable trait bias unrelated judgments?"
+    },
+    {
+      "id": "PS.8B.social-perception.halo-effect.physical-attractiveness.c1",
+      "parent": "PS.8B.social-perception.halo-effect.physical-attractiveness",
+      "leaf": "PS.8B",
+      "label": "What is the 'what is beautiful is good' stereotype?"
+    },
+    {
+      "id": "PS.8B.social-perception.halo-effect.horn-effect.c1",
+      "parent": "PS.8B.social-perception.halo-effect.horn-effect",
+      "leaf": "PS.8B",
+      "label": "What is the horn (reverse halo) effect?"
+    },
+    {
+      "id": "PS.8B.social-perception.just-world.definition.c1",
+      "parent": "PS.8B.social-perception.just-world.definition",
+      "leaf": "PS.8B",
+      "label": "What is the just-world hypothesis?"
+    },
+    {
+      "id": "PS.8B.social-perception.just-world.victim-blaming.c1",
+      "parent": "PS.8B.social-perception.just-world.victim-blaming",
+      "leaf": "PS.8B",
+      "label": "How does just-world belief lead to victim blaming?"
+    },
+    {
+      "id": "PS.8B.social-perception.impression-formation.gestalt-vs-algebraic.c1",
+      "parent": "PS.8B.social-perception.impression-formation.gestalt-vs-algebraic",
+      "leaf": "PS.8B",
+      "label": "How do gestalt and cognitive-algebraic impression models differ?"
+    },
+    {
+      "id": "PS.8B.social-perception.expectancy.confirmation-bias.c1",
+      "parent": "PS.8B.social-perception.expectancy.confirmation-bias",
+      "leaf": "PS.8B",
+      "label": "What is confirmation bias in social perception?"
+    },
+    {
+      "id": "PS.8B.social-perception.expectancy.belief-perseverance.c1",
+      "parent": "PS.8B.social-perception.expectancy.belief-perseverance",
+      "leaf": "PS.8B",
+      "label": "What is belief perseverance?"
+    },
+    {
+      "id": "PS.8B.attribution.dispositional-situational.dispositional.c1",
+      "parent": "PS.8B.attribution.dispositional-situational.dispositional",
+      "leaf": "PS.8B",
+      "label": "What is a dispositional attribution?"
+    },
+    {
+      "id": "PS.8B.attribution.dispositional-situational.dispositional.c2",
+      "parent": "PS.8B.attribution.dispositional-situational.dispositional",
+      "leaf": "PS.8B",
+      "label": "Explaining behavior by internal traits reflects which attribution?"
+    },
+    {
+      "id": "PS.8B.attribution.dispositional-situational.situational.c1",
+      "parent": "PS.8B.attribution.dispositional-situational.situational",
+      "leaf": "PS.8B",
+      "label": "What is a situational attribution?"
+    },
+    {
+      "id": "PS.8B.attribution.dispositional-situational.situational.c2",
+      "parent": "PS.8B.attribution.dispositional-situational.situational",
+      "leaf": "PS.8B",
+      "label": "Explaining behavior by external context reflects which attribution?"
+    },
+    {
+      "id": "PS.8B.attribution.kelley-covariation.consistency.c1",
+      "parent": "PS.8B.attribution.kelley-covariation.consistency",
+      "leaf": "PS.8B",
+      "label": "What does consistency assess in Kelley's covariation model?"
+    },
+    {
+      "id": "PS.8B.attribution.kelley-covariation.distinctiveness.c1",
+      "parent": "PS.8B.attribution.kelley-covariation.distinctiveness",
+      "leaf": "PS.8B",
+      "label": "What does distinctiveness assess in attribution?"
+    },
+    {
+      "id": "PS.8B.attribution.kelley-covariation.consensus.c1",
+      "parent": "PS.8B.attribution.kelley-covariation.consensus",
+      "leaf": "PS.8B",
+      "label": "What does consensus assess in attribution?"
+    },
+    {
+      "id": "PS.8B.attribution.kelley-covariation.inference-rule.c1",
+      "parent": "PS.8B.attribution.kelley-covariation.inference-rule",
+      "leaf": "PS.8B",
+      "label": "Which covariation pattern implies a situational cause?"
+    },
+    {
+      "id": "PS.8B.attribution.correspondent-inference.definition.c1",
+      "parent": "PS.8B.attribution.correspondent-inference.definition",
+      "leaf": "PS.8B",
+      "label": "What is a correspondent inference?"
+    },
+    {
+      "id": "PS.8B.attribution.weiner.locus.c1",
+      "parent": "PS.8B.attribution.weiner.locus",
+      "leaf": "PS.8B",
+      "label": "What does locus of causality specify in Weiner's model?"
+    },
+    {
+      "id": "PS.8B.attribution.weiner.stability.c1",
+      "parent": "PS.8B.attribution.weiner.stability",
+      "leaf": "PS.8B",
+      "label": "What does the stability dimension of attribution capture?"
+    },
+    {
+      "id": "PS.8B.attribution.weiner.controllability.c1",
+      "parent": "PS.8B.attribution.weiner.controllability",
+      "leaf": "PS.8B",
+      "label": "What does the controllability dimension of attribution capture?"
+    },
+    {
+      "id": "PS.8B.attribution.fundamental-attribution-error.definition.c1",
+      "parent": "PS.8B.attribution.fundamental-attribution-error.definition",
+      "leaf": "PS.8B",
+      "label": "What is the fundamental attribution error?"
+    },
+    {
+      "id": "PS.8B.attribution.fundamental-attribution-error.definition.c2",
+      "parent": "PS.8B.attribution.fundamental-attribution-error.definition",
+      "leaf": "PS.8B",
+      "label": "The FAE overweights which cause of others' behavior?"
+    },
+    {
+      "id": "PS.8B.attribution.actor-observer.definition.c1",
+      "parent": "PS.8B.attribution.actor-observer.definition",
+      "leaf": "PS.8B",
+      "label": "What is the actor-observer bias?"
+    },
+    {
+      "id": "PS.8B.attribution.actor-observer.definition.c2",
+      "parent": "PS.8B.attribution.actor-observer.definition",
+      "leaf": "PS.8B",
+      "label": "How do we explain our own vs. others' behavior under this bias?"
+    },
+    {
+      "id": "PS.8B.attribution.self-serving.definition.c1",
+      "parent": "PS.8B.attribution.self-serving.definition",
+      "leaf": "PS.8B",
+      "label": "What is the self-serving bias?"
+    },
+    {
+      "id": "PS.8B.attribution.self-serving.definition.c2",
+      "parent": "PS.8B.attribution.self-serving.definition",
+      "leaf": "PS.8B",
+      "label": "How does the self-serving bias protect self-esteem?"
+    },
+    {
+      "id": "PS.8B.attribution.self-serving.self-handicapping.c1",
+      "parent": "PS.8B.attribution.self-serving.self-handicapping",
+      "leaf": "PS.8B",
+      "label": "How does self-handicapping shift blame for failure?"
+    },
+    {
+      "id": "PS.8B.attribution.optimism-bias.definition.c1",
+      "parent": "PS.8B.attribution.optimism-bias.definition",
+      "leaf": "PS.8B",
+      "label": "What is the optimism bias?"
+    },
+    {
+      "id": "PS.8B.attribution.false-consensus.definition.c1",
+      "parent": "PS.8B.attribution.false-consensus.definition",
+      "leaf": "PS.8B",
+      "label": "What is the false consensus effect?"
+    },
+    {
+      "id": "PS.8B.attribution.cultural-effects.individualist.c1",
+      "parent": "PS.8B.attribution.cultural-effects.individualist",
+      "leaf": "PS.8B",
+      "label": "How does individualist culture affect attribution?"
+    },
+    {
+      "id": "PS.8B.attribution.cultural-effects.collectivist.c1",
+      "parent": "PS.8B.attribution.cultural-effects.collectivist",
+      "leaf": "PS.8B",
+      "label": "How does collectivist culture affect the FAE?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.definitions.prejudice.c1",
+      "parent": "PS.8B.prejudice-bias.definitions.prejudice",
+      "leaf": "PS.8B",
+      "label": "What is prejudice?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.definitions.prejudice.c2",
+      "parent": "PS.8B.prejudice-bias.definitions.prejudice",
+      "leaf": "PS.8B",
+      "label": "Is prejudice an attitude or a behavior?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.definitions.discrimination.c1",
+      "parent": "PS.8B.prejudice-bias.definitions.discrimination",
+      "leaf": "PS.8B",
+      "label": "What is discrimination?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.definitions.discrimination.c2",
+      "parent": "PS.8B.prejudice-bias.definitions.discrimination",
+      "leaf": "PS.8B",
+      "label": "How does discrimination differ from prejudice?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.definitions.individual-vs-institutional.c1",
+      "parent": "PS.8B.prejudice-bias.definitions.individual-vs-institutional",
+      "leaf": "PS.8B",
+      "label": "How do individual and institutional discrimination differ?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.stereotypes.definition.c1",
+      "parent": "PS.8B.prejudice-bias.stereotypes.definition",
+      "leaf": "PS.8B",
+      "label": "What is a stereotype?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.stereotypes.definition.c2",
+      "parent": "PS.8B.prejudice-bias.stereotypes.definition",
+      "leaf": "PS.8B",
+      "label": "Which component of bias is a stereotype?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.stereotypes.stereotype-threat.c1",
+      "parent": "PS.8B.prejudice-bias.stereotypes.stereotype-threat",
+      "leaf": "PS.8B",
+      "label": "What is stereotype threat?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.stereotypes.stereotype-threat.c2",
+      "parent": "PS.8B.prejudice-bias.stereotypes.stereotype-threat",
+      "leaf": "PS.8B",
+      "label": "How does stereotype threat affect performance?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.stereotypes.self-fulfilling-prophecy.c1",
+      "parent": "PS.8B.prejudice-bias.stereotypes.self-fulfilling-prophecy",
+      "leaf": "PS.8B",
+      "label": "What is a self-fulfilling prophecy?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.stereotypes.self-fulfilling-prophecy.c2",
+      "parent": "PS.8B.prejudice-bias.stereotypes.self-fulfilling-prophecy",
+      "leaf": "PS.8B",
+      "label": "How can a teacher's expectations become reality (Pygmalion)?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.stereotypes.stereotype-content-model.c1",
+      "parent": "PS.8B.prejudice-bias.stereotypes.stereotype-content-model",
+      "leaf": "PS.8B",
+      "label": "What two dimensions define the stereotype content model?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.implicit-explicit.explicit.c1",
+      "parent": "PS.8B.prejudice-bias.implicit-explicit.explicit",
+      "leaf": "PS.8B",
+      "label": "What is explicit bias?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.implicit-explicit.implicit.c1",
+      "parent": "PS.8B.prejudice-bias.implicit-explicit.implicit",
+      "leaf": "PS.8B",
+      "label": "What is implicit bias?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.implicit-explicit.implicit.c2",
+      "parent": "PS.8B.prejudice-bias.implicit-explicit.implicit",
+      "leaf": "PS.8B",
+      "label": "How does implicit bias differ from explicit bias?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.power-prestige-class.power.c1",
+      "parent": "PS.8B.prejudice-bias.power-prestige-class.power",
+      "leaf": "PS.8B",
+      "label": "How does power relate to intergroup discrimination?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.power-prestige-class.prestige.c1",
+      "parent": "PS.8B.prejudice-bias.power-prestige-class.prestige",
+      "leaf": "PS.8B",
+      "label": "What is prestige and how does it affect bias?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.power-prestige-class.class.c1",
+      "parent": "PS.8B.prejudice-bias.power-prestige-class.class",
+      "leaf": "PS.8B",
+      "label": "How can class serve as a basis for prejudice?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.origins.ingroup-outgroup.c1",
+      "parent": "PS.8B.prejudice-bias.origins.ingroup-outgroup",
+      "leaf": "PS.8B",
+      "label": "How do in-groups and out-groups differ?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.origins.ingroup-outgroup.c2",
+      "parent": "PS.8B.prejudice-bias.origins.ingroup-outgroup",
+      "leaf": "PS.8B",
+      "label": "How does out-group perception fuel bias?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.origins.social-identity-theory.c1",
+      "parent": "PS.8B.prejudice-bias.origins.social-identity-theory",
+      "leaf": "PS.8B",
+      "label": "How does social identity theory explain in-group favoritism?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.origins.outgroup-homogeneity.c1",
+      "parent": "PS.8B.prejudice-bias.origins.outgroup-homogeneity",
+      "leaf": "PS.8B",
+      "label": "Why do out-groups seem more alike than in-groups?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.origins.ingroup-favoritism.c1",
+      "parent": "PS.8B.prejudice-bias.origins.ingroup-favoritism",
+      "leaf": "PS.8B",
+      "label": "What is in-group bias?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.origins.ethnocentrism.c1",
+      "parent": "PS.8B.prejudice-bias.origins.ethnocentrism",
+      "leaf": "PS.8B",
+      "label": "What is ethnocentrism?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.origins.ethnocentrism.c2",
+      "parent": "PS.8B.prejudice-bias.origins.ethnocentrism",
+      "leaf": "PS.8B",
+      "label": "How does ethnocentrism judge other cultures?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.origins.scapegoating.c1",
+      "parent": "PS.8B.prejudice-bias.origins.scapegoating",
+      "leaf": "PS.8B",
+      "label": "What does scapegoat theory propose?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.origins.realistic-conflict.c1",
+      "parent": "PS.8B.prejudice-bias.origins.realistic-conflict",
+      "leaf": "PS.8B",
+      "label": "What does realistic conflict theory attribute prejudice to?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.origins.robbers-cave.c1",
+      "parent": "PS.8B.prejudice-bias.origins.robbers-cave",
+      "leaf": "PS.8B",
+      "label": "What did Sherif's Robbers Cave study demonstrate?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.reduction.contact-hypothesis.c1",
+      "parent": "PS.8B.prejudice-bias.reduction.contact-hypothesis",
+      "leaf": "PS.8B",
+      "label": "What conditions let the contact hypothesis reduce prejudice?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.reduction.superordinate-goals.c1",
+      "parent": "PS.8B.prejudice-bias.reduction.superordinate-goals",
+      "leaf": "PS.8B",
+      "label": "How do superordinate goals reduce intergroup hostility?"
+    },
+    {
+      "id": "PS.8B.prejudice-bias.reduction.jigsaw-classroom.c1",
+      "parent": "PS.8B.prejudice-bias.reduction.jigsaw-classroom",
+      "leaf": "PS.8B",
+      "label": "How does the jigsaw classroom reduce prejudice?"
+    },
+    {
+      "id": "PS.8B.processing-others.schemas.definition.c1",
+      "parent": "PS.8B.processing-others.schemas.definition",
+      "leaf": "PS.8B",
+      "label": "What is a schema in social cognition?"
+    },
+    {
+      "id": "PS.8B.processing-others.schemas.definition.c2",
+      "parent": "PS.8B.processing-others.schemas.definition",
+      "leaf": "PS.8B",
+      "label": "How do schemas shape social perception?"
+    },
+    {
+      "id": "PS.8B.processing-others.schemas.person-schema.c1",
+      "parent": "PS.8B.processing-others.schemas.person-schema",
+      "leaf": "PS.8B",
+      "label": "How do person schemas and role schemas differ?"
+    },
+    {
+      "id": "PS.8B.processing-others.heuristics.availability.c1",
+      "parent": "PS.8B.processing-others.heuristics.availability",
+      "leaf": "PS.8B",
+      "label": "How does the availability heuristic judge likelihood?"
+    },
+    {
+      "id": "PS.8B.processing-others.heuristics.representativeness.c1",
+      "parent": "PS.8B.processing-others.heuristics.representativeness",
+      "leaf": "PS.8B",
+      "label": "How does the representativeness heuristic work?"
+    },
+    {
+      "id": "PS.8B.processing-others.dual-process.automatic.c1",
+      "parent": "PS.8B.processing-others.dual-process.automatic",
+      "leaf": "PS.8B",
+      "label": "What characterizes automatic (System 1) processing?"
+    },
+    {
+      "id": "PS.8B.processing-others.dual-process.controlled.c1",
+      "parent": "PS.8B.processing-others.dual-process.controlled",
+      "leaf": "PS.8B",
+      "label": "What characterizes controlled (System 2) processing?"
+    },
+    {
+      "id": "PS.8B.processing-others.dual-process.cognitive-load.c1",
+      "parent": "PS.8B.processing-others.dual-process.cognitive-load",
+      "leaf": "PS.8B",
+      "label": "How does cognitive load affect stereotyping?"
+    },
+    {
+      "id": "PS.8B.cultural-influences.individualism-collectivism.individualism.c1",
+      "parent": "PS.8B.cultural-influences.individualism-collectivism.individualism",
+      "leaf": "PS.8B",
+      "label": "What does individualism emphasize?"
+    },
+    {
+      "id": "PS.8B.cultural-influences.individualism-collectivism.collectivism.c1",
+      "parent": "PS.8B.cultural-influences.individualism-collectivism.collectivism",
+      "leaf": "PS.8B",
+      "label": "What does collectivism emphasize?"
+    },
+    {
+      "id": "PS.8B.cultural-influences.cultural-relativism.definition.c1",
+      "parent": "PS.8B.cultural-influences.cultural-relativism.definition",
+      "leaf": "PS.8B",
+      "label": "What is cultural relativism?"
+    },
+    {
+      "id": "PS.8C.self-presentation.self-concept.definition.c1",
+      "parent": "PS.8C.self-presentation.self-concept.definition",
+      "leaf": "PS.8C",
+      "label": "What is self-presentation?"
+    },
+    {
+      "id": "PS.8C.self-presentation.self-concept.definition.c2",
+      "parent": "PS.8C.self-presentation.self-concept.definition",
+      "leaf": "PS.8C",
+      "label": "What does self-presentation attempt to convey?"
+    },
+    {
+      "id": "PS.8C.self-presentation.self-concept.identity-vs-self-concept.c1",
+      "parent": "PS.8C.self-presentation.self-concept.identity-vs-self-concept",
+      "leaf": "PS.8C",
+      "label": "How does self-presentation differ from identity?"
+    },
+    {
+      "id": "PS.8C.self-presentation.self-concept.self-disclosure.c1",
+      "parent": "PS.8C.self-presentation.self-concept.self-disclosure",
+      "leaf": "PS.8C",
+      "label": "What is self-disclosure and its relational effect?"
+    },
+    {
+      "id": "PS.8C.self-presentation.impression-management.definition.c1",
+      "parent": "PS.8C.self-presentation.impression-management.definition",
+      "leaf": "PS.8C",
+      "label": "What does impression management attempt to influence?"
+    },
+    {
+      "id": "PS.8C.self-presentation.impression-management.definition.c2",
+      "parent": "PS.8C.self-presentation.impression-management.definition",
+      "leaf": "PS.8C",
+      "label": "Whose perceptions does impression management target?"
+    },
+    {
+      "id": "PS.8C.self-presentation.impression-management.authentic-self.c1",
+      "parent": "PS.8C.self-presentation.impression-management.authentic-self",
+      "leaf": "PS.8C",
+      "label": "What is the authentic self?"
+    },
+    {
+      "id": "PS.8C.self-presentation.impression-management.ideal-self.c1",
+      "parent": "PS.8C.self-presentation.impression-management.ideal-self",
+      "leaf": "PS.8C",
+      "label": "What is the ideal self in impression management?"
+    },
+    {
+      "id": "PS.8C.self-presentation.impression-management.tactical-self.c1",
+      "parent": "PS.8C.self-presentation.impression-management.tactical-self",
+      "leaf": "PS.8C",
+      "label": "What is the tactical (ought) self?"
+    },
+    {
+      "id": "PS.8C.self-presentation.impression-management.self-monitoring.c1",
+      "parent": "PS.8C.self-presentation.impression-management.self-monitoring",
+      "leaf": "PS.8C",
+      "label": "What does self-monitoring regulate in social interaction?"
+    },
+    {
+      "id": "PS.8C.self-presentation.dramaturgical.definition.c1",
+      "parent": "PS.8C.self-presentation.dramaturgical.definition",
+      "leaf": "PS.8C",
+      "label": "What does Goffman's dramaturgical approach model?"
+    },
+    {
+      "id": "PS.8C.self-presentation.dramaturgical.definition.c2",
+      "parent": "PS.8C.self-presentation.dramaturgical.definition",
+      "leaf": "PS.8C",
+      "label": "In the dramaturgical model, what do individuals manage?"
+    },
+    {
+      "id": "PS.8C.self-presentation.dramaturgical.front-stage.c1",
+      "parent": "PS.8C.self-presentation.dramaturgical.front-stage",
+      "leaf": "PS.8C",
+      "label": "How do people behave on Goffman's front stage?"
+    },
+    {
+      "id": "PS.8C.self-presentation.dramaturgical.front-stage.c2",
+      "parent": "PS.8C.self-presentation.dramaturgical.front-stage",
+      "leaf": "PS.8C",
+      "label": "Where do people follow social conventions for an audience?"
+    },
+    {
+      "id": "PS.8C.self-presentation.dramaturgical.back-stage.c1",
+      "parent": "PS.8C.self-presentation.dramaturgical.back-stage",
+      "leaf": "PS.8C",
+      "label": "Where can people step out of their public role?"
+    },
+    {
+      "id": "PS.8C.self-presentation.dramaturgical.back-stage.c2",
+      "parent": "PS.8C.self-presentation.dramaturgical.back-stage",
+      "leaf": "PS.8C",
+      "label": "What behavior occurs on Goffman's back stage?"
+    },
+    {
+      "id": "PS.8C.communication.modes.definition.c1",
+      "parent": "PS.8C.communication.modes.definition",
+      "leaf": "PS.8C",
+      "label": "What is communication?"
+    },
+    {
+      "id": "PS.8C.communication.modes.verbal.c1",
+      "parent": "PS.8C.communication.modes.verbal",
+      "leaf": "PS.8C",
+      "label": "What is verbal communication?"
+    },
+    {
+      "id": "PS.8C.communication.modes.nonverbal.c1",
+      "parent": "PS.8C.communication.modes.nonverbal",
+      "leaf": "PS.8C",
+      "label": "What channels convey nonverbal communication?"
+    },
+    {
+      "id": "PS.8C.communication.modes.nonverbal.c2",
+      "parent": "PS.8C.communication.modes.nonverbal",
+      "leaf": "PS.8C",
+      "label": "Which cues make up nonverbal communication?"
+    },
+    {
+      "id": "PS.8C.communication.modes.paralanguage.c1",
+      "parent": "PS.8C.communication.modes.paralanguage",
+      "leaf": "PS.8C",
+      "label": "What is paralanguage?"
+    },
+    {
+      "id": "PS.8C.communication.animal.definition.c1",
+      "parent": "PS.8C.communication.animal.definition",
+      "leaf": "PS.8C",
+      "label": "What is animal communication?"
+    },
+    {
+      "id": "PS.8C.communication.animal.signal-types.c1",
+      "parent": "PS.8C.communication.animal.signal-types",
+      "leaf": "PS.8C",
+      "label": "What channels do animal signals use?"
+    },
+    {
+      "id": "PS.8C.communication.animal.honest-signaling.c1",
+      "parent": "PS.8C.communication.animal.honest-signaling",
+      "leaf": "PS.8C",
+      "label": "What makes an animal signal honest?"
+    },
+    {
+      "id": "PS.8C.attraction.factors.definition.c1",
+      "parent": "PS.8C.attraction.factors.definition",
+      "leaf": "PS.8C",
+      "label": "What is attraction?"
+    },
+    {
+      "id": "PS.8C.attraction.factors.definition.c2",
+      "parent": "PS.8C.attraction.factors.definition",
+      "leaf": "PS.8C",
+      "label": "What does attraction form the basis of?"
+    },
+    {
+      "id": "PS.8C.attraction.factors.similarity.c1",
+      "parent": "PS.8C.attraction.factors.similarity",
+      "leaf": "PS.8C",
+      "label": "How does similarity affect attraction?"
+    },
+    {
+      "id": "PS.8C.attraction.factors.similarity.c2",
+      "parent": "PS.8C.attraction.factors.similarity",
+      "leaf": "PS.8C",
+      "label": "Which shared qualities increase attraction?"
+    },
+    {
+      "id": "PS.8C.attraction.factors.proximity.c1",
+      "parent": "PS.8C.attraction.factors.proximity",
+      "leaf": "PS.8C",
+      "label": "How does proximity influence attraction?"
+    },
+    {
+      "id": "PS.8C.attraction.factors.proximity.c2",
+      "parent": "PS.8C.attraction.factors.proximity",
+      "leaf": "PS.8C",
+      "label": "Why does geographic closeness increase attraction?"
+    },
+    {
+      "id": "PS.8C.attraction.factors.mere-exposure.c1",
+      "parent": "PS.8C.attraction.factors.mere-exposure",
+      "leaf": "PS.8C",
+      "label": "What is the mere exposure effect in attraction?"
+    },
+    {
+      "id": "PS.8C.attraction.factors.mere-exposure.c2",
+      "parent": "PS.8C.attraction.factors.mere-exposure",
+      "leaf": "PS.8C",
+      "label": "How does repeated exposure affect liking?"
+    },
+    {
+      "id": "PS.8C.attraction.factors.physical-attractiveness.c1",
+      "parent": "PS.8C.attraction.factors.physical-attractiveness",
+      "leaf": "PS.8C",
+      "label": "How does physical attractiveness affect initial attraction?"
+    },
+    {
+      "id": "PS.8C.attraction.factors.physical-attractiveness.c2",
+      "parent": "PS.8C.attraction.factors.physical-attractiveness",
+      "leaf": "PS.8C",
+      "label": "What halo does physical attractiveness trigger?"
+    },
+    {
+      "id": "PS.8C.attraction.factors.halo-effect.c1",
+      "parent": "PS.8C.attraction.factors.halo-effect",
+      "leaf": "PS.8C",
+      "label": "What is the 'what is beautiful is good' attractiveness halo?"
+    },
+    {
+      "id": "PS.8C.attraction.factors.matching-hypothesis.c1",
+      "parent": "PS.8C.attraction.factors.matching-hypothesis",
+      "leaf": "PS.8C",
+      "label": "What does the matching hypothesis predict?"
+    },
+    {
+      "id": "PS.8C.attraction.factors.reciprocal-liking.c1",
+      "parent": "PS.8C.attraction.factors.reciprocal-liking",
+      "leaf": "PS.8C",
+      "label": "How does reciprocity of liking affect attraction?"
+    },
+    {
+      "id": "PS.8C.attraction.factors.self-disclosure-link.c1",
+      "parent": "PS.8C.attraction.factors.self-disclosure-link",
+      "leaf": "PS.8C",
+      "label": "How does mutual self-disclosure affect attraction?"
+    },
+    {
+      "id": "PS.8C.attraction.theories.triangular-love.c1",
+      "parent": "PS.8C.attraction.theories.triangular-love",
+      "leaf": "PS.8C",
+      "label": "What three components make up Sternberg's triangular love?"
+    },
+    {
+      "id": "PS.8C.attraction.theories.passionate-companionate.c1",
+      "parent": "PS.8C.attraction.theories.passionate-companionate",
+      "leaf": "PS.8C",
+      "label": "How do passionate and companionate love differ?"
+    },
+    {
+      "id": "PS.8C.aggression.definition-types.definition.c1",
+      "parent": "PS.8C.aggression.definition-types.definition",
+      "leaf": "PS.8C",
+      "label": "What is aggression?"
+    },
+    {
+      "id": "PS.8C.aggression.definition-types.definition.c2",
+      "parent": "PS.8C.aggression.definition-types.definition",
+      "leaf": "PS.8C",
+      "label": "What intent defines aggression?"
+    },
+    {
+      "id": "PS.8C.aggression.definition-types.hostile-vs-instrumental.c1",
+      "parent": "PS.8C.aggression.definition-types.hostile-vs-instrumental",
+      "leaf": "PS.8C",
+      "label": "How do hostile and instrumental aggression differ?"
+    },
+    {
+      "id": "PS.8C.aggression.definition-types.relational.c1",
+      "parent": "PS.8C.aggression.definition-types.relational",
+      "leaf": "PS.8C",
+      "label": "What is relational aggression?"
+    },
+    {
+      "id": "PS.8C.aggression.biological.amygdala.c1",
+      "parent": "PS.8C.aggression.biological.amygdala",
+      "leaf": "PS.8C",
+      "label": "What role does the amygdala play in aggression?"
+    },
+    {
+      "id": "PS.8C.aggression.biological.prefrontal-control.c1",
+      "parent": "PS.8C.aggression.biological.prefrontal-control",
+      "leaf": "PS.8C",
+      "label": "How does the prefrontal cortex affect aggression?"
+    },
+    {
+      "id": "PS.8C.aggression.biological.testosterone.c1",
+      "parent": "PS.8C.aggression.biological.testosterone",
+      "leaf": "PS.8C",
+      "label": "How is testosterone related to aggression?"
+    },
+    {
+      "id": "PS.8C.aggression.biological.serotonin.c1",
+      "parent": "PS.8C.aggression.biological.serotonin",
+      "leaf": "PS.8C",
+      "label": "How is low serotonin activity linked to aggression?"
+    },
+    {
+      "id": "PS.8C.aggression.frustration-aggression.principle.c1",
+      "parent": "PS.8C.aggression.frustration-aggression.principle",
+      "leaf": "PS.8C",
+      "label": "What does the frustration-aggression hypothesis claim?"
+    },
+    {
+      "id": "PS.8C.aggression.frustration-aggression.principle.c2",
+      "parent": "PS.8C.aggression.frustration-aggression.principle",
+      "leaf": "PS.8C",
+      "label": "What increases aggression when a goal is blocked?"
+    },
+    {
+      "id": "PS.8C.aggression.frustration-aggression.cognitive-neoassociation.c1",
+      "parent": "PS.8C.aggression.frustration-aggression.cognitive-neoassociation",
+      "leaf": "PS.8C",
+      "label": "When does frustration most likely produce aggression?"
+    },
+    {
+      "id": "PS.8C.aggression.frustration-aggression.catharsis.c1",
+      "parent": "PS.8C.aggression.frustration-aggression.catharsis",
+      "leaf": "PS.8C",
+      "label": "What does research show about the catharsis hypothesis?"
+    },
+    {
+      "id": "PS.8C.aggression.social-learning.modeling.c1",
+      "parent": "PS.8C.aggression.social-learning.modeling",
+      "leaf": "PS.8C",
+      "label": "How is aggression learned through modeling?"
+    },
+    {
+      "id": "PS.8C.aggression.social-learning.modeling.c2",
+      "parent": "PS.8C.aggression.social-learning.modeling",
+      "leaf": "PS.8C",
+      "label": "What did Bandura's Bobo doll study demonstrate?"
+    },
+    {
+      "id": "PS.8C.attachment.basics.definition.c1",
+      "parent": "PS.8C.attachment.basics.definition",
+      "leaf": "PS.8C",
+      "label": "What is attachment?"
+    },
+    {
+      "id": "PS.8C.attachment.basics.definition.c2",
+      "parent": "PS.8C.attachment.basics.definition",
+      "leaf": "PS.8C",
+      "label": "What function does attachment serve?"
+    },
+    {
+      "id": "PS.8C.attachment.basics.harlow.c1",
+      "parent": "PS.8C.attachment.basics.harlow",
+      "leaf": "PS.8C",
+      "label": "What did Harlow's monkey studies reveal about attachment?"
+    },
+    {
+      "id": "PS.8C.attachment.basics.imprinting.c1",
+      "parent": "PS.8C.attachment.basics.imprinting",
+      "leaf": "PS.8C",
+      "label": "What is imprinting in Lorenz's work?"
+    },
+    {
+      "id": "PS.8C.attachment.basics.secure-base.c1",
+      "parent": "PS.8C.attachment.basics.secure-base",
+      "leaf": "PS.8C",
+      "label": "What is a secure base in attachment?"
+    },
+    {
+      "id": "PS.8C.attachment.styles.strange-situation.c1",
+      "parent": "PS.8C.attachment.styles.strange-situation",
+      "leaf": "PS.8C",
+      "label": "What does Ainsworth's Strange Situation assess?"
+    },
+    {
+      "id": "PS.8C.attachment.styles.secure.c1",
+      "parent": "PS.8C.attachment.styles.secure",
+      "leaf": "PS.8C",
+      "label": "How do securely attached infants behave on reunion?"
+    },
+    {
+      "id": "PS.8C.attachment.styles.secure.c2",
+      "parent": "PS.8C.attachment.styles.secure",
+      "leaf": "PS.8C",
+      "label": "What characterizes secure attachment?"
+    },
+    {
+      "id": "PS.8C.attachment.styles.avoidant.c1",
+      "parent": "PS.8C.attachment.styles.avoidant",
+      "leaf": "PS.8C",
+      "label": "How do avoidantly attached infants behave?"
+    },
+    {
+      "id": "PS.8C.attachment.styles.ambivalent.c1",
+      "parent": "PS.8C.attachment.styles.ambivalent",
+      "leaf": "PS.8C",
+      "label": "How do ambivalent (anxious-resistant) infants behave?"
+    },
+    {
+      "id": "PS.8C.attachment.styles.disorganized.c1",
+      "parent": "PS.8C.attachment.styles.disorganized",
+      "leaf": "PS.8C",
+      "label": "What marks disorganized attachment?"
+    },
+    {
+      "id": "PS.8C.social-support.types.definition.c1",
+      "parent": "PS.8C.social-support.types.definition",
+      "leaf": "PS.8C",
+      "label": "What is social support?"
+    },
+    {
+      "id": "PS.8C.social-support.types.emotional.c1",
+      "parent": "PS.8C.social-support.types.emotional",
+      "leaf": "PS.8C",
+      "label": "What is emotional support?"
+    },
+    {
+      "id": "PS.8C.social-support.types.esteem.c1",
+      "parent": "PS.8C.social-support.types.esteem",
+      "leaf": "PS.8C",
+      "label": "What is esteem support?"
+    },
+    {
+      "id": "PS.8C.social-support.types.informational.c1",
+      "parent": "PS.8C.social-support.types.informational",
+      "leaf": "PS.8C",
+      "label": "What is informational support?"
+    },
+    {
+      "id": "PS.8C.social-support.types.tangible.c1",
+      "parent": "PS.8C.social-support.types.tangible",
+      "leaf": "PS.8C",
+      "label": "What is tangible (instrumental) support?"
+    },
+    {
+      "id": "PS.8C.social-support.types.network.c1",
+      "parent": "PS.8C.social-support.types.network",
+      "leaf": "PS.8C",
+      "label": "What is network (companionship) support?"
+    },
+    {
+      "id": "PS.8C.social-support.health.buffering.c1",
+      "parent": "PS.8C.social-support.health.buffering",
+      "leaf": "PS.8C",
+      "label": "How does the stress-buffering effect of support work?"
+    },
+    {
+      "id": "PS.8C.foraging-mate.foraging.definition.c1",
+      "parent": "PS.8C.foraging-mate.foraging.definition",
+      "leaf": "PS.8C",
+      "label": "What is foraging?"
+    },
+    {
+      "id": "PS.8C.foraging-mate.foraging.optimal.c1",
+      "parent": "PS.8C.foraging-mate.foraging.optimal",
+      "leaf": "PS.8C",
+      "label": "What does optimal foraging theory predict?"
+    },
+    {
+      "id": "PS.8C.foraging-mate.mate-choice.definition.c1",
+      "parent": "PS.8C.foraging-mate.mate-choice.definition",
+      "leaf": "PS.8C",
+      "label": "What is mate choice (intersexual selection)?"
+    },
+    {
+      "id": "PS.8C.foraging-mate.mate-choice.mate-bias.c1",
+      "parent": "PS.8C.foraging-mate.mate-choice.mate-bias",
+      "leaf": "PS.8C",
+      "label": "What is mate bias?"
+    },
+    {
+      "id": "PS.8C.foraging-mate.mate-choice.sexual-selection.c1",
+      "parent": "PS.8C.foraging-mate.mate-choice.sexual-selection",
+      "leaf": "PS.8C",
+      "label": "How do intersexual and intrasexual selection differ?"
+    },
+    {
+      "id": "PS.8C.foraging-mate.mate-choice.direct-indirect-benefits.c1",
+      "parent": "PS.8C.foraging-mate.mate-choice.direct-indirect-benefits",
+      "leaf": "PS.8C",
+      "label": "How do direct and indirect benefits of mate choice differ?"
+    },
+    {
+      "id": "PS.8C.foraging-mate.game-theory.definition.c1",
+      "parent": "PS.8C.foraging-mate.game-theory.definition",
+      "leaf": "PS.8C",
+      "label": "How does game theory explain the evolution of social behavior?"
+    },
+    {
+      "id": "PS.8C.foraging-mate.game-theory.ess.c1",
+      "parent": "PS.8C.foraging-mate.game-theory.ess",
+      "leaf": "PS.8C",
+      "label": "What is an evolutionarily stable strategy?"
+    },
+    {
+      "id": "PS.8C.foraging-mate.game-theory.altruism-evolution.c1",
+      "parent": "PS.8C.foraging-mate.game-theory.altruism-evolution",
+      "leaf": "PS.8C",
+      "label": "How does inclusive fitness explain altruism?"
+    },
+    {
+      "id": "PS.8C.foraging-mate.game-theory.kin-selection.c1",
+      "parent": "PS.8C.foraging-mate.game-theory.kin-selection",
+      "leaf": "PS.8C",
+      "label": "What is kin selection?"
+    },
+    {
+      "id": "PS.8C.prosocial.altruism.prosocial-definition.c1",
+      "parent": "PS.8C.prosocial.altruism.prosocial-definition",
+      "leaf": "PS.8C",
+      "label": "What is prosocial behavior?"
+    },
+    {
+      "id": "PS.8C.prosocial.altruism.definition.c1",
+      "parent": "PS.8C.prosocial.altruism.definition",
+      "leaf": "PS.8C",
+      "label": "What is altruism?"
+    },
+    {
+      "id": "PS.8C.prosocial.altruism.definition.c2",
+      "parent": "PS.8C.prosocial.altruism.definition",
+      "leaf": "PS.8C",
+      "label": "How does altruism differ from other prosocial behavior?"
+    },
+    {
+      "id": "PS.8C.prosocial.altruism.empathy-altruism.c1",
+      "parent": "PS.8C.prosocial.altruism.empathy-altruism",
+      "leaf": "PS.8C",
+      "label": "What does the empathy-altruism hypothesis claim?"
+    },
+    {
+      "id": "PS.8C.prosocial.altruism.egoism.c1",
+      "parent": "PS.8C.prosocial.altruism.egoism",
+      "leaf": "PS.8C",
+      "label": "How does egoistic helping differ from altruism?"
+    },
+    {
+      "id": "PS.8C.prosocial.altruism.social-exchange.c1",
+      "parent": "PS.8C.prosocial.altruism.social-exchange",
+      "leaf": "PS.8C",
+      "label": "How does social exchange theory explain helping?"
+    },
+    {
+      "id": "PS.8C.prosocial.altruism.reciprocal.c1",
+      "parent": "PS.8C.prosocial.altruism.reciprocal",
+      "leaf": "PS.8C",
+      "label": "What is reciprocal altruism?"
+    },
+    {
+      "id": "PS.8C.prosocial.social-norms.reciprocity-norm.c1",
+      "parent": "PS.8C.prosocial.social-norms.reciprocity-norm",
+      "leaf": "PS.8C",
+      "label": "What is the reciprocity norm?"
+    },
+    {
+      "id": "PS.8C.prosocial.social-norms.social-responsibility.c1",
+      "parent": "PS.8C.prosocial.social-norms.social-responsibility",
+      "leaf": "PS.8C",
+      "label": "What is the social-responsibility norm?"
+    },
+    {
+      "id": "PS.8C.prosocial.bystander.definition.c1",
+      "parent": "PS.8C.prosocial.bystander.definition",
+      "leaf": "PS.8C",
+      "label": "What is the bystander effect?"
+    },
+    {
+      "id": "PS.8C.prosocial.bystander.definition.c2",
+      "parent": "PS.8C.prosocial.bystander.definition",
+      "leaf": "PS.8C",
+      "label": "How does the presence of others affect helping?"
+    },
+    {
+      "id": "PS.8C.prosocial.bystander.diffusion-responsibility.c1",
+      "parent": "PS.8C.prosocial.bystander.diffusion-responsibility",
+      "leaf": "PS.8C",
+      "label": "What is diffusion of responsibility?"
+    },
+    {
+      "id": "PS.8C.prosocial.bystander.diffusion-responsibility.c2",
+      "parent": "PS.8C.prosocial.bystander.diffusion-responsibility",
+      "leaf": "PS.8C",
+      "label": "How does diffusion of responsibility reduce helping?"
+    },
+    {
+      "id": "PS.8C.prosocial.bystander.pluralistic-ignorance.c1",
+      "parent": "PS.8C.prosocial.bystander.pluralistic-ignorance",
+      "leaf": "PS.8C",
+      "label": "What is pluralistic ignorance?"
+    },
+    {
+      "id": "PS.8C.discrimination.basics.definition.c1",
+      "parent": "PS.8C.discrimination.basics.definition",
+      "leaf": "PS.8C",
+      "label": "What defines discrimination as differential treatment?"
+    },
+    {
+      "id": "PS.8C.discrimination.basics.definition.c2",
+      "parent": "PS.8C.discrimination.basics.definition",
+      "leaf": "PS.8C",
+      "label": "On what basis does discrimination treat people differently?"
+    },
+    {
+      "id": "PS.8C.discrimination.basics.prejudice-vs-discrimination.c1",
+      "parent": "PS.8C.discrimination.basics.prejudice-vs-discrimination",
+      "leaf": "PS.8C",
+      "label": "How does prejudice differ from discrimination?"
+    },
+    {
+      "id": "PS.8C.discrimination.basics.prejudice-vs-discrimination.c2",
+      "parent": "PS.8C.discrimination.basics.prejudice-vs-discrimination",
+      "leaf": "PS.8C",
+      "label": "Which is an attitude and which is a behavior?"
+    },
+    {
+      "id": "PS.8C.discrimination.basics.individual-vs-institutional.c1",
+      "parent": "PS.8C.discrimination.basics.individual-vs-institutional",
+      "leaf": "PS.8C",
+      "label": "How do individual and institutional discrimination differ?"
+    },
+    {
+      "id": "PS.8C.discrimination.basics.individual-vs-institutional.c2",
+      "parent": "PS.8C.discrimination.basics.individual-vs-institutional",
+      "leaf": "PS.8C",
+      "label": "Which discrimination is built into organizational policy?"
+    },
+    {
+      "id": "PS.8C.discrimination.bias.definition.c1",
+      "parent": "PS.8C.discrimination.bias.definition",
+      "leaf": "PS.8C",
+      "label": "What is bias?"
+    },
+    {
+      "id": "PS.8C.discrimination.bias.explicit-vs-implicit.c1",
+      "parent": "PS.8C.discrimination.bias.explicit-vs-implicit",
+      "leaf": "PS.8C",
+      "label": "How do explicit and implicit bias differ?"
+    },
+    {
+      "id": "PS.8C.discrimination.power-prestige-class.definition.c1",
+      "parent": "PS.8C.discrimination.power-prestige-class.definition",
+      "leaf": "PS.8C",
+      "label": "How do power, prestige, and class enable discrimination?"
+    },
+    {
+      "id": "PS.8C.discrimination.power-prestige-class.privilege.c1",
+      "parent": "PS.8C.discrimination.power-prestige-class.privilege",
+      "leaf": "PS.8C",
+      "label": "What is privilege in the context of discrimination?"
+    },
+    {
+      "id": "PS.8C.discrimination.related-prejudice.stereotype.c1",
+      "parent": "PS.8C.discrimination.related-prejudice.stereotype",
+      "leaf": "PS.8C",
+      "label": "Which component of bias does a stereotype represent?"
+    },
+    {
+      "id": "PS.8C.discrimination.related-prejudice.stereotype.c2",
+      "parent": "PS.8C.discrimination.related-prejudice.stereotype",
+      "leaf": "PS.8C",
+      "label": "A stereotype is the cognitive basis of what?"
+    },
+    {
+      "id": "PS.8C.discrimination.related-prejudice.abc-model.c1",
+      "parent": "PS.8C.discrimination.related-prejudice.abc-model",
+      "leaf": "PS.8C",
+      "label": "What do the ABC components of bias stand for?"
+    },
+    {
+      "id": "PS.8C.discrimination.related-prejudice.abc-model.c2",
+      "parent": "PS.8C.discrimination.related-prejudice.abc-model",
+      "leaf": "PS.8C",
+      "label": "In the ABC model, which component is discrimination?"
+    },
+    {
+      "id": "PS.8C.discrimination.related-prejudice.ethnocentrism.c1",
+      "parent": "PS.8C.discrimination.related-prejudice.ethnocentrism",
+      "leaf": "PS.8C",
+      "label": "How does ethnocentrism view one's own group?"
+    },
+    {
+      "id": "PS.8C.discrimination.related-prejudice.cultural-relativism.c1",
+      "parent": "PS.8C.discrimination.related-prejudice.cultural-relativism",
+      "leaf": "PS.8C",
+      "label": "What is cultural relativism, and what does it contrast with?"
+    }
+  ]
+}

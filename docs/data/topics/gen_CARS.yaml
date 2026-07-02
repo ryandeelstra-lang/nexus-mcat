@@ -1,0 +1,220 @@
+fc: "CARS"
+section: "CARS"
+categories:
+  - id: "CARS.FOC"
+    name: "Foundations of Comprehension"
+    topics:
+      - id: "CARS.FOC.T01"
+        name: "Vocabulary and Meaning in Context"
+        subtopics:
+          - { id: "CARS.FOC.T01.S01", name: "Words and Phrases in Context" }
+          - { id: "CARS.FOC.T01.S02", name: "Denotation and Connotation" }
+          - { id: "CARS.FOC.T01.S03", name: "Figurative and Idiomatic Language" }
+          - { id: "CARS.FOC.T01.S04", name: "Inferring Technical Terms from Context" }
+      - id: "CARS.FOC.T02"
+        name: "Comprehending Complex Sentences"
+        subtopics:
+          - { id: "CARS.FOC.T02.S01", name: "Parsing Dense Syntax" }
+          - { id: "CARS.FOC.T02.S02", name: "Tracking Pronouns and Referents" }
+          - { id: "CARS.FOC.T02.S03", name: "Signal and Transition Words" }
+          - { id: "CARS.FOC.T02.S04", name: "Qualifiers and Hedging Language" }
+      - id: "CARS.FOC.T03"
+        name: "Main Idea, Thesis, and Primary Purpose"
+        subtopics:
+          - { id: "CARS.FOC.T03.S01", name: "Locating the Thesis" }
+          - { id: "CARS.FOC.T03.S02", name: "Main Idea vs Supporting Detail" }
+          - { id: "CARS.FOC.T03.S03", name: "Primary Purpose of the Passage" }
+          - { id: "CARS.FOC.T03.S04", name: "One-Sentence Passage Summary" }
+      - id: "CARS.FOC.T04"
+        name: "Author's Tone and Attitude"
+        subtopics:
+          - { id: "CARS.FOC.T04.S01", name: "Identifying Tone Words" }
+          - { id: "CARS.FOC.T04.S02", name: "Author's Attitude Toward the Subject" }
+          - { id: "CARS.FOC.T04.S03", name: "Distinguishing Author Voice from Cited Views" }
+          - { id: "CARS.FOC.T04.S04", name: "Degree of Certainty and Bias Cues" }
+      - id: "CARS.FOC.T05"
+        name: "Text Structure and Hierarchy of Ideas"
+        subtopics:
+          - { id: "CARS.FOC.T05.S01", name: "Paragraph Function and Roles" }
+          - { id: "CARS.FOC.T05.S02", name: "Organizational Patterns" }
+          - { id: "CARS.FOC.T05.S03", name: "Hierarchy of Ideas" }
+          - { id: "CARS.FOC.T05.S04", name: "Logical Flow and Transitions" }
+      - id: "CARS.FOC.T06"
+        name: "Locating Key Details and Definitions"
+        subtopics:
+          - { id: "CARS.FOC.T06.S01", name: "Explicitly Stated Information" }
+          - { id: "CARS.FOC.T06.S02", name: "Major vs Minor Details" }
+          - { id: "CARS.FOC.T06.S03", name: "Evidence Retrieval for a Claim" }
+      - id: "CARS.FOC.T07"
+        name: "Inferring Meaning from Rhetorical Devices"
+        subtopics:
+          - { id: "CARS.FOC.T07.S01", name: "Simple Textual Inferences" }
+          - { id: "CARS.FOC.T07.S02", name: "Implied Relationships Between Ideas" }
+          - { id: "CARS.FOC.T07.S03", name: "Interpreting Rhetorical Devices" }
+          - { id: "CARS.FOC.T07.S04", name: "Reading Between the Lines" }
+      - id: "CARS.FOC.T08"
+        name: "Active Reading and Passage Mapping"
+        subtopics:
+          - { id: "CARS.FOC.T08.S01", name: "Previewing and Skimming" }
+          - { id: "CARS.FOC.T08.S02", name: "Paragraph-by-Paragraph Mapping" }
+          - { id: "CARS.FOC.T08.S03", name: "Annotating Structural Cues" }
+          - { id: "CARS.FOC.T08.S04", name: "Managing Reading Pace and Time" }
+  - id: "CARS.RW"
+    name: "Reasoning Within the Text"
+    topics:
+      - id: "CARS.RW.T01"
+        name: "Argument Structure and Components"
+        subtopics:
+          - { id: "CARS.RW.T01.S01", name: "Claims and Conclusions" }
+          - { id: "CARS.RW.T01.S02", name: "Premises and Reasons" }
+          - { id: "CARS.RW.T01.S03", name: "Distinguishing Conclusions from Support" }
+          - { id: "CARS.RW.T01.S04", name: "Mapping the Argument" }
+      - id: "CARS.RW.T02"
+        name: "Identifying Evidence and Support"
+        subtopics:
+          - { id: "CARS.RW.T02.S01", name: "Types of Evidence" }
+          - { id: "CARS.RW.T02.S02", name: "Matching Evidence to Claims" }
+          - { id: "CARS.RW.T02.S03", name: "Explicit vs Implicit Support" }
+      - id: "CARS.RW.T03"
+        name: "Identifying Assumptions"
+        subtopics:
+          - { id: "CARS.RW.T03.S01", name: "Unstated Premises" }
+          - { id: "CARS.RW.T03.S02", name: "Bridging Assumptions" }
+          - { id: "CARS.RW.T03.S03", name: "Necessary vs Sufficient Assumptions" }
+      - id: "CARS.RW.T04"
+        name: "Rhetorical Function of Statements"
+        subtopics:
+          - { id: "CARS.RW.T04.S01", name: "Purpose of a Sentence or Paragraph" }
+          - { id: "CARS.RW.T04.S02", name: "Concession and Counterargument" }
+          - { id: "CARS.RW.T04.S03", name: "Examples and Illustrations" }
+          - { id: "CARS.RW.T04.S04", name: "Definitions and Clarifications" }
+      - id: "CARS.RW.T05"
+        name: "Integrating Distinct Parts of the Text"
+        subtopics:
+          - { id: "CARS.RW.T05.S01", name: "Relating Ideas Across Paragraphs" }
+          - { id: "CARS.RW.T05.S02", name: "Synthesizing Multiple Viewpoints" }
+          - { id: "CARS.RW.T05.S03", name: "Tracing an Idea Through the Passage" }
+      - id: "CARS.RW.T06"
+        name: "Distinguishing Supported vs Unsupported Claims"
+        subtopics:
+          - { id: "CARS.RW.T06.S01", name: "Claims Backed by the Passage" }
+          - { id: "CARS.RW.T06.S02", name: "Overstated and Unsupported Claims" }
+          - { id: "CARS.RW.T06.S03", name: "Plausibility of Claims" }
+      - id: "CARS.RW.T07"
+        name: "Assessing Credibility and Relevance of Evidence"
+        subtopics:
+          - { id: "CARS.RW.T07.S01", name: "Relevance of Evidence to the Claim" }
+          - { id: "CARS.RW.T07.S02", name: "Credibility and Sufficiency of Evidence" }
+          - { id: "CARS.RW.T07.S03", name: "Appropriateness of Support" }
+      - id: "CARS.RW.T08"
+        name: "Evaluating Argument Validity and Soundness"
+        subtopics:
+          - { id: "CARS.RW.T08.S01", name: "Logical Consistency of Reasoning" }
+          - { id: "CARS.RW.T08.S02", name: "Identifying Logical Fallacies" }
+          - { id: "CARS.RW.T08.S03", name: "Strength of Inference" }
+      - id: "CARS.RW.T09"
+        name: "Internal Consistency and Contradiction"
+        subtopics:
+          - { id: "CARS.RW.T09.S01", name: "Detecting Contradictions" }
+          - { id: "CARS.RW.T09.S02", name: "Tension Between Claims" }
+          - { id: "CARS.RW.T09.S03", name: "Consistency of the Author's Position" }
+  - id: "CARS.RB"
+    name: "Reasoning Beyond the Text"
+    topics:
+      - id: "CARS.RB.T01"
+        name: "Generalizing Principles from the Passage"
+        subtopics:
+          - { id: "CARS.RB.T01.S01", name: "Abstracting the Core Principle" }
+          - { id: "CARS.RB.T01.S02", name: "Identifying the Underlying Rule" }
+          - { id: "CARS.RB.T01.S03", name: "Scope of the Generalization" }
+      - id: "CARS.RB.T02"
+        name: "Applying Passage Ideas to New Situations"
+        subtopics:
+          - { id: "CARS.RB.T02.S01", name: "Matching Principles to New Cases" }
+          - { id: "CARS.RB.T02.S02", name: "Applying the Author's Framework" }
+          - { id: "CARS.RB.T02.S03", name: "Recognizing Instances of a Concept" }
+      - id: "CARS.RB.T03"
+        name: "Extrapolation and Prediction"
+        subtopics:
+          - { id: "CARS.RB.T03.S01", name: "Projecting Ideas Beyond the Passage" }
+          - { id: "CARS.RB.T03.S02", name: "Predicting Likely Outcomes" }
+          - { id: "CARS.RB.T03.S03", name: "Logical Consequences of the Argument" }
+      - id: "CARS.RB.T04"
+        name: "Analogical Reasoning"
+        subtopics:
+          - { id: "CARS.RB.T04.S01", name: "Identifying Structural Analogies" }
+          - { id: "CARS.RB.T04.S02", name: "Mapping Relationships Across Contexts" }
+          - { id: "CARS.RB.T04.S03", name: "Evaluating the Strength of an Analogy" }
+      - id: "CARS.RB.T05"
+        name: "Assessing Impact of New Information"
+        subtopics:
+          - { id: "CARS.RB.T05.S01", name: "Effect of New Evidence on the Argument" }
+          - { id: "CARS.RB.T05.S02", name: "Consistency of New Information with the Passage" }
+          - { id: "CARS.RB.T05.S03", name: "Revising Conclusions Given New Data" }
+      - id: "CARS.RB.T06"
+        name: "Strengthening and Weakening the Argument"
+        subtopics:
+          - { id: "CARS.RB.T06.S01", name: "Information That Strengthens the Claim" }
+          - { id: "CARS.RB.T06.S02", name: "Information That Weakens the Claim" }
+          - { id: "CARS.RB.T06.S03", name: "Challenging Assumptions to Weaken" }
+      - id: "CARS.RB.T07"
+        name: "Author's Likely Response to Hypotheticals"
+        subtopics:
+          - { id: "CARS.RB.T07.S01", name: "Predicting the Author's Reaction" }
+          - { id: "CARS.RB.T07.S02", name: "Consistency with the Author's Position" }
+          - { id: "CARS.RB.T07.S03", name: "Responding to Counterexamples" }
+      - id: "CARS.RB.T08"
+        name: "Reconciling New Data with Passage Claims"
+        subtopics:
+          - { id: "CARS.RB.T08.S01", name: "Resolving Apparent Conflicts" }
+          - { id: "CARS.RB.T08.S02", name: "Integrating New Findings" }
+          - { id: "CARS.RB.T08.S03", name: "Updating the Author's Model" }
+prerequisites:
+  # --- Within Foundations of Comprehension (CARS.FOC) ---
+  - { src: "CARS.FOC.T01", dst: "CARS.FOC.T02", rationale: "Word-level meaning underlies parsing whole sentences", confidence: "high" }
+  - { src: "CARS.FOC.T01", dst: "CARS.FOC.T07", rationale: "Word choice is the basis for rhetorical inference", confidence: "medium" }
+  - { src: "CARS.FOC.T02", dst: "CARS.FOC.T06", rationale: "Must parse sentences to locate key details", confidence: "high" }
+  - { src: "CARS.FOC.T02", dst: "CARS.FOC.T05", rationale: "Sentence comprehension enables seeing text structure", confidence: "medium" }
+  - { src: "CARS.FOC.T05", dst: "CARS.FOC.T03", rationale: "Structure and hierarchy reveal the main idea", confidence: "high" }
+  - { src: "CARS.FOC.T06", dst: "CARS.FOC.T03", rationale: "Key details support identifying the thesis", confidence: "medium" }
+  - { src: "CARS.FOC.T03", dst: "CARS.FOC.T04", rationale: "Grasping the main idea precedes reading tone", confidence: "high" }
+  - { src: "CARS.FOC.T07", dst: "CARS.FOC.T04", rationale: "Rhetorical inference informs author tone/attitude", confidence: "medium" }
+  - { src: "CARS.FOC.T05", dst: "CARS.FOC.T08", rationale: "Structure awareness drives passage mapping", confidence: "high" }
+  - { src: "CARS.FOC.T03", dst: "CARS.FOC.T08", rationale: "Mapping targets the main idea while reading", confidence: "medium" }
+  # --- Within Reasoning Within the Text (CARS.RW) ---
+  - { src: "CARS.RW.T01", dst: "CARS.RW.T02", rationale: "Know argument parts before identifying evidence", confidence: "high" }
+  - { src: "CARS.RW.T01", dst: "CARS.RW.T03", rationale: "Argument structure reveals unstated assumptions", confidence: "high" }
+  - { src: "CARS.RW.T01", dst: "CARS.RW.T04", rationale: "Argument roles underlie rhetorical function", confidence: "medium" }
+  - { src: "CARS.RW.T04", dst: "CARS.RW.T05", rationale: "Statement function helps integrate parts", confidence: "medium" }
+  - { src: "CARS.RW.T02", dst: "CARS.RW.T06", rationale: "Evidence analysis distinguishes supported claims", confidence: "high" }
+  - { src: "CARS.RW.T02", dst: "CARS.RW.T07", rationale: "Identifying evidence precedes judging credibility", confidence: "high" }
+  - { src: "CARS.RW.T03", dst: "CARS.RW.T08", rationale: "Assumptions must be seen to judge soundness", confidence: "high" }
+  - { src: "CARS.RW.T02", dst: "CARS.RW.T08", rationale: "Evidence quality feeds validity judgments", confidence: "medium" }
+  - { src: "CARS.RW.T06", dst: "CARS.RW.T08", rationale: "Supported vs unsupported feeds soundness", confidence: "medium" }
+  - { src: "CARS.RW.T05", dst: "CARS.RW.T09", rationale: "Integrating parts exposes internal contradictions", confidence: "high" }
+  # --- Within Reasoning Beyond the Text (CARS.RB) ---
+  - { src: "CARS.RB.T01", dst: "CARS.RB.T02", rationale: "Abstract the principle before applying it", confidence: "high" }
+  - { src: "CARS.RB.T02", dst: "CARS.RB.T03", rationale: "Applying ideas underlies extrapolation", confidence: "high" }
+  - { src: "CARS.RB.T01", dst: "CARS.RB.T04", rationale: "Abstraction enables mapping analogies", confidence: "medium" }
+  - { src: "CARS.RB.T02", dst: "CARS.RB.T04", rationale: "Applying ideas underlies analogical mapping", confidence: "medium" }
+  - { src: "CARS.RB.T02", dst: "CARS.RB.T05", rationale: "Applying ideas needed to assess new information", confidence: "medium" }
+  - { src: "CARS.RB.T05", dst: "CARS.RB.T06", rationale: "Assessing impact underlies strengthen/weaken", confidence: "high" }
+  - { src: "CARS.RB.T05", dst: "CARS.RB.T08", rationale: "Assessing impact precedes reconciling new data", confidence: "high" }
+  - { src: "CARS.RB.T02", dst: "CARS.RB.T07", rationale: "Applying the framework predicts author response", confidence: "medium" }
+  - { src: "CARS.RB.T06", dst: "CARS.RB.T07", rationale: "Strengthen/weaken informs author's likely reply", confidence: "medium" }
+  # --- Cross-skill progression: FOC -> RW -> RB (all within CARS) ---
+  - { src: "CARS.FOC.T03", dst: "CARS.RW.T01", rationale: "Main idea must be grasped before analyzing arguments", confidence: "high" }
+  - { src: "CARS.FOC.T06", dst: "CARS.RW.T02", rationale: "Locating details precedes evaluating evidence", confidence: "high" }
+  - { src: "CARS.FOC.T07", dst: "CARS.RW.T03", rationale: "Inference skill surfaces unstated assumptions", confidence: "medium" }
+  - { src: "CARS.FOC.T04", dst: "CARS.RW.T04", rationale: "Reading tone/voice aids rhetorical function", confidence: "medium" }
+  - { src: "CARS.FOC.T08", dst: "CARS.RW.T05", rationale: "Passage mapping enables integrating parts", confidence: "medium" }
+  - { src: "CARS.RW.T01", dst: "CARS.RB.T01", rationale: "Understanding the argument precedes abstracting it", confidence: "high" }
+  - { src: "CARS.RW.T05", dst: "CARS.RB.T02", rationale: "Integrate ideas before applying them beyond text", confidence: "high" }
+  - { src: "CARS.RW.T02", dst: "CARS.RB.T05", rationale: "Understanding evidence precedes weighing new info", confidence: "medium" }
+  - { src: "CARS.RW.T08", dst: "CARS.RB.T05", rationale: "Judging soundness precedes assessing new info impact", confidence: "high" }
+  - { src: "CARS.RW.T08", dst: "CARS.RB.T06", rationale: "Validity analysis underlies strengthen/weaken", confidence: "high" }
+cross_prerequisites: []
+related:
+  - { a: "CARS.RW.T03", b: "CARS.RB.T06", rationale: "Attacking assumptions is central to weakening arguments" }
+  - { a: "CARS.RB.T03", b: "CARS.RB.T04", rationale: "Both project passage ideas into new contexts" }
+  - { a: "CARS.RW.T06", b: "CARS.RW.T09", rationale: "Both assess the internal coherence of claims" }

@@ -1,0 +1,95 @@
+# Topic layer for Foundational Concept FC10 (P-S) — Content Category PS.10A "Social inequality".
+# Grounded in AAMC "What's on the MCAT Exam?" content outline (© 2020 AAMC).
+# 2-level scheme (topic -> subtopic): the AAMC "Social Class" grouping's three ▪-level
+# clusters (stratification, mobility, poverty) are promoted to sibling topics so every
+# outline leaf is preserved as a subtopic. Ordered foundational-first (stratification -> ...).
+fc: "FC10"
+section: "P-S"
+categories:
+  - id: "PS.10A"
+    name: "Social inequality"
+    topics:
+      - id: "PS.10A.T01"
+        name: "Aspects of Social Stratification"
+        subtopics:
+          - { id: "PS.10A.T01.S01", name: "Social Class and Socioeconomic Status" }
+          - { id: "PS.10A.T01.S02", name: "Class Consciousness and False Consciousness" }
+          - { id: "PS.10A.T01.S03", name: "Cultural Capital and Social Capital" }
+          - { id: "PS.10A.T01.S04", name: "Social Reproduction" }
+          - { id: "PS.10A.T01.S05", name: "Power, Privilege, and Prestige" }
+          - { id: "PS.10A.T01.S06", name: "Intersectionality" }
+          - { id: "PS.10A.T01.S07", name: "Socioeconomic Gradient in Health" }
+          - { id: "PS.10A.T01.S08", name: "Global Inequalities" }
+      - id: "PS.10A.T02"
+        name: "Patterns of Social Mobility"
+        subtopics:
+          - { id: "PS.10A.T02.S01", name: "Intergenerational and Intragenerational Mobility" }
+          - { id: "PS.10A.T02.S02", name: "Vertical and Horizontal Mobility" }
+          - { id: "PS.10A.T02.S03", name: "Meritocracy" }
+      - id: "PS.10A.T03"
+        name: "Poverty"
+        subtopics:
+          - { id: "PS.10A.T03.S01", name: "Relative and Absolute Poverty" }
+          - { id: "PS.10A.T03.S02", name: "Social Exclusion" }
+      - id: "PS.10A.T04"
+        name: "Spatial Inequality"
+        subtopics:
+          - { id: "PS.10A.T04.S01", name: "Residential Segregation" }
+          - { id: "PS.10A.T04.S02", name: "Neighborhood Safety and Violence" }
+          - { id: "PS.10A.T04.S03", name: "Environmental Justice" }
+      - id: "PS.10A.T05"
+        name: "Health Disparities"
+        subtopics:
+          - { id: "PS.10A.T05.S01", name: "Class-Based Health Disparities" }
+          - { id: "PS.10A.T05.S02", name: "Racial and Ethnic Health Disparities" }
+          - { id: "PS.10A.T05.S03", name: "Gender-Based Health Disparities" }
+      - id: "PS.10A.T06"
+        name: "Health Care Disparities"
+        subtopics:
+          - { id: "PS.10A.T06.S01", name: "Distribution and Quality of Care" }
+          - { id: "PS.10A.T06.S02", name: "Institutional Barriers and Discrimination" }
+          - { id: "PS.10A.T06.S03", name: "Differential Access to Health Care" }
+prerequisites:
+  # Within T01 — social class/SES is the atom the rest of stratification builds on
+  - { src: "PS.10A.T01.S01", dst: "PS.10A.T01.S02", rationale: "Must grasp class before class consciousness", confidence: "high" }
+  - { src: "PS.10A.T01.S01", dst: "PS.10A.T01.S03", rationale: "Class position frames the forms of capital held", confidence: "medium" }
+  - { src: "PS.10A.T01.S03", dst: "PS.10A.T01.S04", rationale: "Social reproduction transmits capital across generations", confidence: "high" }
+  - { src: "PS.10A.T01.S01", dst: "PS.10A.T01.S05", rationale: "Class underlies power, privilege, and prestige", confidence: "high" }
+  - { src: "PS.10A.T01.S05", dst: "PS.10A.T01.S06", rationale: "Intersectionality builds on systems of privilege", confidence: "high" }
+  - { src: "PS.10A.T01.S01", dst: "PS.10A.T01.S07", rationale: "The gradient is defined over socioeconomic status", confidence: "high" }
+  - { src: "PS.10A.T01.S01", dst: "PS.10A.T01.S08", rationale: "Global inequalities extend class to the world scale", confidence: "medium" }
+  # Into/within T02 — mobility is movement between class positions
+  - { src: "PS.10A.T01.S01", dst: "PS.10A.T02.S01", rationale: "Mobility is movement between class positions", confidence: "high" }
+  - { src: "PS.10A.T01.S01", dst: "PS.10A.T02.S02", rationale: "Mobility direction is defined across class strata", confidence: "high" }
+  - { src: "PS.10A.T02.S02", dst: "PS.10A.T02.S03", rationale: "Meritocracy is the ideology explaining vertical mobility", confidence: "medium" }
+  # Into/within T03 — poverty is defined relative to the class distribution
+  - { src: "PS.10A.T01.S01", dst: "PS.10A.T03.S01", rationale: "Poverty is defined relative to the SES distribution", confidence: "high" }
+  - { src: "PS.10A.T03.S01", dst: "PS.10A.T03.S02", rationale: "Poverty underlies processes of social exclusion", confidence: "medium" }
+  # Into/within T04 — segregation sorts space by class, then drives its effects
+  - { src: "PS.10A.T01.S01", dst: "PS.10A.T04.S01", rationale: "Residential segregation sorts groups by class", confidence: "high" }
+  - { src: "PS.10A.T04.S01", dst: "PS.10A.T04.S02", rationale: "Segregation concentrates disadvantage and violence", confidence: "high" }
+  - { src: "PS.10A.T04.S01", dst: "PS.10A.T04.S03", rationale: "Segregation shapes exposure to environmental hazards", confidence: "high" }
+  # Into T05 — health disparities follow from the gradient and spatial inequality
+  - { src: "PS.10A.T01.S07", dst: "PS.10A.T05.S01", rationale: "The socioeconomic gradient is the class-health disparity", confidence: "high" }
+  - { src: "PS.10A.T04.S03", dst: "PS.10A.T05.S02", rationale: "Environmental injustice drives racial health disparities", confidence: "medium" }
+  - { src: "PS.10A.T04.S01", dst: "PS.10A.T05.S02", rationale: "Residential segregation drives racial health disparities", confidence: "medium" }
+  # Into/within T06 — care disparities: determinants (distribution, barriers) precede access
+  - { src: "PS.10A.T01.S01", dst: "PS.10A.T06.S01", rationale: "SES shapes distribution and quality of available care", confidence: "medium" }
+  - { src: "PS.10A.T01.S01", dst: "PS.10A.T06.S02", rationale: "Socioeconomic status is a barrier to institutional access", confidence: "medium" }
+  - { src: "PS.10A.T06.S01", dst: "PS.10A.T06.S03", rationale: "Uneven distribution of care produces differential access", confidence: "medium" }
+  - { src: "PS.10A.T06.S02", dst: "PS.10A.T06.S03", rationale: "Institutional barriers and discrimination limit access", confidence: "high" }
+  - { src: "PS.10A.T05.S01", dst: "PS.10A.T06.S03", rationale: "Care-access disparities are studied as drivers of health disparities", confidence: "medium" }
+cross_prerequisites:
+  # 10A depends on FC9 (social structure + demographics). Far end = FC9 hint; owned end = exact 10A id.
+  - { src_hint: "PS.9A: Theoretical Approaches", dst: "PS.10A.T01.S02", rationale: "Conflict theory (Marx) underlies class consciousness", confidence: "high" }
+  - { src_hint: "PS.9A: Culture", dst: "PS.10A.T01.S03", rationale: "Cultural capital extends the concept of culture", confidence: "high" }
+  - { src_hint: "PS.9A: Social Institutions", dst: "PS.10A.T01.S04", rationale: "Education and other institutions drive social reproduction", confidence: "high" }
+  - { src_hint: "PS.9A: Social Institutions", dst: "PS.10A.T06.S03", rationale: "Medicine as a social institution shapes access to care", confidence: "medium" }
+  - { src_hint: "PS.9B: Demographic Structure of Society", dst: "PS.10A.T01.S06", rationale: "Intersectionality combines race, gender, and age categories", confidence: "high" }
+  - { src_hint: "PS.9B: Demographic Structure of Society", dst: "PS.10A.T05.S02", rationale: "Racial/ethnic categories underlie racial health disparities", confidence: "high" }
+  - { src_hint: "PS.9B: Demographic Structure of Society", dst: "PS.10A.T05.S03", rationale: "Gender as a demographic category underlies gender disparities", confidence: "high" }
+  - { src_hint: "PS.9B: Demographic Shifts and Social Change", dst: "PS.10A.T01.S08", rationale: "Globalization and migration produce global inequalities", confidence: "medium" }
+related:
+  - { a: "PS.10A.T01.S04", b: "PS.10A.T02.S01", rationale: "Social reproduction limits intergenerational mobility" }
+  - { a: "PS.10A.T03.S02", b: "PS.10A.T04.S01", rationale: "Residential segregation is a spatial form of social exclusion" }
+  - { a: "PS.10A.T05.S01", b: "PS.10A.T04.S02", rationale: "Neighborhood conditions link class to health outcomes" }

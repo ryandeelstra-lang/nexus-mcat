@@ -1,0 +1,8 @@
+# Build artifacts — regenerate, do not commit.
+# XCFramework: scripts/build_xcframework.sh   ·   Xcode project: (cd ChargedUp && xcodegen generate)
+AnkiEngine.xcframework/
+**/build/
+*.xcodeproj/
+xcuserdata/
+*.xcuserstate
+.DS_Store

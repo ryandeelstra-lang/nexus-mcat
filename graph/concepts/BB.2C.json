@@ -1,0 +1,2320 @@
+{
+ "leaf": "BB.2C",
+ "section": "B-B",
+ "name": "Processes of cell division, differentiation, and specialization",
+ "nodes": [
+  {
+   "id": "BB.2C.cell-cycle",
+   "label": "The eukaryotic cell cycle",
+   "kind": "topic",
+   "parent": "BB.2C",
+   "summary": "The cell cycle is the ordered sequence of events (G1, S, G2, M, plus G0) by which a cell grows, replicates its DNA, and divides."
+  },
+  {
+   "id": "BB.2C.cell-cycle.phases",
+   "label": "Phases of the cell cycle",
+   "kind": "subtopic",
+   "parent": "BB.2C.cell-cycle",
+   "summary": "Interphase (G1, S, G2) prepares the cell and the mitotic (M) phase divides it."
+  },
+  {
+   "id": "BB.2C.cell-cycle.phases.interphase",
+   "label": "Interphase",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.phases",
+   "summary": "Interphase comprises G1, S, and G2 and is the period of growth and DNA replication between divisions, occupying ~90% of the cycle.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.cell-cycle.phases.g1",
+   "label": "G1 phase (first gap / growth)",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.phases",
+   "summary": "In G1 the cell grows, synthesizes proteins and organelles, and has one copy (2N) of each chromosome as a single chromatid.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.cell-cycle.phases.s",
+   "label": "S phase (DNA synthesis)",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.phases",
+   "summary": "During S phase DNA is replicated so each chromosome becomes two identical sister chromatids joined at the centromere; the cell stays diploid (2N) but its DNA content doubles from 2C to 4C.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.cell-cycle.phases.g2",
+   "label": "G2 phase (second gap)",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.phases",
+   "summary": "In G2 the cell continues to grow, duplicates organelles and centrosomes, and synthesizes proteins (e.g., tubulin) needed for mitosis.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.cell-cycle.phases.m-phase",
+   "label": "M phase (mitotic phase)",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.phases",
+   "summary": "M phase is the division phase comprising mitosis (nuclear division) and cytokinesis (cytoplasmic division), the shortest part of the cycle.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.cell-cycle.phases.g0",
+   "label": "G0 phase (quiescence)",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.phases",
+   "summary": "G0 is a non-dividing resting/quiescent state that cells like mature neurons and muscle may enter, exiting the active cycle from G1.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.cell-cycle.phases.ploidy-tracking",
+   "label": "Ploidy and DNA content through the cycle",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.phases",
+   "summary": "Chromosome number (ploidy) stays 2N through interphase while DNA content goes 2C (G1) to 4C (after S) and back to 2C after division.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.cell-cycle.control",
+   "label": "Cell cycle control system",
+   "kind": "subtopic",
+   "parent": "BB.2C.cell-cycle",
+   "summary": "Progression is driven by cyclin/CDK complexes and policed by checkpoints."
+  },
+  {
+   "id": "BB.2C.cell-cycle.control.cyclins",
+   "label": "Cyclins",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.control",
+   "summary": "Cyclins are regulatory proteins whose concentration rises and falls cyclically to drive transitions between cell-cycle phases.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.cell-cycle.control.cdks",
+   "label": "Cyclin-dependent kinases (CDKs)",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.control",
+   "summary": "CDKs are kinases that are inactive alone and become active when bound by their specific cyclin, then phosphorylate target proteins to advance the cycle.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.cell-cycle.control.cyclin-cdk-complex",
+   "label": "Cyclin-CDK complex",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.control",
+   "summary": "A cyclin binds its CDK to form an active complex (e.g., a maturation/mitosis-promoting factor) that triggers a specific phase transition.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.cell-cycle.control.cyclin-degradation",
+   "label": "Cyclin degradation and oscillation",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.control",
+   "summary": "Targeted ubiquitin-mediated degradation of cyclins inactivates CDKs and resets the cycle, producing the cyclical rise and fall that times transitions.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.cell-cycle.control.cdk-inhibitors",
+   "label": "CDK inhibitors (CKIs)",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.control",
+   "summary": "CDK inhibitor proteins (e.g., p21, p27) bind and block cyclin-CDK complexes to halt progression, often downstream of p53.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.cell-cycle.control.mpf",
+   "label": "Maturation/M-phase-promoting factor (MPF)",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.control",
+   "summary": "MPF is the cyclin B-CDK1 complex that triggers entry into mitosis and is destroyed by cyclin degradation to allow exit from M phase.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.cell-cycle.control.g1-s-cyclin",
+   "label": "G1/S transition control",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.control",
+   "summary": "G1 cyclin-CDK activity drives the cell past the restriction point and into S phase by promoting DNA-replication machinery.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.cell-cycle.control.restriction-point",
+   "label": "Restriction (R) point",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.control",
+   "summary": "The restriction point late in G1 is the commitment point after which a cell will complete the cycle independent of external growth signals.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.cell-cycle.control.growth-factors",
+   "label": "Growth factors and external signals",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.control",
+   "summary": "External growth factors (e.g., PDGF) bind receptors to trigger signaling that drives a quiescent cell past the G1 restriction point into the cycle.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.cell-cycle.control.density-inhibition-normal",
+   "label": "Density-dependent inhibition (normal cells)",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.control",
+   "summary": "Normal cells stop dividing when they crowd a surface (contact inhibition), arresting in G1 until space and signals return.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.cell-cycle.control.anchorage-dependence-normal",
+   "label": "Anchorage dependence (normal cells)",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.control",
+   "summary": "Normal cells must attach to a substrate or extracellular matrix to divide; without anchorage they arrest the cycle.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.cell-cycle.checkpoints",
+   "label": "Cell cycle checkpoints",
+   "kind": "subtopic",
+   "parent": "BB.2C.cell-cycle",
+   "summary": "Checkpoints verify conditions are met before allowing the cycle to advance."
+  },
+  {
+   "id": "BB.2C.cell-cycle.checkpoints.g1-checkpoint",
+   "label": "G1/S checkpoint",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.checkpoints",
+   "summary": "The G1 checkpoint verifies cell size, nutrients, growth signals, and DNA integrity before committing to DNA replication.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.cell-cycle.checkpoints.g2-checkpoint",
+   "label": "G2/M checkpoint",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.checkpoints",
+   "summary": "The G2 checkpoint confirms DNA has been fully and correctly replicated before allowing entry into mitosis.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.cell-cycle.checkpoints.m-checkpoint",
+   "label": "M (spindle assembly) checkpoint",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.checkpoints",
+   "summary": "The spindle-assembly checkpoint at metaphase verifies every kinetochore is attached to spindle fibers before anaphase begins.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.cell-cycle.checkpoints.p53",
+   "label": "p53 tumor suppressor",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.checkpoints",
+   "summary": "p53 senses DNA damage and arrests the cycle (mainly at G1) for repair or triggers apoptosis if damage is irreparable.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.cell-cycle.checkpoints.rb",
+   "label": "Retinoblastoma (Rb) protein",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.checkpoints",
+   "summary": "Rb restrains the G1/S transition by sequestering E2F transcription factors until it is phosphorylated by cyclin-CDK.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.cell-cycle.checkpoints.e2f",
+   "label": "E2F transcription factors",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.checkpoints",
+   "summary": "E2F transcription factors, released when Rb is phosphorylated, activate genes required for S-phase entry and DNA replication.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.cell-cycle.checkpoints.dna-damage-response",
+   "label": "DNA-damage response and repair pause",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.checkpoints",
+   "summary": "Detected DNA damage halts the cycle to permit repair, preventing replication or segregation of damaged DNA.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.cell-cycle.telomeres",
+   "label": "Telomeres, telomerase, and replicative limit",
+   "kind": "subtopic",
+   "parent": "BB.2C.cell-cycle",
+   "summary": "Telomere shortening limits the number of divisions a normal somatic cell can undergo."
+  },
+  {
+   "id": "BB.2C.cell-cycle.telomeres.telomere",
+   "label": "Telomeres",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.telomeres",
+   "summary": "Telomeres are repetitive non-coding DNA caps at chromosome ends that protect coding sequence and shorten with each round of replication.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.cell-cycle.telomeres.shortening",
+   "label": "Telomere shortening and the Hayflick limit",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.telomeres",
+   "summary": "Because DNA polymerase cannot fully replicate chromosome ends, telomeres shorten each division until cells reach replicative senescence (the Hayflick limit).",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.cell-cycle.telomeres.telomerase",
+   "label": "Telomerase",
+   "kind": "concept",
+   "parent": "BB.2C.cell-cycle.telomeres",
+   "summary": "Telomerase is a reverse-transcriptase enzyme that extends telomeres, active in germ cells, stem cells, and most cancers but largely silent in somatic cells.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.prokaryotic-division",
+   "label": "Prokaryotic cell division (binary fission)",
+   "kind": "topic",
+   "parent": "BB.2C",
+   "summary": "Prokaryotes divide by binary fission, a simpler asexual process without mitosis or a true spindle."
+  },
+  {
+   "id": "BB.2C.prokaryotic-division.binary-fission",
+   "label": "Binary fission",
+   "kind": "subtopic",
+   "parent": "BB.2C.prokaryotic-division",
+   "summary": "Binary fission replicates a single circular chromosome and partitions it into two identical cells."
+  },
+  {
+   "id": "BB.2C.prokaryotic-division.binary-fission.process",
+   "label": "Binary fission process",
+   "kind": "concept",
+   "parent": "BB.2C.prokaryotic-division.binary-fission",
+   "summary": "The circular chromosome replicates from a single origin, copies move to opposite ends, and the cell pinches in two via a septum (FtsZ ring).",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.prokaryotic-division.binary-fission.vs-mitosis",
+   "label": "Binary fission vs mitosis",
+   "kind": "concept",
+   "parent": "BB.2C.prokaryotic-division.binary-fission",
+   "summary": "Binary fission lacks a nucleus, spindle apparatus, and distinct phases; mitosis is the more complex eukaryotic equivalent with chromosome condensation and a spindle.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.mitosis",
+   "label": "Mitosis (somatic cell division)",
+   "kind": "topic",
+   "parent": "BB.2C",
+   "summary": "Mitosis divides one diploid nucleus into two genetically identical diploid daughter nuclei for growth and repair."
+  },
+  {
+   "id": "BB.2C.mitosis.overview",
+   "label": "Overview and purpose of mitosis",
+   "kind": "subtopic",
+   "parent": "BB.2C.mitosis",
+   "summary": "Mitosis produces two identical diploid cells from one parent cell."
+  },
+  {
+   "id": "BB.2C.mitosis.overview.definition",
+   "label": "Definition and outcome",
+   "kind": "concept",
+   "parent": "BB.2C.mitosis.overview",
+   "summary": "Mitosis is nuclear division yielding two daughter nuclei genetically identical to the parent and to each other.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.mitosis.overview.purpose",
+   "label": "Biological purpose",
+   "kind": "concept",
+   "parent": "BB.2C.mitosis.overview",
+   "summary": "Mitosis enables growth, tissue repair, and asexual reproduction by producing clones of somatic cells.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.mitosis.overview.somatic-cells",
+   "label": "Somatic vs germ cells",
+   "kind": "concept",
+   "parent": "BB.2C.mitosis.overview",
+   "summary": "Mitosis occurs in somatic (body) cells, whereas meiosis is restricted to germ cells that produce gametes.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.mitosis.overview.karyokinesis",
+   "label": "Karyokinesis vs cytokinesis",
+   "kind": "concept",
+   "parent": "BB.2C.mitosis.overview",
+   "summary": "Mitosis proper (karyokinesis) is division of the nucleus; cytokinesis is the separate division of the cytoplasm that completes cell division.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.mitosis.structures",
+   "label": "Structures of mitotic division",
+   "kind": "subtopic",
+   "parent": "BB.2C.mitosis",
+   "summary": "Centrosomes, spindle fibers, kinetochores, and chromatids organize chromosome segregation."
+  },
+  {
+   "id": "BB.2C.mitosis.structures.chromosome",
+   "label": "Chromosome and sister chromatids",
+   "kind": "concept",
+   "parent": "BB.2C.mitosis.structures",
+   "summary": "A replicated chromosome consists of two identical sister chromatids joined at the centromere.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.mitosis.structures.centromere",
+   "label": "Centromere",
+   "kind": "concept",
+   "parent": "BB.2C.mitosis.structures",
+   "summary": "The centromere is the constricted chromosomal region holding sister chromatids together and bearing the kinetochore.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.mitosis.structures.cohesin",
+   "label": "Cohesin and sister-chromatid cohesion",
+   "kind": "concept",
+   "parent": "BB.2C.mitosis.structures",
+   "summary": "Cohesin protein complexes hold sister chromatids together until separase cleaves them at the metaphase-to-anaphase transition.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.mitosis.structures.kinetochore",
+   "label": "Kinetochore",
+   "kind": "concept",
+   "parent": "BB.2C.mitosis.structures",
+   "summary": "The kinetochore is a protein complex assembled on the centromere where kinetochore microtubules attach.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.mitosis.structures.centrosome",
+   "label": "Centrosome and centrioles",
+   "kind": "concept",
+   "parent": "BB.2C.mitosis.structures",
+   "summary": "The centrosome (containing a pair of centrioles in animal cells) is the microtubule-organizing center that nucleates the spindle.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.mitosis.structures.spindle-apparatus",
+   "label": "Mitotic spindle apparatus",
+   "kind": "concept",
+   "parent": "BB.2C.mitosis.structures",
+   "summary": "The spindle is the array of microtubules (kinetochore, polar/overlap, and astral fibers) that segregates chromosomes.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.mitosis.structures.aster",
+   "label": "Astral microtubules / asters",
+   "kind": "concept",
+   "parent": "BB.2C.mitosis.structures",
+   "summary": "Astral microtubules radiate from centrosomes to the cell cortex to position the spindle within the cell.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.mitosis.structures.chromatin-condensation",
+   "label": "Chromatin condensation",
+   "kind": "concept",
+   "parent": "BB.2C.mitosis.structures",
+   "summary": "Loosely packed interphase chromatin condenses into compact, visible chromosomes at the start of mitosis to allow clean segregation.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.mitosis.phases",
+   "label": "Phases of mitosis",
+   "kind": "subtopic",
+   "parent": "BB.2C.mitosis",
+   "summary": "Prophase, prometaphase, metaphase, anaphase, and telophase progress nuclear division."
+  },
+  {
+   "id": "BB.2C.mitosis.phases.prophase",
+   "label": "Prophase",
+   "kind": "concept",
+   "parent": "BB.2C.mitosis.phases",
+   "summary": "In prophase chromatin condenses into visible chromosomes, the spindle begins forming, and centrosomes migrate to opposite poles.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.mitosis.phases.prometaphase",
+   "label": "Prometaphase",
+   "kind": "concept",
+   "parent": "BB.2C.mitosis.phases",
+   "summary": "In prometaphase the nuclear envelope breaks down and kinetochore microtubules attach to chromosomes.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.mitosis.phases.metaphase",
+   "label": "Metaphase",
+   "kind": "concept",
+   "parent": "BB.2C.mitosis.phases",
+   "summary": "In metaphase chromosomes align single-file along the metaphase plate (cell equator) with sister chromatids facing opposite poles.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.mitosis.phases.anaphase",
+   "label": "Anaphase",
+   "kind": "concept",
+   "parent": "BB.2C.mitosis.phases",
+   "summary": "In anaphase the centromeres split and sister chromatids are pulled to opposite poles, becoming individual chromosomes.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.mitosis.phases.telophase",
+   "label": "Telophase",
+   "kind": "concept",
+   "parent": "BB.2C.mitosis.phases",
+   "summary": "In telophase chromosomes decondense, nuclear envelopes reform around each set, and the spindle disassembles.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.mitosis.phases.cytokinesis",
+   "label": "Cytokinesis",
+   "kind": "concept",
+   "parent": "BB.2C.mitosis.phases",
+   "summary": "Cytokinesis divides the cytoplasm via an actin-myosin contractile ring (cleavage furrow) in animal cells, yielding two daughter cells.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.mitosis.phases.cleavage-furrow",
+   "label": "Cleavage furrow vs cell plate",
+   "kind": "concept",
+   "parent": "BB.2C.mitosis.phases",
+   "summary": "Animal cells pinch apart with a cleavage furrow while plant cells build a new cell plate from vesicles down the middle.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.mitosis.phases.chromosome-movement",
+   "label": "Mechanism of chromosome movement",
+   "kind": "concept",
+   "parent": "BB.2C.mitosis.phases",
+   "summary": "Kinetochore microtubules shorten to pull chromatids poleward (anaphase A) while polar microtubules elongate to push poles apart (anaphase B).",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.meiosis",
+   "label": "Meiosis and gametogenesis",
+   "kind": "topic",
+   "parent": "BB.2C",
+   "summary": "Meiosis is two successive divisions that produce four haploid, genetically diverse gametes from one diploid germ cell."
+  },
+  {
+   "id": "BB.2C.meiosis.overview",
+   "label": "Overview of meiosis",
+   "kind": "subtopic",
+   "parent": "BB.2C.meiosis",
+   "summary": "One round of DNA replication followed by two divisions halves the chromosome number."
+  },
+  {
+   "id": "BB.2C.meiosis.overview.definition",
+   "label": "Definition and outcome",
+   "kind": "concept",
+   "parent": "BB.2C.meiosis.overview",
+   "summary": "Meiosis produces four haploid (1N) gametes that are genetically distinct from each other and the parent.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.meiosis.overview.reductional-division",
+   "label": "Reductional vs equational division",
+   "kind": "concept",
+   "parent": "BB.2C.meiosis.overview",
+   "summary": "Meiosis I is reductional (2N to 1N, separating homologs) and meiosis II is equational (separating sister chromatids, like mitosis).",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.meiosis.overview.homologous-chromosomes",
+   "label": "Homologous chromosomes",
+   "kind": "concept",
+   "parent": "BB.2C.meiosis.overview",
+   "summary": "Homologous chromosomes are a maternal-paternal pair with the same genes at the same loci but possibly different alleles.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.meiosis.overview.diploid-haploid",
+   "label": "Diploid and haploid",
+   "kind": "concept",
+   "parent": "BB.2C.meiosis.overview",
+   "summary": "Diploid (2N) cells carry two sets of chromosomes; haploid (1N) gametes carry one, restored to 2N by fertilization.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.meiosis.overview.single-replication",
+   "label": "One replication, two divisions",
+   "kind": "concept",
+   "parent": "BB.2C.meiosis.overview",
+   "summary": "A single S-phase DNA replication is followed by two consecutive divisions (meiosis I and II), which is why chromosome number is halved.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-i",
+   "label": "Meiosis I",
+   "kind": "subtopic",
+   "parent": "BB.2C.meiosis",
+   "summary": "Meiosis I separates homologous chromosomes and is where genetic recombination occurs."
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-i.prophase-i",
+   "label": "Prophase I",
+   "kind": "concept",
+   "parent": "BB.2C.meiosis.meiosis-i",
+   "summary": "In prophase I homologs pair (synapsis) forming tetrads/bivalents and undergo crossing over at chiasmata.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-i.synapsis",
+   "label": "Synapsis and the synaptonemal complex",
+   "kind": "concept",
+   "parent": "BB.2C.meiosis.meiosis-i",
+   "summary": "Synapsis is the pairing of homologous chromosomes held together by the protein synaptonemal complex.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-i.tetrad",
+   "label": "Tetrad / bivalent",
+   "kind": "concept",
+   "parent": "BB.2C.meiosis.meiosis-i",
+   "summary": "A tetrad (bivalent) is a paired set of two homologous chromosomes comprising four chromatids.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-i.crossing-over",
+   "label": "Crossing over",
+   "kind": "concept",
+   "parent": "BB.2C.meiosis.meiosis-i",
+   "summary": "Crossing over is the reciprocal exchange of segments between non-sister chromatids of homologs, creating recombinant chromosomes.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-i.chiasma",
+   "label": "Chiasma",
+   "kind": "concept",
+   "parent": "BB.2C.meiosis.meiosis-i",
+   "summary": "A chiasma is the visible X-shaped point of crossing over where non-sister chromatids exchange DNA.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-i.metaphase-i",
+   "label": "Metaphase I",
+   "kind": "concept",
+   "parent": "BB.2C.meiosis.meiosis-i",
+   "summary": "In metaphase I tetrads (paired homologs) align at the metaphase plate, with homologs facing opposite poles.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-i.independent-assortment",
+   "label": "Independent assortment",
+   "kind": "concept",
+   "parent": "BB.2C.meiosis.meiosis-i",
+   "summary": "Random orientation of each tetrad at metaphase I assorts maternal and paternal homologs independently, yielding 2^n combinations.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-i.anaphase-i",
+   "label": "Anaphase I",
+   "kind": "concept",
+   "parent": "BB.2C.meiosis.meiosis-i",
+   "summary": "In anaphase I homologous chromosomes separate to opposite poles while sister chromatids stay joined.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-i.telophase-i",
+   "label": "Telophase I and cytokinesis",
+   "kind": "concept",
+   "parent": "BB.2C.meiosis.meiosis-i",
+   "summary": "Telophase I yields two haploid cells, each chromosome still consisting of two sister chromatids.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-ii",
+   "label": "Meiosis II",
+   "kind": "subtopic",
+   "parent": "BB.2C.meiosis",
+   "summary": "Meiosis II separates sister chromatids in each haploid cell without further DNA replication."
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-ii.no-replication",
+   "label": "No S phase between divisions",
+   "kind": "concept",
+   "parent": "BB.2C.meiosis.meiosis-ii",
+   "summary": "There is no DNA replication between meiosis I and II, so meiosis II begins with already-replicated haploid cells.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-ii.prophase-ii",
+   "label": "Prophase II",
+   "kind": "concept",
+   "parent": "BB.2C.meiosis.meiosis-ii",
+   "summary": "In prophase II chromosomes recondense and a new spindle forms in each haploid cell, with no pairing or crossing over.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-ii.metaphase-ii",
+   "label": "Metaphase II",
+   "kind": "concept",
+   "parent": "BB.2C.meiosis.meiosis-ii",
+   "summary": "In metaphase II individual chromosomes (sister-chromatid pairs) align single-file at the metaphase plate.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-ii.anaphase-ii",
+   "label": "Anaphase II",
+   "kind": "concept",
+   "parent": "BB.2C.meiosis.meiosis-ii",
+   "summary": "In anaphase II centromeres split and sister chromatids separate to opposite poles, as in mitosis.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-ii.telophase-ii",
+   "label": "Telophase II and cytokinesis",
+   "kind": "concept",
+   "parent": "BB.2C.meiosis.meiosis-ii",
+   "summary": "In telophase II nuclear envelopes reform and cytokinesis splits each cell, finishing with four haploid daughter cells.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.meiosis.meiosis-ii.four-gametes",
+   "label": "Four haploid products",
+   "kind": "concept",
+   "parent": "BB.2C.meiosis.meiosis-ii",
+   "summary": "Meiosis II completes the process, producing four haploid cells each with unreplicated single-chromatid chromosomes.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.meiosis.variation",
+   "label": "Sources of genetic variation",
+   "kind": "subtopic",
+   "parent": "BB.2C.meiosis",
+   "summary": "Meiosis and fertilization generate genetic diversity."
+  },
+  {
+   "id": "BB.2C.meiosis.variation.recombination-source",
+   "label": "Recombination as a variation source",
+   "kind": "concept",
+   "parent": "BB.2C.meiosis.variation",
+   "summary": "Crossing over shuffles alleles between homologs, generating new combinations not present in either parent chromosome.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.meiosis.variation.assortment-source",
+   "label": "Independent assortment as a variation source",
+   "kind": "concept",
+   "parent": "BB.2C.meiosis.variation",
+   "summary": "Independent assortment of homologs produces 2^n possible gamete chromosome combinations (2^23 in humans).",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.meiosis.variation.random-fertilization",
+   "label": "Random fertilization",
+   "kind": "concept",
+   "parent": "BB.2C.meiosis.variation",
+   "summary": "Random union of any sperm with any egg multiplies diversity beyond that generated within meiosis.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.meiosis.errors",
+   "label": "Errors in meiosis",
+   "kind": "subtopic",
+   "parent": "BB.2C.meiosis",
+   "summary": "Nondisjunction produces aneuploid gametes."
+  },
+  {
+   "id": "BB.2C.meiosis.errors.nondisjunction",
+   "label": "Nondisjunction",
+   "kind": "concept",
+   "parent": "BB.2C.meiosis.errors",
+   "summary": "Nondisjunction is failure of homologs (meiosis I) or sister chromatids (meiosis II) to separate, producing gametes with abnormal chromosome number.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.meiosis.errors.aneuploidy",
+   "label": "Aneuploidy and nondisjunction outcomes",
+   "kind": "concept",
+   "parent": "BB.2C.meiosis.errors",
+   "summary": "Aneuploidy (e.g., trisomy 21) results when nondisjunction yields a zygote with an extra or missing chromosome.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.meiosis.comparison",
+   "label": "Mitosis vs meiosis comparison",
+   "kind": "subtopic",
+   "parent": "BB.2C.meiosis",
+   "summary": "The two division types differ in number of divisions, products, and pairing behavior."
+  },
+  {
+   "id": "BB.2C.meiosis.comparison.key-differences",
+   "label": "Key differences (mitosis vs meiosis)",
+   "kind": "concept",
+   "parent": "BB.2C.meiosis.comparison",
+   "summary": "Mitosis = 1 division, 2 identical diploid cells, no synapsis; meiosis = 2 divisions, 4 diverse haploid cells, with synapsis and crossing over.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.meiosis.comparison.metaphase-alignment",
+   "label": "Metaphase alignment difference",
+   "kind": "concept",
+   "parent": "BB.2C.meiosis.comparison",
+   "summary": "In mitosis and meiosis II chromosomes line up single-file, whereas in metaphase I homologs line up as paired tetrads.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.gametogenesis",
+   "label": "Gametogenesis and the reproductive cycle",
+   "kind": "topic",
+   "parent": "BB.2C",
+   "summary": "Gametogenesis is the production of mature gametes via meiosis, differing in timing and product number between sexes."
+  },
+  {
+   "id": "BB.2C.gametogenesis.spermatogenesis",
+   "label": "Spermatogenesis",
+   "kind": "subtopic",
+   "parent": "BB.2C.gametogenesis",
+   "summary": "Spermatogenesis produces four functional sperm from one spermatogonium."
+  },
+  {
+   "id": "BB.2C.gametogenesis.spermatogenesis.process",
+   "label": "Spermatogenesis process and yield",
+   "kind": "concept",
+   "parent": "BB.2C.gametogenesis.spermatogenesis",
+   "summary": "A diploid spermatogonium yields four equally sized haploid spermatids that mature into sperm, occurring continuously after puberty in the seminiferous tubules.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.gametogenesis.spermatogenesis.stages",
+   "label": "Spermatogenic cell stages",
+   "kind": "concept",
+   "parent": "BB.2C.gametogenesis.spermatogenesis",
+   "summary": "Spermatogonium to primary spermatocyte (meiosis I) to secondary spermatocyte (meiosis II) to spermatid to spermatozoon.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.gametogenesis.spermatogenesis.spermiogenesis",
+   "label": "Spermiogenesis (sperm maturation)",
+   "kind": "concept",
+   "parent": "BB.2C.gametogenesis.spermatogenesis",
+   "summary": "Round spermatids mature into motile spermatozoa by shedding cytoplasm and forming a flagellum and acrosome.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.gametogenesis.oogenesis",
+   "label": "Oogenesis",
+   "kind": "subtopic",
+   "parent": "BB.2C.gametogenesis",
+   "summary": "Oogenesis produces one large ovum and polar bodies from one oogonium."
+  },
+  {
+   "id": "BB.2C.gametogenesis.oogenesis.process",
+   "label": "Oogenesis process and asymmetry",
+   "kind": "concept",
+   "parent": "BB.2C.gametogenesis.oogenesis",
+   "summary": "Oogenesis yields one functional ovum (retaining most cytoplasm) plus polar bodies, with unequal cytoplasmic division.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.gametogenesis.oogenesis.stages",
+   "label": "Oogenic cell stages",
+   "kind": "concept",
+   "parent": "BB.2C.gametogenesis.oogenesis",
+   "summary": "Oogonium to primary oocyte (meiosis I) to secondary oocyte plus first polar body (meiosis II completed at fertilization) to ovum.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.gametogenesis.oogenesis.arrest",
+   "label": "Meiotic arrest in oogenesis",
+   "kind": "concept",
+   "parent": "BB.2C.gametogenesis.oogenesis",
+   "summary": "Primary oocytes arrest in prophase I until ovulation and complete meiosis II only upon fertilization.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.gametogenesis.oogenesis.polar-body",
+   "label": "Polar bodies",
+   "kind": "concept",
+   "parent": "BB.2C.gametogenesis.oogenesis",
+   "summary": "Polar bodies are small non-functional cells discarded during oogenesis to conserve cytoplasm in the ovum.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.gametogenesis.comparison",
+   "label": "Spermatogenesis vs oogenesis",
+   "kind": "subtopic",
+   "parent": "BB.2C.gametogenesis",
+   "summary": "The two gametogenic pathways differ in number, size, and timing of products."
+  },
+  {
+   "id": "BB.2C.gametogenesis.comparison.key-differences",
+   "label": "Key differences (sperm vs egg formation)",
+   "kind": "concept",
+   "parent": "BB.2C.gametogenesis.comparison",
+   "summary": "Spermatogenesis is continuous and yields four equal sperm; oogenesis is cyclic, arrested, and yields one large ovum plus polar bodies.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.differentiation",
+   "label": "Cell differentiation and developmental fate",
+   "kind": "topic",
+   "parent": "BB.2C",
+   "summary": "Differentiation is the process by which an unspecialized cell acquires a specialized structure and function through differential gene expression."
+  },
+  {
+   "id": "BB.2C.differentiation.basis",
+   "label": "Molecular basis of differentiation",
+   "kind": "subtopic",
+   "parent": "BB.2C.differentiation",
+   "summary": "Differentiation arises from selective gene expression, not loss of DNA."
+  },
+  {
+   "id": "BB.2C.differentiation.basis.differential-expression",
+   "label": "Differential gene expression",
+   "kind": "concept",
+   "parent": "BB.2C.differentiation.basis",
+   "summary": "All somatic cells share the same genome; differentiation results from expressing different subsets of genes.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.differentiation.basis.genomic-equivalence",
+   "label": "Genomic equivalence and totipotency evidence",
+   "kind": "concept",
+   "parent": "BB.2C.differentiation.basis",
+   "summary": "Cloning (e.g., nuclear transplantation) shows differentiated nuclei retain a complete genome capable of directing a whole organism.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.differentiation.basis.epigenetics",
+   "label": "Epigenetic regulation of fate",
+   "kind": "concept",
+   "parent": "BB.2C.differentiation.basis",
+   "summary": "Stable, heritable changes such as DNA methylation and histone modification lock in cell-type-specific gene expression without altering the DNA sequence.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.differentiation.basis.determination",
+   "label": "Determination",
+   "kind": "concept",
+   "parent": "BB.2C.differentiation.basis",
+   "summary": "Determination is the irreversible commitment of a cell to a particular fate that precedes overt differentiation.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.differentiation.potency",
+   "label": "Cell potency hierarchy",
+   "kind": "subtopic",
+   "parent": "BB.2C.differentiation",
+   "summary": "Cells range from totipotent to unipotent in their developmental potential."
+  },
+  {
+   "id": "BB.2C.differentiation.potency.totipotent",
+   "label": "Totipotent",
+   "kind": "concept",
+   "parent": "BB.2C.differentiation.potency",
+   "summary": "Totipotent cells (e.g., the zygote and early blastomeres) can give rise to any cell type plus extraembryonic tissues.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.differentiation.potency.pluripotent",
+   "label": "Pluripotent",
+   "kind": "concept",
+   "parent": "BB.2C.differentiation.potency",
+   "summary": "Pluripotent cells (e.g., embryonic stem cells) can become any of the three germ-layer cell types but not extraembryonic tissue.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.differentiation.potency.multipotent",
+   "label": "Multipotent",
+   "kind": "concept",
+   "parent": "BB.2C.differentiation.potency",
+   "summary": "Multipotent cells (e.g., hematopoietic stem cells) can differentiate into a limited range of related cell types.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.differentiation.potency.unipotent",
+   "label": "Unipotent",
+   "kind": "concept",
+   "parent": "BB.2C.differentiation.potency",
+   "summary": "Unipotent cells can produce only one cell type but retain self-renewal capacity.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.differentiation.potency.potency-decline",
+   "label": "Decline of potency with development",
+   "kind": "concept",
+   "parent": "BB.2C.differentiation.potency",
+   "summary": "As development proceeds cells progressively lose potency, narrowing from totipotent to pluripotent to multipotent to fully differentiated states.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.differentiation.signaling",
+   "label": "Signals directing differentiation",
+   "kind": "subtopic",
+   "parent": "BB.2C.differentiation",
+   "summary": "Intrinsic determinants and extrinsic signals guide cell fate."
+  },
+  {
+   "id": "BB.2C.differentiation.signaling.cytoplasmic-determinants",
+   "label": "Cytoplasmic determinants",
+   "kind": "concept",
+   "parent": "BB.2C.differentiation.signaling",
+   "summary": "Maternal cytoplasmic determinants unevenly distributed in the egg influence the fate of daughter cells after division.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.differentiation.signaling.induction",
+   "label": "Induction",
+   "kind": "concept",
+   "parent": "BB.2C.differentiation.signaling",
+   "summary": "Induction is the process by which one group of cells influences the developmental fate of neighboring cells via signaling molecules.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.differentiation.signaling.morphogen-gradient",
+   "label": "Morphogens and concentration gradients",
+   "kind": "concept",
+   "parent": "BB.2C.differentiation.signaling",
+   "summary": "Morphogens are signaling molecules whose concentration gradient assigns different fates to cells at different positions.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.differentiation.signaling.master-genes",
+   "label": "Master regulatory and homeotic genes",
+   "kind": "concept",
+   "parent": "BB.2C.differentiation.signaling",
+   "summary": "Master regulatory genes (including homeotic/Hox genes) encode transcription factors that direct body-segment identity and tissue patterning.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.differentiation.signaling.transcription-factors",
+   "label": "Tissue-specific transcription factors",
+   "kind": "concept",
+   "parent": "BB.2C.differentiation.signaling",
+   "summary": "Transcription factors activate cell-type-specific gene sets to drive and maintain the differentiated state.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.differentiation.signaling.apoptosis-patterning",
+   "label": "Apoptosis in patterning",
+   "kind": "concept",
+   "parent": "BB.2C.differentiation.signaling",
+   "summary": "Programmed cell death shapes developing structures (e.g., removing webbing between digits) as part of normal morphogenesis.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.stem-cells",
+   "label": "Stem cells and regeneration",
+   "kind": "topic",
+   "parent": "BB.2C",
+   "summary": "Stem cells are undifferentiated cells defined by self-renewal and the capacity to differentiate into specialized cell types."
+  },
+  {
+   "id": "BB.2C.stem-cells.properties",
+   "label": "Defining properties of stem cells",
+   "kind": "subtopic",
+   "parent": "BB.2C.stem-cells",
+   "summary": "Self-renewal and potency define stem cells."
+  },
+  {
+   "id": "BB.2C.stem-cells.properties.self-renewal",
+   "label": "Self-renewal",
+   "kind": "concept",
+   "parent": "BB.2C.stem-cells.properties",
+   "summary": "Stem cells can divide indefinitely while maintaining an undifferentiated population.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.stem-cells.properties.potency",
+   "label": "Potency of stem cells",
+   "kind": "concept",
+   "parent": "BB.2C.stem-cells.properties",
+   "summary": "A stem cell's defining second property is potency: the capacity to give rise to one or more specialized cell types.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.stem-cells.properties.asymmetric-division",
+   "label": "Asymmetric division",
+   "kind": "concept",
+   "parent": "BB.2C.stem-cells.properties",
+   "summary": "A stem cell can divide asymmetrically to yield one stem cell and one differentiating daughter, balancing renewal and supply.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.stem-cells.properties.niche",
+   "label": "Stem cell niche",
+   "kind": "concept",
+   "parent": "BB.2C.stem-cells.properties",
+   "summary": "The niche is the specialized local microenvironment whose signals maintain stem cells in an undifferentiated, self-renewing state.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.stem-cells.types",
+   "label": "Types and sources of stem cells",
+   "kind": "subtopic",
+   "parent": "BB.2C.stem-cells",
+   "summary": "Stem cells differ by source and potency."
+  },
+  {
+   "id": "BB.2C.stem-cells.types.embryonic",
+   "label": "Embryonic stem cells",
+   "kind": "concept",
+   "parent": "BB.2C.stem-cells.types",
+   "summary": "Embryonic stem cells derive from the inner cell mass of the blastocyst and are pluripotent.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.stem-cells.types.adult",
+   "label": "Adult (somatic) stem cells",
+   "kind": "concept",
+   "parent": "BB.2C.stem-cells.types",
+   "summary": "Adult stem cells reside in tissues (e.g., bone marrow) and are typically multipotent, replenishing specific lineages.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.stem-cells.types.ipsc",
+   "label": "Induced pluripotent stem cells (iPSCs)",
+   "kind": "concept",
+   "parent": "BB.2C.stem-cells.types",
+   "summary": "iPSCs are differentiated cells reprogrammed to a pluripotent state by forced expression of key transcription factors.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.stem-cells.types.hematopoietic",
+   "label": "Hematopoietic stem cells",
+   "kind": "concept",
+   "parent": "BB.2C.stem-cells.types",
+   "summary": "Hematopoietic stem cells in bone marrow are multipotent and give rise to all blood cell lineages.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.stem-cells.regeneration",
+   "label": "Regeneration and stem-cell applications",
+   "kind": "subtopic",
+   "parent": "BB.2C.stem-cells",
+   "summary": "Stem cells underlie tissue renewal, regeneration, and therapeutic potential."
+  },
+  {
+   "id": "BB.2C.stem-cells.regeneration.tissue-renewal",
+   "label": "Tissue renewal and repair",
+   "kind": "concept",
+   "parent": "BB.2C.stem-cells.regeneration",
+   "summary": "Resident stem cells continually replace lost cells (e.g., skin, gut epithelium, blood) and drive wound repair.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.stem-cells.regeneration.therapeutic",
+   "label": "Therapeutic and regenerative uses",
+   "kind": "concept",
+   "parent": "BB.2C.stem-cells.regeneration",
+   "summary": "Stem cells (e.g., bone-marrow transplants) and reprogramming approaches are used to replace damaged tissue and model disease.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.specialization",
+   "label": "Cell specialization and tissue organization",
+   "kind": "topic",
+   "parent": "BB.2C",
+   "summary": "Specialized cells organize into the four primary tissue types and coordinate through intercellular communication."
+  },
+  {
+   "id": "BB.2C.specialization.germ-layers",
+   "label": "Germ layers and their derivatives",
+   "kind": "subtopic",
+   "parent": "BB.2C.specialization",
+   "summary": "Three embryonic germ layers give rise to all adult tissues."
+  },
+  {
+   "id": "BB.2C.specialization.germ-layers.ectoderm",
+   "label": "Ectoderm",
+   "kind": "concept",
+   "parent": "BB.2C.specialization.germ-layers",
+   "summary": "Ectoderm forms the epidermis, nervous system, and sensory structures.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.specialization.germ-layers.mesoderm",
+   "label": "Mesoderm",
+   "kind": "concept",
+   "parent": "BB.2C.specialization.germ-layers",
+   "summary": "Mesoderm forms muscle, bone, blood, connective tissue, and the urogenital and circulatory systems.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.specialization.germ-layers.endoderm",
+   "label": "Endoderm",
+   "kind": "concept",
+   "parent": "BB.2C.specialization.germ-layers",
+   "summary": "Endoderm forms the epithelial lining of the digestive and respiratory tracts and associated organs (liver, pancreas).",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.specialization.tissues",
+   "label": "Four primary tissue types",
+   "kind": "subtopic",
+   "parent": "BB.2C.specialization",
+   "summary": "Cells specialize into epithelial, connective, muscle, and nervous tissue."
+  },
+  {
+   "id": "BB.2C.specialization.tissues.epithelial",
+   "label": "Epithelial tissue",
+   "kind": "concept",
+   "parent": "BB.2C.specialization.tissues",
+   "summary": "Epithelial tissue covers surfaces and lines cavities, providing protection, absorption, and secretion.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.specialization.tissues.connective",
+   "label": "Connective tissue",
+   "kind": "concept",
+   "parent": "BB.2C.specialization.tissues",
+   "summary": "Connective tissue supports and binds other tissues using cells embedded in extracellular matrix.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.specialization.tissues.muscle",
+   "label": "Muscle tissue",
+   "kind": "concept",
+   "parent": "BB.2C.specialization.tissues",
+   "summary": "Muscle tissue (skeletal, cardiac, smooth) is specialized for contraction and movement.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.specialization.tissues.nervous",
+   "label": "Nervous tissue",
+   "kind": "concept",
+   "parent": "BB.2C.specialization.tissues",
+   "summary": "Nervous tissue is specialized for generating and transmitting electrical signals.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.specialization.extracellular-matrix",
+   "label": "Extracellular matrix and basement membrane",
+   "kind": "subtopic",
+   "parent": "BB.2C.specialization",
+   "summary": "The ECM provides structural and signaling context for specialized cells."
+  },
+  {
+   "id": "BB.2C.specialization.extracellular-matrix.ecm",
+   "label": "Extracellular matrix (ECM)",
+   "kind": "concept",
+   "parent": "BB.2C.specialization.extracellular-matrix",
+   "summary": "The ECM is a network of secreted proteins (collagen, elastin) and proteoglycans that supports cells and conveys signals affecting growth and differentiation.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.specialization.extracellular-matrix.integrins",
+   "label": "Integrins and cell-matrix attachment",
+   "kind": "concept",
+   "parent": "BB.2C.specialization.extracellular-matrix",
+   "summary": "Integrins are transmembrane receptors anchoring cells to the ECM and transmitting signals that regulate survival, division, and migration.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.specialization.communication",
+   "label": "Cell-cell communication and junctions",
+   "kind": "subtopic",
+   "parent": "BB.2C.specialization",
+   "summary": "Specialized cells coordinate via signaling and junctions."
+  },
+  {
+   "id": "BB.2C.specialization.communication.tight-junctions",
+   "label": "Tight junctions",
+   "kind": "concept",
+   "parent": "BB.2C.specialization.communication",
+   "summary": "Tight junctions seal adjacent cells to prevent paracellular leakage and maintain epithelial polarity.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.specialization.communication.desmosomes",
+   "label": "Desmosomes",
+   "kind": "concept",
+   "parent": "BB.2C.specialization.communication",
+   "summary": "Desmosomes anchor adjacent cells together for mechanical strength via intermediate filaments.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.specialization.communication.adherens-junctions",
+   "label": "Adherens junctions",
+   "kind": "concept",
+   "parent": "BB.2C.specialization.communication",
+   "summary": "Adherens junctions link cells via cadherins connected to the actin cytoskeleton, forming an adhesion belt below tight junctions.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.specialization.communication.gap-junctions",
+   "label": "Gap junctions",
+   "kind": "concept",
+   "parent": "BB.2C.specialization.communication",
+   "summary": "Gap junctions are channels allowing direct passage of ions and small molecules between adjacent cells for coordination.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.specialization.communication.plasmodesmata",
+   "label": "Plasmodesmata (plant cells)",
+   "kind": "concept",
+   "parent": "BB.2C.specialization.communication",
+   "summary": "Plasmodesmata are cytoplasmic channels through plant cell walls connecting adjacent cells, analogous to gap junctions.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.specialization.communication.signaling-modes",
+   "label": "Modes of intercellular signaling",
+   "kind": "concept",
+   "parent": "BB.2C.specialization.communication",
+   "summary": "Cells communicate via autocrine, paracrine, endocrine, and direct contact (juxtacrine) signaling.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.cell-death",
+   "label": "Programmed cell death (apoptosis)",
+   "kind": "topic",
+   "parent": "BB.2C",
+   "summary": "Apoptosis is regulated, programmed cell death essential for development and homeostasis, distinct from necrosis."
+  },
+  {
+   "id": "BB.2C.cell-death.apoptosis",
+   "label": "Apoptosis mechanism",
+   "kind": "subtopic",
+   "parent": "BB.2C.cell-death",
+   "summary": "Apoptosis dismantles the cell in an orderly, non-inflammatory way."
+  },
+  {
+   "id": "BB.2C.cell-death.apoptosis.definition",
+   "label": "Apoptosis definition and features",
+   "kind": "concept",
+   "parent": "BB.2C.cell-death.apoptosis",
+   "summary": "Apoptosis is genetically programmed cell suicide marked by cell shrinkage, nuclear/DNA fragmentation, and membrane blebbing.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.cell-death.apoptosis.apoptotic-bodies",
+   "label": "Apoptotic bodies and phagocytosis",
+   "kind": "concept",
+   "parent": "BB.2C.cell-death.apoptosis",
+   "summary": "The dying cell packages itself into membrane-bound apoptotic bodies cleared by phagocytes without inflammation.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.cell-death.apoptosis.caspases",
+   "label": "Caspases",
+   "kind": "concept",
+   "parent": "BB.2C.cell-death.apoptosis",
+   "summary": "Caspases are proteases that execute apoptosis by cleaving cellular substrates in a regulated cascade.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.cell-death.apoptosis.intrinsic-pathway",
+   "label": "Intrinsic (mitochondrial) pathway",
+   "kind": "concept",
+   "parent": "BB.2C.cell-death.apoptosis",
+   "summary": "Internal stress (DNA damage) permeabilizes mitochondria, releasing cytochrome c to form the apoptosome that activates caspases.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.cell-death.apoptosis.extrinsic-pathway",
+   "label": "Extrinsic (death-receptor) pathway",
+   "kind": "concept",
+   "parent": "BB.2C.cell-death.apoptosis",
+   "summary": "External death-ligands binding cell-surface death receptors (e.g., Fas) trigger caspase activation from outside the cell.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.cell-death.apoptosis.bcl2",
+   "label": "Bcl-2 family regulators",
+   "kind": "concept",
+   "parent": "BB.2C.cell-death.apoptosis",
+   "summary": "Pro- and anti-apoptotic Bcl-2 family proteins balance to control mitochondrial release of cytochrome c and the decision to die.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.cell-death.apoptosis.developmental-role",
+   "label": "Role in development and homeostasis",
+   "kind": "concept",
+   "parent": "BB.2C.cell-death.apoptosis",
+   "summary": "Apoptosis sculpts structures (e.g., interdigital webbing) and removes damaged or excess cells to maintain tissue balance.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.cell-death.necrosis",
+   "label": "Necrosis (contrast)",
+   "kind": "subtopic",
+   "parent": "BB.2C.cell-death",
+   "summary": "Necrosis is uncontrolled, injury-driven death contrasting with apoptosis."
+  },
+  {
+   "id": "BB.2C.cell-death.necrosis.definition",
+   "label": "Necrosis vs apoptosis",
+   "kind": "concept",
+   "parent": "BB.2C.cell-death.necrosis",
+   "summary": "Necrosis is unregulated death from injury causing cell swelling, lysis, and inflammation, unlike orderly non-inflammatory apoptosis.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.cancer",
+   "label": "Loss of cell-cycle control: cancer",
+   "kind": "topic",
+   "parent": "BB.2C",
+   "summary": "Cancer arises from mutations that disrupt cell-cycle control, producing uncontrolled, immortal, invasive cell proliferation."
+  },
+  {
+   "id": "BB.2C.cancer.dysregulation",
+   "label": "Cell-cycle dysregulation",
+   "kind": "subtopic",
+   "parent": "BB.2C.cancer",
+   "summary": "Mutations in regulatory genes free cells from cycle control."
+  },
+  {
+   "id": "BB.2C.cancer.dysregulation.oncogenes",
+   "label": "Oncogenes and proto-oncogenes",
+   "kind": "concept",
+   "parent": "BB.2C.cancer.dysregulation",
+   "summary": "Proto-oncogenes promote normal division; gain-of-function mutations convert them to oncogenes that drive excessive proliferation.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.cancer.dysregulation.ras",
+   "label": "Ras and signaling oncogenes",
+   "kind": "concept",
+   "parent": "BB.2C.cancer.dysregulation",
+   "summary": "A constitutively active Ras GTPase or hyperactive growth-factor receptor signals division continuously even without external growth factors.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.cancer.dysregulation.tumor-suppressors",
+   "label": "Tumor suppressor genes",
+   "kind": "concept",
+   "parent": "BB.2C.cancer.dysregulation",
+   "summary": "Tumor suppressor genes (e.g., p53, Rb) restrain division; loss-of-function mutations remove the brakes on the cycle.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.cancer.dysregulation.two-hit",
+   "label": "Multistep / two-hit progression",
+   "kind": "concept",
+   "parent": "BB.2C.cancer.dysregulation",
+   "summary": "Cancer typically requires accumulation of multiple mutations, including inactivation of both alleles of a tumor suppressor (the two-hit hypothesis).",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.cancer.dysregulation.loss-of-control",
+   "label": "Uncontrolled proliferation",
+   "kind": "concept",
+   "parent": "BB.2C.cancer.dysregulation",
+   "summary": "Cancer cells ignore checkpoints, density-dependent inhibition, and growth-signal requirements, dividing without restraint.",
+   "yield": "high"
+  },
+  {
+   "id": "BB.2C.cancer.properties",
+   "label": "Properties of cancer cells",
+   "kind": "subtopic",
+   "parent": "BB.2C.cancer",
+   "summary": "Cancer cells differ from normal cells in growth and behavior."
+  },
+  {
+   "id": "BB.2C.cancer.properties.growth-factor-independence",
+   "label": "Growth-factor independence",
+   "kind": "concept",
+   "parent": "BB.2C.cancer.properties",
+   "summary": "Cancer cells divide without external growth-factor signals, often by self-stimulation or constitutively active signaling.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.cancer.properties.density-dependent",
+   "label": "Loss of density-dependent inhibition",
+   "kind": "concept",
+   "parent": "BB.2C.cancer.properties",
+   "summary": "Normal cells stop dividing when crowded (contact inhibition); cancer cells continue, piling into masses.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.cancer.properties.anchorage-independence",
+   "label": "Anchorage independence",
+   "kind": "concept",
+   "parent": "BB.2C.cancer.properties",
+   "summary": "Cancer cells can divide without attaching to a surface, unlike normal anchorage-dependent cells.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.cancer.properties.immortality",
+   "label": "Replicative immortality",
+   "kind": "concept",
+   "parent": "BB.2C.cancer.properties",
+   "summary": "Cancer cells evade replicative senescence, often by reactivating telomerase to maintain telomeres.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.cancer.properties.angiogenesis",
+   "label": "Angiogenesis",
+   "kind": "concept",
+   "parent": "BB.2C.cancer.properties",
+   "summary": "Tumors induce new blood-vessel growth (angiogenesis) to supply oxygen and nutrients needed for continued growth.",
+   "yield": "low"
+  },
+  {
+   "id": "BB.2C.cancer.properties.benign-malignant",
+   "label": "Benign vs malignant tumors",
+   "kind": "concept",
+   "parent": "BB.2C.cancer.properties",
+   "summary": "Benign tumors stay localized and encapsulated; malignant tumors invade surrounding tissue and can spread.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.cancer.properties.metastasis",
+   "label": "Metastasis",
+   "kind": "concept",
+   "parent": "BB.2C.cancer.properties",
+   "summary": "Malignant cells detach and travel via blood or lymph to seed secondary tumors at distant sites.",
+   "yield": "medium"
+  },
+  {
+   "id": "BB.2C.cancer.properties.evade-apoptosis",
+   "label": "Evasion of apoptosis",
+   "kind": "concept",
+   "parent": "BB.2C.cancer.properties",
+   "summary": "Cancer cells acquire mutations that disable apoptotic pathways, allowing damaged cells to survive and divide.",
+   "yield": "medium"
+  }
+ ],
+ "prerequisites": [
+  {
+   "src": "BB.2C.cell-cycle.phases.interphase",
+   "dst": "BB.2C.cell-cycle.phases.g1"
+  },
+  {
+   "src": "BB.2C.cell-cycle.phases.g1",
+   "dst": "BB.2C.cell-cycle.phases.s"
+  },
+  {
+   "src": "BB.2C.cell-cycle.phases.s",
+   "dst": "BB.2C.cell-cycle.phases.g2"
+  },
+  {
+   "src": "BB.2C.cell-cycle.phases.g2",
+   "dst": "BB.2C.cell-cycle.phases.m-phase"
+  },
+  {
+   "src": "BB.2C.cell-cycle.phases.g1",
+   "dst": "BB.2C.cell-cycle.phases.g0"
+  },
+  {
+   "src": "BB.2C.cell-cycle.phases.s",
+   "dst": "BB.2C.cell-cycle.phases.ploidy-tracking"
+  },
+  {
+   "src": "BB.2C.cell-cycle.phases.interphase",
+   "dst": "BB.2C.cell-cycle.phases.ploidy-tracking"
+  },
+  {
+   "src": "BB.2C.cell-cycle.control.cyclins",
+   "dst": "BB.2C.cell-cycle.control.cyclin-cdk-complex"
+  },
+  {
+   "src": "BB.2C.cell-cycle.control.cdks",
+   "dst": "BB.2C.cell-cycle.control.cyclin-cdk-complex"
+  },
+  {
+   "src": "BB.2C.cell-cycle.control.cyclin-cdk-complex",
+   "dst": "BB.2C.cell-cycle.control.cyclin-degradation"
+  },
+  {
+   "src": "BB.2C.cell-cycle.control.cyclin-cdk-complex",
+   "dst": "BB.2C.cell-cycle.control.cdk-inhibitors"
+  },
+  {
+   "src": "BB.2C.cell-cycle.control.cyclin-cdk-complex",
+   "dst": "BB.2C.cell-cycle.control.mpf"
+  },
+  {
+   "src": "BB.2C.cell-cycle.control.cyclin-degradation",
+   "dst": "BB.2C.cell-cycle.control.mpf"
+  },
+  {
+   "src": "BB.2C.cell-cycle.control.cyclin-cdk-complex",
+   "dst": "BB.2C.cell-cycle.control.g1-s-cyclin"
+  },
+  {
+   "src": "BB.2C.cell-cycle.control.g1-s-cyclin",
+   "dst": "BB.2C.cell-cycle.control.restriction-point"
+  },
+  {
+   "src": "BB.2C.cell-cycle.control.restriction-point",
+   "dst": "BB.2C.cell-cycle.control.growth-factors"
+  },
+  {
+   "src": "BB.2C.cell-cycle.control.growth-factors",
+   "dst": "BB.2C.cell-cycle.control.density-inhibition-normal"
+  },
+  {
+   "src": "BB.2C.cell-cycle.control.density-inhibition-normal",
+   "dst": "BB.2C.cell-cycle.control.anchorage-dependence-normal"
+  },
+  {
+   "src": "BB.2C.cell-cycle.phases.interphase",
+   "dst": "BB.2C.cell-cycle.control.cyclins"
+  },
+  {
+   "src": "BB.2C.cell-cycle.control.cyclin-cdk-complex",
+   "dst": "BB.2C.cell-cycle.checkpoints.g1-checkpoint"
+  },
+  {
+   "src": "BB.2C.cell-cycle.checkpoints.g1-checkpoint",
+   "dst": "BB.2C.cell-cycle.checkpoints.g2-checkpoint"
+  },
+  {
+   "src": "BB.2C.cell-cycle.checkpoints.g2-checkpoint",
+   "dst": "BB.2C.cell-cycle.checkpoints.m-checkpoint"
+  },
+  {
+   "src": "BB.2C.cell-cycle.checkpoints.g1-checkpoint",
+   "dst": "BB.2C.cell-cycle.checkpoints.p53"
+  },
+  {
+   "src": "BB.2C.cell-cycle.checkpoints.g1-checkpoint",
+   "dst": "BB.2C.cell-cycle.checkpoints.rb"
+  },
+  {
+   "src": "BB.2C.cell-cycle.control.restriction-point",
+   "dst": "BB.2C.cell-cycle.checkpoints.rb"
+  },
+  {
+   "src": "BB.2C.cell-cycle.checkpoints.rb",
+   "dst": "BB.2C.cell-cycle.checkpoints.e2f"
+  },
+  {
+   "src": "BB.2C.cell-cycle.checkpoints.p53",
+   "dst": "BB.2C.cell-cycle.control.cdk-inhibitors"
+  },
+  {
+   "src": "BB.2C.cell-cycle.checkpoints.p53",
+   "dst": "BB.2C.cell-cycle.checkpoints.dna-damage-response"
+  },
+  {
+   "src": "BB.2C.cell-cycle.phases.s",
+   "dst": "BB.2C.cell-cycle.telomeres.telomere"
+  },
+  {
+   "src": "BB.2C.cell-cycle.telomeres.telomere",
+   "dst": "BB.2C.cell-cycle.telomeres.shortening"
+  },
+  {
+   "src": "BB.2C.cell-cycle.telomeres.shortening",
+   "dst": "BB.2C.cell-cycle.telomeres.telomerase"
+  },
+  {
+   "src": "BB.2C.prokaryotic-division.binary-fission.process",
+   "dst": "BB.2C.prokaryotic-division.binary-fission.vs-mitosis"
+  },
+  {
+   "src": "BB.2C.mitosis.overview.definition",
+   "dst": "BB.2C.prokaryotic-division.binary-fission.vs-mitosis"
+  },
+  {
+   "src": "BB.2C.mitosis.overview.definition",
+   "dst": "BB.2C.mitosis.overview.purpose"
+  },
+  {
+   "src": "BB.2C.mitosis.overview.definition",
+   "dst": "BB.2C.mitosis.overview.somatic-cells"
+  },
+  {
+   "src": "BB.2C.mitosis.overview.definition",
+   "dst": "BB.2C.mitosis.overview.karyokinesis"
+  },
+  {
+   "src": "BB.2C.cell-cycle.phases.m-phase",
+   "dst": "BB.2C.mitosis.overview.definition"
+  },
+  {
+   "src": "BB.2C.cell-cycle.phases.s",
+   "dst": "BB.2C.mitosis.structures.chromosome"
+  },
+  {
+   "src": "BB.2C.mitosis.structures.chromosome",
+   "dst": "BB.2C.mitosis.structures.centromere"
+  },
+  {
+   "src": "BB.2C.mitosis.structures.chromosome",
+   "dst": "BB.2C.mitosis.structures.cohesin"
+  },
+  {
+   "src": "BB.2C.mitosis.structures.centromere",
+   "dst": "BB.2C.mitosis.structures.kinetochore"
+  },
+  {
+   "src": "BB.2C.mitosis.structures.centrosome",
+   "dst": "BB.2C.mitosis.structures.spindle-apparatus"
+  },
+  {
+   "src": "BB.2C.mitosis.structures.spindle-apparatus",
+   "dst": "BB.2C.mitosis.structures.aster"
+  },
+  {
+   "src": "BB.2C.mitosis.structures.kinetochore",
+   "dst": "BB.2C.mitosis.structures.spindle-apparatus"
+  },
+  {
+   "src": "BB.2C.mitosis.structures.chromosome",
+   "dst": "BB.2C.mitosis.structures.chromatin-condensation"
+  },
+  {
+   "src": "BB.2C.mitosis.overview.definition",
+   "dst": "BB.2C.mitosis.phases.prophase"
+  },
+  {
+   "src": "BB.2C.mitosis.structures.spindle-apparatus",
+   "dst": "BB.2C.mitosis.phases.prophase"
+  },
+  {
+   "src": "BB.2C.mitosis.structures.chromatin-condensation",
+   "dst": "BB.2C.mitosis.phases.prophase"
+  },
+  {
+   "src": "BB.2C.mitosis.phases.prophase",
+   "dst": "BB.2C.mitosis.phases.prometaphase"
+  },
+  {
+   "src": "BB.2C.mitosis.phases.prometaphase",
+   "dst": "BB.2C.mitosis.phases.metaphase"
+  },
+  {
+   "src": "BB.2C.mitosis.phases.metaphase",
+   "dst": "BB.2C.mitosis.phases.anaphase"
+  },
+  {
+   "src": "BB.2C.mitosis.structures.cohesin",
+   "dst": "BB.2C.mitosis.phases.anaphase"
+  },
+  {
+   "src": "BB.2C.mitosis.phases.anaphase",
+   "dst": "BB.2C.mitosis.phases.telophase"
+  },
+  {
+   "src": "BB.2C.mitosis.phases.telophase",
+   "dst": "BB.2C.mitosis.phases.cytokinesis"
+  },
+  {
+   "src": "BB.2C.mitosis.phases.cytokinesis",
+   "dst": "BB.2C.mitosis.phases.cleavage-furrow"
+  },
+  {
+   "src": "BB.2C.mitosis.phases.anaphase",
+   "dst": "BB.2C.mitosis.phases.chromosome-movement"
+  },
+  {
+   "src": "BB.2C.mitosis.structures.kinetochore",
+   "dst": "BB.2C.mitosis.phases.chromosome-movement"
+  },
+  {
+   "src": "BB.2C.cell-cycle.checkpoints.m-checkpoint",
+   "dst": "BB.2C.mitosis.phases.anaphase"
+  },
+  {
+   "src": "BB.2C.mitosis.overview.definition",
+   "dst": "BB.2C.meiosis.overview.definition"
+  },
+  {
+   "src": "BB.2C.meiosis.overview.definition",
+   "dst": "BB.2C.meiosis.overview.reductional-division"
+  },
+  {
+   "src": "BB.2C.meiosis.overview.homologous-chromosomes",
+   "dst": "BB.2C.meiosis.overview.reductional-division"
+  },
+  {
+   "src": "BB.2C.meiosis.overview.definition",
+   "dst": "BB.2C.meiosis.overview.diploid-haploid"
+  },
+  {
+   "src": "BB.2C.meiosis.overview.definition",
+   "dst": "BB.2C.meiosis.overview.single-replication"
+  },
+  {
+   "src": "BB.2C.cell-cycle.phases.s",
+   "dst": "BB.2C.meiosis.overview.single-replication"
+  },
+  {
+   "src": "BB.2C.meiosis.overview.homologous-chromosomes",
+   "dst": "BB.2C.meiosis.meiosis-i.prophase-i"
+  },
+  {
+   "src": "BB.2C.meiosis.overview.single-replication",
+   "dst": "BB.2C.meiosis.meiosis-i.prophase-i"
+  },
+  {
+   "src": "BB.2C.meiosis.meiosis-i.prophase-i",
+   "dst": "BB.2C.meiosis.meiosis-i.synapsis"
+  },
+  {
+   "src": "BB.2C.meiosis.meiosis-i.synapsis",
+   "dst": "BB.2C.meiosis.meiosis-i.tetrad"
+  },
+  {
+   "src": "BB.2C.meiosis.meiosis-i.tetrad",
+   "dst": "BB.2C.meiosis.meiosis-i.crossing-over"
+  },
+  {
+   "src": "BB.2C.meiosis.meiosis-i.crossing-over",
+   "dst": "BB.2C.meiosis.meiosis-i.chiasma"
+  },
+  {
+   "src": "BB.2C.meiosis.meiosis-i.prophase-i",
+   "dst": "BB.2C.meiosis.meiosis-i.metaphase-i"
+  },
+  {
+   "src": "BB.2C.meiosis.meiosis-i.tetrad",
+   "dst": "BB.2C.meiosis.meiosis-i.metaphase-i"
+  },
+  {
+   "src": "BB.2C.meiosis.meiosis-i.metaphase-i",
+   "dst": "BB.2C.meiosis.meiosis-i.independent-assortment"
+  },
+  {
+   "src": "BB.2C.meiosis.meiosis-i.metaphase-i",
+   "dst": "BB.2C.meiosis.meiosis-i.anaphase-i"
+  },
+  {
+   "src": "BB.2C.meiosis.meiosis-i.anaphase-i",
+   "dst": "BB.2C.meiosis.meiosis-i.telophase-i"
+  },
+  {
+   "src": "BB.2C.meiosis.meiosis-i.telophase-i",
+   "dst": "BB.2C.meiosis.meiosis-ii.no-replication"
+  },
+  {
+   "src": "BB.2C.meiosis.meiosis-ii.no-replication",
+   "dst": "BB.2C.meiosis.meiosis-ii.prophase-ii"
+  },
+  {
+   "src": "BB.2C.meiosis.meiosis-ii.prophase-ii",
+   "dst": "BB.2C.meiosis.meiosis-ii.metaphase-ii"
+  },
+  {
+   "src": "BB.2C.meiosis.meiosis-ii.metaphase-ii",
+   "dst": "BB.2C.meiosis.meiosis-ii.anaphase-ii"
+  },
+  {
+   "src": "BB.2C.meiosis.meiosis-ii.anaphase-ii",
+   "dst": "BB.2C.meiosis.meiosis-ii.telophase-ii"
+  },
+  {
+   "src": "BB.2C.meiosis.meiosis-ii.telophase-ii",
+   "dst": "BB.2C.meiosis.meiosis-ii.four-gametes"
+  },
+  {
+   "src": "BB.2C.mitosis.phases.anaphase",
+   "dst": "BB.2C.meiosis.meiosis-ii.anaphase-ii"
+  },
+  {
+   "src": "BB.2C.meiosis.meiosis-i.crossing-over",
+   "dst": "BB.2C.meiosis.variation.recombination-source"
+  },
+  {
+   "src": "BB.2C.meiosis.meiosis-i.independent-assortment",
+   "dst": "BB.2C.meiosis.variation.assortment-source"
+  },
+  {
+   "src": "BB.2C.meiosis.overview.definition",
+   "dst": "BB.2C.meiosis.variation.random-fertilization"
+  },
+  {
+   "src": "BB.2C.meiosis.meiosis-i.anaphase-i",
+   "dst": "BB.2C.meiosis.errors.nondisjunction"
+  },
+  {
+   "src": "BB.2C.meiosis.meiosis-ii.anaphase-ii",
+   "dst": "BB.2C.meiosis.errors.nondisjunction"
+  },
+  {
+   "src": "BB.2C.meiosis.errors.nondisjunction",
+   "dst": "BB.2C.meiosis.errors.aneuploidy"
+  },
+  {
+   "src": "BB.2C.meiosis.overview.reductional-division",
+   "dst": "BB.2C.meiosis.comparison.key-differences"
+  },
+  {
+   "src": "BB.2C.mitosis.overview.definition",
+   "dst": "BB.2C.meiosis.comparison.key-differences"
+  },
+  {
+   "src": "BB.2C.meiosis.comparison.key-differences",
+   "dst": "BB.2C.meiosis.comparison.metaphase-alignment"
+  },
+  {
+   "src": "BB.2C.meiosis.meiosis-i.metaphase-i",
+   "dst": "BB.2C.meiosis.comparison.metaphase-alignment"
+  },
+  {
+   "src": "BB.2C.meiosis.overview.definition",
+   "dst": "BB.2C.gametogenesis.spermatogenesis.process"
+  },
+  {
+   "src": "BB.2C.gametogenesis.spermatogenesis.process",
+   "dst": "BB.2C.gametogenesis.spermatogenesis.stages"
+  },
+  {
+   "src": "BB.2C.gametogenesis.spermatogenesis.stages",
+   "dst": "BB.2C.gametogenesis.spermatogenesis.spermiogenesis"
+  },
+  {
+   "src": "BB.2C.meiosis.overview.definition",
+   "dst": "BB.2C.gametogenesis.oogenesis.process"
+  },
+  {
+   "src": "BB.2C.gametogenesis.oogenesis.process",
+   "dst": "BB.2C.gametogenesis.oogenesis.stages"
+  },
+  {
+   "src": "BB.2C.gametogenesis.oogenesis.process",
+   "dst": "BB.2C.gametogenesis.oogenesis.arrest"
+  },
+  {
+   "src": "BB.2C.gametogenesis.oogenesis.process",
+   "dst": "BB.2C.gametogenesis.oogenesis.polar-body"
+  },
+  {
+   "src": "BB.2C.gametogenesis.spermatogenesis.process",
+   "dst": "BB.2C.gametogenesis.comparison.key-differences"
+  },
+  {
+   "src": "BB.2C.gametogenesis.oogenesis.process",
+   "dst": "BB.2C.gametogenesis.comparison.key-differences"
+  },
+  {
+   "src": "BB.2C.differentiation.basis.differential-expression",
+   "dst": "BB.2C.differentiation.basis.genomic-equivalence"
+  },
+  {
+   "src": "BB.2C.differentiation.basis.differential-expression",
+   "dst": "BB.2C.differentiation.basis.epigenetics"
+  },
+  {
+   "src": "BB.2C.differentiation.basis.differential-expression",
+   "dst": "BB.2C.differentiation.basis.determination"
+  },
+  {
+   "src": "BB.2C.differentiation.basis.differential-expression",
+   "dst": "BB.2C.differentiation.potency.totipotent"
+  },
+  {
+   "src": "BB.2C.differentiation.potency.totipotent",
+   "dst": "BB.2C.differentiation.potency.pluripotent"
+  },
+  {
+   "src": "BB.2C.differentiation.potency.pluripotent",
+   "dst": "BB.2C.differentiation.potency.multipotent"
+  },
+  {
+   "src": "BB.2C.differentiation.potency.multipotent",
+   "dst": "BB.2C.differentiation.potency.unipotent"
+  },
+  {
+   "src": "BB.2C.differentiation.potency.unipotent",
+   "dst": "BB.2C.differentiation.potency.potency-decline"
+  },
+  {
+   "src": "BB.2C.differentiation.potency.totipotent",
+   "dst": "BB.2C.differentiation.potency.potency-decline"
+  },
+  {
+   "src": "BB.2C.differentiation.basis.determination",
+   "dst": "BB.2C.differentiation.signaling.cytoplasmic-determinants"
+  },
+  {
+   "src": "BB.2C.differentiation.signaling.cytoplasmic-determinants",
+   "dst": "BB.2C.differentiation.signaling.induction"
+  },
+  {
+   "src": "BB.2C.differentiation.signaling.induction",
+   "dst": "BB.2C.differentiation.signaling.morphogen-gradient"
+  },
+  {
+   "src": "BB.2C.differentiation.basis.differential-expression",
+   "dst": "BB.2C.differentiation.signaling.master-genes"
+  },
+  {
+   "src": "BB.2C.differentiation.signaling.master-genes",
+   "dst": "BB.2C.differentiation.signaling.transcription-factors"
+  },
+  {
+   "src": "BB.2C.cell-death.apoptosis.developmental-role",
+   "dst": "BB.2C.differentiation.signaling.apoptosis-patterning"
+  },
+  {
+   "src": "BB.2C.differentiation.signaling.morphogen-gradient",
+   "dst": "BB.2C.differentiation.signaling.apoptosis-patterning"
+  },
+  {
+   "src": "BB.2C.differentiation.potency.pluripotent",
+   "dst": "BB.2C.stem-cells.properties.self-renewal"
+  },
+  {
+   "src": "BB.2C.stem-cells.properties.self-renewal",
+   "dst": "BB.2C.stem-cells.properties.potency"
+  },
+  {
+   "src": "BB.2C.differentiation.potency.totipotent",
+   "dst": "BB.2C.stem-cells.properties.potency"
+  },
+  {
+   "src": "BB.2C.stem-cells.properties.self-renewal",
+   "dst": "BB.2C.stem-cells.properties.asymmetric-division"
+  },
+  {
+   "src": "BB.2C.stem-cells.properties.self-renewal",
+   "dst": "BB.2C.stem-cells.properties.niche"
+  },
+  {
+   "src": "BB.2C.stem-cells.properties.self-renewal",
+   "dst": "BB.2C.stem-cells.types.embryonic"
+  },
+  {
+   "src": "BB.2C.differentiation.potency.pluripotent",
+   "dst": "BB.2C.stem-cells.types.embryonic"
+  },
+  {
+   "src": "BB.2C.differentiation.potency.multipotent",
+   "dst": "BB.2C.stem-cells.types.adult"
+  },
+  {
+   "src": "BB.2C.stem-cells.types.embryonic",
+   "dst": "BB.2C.stem-cells.types.ipsc"
+  },
+  {
+   "src": "BB.2C.differentiation.signaling.transcription-factors",
+   "dst": "BB.2C.stem-cells.types.ipsc"
+  },
+  {
+   "src": "BB.2C.stem-cells.types.adult",
+   "dst": "BB.2C.stem-cells.types.hematopoietic"
+  },
+  {
+   "src": "BB.2C.stem-cells.types.adult",
+   "dst": "BB.2C.stem-cells.regeneration.tissue-renewal"
+  },
+  {
+   "src": "BB.2C.stem-cells.regeneration.tissue-renewal",
+   "dst": "BB.2C.stem-cells.regeneration.therapeutic"
+  },
+  {
+   "src": "BB.2C.stem-cells.types.ipsc",
+   "dst": "BB.2C.stem-cells.regeneration.therapeutic"
+  },
+  {
+   "src": "BB.2C.differentiation.signaling.induction",
+   "dst": "BB.2C.specialization.germ-layers.ectoderm"
+  },
+  {
+   "src": "BB.2C.specialization.germ-layers.ectoderm",
+   "dst": "BB.2C.specialization.germ-layers.mesoderm"
+  },
+  {
+   "src": "BB.2C.specialization.germ-layers.mesoderm",
+   "dst": "BB.2C.specialization.germ-layers.endoderm"
+  },
+  {
+   "src": "BB.2C.differentiation.basis.differential-expression",
+   "dst": "BB.2C.specialization.tissues.epithelial"
+  },
+  {
+   "src": "BB.2C.specialization.germ-layers.ectoderm",
+   "dst": "BB.2C.specialization.tissues.epithelial"
+  },
+  {
+   "src": "BB.2C.specialization.tissues.epithelial",
+   "dst": "BB.2C.specialization.tissues.connective"
+  },
+  {
+   "src": "BB.2C.specialization.tissues.connective",
+   "dst": "BB.2C.specialization.tissues.muscle"
+  },
+  {
+   "src": "BB.2C.specialization.tissues.muscle",
+   "dst": "BB.2C.specialization.tissues.nervous"
+  },
+  {
+   "src": "BB.2C.specialization.tissues.connective",
+   "dst": "BB.2C.specialization.extracellular-matrix.ecm"
+  },
+  {
+   "src": "BB.2C.specialization.extracellular-matrix.ecm",
+   "dst": "BB.2C.specialization.extracellular-matrix.integrins"
+  },
+  {
+   "src": "BB.2C.specialization.tissues.epithelial",
+   "dst": "BB.2C.specialization.communication.tight-junctions"
+  },
+  {
+   "src": "BB.2C.specialization.tissues.epithelial",
+   "dst": "BB.2C.specialization.communication.desmosomes"
+  },
+  {
+   "src": "BB.2C.specialization.communication.desmosomes",
+   "dst": "BB.2C.specialization.communication.adherens-junctions"
+  },
+  {
+   "src": "BB.2C.specialization.communication.tight-junctions",
+   "dst": "BB.2C.specialization.communication.gap-junctions"
+  },
+  {
+   "src": "BB.2C.specialization.communication.gap-junctions",
+   "dst": "BB.2C.specialization.communication.plasmodesmata"
+  },
+  {
+   "src": "BB.2C.differentiation.signaling.induction",
+   "dst": "BB.2C.specialization.communication.signaling-modes"
+  },
+  {
+   "src": "BB.2C.cell-death.apoptosis.definition",
+   "dst": "BB.2C.cell-death.apoptosis.apoptotic-bodies"
+  },
+  {
+   "src": "BB.2C.cell-death.apoptosis.definition",
+   "dst": "BB.2C.cell-death.apoptosis.caspases"
+  },
+  {
+   "src": "BB.2C.cell-death.apoptosis.caspases",
+   "dst": "BB.2C.cell-death.apoptosis.intrinsic-pathway"
+  },
+  {
+   "src": "BB.2C.cell-death.apoptosis.caspases",
+   "dst": "BB.2C.cell-death.apoptosis.extrinsic-pathway"
+  },
+  {
+   "src": "BB.2C.cell-death.apoptosis.intrinsic-pathway",
+   "dst": "BB.2C.cell-death.apoptosis.bcl2"
+  },
+  {
+   "src": "BB.2C.cell-death.apoptosis.definition",
+   "dst": "BB.2C.cell-death.apoptosis.developmental-role"
+  },
+  {
+   "src": "BB.2C.cell-death.apoptosis.definition",
+   "dst": "BB.2C.cell-death.necrosis.definition"
+  },
+  {
+   "src": "BB.2C.cell-cycle.checkpoints.p53",
+   "dst": "BB.2C.cell-death.apoptosis.definition"
+  },
+  {
+   "src": "BB.2C.cell-cycle.checkpoints.p53",
+   "dst": "BB.2C.cell-death.apoptosis.intrinsic-pathway"
+  },
+  {
+   "src": "BB.2C.cell-cycle.checkpoints.g1-checkpoint",
+   "dst": "BB.2C.cancer.dysregulation.loss-of-control"
+  },
+  {
+   "src": "BB.2C.cell-cycle.control.cyclins",
+   "dst": "BB.2C.cancer.dysregulation.oncogenes"
+  },
+  {
+   "src": "BB.2C.cancer.dysregulation.oncogenes",
+   "dst": "BB.2C.cancer.dysregulation.ras"
+  },
+  {
+   "src": "BB.2C.cell-cycle.control.growth-factors",
+   "dst": "BB.2C.cancer.dysregulation.ras"
+  },
+  {
+   "src": "BB.2C.cell-cycle.checkpoints.p53",
+   "dst": "BB.2C.cancer.dysregulation.tumor-suppressors"
+  },
+  {
+   "src": "BB.2C.cell-cycle.checkpoints.rb",
+   "dst": "BB.2C.cancer.dysregulation.tumor-suppressors"
+  },
+  {
+   "src": "BB.2C.cancer.dysregulation.tumor-suppressors",
+   "dst": "BB.2C.cancer.dysregulation.two-hit"
+  },
+  {
+   "src": "BB.2C.cancer.dysregulation.oncogenes",
+   "dst": "BB.2C.cancer.dysregulation.two-hit"
+  },
+  {
+   "src": "BB.2C.cancer.dysregulation.oncogenes",
+   "dst": "BB.2C.cancer.dysregulation.loss-of-control"
+  },
+  {
+   "src": "BB.2C.cancer.dysregulation.tumor-suppressors",
+   "dst": "BB.2C.cancer.dysregulation.loss-of-control"
+  },
+  {
+   "src": "BB.2C.cancer.dysregulation.ras",
+   "dst": "BB.2C.cancer.properties.growth-factor-independence"
+  },
+  {
+   "src": "BB.2C.cell-cycle.control.growth-factors",
+   "dst": "BB.2C.cancer.properties.growth-factor-independence"
+  },
+  {
+   "src": "BB.2C.cancer.dysregulation.loss-of-control",
+   "dst": "BB.2C.cancer.properties.density-dependent"
+  },
+  {
+   "src": "BB.2C.cell-cycle.control.density-inhibition-normal",
+   "dst": "BB.2C.cancer.properties.density-dependent"
+  },
+  {
+   "src": "BB.2C.cancer.dysregulation.loss-of-control",
+   "dst": "BB.2C.cancer.properties.anchorage-independence"
+  },
+  {
+   "src": "BB.2C.cell-cycle.control.anchorage-dependence-normal",
+   "dst": "BB.2C.cancer.properties.anchorage-independence"
+  },
+  {
+   "src": "BB.2C.cancer.dysregulation.loss-of-control",
+   "dst": "BB.2C.cancer.properties.immortality"
+  },
+  {
+   "src": "BB.2C.cell-cycle.telomeres.telomerase",
+   "dst": "BB.2C.cancer.properties.immortality"
+  },
+  {
+   "src": "BB.2C.cancer.dysregulation.loss-of-control",
+   "dst": "BB.2C.cancer.properties.angiogenesis"
+  },
+  {
+   "src": "BB.2C.cancer.dysregulation.loss-of-control",
+   "dst": "BB.2C.cancer.properties.benign-malignant"
+  },
+  {
+   "src": "BB.2C.cancer.properties.benign-malignant",
+   "dst": "BB.2C.cancer.properties.metastasis"
+  },
+  {
+   "src": "BB.2C.cancer.properties.density-dependent",
+   "dst": "BB.2C.cancer.properties.metastasis"
+  },
+  {
+   "src": "BB.2C.cell-death.apoptosis.definition",
+   "dst": "BB.2C.cancer.properties.evade-apoptosis"
+  },
+  {
+   "src": "BB.2C.cancer.dysregulation.tumor-suppressors",
+   "dst": "BB.2C.cancer.properties.evade-apoptosis"
+  },
+  {
+   "src": "BB.2C.cell-death.apoptosis.bcl2",
+   "dst": "BB.2C.cancer.properties.evade-apoptosis"
+  }
+ ],
+ "related": [
+  {
+   "src": "BB.2C.mitosis.phases.metaphase",
+   "dst": "BB.2C.meiosis.meiosis-i.metaphase-i"
+  },
+  {
+   "src": "BB.2C.mitosis.phases.anaphase",
+   "dst": "BB.2C.meiosis.meiosis-ii.anaphase-ii"
+  },
+  {
+   "src": "BB.2C.cell-cycle.checkpoints.p53",
+   "dst": "BB.2C.cancer.dysregulation.tumor-suppressors"
+  },
+  {
+   "src": "BB.2C.cell-cycle.checkpoints.m-checkpoint",
+   "dst": "BB.2C.meiosis.errors.nondisjunction"
+  },
+  {
+   "src": "BB.2C.differentiation.potency.totipotent",
+   "dst": "BB.2C.stem-cells.types.embryonic"
+  },
+  {
+   "src": "BB.2C.cell-cycle.phases.g0",
+   "dst": "BB.2C.differentiation.basis.differential-expression"
+  },
+  {
+   "src": "BB.2C.cell-death.apoptosis.developmental-role",
+   "dst": "BB.2C.differentiation.signaling.induction"
+  },
+  {
+   "src": "BB.2C.cancer.properties.immortality",
+   "dst": "BB.2C.stem-cells.properties.self-renewal"
+  },
+  {
+   "src": "BB.2C.prokaryotic-division.binary-fission.process",
+   "dst": "BB.2C.mitosis.phases.cytokinesis"
+  },
+  {
+   "src": "BB.2C.cell-cycle.telomeres.telomerase",
+   "dst": "BB.2C.stem-cells.properties.self-renewal"
+  },
+  {
+   "src": "BB.2C.differentiation.basis.epigenetics",
+   "dst": "BB.2C.differentiation.basis.differential-expression"
+  },
+  {
+   "src": "BB.2C.cancer.dysregulation.ras",
+   "dst": "BB.2C.specialization.communication.signaling-modes"
+  }
+ ],
+ "external_prereqs": [
+  {
+   "dst": "BB.2C.cell-cycle.phases.s",
+   "from_leaf": "BB.1B",
+   "concept_hint": "DNA replication (semiconservative, replication fork)"
+  },
+  {
+   "dst": "BB.2C.cell-cycle.telomeres.telomerase",
+   "from_leaf": "BB.1B",
+   "concept_hint": "DNA polymerase end-replication problem / reverse transcriptase"
+  },
+  {
+   "dst": "BB.2C.cell-cycle.control.cdks",
+   "from_leaf": "BB.1A",
+   "concept_hint": "Protein kinases and phosphorylation"
+  },
+  {
+   "dst": "BB.2C.cell-cycle.control.cyclin-degradation",
+   "from_leaf": "BB.1A",
+   "concept_hint": "Ubiquitin-proteasome protein degradation"
+  },
+  {
+   "dst": "BB.2C.differentiation.basis.differential-expression",
+   "from_leaf": "BB.1C",
+   "concept_hint": "Eukaryotic gene regulation / transcriptional control"
+  },
+  {
+   "dst": "BB.2C.differentiation.basis.epigenetics",
+   "from_leaf": "BB.1C",
+   "concept_hint": "DNA methylation and histone modification"
+  },
+  {
+   "dst": "BB.2C.differentiation.signaling.transcription-factors",
+   "from_leaf": "BB.1C",
+   "concept_hint": "Transcription factors and gene expression control"
+  },
+  {
+   "dst": "BB.2C.mitosis.structures.spindle-apparatus",
+   "from_leaf": "BB.2A",
+   "concept_hint": "Microtubules and the cytoskeleton"
+  },
+  {
+   "dst": "BB.2C.mitosis.phases.cytokinesis",
+   "from_leaf": "BB.2A",
+   "concept_hint": "Actin/myosin contractile machinery"
+  },
+  {
+   "dst": "BB.2C.cell-death.apoptosis.caspases",
+   "from_leaf": "BB.1A",
+   "concept_hint": "Proteases / enzyme catalysis"
+  },
+  {
+   "dst": "BB.2C.meiosis.overview.homologous-chromosomes",
+   "from_leaf": "BB.3A",
+   "concept_hint": "Chromosomes, alleles, and loci (Mendelian genetics)"
+  },
+  {
+   "dst": "BB.2C.meiosis.variation.assortment-source",
+   "from_leaf": "BB.3A",
+   "concept_hint": "Law of independent assortment (Mendelian genetics)"
+  },
+  {
+   "dst": "BB.2C.meiosis.errors.aneuploidy",
+   "from_leaf": "BB.3A",
+   "concept_hint": "Chromosomal disorders / trisomy"
+  },
+  {
+   "dst": "BB.2C.specialization.communication.signaling-modes",
+   "from_leaf": "BB.1A",
+   "concept_hint": "Cell-surface receptors and signal transduction"
+  },
+  {
+   "dst": "BB.2C.cancer.dysregulation.ras",
+   "from_leaf": "BB.1A",
+   "concept_hint": "G-protein / GTPase signaling cascades"
+  },
+  {
+   "dst": "BB.2C.specialization.extracellular-matrix.ecm",
+   "from_leaf": "BB.2A",
+   "concept_hint": "Collagen and extracellular structural proteins"
+  }
+ ]
+}

@@ -1,0 +1,82 @@
+# Consensus verification for MCAT section B-B (Biological and Biochemical Foundations).
+# Produced by the independent B-B verifier per docs/data/topics/_SPEC_VERIFY.md.
+# Scope: every edge whose dst is a BB.* id (categories BB.1A-1D, BB.2A-2C, BB.3A-3B).
+# All endpoints are exact topic/subtopic ids present in docs/data/mcat_topics.yaml.
+section: "B-B"
+
+# ---------------------------------------------------------------------------
+# DROP: within-B-B prerequisite edges that are not genuine dependencies.
+# Conservative: the 117 within-B-B edges are otherwise sound (no reversed/
+# circular/nonsensical edges found), so only one edge is removed.
+# ---------------------------------------------------------------------------
+drop:
+  - { src: "BB.2B.T02", dst: "BB.2B.T05", reason: "Not a real prerequisite; its rationale is a contrast/association, belongs in related" }
+
+# ---------------------------------------------------------------------------
+# ADD: high-value missing prerequisites into B-B. Emphasis on cross-domain
+# C-P -> B-B links (chemistry/physics that a single-scope generator missed),
+# plus a few strong within-B-B links. src may be any section; dst is B-B.
+# None duplicate the 14 cross-domain edges already present in mcat_topics.yaml.
+# ---------------------------------------------------------------------------
+add:
+  # -- Organic chemistry of biologically relevant molecules (CP.5D) -> biomolecules
+  - { src: "CP.5D.T01", dst: "BB.1A.T01", rationale: "Functional-group chemistry (amino, carboxyl, R-groups) underlies amino acids", confidence: "high" }
+  - { src: "CP.5D.T03.S02", dst: "BB.1A.T01.S01", rationale: "R/S absolute configuration underlies the L-amino-acid alpha carbon", confidence: "high" }
+  - { src: "CP.5D.T07", dst: "BB.1A.T01.S06", rationale: "The peptide bond is an amide (carboxylic-acid-derivative) linkage", confidence: "high" }
+  - { src: "CP.5D.T05", dst: "BB.1D.T02", rationale: "Sugars are polyhydroxy aldehydes/ketones that cyclize to hemiacetals", confidence: "high" }
+  - { src: "CP.5D.T03", dst: "BB.1D.T02.S02", rationale: "Monosaccharide D/L configuration rests on chirality", confidence: "high" }
+  - { src: "CP.5D.T06", dst: "BB.1D.T06.S01", rationale: "Fatty acids are long-chain carboxylic acids", confidence: "high" }
+  - { src: "CP.5D.T01", dst: "BB.1B.T01", rationale: "Functional groups build nucleotides (phosphate ester, glycosidic bond, bases)", confidence: "medium" }
+
+  # -- Water, solutions, acids/bases (CP.5A) -> proteins and physiology
+  - { src: "CP.5A.T02", dst: "BB.1A.T01.S03", rationale: "Acid-base chemistry defines acidic vs basic side chains", confidence: "high" }
+  - { src: "CP.5A.T02", dst: "BB.1A.T02.S08", rationale: "Side-chain pKa and solution pH set the isoelectric point", confidence: "high" }
+  - { src: "CP.5A.T06", dst: "BB.3B.T06.S06", rationale: "The bicarbonate buffer system governs respiratory pH balance", confidence: "high" }
+
+  # -- Bonding and intermolecular forces (CP.5B) -> structure and base pairing
+  - { src: "CP.5B.T06.S01", dst: "BB.1A.T02.S02", rationale: "Backbone hydrogen bonds form alpha helices and beta sheets", confidence: "high" }
+  - { src: "CP.5B.T06", dst: "BB.1A.T02.S03", rationale: "H-bonds, van der Waals, and ion-dipole forces stabilize tertiary structure", confidence: "high" }
+  - { src: "CP.5B.T06.S01", dst: "BB.1B.T01.S04", rationale: "Complementary base pairing in the double helix is hydrogen bonding", confidence: "high" }
+  - { src: "CP.5B.T02", dst: "BB.1A.T01.S04", rationale: "Bond polarity and electronegativity set side-chain hydrophobicity", confidence: "high" }
+
+  # -- Thermodynamics and kinetics (CP.5E) -> bioenergetics and enzymes
+  - { src: "CP.5E.T06", dst: "BB.1D.T01", rationale: "Gibbs free energy and spontaneity are the core of bioenergetics", confidence: "high" }
+  - { src: "CP.5E.T06.S04", dst: "BB.1D.T01.S01", rationale: "The delta-G to Keq relation defines biological free energy and Keq", confidence: "high" }
+  - { src: "CP.5E.T03.S01", dst: "BB.1D.T01.S04", rationale: "Enthalpy sign defines endothermic vs exothermic reactions", confidence: "high" }
+  - { src: "CP.5E.T05", dst: "BB.1A.T02.S07", rationale: "Solvation-shell entropy drives the hydrophobic folding effect", confidence: "high" }
+  - { src: "CP.5E.T08.S01", dst: "BB.1A.T04.S03", rationale: "Activation energy and transition state underlie enzymatic rate enhancement", confidence: "high" }
+  - { src: "CP.5E.T08.S04", dst: "BB.1A.T04.S01", rationale: "Catalysis principles underlie enzymes as biological catalysts", confidence: "high" }
+  - { src: "CP.5E.T09.S03", dst: "BB.1D.T01.S03", rationale: "Le Chatelier's principle governs metabolic concentration shifts", confidence: "medium" }
+
+  # -- Redox and electrochemistry (CP.4C, CP.4E) -> metabolism and oxidative phosphorylation
+  - { src: "CP.4C.T04", dst: "BB.1D.T07", rationale: "Reduction potentials drive electron flow through the electron transport chain", confidence: "high" }
+  - { src: "CP.4C.T04.S05", dst: "BB.1D.T07.S01", rationale: "Cell/reduction potential ranks electron-transport-chain carriers", confidence: "high" }
+  - { src: "CP.4E.T05.S06", dst: "BB.1D.T01.S08", rationale: "Oxidizing/reducing agents underlie biological redox half-reactions", confidence: "high" }
+
+  # -- Fluids and gases (CP.4B) -> circulation and respiration
+  - { src: "CP.4B.T02.S08", dst: "BB.3B.T03.S01", rationale: "Partial pressure drives oxygen loading onto hemoglobin", confidence: "high" }
+  - { src: "CP.4B.T02.S08", dst: "BB.3B.T06.S05", rationale: "Partial-pressure gradients drive alveolar gas exchange", confidence: "high" }
+  - { src: "CP.4B.T02.S04", dst: "BB.3B.T06.S03", rationale: "Boyle's law explains pressure-volume breathing mechanics", confidence: "high" }
+  - { src: "CP.4B.T01.S07", dst: "BB.3B.T06.S04", rationale: "Alveolar surface tension necessitates pulmonary surfactant", confidence: "high" }
+
+  # -- Separation and purification methods (CP.5C) -> lab techniques
+  - { src: "CP.5C.T05.S01", dst: "BB.1A.T02.S09", rationale: "Gel electrophoresis is the basis of protein electrophoresis", confidence: "high" }
+  - { src: "CP.5C.T05.S01", dst: "BB.1B.T10.S08", rationale: "Gel electrophoresis underlies DNA gels and Southern blotting", confidence: "high" }
+
+  # -- Strong within-B-B links the single-scope generator missed
+  - { src: "BB.1B.T09", dst: "BB.2C.T06", rationale: "Differential eukaryotic gene expression drives cell differentiation", confidence: "high" }
+  - { src: "BB.1A.T05.S03", dst: "BB.3B.T03.S02", rationale: "Hemoglobin cooperativity shapes the oxygen dissociation curve", confidence: "high" }
+  - { src: "BB.1A.T03.S01", dst: "BB.3B.T03.S01", rationale: "Hemoglobin is the binding protein that transports oxygen", confidence: "high" }
+  - { src: "BB.3A.T09", dst: "BB.1D.T08", rationale: "Hormone-action mechanisms underlie hormonal control of metabolism", confidence: "high" }
+  - { src: "BB.2A.T04", dst: "BB.3A.T09", rationale: "Membrane-receptor signal transduction underlies peptide-hormone action", confidence: "high" }
+
+# ---------------------------------------------------------------------------
+# TOPICS_FLAG: B-B nodes that look duplicated or mis-scoped (human review only,
+# not auto-applied). The cancer/stem-cell duplicates mirror AAMC's own dual
+# listing across categories, so a cross-link may be preferable to a merge.
+# ---------------------------------------------------------------------------
+topics_flag:
+  - { id: "BB.1B.T09.S06", issue: "Duplicates BB.2C.T04.S01 (oncogenes/tumor suppressors); mirrors AAMC 1B/2C dual-listing" }
+  - { id: "BB.1B.T09.S05", issue: "Duplicates BB.2C.T04.S02 (cancer as loss of cell-cycle control); AAMC 1B/2C dual-listing" }
+  - { id: "BB.1B.T10.S12", issue: "Duplicates BB.2C.T07 Stem Cells; AAMC lists stem cells under both 1B and 2C" }
+  - { id: "BB.3A.T03", issue: "Overlaps BB.2A.T03 (resting membrane potential and Na/K pump repeated across cell and neuro categories)" }

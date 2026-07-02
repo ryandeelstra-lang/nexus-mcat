@@ -1,0 +1,29 @@
+# Independent consensus verification — CARS (Critical Analysis and Reasoning Skills)
+# Scope: all ids under CARS.FOC / CARS.RW / CARS.RB.
+# CARS is self-contained: 0 cross-section edges in/out confirmed in mcat_topics.yaml.
+# All 39 existing edges with a CARS dst were reviewed; none are reversed, circular,
+# or nonsensical, so none are dropped (conservative). 8 missing within-CARS edges added.
+section: "CARS"
+
+drop: []
+
+add:
+  # --- Finer within-skill dependencies (Foundations of Comprehension) ---
+  - { src: "CARS.FOC.T02", dst: "CARS.FOC.T07", rationale: "Comprehending complex sentences underlies inferring meaning from rhetorical devices", confidence: "medium" }
+
+  # --- Cross-skill FOC -> RW (comprehension enables reasoning within the text) ---
+  - { src: "CARS.FOC.T05", dst: "CARS.RW.T04", rationale: "Recognizing paragraph roles/text structure underlies judging rhetorical function of statements", confidence: "high" }
+  - { src: "CARS.FOC.T05", dst: "CARS.RW.T05", rationale: "Grasping text structure enables integrating distinct parts across the passage", confidence: "medium" }
+
+  # --- Finer within-skill dependencies (Reasoning Within the Text) ---
+  - { src: "CARS.RW.T07", dst: "CARS.RW.T08", rationale: "Judging evidence credibility/relevance feeds evaluating argument validity and soundness", confidence: "high" }
+
+  # --- Cross-skill RW -> RB (evaluate/analyze before extending beyond the text) ---
+  - { src: "CARS.RW.T03", dst: "CARS.RB.T06", rationale: "Identifying assumptions is prerequisite to challenging them to strengthen/weaken", confidence: "high" }
+  - { src: "CARS.RW.T08", dst: "CARS.RB.T03", rationale: "Evaluating soundness precedes projecting an argument's logical consequences", confidence: "medium" }
+  - { src: "CARS.RW.T09", dst: "CARS.RB.T08", rationale: "Detecting internal contradictions underlies reconciling new data with passage claims", confidence: "medium" }
+
+  # --- Finer within-skill dependencies (Reasoning Beyond the Text) ---
+  - { src: "CARS.RB.T03", dst: "CARS.RB.T07", rationale: "Extrapolation and prediction underlie predicting the author's response to hypotheticals", confidence: "medium" }
+
+topics_flag: []

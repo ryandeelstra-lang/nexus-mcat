@@ -1,0 +1,382 @@
+fc: "FC1"
+section: "B-B"
+categories:
+  # =====================================================================
+  # BB.1A — Structure and function of proteins and their constituent amino acids
+  # =====================================================================
+  - id: "BB.1A"
+    name: "Structure and function of proteins and their constituent amino acids"
+    topics:
+      - id: "BB.1A.T01"
+        name: "Amino Acids"
+        subtopics:
+          - { id: "BB.1A.T01.S01", name: "Absolute Configuration at the Alpha Carbon" }
+          - { id: "BB.1A.T01.S02", name: "Amino Acids as Dipolar Ions" }
+          - { id: "BB.1A.T01.S03", name: "Classification: Acidic or Basic" }
+          - { id: "BB.1A.T01.S04", name: "Classification: Hydrophobic or Hydrophilic" }
+          - { id: "BB.1A.T01.S05", name: "Sulfur Linkage for Cysteine and Cystine" }
+          - { id: "BB.1A.T01.S06", name: "Peptide Linkage: Polypeptides and Proteins" }
+          - { id: "BB.1A.T01.S07", name: "Hydrolysis of Peptide Bonds" }
+      - id: "BB.1A.T02"
+        name: "Protein Structure"
+        subtopics:
+          - { id: "BB.1A.T02.S01", name: "Primary Structure" }
+          - { id: "BB.1A.T02.S02", name: "Secondary Structure" }
+          - { id: "BB.1A.T02.S03", name: "Tertiary Structure and Stabilizing Forces" }
+          - { id: "BB.1A.T02.S04", name: "Quaternary Structure" }
+          - { id: "BB.1A.T02.S05", name: "Denaturation and Folding" }
+          - { id: "BB.1A.T02.S06", name: "Hydrophobic Interactions" }
+          - { id: "BB.1A.T02.S07", name: "Solvation Layer and Entropy" }
+          - { id: "BB.1A.T02.S08", name: "Isoelectric Point" }
+          - { id: "BB.1A.T02.S09", name: "Electrophoresis" }
+      - id: "BB.1A.T03"
+        name: "Nonenzymatic Protein Function"
+        subtopics:
+          - { id: "BB.1A.T03.S01", name: "Binding Proteins" }
+          - { id: "BB.1A.T03.S02", name: "Immune System Proteins" }
+          - { id: "BB.1A.T03.S03", name: "Motor Proteins" }
+      - id: "BB.1A.T04"
+        name: "Enzyme Structure and Function"
+        subtopics:
+          - { id: "BB.1A.T04.S01", name: "Enzymes as Biological Catalysts" }
+          - { id: "BB.1A.T04.S02", name: "Enzyme Classification by Reaction Type" }
+          - { id: "BB.1A.T04.S03", name: "Reduction of Activation Energy" }
+          - { id: "BB.1A.T04.S04", name: "Substrates and Enzyme Specificity" }
+          - { id: "BB.1A.T04.S05", name: "Active-Site Model" }
+          - { id: "BB.1A.T04.S06", name: "Induced-Fit Model" }
+          - { id: "BB.1A.T04.S07", name: "Cofactors" }
+          - { id: "BB.1A.T04.S08", name: "Coenzymes" }
+          - { id: "BB.1A.T04.S09", name: "Water-Soluble Vitamins" }
+          - { id: "BB.1A.T04.S10", name: "Effects of Local Conditions on Enzyme Activity" }
+      - id: "BB.1A.T05"
+        name: "Control of Enzyme Activity"
+        subtopics:
+          - { id: "BB.1A.T05.S01", name: "General Enzyme Kinetics" }
+          - { id: "BB.1A.T05.S02", name: "Michaelis-Menten Kinetics" }
+          - { id: "BB.1A.T05.S03", name: "Cooperativity" }
+          - { id: "BB.1A.T05.S04", name: "Feedback Regulation" }
+          - { id: "BB.1A.T05.S05", name: "Competitive Inhibition" }
+          - { id: "BB.1A.T05.S06", name: "Noncompetitive Inhibition" }
+          - { id: "BB.1A.T05.S07", name: "Mixed Inhibition" }
+          - { id: "BB.1A.T05.S08", name: "Uncompetitive Inhibition" }
+          - { id: "BB.1A.T05.S09", name: "Allosteric Enzymes" }
+          - { id: "BB.1A.T05.S10", name: "Covalently Modified Enzymes" }
+          - { id: "BB.1A.T05.S11", name: "Zymogens" }
+
+  # =====================================================================
+  # BB.1B — Transmission of genetic information from the gene to the protein
+  # =====================================================================
+  - id: "BB.1B"
+    name: "Transmission of genetic information from the gene to the protein"
+    topics:
+      - id: "BB.1B.T01"
+        name: "Nucleic Acid Structure and Function"
+        subtopics:
+          - { id: "BB.1B.T01.S01", name: "Nucleotides and Nucleosides" }
+          - { id: "BB.1B.T01.S02", name: "Sugar-Phosphate Backbone" }
+          - { id: "BB.1B.T01.S03", name: "Pyrimidine and Purine Residues" }
+          - { id: "BB.1B.T01.S04", name: "DNA Double Helix" }
+          - { id: "BB.1B.T01.S05", name: "Watson-Crick Model of DNA" }
+          - { id: "BB.1B.T01.S06", name: "Denaturation, Reannealing, and Hybridization" }
+      - id: "BB.1B.T02"
+        name: "DNA Replication"
+        subtopics:
+          - { id: "BB.1B.T02.S01", name: "Mechanism of Replication" }
+          - { id: "BB.1B.T02.S02", name: "Semiconservative Replication" }
+          - { id: "BB.1B.T02.S03", name: "Enzymes Involved in Replication" }
+          - { id: "BB.1B.T02.S04", name: "Origins of Replication" }
+          - { id: "BB.1B.T02.S05", name: "Replicating the Ends of DNA Molecules" }
+      - id: "BB.1B.T03"
+        name: "Repair of DNA"
+        subtopics:
+          - { id: "BB.1B.T03.S01", name: "Repair During Replication" }
+          - { id: "BB.1B.T03.S02", name: "Repair of Mutations" }
+      - id: "BB.1B.T04"
+        name: "Genetic Code"
+        subtopics:
+          - { id: "BB.1B.T04.S01", name: "Central Dogma: DNA to RNA to Protein" }
+          - { id: "BB.1B.T04.S02", name: "The Triplet Code" }
+          - { id: "BB.1B.T04.S03", name: "Codon-Anticodon Relationship" }
+          - { id: "BB.1B.T04.S04", name: "Degeneracy of the Code" }
+          - { id: "BB.1B.T04.S05", name: "Missense and Nonsense Codons" }
+          - { id: "BB.1B.T04.S06", name: "Initiation and Termination Codons" }
+          - { id: "BB.1B.T04.S07", name: "Messenger RNA" }
+      - id: "BB.1B.T05"
+        name: "Transcription"
+        subtopics:
+          - { id: "BB.1B.T05.S01", name: "Transfer RNA and Ribosomal RNA" }
+          - { id: "BB.1B.T05.S02", name: "Mechanism of Transcription" }
+          - { id: "BB.1B.T05.S03", name: "mRNA Processing: Introns and Exons" }
+          - { id: "BB.1B.T05.S04", name: "Ribozymes, Spliceosomes, and snRNPs" }
+          - { id: "BB.1B.T05.S05", name: "Functional and Evolutionary Importance of Introns" }
+      - id: "BB.1B.T06"
+        name: "Translation"
+        subtopics:
+          - { id: "BB.1B.T06.S01", name: "Roles of mRNA, tRNA, and rRNA" }
+          - { id: "BB.1B.T06.S02", name: "Role and Structure of Ribosomes" }
+          - { id: "BB.1B.T06.S03", name: "Initiation and Termination Cofactors" }
+          - { id: "BB.1B.T06.S04", name: "Post-Translational Modification of Proteins" }
+      - id: "BB.1B.T07"
+        name: "Eukaryotic Chromosome Organization"
+        subtopics:
+          - { id: "BB.1B.T07.S01", name: "Chromosomal Proteins" }
+          - { id: "BB.1B.T07.S02", name: "Single-Copy vs Repetitive DNA" }
+          - { id: "BB.1B.T07.S03", name: "Supercoiling" }
+          - { id: "BB.1B.T07.S04", name: "Heterochromatin vs Euchromatin" }
+          - { id: "BB.1B.T07.S05", name: "Telomeres and Centromeres" }
+      - id: "BB.1B.T08"
+        name: "Control of Gene Expression in Prokaryotes"
+        subtopics:
+          - { id: "BB.1B.T08.S01", name: "Operon Concept and Jacob-Monod Model" }
+          - { id: "BB.1B.T08.S02", name: "Gene Repression in Bacteria" }
+          - { id: "BB.1B.T08.S03", name: "Positive Control in Bacteria" }
+      - id: "BB.1B.T09"
+        name: "Control of Gene Expression in Eukaryotes"
+        subtopics:
+          - { id: "BB.1B.T09.S01", name: "Transcriptional Regulation" }
+          - { id: "BB.1B.T09.S02", name: "DNA-Binding Proteins and Transcription Factors" }
+          - { id: "BB.1B.T09.S03", name: "Gene Amplification and Duplication" }
+          - { id: "BB.1B.T09.S04", name: "Post-Transcriptional Control and Splicing" }
+          - { id: "BB.1B.T09.S05", name: "Cancer as Failure of Cell-Cycle Control" }
+          - { id: "BB.1B.T09.S06", name: "Oncogenes and Tumor Suppressor Genes" }
+          - { id: "BB.1B.T09.S07", name: "Regulation of Chromatin Structure" }
+          - { id: "BB.1B.T09.S08", name: "DNA Methylation" }
+          - { id: "BB.1B.T09.S09", name: "Role of Noncoding RNAs" }
+      - id: "BB.1B.T10"
+        name: "Recombinant DNA and Biotechnology"
+        subtopics:
+          - { id: "BB.1B.T10.S01", name: "Gene Cloning" }
+          - { id: "BB.1B.T10.S02", name: "Restriction Enzymes" }
+          - { id: "BB.1B.T10.S03", name: "DNA Libraries" }
+          - { id: "BB.1B.T10.S04", name: "Generation of cDNA" }
+          - { id: "BB.1B.T10.S05", name: "Hybridization" }
+          - { id: "BB.1B.T10.S06", name: "Expressing Cloned Genes" }
+          - { id: "BB.1B.T10.S07", name: "Polymerase Chain Reaction" }
+          - { id: "BB.1B.T10.S08", name: "Gel Electrophoresis and Southern Blotting" }
+          - { id: "BB.1B.T10.S09", name: "DNA Sequencing" }
+          - { id: "BB.1B.T10.S10", name: "Analyzing Gene Expression" }
+          - { id: "BB.1B.T10.S11", name: "Determining Gene Function" }
+          - { id: "BB.1B.T10.S12", name: "Stem Cells" }
+          - { id: "BB.1B.T10.S13", name: "Practical Applications of DNA Technology" }
+          - { id: "BB.1B.T10.S14", name: "Safety and Ethics of DNA Technology" }
+
+  # =====================================================================
+  # BB.1C — Transmission of heritable information from generation to generation
+  #         and the processes that increase genetic diversity
+  # =====================================================================
+  - id: "BB.1C"
+    name: "Transmission of heritable information from generation to generation and the processes that increase genetic diversity"
+    topics:
+      - id: "BB.1C.T01"
+        name: "Evidence That DNA Is the Genetic Material"
+        subtopics:
+          - { id: "BB.1C.T01.S01", name: "Griffith Transformation Experiment" }
+          - { id: "BB.1C.T01.S02", name: "Avery-MacLeod-McCarty Experiment" }
+          - { id: "BB.1C.T01.S03", name: "Hershey-Chase Experiment" }
+      - id: "BB.1C.T02"
+        name: "Mendelian Concepts"
+        subtopics:
+          - { id: "BB.1C.T02.S01", name: "Phenotype and Genotype" }
+          - { id: "BB.1C.T02.S02", name: "Gene" }
+          - { id: "BB.1C.T02.S03", name: "Locus" }
+          - { id: "BB.1C.T02.S04", name: "Alleles: Single and Multiple" }
+          - { id: "BB.1C.T02.S05", name: "Homozygosity and Heterozygosity" }
+          - { id: "BB.1C.T02.S06", name: "Wild-Type" }
+          - { id: "BB.1C.T02.S07", name: "Recessiveness" }
+          - { id: "BB.1C.T02.S08", name: "Complete Dominance" }
+          - { id: "BB.1C.T02.S09", name: "Codominance" }
+          - { id: "BB.1C.T02.S10", name: "Incomplete Dominance, Penetrance, and Expressivity" }
+          - { id: "BB.1C.T02.S11", name: "Hybridization and Viability" }
+          - { id: "BB.1C.T02.S12", name: "Gene Pool" }
+      - id: "BB.1C.T03"
+        name: "Meiosis and Factors Affecting Genetic Variability"
+        subtopics:
+          - { id: "BB.1C.T03.S01", name: "Significance of Meiosis" }
+          - { id: "BB.1C.T03.S02", name: "Differences Between Meiosis and Mitosis" }
+          - { id: "BB.1C.T03.S03", name: "Segregation and Independent Assortment" }
+          - { id: "BB.1C.T03.S04", name: "Linkage" }
+          - { id: "BB.1C.T03.S05", name: "Recombination: Single and Double Crossovers" }
+          - { id: "BB.1C.T03.S06", name: "Synaptonemal Complex and Tetrad" }
+          - { id: "BB.1C.T03.S07", name: "Sex-Linked Characteristics" }
+          - { id: "BB.1C.T03.S08", name: "Cytoplasmic and Extranuclear Inheritance" }
+          - { id: "BB.1C.T03.S09", name: "Concept and Types of Mutation" }
+          - { id: "BB.1C.T03.S10", name: "Advantageous vs Deleterious Mutation" }
+          - { id: "BB.1C.T03.S11", name: "Inborn Errors of Metabolism" }
+          - { id: "BB.1C.T03.S12", name: "Relationship of Mutagens to Carcinogens" }
+          - { id: "BB.1C.T03.S13", name: "Genetic Drift" }
+      - id: "BB.1C.T04"
+        name: "Analytic Methods in Genetics"
+        subtopics:
+          - { id: "BB.1C.T04.S01", name: "Hardy-Weinberg Principle" }
+          - { id: "BB.1C.T04.S02", name: "Testcross and Backcross" }
+          - { id: "BB.1C.T04.S03", name: "Gene Mapping and Crossover Frequencies" }
+          - { id: "BB.1C.T04.S04", name: "Biometry and Statistical Methods" }
+      - id: "BB.1C.T05"
+        name: "Evolution"
+        subtopics:
+          - { id: "BB.1C.T05.S01", name: "Natural Selection and Fitness" }
+          - { id: "BB.1C.T05.S02", name: "Selection by Differential Reproduction" }
+          - { id: "BB.1C.T05.S03", name: "Natural and Group Selection" }
+          - { id: "BB.1C.T05.S04", name: "Evolutionary Success and the Gene Pool" }
+          - { id: "BB.1C.T05.S05", name: "Speciation and Polymorphism" }
+          - { id: "BB.1C.T05.S06", name: "Adaptation and Specialization" }
+          - { id: "BB.1C.T05.S07", name: "Inbreeding and Outbreeding" }
+          - { id: "BB.1C.T05.S08", name: "Bottlenecks" }
+          - { id: "BB.1C.T05.S09", name: "Evolutionary Time and Genome Change" }
+
+  # =====================================================================
+  # BB.1D — Principles of bioenergetics and fuel molecule metabolism
+  # =====================================================================
+  - id: "BB.1D"
+    name: "Principles of bioenergetics and fuel molecule metabolism"
+    topics:
+      - id: "BB.1D.T01"
+        name: "Principles of Bioenergetics"
+        subtopics:
+          - { id: "BB.1D.T01.S01", name: "Free Energy and Keq" }
+          - { id: "BB.1D.T01.S02", name: "Equilibrium Constant and Standard Free Energy" }
+          - { id: "BB.1D.T01.S03", name: "Concentration and Le Chatelier's Principle" }
+          - { id: "BB.1D.T01.S04", name: "Endothermic and Exothermic Reactions" }
+          - { id: "BB.1D.T01.S05", name: "Free Energy and Spontaneous Reactions" }
+          - { id: "BB.1D.T01.S06", name: "Phosphoryl Group Transfers and ATP" }
+          - { id: "BB.1D.T01.S07", name: "ATP Hydrolysis" }
+          - { id: "BB.1D.T01.S08", name: "Biological Oxidation-Reduction Half-Reactions" }
+          - { id: "BB.1D.T01.S09", name: "Soluble Electron Carriers" }
+          - { id: "BB.1D.T01.S10", name: "Flavoproteins" }
+      - id: "BB.1D.T02"
+        name: "Carbohydrates"
+        subtopics:
+          - { id: "BB.1D.T02.S01", name: "Nomenclature and Classification" }
+          - { id: "BB.1D.T02.S02", name: "Absolute Configuration" }
+          - { id: "BB.1D.T02.S03", name: "Cyclic Structure and Conformations of Hexoses" }
+          - { id: "BB.1D.T02.S04", name: "Epimers and Anomers" }
+          - { id: "BB.1D.T02.S05", name: "Hydrolysis of the Glycoside Linkage" }
+          - { id: "BB.1D.T02.S06", name: "Monosaccharides" }
+          - { id: "BB.1D.T02.S07", name: "Disaccharides" }
+          - { id: "BB.1D.T02.S08", name: "Polysaccharides" }
+      - id: "BB.1D.T03"
+        name: "Glycolysis, Gluconeogenesis, and Pentose Phosphate Pathway"
+        subtopics:
+          - { id: "BB.1D.T03.S01", name: "Glycolysis: Substrates and Products" }
+          - { id: "BB.1D.T03.S02", name: "Feeder Pathways: Glycogen and Starch" }
+          - { id: "BB.1D.T03.S03", name: "Fermentation and Anaerobic Glycolysis" }
+          - { id: "BB.1D.T03.S04", name: "Gluconeogenesis" }
+          - { id: "BB.1D.T03.S05", name: "Pentose Phosphate Pathway" }
+          - { id: "BB.1D.T03.S06", name: "Net Energetic Results of Respiration" }
+      - id: "BB.1D.T04"
+        name: "Principles of Metabolic Regulation"
+        subtopics:
+          - { id: "BB.1D.T04.S01", name: "Regulation of Metabolic Pathways" }
+          - { id: "BB.1D.T04.S02", name: "Maintenance of a Dynamic Steady State" }
+          - { id: "BB.1D.T04.S03", name: "Regulation of Glycolysis and Gluconeogenesis" }
+          - { id: "BB.1D.T04.S04", name: "Metabolism of Glycogen" }
+          - { id: "BB.1D.T04.S05", name: "Regulation of Glycogen Synthesis and Breakdown" }
+          - { id: "BB.1D.T04.S06", name: "Allosteric and Hormonal Control" }
+          - { id: "BB.1D.T04.S07", name: "Analysis of Metabolic Control" }
+      - id: "BB.1D.T05"
+        name: "Citric Acid Cycle"
+        subtopics:
+          - { id: "BB.1D.T05.S01", name: "Acetyl-CoA Production" }
+          - { id: "BB.1D.T05.S02", name: "Reactions of the Cycle" }
+          - { id: "BB.1D.T05.S03", name: "Regulation of the Cycle" }
+          - { id: "BB.1D.T05.S04", name: "Net Energetic Results" }
+      - id: "BB.1D.T06"
+        name: "Metabolism of Fatty Acids and Proteins"
+        subtopics:
+          - { id: "BB.1D.T06.S01", name: "Description of Fatty Acids" }
+          - { id: "BB.1D.T06.S02", name: "Digestion, Mobilization, and Transport of Fats" }
+          - { id: "BB.1D.T06.S03", name: "Oxidation of Fatty Acids" }
+          - { id: "BB.1D.T06.S04", name: "Ketone Bodies" }
+          - { id: "BB.1D.T06.S05", name: "Anabolism of Fats" }
+          - { id: "BB.1D.T06.S06", name: "Nitrogen Excretion" }
+          - { id: "BB.1D.T06.S07", name: "Metabolism of Proteins" }
+          - { id: "BB.1D.T06.S08", name: "Biosynthesis of Lipids and Polysaccharides" }
+      - id: "BB.1D.T07"
+        name: "Oxidative Phosphorylation"
+        subtopics:
+          - { id: "BB.1D.T07.S01", name: "Electron Transport Chain" }
+          - { id: "BB.1D.T07.S02", name: "Electron Transfer in Mitochondria" }
+          - { id: "BB.1D.T07.S03", name: "Flavoproteins and Cytochromes" }
+          - { id: "BB.1D.T07.S04", name: "ATP Synthase and Chemiosmotic Coupling" }
+          - { id: "BB.1D.T07.S05", name: "Proton-Motive Force" }
+          - { id: "BB.1D.T07.S06", name: "Regulation of Oxidative Phosphorylation" }
+          - { id: "BB.1D.T07.S07", name: "Mitochondria, Apoptosis, and Oxidative Stress" }
+      - id: "BB.1D.T08"
+        name: "Hormonal Regulation and Integration of Metabolism"
+        subtopics:
+          - { id: "BB.1D.T08.S01", name: "Integration of Hormone Structure and Function" }
+          - { id: "BB.1D.T08.S02", name: "Tissue-Specific Metabolism" }
+          - { id: "BB.1D.T08.S03", name: "Hormonal Regulation of Fuel Metabolism" }
+          - { id: "BB.1D.T08.S04", name: "Obesity and Regulation of Body Mass" }
+
+prerequisites:
+  # ----- Within BB.1A -----
+  - { src: "BB.1A.T01", dst: "BB.1A.T02", rationale: "Amino acid chemistry underlies protein folding", confidence: "high" }
+  - { src: "BB.1A.T01.S06", dst: "BB.1A.T02.S01", rationale: "Peptide bonds define primary structure", confidence: "high" }
+  - { src: "BB.1A.T01.S04", dst: "BB.1A.T02.S06", rationale: "Hydrophobic residues drive hydrophobic interactions", confidence: "medium" }
+  - { src: "BB.1A.T02", dst: "BB.1A.T03", rationale: "Folded structure enables nonenzymatic function", confidence: "high" }
+  - { src: "BB.1A.T02", dst: "BB.1A.T04", rationale: "Enzymes are folded proteins", confidence: "high" }
+  - { src: "BB.1A.T02.S03", dst: "BB.1A.T04.S05", rationale: "Tertiary structure forms the active site", confidence: "high" }
+  - { src: "BB.1A.T04", dst: "BB.1A.T05", rationale: "Enzyme function must precede its regulation", confidence: "high" }
+  # ----- Within BB.1B -----
+  - { src: "BB.1B.T01", dst: "BB.1B.T02", rationale: "DNA structure underlies replication", confidence: "high" }
+  - { src: "BB.1B.T02", dst: "BB.1B.T03", rationale: "Replication precedes repair during replication", confidence: "high" }
+  - { src: "BB.1B.T01", dst: "BB.1B.T04", rationale: "Nucleic acid basis before the genetic code", confidence: "high" }
+  - { src: "BB.1B.T04", dst: "BB.1B.T05", rationale: "Genetic code frames transcription", confidence: "high" }
+  - { src: "BB.1B.T05", dst: "BB.1B.T06", rationale: "Transcription yields mRNA translated to protein", confidence: "high" }
+  - { src: "BB.1B.T04", dst: "BB.1B.T06", rationale: "Codon-anticodon reading drives translation", confidence: "high" }
+  - { src: "BB.1B.T01", dst: "BB.1B.T07", rationale: "DNA structure before chromosome packaging", confidence: "medium" }
+  - { src: "BB.1B.T05", dst: "BB.1B.T08", rationale: "Transcription precedes prokaryotic gene control", confidence: "high" }
+  - { src: "BB.1B.T05", dst: "BB.1B.T09", rationale: "Transcription precedes eukaryotic gene control", confidence: "high" }
+  - { src: "BB.1B.T07", dst: "BB.1B.T09", rationale: "Chromatin structure enables its regulation", confidence: "medium" }
+  - { src: "BB.1B.T02", dst: "BB.1B.T10", rationale: "Replication principles underlie biotech methods", confidence: "medium" }
+  - { src: "BB.1B.T02.S03", dst: "BB.1B.T10.S07", rationale: "DNA polymerase is the basis of PCR", confidence: "medium" }
+  # ----- Within BB.1C -----
+  - { src: "BB.1C.T02", dst: "BB.1C.T03", rationale: "Mendelian vocabulary before the meiotic mechanism", confidence: "high" }
+  - { src: "BB.1C.T02", dst: "BB.1C.T04", rationale: "Genotype and allele concepts before analysis", confidence: "high" }
+  - { src: "BB.1C.T03.S05", dst: "BB.1C.T04.S03", rationale: "Recombination underlies gene mapping", confidence: "high" }
+  - { src: "BB.1C.T02", dst: "BB.1C.T05", rationale: "Gene pool and alleles frame evolution", confidence: "high" }
+  - { src: "BB.1C.T04.S01", dst: "BB.1C.T05.S01", rationale: "Hardy-Weinberg is the null model for selection", confidence: "medium" }
+  - { src: "BB.1C.T03.S09", dst: "BB.1C.T05.S01", rationale: "Mutation supplies variation for selection", confidence: "high" }
+  # ----- Within BB.1D -----
+  - { src: "BB.1D.T01", dst: "BB.1D.T03", rationale: "Bioenergetics frames glycolytic energetics", confidence: "high" }
+  - { src: "BB.1D.T02", dst: "BB.1D.T03", rationale: "Carbohydrate substrates enter glycolysis", confidence: "high" }
+  - { src: "BB.1D.T01", dst: "BB.1D.T05", rationale: "Bioenergetics frames citric acid cycle", confidence: "high" }
+  - { src: "BB.1D.T03", dst: "BB.1D.T05", rationale: "Pyruvate from glycolysis feeds the cycle", confidence: "high" }
+  - { src: "BB.1D.T01", dst: "BB.1D.T07", rationale: "Redox and free energy underlie oxidative phosphorylation", confidence: "high" }
+  - { src: "BB.1D.T05", dst: "BB.1D.T07", rationale: "Cycle yields NADH and FADH2 for the ETC", confidence: "high" }
+  - { src: "BB.1D.T03", dst: "BB.1D.T04", rationale: "Pathways precede their regulation", confidence: "high" }
+  - { src: "BB.1D.T05", dst: "BB.1D.T06", rationale: "Acetyl-CoA from beta-oxidation enters the cycle", confidence: "high" }
+  - { src: "BB.1D.T01", dst: "BB.1D.T06", rationale: "Bioenergetics frames fat and protein catabolism", confidence: "medium" }
+  - { src: "BB.1D.T04", dst: "BB.1D.T08", rationale: "Pathway regulation before whole-body integration", confidence: "high" }
+  - { src: "BB.1D.T07", dst: "BB.1D.T08", rationale: "Full respiration before metabolic integration", confidence: "high" }
+  - { src: "BB.1D.T01.S06", dst: "BB.1D.T07.S04", rationale: "ATP energetics underlie ATP synthase", confidence: "medium" }
+  # ----- Cross-category, within FC1 -----
+  - { src: "BB.1A.T01", dst: "BB.1B.T06", rationale: "Amino acids are the monomers assembled in translation", confidence: "high" }
+  - { src: "BB.1A.T04", dst: "BB.1B.T02", rationale: "Enzyme concepts underlie replication enzymes", confidence: "medium" }
+  - { src: "BB.1A.T04", dst: "BB.1D.T03", rationale: "Metabolic pathways are enzyme-catalyzed", confidence: "high" }
+  - { src: "BB.1A.T05", dst: "BB.1D.T04", rationale: "Enzyme control underlies metabolic regulation", confidence: "high" }
+  - { src: "BB.1B.T01", dst: "BB.1C.T01", rationale: "Knowing DNA grounds the evidence experiments", confidence: "medium" }
+  - { src: "BB.1B.T02", dst: "BB.1C.T03", rationale: "DNA replication in S phase precedes meiosis", confidence: "medium" }
+  - { src: "BB.1B.T04", dst: "BB.1C.T03.S09", rationale: "Genetic code frames missense and nonsense mutations", confidence: "high" }
+
+cross_prerequisites:
+  - { src_hint: "CP.5D: Biologically Relevant Molecules", dst: "BB.1A.T01", rationale: "Organic chemistry of amino acids and functional groups", confidence: "high" }
+  - { src_hint: "CP.5E: Chemical Kinetics", dst: "BB.1A.T04", rationale: "Kinetics underlies enzyme catalysis", confidence: "high" }
+  - { src_hint: "CP.5E: Chemical Kinetics", dst: "BB.1A.T05", rationale: "Michaelis-Menten is enzyme kinetics", confidence: "high" }
+  - { src_hint: "CP.5E: Chemical Thermodynamics", dst: "BB.1A.T02", rationale: "Free energy governs protein folding", confidence: "medium" }
+  - { src_hint: "CP.5A: Unique Nature of Water and Its Solutions", dst: "BB.1A.T02", rationale: "Hydrophobic effect and solvation drive folding", confidence: "medium" }
+  - { src_hint: "CP.5B: Nature of Molecules and Intermolecular Interactions", dst: "BB.1A.T02", rationale: "H-bonds and van der Waals stabilize structure", confidence: "medium" }
+  - { src_hint: "CP.5D: Biologically Relevant Molecules", dst: "BB.1B.T01", rationale: "Nucleotide chemistry underlies nucleic acids", confidence: "medium" }
+  - { src_hint: "CP.5B: Nature of Molecules and Intermolecular Interactions", dst: "BB.1B.T01", rationale: "Hydrogen bonding drives base pairing", confidence: "high" }
+  - { src_hint: "CP.5D: Biologically Relevant Molecules", dst: "BB.1D.T02", rationale: "Carbohydrate structure and reactivity from organic chemistry", confidence: "high" }
+  - { src_hint: "CP.5E: Principles of Chemical Thermodynamics", dst: "BB.1D.T01", rationale: "Thermodynamics underlies bioenergetics", confidence: "high" }
+  - { src_hint: "CP.4C: Electrochemistry and Electrical Circuits", dst: "BB.1D.T01", rationale: "Half-reactions and reduction potentials frame biological redox", confidence: "medium" }
+  - { src_hint: "CP.5E: Chemical Thermodynamics", dst: "BB.1D.T07", rationale: "Free energy and coupling drive the proton-motive force", confidence: "medium" }
+  - { src_hint: "CP.5D: Biologically Relevant Molecules", dst: "BB.1D.T06", rationale: "Lipid and fatty acid chemistry from organic chemistry", confidence: "medium" }
+
+related:
+  - { a: "BB.1A.T02.S09", b: "BB.1B.T10.S08", rationale: "Shared electrophoretic separation technique" }
+  - { a: "BB.1B.T09.S05", b: "BB.1C.T03.S12", rationale: "Both address carcinogenesis and loss of control" }
+  - { a: "BB.1A.T04.S09", b: "BB.1D.T01.S09", rationale: "Water-soluble vitamins are precursors of electron carriers" }
+  - { a: "BB.1D.T03", b: "BB.1D.T06", rationale: "Parallel fuel-oxidation catabolic pathways" }

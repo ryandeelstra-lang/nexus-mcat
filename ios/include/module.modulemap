@@ -1,0 +1,6 @@
+// Exposes the charged_up iOS FFI C ABI as a Clang module so SwiftUI code can
+// `import AnkiEngineFFI` (no bridging header needed when consumed via the XCFramework).
+module AnkiEngineFFI {
+  header "AnkiEngine.h"
+  export *
+}

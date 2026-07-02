@@ -33,7 +33,10 @@ const URL_BY_KEY = new Map<string, string>();
 for (const [path, mod] of Object.entries(globModules)) {
     const url = typeof mod === "string" ? mod : mod.default;
     if (url) {
-        URL_BY_KEY.set(basenameKey(path), url);
+        // Production glob URLs are emitted relative to the CHUNK ("../assets/x.hash.png");
+        // Phaser would resolve them against the page URL and 404. Absolutize against this
+        // module's own URL so both dev ("/...") and prod resolve correctly.
+        URL_BY_KEY.set(basenameKey(path), new URL(url, import.meta.url).href);
     }
 }
 
@@ -89,7 +92,9 @@ export async function preloadDiscoveredAssets(scene: Phaser.Scene): Promise<void
             scene.load.image(key, url);
         }
     }
-    if (scene.load.totalToLoad > 0) {
+    // NOTE: Phaser's totalToLoad is only computed by start() — gate on the PENDING list
+    // (load.list) or the loader never runs and every texture silently falls back.
+    if (scene.load.list.size > 0) {
         await new Promise<void>((resolve) => {
             scene.load.once("complete", () => resolve());
             scene.load.start();

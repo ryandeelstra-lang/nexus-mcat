@@ -37,11 +37,22 @@ function compareTendNext(a: TopicMastery, b: TopicMastery): number {
 }
 
 function selectAssignedTopic(topics: ReadonlyArray<TopicMastery>): TopicMastery | null {
+    // Thirsty plants first (due reviews). On a fresh garden nothing is due yet — the
+    // Keeper then assigns a topic with NEW cards to plant (SPOV1: he always has a next
+    // rep; a fresh player is never told "come back later" — doc 24 §2, the diagnostic
+    // planting beat).
     const due = topics.filter((topic) => topic.dueCount > 0);
-    if (due.length === 0) {
+    if (due.length > 0) {
+        const sorted = [...due].sort(compareTendNext);
+        return sorted[0] ?? null;
+    }
+    const fresh = topics.filter((topic) => topic.newCount > 0);
+    if (fresh.length === 0) {
         return null;
     }
-    const sorted = [...due].sort(compareTendNext);
+    const sorted = [...fresh].sort(
+        (a, b) => a.averageRecall - b.averageRecall || a.label.localeCompare(b.label),
+    );
     return sorted[0] ?? null;
 }
 

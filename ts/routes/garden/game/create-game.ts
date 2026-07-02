@@ -53,5 +53,9 @@ export async function createGame(
     game.registry.set("panelOpen", false);
     game.registry.set("bus", bus);
 
+    // Dev/verification handle (harmless in prod): lets the CDP harness inspect
+    // textures/scenes when verifying render fidelity (docs/26 gate evidence).
+    (globalThis as Record<string, unknown>).__gardenGame = game;
+
     return game;
 }

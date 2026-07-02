@@ -96,6 +96,11 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
         const offKeeper = bus.on("keeper:interact", () => {
             setOverlay("keeper");
         });
+        // Live HUD: every graded answer refills water (doc 23 §7) — the chips must tick
+        // mid-session, not only at session end.
+        const offGrowth = bus.on("growth:tick", () => {
+            syncFromStore();
+        });
         const offReviewClosed = bus.on("review:closed", ({ answered, blooms }) => {
             const wateredPlots = lastKeeperSummary.current?.wateredPlots ?? answered;
             setHarvest({ answered, blooms, wateredPlots });
@@ -113,6 +118,7 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
         return () => {
             offPlant();
             offKeeper();
+            offGrowth();
             offReviewClosed();
         };
     }, [refreshDashboard, refreshSnapshot, refreshWeeds, syncFromStore]);

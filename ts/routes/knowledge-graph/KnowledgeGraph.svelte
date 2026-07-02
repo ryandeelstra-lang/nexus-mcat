@@ -118,7 +118,8 @@ unavailable (no open collection), the map still renders as un-lit structure — 
                               sub:
                                   (info.unlocks > 0
                                       ? `${info.sectionLabel} · unlocks ${info.unlocks}`
-                                      : info.sectionLabel) + (info.lit ? "" : " · not yet"),
+                                      : info.sectionLabel) +
+                                  (info.lit ? "" : " · not yet"),
                               x,
                               y,
                           }
@@ -134,8 +135,8 @@ unavailable (no open collection), the map still renders as un-lit structure — 
             });
             controller = c;
             c.setReducedMotion(
-                typeof window !== "undefined"
-                    && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+                typeof window !== "undefined" &&
+                    window.matchMedia("(prefers-reduced-motion: reduce)").matches,
             );
             c.setDetail(detail);
             loadMastery().then(() => c.setMastery(mastery, bestNext));
@@ -202,10 +203,22 @@ unavailable (no open collection), the map still renders as un-lit structure — 
 
     {#if !backdrop}
         <div class="kg-legend" aria-hidden="true">
-            <span class="kg-legend-item"><i style="background:#3b82f6"></i>C/P</span>
-            <span class="kg-legend-item"><i style="background:#14b8a6"></i>B/B</span>
-            <span class="kg-legend-item"><i style="background:#f59e0b"></i>P/S</span>
-            <span class="kg-legend-item"><i style="background:#8b5cf6"></i>CARS</span>
+            <span class="kg-legend-item">
+                <i style="background:#3b82f6"></i>
+                C/P
+            </span>
+            <span class="kg-legend-item">
+                <i style="background:#14b8a6"></i>
+                B/B
+            </span>
+            <span class="kg-legend-item">
+                <i style="background:#f59e0b"></i>
+                P/S
+            </span>
+            <span class="kg-legend-item">
+                <i style="background:#8b5cf6"></i>
+                CARS
+            </span>
         </div>
     {/if}
 
@@ -287,7 +300,13 @@ unavailable (no open collection), the map still renders as un-lit structure — 
         user-select: none;
     }
     .kg-brand-mark {
-        font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        font-family:
+            Inter,
+            system-ui,
+            -apple-system,
+            "Segoe UI",
+            Roboto,
+            sans-serif;
         font-weight: 700;
         font-size: 18px;
         // a quiet uppercase tracked wordmark — premium restraint (Linear/Arc)
@@ -298,7 +317,13 @@ unavailable (no open collection), the map still renders as un-lit structure — 
         color: #1b1d2a;
     }
     .kg-brand-sub {
-        font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        font-family:
+            Inter,
+            system-ui,
+            -apple-system,
+            "Segoe UI",
+            Roboto,
+            sans-serif;
         font-size: 9.5px;
         font-weight: 500;
         letter-spacing: 0.2em;

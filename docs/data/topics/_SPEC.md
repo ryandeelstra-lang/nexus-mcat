@@ -5,6 +5,7 @@ premium study product. Correctness matters — a real student's study plan depen
 consumed by a deterministic assembler, so follow this contract **exactly**.
 
 ## The big picture
+
 The graph's top spine already exists and is FROZEN: 4 sections → 10 Foundational Concepts → 31 AAMC
 content categories (+ 3 CARS reasoning skills). Your job is to add the depth **beneath the content
 categories**: every **topic** and **subtopic** the AAMC content outline lists, plus the **prerequisite
@@ -12,7 +13,8 @@ relationships** among them. Ground everything in the AAMC "What's on the MCAT Ex
 (the standard blueprint). Be complete against the real exam; do not invent non-MCAT material.
 
 ## ID scheme (follow EXACTLY — the assembler matches on these)
-- Section prefixes: `C-P → CP.`  `B-B → BB.`  `P-S → PS.`  `CARS → CARS.`
+
+- Section prefixes: `C-P → CP.` `B-B → BB.` `P-S → PS.` `CARS → CARS.`
 - Category ids are GIVEN to you, already prefixed, e.g. `BB.1A`, `CP.4E`, `PS.6A`, `CARS.FOC`.
 - **Topic id** = `<CATEGORY_ID>.T##` with a zero-padded 2-digit index, ordered in a sensible
   learning sequence. E.g. `BB.1A.T01`, `BB.1A.T02`.
@@ -20,15 +22,18 @@ relationships** among them. Ground everything in the AAMC "What's on the MCAT Ex
 - Ids must be unique within your file. Never reuse an index.
 
 ## Naming
+
 - `name` = a concise, canonical MCAT topic/subtopic title in Title Case, ≤ 60 characters.
 - No trailing punctuation, no leading/trailing spaces, no `::` characters.
 
 ## Coverage bar (be COMPLETE)
+
 - Enumerate **every** topic the AAMC lists under each of your categories, and the subtopics under each
   topic. Typical real depth: ~4–10 topics per category, each with ~2–6 subtopics.
 - Prefer the outline's own groupings. Do not collapse distinct concepts; do not pad with fluff.
 
 ## Prerequisites (the load-bearing part)
+
 - An edge `{src, dst}` means **"master `src` BEFORE `dst`"** — `src` is the prerequisite.
 - Endpoints must be **topic or subtopic ids ONLY** — NEVER a bare category id (e.g. never `BB.1A`).
 - The edge set you emit must be **acyclic**.
@@ -43,9 +48,11 @@ relationships** among them. Ground everything in the AAMC "What's on the MCAT Ex
   edge, so be honest with `confidence`.
 
 ## `related` (optional, undirected)
+
 - `{a, b, rationale}` for strong non-prerequisite associations within your categories.
 
 ## Output — write ONE file only
+
 Write a single YAML file to the path you are told (e.g. `docs/data/topics/gen_FC1.yaml`). Do not edit
 any other file. The file MUST parse as YAML and match this shape exactly:
 
@@ -75,6 +82,7 @@ related:
 ```
 
 ## Hard rules
+
 1. Write only your assigned file; make no other edits.
 2. Valid YAML; ids unique in-file; the `prerequisites` set is acyclic.
 3. Prereq endpoints are topic/subtopic ids only — never a category id.

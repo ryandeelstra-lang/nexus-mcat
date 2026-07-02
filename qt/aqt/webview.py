@@ -61,6 +61,7 @@ class AnkiWebViewKind(Enum):
     IMPORT_ANKI_PACKAGE = "anki package import"
     KNOWLEDGE_GRAPH = "knowledge graph"
     HOME = "home"
+    GARDEN = "garden"
 
 
 class AuthInterceptor(QWebEngineUrlRequestInterceptor):
@@ -134,6 +135,10 @@ API_ACCESS_WEBVIEW_KINDS = frozenset(
         # charged_up: the knowledge-graph VIEW calls the read-only masteryQuery / scoresDashboard
         # endpoints, so it needs the api-access profile (Bearer header).
         AnkiWebViewKind.KNOWLEDGE_GRAPH,
+        # charged_up: the Knowledge Garden (Decisions 40-42) runs the real review loop
+        # (getQueuedCards/renderExistingCard/answerCard) + masteryQuery/deckTree/gardenState,
+        # so it needs the api-access profile too (docs/26 G0.3 — the V8 lesson).
+        AnkiWebViewKind.GARDEN,
     }
 )
 

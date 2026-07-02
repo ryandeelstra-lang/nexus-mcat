@@ -102,6 +102,7 @@ MainWindowState = Literal[
     "stats",
     "add",
     "browse",
+    "garden",
 ]
 
 
@@ -194,6 +195,10 @@ class AnkiQt(QMainWindow):
     # opens a separate native window.
     stats_web: AnkiWebView
     _graph_web_mode: str | None
+    # charged_up: the Knowledge Garden webview (Decisions 40-42) + whether its route has
+    # been loaded (the world keeps its Phaser state across visits, so load-once).
+    garden_web: AnkiWebView
+    _garden_web_loaded: bool
 
     def __init__(
         self,
@@ -896,11 +901,13 @@ class AnkiQt(QMainWindow):
         mw.web opaque and the backdrop hidden — the reviewer's card rendering is never touched. The
         full 'knowledgeGraph' screen manages graph_web itself, so leave it alone here."""
         # charged_up: the Nexus home owns the central area in the 'home' state (see _homeState);
-        # keep it hidden in every other state. Same for the in-window stats screen.
+        # keep it hidden in every other state. Same for the in-window stats + garden screens.
         if state != "home":
             self.home_web.hide()
         if state != "stats":
             self.stats_web.hide()
+        if state != "garden":
+            self.garden_web.hide()
         if state != "add" and getattr(self, "_addcards_embedded", None) is not None:
             self._addcards_embedded.hide()
         if state != "browse" and getattr(self, "_browser_embedded", None) is not None:
@@ -945,6 +952,25 @@ class AnkiQt(QMainWindow):
     def _knowledgeGraphCleanup(self, newState: MainWindowState) -> None:
         # Hand the central area back to mw.web for the next screen.
         self.graph_web.hide()
+        self.web.show()
+
+    # charged_up: the Knowledge Garden screen (Decisions 40-42; docs/26 G0)
+    ##########################################################################
+
+    def _gardenState(self, oldState: MainWindowState) -> None:
+        # The playable garden, rendered in the SAME window (stacked webview, api access).
+        # The world keeps its Phaser state across visits — load the route once and re-show
+        # (masteryQuery re-polls on its own bus events), unlike the graph's force-reload.
+        if not self._garden_web_loaded:
+            self.garden_web.load_sveltekit_page("garden")
+            self._garden_web_loaded = True
+        self.web.hide()
+        self.garden_web.show()
+        self.garden_web.setFocus()
+        self.toolbar.redraw()
+
+    def _gardenCleanup(self, newState: MainWindowState) -> None:
+        self.garden_web.hide()
         self.web.show()
 
     # charged_up: in-window review stats (Anki's graphs page, no popup dialog).
@@ -1236,6 +1262,14 @@ title="{}" {}>{}</button>""".format(
         self.stats_web = AnkiWebView(kind=AnkiWebViewKind.DECK_STATS)
         self.stats_web.disable_zoom()
         self.centralStack.addWidget(self.stats_web)
+        # charged_up: the Knowledge Garden (Decisions 40-42) — a dedicated api-access webview
+        # for the playable pixel-art world + its DOM panels. Same stacked-central pattern as
+        # the graph/home/stats screens; card HTML stays in the garden page's own sandboxed
+        # iframe, never in this api-access page's origin (docs/26 I6).
+        self.garden_web = AnkiWebView(kind=AnkiWebViewKind.GARDEN)
+        self.garden_web.disable_zoom()
+        self._garden_web_loaded = False
+        self.centralStack.addWidget(self.garden_web)
         # charged_up: the in-window Add + Browse screens (AddCards / Browser,
         # embedded) are created lazily on first use; None until then.
         self._addcards_embedded = None
@@ -1243,6 +1277,7 @@ title="{}" {}>{}</button>""".format(
         self.graph_web.hide()
         self.home_web.hide()
         self.stats_web.hide()
+        self.garden_web.hide()
         # bottom area
         sweb = self.bottomWeb = BottomWebView(self)
         sweb.setFocusPolicy(Qt.FocusPolicy.WheelFocus)

@@ -42,7 +42,10 @@ of the already-built engine; neither writes to the collection.
                 <button class:active={tab === "map"} on:click={() => (tab = "map")}>
                     Map
                 </button>
-                <button class:active={tab === "scores"} on:click={() => (tab = "scores")}>
+                <button
+                    class:active={tab === "scores"}
+                    on:click={() => (tab = "scores")}
+                >
                     Scores
                 </button>
             </div>

@@ -236,17 +236,8 @@ export function createGraph3D(svgEl: SVGSVGElement, graph: Sidecar, cb: Graph3DC
     const hasLabel = (kind: string): boolean =>
         kind === "section" || kind === "fc" || kind === "category" || kind === "cars";
     const parentOf = (id: string): string | null => byId.get(id)?.n.parent ?? null;
-    const isDescOrSelf = (id: string, anc: string): boolean => {
-        let cur: string | null = id;
-        let g = 0;
-        while (cur && g++ < 16) {
-            if (cur === anc) {
-                return true;
-            }
-            cur = parentOf(cur);
-        }
-        return false;
-    };
+    // (an isDescOrSelf ancestry helper lived here; removed as unused — parentOf covers the
+    // remaining walk sites)
 
     let mastery: Record<string, NodeState> = {};
     let bestNext: string | null = null;
@@ -385,11 +376,12 @@ export function createGraph3D(svgEl: SVGSVGElement, graph: Sidecar, cb: Graph3DC
         let tPanX = 0, tPanY = 0;
         if (focusId) {
             const fr = byId.get(focusId);
-            const c = fr && fr.n.kind === "section"
-                ? sectionCentroid.get(fr.n.section)
-                : fr
-                ? { nx: fr.nx, ny: fr.ny, nz: fr.nz }
-                : undefined;
+            let c: { nx: number; ny: number; nz: number } | undefined;
+            if (fr) {
+                c = fr.n.kind === "section"
+                    ? sectionCentroid.get(fr.n.section)
+                    : { nx: fr.nx, ny: fr.ny, nz: fr.nz };
+            }
             if (c) {
                 const p = projectPoint(c.nx, c.ny, c.nz, cY, sY, cX, sX, 0, 0, targetZoom);
                 tPanX = CX - p.sx;
@@ -465,11 +457,12 @@ export function createGraph3D(svgEl: SVGSVGElement, graph: Sidecar, cb: Graph3DC
         // The glow is a Gaussian-blur SVG filter (GPU-rasterized). It depends only on node STATE
         // (best/lit/dim), not on the per-frame geometry — so only touch the attribute when it actually
         // changes, or every rotating lit node forces a needless filter re-rasterization each frame.
-        const wantFilter = dim || (!isBest && !isLit)
-            ? ""
-            : isBest
-            ? `url(#kg-glow-${n.section}-strong)`
-            : `url(#kg-glow-${n.section}-soft)`;
+        let wantFilter = "";
+        if (!dim && (isBest || isLit)) {
+            wantFilter = isBest
+                ? `url(#kg-glow-${n.section}-strong)`
+                : `url(#kg-glow-${n.section}-soft)`;
+        }
         if (wantFilter !== r.lastFilter) {
             if (wantFilter) {
                 circle.setAttribute("filter", wantFilter);
@@ -509,7 +502,13 @@ export function createGraph3D(svgEl: SVGSVGElement, graph: Sidecar, cb: Graph3DC
             const op = show && !dim ? rev * (0.55 + 0.45 * depthN) : 0;
             label.setAttribute("opacity", op.toFixed(2));
             label.setAttribute("y", (-radius - 6).toString());
-            label.setAttribute("font-size", (n.kind === "section" ? 13 : n.kind === "fc" ? 10 : 9).toString());
+            let labelSize = 9;
+            if (n.kind === "section") {
+                labelSize = 13;
+            } else if (n.kind === "fc") {
+                labelSize = 10;
+            }
+            label.setAttribute("font-size", labelSize.toString());
         }
     }
 
@@ -661,9 +660,12 @@ export function createGraph3D(svgEl: SVGSVGElement, graph: Sidecar, cb: Graph3DC
         const node = id ? byId.get(id)?.n : null;
         chain = id ? buildChain(id) : null;
         targetZoom = node ? (FOCUS_ZOOM[node.kind] ?? 2.4) : 1;
-        const crumb = node
-            ? node.kind === "section" ? (SECTION_LONG[node.section] ?? node.label) : node.label
-            : "";
+        let crumb = "";
+        if (node) {
+            crumb = node.kind === "section"
+                ? (SECTION_LONG[node.section] ?? node.label)
+                : node.label;
+        }
         cb.onSectionFocus?.(node ? { id: node.id, label: crumb } : null);
         kick();
     }

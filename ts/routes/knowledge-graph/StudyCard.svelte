@@ -136,7 +136,8 @@ happens.
 
 <div class="study-stage">
     <button class="study-back" on:click={backToMap}>
-        <span class="study-back-arrow" aria-hidden="true">←</span> Map
+        <span class="study-back-arrow" aria-hidden="true">←</span>
+         Map
     </button>
 
     <div class="study-panel">
@@ -184,10 +185,16 @@ happens.
                         <span class="seg seg-new" style="flex: {counts.new}"></span>
                     {/if}
                     {#if counts.learning > 0}
-                        <span class="seg seg-learn" style="flex: {counts.learning}"></span>
+                        <span
+                            class="seg seg-learn"
+                            style="flex: {counts.learning}"
+                        ></span>
                     {/if}
                     {#if counts.review > 0}
-                        <span class="seg seg-review" style="flex: {counts.review}"></span>
+                        <span
+                            class="seg seg-review"
+                            style="flex: {counts.review}"
+                        ></span>
                     {/if}
                 </div>
             </header>

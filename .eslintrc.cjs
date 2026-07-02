@@ -26,7 +26,8 @@ module.exports = {
     },
     overrides: [
         {
-            files: "**/*.ts",
+            // charged_up: .tsx included — the Knowledge Garden route is React (Decision 41).
+            files: ["**/*.ts", "**/*.tsx"],
             extends: [
                 "plugin:@typescript-eslint/eslint-recommended",
                 "plugin:@typescript-eslint/recommended",

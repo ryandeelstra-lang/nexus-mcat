@@ -1,156 +1,843 @@
-{ "fc": "FC10",
-  "cards": [
-    { "id": "PS.10A.foundations.definitions.social-inequality.c1", "parent": "PS.10A.foundations.definitions.social-inequality", "leaf": "PS.10A", "label": "What does social inequality describe about resources and opportunities?" },
-    { "id": "PS.10A.foundations.definitions.social-inequality.c2", "parent": "PS.10A.foundations.definitions.social-inequality", "leaf": "PS.10A", "label": "How does social inequality differ from natural individual variation?" },
-    { "id": "PS.10A.foundations.definitions.social-stratification.c1", "parent": "PS.10A.foundations.definitions.social-stratification", "leaf": "PS.10A", "label": "What defines social stratification as a feature of societies?" },
-    { "id": "PS.10A.foundations.definitions.social-stratification.c2", "parent": "PS.10A.foundations.definitions.social-stratification", "leaf": "PS.10A", "label": "Why is stratification a trait of society rather than of individuals?" },
-    { "id": "PS.10A.foundations.definitions.life-chances.c1", "parent": "PS.10A.foundations.definitions.life-chances", "leaf": "PS.10A", "label": "What are life chances and what shapes them?" },
-    { "id": "PS.10A.foundations.definitions.power.c1", "parent": "PS.10A.foundations.definitions.power", "leaf": "PS.10A", "label": "How is power defined in the study of social inequality?" },
-    { "id": "PS.10A.foundations.definitions.prestige.c1", "parent": "PS.10A.foundations.definitions.prestige", "leaf": "PS.10A", "label": "What does prestige measure about a social position?" },
-    { "id": "PS.10A.foundations.definitions.privilege.c1", "parent": "PS.10A.foundations.definitions.privilege", "leaf": "PS.10A", "label": "What makes an advantage count as privilege?" },
-    { "id": "PS.10A.foundations.definitions.social-inequality-vs-equity.c1", "parent": "PS.10A.foundations.definitions.social-inequality-vs-equity", "leaf": "PS.10A", "label": "How does equity differ from equality in allocating resources?" },
-    { "id": "PS.10A.foundations.definitions.social-stratification-dimensions.c1", "parent": "PS.10A.foundations.definitions.social-stratification-dimensions", "leaf": "PS.10A", "label": "Along which three dimensions do societies stratify people?" },
+{
+    "fc": "FC10",
+    "cards": [
+        {
+            "id": "PS.10A.foundations.definitions.social-inequality.c1",
+            "parent": "PS.10A.foundations.definitions.social-inequality",
+            "leaf": "PS.10A",
+            "label": "What does social inequality describe about resources and opportunities?"
+        },
+        {
+            "id": "PS.10A.foundations.definitions.social-inequality.c2",
+            "parent": "PS.10A.foundations.definitions.social-inequality",
+            "leaf": "PS.10A",
+            "label": "How does social inequality differ from natural individual variation?"
+        },
+        {
+            "id": "PS.10A.foundations.definitions.social-stratification.c1",
+            "parent": "PS.10A.foundations.definitions.social-stratification",
+            "leaf": "PS.10A",
+            "label": "What defines social stratification as a feature of societies?"
+        },
+        {
+            "id": "PS.10A.foundations.definitions.social-stratification.c2",
+            "parent": "PS.10A.foundations.definitions.social-stratification",
+            "leaf": "PS.10A",
+            "label": "Why is stratification a trait of society rather than of individuals?"
+        },
+        {
+            "id": "PS.10A.foundations.definitions.life-chances.c1",
+            "parent": "PS.10A.foundations.definitions.life-chances",
+            "leaf": "PS.10A",
+            "label": "What are life chances and what shapes them?"
+        },
+        {
+            "id": "PS.10A.foundations.definitions.power.c1",
+            "parent": "PS.10A.foundations.definitions.power",
+            "leaf": "PS.10A",
+            "label": "How is power defined in the study of social inequality?"
+        },
+        {
+            "id": "PS.10A.foundations.definitions.prestige.c1",
+            "parent": "PS.10A.foundations.definitions.prestige",
+            "leaf": "PS.10A",
+            "label": "What does prestige measure about a social position?"
+        },
+        {
+            "id": "PS.10A.foundations.definitions.privilege.c1",
+            "parent": "PS.10A.foundations.definitions.privilege",
+            "leaf": "PS.10A",
+            "label": "What makes an advantage count as privilege?"
+        },
+        {
+            "id": "PS.10A.foundations.definitions.social-inequality-vs-equity.c1",
+            "parent": "PS.10A.foundations.definitions.social-inequality-vs-equity",
+            "leaf": "PS.10A",
+            "label": "How does equity differ from equality in allocating resources?"
+        },
+        {
+            "id": "PS.10A.foundations.definitions.social-stratification-dimensions.c1",
+            "parent": "PS.10A.foundations.definitions.social-stratification-dimensions",
+            "leaf": "PS.10A",
+            "label": "Along which three dimensions do societies stratify people?"
+        },
 
-    { "id": "PS.10A.foundations.status.status-defined.c1", "parent": "PS.10A.foundations.status.status-defined", "leaf": "PS.10A", "label": "What is a status within a social structure?" },
-    { "id": "PS.10A.foundations.status.ascribed-status.c1", "parent": "PS.10A.foundations.status.ascribed-status", "leaf": "PS.10A", "label": "Which type of status is assigned at birth, like race or sex?" },
-    { "id": "PS.10A.foundations.status.ascribed-status.c2", "parent": "PS.10A.foundations.status.ascribed-status", "leaf": "PS.10A", "label": "Why is caste membership considered an ascribed status?" },
-    { "id": "PS.10A.foundations.status.achieved-status.c1", "parent": "PS.10A.foundations.status.achieved-status", "leaf": "PS.10A", "label": "What distinguishes an achieved status from an ascribed one?" },
-    { "id": "PS.10A.foundations.status.achieved-status.c2", "parent": "PS.10A.foundations.status.achieved-status", "leaf": "PS.10A", "label": "Is occupation an achieved or an ascribed status?" },
-    { "id": "PS.10A.foundations.status.master-status.c1", "parent": "PS.10A.foundations.status.master-status", "leaf": "PS.10A", "label": "What is a master status and how does it shape identity?" },
-    { "id": "PS.10A.foundations.status.status-set.c1", "parent": "PS.10A.foundations.status.status-set", "leaf": "PS.10A", "label": "What does a person's status set include?" },
-    { "id": "PS.10A.foundations.status.status-inconsistency.c1", "parent": "PS.10A.foundations.status.status-inconsistency", "leaf": "PS.10A", "label": "High education with low income exemplifies what?" },
-    { "id": "PS.10A.foundations.status.status-symbols.c1", "parent": "PS.10A.foundations.status.status-symbols", "leaf": "PS.10A", "label": "What social purpose do status symbols serve?" },
+        {
+            "id": "PS.10A.foundations.status.status-defined.c1",
+            "parent": "PS.10A.foundations.status.status-defined",
+            "leaf": "PS.10A",
+            "label": "What is a status within a social structure?"
+        },
+        {
+            "id": "PS.10A.foundations.status.ascribed-status.c1",
+            "parent": "PS.10A.foundations.status.ascribed-status",
+            "leaf": "PS.10A",
+            "label": "Which type of status is assigned at birth, like race or sex?"
+        },
+        {
+            "id": "PS.10A.foundations.status.ascribed-status.c2",
+            "parent": "PS.10A.foundations.status.ascribed-status",
+            "leaf": "PS.10A",
+            "label": "Why is caste membership considered an ascribed status?"
+        },
+        {
+            "id": "PS.10A.foundations.status.achieved-status.c1",
+            "parent": "PS.10A.foundations.status.achieved-status",
+            "leaf": "PS.10A",
+            "label": "What distinguishes an achieved status from an ascribed one?"
+        },
+        {
+            "id": "PS.10A.foundations.status.achieved-status.c2",
+            "parent": "PS.10A.foundations.status.achieved-status",
+            "leaf": "PS.10A",
+            "label": "Is occupation an achieved or an ascribed status?"
+        },
+        {
+            "id": "PS.10A.foundations.status.master-status.c1",
+            "parent": "PS.10A.foundations.status.master-status",
+            "leaf": "PS.10A",
+            "label": "What is a master status and how does it shape identity?"
+        },
+        {
+            "id": "PS.10A.foundations.status.status-set.c1",
+            "parent": "PS.10A.foundations.status.status-set",
+            "leaf": "PS.10A",
+            "label": "What does a person's status set include?"
+        },
+        {
+            "id": "PS.10A.foundations.status.status-inconsistency.c1",
+            "parent": "PS.10A.foundations.status.status-inconsistency",
+            "leaf": "PS.10A",
+            "label": "High education with low income exemplifies what?"
+        },
+        {
+            "id": "PS.10A.foundations.status.status-symbols.c1",
+            "parent": "PS.10A.foundations.status.status-symbols",
+            "leaf": "PS.10A",
+            "label": "What social purpose do status symbols serve?"
+        },
 
-    { "id": "PS.10A.foundations.systems.open-vs-closed.c1", "parent": "PS.10A.foundations.systems.open-vs-closed", "leaf": "PS.10A", "label": "What distinguishes an open stratification system from a closed one?" },
-    { "id": "PS.10A.foundations.systems.open-vs-closed.c2", "parent": "PS.10A.foundations.systems.open-vs-closed", "leaf": "PS.10A", "label": "Which system allows mobility based on achievement rather than birth?" },
-    { "id": "PS.10A.foundations.systems.caste-system.c1", "parent": "PS.10A.foundations.systems.caste-system", "leaf": "PS.10A", "label": "Why is a caste system classified as a closed system?" },
-    { "id": "PS.10A.foundations.systems.caste-system.c2", "parent": "PS.10A.foundations.systems.caste-system", "leaf": "PS.10A", "label": "What determines a person's position in a caste system?" },
-    { "id": "PS.10A.foundations.systems.class-system.c1", "parent": "PS.10A.foundations.systems.class-system", "leaf": "PS.10A", "label": "On what basis does a class system primarily stratify people?" },
-    { "id": "PS.10A.foundations.systems.class-system.c2", "parent": "PS.10A.foundations.systems.class-system", "leaf": "PS.10A", "label": "Why is a class system considered relatively open?" },
-    { "id": "PS.10A.foundations.systems.estate-feudal.c1", "parent": "PS.10A.foundations.systems.estate-feudal", "leaf": "PS.10A", "label": "What defined social position in an estate (feudal) system?" },
-    { "id": "PS.10A.foundations.systems.slavery.c1", "parent": "PS.10A.foundations.systems.slavery", "leaf": "PS.10A", "label": "What feature makes slavery a closed stratification system?" },
-    { "id": "PS.10A.foundations.systems.meritocracy.c1", "parent": "PS.10A.foundations.systems.meritocracy", "leaf": "PS.10A", "label": "In an idealized meritocracy, what allocates social position?" },
-    { "id": "PS.10A.foundations.systems.social-closure.c1", "parent": "PS.10A.foundations.systems.social-closure", "leaf": "PS.10A", "label": "What does social closure accomplish for a dominant group?" },
+        {
+            "id": "PS.10A.foundations.systems.open-vs-closed.c1",
+            "parent": "PS.10A.foundations.systems.open-vs-closed",
+            "leaf": "PS.10A",
+            "label": "What distinguishes an open stratification system from a closed one?"
+        },
+        {
+            "id": "PS.10A.foundations.systems.open-vs-closed.c2",
+            "parent": "PS.10A.foundations.systems.open-vs-closed",
+            "leaf": "PS.10A",
+            "label": "Which system allows mobility based on achievement rather than birth?"
+        },
+        {
+            "id": "PS.10A.foundations.systems.caste-system.c1",
+            "parent": "PS.10A.foundations.systems.caste-system",
+            "leaf": "PS.10A",
+            "label": "Why is a caste system classified as a closed system?"
+        },
+        {
+            "id": "PS.10A.foundations.systems.caste-system.c2",
+            "parent": "PS.10A.foundations.systems.caste-system",
+            "leaf": "PS.10A",
+            "label": "What determines a person's position in a caste system?"
+        },
+        {
+            "id": "PS.10A.foundations.systems.class-system.c1",
+            "parent": "PS.10A.foundations.systems.class-system",
+            "leaf": "PS.10A",
+            "label": "On what basis does a class system primarily stratify people?"
+        },
+        {
+            "id": "PS.10A.foundations.systems.class-system.c2",
+            "parent": "PS.10A.foundations.systems.class-system",
+            "leaf": "PS.10A",
+            "label": "Why is a class system considered relatively open?"
+        },
+        {
+            "id": "PS.10A.foundations.systems.estate-feudal.c1",
+            "parent": "PS.10A.foundations.systems.estate-feudal",
+            "leaf": "PS.10A",
+            "label": "What defined social position in an estate (feudal) system?"
+        },
+        {
+            "id": "PS.10A.foundations.systems.slavery.c1",
+            "parent": "PS.10A.foundations.systems.slavery",
+            "leaf": "PS.10A",
+            "label": "What feature makes slavery a closed stratification system?"
+        },
+        {
+            "id": "PS.10A.foundations.systems.meritocracy.c1",
+            "parent": "PS.10A.foundations.systems.meritocracy",
+            "leaf": "PS.10A",
+            "label": "In an idealized meritocracy, what allocates social position?"
+        },
+        {
+            "id": "PS.10A.foundations.systems.social-closure.c1",
+            "parent": "PS.10A.foundations.systems.social-closure",
+            "leaf": "PS.10A",
+            "label": "What does social closure accomplish for a dominant group?"
+        },
 
-    { "id": "PS.10A.foundations.theory.davis-moore.c1", "parent": "PS.10A.foundations.theory.davis-moore", "leaf": "PS.10A", "label": "What does the Davis-Moore thesis claim about stratification?" },
-    { "id": "PS.10A.foundations.theory.davis-moore.c2", "parent": "PS.10A.foundations.theory.davis-moore", "leaf": "PS.10A", "label": "Which perspective sees unequal rewards as functional for society?" },
-    { "id": "PS.10A.foundations.theory.conflict-marx.c1", "parent": "PS.10A.foundations.theory.conflict-marx", "leaf": "PS.10A", "label": "How does conflict theory explain the persistence of stratification?" },
-    { "id": "PS.10A.foundations.theory.conflict-marx.c2", "parent": "PS.10A.foundations.theory.conflict-marx", "leaf": "PS.10A", "label": "According to Marx, class stratification arises from what?" },
-    { "id": "PS.10A.foundations.theory.bourgeoisie-proletariat.c1", "parent": "PS.10A.foundations.theory.bourgeoisie-proletariat", "leaf": "PS.10A", "label": "What distinguishes the bourgeoisie from the proletariat?" },
-    { "id": "PS.10A.foundations.theory.means-of-production.c1", "parent": "PS.10A.foundations.theory.means-of-production", "leaf": "PS.10A", "label": "What are the means of production in Marxist theory?" },
-    { "id": "PS.10A.foundations.theory.exploitation-surplus.c1", "parent": "PS.10A.foundations.theory.exploitation-surplus", "leaf": "PS.10A", "label": "How do capitalists extract surplus value from workers, per Marx?" },
-    { "id": "PS.10A.foundations.theory.weber-dimensions.c1", "parent": "PS.10A.foundations.theory.weber-dimensions", "leaf": "PS.10A", "label": "What three dimensions of stratification did Weber identify?" },
-    { "id": "PS.10A.foundations.theory.weber-dimensions.c2", "parent": "PS.10A.foundations.theory.weber-dimensions", "leaf": "PS.10A", "label": "How does Weber's view of stratification differ from Marx's?" },
-    { "id": "PS.10A.foundations.theory.symbolic-interactionist.c1", "parent": "PS.10A.foundations.theory.symbolic-interactionist", "leaf": "PS.10A", "label": "How does symbolic interactionism explain inequality's reproduction?" },
-    { "id": "PS.10A.foundations.theory.fundamental-cause.c1", "parent": "PS.10A.foundations.theory.fundamental-cause", "leaf": "PS.10A", "label": "Why does fundamental cause theory call SES a root cause of ill health?" },
+        {
+            "id": "PS.10A.foundations.theory.davis-moore.c1",
+            "parent": "PS.10A.foundations.theory.davis-moore",
+            "leaf": "PS.10A",
+            "label": "What does the Davis-Moore thesis claim about stratification?"
+        },
+        {
+            "id": "PS.10A.foundations.theory.davis-moore.c2",
+            "parent": "PS.10A.foundations.theory.davis-moore",
+            "leaf": "PS.10A",
+            "label": "Which perspective sees unequal rewards as functional for society?"
+        },
+        {
+            "id": "PS.10A.foundations.theory.conflict-marx.c1",
+            "parent": "PS.10A.foundations.theory.conflict-marx",
+            "leaf": "PS.10A",
+            "label": "How does conflict theory explain the persistence of stratification?"
+        },
+        {
+            "id": "PS.10A.foundations.theory.conflict-marx.c2",
+            "parent": "PS.10A.foundations.theory.conflict-marx",
+            "leaf": "PS.10A",
+            "label": "According to Marx, class stratification arises from what?"
+        },
+        {
+            "id": "PS.10A.foundations.theory.bourgeoisie-proletariat.c1",
+            "parent": "PS.10A.foundations.theory.bourgeoisie-proletariat",
+            "leaf": "PS.10A",
+            "label": "What distinguishes the bourgeoisie from the proletariat?"
+        },
+        {
+            "id": "PS.10A.foundations.theory.means-of-production.c1",
+            "parent": "PS.10A.foundations.theory.means-of-production",
+            "leaf": "PS.10A",
+            "label": "What are the means of production in Marxist theory?"
+        },
+        {
+            "id": "PS.10A.foundations.theory.exploitation-surplus.c1",
+            "parent": "PS.10A.foundations.theory.exploitation-surplus",
+            "leaf": "PS.10A",
+            "label": "How do capitalists extract surplus value from workers, per Marx?"
+        },
+        {
+            "id": "PS.10A.foundations.theory.weber-dimensions.c1",
+            "parent": "PS.10A.foundations.theory.weber-dimensions",
+            "leaf": "PS.10A",
+            "label": "What three dimensions of stratification did Weber identify?"
+        },
+        {
+            "id": "PS.10A.foundations.theory.weber-dimensions.c2",
+            "parent": "PS.10A.foundations.theory.weber-dimensions",
+            "leaf": "PS.10A",
+            "label": "How does Weber's view of stratification differ from Marx's?"
+        },
+        {
+            "id": "PS.10A.foundations.theory.symbolic-interactionist.c1",
+            "parent": "PS.10A.foundations.theory.symbolic-interactionist",
+            "leaf": "PS.10A",
+            "label": "How does symbolic interactionism explain inequality's reproduction?"
+        },
+        {
+            "id": "PS.10A.foundations.theory.fundamental-cause.c1",
+            "parent": "PS.10A.foundations.theory.fundamental-cause",
+            "leaf": "PS.10A",
+            "label": "Why does fundamental cause theory call SES a root cause of ill health?"
+        },
 
-    { "id": "PS.10A.social-class.ses.definition.c1", "parent": "PS.10A.social-class.ses.definition", "leaf": "PS.10A", "label": "What does socioeconomic status combine to measure?" },
-    { "id": "PS.10A.social-class.ses.definition.c2", "parent": "PS.10A.social-class.ses.definition", "leaf": "PS.10A", "label": "Why is SES considered a relative measure of position?" },
-    { "id": "PS.10A.social-class.ses.income-vs-wealth.c1", "parent": "PS.10A.social-class.ses.income-vs-wealth", "leaf": "PS.10A", "label": "How does income differ from wealth?" },
-    { "id": "PS.10A.social-class.ses.income-vs-wealth.c2", "parent": "PS.10A.social-class.ses.income-vs-wealth", "leaf": "PS.10A", "label": "Which reflects assets minus debts: income or wealth?" },
-    { "id": "PS.10A.social-class.ses.education-component.c1", "parent": "PS.10A.social-class.ses.education-component", "leaf": "PS.10A", "label": "Why is educational attainment used as an SES indicator?" },
-    { "id": "PS.10A.social-class.ses.occupation-prestige.c1", "parent": "PS.10A.social-class.ses.occupation-prestige", "leaf": "PS.10A", "label": "How does occupational prestige contribute to social standing?" },
-    { "id": "PS.10A.social-class.ses.power-component.c1", "parent": "PS.10A.social-class.ses.power-component", "leaf": "PS.10A", "label": "How does power factor into SES beyond money?" },
-    { "id": "PS.10A.social-class.ses.income-inequality.c1", "parent": "PS.10A.social-class.ses.income-inequality", "leaf": "PS.10A", "label": "What does income inequality describe about a population?" },
-    { "id": "PS.10A.social-class.ses.wealth-inequality.c1", "parent": "PS.10A.social-class.ses.wealth-inequality", "leaf": "PS.10A", "label": "Why is wealth inequality usually more extreme than income inequality?" },
-    { "id": "PS.10A.social-class.ses.gini-coefficient.c1", "parent": "PS.10A.social-class.ses.gini-coefficient", "leaf": "PS.10A", "label": "What do Gini values of 0 and 1 represent?" },
+        {
+            "id": "PS.10A.social-class.ses.definition.c1",
+            "parent": "PS.10A.social-class.ses.definition",
+            "leaf": "PS.10A",
+            "label": "What does socioeconomic status combine to measure?"
+        },
+        {
+            "id": "PS.10A.social-class.ses.definition.c2",
+            "parent": "PS.10A.social-class.ses.definition",
+            "leaf": "PS.10A",
+            "label": "Why is SES considered a relative measure of position?"
+        },
+        {
+            "id": "PS.10A.social-class.ses.income-vs-wealth.c1",
+            "parent": "PS.10A.social-class.ses.income-vs-wealth",
+            "leaf": "PS.10A",
+            "label": "How does income differ from wealth?"
+        },
+        {
+            "id": "PS.10A.social-class.ses.income-vs-wealth.c2",
+            "parent": "PS.10A.social-class.ses.income-vs-wealth",
+            "leaf": "PS.10A",
+            "label": "Which reflects assets minus debts: income or wealth?"
+        },
+        {
+            "id": "PS.10A.social-class.ses.education-component.c1",
+            "parent": "PS.10A.social-class.ses.education-component",
+            "leaf": "PS.10A",
+            "label": "Why is educational attainment used as an SES indicator?"
+        },
+        {
+            "id": "PS.10A.social-class.ses.occupation-prestige.c1",
+            "parent": "PS.10A.social-class.ses.occupation-prestige",
+            "leaf": "PS.10A",
+            "label": "How does occupational prestige contribute to social standing?"
+        },
+        {
+            "id": "PS.10A.social-class.ses.power-component.c1",
+            "parent": "PS.10A.social-class.ses.power-component",
+            "leaf": "PS.10A",
+            "label": "How does power factor into SES beyond money?"
+        },
+        {
+            "id": "PS.10A.social-class.ses.income-inequality.c1",
+            "parent": "PS.10A.social-class.ses.income-inequality",
+            "leaf": "PS.10A",
+            "label": "What does income inequality describe about a population?"
+        },
+        {
+            "id": "PS.10A.social-class.ses.wealth-inequality.c1",
+            "parent": "PS.10A.social-class.ses.wealth-inequality",
+            "leaf": "PS.10A",
+            "label": "Why is wealth inequality usually more extreme than income inequality?"
+        },
+        {
+            "id": "PS.10A.social-class.ses.gini-coefficient.c1",
+            "parent": "PS.10A.social-class.ses.gini-coefficient",
+            "leaf": "PS.10A",
+            "label": "What do Gini values of 0 and 1 represent?"
+        },
 
-    { "id": "PS.10A.social-class.class-structure.upper-class.c1", "parent": "PS.10A.social-class.class-structure.upper-class", "leaf": "PS.10A", "label": "What most characterizes the upper class's resources?" },
-    { "id": "PS.10A.social-class.class-structure.middle-class.c1", "parent": "PS.10A.social-class.class-structure.middle-class", "leaf": "PS.10A", "label": "Who typically composes the middle class?" },
-    { "id": "PS.10A.social-class.class-structure.working-class.c1", "parent": "PS.10A.social-class.class-structure.working-class", "leaf": "PS.10A", "label": "What kind of labor defines the working class?" },
-    { "id": "PS.10A.social-class.class-structure.lower-class.c1", "parent": "PS.10A.social-class.class-structure.lower-class", "leaf": "PS.10A", "label": "What best describes the lower class or underclass?" },
-    { "id": "PS.10A.social-class.class-structure.working-poor.c1", "parent": "PS.10A.social-class.class-structure.working-poor", "leaf": "PS.10A", "label": "Who are the working poor?" },
-    { "id": "PS.10A.social-class.class-structure.class-consciousness.c1", "parent": "PS.10A.social-class.class-structure.class-consciousness", "leaf": "PS.10A", "label": "What is class consciousness in Marxist theory?" },
-    { "id": "PS.10A.social-class.class-structure.false-consciousness.c1", "parent": "PS.10A.social-class.class-structure.false-consciousness", "leaf": "PS.10A", "label": "What does false consciousness describe about a subordinate class?" },
+        {
+            "id": "PS.10A.social-class.class-structure.upper-class.c1",
+            "parent": "PS.10A.social-class.class-structure.upper-class",
+            "leaf": "PS.10A",
+            "label": "What most characterizes the upper class's resources?"
+        },
+        {
+            "id": "PS.10A.social-class.class-structure.middle-class.c1",
+            "parent": "PS.10A.social-class.class-structure.middle-class",
+            "leaf": "PS.10A",
+            "label": "Who typically composes the middle class?"
+        },
+        {
+            "id": "PS.10A.social-class.class-structure.working-class.c1",
+            "parent": "PS.10A.social-class.class-structure.working-class",
+            "leaf": "PS.10A",
+            "label": "What kind of labor defines the working class?"
+        },
+        {
+            "id": "PS.10A.social-class.class-structure.lower-class.c1",
+            "parent": "PS.10A.social-class.class-structure.lower-class",
+            "leaf": "PS.10A",
+            "label": "What best describes the lower class or underclass?"
+        },
+        {
+            "id": "PS.10A.social-class.class-structure.working-poor.c1",
+            "parent": "PS.10A.social-class.class-structure.working-poor",
+            "leaf": "PS.10A",
+            "label": "Who are the working poor?"
+        },
+        {
+            "id": "PS.10A.social-class.class-structure.class-consciousness.c1",
+            "parent": "PS.10A.social-class.class-structure.class-consciousness",
+            "leaf": "PS.10A",
+            "label": "What is class consciousness in Marxist theory?"
+        },
+        {
+            "id": "PS.10A.social-class.class-structure.false-consciousness.c1",
+            "parent": "PS.10A.social-class.class-structure.false-consciousness",
+            "leaf": "PS.10A",
+            "label": "What does false consciousness describe about a subordinate class?"
+        },
 
-    { "id": "PS.10A.social-class.cultural-capital.cultural-capital.c1", "parent": "PS.10A.social-class.cultural-capital.cultural-capital", "leaf": "PS.10A", "label": "What non-financial assets make up cultural capital?" },
-    { "id": "PS.10A.social-class.cultural-capital.cultural-capital.c2", "parent": "PS.10A.social-class.cultural-capital.cultural-capital", "leaf": "PS.10A", "label": "How does cultural capital promote social mobility?" },
-    { "id": "PS.10A.social-class.cultural-capital.social-capital.c1", "parent": "PS.10A.social-class.cultural-capital.social-capital", "leaf": "PS.10A", "label": "From what does social capital derive its value?" },
-    { "id": "PS.10A.social-class.cultural-capital.social-capital.c2", "parent": "PS.10A.social-class.cultural-capital.social-capital", "leaf": "PS.10A", "label": "How does social capital differ from cultural capital?" },
-    { "id": "PS.10A.social-class.cultural-capital.economic-capital.c1", "parent": "PS.10A.social-class.cultural-capital.economic-capital", "leaf": "PS.10A", "label": "What resources constitute economic capital?" },
-    { "id": "PS.10A.social-class.cultural-capital.conspicuous-consumption.c1", "parent": "PS.10A.social-class.cultural-capital.conspicuous-consumption", "leaf": "PS.10A", "label": "What is the purpose of conspicuous consumption?" },
-    { "id": "PS.10A.social-class.cultural-capital.anomie.c1", "parent": "PS.10A.social-class.cultural-capital.anomie", "leaf": "PS.10A", "label": "What condition produces anomie, per strain theory?" },
-    { "id": "PS.10A.social-class.cultural-capital.opportunity-hoarding.c1", "parent": "PS.10A.social-class.cultural-capital.opportunity-hoarding", "leaf": "PS.10A", "label": "How do advantaged groups practice opportunity hoarding?" },
+        {
+            "id": "PS.10A.social-class.cultural-capital.cultural-capital.c1",
+            "parent": "PS.10A.social-class.cultural-capital.cultural-capital",
+            "leaf": "PS.10A",
+            "label": "What non-financial assets make up cultural capital?"
+        },
+        {
+            "id": "PS.10A.social-class.cultural-capital.cultural-capital.c2",
+            "parent": "PS.10A.social-class.cultural-capital.cultural-capital",
+            "leaf": "PS.10A",
+            "label": "How does cultural capital promote social mobility?"
+        },
+        {
+            "id": "PS.10A.social-class.cultural-capital.social-capital.c1",
+            "parent": "PS.10A.social-class.cultural-capital.social-capital",
+            "leaf": "PS.10A",
+            "label": "From what does social capital derive its value?"
+        },
+        {
+            "id": "PS.10A.social-class.cultural-capital.social-capital.c2",
+            "parent": "PS.10A.social-class.cultural-capital.social-capital",
+            "leaf": "PS.10A",
+            "label": "How does social capital differ from cultural capital?"
+        },
+        {
+            "id": "PS.10A.social-class.cultural-capital.economic-capital.c1",
+            "parent": "PS.10A.social-class.cultural-capital.economic-capital",
+            "leaf": "PS.10A",
+            "label": "What resources constitute economic capital?"
+        },
+        {
+            "id": "PS.10A.social-class.cultural-capital.conspicuous-consumption.c1",
+            "parent": "PS.10A.social-class.cultural-capital.conspicuous-consumption",
+            "leaf": "PS.10A",
+            "label": "What is the purpose of conspicuous consumption?"
+        },
+        {
+            "id": "PS.10A.social-class.cultural-capital.anomie.c1",
+            "parent": "PS.10A.social-class.cultural-capital.anomie",
+            "leaf": "PS.10A",
+            "label": "What condition produces anomie, per strain theory?"
+        },
+        {
+            "id": "PS.10A.social-class.cultural-capital.opportunity-hoarding.c1",
+            "parent": "PS.10A.social-class.cultural-capital.opportunity-hoarding",
+            "leaf": "PS.10A",
+            "label": "How do advantaged groups practice opportunity hoarding?"
+        },
 
-    { "id": "PS.10A.mobility.types.vertical.c1", "parent": "PS.10A.mobility.types.vertical", "leaf": "PS.10A", "label": "What defines vertical mobility?" },
-    { "id": "PS.10A.mobility.types.vertical.c2", "parent": "PS.10A.mobility.types.vertical", "leaf": "PS.10A", "label": "Which mobility type changes a person's class position?" },
-    { "id": "PS.10A.mobility.types.horizontal.c1", "parent": "PS.10A.mobility.types.horizontal", "leaf": "PS.10A", "label": "How does horizontal mobility differ from vertical mobility?" },
-    { "id": "PS.10A.mobility.types.upward-downward.c1", "parent": "PS.10A.mobility.types.upward-downward", "leaf": "PS.10A", "label": "What distinguishes upward from downward mobility?" },
-    { "id": "PS.10A.mobility.types.upward-downward.c2", "parent": "PS.10A.mobility.types.upward-downward", "leaf": "PS.10A", "label": "A worker demoted to a lower class experiences which mobility?" },
-    { "id": "PS.10A.mobility.types.intragenerational.c1", "parent": "PS.10A.mobility.types.intragenerational", "leaf": "PS.10A", "label": "What is intragenerational mobility?" },
-    { "id": "PS.10A.mobility.types.intragenerational.c2", "parent": "PS.10A.mobility.types.intragenerational", "leaf": "PS.10A", "label": "A person rising in class within their own life shows which mobility?" },
-    { "id": "PS.10A.mobility.types.intergenerational.c1", "parent": "PS.10A.mobility.types.intergenerational", "leaf": "PS.10A", "label": "What does intergenerational mobility compare?" },
-    { "id": "PS.10A.mobility.types.intergenerational.c2", "parent": "PS.10A.mobility.types.intergenerational", "leaf": "PS.10A", "label": "Comparing a child's class to their parents' measures which mobility?" },
-    { "id": "PS.10A.mobility.types.structural.c1", "parent": "PS.10A.mobility.types.structural", "leaf": "PS.10A", "label": "What causes structural mobility rather than individual effort?" },
-    { "id": "PS.10A.mobility.types.exchange-mobility.c1", "parent": "PS.10A.mobility.types.exchange-mobility", "leaf": "PS.10A", "label": "Why does exchange mobility leave the overall distribution unchanged?" },
+        {
+            "id": "PS.10A.mobility.types.vertical.c1",
+            "parent": "PS.10A.mobility.types.vertical",
+            "leaf": "PS.10A",
+            "label": "What defines vertical mobility?"
+        },
+        {
+            "id": "PS.10A.mobility.types.vertical.c2",
+            "parent": "PS.10A.mobility.types.vertical",
+            "leaf": "PS.10A",
+            "label": "Which mobility type changes a person's class position?"
+        },
+        {
+            "id": "PS.10A.mobility.types.horizontal.c1",
+            "parent": "PS.10A.mobility.types.horizontal",
+            "leaf": "PS.10A",
+            "label": "How does horizontal mobility differ from vertical mobility?"
+        },
+        {
+            "id": "PS.10A.mobility.types.upward-downward.c1",
+            "parent": "PS.10A.mobility.types.upward-downward",
+            "leaf": "PS.10A",
+            "label": "What distinguishes upward from downward mobility?"
+        },
+        {
+            "id": "PS.10A.mobility.types.upward-downward.c2",
+            "parent": "PS.10A.mobility.types.upward-downward",
+            "leaf": "PS.10A",
+            "label": "A worker demoted to a lower class experiences which mobility?"
+        },
+        {
+            "id": "PS.10A.mobility.types.intragenerational.c1",
+            "parent": "PS.10A.mobility.types.intragenerational",
+            "leaf": "PS.10A",
+            "label": "What is intragenerational mobility?"
+        },
+        {
+            "id": "PS.10A.mobility.types.intragenerational.c2",
+            "parent": "PS.10A.mobility.types.intragenerational",
+            "leaf": "PS.10A",
+            "label": "A person rising in class within their own life shows which mobility?"
+        },
+        {
+            "id": "PS.10A.mobility.types.intergenerational.c1",
+            "parent": "PS.10A.mobility.types.intergenerational",
+            "leaf": "PS.10A",
+            "label": "What does intergenerational mobility compare?"
+        },
+        {
+            "id": "PS.10A.mobility.types.intergenerational.c2",
+            "parent": "PS.10A.mobility.types.intergenerational",
+            "leaf": "PS.10A",
+            "label": "Comparing a child's class to their parents' measures which mobility?"
+        },
+        {
+            "id": "PS.10A.mobility.types.structural.c1",
+            "parent": "PS.10A.mobility.types.structural",
+            "leaf": "PS.10A",
+            "label": "What causes structural mobility rather than individual effort?"
+        },
+        {
+            "id": "PS.10A.mobility.types.exchange-mobility.c1",
+            "parent": "PS.10A.mobility.types.exchange-mobility",
+            "leaf": "PS.10A",
+            "label": "Why does exchange mobility leave the overall distribution unchanged?"
+        },
 
-    { "id": "PS.10A.mobility.reproduction.meritocracy-myth.c1", "parent": "PS.10A.mobility.reproduction.meritocracy-myth", "leaf": "PS.10A", "label": "What limits how fully class outcomes reflect pure merit?" },
-    { "id": "PS.10A.mobility.reproduction.social-reproduction.c1", "parent": "PS.10A.mobility.reproduction.social-reproduction", "leaf": "PS.10A", "label": "How is inequality transmitted across generations in social reproduction?" },
-    { "id": "PS.10A.mobility.reproduction.cumulative-advantage.c1", "parent": "PS.10A.mobility.reproduction.cumulative-advantage", "leaf": "PS.10A", "label": "What does the Matthew effect describe about early advantages?" },
-    { "id": "PS.10A.mobility.reproduction.educational-tracking.c1", "parent": "PS.10A.mobility.reproduction.educational-tracking", "leaf": "PS.10A", "label": "How can educational tracking reinforce class differences?" },
+        {
+            "id": "PS.10A.mobility.reproduction.meritocracy-myth.c1",
+            "parent": "PS.10A.mobility.reproduction.meritocracy-myth",
+            "leaf": "PS.10A",
+            "label": "What limits how fully class outcomes reflect pure merit?"
+        },
+        {
+            "id": "PS.10A.mobility.reproduction.social-reproduction.c1",
+            "parent": "PS.10A.mobility.reproduction.social-reproduction",
+            "leaf": "PS.10A",
+            "label": "How is inequality transmitted across generations in social reproduction?"
+        },
+        {
+            "id": "PS.10A.mobility.reproduction.cumulative-advantage.c1",
+            "parent": "PS.10A.mobility.reproduction.cumulative-advantage",
+            "leaf": "PS.10A",
+            "label": "What does the Matthew effect describe about early advantages?"
+        },
+        {
+            "id": "PS.10A.mobility.reproduction.educational-tracking.c1",
+            "parent": "PS.10A.mobility.reproduction.educational-tracking",
+            "leaf": "PS.10A",
+            "label": "How can educational tracking reinforce class differences?"
+        },
 
-    { "id": "PS.10A.poverty.types.absolute-poverty.c1", "parent": "PS.10A.poverty.types.absolute-poverty", "leaf": "PS.10A", "label": "What defines absolute poverty?" },
-    { "id": "PS.10A.poverty.types.absolute-poverty.c2", "parent": "PS.10A.poverty.types.absolute-poverty", "leaf": "PS.10A", "label": "Lacking food, shelter, and clean water reflects which poverty type?" },
-    { "id": "PS.10A.poverty.types.relative-poverty.c1", "parent": "PS.10A.poverty.types.relative-poverty", "leaf": "PS.10A", "label": "How is relative poverty defined?" },
-    { "id": "PS.10A.poverty.types.relative-poverty.c2", "parent": "PS.10A.poverty.types.relative-poverty", "leaf": "PS.10A", "label": "Why can relative poverty persist even amid overall affluence?" },
-    { "id": "PS.10A.poverty.types.relative-deprivation.c1", "parent": "PS.10A.poverty.types.relative-deprivation", "leaf": "PS.10A", "label": "What is relative deprivation relative to a reference group?" },
-    { "id": "PS.10A.poverty.types.poverty-line.c1", "parent": "PS.10A.poverty.types.poverty-line", "leaf": "PS.10A", "label": "What does the poverty line or threshold determine?" },
-    { "id": "PS.10A.poverty.types.feminization-poverty.c1", "parent": "PS.10A.poverty.types.feminization-poverty", "leaf": "PS.10A", "label": "What trend does the feminization of poverty describe?" },
-    { "id": "PS.10A.poverty.types.situational-vs-generational.c1", "parent": "PS.10A.poverty.types.situational-vs-generational", "leaf": "PS.10A", "label": "How does situational poverty differ from generational poverty?" },
+        {
+            "id": "PS.10A.poverty.types.absolute-poverty.c1",
+            "parent": "PS.10A.poverty.types.absolute-poverty",
+            "leaf": "PS.10A",
+            "label": "What defines absolute poverty?"
+        },
+        {
+            "id": "PS.10A.poverty.types.absolute-poverty.c2",
+            "parent": "PS.10A.poverty.types.absolute-poverty",
+            "leaf": "PS.10A",
+            "label": "Lacking food, shelter, and clean water reflects which poverty type?"
+        },
+        {
+            "id": "PS.10A.poverty.types.relative-poverty.c1",
+            "parent": "PS.10A.poverty.types.relative-poverty",
+            "leaf": "PS.10A",
+            "label": "How is relative poverty defined?"
+        },
+        {
+            "id": "PS.10A.poverty.types.relative-poverty.c2",
+            "parent": "PS.10A.poverty.types.relative-poverty",
+            "leaf": "PS.10A",
+            "label": "Why can relative poverty persist even amid overall affluence?"
+        },
+        {
+            "id": "PS.10A.poverty.types.relative-deprivation.c1",
+            "parent": "PS.10A.poverty.types.relative-deprivation",
+            "leaf": "PS.10A",
+            "label": "What is relative deprivation relative to a reference group?"
+        },
+        {
+            "id": "PS.10A.poverty.types.poverty-line.c1",
+            "parent": "PS.10A.poverty.types.poverty-line",
+            "leaf": "PS.10A",
+            "label": "What does the poverty line or threshold determine?"
+        },
+        {
+            "id": "PS.10A.poverty.types.feminization-poverty.c1",
+            "parent": "PS.10A.poverty.types.feminization-poverty",
+            "leaf": "PS.10A",
+            "label": "What trend does the feminization of poverty describe?"
+        },
+        {
+            "id": "PS.10A.poverty.types.situational-vs-generational.c1",
+            "parent": "PS.10A.poverty.types.situational-vs-generational",
+            "leaf": "PS.10A",
+            "label": "How does situational poverty differ from generational poverty?"
+        },
 
-    { "id": "PS.10A.poverty.mechanisms.cycle-of-poverty.c1", "parent": "PS.10A.poverty.mechanisms.cycle-of-poverty", "leaf": "PS.10A", "label": "What makes the cycle of poverty self-perpetuating?" },
-    { "id": "PS.10A.poverty.mechanisms.cycle-of-poverty.c2", "parent": "PS.10A.poverty.mechanisms.cycle-of-poverty", "leaf": "PS.10A", "label": "Why is poverty often transmitted from parents to children?" },
-    { "id": "PS.10A.poverty.mechanisms.culture-of-poverty.c1", "parent": "PS.10A.poverty.mechanisms.culture-of-poverty", "leaf": "PS.10A", "label": "What does the culture-of-poverty thesis controversially claim?" },
-    { "id": "PS.10A.poverty.mechanisms.social-exclusion.c1", "parent": "PS.10A.poverty.mechanisms.social-exclusion", "leaf": "PS.10A", "label": "What does social exclusion or marginalization involve?" },
-    { "id": "PS.10A.poverty.mechanisms.blaming-victim.c1", "parent": "PS.10A.poverty.mechanisms.blaming-victim", "leaf": "PS.10A", "label": "How does blaming the victim differ from structural explanations?" },
-    { "id": "PS.10A.poverty.mechanisms.social-welfare.c1", "parent": "PS.10A.poverty.mechanisms.social-welfare", "leaf": "PS.10A", "label": "What is the purpose of a social safety net?" },
+        {
+            "id": "PS.10A.poverty.mechanisms.cycle-of-poverty.c1",
+            "parent": "PS.10A.poverty.mechanisms.cycle-of-poverty",
+            "leaf": "PS.10A",
+            "label": "What makes the cycle of poverty self-perpetuating?"
+        },
+        {
+            "id": "PS.10A.poverty.mechanisms.cycle-of-poverty.c2",
+            "parent": "PS.10A.poverty.mechanisms.cycle-of-poverty",
+            "leaf": "PS.10A",
+            "label": "Why is poverty often transmitted from parents to children?"
+        },
+        {
+            "id": "PS.10A.poverty.mechanisms.culture-of-poverty.c1",
+            "parent": "PS.10A.poverty.mechanisms.culture-of-poverty",
+            "leaf": "PS.10A",
+            "label": "What does the culture-of-poverty thesis controversially claim?"
+        },
+        {
+            "id": "PS.10A.poverty.mechanisms.social-exclusion.c1",
+            "parent": "PS.10A.poverty.mechanisms.social-exclusion",
+            "leaf": "PS.10A",
+            "label": "What does social exclusion or marginalization involve?"
+        },
+        {
+            "id": "PS.10A.poverty.mechanisms.blaming-victim.c1",
+            "parent": "PS.10A.poverty.mechanisms.blaming-victim",
+            "leaf": "PS.10A",
+            "label": "How does blaming the victim differ from structural explanations?"
+        },
+        {
+            "id": "PS.10A.poverty.mechanisms.social-welfare.c1",
+            "parent": "PS.10A.poverty.mechanisms.social-welfare",
+            "leaf": "PS.10A",
+            "label": "What is the purpose of a social safety net?"
+        },
 
-    { "id": "PS.10A.spatial.residential.segregation.c1", "parent": "PS.10A.spatial.residential.segregation", "leaf": "PS.10A", "label": "What is residential segregation?" },
-    { "id": "PS.10A.spatial.residential.segregation.c2", "parent": "PS.10A.spatial.residential.segregation", "leaf": "PS.10A", "label": "How does residential segregation shape access to resources?" },
-    { "id": "PS.10A.spatial.residential.neighborhood-effects.c1", "parent": "PS.10A.spatial.residential.neighborhood-effects", "leaf": "PS.10A", "label": "What do neighborhood effects describe about residents' outcomes?" },
-    { "id": "PS.10A.spatial.residential.neighborhood-safety.c1", "parent": "PS.10A.spatial.residential.neighborhood-safety", "leaf": "PS.10A", "label": "How does exposure to neighborhood violence affect life chances?" },
-    { "id": "PS.10A.spatial.residential.redlining.c1", "parent": "PS.10A.spatial.residential.redlining", "leaf": "PS.10A", "label": "What historical practice was redlining?" },
-    { "id": "PS.10A.spatial.residential.white-flight.c1", "parent": "PS.10A.spatial.residential.white-flight", "leaf": "PS.10A", "label": "What is white flight and how does it deepen segregation?" },
-    { "id": "PS.10A.spatial.residential.concentrated-poverty.c1", "parent": "PS.10A.spatial.residential.concentrated-poverty", "leaf": "PS.10A", "label": "What compounds disadvantage in areas of concentrated poverty?" },
-    { "id": "PS.10A.spatial.residential.urbanization.c1", "parent": "PS.10A.spatial.residential.urbanization", "leaf": "PS.10A", "label": "What does urbanization describe about population distribution?" },
-    { "id": "PS.10A.spatial.residential.suburbanization-sprawl.c1", "parent": "PS.10A.spatial.residential.suburbanization-sprawl", "leaf": "PS.10A", "label": "How do suburbanization and sprawl shift resources outward?" },
-    { "id": "PS.10A.spatial.residential.gentrification.c1", "parent": "PS.10A.spatial.residential.gentrification", "leaf": "PS.10A", "label": "What effect can gentrification have on original residents?" },
+        {
+            "id": "PS.10A.spatial.residential.segregation.c1",
+            "parent": "PS.10A.spatial.residential.segregation",
+            "leaf": "PS.10A",
+            "label": "What is residential segregation?"
+        },
+        {
+            "id": "PS.10A.spatial.residential.segregation.c2",
+            "parent": "PS.10A.spatial.residential.segregation",
+            "leaf": "PS.10A",
+            "label": "How does residential segregation shape access to resources?"
+        },
+        {
+            "id": "PS.10A.spatial.residential.neighborhood-effects.c1",
+            "parent": "PS.10A.spatial.residential.neighborhood-effects",
+            "leaf": "PS.10A",
+            "label": "What do neighborhood effects describe about residents' outcomes?"
+        },
+        {
+            "id": "PS.10A.spatial.residential.neighborhood-safety.c1",
+            "parent": "PS.10A.spatial.residential.neighborhood-safety",
+            "leaf": "PS.10A",
+            "label": "How does exposure to neighborhood violence affect life chances?"
+        },
+        {
+            "id": "PS.10A.spatial.residential.redlining.c1",
+            "parent": "PS.10A.spatial.residential.redlining",
+            "leaf": "PS.10A",
+            "label": "What historical practice was redlining?"
+        },
+        {
+            "id": "PS.10A.spatial.residential.white-flight.c1",
+            "parent": "PS.10A.spatial.residential.white-flight",
+            "leaf": "PS.10A",
+            "label": "What is white flight and how does it deepen segregation?"
+        },
+        {
+            "id": "PS.10A.spatial.residential.concentrated-poverty.c1",
+            "parent": "PS.10A.spatial.residential.concentrated-poverty",
+            "leaf": "PS.10A",
+            "label": "What compounds disadvantage in areas of concentrated poverty?"
+        },
+        {
+            "id": "PS.10A.spatial.residential.urbanization.c1",
+            "parent": "PS.10A.spatial.residential.urbanization",
+            "leaf": "PS.10A",
+            "label": "What does urbanization describe about population distribution?"
+        },
+        {
+            "id": "PS.10A.spatial.residential.suburbanization-sprawl.c1",
+            "parent": "PS.10A.spatial.residential.suburbanization-sprawl",
+            "leaf": "PS.10A",
+            "label": "How do suburbanization and sprawl shift resources outward?"
+        },
+        {
+            "id": "PS.10A.spatial.residential.gentrification.c1",
+            "parent": "PS.10A.spatial.residential.gentrification",
+            "leaf": "PS.10A",
+            "label": "What effect can gentrification have on original residents?"
+        },
 
-    { "id": "PS.10A.spatial.environmental.environmental-justice.c1", "parent": "PS.10A.spatial.environmental.environmental-justice", "leaf": "PS.10A", "label": "What does environmental justice concern about hazards and benefits?" },
-    { "id": "PS.10A.spatial.environmental.environmental-justice.c2", "parent": "PS.10A.spatial.environmental.environmental-justice", "leaf": "PS.10A", "label": "Siting toxic facilities near poor areas violates what principle?" },
-    { "id": "PS.10A.spatial.environmental.environmental-racism.c1", "parent": "PS.10A.spatial.environmental.environmental-racism", "leaf": "PS.10A", "label": "What does environmental racism describe about hazard exposure?" },
-    { "id": "PS.10A.spatial.environmental.food-desert.c1", "parent": "PS.10A.spatial.environmental.food-desert", "leaf": "PS.10A", "label": "What defines a food desert?" },
-    { "id": "PS.10A.spatial.environmental.food-insecurity.c1", "parent": "PS.10A.spatial.environmental.food-insecurity", "leaf": "PS.10A", "label": "What does food insecurity indicate about access to food?" },
-    { "id": "PS.10A.spatial.environmental.digital-divide.c1", "parent": "PS.10A.spatial.environmental.digital-divide", "leaf": "PS.10A", "label": "How does the digital divide reproduce inequality?" },
+        {
+            "id": "PS.10A.spatial.environmental.environmental-justice.c1",
+            "parent": "PS.10A.spatial.environmental.environmental-justice",
+            "leaf": "PS.10A",
+            "label": "What does environmental justice concern about hazards and benefits?"
+        },
+        {
+            "id": "PS.10A.spatial.environmental.environmental-justice.c2",
+            "parent": "PS.10A.spatial.environmental.environmental-justice",
+            "leaf": "PS.10A",
+            "label": "Siting toxic facilities near poor areas violates what principle?"
+        },
+        {
+            "id": "PS.10A.spatial.environmental.environmental-racism.c1",
+            "parent": "PS.10A.spatial.environmental.environmental-racism",
+            "leaf": "PS.10A",
+            "label": "What does environmental racism describe about hazard exposure?"
+        },
+        {
+            "id": "PS.10A.spatial.environmental.food-desert.c1",
+            "parent": "PS.10A.spatial.environmental.food-desert",
+            "leaf": "PS.10A",
+            "label": "What defines a food desert?"
+        },
+        {
+            "id": "PS.10A.spatial.environmental.food-insecurity.c1",
+            "parent": "PS.10A.spatial.environmental.food-insecurity",
+            "leaf": "PS.10A",
+            "label": "What does food insecurity indicate about access to food?"
+        },
+        {
+            "id": "PS.10A.spatial.environmental.digital-divide.c1",
+            "parent": "PS.10A.spatial.environmental.digital-divide",
+            "leaf": "PS.10A",
+            "label": "How does the digital divide reproduce inequality?"
+        },
 
-    { "id": "PS.10A.spatial.global.global-stratification.c1", "parent": "PS.10A.spatial.global.global-stratification", "leaf": "PS.10A", "label": "What does global stratification describe among nations?" },
-    { "id": "PS.10A.spatial.global.world-systems.c1", "parent": "PS.10A.spatial.global.world-systems", "leaf": "PS.10A", "label": "How does world-systems theory categorize nations?" },
-    { "id": "PS.10A.spatial.global.global-vs-domestic.c1", "parent": "PS.10A.spatial.global.global-vs-domestic", "leaf": "PS.10A", "label": "How do global and domestic patterns of inequality relate?" },
+        {
+            "id": "PS.10A.spatial.global.global-stratification.c1",
+            "parent": "PS.10A.spatial.global.global-stratification",
+            "leaf": "PS.10A",
+            "label": "What does global stratification describe among nations?"
+        },
+        {
+            "id": "PS.10A.spatial.global.world-systems.c1",
+            "parent": "PS.10A.spatial.global.world-systems",
+            "leaf": "PS.10A",
+            "label": "How does world-systems theory categorize nations?"
+        },
+        {
+            "id": "PS.10A.spatial.global.global-vs-domestic.c1",
+            "parent": "PS.10A.spatial.global.global-vs-domestic",
+            "leaf": "PS.10A",
+            "label": "How do global and domestic patterns of inequality relate?"
+        },
 
-    { "id": "PS.10A.health-disparities.determinants.sdoh-defined.c1", "parent": "PS.10A.health-disparities.determinants.sdoh-defined", "leaf": "PS.10A", "label": "What are the social determinants of health?" },
-    { "id": "PS.10A.health-disparities.determinants.sdoh-defined.c2", "parent": "PS.10A.health-disparities.determinants.sdoh-defined", "leaf": "PS.10A", "label": "Income, education, and environment are examples of what?" },
-    { "id": "PS.10A.health-disparities.determinants.health-gradient.c1", "parent": "PS.10A.health-disparities.determinants.health-gradient", "leaf": "PS.10A", "label": "What does the social gradient in health describe?" },
-    { "id": "PS.10A.health-disparities.determinants.health-gradient.c2", "parent": "PS.10A.health-disparities.determinants.health-gradient", "leaf": "PS.10A", "label": "Why do even middle-income people fare worse than the wealthiest?" },
-    { "id": "PS.10A.health-disparities.determinants.health-disparity-defined.c1", "parent": "PS.10A.health-disparities.determinants.health-disparity-defined", "leaf": "PS.10A", "label": "What defines a health disparity?" },
-    { "id": "PS.10A.health-disparities.determinants.health-disparity-defined.c2", "parent": "PS.10A.health-disparities.determinants.health-disparity-defined", "leaf": "PS.10A", "label": "What makes a health difference a disparity rather than variation?" },
-    { "id": "PS.10A.health-disparities.determinants.health-equity.c1", "parent": "PS.10A.health-disparities.determinants.health-equity", "leaf": "PS.10A", "label": "How does health equity differ from health equality?" },
-    { "id": "PS.10A.health-disparities.determinants.weathering-allostatic.c1", "parent": "PS.10A.health-disparities.determinants.weathering-allostatic", "leaf": "PS.10A", "label": "What does weathering describe about chronic stress and health?" },
+        {
+            "id": "PS.10A.health-disparities.determinants.sdoh-defined.c1",
+            "parent": "PS.10A.health-disparities.determinants.sdoh-defined",
+            "leaf": "PS.10A",
+            "label": "What are the social determinants of health?"
+        },
+        {
+            "id": "PS.10A.health-disparities.determinants.sdoh-defined.c2",
+            "parent": "PS.10A.health-disparities.determinants.sdoh-defined",
+            "leaf": "PS.10A",
+            "label": "Income, education, and environment are examples of what?"
+        },
+        {
+            "id": "PS.10A.health-disparities.determinants.health-gradient.c1",
+            "parent": "PS.10A.health-disparities.determinants.health-gradient",
+            "leaf": "PS.10A",
+            "label": "What does the social gradient in health describe?"
+        },
+        {
+            "id": "PS.10A.health-disparities.determinants.health-gradient.c2",
+            "parent": "PS.10A.health-disparities.determinants.health-gradient",
+            "leaf": "PS.10A",
+            "label": "Why do even middle-income people fare worse than the wealthiest?"
+        },
+        {
+            "id": "PS.10A.health-disparities.determinants.health-disparity-defined.c1",
+            "parent": "PS.10A.health-disparities.determinants.health-disparity-defined",
+            "leaf": "PS.10A",
+            "label": "What defines a health disparity?"
+        },
+        {
+            "id": "PS.10A.health-disparities.determinants.health-disparity-defined.c2",
+            "parent": "PS.10A.health-disparities.determinants.health-disparity-defined",
+            "leaf": "PS.10A",
+            "label": "What makes a health difference a disparity rather than variation?"
+        },
+        {
+            "id": "PS.10A.health-disparities.determinants.health-equity.c1",
+            "parent": "PS.10A.health-disparities.determinants.health-equity",
+            "leaf": "PS.10A",
+            "label": "How does health equity differ from health equality?"
+        },
+        {
+            "id": "PS.10A.health-disparities.determinants.weathering-allostatic.c1",
+            "parent": "PS.10A.health-disparities.determinants.weathering-allostatic",
+            "leaf": "PS.10A",
+            "label": "What does weathering describe about chronic stress and health?"
+        },
 
-    { "id": "PS.10A.health-disparities.access.healthcare-access.c1", "parent": "PS.10A.health-disparities.access.healthcare-access", "leaf": "PS.10A", "label": "What barriers produce unequal healthcare access?" },
-    { "id": "PS.10A.health-disparities.access.healthcare-access.c2", "parent": "PS.10A.health-disparities.access.healthcare-access", "leaf": "PS.10A", "label": "How do insurance status and geography affect healthcare access?" },
-    { "id": "PS.10A.health-disparities.access.insurance-disparity.c1", "parent": "PS.10A.health-disparities.access.insurance-disparity", "leaf": "PS.10A", "label": "How does insurance coverage disparity affect use of care?" },
-    { "id": "PS.10A.health-disparities.access.healthcare-desert.c1", "parent": "PS.10A.health-disparities.access.healthcare-desert", "leaf": "PS.10A", "label": "What characterizes a healthcare desert?" },
-    { "id": "PS.10A.health-disparities.access.ses-health-gap.c1", "parent": "PS.10A.health-disparities.access.ses-health-gap", "leaf": "PS.10A", "label": "How does lower SES relate to chronic disease and mortality?" },
-    { "id": "PS.10A.health-disparities.access.ses-health-gap.c2", "parent": "PS.10A.health-disparities.access.ses-health-gap", "leaf": "PS.10A", "label": "Through what pathways does low SES worsen health outcomes?" },
-    { "id": "PS.10A.health-disparities.access.racial-health-disparities.c1", "parent": "PS.10A.health-disparities.access.racial-health-disparities", "leaf": "PS.10A", "label": "What drives racial and ethnic health disparities?" },
-    { "id": "PS.10A.health-disparities.access.racial-health-disparities.c2", "parent": "PS.10A.health-disparities.access.racial-health-disparities", "leaf": "PS.10A", "label": "How does structural discrimination contribute to health disparities?" },
-    { "id": "PS.10A.health-disparities.access.gender-health-disparities.c1", "parent": "PS.10A.health-disparities.access.gender-health-disparities", "leaf": "PS.10A", "label": "What factors produce gender differences in health outcomes?" },
-    { "id": "PS.10A.health-disparities.access.life-expectancy-gap.c1", "parent": "PS.10A.health-disparities.access.life-expectancy-gap", "leaf": "PS.10A", "label": "What does the life expectancy gap reveal about disadvantage?" },
+        {
+            "id": "PS.10A.health-disparities.access.healthcare-access.c1",
+            "parent": "PS.10A.health-disparities.access.healthcare-access",
+            "leaf": "PS.10A",
+            "label": "What barriers produce unequal healthcare access?"
+        },
+        {
+            "id": "PS.10A.health-disparities.access.healthcare-access.c2",
+            "parent": "PS.10A.health-disparities.access.healthcare-access",
+            "leaf": "PS.10A",
+            "label": "How do insurance status and geography affect healthcare access?"
+        },
+        {
+            "id": "PS.10A.health-disparities.access.insurance-disparity.c1",
+            "parent": "PS.10A.health-disparities.access.insurance-disparity",
+            "leaf": "PS.10A",
+            "label": "How does insurance coverage disparity affect use of care?"
+        },
+        {
+            "id": "PS.10A.health-disparities.access.healthcare-desert.c1",
+            "parent": "PS.10A.health-disparities.access.healthcare-desert",
+            "leaf": "PS.10A",
+            "label": "What characterizes a healthcare desert?"
+        },
+        {
+            "id": "PS.10A.health-disparities.access.ses-health-gap.c1",
+            "parent": "PS.10A.health-disparities.access.ses-health-gap",
+            "leaf": "PS.10A",
+            "label": "How does lower SES relate to chronic disease and mortality?"
+        },
+        {
+            "id": "PS.10A.health-disparities.access.ses-health-gap.c2",
+            "parent": "PS.10A.health-disparities.access.ses-health-gap",
+            "leaf": "PS.10A",
+            "label": "Through what pathways does low SES worsen health outcomes?"
+        },
+        {
+            "id": "PS.10A.health-disparities.access.racial-health-disparities.c1",
+            "parent": "PS.10A.health-disparities.access.racial-health-disparities",
+            "leaf": "PS.10A",
+            "label": "What drives racial and ethnic health disparities?"
+        },
+        {
+            "id": "PS.10A.health-disparities.access.racial-health-disparities.c2",
+            "parent": "PS.10A.health-disparities.access.racial-health-disparities",
+            "leaf": "PS.10A",
+            "label": "How does structural discrimination contribute to health disparities?"
+        },
+        {
+            "id": "PS.10A.health-disparities.access.gender-health-disparities.c1",
+            "parent": "PS.10A.health-disparities.access.gender-health-disparities",
+            "leaf": "PS.10A",
+            "label": "What factors produce gender differences in health outcomes?"
+        },
+        {
+            "id": "PS.10A.health-disparities.access.life-expectancy-gap.c1",
+            "parent": "PS.10A.health-disparities.access.life-expectancy-gap",
+            "leaf": "PS.10A",
+            "label": "What does the life expectancy gap reveal about disadvantage?"
+        },
 
-    { "id": "PS.10A.intersectionality.bases.intersectionality.c1", "parent": "PS.10A.intersectionality.bases.intersectionality", "leaf": "PS.10A", "label": "What does intersectionality describe about overlapping identities?" },
-    { "id": "PS.10A.intersectionality.bases.intersectionality.c2", "parent": "PS.10A.intersectionality.bases.intersectionality", "leaf": "PS.10A", "label": "How can intersecting identities compound disadvantage?" },
-    { "id": "PS.10A.intersectionality.bases.class-race-gender.c1", "parent": "PS.10A.intersectionality.bases.class-race-gender", "leaf": "PS.10A", "label": "How do class, race, and gender operate as stratification axes?" },
-    { "id": "PS.10A.intersectionality.bases.gender-inequality.c1", "parent": "PS.10A.intersectionality.bases.gender-inequality", "leaf": "PS.10A", "label": "What does the glass ceiling illustrate about gender inequality?" },
-    { "id": "PS.10A.intersectionality.bases.age-stratification.c1", "parent": "PS.10A.intersectionality.bases.age-stratification", "leaf": "PS.10A", "label": "How does age stratification allocate resources and roles?" },
-    { "id": "PS.10A.intersectionality.bases.disability-inequality.c1", "parent": "PS.10A.intersectionality.bases.disability-inequality", "leaf": "PS.10A", "label": "What barriers produce inequality for people with disabilities?" }
-  ] }
+        {
+            "id": "PS.10A.intersectionality.bases.intersectionality.c1",
+            "parent": "PS.10A.intersectionality.bases.intersectionality",
+            "leaf": "PS.10A",
+            "label": "What does intersectionality describe about overlapping identities?"
+        },
+        {
+            "id": "PS.10A.intersectionality.bases.intersectionality.c2",
+            "parent": "PS.10A.intersectionality.bases.intersectionality",
+            "leaf": "PS.10A",
+            "label": "How can intersecting identities compound disadvantage?"
+        },
+        {
+            "id": "PS.10A.intersectionality.bases.class-race-gender.c1",
+            "parent": "PS.10A.intersectionality.bases.class-race-gender",
+            "leaf": "PS.10A",
+            "label": "How do class, race, and gender operate as stratification axes?"
+        },
+        {
+            "id": "PS.10A.intersectionality.bases.gender-inequality.c1",
+            "parent": "PS.10A.intersectionality.bases.gender-inequality",
+            "leaf": "PS.10A",
+            "label": "What does the glass ceiling illustrate about gender inequality?"
+        },
+        {
+            "id": "PS.10A.intersectionality.bases.age-stratification.c1",
+            "parent": "PS.10A.intersectionality.bases.age-stratification",
+            "leaf": "PS.10A",
+            "label": "How does age stratification allocate resources and roles?"
+        },
+        {
+            "id": "PS.10A.intersectionality.bases.disability-inequality.c1",
+            "parent": "PS.10A.intersectionality.bases.disability-inequality",
+            "leaf": "PS.10A",
+            "label": "What barriers produce inequality for people with disabilities?"
+        }
+    ]
+}

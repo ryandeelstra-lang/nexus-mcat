@@ -5,16 +5,19 @@ job is the "check" half of "create and check": confirm the prerequisite edges ar
 ones, and ADD the high-value cross-domain prerequisites that a single-scope generator couldn't see.
 
 ## Inputs (read these)
+
 - `docs/data/mcat_topics.yaml` — the FULL assembled topic layer: every topic/subtopic id + name for the
   whole MCAT, plus the current `topic_prerequisites` (each with a rationale + confidence). This is your
   complete id space — you may reference any id in it.
 - Optionally the `docs/data/topics/gen_*.yaml` fragments for extra rationale context.
 
 ## Your scope
+
 You own ONE section (given in your prompt): all topic/subtopic ids whose id begins with your section's
 prefix (`BB.` = B-B, `CP.` = C-P, `PS.` = P-S, `CARS.` = CARS).
 
 ## What to produce
+
 1. **drop** — prerequisite edges whose **destination (`dst`) is in YOUR section** that are WRONG (reversed
    direction, not an actual prerequisite, circular, or nonsensical). Be conservative: only drop genuinely
    incorrect edges; keeping a correct edge is the default (you do NOT need to list edges you keep).
@@ -27,6 +30,7 @@ prefix (`BB.` = B-B, `CP.` = C-P, `PS.` = P-S, `CARS.` = CARS).
    mis-scoped, with a one-line issue. (Reported for human review; not auto-applied.)
 
 ## Hard rules
+
 - Endpoints must be EXACT ids that exist in `mcat_topics.yaml` (a topic or subtopic id) — never a bare
   content-category id (e.g. never `BB.1A`).
 - `dst` of every drop/add must be in YOUR section.
@@ -34,6 +38,7 @@ prefix (`BB.` = B-B, `CP.` = C-P, `PS.` = P-S, `CARS.` = CARS).
 - Write ONLY your assigned file; make no other edits.
 
 ## Output YAML shape (exactly)
+
 ```yaml
 section: "B-B"
 drop:

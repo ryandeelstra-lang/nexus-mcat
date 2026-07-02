@@ -221,7 +221,8 @@ it shows the structured "prove this topic" abstention, never a fabricated number
                                         </span>
                                     </div>
                                     <div class="gate-cap">
-                                        of {data.readiness.coverage_required_pct}% categories
+                                        of {data.readiness.coverage_required_pct}%
+                                        categories
                                     </div>
                                 </div>
                             {/if}

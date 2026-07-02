@@ -72,7 +72,9 @@ License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
             Roboto,
             sans-serif;
         font-optical-sizing: auto;
-        font-feature-settings: "liga" 1, "calt" 1;
+        font-feature-settings:
+            "liga" 1,
+            "calt" 1;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-rendering: optimizeLegibility;

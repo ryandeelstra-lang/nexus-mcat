@@ -1,341 +1,2033 @@
-{ "fc": "FC9",
-  "cards": [
-    {"id": "PS.9A.theoretical-approaches.macro-micro.macrosociology.c1", "parent": "PS.9A.theoretical-approaches.macro-micro.macrosociology", "leaf": "PS.9A", "label": "What scale of social phenomena does macrosociology primarily examine?"},
-    {"id": "PS.9A.theoretical-approaches.macro-micro.macrosociology.c2", "parent": "PS.9A.theoretical-approaches.macro-micro.macrosociology", "leaf": "PS.9A", "label": "Which focus fits macrosociology: face-to-face talk or society-wide inequality?"},
-    {"id": "PS.9A.theoretical-approaches.macro-micro.microsociology.c1", "parent": "PS.9A.theoretical-approaches.macro-micro.microsociology", "leaf": "PS.9A", "label": "What level of social life does microsociology analyze?"},
-    {"id": "PS.9A.theoretical-approaches.macro-micro.microsociology.c2", "parent": "PS.9A.theoretical-approaches.macro-micro.microsociology", "leaf": "PS.9A", "label": "Which approach studies everyday face-to-face construction of meaning?"},
-    {"id": "PS.9A.theoretical-approaches.macro-micro.levels-of-analysis.c1", "parent": "PS.9A.theoretical-approaches.macro-micro.levels-of-analysis", "leaf": "PS.9A", "label": "How do the micro, meso, and macro levels of analysis differ?"},
-    {"id": "PS.9A.theoretical-approaches.macro-micro.origins-positivism.c1", "parent": "PS.9A.theoretical-approaches.macro-micro.origins-positivism", "leaf": "PS.9A", "label": "Who coined the term sociology and championed positivism?"},
-    {"id": "PS.9A.theoretical-approaches.macro-micro.sociological-imagination.c1", "parent": "PS.9A.theoretical-approaches.macro-micro.sociological-imagination", "leaf": "PS.9A", "label": "What does Mills' sociological imagination connect personal troubles to?"},
-    {"id": "PS.9A.theoretical-approaches.functionalism.core-claim.c1", "parent": "PS.9A.theoretical-approaches.functionalism.core-claim", "leaf": "PS.9A", "label": "How does functionalism characterize the parts of a society?"},
-    {"id": "PS.9A.theoretical-approaches.functionalism.core-claim.c2", "parent": "PS.9A.theoretical-approaches.functionalism.core-claim", "leaf": "PS.9A", "label": "What outcome do functionalists say each social part helps maintain?"},
-    {"id": "PS.9A.theoretical-approaches.functionalism.durkheim.c1", "parent": "PS.9A.theoretical-approaches.functionalism.durkheim", "leaf": "PS.9A", "label": "Which founder of functionalism emphasized social facts and solidarity?"},
-    {"id": "PS.9A.theoretical-approaches.functionalism.durkheim.c2", "parent": "PS.9A.theoretical-approaches.functionalism.durkheim", "leaf": "PS.9A", "label": "What did Durkheim say institutions do for individuals in society?"},
-    {"id": "PS.9A.theoretical-approaches.functionalism.manifest-functions.c1", "parent": "PS.9A.theoretical-approaches.functionalism.manifest-functions", "leaf": "PS.9A", "label": "What defines a manifest function of an institution?"},
-    {"id": "PS.9A.theoretical-approaches.functionalism.manifest-functions.c2", "parent": "PS.9A.theoretical-approaches.functionalism.manifest-functions", "leaf": "PS.9A", "label": "Educating children is which type of function of schools?"},
-    {"id": "PS.9A.theoretical-approaches.functionalism.latent-functions.c1", "parent": "PS.9A.theoretical-approaches.functionalism.latent-functions", "leaf": "PS.9A", "label": "What defines a latent function of a social structure?"},
-    {"id": "PS.9A.theoretical-approaches.functionalism.latent-functions.c2", "parent": "PS.9A.theoretical-approaches.functionalism.latent-functions", "leaf": "PS.9A", "label": "Schools providing childcare and networking illustrates which function?"},
-    {"id": "PS.9A.theoretical-approaches.functionalism.dysfunction.c1", "parent": "PS.9A.theoretical-approaches.functionalism.dysfunction", "leaf": "PS.9A", "label": "What is a dysfunction in structural-functionalist theory?"},
-    {"id": "PS.9A.theoretical-approaches.functionalism.merton.c1", "parent": "PS.9A.theoretical-approaches.functionalism.merton", "leaf": "PS.9A", "label": "What refinement to functionalism is Robert Merton known for?"},
-    {"id": "PS.9A.theoretical-approaches.functionalism.social-facts.c1", "parent": "PS.9A.theoretical-approaches.functionalism.social-facts", "leaf": "PS.9A", "label": "What are Durkheim's social facts?"},
-    {"id": "PS.9A.theoretical-approaches.functionalism.social-facts.c2", "parent": "PS.9A.theoretical-approaches.functionalism.social-facts", "leaf": "PS.9A", "label": "Why are social facts considered external and coercive?"},
-    {"id": "PS.9A.theoretical-approaches.functionalism.solidarity.c1", "parent": "PS.9A.theoretical-approaches.functionalism.solidarity", "leaf": "PS.9A", "label": "How does mechanical solidarity differ from organic solidarity?"},
-    {"id": "PS.9A.theoretical-approaches.functionalism.anomie.c1", "parent": "PS.9A.theoretical-approaches.functionalism.anomie", "leaf": "PS.9A", "label": "What does Durkheim's concept of anomie describe?"},
-    {"id": "PS.9A.theoretical-approaches.functionalism.anomie.c2", "parent": "PS.9A.theoretical-approaches.functionalism.anomie", "leaf": "PS.9A", "label": "When is anomie most likely to arise in a society?"},
-    {"id": "PS.9A.theoretical-approaches.conflict.core-claim.c1", "parent": "PS.9A.theoretical-approaches.conflict.core-claim", "leaf": "PS.9A", "label": "According to conflict theory, what maintains social order?"},
-    {"id": "PS.9A.theoretical-approaches.conflict.core-claim.c2", "parent": "PS.9A.theoretical-approaches.conflict.core-claim", "leaf": "PS.9A", "label": "What do groups compete over in conflict theory?"},
-    {"id": "PS.9A.theoretical-approaches.conflict.marx.c1", "parent": "PS.9A.theoretical-approaches.conflict.marx", "leaf": "PS.9A", "label": "What did Marx say drives social change?"},
-    {"id": "PS.9A.theoretical-approaches.conflict.marx.c2", "parent": "PS.9A.theoretical-approaches.conflict.marx", "leaf": "PS.9A", "label": "Marx's class conflict is rooted in control of what?"},
-    {"id": "PS.9A.theoretical-approaches.conflict.bourgeoisie-proletariat.c1", "parent": "PS.9A.theoretical-approaches.conflict.bourgeoisie-proletariat", "leaf": "PS.9A", "label": "How do the bourgeoisie and proletariat differ in Marx's model?"},
-    {"id": "PS.9A.theoretical-approaches.conflict.alienation.c1", "parent": "PS.9A.theoretical-approaches.conflict.alienation", "leaf": "PS.9A", "label": "What does Marx's concept of alienation describe under capitalism?"},
-    {"id": "PS.9A.theoretical-approaches.conflict.false-consciousness.c1", "parent": "PS.9A.theoretical-approaches.conflict.false-consciousness", "leaf": "PS.9A", "label": "How does false consciousness differ from class consciousness?"},
-    {"id": "PS.9A.theoretical-approaches.conflict.power-elite.c1", "parent": "PS.9A.theoretical-approaches.conflict.power-elite", "leaf": "PS.9A", "label": "How do conflict theorists say elites maintain their dominance?"},
-    {"id": "PS.9A.theoretical-approaches.conflict.weber-extension.c1", "parent": "PS.9A.theoretical-approaches.conflict.weber-extension", "leaf": "PS.9A", "label": "What two dimensions did Weber add to Marx's economic view of conflict?"},
-    {"id": "PS.9A.theoretical-approaches.conflict.verstehen.c1", "parent": "PS.9A.theoretical-approaches.conflict.verstehen", "leaf": "PS.9A", "label": "What does Weber's interpretive method of Verstehen involve?"},
-    {"id": "PS.9A.theoretical-approaches.symbolic-interactionism.core-claim.c1", "parent": "PS.9A.theoretical-approaches.symbolic-interactionism.core-claim", "leaf": "PS.9A", "label": "On what basis do people act toward things in symbolic interactionism?"},
-    {"id": "PS.9A.theoretical-approaches.symbolic-interactionism.core-claim.c2", "parent": "PS.9A.theoretical-approaches.symbolic-interactionism.core-claim", "leaf": "PS.9A", "label": "Where do the meanings of symbols arise and change?"},
-    {"id": "PS.9A.theoretical-approaches.symbolic-interactionism.mead.c1", "parent": "PS.9A.theoretical-approaches.symbolic-interactionism.mead", "leaf": "PS.9A", "label": "Which theorist explained the social self through role-taking?"},
-    {"id": "PS.9A.theoretical-approaches.symbolic-interactionism.blumer.c1", "parent": "PS.9A.theoretical-approaches.symbolic-interactionism.blumer", "leaf": "PS.9A", "label": "Who coined the term symbolic interactionism and set out its premises?"},
-    {"id": "PS.9A.theoretical-approaches.symbolic-interactionism.dramaturgy.c1", "parent": "PS.9A.theoretical-approaches.symbolic-interactionism.dramaturgy", "leaf": "PS.9A", "label": "What metaphor does Goffman's dramaturgical approach use for interaction?"},
-    {"id": "PS.9A.theoretical-approaches.symbolic-interactionism.dramaturgy.c2", "parent": "PS.9A.theoretical-approaches.symbolic-interactionism.dramaturgy", "leaf": "PS.9A", "label": "Which concepts does dramaturgy use to analyze self-presentation?"},
-    {"id": "PS.9A.theoretical-approaches.symbolic-interactionism.impression-management.c1", "parent": "PS.9A.theoretical-approaches.symbolic-interactionism.impression-management", "leaf": "PS.9A", "label": "What is impression management?"},
-    {"id": "PS.9A.theoretical-approaches.symbolic-interactionism.impression-management.c2", "parent": "PS.9A.theoretical-approaches.symbolic-interactionism.impression-management", "leaf": "PS.9A", "label": "Controlling how others perceive you through self-presentation is called what?"},
-    {"id": "PS.9A.theoretical-approaches.symbolic-interactionism.front-back-stage.c1", "parent": "PS.9A.theoretical-approaches.symbolic-interactionism.front-back-stage", "leaf": "PS.9A", "label": "How does front stage differ from back stage behavior?"},
-    {"id": "PS.9A.theoretical-approaches.social-constructionism.core-claim.c1", "parent": "PS.9A.theoretical-approaches.social-constructionism.core-claim", "leaf": "PS.9A", "label": "What does social constructionism claim about shared meanings and categories?"},
-    {"id": "PS.9A.theoretical-approaches.social-constructionism.core-claim.c2", "parent": "PS.9A.theoretical-approaches.social-constructionism.core-claim", "leaf": "PS.9A", "label": "Per constructionism, are institutions objective facts or social agreements?"},
-    {"id": "PS.9A.theoretical-approaches.social-constructionism.examples.c1", "parent": "PS.9A.theoretical-approaches.social-constructionism.examples", "leaf": "PS.9A", "label": "Which categories are commonly cited as socially constructed?"},
-    {"id": "PS.9A.theoretical-approaches.exchange-rational-choice.exchange.c1", "parent": "PS.9A.theoretical-approaches.exchange-rational-choice.exchange", "leaf": "PS.9A", "label": "How does social exchange theory model relationships?"},
-    {"id": "PS.9A.theoretical-approaches.exchange-rational-choice.rational-choice.c1", "parent": "PS.9A.theoretical-approaches.exchange-rational-choice.rational-choice", "leaf": "PS.9A", "label": "What assumption underlies rational choice theory?"},
-    {"id": "PS.9A.theoretical-approaches.feminist.core-claim.c1", "parent": "PS.9A.theoretical-approaches.feminist.core-claim", "leaf": "PS.9A", "label": "What lens does feminist theory use to analyze social institutions?"},
-    {"id": "PS.9A.social-institutions.definition.concept.c1", "parent": "PS.9A.social-institutions.definition.concept", "leaf": "PS.9A", "label": "What defines a social institution?"},
-    {"id": "PS.9A.social-institutions.definition.concept.c2", "parent": "PS.9A.social-institutions.definition.concept", "leaf": "PS.9A", "label": "Which is a social institution: education or a casual friendship?"},
-    {"id": "PS.9A.social-institutions.definition.functions.c1", "parent": "PS.9A.social-institutions.definition.functions", "leaf": "PS.9A", "label": "What core functions do social institutions perform for society?"},
-    {"id": "PS.9A.social-institutions.family.forms.c1", "parent": "PS.9A.social-institutions.family.forms", "leaf": "PS.9A", "label": "How does monogamy differ from polygamy?"},
-    {"id": "PS.9A.social-institutions.family.forms.c2", "parent": "PS.9A.social-institutions.family.forms", "leaf": "PS.9A", "label": "How do polygyny and polyandry differ?"},
-    {"id": "PS.9A.social-institutions.family.kinship.c1", "parent": "PS.9A.social-institutions.family.kinship", "leaf": "PS.9A", "label": "What social ties make up kinship?"},
-    {"id": "PS.9A.social-institutions.family.nuclear-extended.c1", "parent": "PS.9A.social-institutions.family.nuclear-extended", "leaf": "PS.9A", "label": "How does a nuclear family differ from an extended family?"},
-    {"id": "PS.9A.social-institutions.family.descent.c1", "parent": "PS.9A.social-institutions.family.descent", "leaf": "PS.9A", "label": "How do patrilineal, matrilineal, and bilateral descent differ?"},
-    {"id": "PS.9A.social-institutions.family.residence.c1", "parent": "PS.9A.social-institutions.family.residence", "leaf": "PS.9A", "label": "How do patrilocal, matrilocal, and neolocal residence differ?"},
-    {"id": "PS.9A.social-institutions.family.endogamy-exogamy.c1", "parent": "PS.9A.social-institutions.family.endogamy-exogamy", "leaf": "PS.9A", "label": "How does endogamy differ from exogamy in mate selection?"},
-    {"id": "PS.9A.social-institutions.family.violence.c1", "parent": "PS.9A.social-institutions.family.violence", "leaf": "PS.9A", "label": "What forms of violence fall under family or domestic violence?"},
-    {"id": "PS.9A.social-institutions.education.functions.c1", "parent": "PS.9A.social-institutions.education.functions", "leaf": "PS.9A", "label": "What manifest functions does the institution of education serve?"},
-    {"id": "PS.9A.social-institutions.education.hidden-curriculum.c1", "parent": "PS.9A.social-institutions.education.hidden-curriculum", "leaf": "PS.9A", "label": "What does the hidden curriculum transmit to students?"},
-    {"id": "PS.9A.social-institutions.education.hidden-curriculum.c2", "parent": "PS.9A.social-institutions.education.hidden-curriculum", "leaf": "PS.9A", "label": "Teaching punctuality and obedience alongside academics illustrates what?"},
-    {"id": "PS.9A.social-institutions.education.teacher-expectancy.c1", "parent": "PS.9A.social-institutions.education.teacher-expectancy", "leaf": "PS.9A", "label": "What does the teacher expectancy (Pygmalion) effect describe?"},
-    {"id": "PS.9A.social-institutions.education.teacher-expectancy.c2", "parent": "PS.9A.social-institutions.education.teacher-expectancy", "leaf": "PS.9A", "label": "The teacher expectancy effect is an example of what broader phenomenon?"},
-    {"id": "PS.9A.social-institutions.education.tracking.c1", "parent": "PS.9A.social-institutions.education.tracking", "leaf": "PS.9A", "label": "Why do conflict theorists criticize educational tracking?"},
-    {"id": "PS.9A.social-institutions.education.credentialism.c1", "parent": "PS.9A.social-institutions.education.credentialism", "leaf": "PS.9A", "label": "What does credentialism refer to in education and hiring?"},
-    {"id": "PS.9A.social-institutions.religion.durkheim-sacred.c1", "parent": "PS.9A.social-institutions.religion.durkheim-sacred", "leaf": "PS.9A", "label": "How did Durkheim distinguish the sacred from the profane?"},
-    {"id": "PS.9A.social-institutions.religion.functions.c1", "parent": "PS.9A.social-institutions.religion.functions", "leaf": "PS.9A", "label": "What functions does religion serve for a society?"},
-    {"id": "PS.9A.social-institutions.religion.organizations.c1", "parent": "PS.9A.social-institutions.religion.organizations", "leaf": "PS.9A", "label": "How do a church and a sect differ as religious organizations?"},
-    {"id": "PS.9A.social-institutions.religion.organizations.c2", "parent": "PS.9A.social-institutions.religion.organizations", "leaf": "PS.9A", "label": "Which religious organization is a state-sponsored ecclesia?"},
-    {"id": "PS.9A.social-institutions.religion.modernization.c1", "parent": "PS.9A.social-institutions.religion.modernization", "leaf": "PS.9A", "label": "What does secularization describe?"},
-    {"id": "PS.9A.social-institutions.religion.modernization.c2", "parent": "PS.9A.social-institutions.religion.modernization", "leaf": "PS.9A", "label": "How does fundamentalism differ from secularization?"},
-    {"id": "PS.9A.social-institutions.government-economy.power-authority.c1", "parent": "PS.9A.social-institutions.government-economy.power-authority", "leaf": "PS.9A", "label": "How does power differ from authority?"},
-    {"id": "PS.9A.social-institutions.government-economy.power-authority.c2", "parent": "PS.9A.social-institutions.government-economy.power-authority", "leaf": "PS.9A", "label": "What makes authority distinct from mere coercive power?"},
-    {"id": "PS.9A.social-institutions.government-economy.weber-authority.c1", "parent": "PS.9A.social-institutions.government-economy.weber-authority", "leaf": "PS.9A", "label": "What three types of legitimate authority did Weber identify?"},
-    {"id": "PS.9A.social-institutions.government-economy.weber-authority.c2", "parent": "PS.9A.social-institutions.government-economy.weber-authority", "leaf": "PS.9A", "label": "Authority based on formal rules and offices is which Weberian type?"},
-    {"id": "PS.9A.social-institutions.government-economy.traditional-authority.c1", "parent": "PS.9A.social-institutions.government-economy.traditional-authority", "leaf": "PS.9A", "label": "From what does traditional authority derive its legitimacy?"},
-    {"id": "PS.9A.social-institutions.government-economy.charismatic-authority.c1", "parent": "PS.9A.social-institutions.government-economy.charismatic-authority", "leaf": "PS.9A", "label": "From what does charismatic authority derive its legitimacy?"},
-    {"id": "PS.9A.social-institutions.government-economy.rational-legal-authority.c1", "parent": "PS.9A.social-institutions.government-economy.rational-legal-authority", "leaf": "PS.9A", "label": "From what does rational-legal authority derive its legitimacy?"},
-    {"id": "PS.9A.social-institutions.government-economy.government-types.c1", "parent": "PS.9A.social-institutions.government-economy.government-types", "leaf": "PS.9A", "label": "How do democracy, monarchy, and authoritarianism differ?"},
-    {"id": "PS.9A.social-institutions.government-economy.economic-systems.c1", "parent": "PS.9A.social-institutions.government-economy.economic-systems", "leaf": "PS.9A", "label": "How does capitalism differ from socialism?"},
-    {"id": "PS.9A.social-institutions.government-economy.division-of-labor.c1", "parent": "PS.9A.social-institutions.government-economy.division-of-labor", "leaf": "PS.9A", "label": "What does the division of labor refer to in complex economies?"},
-    {"id": "PS.9A.social-institutions.health-medicine.medicalization.c1", "parent": "PS.9A.social-institutions.health-medicine.medicalization", "leaf": "PS.9A", "label": "What process does medicalization describe?"},
-    {"id": "PS.9A.social-institutions.health-medicine.medicalization.c2", "parent": "PS.9A.social-institutions.health-medicine.medicalization", "leaf": "PS.9A", "label": "Defining shyness as a treatable disorder is an example of what?"},
-    {"id": "PS.9A.social-institutions.health-medicine.sick-role.c1", "parent": "PS.9A.social-institutions.health-medicine.sick-role", "leaf": "PS.9A", "label": "What does Parsons' sick role exempt an ill person from?"},
-    {"id": "PS.9A.social-institutions.health-medicine.sick-role.c2", "parent": "PS.9A.social-institutions.health-medicine.sick-role", "leaf": "PS.9A", "label": "What obligations does the sick role place on an ill person?"},
-    {"id": "PS.9A.social-institutions.health-medicine.illness-experience.c1", "parent": "PS.9A.social-institutions.health-medicine.illness-experience", "leaf": "PS.9A", "label": "What does the social construction of illness emphasize?"},
-    {"id": "PS.9A.social-institutions.media.role.c1", "parent": "PS.9A.social-institutions.media.role", "leaf": "PS.9A", "label": "How does mass media act as an agent of socialization?"},
-    {"id": "PS.9A.culture.definition.concept.c1", "parent": "PS.9A.culture.definition.concept", "leaf": "PS.9A", "label": "What does culture encompass in sociology?"},
-    {"id": "PS.9A.culture.definition.concept.c2", "parent": "PS.9A.culture.definition.concept", "leaf": "PS.9A", "label": "Is culture learned and shared or biologically inherited?"},
-    {"id": "PS.9A.culture.definition.material.c1", "parent": "PS.9A.culture.definition.material", "leaf": "PS.9A", "label": "What does material culture consist of?"},
-    {"id": "PS.9A.culture.definition.material.c2", "parent": "PS.9A.culture.definition.material", "leaf": "PS.9A", "label": "Which is material culture: a tool or a shared belief?"},
-    {"id": "PS.9A.culture.definition.nonmaterial.c1", "parent": "PS.9A.culture.definition.nonmaterial", "leaf": "PS.9A", "label": "What does nonmaterial culture consist of?"},
-    {"id": "PS.9A.culture.definition.nonmaterial.c2", "parent": "PS.9A.culture.definition.nonmaterial", "leaf": "PS.9A", "label": "Which is nonmaterial culture: values or physical artifacts?"},
-    {"id": "PS.9A.culture.symbols-language.symbols.c1", "parent": "PS.9A.culture.symbols-language.symbols", "leaf": "PS.9A", "label": "What is a symbol in a culture?"},
-    {"id": "PS.9A.culture.symbols-language.symbols.c2", "parent": "PS.9A.culture.symbols-language.symbols", "leaf": "PS.9A", "label": "Why can the same gesture carry different meanings across cultures?"},
-    {"id": "PS.9A.culture.symbols-language.language.c1", "parent": "PS.9A.culture.symbols-language.language", "leaf": "PS.9A", "label": "What role does language play in a culture?"},
-    {"id": "PS.9A.culture.symbols-language.language.c2", "parent": "PS.9A.culture.symbols-language.language", "leaf": "PS.9A", "label": "Why is language central to transmitting culture?"},
-    {"id": "PS.9A.culture.symbols-language.sapir-whorf.c1", "parent": "PS.9A.culture.symbols-language.sapir-whorf", "leaf": "PS.9A", "label": "What does the Sapir-Whorf hypothesis propose?"},
-    {"id": "PS.9A.culture.symbols-language.sapir-whorf.c2", "parent": "PS.9A.culture.symbols-language.sapir-whorf", "leaf": "PS.9A", "label": "Linguistic relativity claims language shapes what?"},
-    {"id": "PS.9A.culture.values-beliefs.values.c1", "parent": "PS.9A.culture.values-beliefs.values", "leaf": "PS.9A", "label": "What are values in a culture?"},
-    {"id": "PS.9A.culture.values-beliefs.beliefs.c1", "parent": "PS.9A.culture.values-beliefs.beliefs", "leaf": "PS.9A", "label": "How do beliefs differ from values?"},
-    {"id": "PS.9A.culture.norms.definition.c1", "parent": "PS.9A.culture.norms.definition", "leaf": "PS.9A", "label": "What are norms in a society?"},
-    {"id": "PS.9A.culture.norms.definition.c2", "parent": "PS.9A.culture.norms.definition", "leaf": "PS.9A", "label": "What enforces norms when they are violated?"},
-    {"id": "PS.9A.culture.norms.folkways.c1", "parent": "PS.9A.culture.norms.folkways", "leaf": "PS.9A", "label": "What are folkways, and how serious is violating them?"},
-    {"id": "PS.9A.culture.norms.folkways.c2", "parent": "PS.9A.culture.norms.folkways", "leaf": "PS.9A", "label": "Which is a folkway: table manners or a law against theft?"},
-    {"id": "PS.9A.culture.norms.mores.c1", "parent": "PS.9A.culture.norms.mores", "leaf": "PS.9A", "label": "How do mores differ from folkways?"},
-    {"id": "PS.9A.culture.norms.mores.c2", "parent": "PS.9A.culture.norms.mores", "leaf": "PS.9A", "label": "Which norm carries strong moral weight: mores or folkways?"},
-    {"id": "PS.9A.culture.norms.taboos.c1", "parent": "PS.9A.culture.norms.taboos", "leaf": "PS.9A", "label": "What makes a taboo the strongest type of more?"},
-    {"id": "PS.9A.culture.norms.laws.c1", "parent": "PS.9A.culture.norms.laws", "leaf": "PS.9A", "label": "What distinguishes laws from other kinds of norms?"},
-    {"id": "PS.9A.culture.norms.sanctions.c1", "parent": "PS.9A.culture.norms.sanctions", "leaf": "PS.9A", "label": "What are sanctions, and how can they be classified?"},
-    {"id": "PS.9A.culture.variation.subculture.c1", "parent": "PS.9A.culture.variation.subculture", "leaf": "PS.9A", "label": "What defines a subculture?"},
-    {"id": "PS.9A.culture.variation.subculture.c2", "parent": "PS.9A.culture.variation.subculture", "leaf": "PS.9A", "label": "Does a subculture reject or participate in the larger culture?"},
-    {"id": "PS.9A.culture.variation.counterculture.c1", "parent": "PS.9A.culture.variation.counterculture", "leaf": "PS.9A", "label": "What defines a counterculture?"},
-    {"id": "PS.9A.culture.variation.counterculture.c2", "parent": "PS.9A.culture.variation.counterculture", "leaf": "PS.9A", "label": "How does a counterculture differ from a subculture?"},
-    {"id": "PS.9A.culture.variation.ethnocentrism.c1", "parent": "PS.9A.culture.variation.ethnocentrism", "leaf": "PS.9A", "label": "What is ethnocentrism?"},
-    {"id": "PS.9A.culture.variation.ethnocentrism.c2", "parent": "PS.9A.culture.variation.ethnocentrism", "leaf": "PS.9A", "label": "Judging another culture by your own standards is called what?"},
-    {"id": "PS.9A.culture.variation.cultural-relativism.c1", "parent": "PS.9A.culture.variation.cultural-relativism", "leaf": "PS.9A", "label": "What does cultural relativism involve?"},
-    {"id": "PS.9A.culture.variation.cultural-relativism.c2", "parent": "PS.9A.culture.variation.cultural-relativism", "leaf": "PS.9A", "label": "How does cultural relativism contrast with ethnocentrism?"},
-    {"id": "PS.9A.culture.variation.culture-shock.c1", "parent": "PS.9A.culture.variation.culture-shock", "leaf": "PS.9A", "label": "What is culture shock?"},
-    {"id": "PS.9A.culture.variation.cultural-universals.c1", "parent": "PS.9A.culture.variation.cultural-universals", "leaf": "PS.9A", "label": "What are cultural universals?"},
-    {"id": "PS.9A.culture.capital.cultural-capital.c1", "parent": "PS.9A.culture.capital.cultural-capital", "leaf": "PS.9A", "label": "What does Bourdieu's cultural capital consist of?"},
-    {"id": "PS.9A.culture.capital.cultural-capital.c2", "parent": "PS.9A.culture.capital.cultural-capital", "leaf": "PS.9A", "label": "How does cultural capital confer social advantage?"},
-    {"id": "PS.9A.culture.capital.social-capital.c1", "parent": "PS.9A.culture.capital.social-capital", "leaf": "PS.9A", "label": "What is social capital?"},
-    {"id": "PS.9A.culture.capital.social-capital.c2", "parent": "PS.9A.culture.capital.social-capital", "leaf": "PS.9A", "label": "From what do people derive their social capital?"},
-    {"id": "PS.9A.culture.transmission-change.cultural-transmission.c1", "parent": "PS.9A.culture.transmission-change.cultural-transmission", "leaf": "PS.9A", "label": "What is cultural transmission?"},
-    {"id": "PS.9A.culture.transmission-change.diffusion.c1", "parent": "PS.9A.culture.transmission-change.diffusion", "leaf": "PS.9A", "label": "What is cultural diffusion?"},
-    {"id": "PS.9A.culture.transmission-change.cultural-lag.c1", "parent": "PS.9A.culture.transmission-change.cultural-lag", "leaf": "PS.9A", "label": "What does cultural lag describe?"},
-    {"id": "PS.9A.culture.transmission-change.cultural-lag.c2", "parent": "PS.9A.culture.transmission-change.cultural-lag", "leaf": "PS.9A", "label": "Laws lagging behind new technology illustrates what concept?"},
-    {"id": "PS.9A.culture.transmission-change.assimilation.c1", "parent": "PS.9A.culture.transmission-change.assimilation", "leaf": "PS.9A", "label": "What does assimilation describe for a minority group?"},
-    {"id": "PS.9A.culture.transmission-change.multiculturalism.c1", "parent": "PS.9A.culture.transmission-change.multiculturalism", "leaf": "PS.9A", "label": "What does multiculturalism or cultural pluralism describe?"},
-    {"id": "PS.9A.culture.transmission-change.high-pop-culture.c1", "parent": "PS.9A.culture.transmission-change.high-pop-culture", "leaf": "PS.9A", "label": "How does high culture differ from popular culture?"},
-    {"id": "PS.9A.culture.evolution-perspectives.evolution-human-culture.c1", "parent": "PS.9A.culture.evolution-perspectives.evolution-human-culture", "leaf": "PS.9A", "label": "What evolved human capacities help shape culture?"},
-    {"id": "PS.9A.demographics.concepts.demography.c1", "parent": "PS.9A.demographics.concepts.demography", "leaf": "PS.9A", "label": "What does demography study?"},
-    {"id": "PS.9A.demographics.concepts.fertility-mortality.c1", "parent": "PS.9A.demographics.concepts.fertility-mortality", "leaf": "PS.9A", "label": "How do fertility and mortality rates differ?"},
-    {"id": "PS.9A.demographics.concepts.migration.c1", "parent": "PS.9A.demographics.concepts.migration", "leaf": "PS.9A", "label": "How do immigration and emigration differ?"},
-    {"id": "PS.9A.demographics.concepts.push-pull.c1", "parent": "PS.9A.demographics.concepts.push-pull", "leaf": "PS.9A", "label": "How do push factors differ from pull factors in migration?"},
-    {"id": "PS.9A.demographics.concepts.population-pyramid.c1", "parent": "PS.9A.demographics.concepts.population-pyramid", "leaf": "PS.9A", "label": "What does a population pyramid depict about a population?"},
-    {"id": "PS.9A.demographics.transition.demographic-transition.c1", "parent": "PS.9A.demographics.transition.demographic-transition", "leaf": "PS.9A", "label": "What shift does demographic transition theory describe?"},
-    {"id": "PS.9A.demographics.transition.demographic-transition.c2", "parent": "PS.9A.demographics.transition.demographic-transition", "leaf": "PS.9A", "label": "What drives the demographic transition in a society?"},
-    {"id": "PS.9A.demographics.transition.malthusian.c1", "parent": "PS.9A.demographics.transition.malthusian", "leaf": "PS.9A", "label": "What did Malthus predict about population and food supply?"},
-    {"id": "PS.9A.demographics.transition.population-growth.c1", "parent": "PS.9A.demographics.transition.population-growth", "leaf": "PS.9A", "label": "How is population change computed from births, deaths, and migration?"},
-    {"id": "PS.9A.demographics.age.aging-population.c1", "parent": "PS.9A.demographics.age.aging-population", "leaf": "PS.9A", "label": "What trends cause a population to age?"},
-    {"id": "PS.9A.demographics.age.ageism.c1", "parent": "PS.9A.demographics.age.ageism", "leaf": "PS.9A", "label": "What is ageism?"},
-    {"id": "PS.9A.demographics.gender.sex-vs-gender.c1", "parent": "PS.9A.demographics.gender.sex-vs-gender", "leaf": "PS.9A", "label": "How does sex differ from gender?"},
-    {"id": "PS.9A.demographics.gender.sex-vs-gender.c2", "parent": "PS.9A.demographics.gender.sex-vs-gender", "leaf": "PS.9A", "label": "Which is socially constructed: sex or gender?"},
-    {"id": "PS.9A.demographics.gender.gender-roles.c1", "parent": "PS.9A.demographics.gender.gender-roles", "leaf": "PS.9A", "label": "What are gender roles?"},
-    {"id": "PS.9A.demographics.gender.gender-inequality.c1", "parent": "PS.9A.demographics.gender.gender-inequality", "leaf": "PS.9A", "label": "What does gender stratification produce, such as the wage gap?"},
-    {"id": "PS.9A.demographics.race-ethnicity.race.c1", "parent": "PS.9A.demographics.race-ethnicity.race", "leaf": "PS.9A", "label": "How does sociology define race?"},
-    {"id": "PS.9A.demographics.race-ethnicity.race.c2", "parent": "PS.9A.demographics.race-ethnicity.race", "leaf": "PS.9A", "label": "Is race primarily a biological or a social category?"},
-    {"id": "PS.9A.demographics.race-ethnicity.ethnicity.c1", "parent": "PS.9A.demographics.race-ethnicity.ethnicity", "leaf": "PS.9A", "label": "What does ethnicity refer to?"},
-    {"id": "PS.9A.demographics.race-ethnicity.ethnicity.c2", "parent": "PS.9A.demographics.race-ethnicity.ethnicity", "leaf": "PS.9A", "label": "How does ethnicity differ from race?"},
-    {"id": "PS.9A.demographics.race-ethnicity.minority-group.c1", "parent": "PS.9A.demographics.race-ethnicity.minority-group", "leaf": "PS.9A", "label": "What defines a minority group sociologically?"},
-    {"id": "PS.9A.demographics.race-ethnicity.intersectionality.c1", "parent": "PS.9A.demographics.race-ethnicity.intersectionality", "leaf": "PS.9A", "label": "What does intersectionality describe?"},
-    {"id": "PS.9A.demographics.race-ethnicity.intersectionality.c2", "parent": "PS.9A.demographics.race-ethnicity.intersectionality", "leaf": "PS.9A", "label": "How can overlapping identities create distinct disadvantage?"},
-    {"id": "PS.9A.demographics.race-ethnicity.patterns-relations.c1", "parent": "PS.9A.demographics.race-ethnicity.patterns-relations", "leaf": "PS.9A", "label": "What intergroup relations range from pluralism to genocide?"},
-    {"id": "PS.9A.demographics.immigration.status.c1", "parent": "PS.9A.demographics.immigration.status", "leaf": "PS.9A", "label": "How does immigration status shape access to rights and resources?"},
-    {"id": "PS.9A.demographics.sexual-orientation.concept.c1", "parent": "PS.9A.demographics.sexual-orientation.concept", "leaf": "PS.9A", "label": "How is sexual orientation an axis of social structure?"},
-    {"id": "PS.9A.social-change.urbanization.concept.c1", "parent": "PS.9A.social-change.urbanization.concept", "leaf": "PS.9A", "label": "What does urbanization describe?"},
-    {"id": "PS.9A.social-change.urbanization.suburbanization.c1", "parent": "PS.9A.social-change.urbanization.suburbanization", "leaf": "PS.9A", "label": "How can suburbanization contribute to inner-city decline?"},
-    {"id": "PS.9A.social-change.urbanization.gentrification.c1", "parent": "PS.9A.social-change.urbanization.gentrification", "leaf": "PS.9A", "label": "What is gentrification, and whom can it displace?"},
-    {"id": "PS.9A.social-change.globalization.concept.c1", "parent": "PS.9A.social-change.globalization.concept", "leaf": "PS.9A", "label": "What does globalization describe?"},
-    {"id": "PS.9A.social-change.globalization.concept.c2", "parent": "PS.9A.social-change.globalization.concept", "leaf": "PS.9A", "label": "What becomes increasingly interconnected under globalization?"},
-    {"id": "PS.9A.social-change.globalization.factors.c1", "parent": "PS.9A.social-change.globalization.factors", "leaf": "PS.9A", "label": "What drives globalization, and what backlash can it produce?"},
-    {"id": "PS.9A.social-change.social-movements.concept.c1", "parent": "PS.9A.social-change.social-movements.concept", "leaf": "PS.9A", "label": "What is a social movement?"},
-    {"id": "PS.9A.social-change.social-movements.concept.c2", "parent": "PS.9A.social-change.social-movements.concept", "leaf": "PS.9A", "label": "How do proactive and reactive social movements differ?"},
-    {"id": "PS.9A.social-change.social-movements.relative-deprivation.c1", "parent": "PS.9A.social-change.social-movements.relative-deprivation", "leaf": "PS.9A", "label": "What does relative deprivation theory say sparks social movements?"},
-    {"id": "PS.9A.social-change.social-movements.resource-mobilization.c1", "parent": "PS.9A.social-change.social-movements.resource-mobilization", "leaf": "PS.9A", "label": "What does resource mobilization theory say drives a movement's success?"},
-    {"id": "PS.9A.social-change.modernization.concept.c1", "parent": "PS.9A.social-change.modernization.concept", "leaf": "PS.9A", "label": "What transformation does modernization describe?"},
-    {"id": "PS.9A.social-change.collective-behavior.concept.c1", "parent": "PS.9A.social-change.collective-behavior.concept", "leaf": "PS.9A", "label": "What kinds of activity count as collective behavior?"},
-    {"id": "PS.9A.social-interaction.status.definition.c1", "parent": "PS.9A.social-interaction.status.definition", "leaf": "PS.9A", "label": "What is a status in sociology?"},
-    {"id": "PS.9A.social-interaction.status.definition.c2", "parent": "PS.9A.social-interaction.status.definition", "leaf": "PS.9A", "label": "What do statuses carry with them for the person who occupies them?"},
-    {"id": "PS.9A.social-interaction.status.ascribed.c1", "parent": "PS.9A.social-interaction.status.ascribed", "leaf": "PS.9A", "label": "What is an ascribed status?"},
-    {"id": "PS.9A.social-interaction.status.ascribed.c2", "parent": "PS.9A.social-interaction.status.ascribed", "leaf": "PS.9A", "label": "Which is an ascribed status: race or occupation?"},
-    {"id": "PS.9A.social-interaction.status.achieved.c1", "parent": "PS.9A.social-interaction.status.achieved", "leaf": "PS.9A", "label": "What is an achieved status?"},
-    {"id": "PS.9A.social-interaction.status.achieved.c2", "parent": "PS.9A.social-interaction.status.achieved", "leaf": "PS.9A", "label": "Which is an achieved status: physician or sex assigned at birth?"},
-    {"id": "PS.9A.social-interaction.status.master.c1", "parent": "PS.9A.social-interaction.status.master", "leaf": "PS.9A", "label": "What is a master status?"},
-    {"id": "PS.9A.social-interaction.status.master.c2", "parent": "PS.9A.social-interaction.status.master", "leaf": "PS.9A", "label": "A status that overrides all others in interaction is called what?"},
-    {"id": "PS.9A.social-interaction.status.status-set.c1", "parent": "PS.9A.social-interaction.status.status-set", "leaf": "PS.9A", "label": "What is a status set?"},
-    {"id": "PS.9A.social-interaction.role.definition.c1", "parent": "PS.9A.social-interaction.role.definition", "leaf": "PS.9A", "label": "What is a role in relation to a status?"},
-    {"id": "PS.9A.social-interaction.role.definition.c2", "parent": "PS.9A.social-interaction.role.definition", "leaf": "PS.9A", "label": "What does a role attach to a particular social status?"},
-    {"id": "PS.9A.social-interaction.role.role-conflict.c1", "parent": "PS.9A.social-interaction.role.role-conflict", "leaf": "PS.9A", "label": "What is role conflict?"},
-    {"id": "PS.9A.social-interaction.role.role-conflict.c2", "parent": "PS.9A.social-interaction.role.role-conflict", "leaf": "PS.9A", "label": "Tension between the demands of two different statuses is called what?"},
-    {"id": "PS.9A.social-interaction.role.role-strain.c1", "parent": "PS.9A.social-interaction.role.role-strain", "leaf": "PS.9A", "label": "What is role strain?"},
-    {"id": "PS.9A.social-interaction.role.role-strain.c2", "parent": "PS.9A.social-interaction.role.role-strain", "leaf": "PS.9A", "label": "How does role strain differ from role conflict?"},
-    {"id": "PS.9A.social-interaction.role.role-exit.c1", "parent": "PS.9A.social-interaction.role.role-exit", "leaf": "PS.9A", "label": "What does role exit involve?"},
-    {"id": "PS.9A.social-interaction.role.role-set.c1", "parent": "PS.9A.social-interaction.role.role-set", "leaf": "PS.9A", "label": "What is a role set?"},
-    {"id": "PS.9A.social-interaction.groups.primary.c1", "parent": "PS.9A.social-interaction.groups.primary", "leaf": "PS.9A", "label": "What characterizes a primary group?"},
-    {"id": "PS.9A.social-interaction.groups.primary.c2", "parent": "PS.9A.social-interaction.groups.primary", "leaf": "PS.9A", "label": "Which is a primary group: family or coworkers?"},
-    {"id": "PS.9A.social-interaction.groups.secondary.c1", "parent": "PS.9A.social-interaction.groups.secondary", "leaf": "PS.9A", "label": "What characterizes a secondary group?"},
-    {"id": "PS.9A.social-interaction.groups.secondary.c2", "parent": "PS.9A.social-interaction.groups.secondary", "leaf": "PS.9A", "label": "How does a secondary group differ from a primary group?"},
-    {"id": "PS.9A.social-interaction.groups.in-out-group.c1", "parent": "PS.9A.social-interaction.groups.in-out-group", "leaf": "PS.9A", "label": "How does an in-group differ from an out-group?"},
-    {"id": "PS.9A.social-interaction.groups.in-out-group.c2", "parent": "PS.9A.social-interaction.groups.in-out-group", "leaf": "PS.9A", "label": "Which group does a person identify with and feel loyalty toward?"},
-    {"id": "PS.9A.social-interaction.groups.reference-group.c1", "parent": "PS.9A.social-interaction.groups.reference-group", "leaf": "PS.9A", "label": "What is a reference group?"},
-    {"id": "PS.9A.social-interaction.groups.reference-group.c2", "parent": "PS.9A.social-interaction.groups.reference-group", "leaf": "PS.9A", "label": "Using a group as a standard to judge yourself defines what?"},
-    {"id": "PS.9A.social-interaction.groups.dyad-triad.c1", "parent": "PS.9A.social-interaction.groups.dyad-triad", "leaf": "PS.9A", "label": "How do a dyad and a triad differ in stability?"},
-    {"id": "PS.9A.social-interaction.groups.network.c1", "parent": "PS.9A.social-interaction.groups.network", "leaf": "PS.9A", "label": "What is a social network, and what flows through it?"},
-    {"id": "PS.9A.social-interaction.groups.group-conformity.c1", "parent": "PS.9A.social-interaction.groups.group-conformity", "leaf": "PS.9A", "label": "What is groupthink, and what drives it?"},
-    {"id": "PS.9A.social-interaction.organizations.formal-org.c1", "parent": "PS.9A.social-interaction.organizations.formal-org", "leaf": "PS.9A", "label": "What defines a formal organization?"},
-    {"id": "PS.9A.social-interaction.organizations.bureaucracy.c1", "parent": "PS.9A.social-interaction.organizations.bureaucracy", "leaf": "PS.9A", "label": "What features define Weber's ideal bureaucracy?"},
-    {"id": "PS.9A.social-interaction.organizations.bureaucracy.c2", "parent": "PS.9A.social-interaction.organizations.bureaucracy", "leaf": "PS.9A", "label": "Which trait is characteristic of bureaucracy: impersonality or personal ties?"},
-    {"id": "PS.9A.social-interaction.organizations.iron-law.c1", "parent": "PS.9A.social-interaction.organizations.iron-law", "leaf": "PS.9A", "label": "What does Michels' iron law of oligarchy claim?"},
-    {"id": "PS.9A.social-interaction.organizations.mcdonaldization.c1", "parent": "PS.9A.social-interaction.organizations.mcdonaldization", "leaf": "PS.9A", "label": "What four principles define Ritzer's McDonaldization?"},
-    {"id": "PS.9A.social-construction-reality.process.definition-of-situation.c1", "parent": "PS.9A.social-construction-reality.process.definition-of-situation", "leaf": "PS.9A", "label": "What does the Thomas theorem state?"},
-    {"id": "PS.9A.social-construction-reality.process.definition-of-situation.c2", "parent": "PS.9A.social-construction-reality.process.definition-of-situation", "leaf": "PS.9A", "label": "How can defining a situation as real produce real consequences?"},
-    {"id": "PS.9A.social-construction-reality.process.self-fulfilling.c1", "parent": "PS.9A.social-construction-reality.process.self-fulfilling", "leaf": "PS.9A", "label": "What is a self-fulfilling prophecy?"},
-    {"id": "PS.9A.social-construction-reality.process.self-fulfilling.c2", "parent": "PS.9A.social-construction-reality.process.self-fulfilling", "leaf": "PS.9A", "label": "How can a false belief become true through people's behavior?"},
-    {"id": "PS.9A.social-construction-reality.process.ethnomethodology.c1", "parent": "PS.9A.social-construction-reality.process.ethnomethodology", "leaf": "PS.9A", "label": "What does ethnomethodology study?"},
-    {"id": "PS.9B.demographic-structure.foundations.demography-defined.c1", "parent": "PS.9B.demographic-structure.foundations.demography-defined", "leaf": "PS.9B", "label": "What does demography scientifically study?"},
-    {"id": "PS.9B.demographic-structure.foundations.population.c1", "parent": "PS.9B.demographic-structure.foundations.population", "leaf": "PS.9B", "label": "What is a population in demographic terms?"},
-    {"id": "PS.9B.demographic-structure.foundations.cohort.c1", "parent": "PS.9B.demographic-structure.foundations.cohort", "leaf": "PS.9B", "label": "What is a cohort, most often a birth cohort?"},
-    {"id": "PS.9B.demographic-structure.foundations.census.c1", "parent": "PS.9B.demographic-structure.foundations.census", "leaf": "PS.9B", "label": "What is a census, and what does it give demographers?"},
-    {"id": "PS.9B.demographic-structure.foundations.vital-statistics.c1", "parent": "PS.9B.demographic-structure.foundations.vital-statistics", "leaf": "PS.9B", "label": "What events do vital statistics record?"},
-    {"id": "PS.9B.demographic-structure.foundations.population-distribution.c1", "parent": "PS.9B.demographic-structure.foundations.population-distribution", "leaf": "PS.9B", "label": "How does population distribution differ from population density?"},
-    {"id": "PS.9B.demographic-structure.foundations.demographic-transition-preview.c1", "parent": "PS.9B.demographic-structure.foundations.demographic-transition-preview", "leaf": "PS.9B", "label": "What core variables shape a population's demographic structure?"},
-    {"id": "PS.9B.demographic-structure.age.age-cohort.c1", "parent": "PS.9B.demographic-structure.age.age-cohort", "leaf": "PS.9B", "label": "What is an age cohort?"},
-    {"id": "PS.9B.demographic-structure.age.generation.c1", "parent": "PS.9B.demographic-structure.age.generation", "leaf": "PS.9B", "label": "What is a generation in demographic terms?"},
-    {"id": "PS.9B.demographic-structure.age.median-age.c1", "parent": "PS.9B.demographic-structure.age.median-age", "leaf": "PS.9B", "label": "What does the median age of a population indicate?"},
-    {"id": "PS.9B.demographic-structure.age.population-pyramid.c1", "parent": "PS.9B.demographic-structure.age.population-pyramid", "leaf": "PS.9B", "label": "What does a population age-sex pyramid display?"},
-    {"id": "PS.9B.demographic-structure.age.population-pyramid.c2", "parent": "PS.9B.demographic-structure.age.population-pyramid", "leaf": "PS.9B", "label": "How is a population pyramid structured as a graph?"},
-    {"id": "PS.9B.demographic-structure.age.expansive-pyramid.c1", "parent": "PS.9B.demographic-structure.age.expansive-pyramid", "leaf": "PS.9B", "label": "What population trend does an expansive pyramid reflect?"},
-    {"id": "PS.9B.demographic-structure.age.constrictive-pyramid.c1", "parent": "PS.9B.demographic-structure.age.constrictive-pyramid", "leaf": "PS.9B", "label": "What population trend does a constrictive pyramid reflect?"},
-    {"id": "PS.9B.demographic-structure.age.stationary-pyramid.c1", "parent": "PS.9B.demographic-structure.age.stationary-pyramid", "leaf": "PS.9B", "label": "What does a stationary population pyramid indicate?"},
-    {"id": "PS.9B.demographic-structure.age.dependency-ratio.c1", "parent": "PS.9B.demographic-structure.age.dependency-ratio", "leaf": "PS.9B", "label": "What does the age dependency ratio compare?"},
-    {"id": "PS.9B.demographic-structure.age.dependency-ratio.c2", "parent": "PS.9B.demographic-structure.age.dependency-ratio", "leaf": "PS.9B", "label": "Which ages count as dependent in the dependency ratio?"},
-    {"id": "PS.9B.demographic-structure.age.youth-old-age-dependency.c1", "parent": "PS.9B.demographic-structure.age.youth-old-age-dependency", "leaf": "PS.9B", "label": "How do youth and old-age dependency ratios differ?"},
-    {"id": "PS.9B.demographic-structure.age.aging-population.c1", "parent": "PS.9B.demographic-structure.age.aging-population", "leaf": "PS.9B", "label": "What causes population aging or graying?"},
-    {"id": "PS.9B.demographic-structure.age.baby-boom.c1", "parent": "PS.9B.demographic-structure.age.baby-boom", "leaf": "PS.9B", "label": "How does a baby-boom cohort strain institutions as it ages?"},
-    {"id": "PS.9B.demographic-structure.age.cohort-vs-period-vs-age.c1", "parent": "PS.9B.demographic-structure.age.cohort-vs-period-vs-age", "leaf": "PS.9B", "label": "How do age, period, and cohort effects differ?"},
-    {"id": "PS.9B.demographic-structure.gender.sex-vs-gender.c1", "parent": "PS.9B.demographic-structure.gender.sex-vs-gender", "leaf": "PS.9B", "label": "How does sex differ from gender?"},
-    {"id": "PS.9B.demographic-structure.gender.sex-vs-gender.c2", "parent": "PS.9B.demographic-structure.gender.sex-vs-gender", "leaf": "PS.9B", "label": "Which refers to biological characteristics: sex or gender?"},
-    {"id": "PS.9B.demographic-structure.gender.gender-identity.c1", "parent": "PS.9B.demographic-structure.gender.gender-identity", "leaf": "PS.9B", "label": "What is gender identity?"},
-    {"id": "PS.9B.demographic-structure.gender.transgender-nonbinary.c1", "parent": "PS.9B.demographic-structure.gender.transgender-nonbinary", "leaf": "PS.9B", "label": "How do transgender and nonbinary identities differ?"},
-    {"id": "PS.9B.demographic-structure.gender.gender-roles.c1", "parent": "PS.9B.demographic-structure.gender.gender-roles", "leaf": "PS.9B", "label": "What are gender roles?"},
-    {"id": "PS.9B.demographic-structure.gender.sex-ratio.c1", "parent": "PS.9B.demographic-structure.gender.sex-ratio", "leaf": "PS.9B", "label": "What does the sex ratio of a population measure?"},
-    {"id": "PS.9B.demographic-structure.gender.gender-segregation.c1", "parent": "PS.9B.demographic-structure.gender.gender-segregation", "leaf": "PS.9B", "label": "What is gender segregation?"},
-    {"id": "PS.9B.demographic-structure.gender.gender-stratification.c1", "parent": "PS.9B.demographic-structure.gender.gender-stratification", "leaf": "PS.9B", "label": "What does gender stratification rank?"},
-    {"id": "PS.9B.demographic-structure.gender.gender-inequality.c1", "parent": "PS.9B.demographic-structure.gender.gender-inequality", "leaf": "PS.9B", "label": "What does gender inequality describe, such as the glass ceiling?"},
-    {"id": "PS.9B.demographic-structure.race-ethnicity.race.c1", "parent": "PS.9B.demographic-structure.race-ethnicity.race", "leaf": "PS.9B", "label": "How is race defined as a social construction?"},
-    {"id": "PS.9B.demographic-structure.race-ethnicity.race.c2", "parent": "PS.9B.demographic-structure.race-ethnicity.race", "leaf": "PS.9B", "label": "Does race have a firm biological basis?"},
-    {"id": "PS.9B.demographic-structure.race-ethnicity.ethnicity.c1", "parent": "PS.9B.demographic-structure.race-ethnicity.ethnicity", "leaf": "PS.9B", "label": "What does ethnicity include?"},
-    {"id": "PS.9B.demographic-structure.race-ethnicity.ethnicity.c2", "parent": "PS.9B.demographic-structure.race-ethnicity.ethnicity", "leaf": "PS.9B", "label": "How does ethnicity differ from race?"},
-    {"id": "PS.9B.demographic-structure.race-ethnicity.symbolic-ethnicity.c1", "parent": "PS.9B.demographic-structure.race-ethnicity.symbolic-ethnicity", "leaf": "PS.9B", "label": "What is symbolic ethnicity?"},
-    {"id": "PS.9B.demographic-structure.race-ethnicity.racialization.c1", "parent": "PS.9B.demographic-structure.race-ethnicity.racialization", "leaf": "PS.9B", "label": "What process does racialization describe?"},
-    {"id": "PS.9B.demographic-structure.race-ethnicity.hypodescent.c1", "parent": "PS.9B.demographic-structure.race-ethnicity.hypodescent", "leaf": "PS.9B", "label": "Whom did the one-drop rule (hypodescent) assign to a subordinate group?"},
-    {"id": "PS.9B.demographic-structure.race-ethnicity.minority-group.c1", "parent": "PS.9B.demographic-structure.race-ethnicity.minority-group", "leaf": "PS.9B", "label": "What defines a minority group regardless of its numbers?"},
-    {"id": "PS.9B.demographic-structure.race-ethnicity.dominant-group.c1", "parent": "PS.9B.demographic-structure.race-ethnicity.dominant-group", "leaf": "PS.9B", "label": "What characterizes the dominant or majority group?"},
-    {"id": "PS.9B.demographic-structure.race-ethnicity.assimilation.c1", "parent": "PS.9B.demographic-structure.race-ethnicity.assimilation", "leaf": "PS.9B", "label": "What does assimilation describe for a minority group?"},
-    {"id": "PS.9B.demographic-structure.race-ethnicity.amalgamation.c1", "parent": "PS.9B.demographic-structure.race-ethnicity.amalgamation", "leaf": "PS.9B", "label": "What does amalgamation, or the melting pot, describe?"},
-    {"id": "PS.9B.demographic-structure.race-ethnicity.multiculturalism.c1", "parent": "PS.9B.demographic-structure.race-ethnicity.multiculturalism", "leaf": "PS.9B", "label": "What does multiculturalism or pluralism describe?"},
-    {"id": "PS.9B.demographic-structure.race-ethnicity.segregation.c1", "parent": "PS.9B.demographic-structure.race-ethnicity.segregation", "leaf": "PS.9B", "label": "How does de jure segregation differ from de facto segregation?"},
-    {"id": "PS.9B.demographic-structure.immigration.immigrant.c1", "parent": "PS.9B.demographic-structure.immigration.immigrant", "leaf": "PS.9B", "label": "Who is an immigrant?"},
-    {"id": "PS.9B.demographic-structure.immigration.emigrant.c1", "parent": "PS.9B.demographic-structure.immigration.emigrant", "leaf": "PS.9B", "label": "Who is an emigrant?"},
-    {"id": "PS.9B.demographic-structure.immigration.refugee-vs-asylum.c1", "parent": "PS.9B.demographic-structure.immigration.refugee-vs-asylum", "leaf": "PS.9B", "label": "How does a refugee differ from an asylum seeker?"},
-    {"id": "PS.9B.demographic-structure.immigration.documented-undocumented.c1", "parent": "PS.9B.demographic-structure.immigration.documented-undocumented", "leaf": "PS.9B", "label": "How do documented and undocumented immigrants differ?"},
-    {"id": "PS.9B.demographic-structure.immigration.internally-displaced.c1", "parent": "PS.9B.demographic-structure.immigration.internally-displaced", "leaf": "PS.9B", "label": "How do internally displaced persons differ from refugees?"},
-    {"id": "PS.9B.demographic-structure.sexual-orientation.sexual-orientation.c1", "parent": "PS.9B.demographic-structure.sexual-orientation.sexual-orientation", "leaf": "PS.9B", "label": "What does sexual orientation describe?"},
-    {"id": "PS.9B.demographic-structure.sexual-orientation.orientation-vs-identity.c1", "parent": "PS.9B.demographic-structure.sexual-orientation.orientation-vs-identity", "leaf": "PS.9B", "label": "How does sexual orientation differ from gender identity?"},
-    {"id": "PS.9B.demographic-processes.fertility.fecundity.c1", "parent": "PS.9B.demographic-processes.fertility.fecundity", "leaf": "PS.9B", "label": "How does fecundity differ from realized fertility?"},
-    {"id": "PS.9B.demographic-processes.fertility.fertility.c1", "parent": "PS.9B.demographic-processes.fertility.fertility", "leaf": "PS.9B", "label": "What does realized fertility reflect about a population?"},
-    {"id": "PS.9B.demographic-processes.fertility.crude-birth-rate.c1", "parent": "PS.9B.demographic-processes.fertility.crude-birth-rate", "leaf": "PS.9B", "label": "What does the crude birth rate measure?"},
-    {"id": "PS.9B.demographic-processes.fertility.crude-birth-rate.c2", "parent": "PS.9B.demographic-processes.fertility.crude-birth-rate", "leaf": "PS.9B", "label": "Per how many people is the crude birth rate expressed?"},
-    {"id": "PS.9B.demographic-processes.fertility.general-fertility-rate.c1", "parent": "PS.9B.demographic-processes.fertility.general-fertility-rate", "leaf": "PS.9B", "label": "What population base does the general fertility rate use?"},
-    {"id": "PS.9B.demographic-processes.fertility.age-specific-fertility-rate.c1", "parent": "PS.9B.demographic-processes.fertility.age-specific-fertility-rate", "leaf": "PS.9B", "label": "What does the age-specific fertility rate measure?"},
-    {"id": "PS.9B.demographic-processes.fertility.total-fertility-rate.c1", "parent": "PS.9B.demographic-processes.fertility.total-fertility-rate", "leaf": "PS.9B", "label": "What does the total fertility rate estimate?"},
-    {"id": "PS.9B.demographic-processes.fertility.total-fertility-rate.c2", "parent": "PS.9B.demographic-processes.fertility.total-fertility-rate", "leaf": "PS.9B", "label": "How is the TFR interpreted over a woman's lifetime?"},
-    {"id": "PS.9B.demographic-processes.fertility.replacement-rate.c1", "parent": "PS.9B.demographic-processes.fertility.replacement-rate", "leaf": "PS.9B", "label": "What TFR value represents replacement-level fertility?"},
-    {"id": "PS.9B.demographic-processes.fertility.replacement-rate.c2", "parent": "PS.9B.demographic-processes.fertility.replacement-rate", "leaf": "PS.9B", "label": "Why is replacement fertility about 2.1 rather than 2.0?"},
-    {"id": "PS.9B.demographic-processes.fertility.fertility-determinants.c1", "parent": "PS.9B.demographic-processes.fertility.fertility-determinants", "leaf": "PS.9B", "label": "What social factors shape a population's fertility?"},
-    {"id": "PS.9B.demographic-processes.mortality.crude-death-rate.c1", "parent": "PS.9B.demographic-processes.mortality.crude-death-rate", "leaf": "PS.9B", "label": "What does the crude death rate measure?"},
-    {"id": "PS.9B.demographic-processes.mortality.crude-death-rate.c2", "parent": "PS.9B.demographic-processes.mortality.crude-death-rate", "leaf": "PS.9B", "label": "Per how many people is the crude death rate expressed?"},
-    {"id": "PS.9B.demographic-processes.mortality.age-specific-death-rate.c1", "parent": "PS.9B.demographic-processes.mortality.age-specific-death-rate", "leaf": "PS.9B", "label": "Why is the age-specific death rate useful for comparing populations?"},
-    {"id": "PS.9B.demographic-processes.mortality.infant-mortality-rate.c1", "parent": "PS.9B.demographic-processes.mortality.infant-mortality-rate", "leaf": "PS.9B", "label": "What does the infant mortality rate measure?"},
-    {"id": "PS.9B.demographic-processes.mortality.infant-mortality-rate.c2", "parent": "PS.9B.demographic-processes.mortality.infant-mortality-rate", "leaf": "PS.9B", "label": "Why is infant mortality a sensitive indicator of population health?"},
-    {"id": "PS.9B.demographic-processes.mortality.maternal-mortality-rate.c1", "parent": "PS.9B.demographic-processes.mortality.maternal-mortality-rate", "leaf": "PS.9B", "label": "What does the maternal mortality rate measure?"},
-    {"id": "PS.9B.demographic-processes.mortality.morbidity.c1", "parent": "PS.9B.demographic-processes.mortality.morbidity", "leaf": "PS.9B", "label": "How does morbidity differ from mortality?"},
-    {"id": "PS.9B.demographic-processes.mortality.life-expectancy.c1", "parent": "PS.9B.demographic-processes.mortality.life-expectancy", "leaf": "PS.9B", "label": "What does life expectancy estimate?"},
-    {"id": "PS.9B.demographic-processes.mortality.life-expectancy.c2", "parent": "PS.9B.demographic-processes.mortality.life-expectancy", "leaf": "PS.9B", "label": "How does life expectancy differ from maximum life span?"},
-    {"id": "PS.9B.demographic-processes.mortality.life-span.c1", "parent": "PS.9B.demographic-processes.mortality.life-span", "leaf": "PS.9B", "label": "What does maximum life span refer to?"},
-    {"id": "PS.9B.demographic-processes.mortality.epidemiologic-transition.c1", "parent": "PS.9B.demographic-processes.mortality.epidemiologic-transition", "leaf": "PS.9B", "label": "What shift does the epidemiologic transition describe?"},
-    {"id": "PS.9B.demographic-processes.migration.migration-defined.c1", "parent": "PS.9B.demographic-processes.migration.migration-defined", "leaf": "PS.9B", "label": "What does migration change for both origin and destination?"},
-    {"id": "PS.9B.demographic-processes.migration.immigration-emigration.c1", "parent": "PS.9B.demographic-processes.migration.immigration-emigration", "leaf": "PS.9B", "label": "How do immigration and emigration differ?"},
-    {"id": "PS.9B.demographic-processes.migration.net-migration-rate.c1", "parent": "PS.9B.demographic-processes.migration.net-migration-rate", "leaf": "PS.9B", "label": "How is the net migration rate calculated?"},
-    {"id": "PS.9B.demographic-processes.migration.push-pull-factors.c1", "parent": "PS.9B.demographic-processes.migration.push-pull-factors", "leaf": "PS.9B", "label": "How do push factors differ from pull factors?"},
-    {"id": "PS.9B.demographic-processes.migration.push-pull-factors.c2", "parent": "PS.9B.demographic-processes.migration.push-pull-factors", "leaf": "PS.9B", "label": "Is war a push or a pull factor in migration?"},
-    {"id": "PS.9B.demographic-processes.migration.voluntary-forced.c1", "parent": "PS.9B.demographic-processes.migration.voluntary-forced", "leaf": "PS.9B", "label": "How does voluntary migration differ from forced migration?"},
-    {"id": "PS.9B.demographic-processes.migration.chain-migration.c1", "parent": "PS.9B.demographic-processes.migration.chain-migration", "leaf": "PS.9B", "label": "What does chain migration describe?"},
-    {"id": "PS.9B.demographic-processes.migration.internal-vs-international.c1", "parent": "PS.9B.demographic-processes.migration.internal-vs-international", "leaf": "PS.9B", "label": "How does internal migration differ from international migration?"},
-    {"id": "PS.9B.demographic-processes.migration.urbanization-link.c1", "parent": "PS.9B.demographic-processes.migration.urbanization-link", "leaf": "PS.9B", "label": "How does rural-to-urban migration drive urbanization?"},
-    {"id": "PS.9B.demographic-processes.population-change-equation.balancing-equation.c1", "parent": "PS.9B.demographic-processes.population-change-equation.balancing-equation", "leaf": "PS.9B", "label": "What terms make up the demographic balancing equation?"},
-    {"id": "PS.9B.demographic-processes.population-change-equation.balancing-equation.c2", "parent": "PS.9B.demographic-processes.population-change-equation.balancing-equation", "leaf": "PS.9B", "label": "What two components sum to total population change?"},
-    {"id": "PS.9B.demographic-processes.population-change-equation.natural-increase.c1", "parent": "PS.9B.demographic-processes.population-change-equation.natural-increase", "leaf": "PS.9B", "label": "How is the rate of natural increase calculated?"},
-    {"id": "PS.9B.demographic-processes.population-change-equation.population-growth-rate.c1", "parent": "PS.9B.demographic-processes.population-change-equation.population-growth-rate", "leaf": "PS.9B", "label": "What does the population growth rate express?"},
-    {"id": "PS.9B.demographic-processes.population-change-equation.zero-population-growth.c1", "parent": "PS.9B.demographic-processes.population-change-equation.zero-population-growth", "leaf": "PS.9B", "label": "When does zero population growth occur?"},
-    {"id": "PS.9B.demographic-processes.population-change-equation.doubling-time.c1", "parent": "PS.9B.demographic-processes.population-change-equation.doubling-time", "leaf": "PS.9B", "label": "How does the rule of 70 approximate doubling time?"},
-    {"id": "PS.9B.population-dynamics.growth-models.exponential-growth.c1", "parent": "PS.9B.population-dynamics.growth-models.exponential-growth", "leaf": "PS.9B", "label": "What curve does exponential population growth produce?"},
-    {"id": "PS.9B.population-dynamics.growth-models.logistic-growth.c1", "parent": "PS.9B.population-dynamics.growth-models.logistic-growth", "leaf": "PS.9B", "label": "Why does logistic growth slow as a population rises?"},
-    {"id": "PS.9B.population-dynamics.growth-models.carrying-capacity.c1", "parent": "PS.9B.population-dynamics.growth-models.carrying-capacity", "leaf": "PS.9B", "label": "What is an environment's carrying capacity?"},
-    {"id": "PS.9B.population-dynamics.malthus.malthusian-theory.c1", "parent": "PS.9B.population-dynamics.malthus.malthusian-theory", "leaf": "PS.9B", "label": "How did Malthus contrast population growth with food supply?"},
-    {"id": "PS.9B.population-dynamics.malthus.positive-checks.c1", "parent": "PS.9B.population-dynamics.malthus.positive-checks", "leaf": "PS.9B", "label": "What are Malthusian positive checks on population?"},
-    {"id": "PS.9B.population-dynamics.malthus.preventive-checks.c1", "parent": "PS.9B.population-dynamics.malthus.preventive-checks", "leaf": "PS.9B", "label": "What are Malthusian preventive checks on population?"},
-    {"id": "PS.9B.population-dynamics.malthus.malthusian-catastrophe.c1", "parent": "PS.9B.population-dynamics.malthus.malthusian-catastrophe", "leaf": "PS.9B", "label": "What is a Malthusian catastrophe?"},
-    {"id": "PS.9B.population-dynamics.malthus.neo-malthusian.c1", "parent": "PS.9B.population-dynamics.malthus.neo-malthusian", "leaf": "PS.9B", "label": "What concern do neo-Malthusians revive, and what do critics note?"},
-    {"id": "PS.9B.population-dynamics.demographic-transition.dtm-overview.c1", "parent": "PS.9B.population-dynamics.demographic-transition.dtm-overview", "leaf": "PS.9B", "label": "What shift does the demographic transition model map?"},
-    {"id": "PS.9B.population-dynamics.demographic-transition.dtm-overview.c2", "parent": "PS.9B.population-dynamics.demographic-transition.dtm-overview", "leaf": "PS.9B", "label": "What changes across the stages of the DTM?"},
-    {"id": "PS.9B.population-dynamics.demographic-transition.stage-1.c1", "parent": "PS.9B.population-dynamics.demographic-transition.stage-1", "leaf": "PS.9B", "label": "What birth and death rates define DTM Stage 1?"},
-    {"id": "PS.9B.population-dynamics.demographic-transition.stage-2.c1", "parent": "PS.9B.population-dynamics.demographic-transition.stage-2", "leaf": "PS.9B", "label": "What happens to birth and death rates in DTM Stage 2?"},
-    {"id": "PS.9B.population-dynamics.demographic-transition.stage-2.c2", "parent": "PS.9B.population-dynamics.demographic-transition.stage-2", "leaf": "PS.9B", "label": "Why does population grow rapidly in DTM Stage 2?"},
-    {"id": "PS.9B.population-dynamics.demographic-transition.stage-3.c1", "parent": "PS.9B.population-dynamics.demographic-transition.stage-3", "leaf": "PS.9B", "label": "What happens to birth and death rates in DTM Stage 3?"},
-    {"id": "PS.9B.population-dynamics.demographic-transition.stage-3.c2", "parent": "PS.9B.population-dynamics.demographic-transition.stage-3", "leaf": "PS.9B", "label": "Why does population growth slow in DTM Stage 3?"},
-    {"id": "PS.9B.population-dynamics.demographic-transition.stage-4.c1", "parent": "PS.9B.population-dynamics.demographic-transition.stage-4", "leaf": "PS.9B", "label": "What birth and death rates define DTM Stage 4?"},
-    {"id": "PS.9B.population-dynamics.demographic-transition.stage-5.c1", "parent": "PS.9B.population-dynamics.demographic-transition.stage-5", "leaf": "PS.9B", "label": "What distinguishes a proposed DTM Stage 5?"},
-    {"id": "PS.9B.population-dynamics.demographic-transition.second-demographic-transition.c1", "parent": "PS.9B.population-dynamics.demographic-transition.second-demographic-transition", "leaf": "PS.9B", "label": "What does the second demographic transition describe?"},
-    {"id": "PS.9B.population-dynamics.thomas-theorem-link.population-decline.c1", "parent": "PS.9B.population-dynamics.thomas-theorem-link.population-decline", "leaf": "PS.9B", "label": "When does population decline or depopulation occur?"},
-    {"id": "PS.9B.population-dynamics.thomas-theorem-link.population-momentum.c1", "parent": "PS.9B.population-dynamics.thomas-theorem-link.population-momentum", "leaf": "PS.9B", "label": "Why does population momentum continue growth after fertility falls?"},
-    {"id": "PS.9B.population-dynamics.thomas-theorem-link.population-projection.c1", "parent": "PS.9B.population-dynamics.thomas-theorem-link.population-projection", "leaf": "PS.9B", "label": "What does a population projection estimate?"},
-    {"id": "PS.9B.population-dynamics.thomas-theorem-link.overpopulation.c1", "parent": "PS.9B.population-dynamics.thomas-theorem-link.overpopulation", "leaf": "PS.9B", "label": "What defines overpopulation relative to carrying capacity?"},
-    {"id": "PS.9B.social-movements-change.urbanization.urbanization-defined.c1", "parent": "PS.9B.social-movements-change.urbanization.urbanization-defined", "leaf": "PS.9B", "label": "What does urbanization describe?"},
-    {"id": "PS.9B.social-movements-change.urbanization.suburbanization.c1", "parent": "PS.9B.social-movements-change.urbanization.suburbanization", "leaf": "PS.9B", "label": "What does suburbanization describe?"},
-    {"id": "PS.9B.social-movements-change.urbanization.urban-sprawl.c1", "parent": "PS.9B.social-movements-change.urbanization.urban-sprawl", "leaf": "PS.9B", "label": "What is urban sprawl?"},
-    {"id": "PS.9B.social-movements-change.urbanization.urban-decline-renewal.c1", "parent": "PS.9B.social-movements-change.urbanization.urban-decline-renewal", "leaf": "PS.9B", "label": "How does urban decline differ from gentrification?"},
-    {"id": "PS.9B.social-movements-change.urbanization.white-flight.c1", "parent": "PS.9B.social-movements-change.urbanization.white-flight", "leaf": "PS.9B", "label": "What does white flight describe?"},
-    {"id": "PS.9B.social-movements-change.urbanization.megacities.c1", "parent": "PS.9B.social-movements-change.urbanization.megacities", "leaf": "PS.9B", "label": "What defines a megacity?"},
-    {"id": "PS.9B.social-movements-change.globalization.globalization-defined.c1", "parent": "PS.9B.social-movements-change.globalization.globalization-defined", "leaf": "PS.9B", "label": "What does globalization describe?"},
-    {"id": "PS.9B.social-movements-change.globalization.economic-interdependence.c1", "parent": "PS.9B.social-movements-change.globalization.economic-interdependence", "leaf": "PS.9B", "label": "How does globalization create economic interdependence?"},
-    {"id": "PS.9B.social-movements-change.globalization.cultural-diffusion.c1", "parent": "PS.9B.social-movements-change.globalization.cultural-diffusion", "leaf": "PS.9B", "label": "What does cultural diffusion and homogenization describe?"},
-    {"id": "PS.9B.social-movements-change.globalization.civil-unrest-terrorism.c1", "parent": "PS.9B.social-movements-change.globalization.civil-unrest-terrorism", "leaf": "PS.9B", "label": "How can civil unrest and terrorism relate to globalization strain?"},
-    {"id": "PS.9B.social-movements-change.social-movements.social-movement-defined.c1", "parent": "PS.9B.social-movements-change.social-movements.social-movement-defined", "leaf": "PS.9B", "label": "What is a social movement?"},
-    {"id": "PS.9B.social-movements-change.social-movements.proactive-reactive.c1", "parent": "PS.9B.social-movements-change.social-movements.proactive-reactive", "leaf": "PS.9B", "label": "How do proactive and reactive movements differ?"},
-    {"id": "PS.9B.social-movements-change.social-movements.movement-types.c1", "parent": "PS.9B.social-movements-change.social-movements.movement-types", "leaf": "PS.9B", "label": "How do reformative and revolutionary movements differ?"},
-    {"id": "PS.9B.social-movements-change.social-movements.movement-lifecycle.c1", "parent": "PS.9B.social-movements-change.social-movements.movement-lifecycle", "leaf": "PS.9B", "label": "What stages make up a social movement's life cycle?"},
-    {"id": "PS.9B.social-movements-change.social-movements.relative-deprivation.c1", "parent": "PS.9B.social-movements-change.social-movements.relative-deprivation", "leaf": "PS.9B", "label": "What does relative deprivation theory say sparks movements?"},
-    {"id": "PS.9B.social-movements-change.social-movements.resource-mobilization.c1", "parent": "PS.9B.social-movements-change.social-movements.resource-mobilization", "leaf": "PS.9B", "label": "What does resource mobilization theory say movements need to succeed?"},
-    {"id": "PS.9B.social-movements-change.social-movements.new-social-movements.c1", "parent": "PS.9B.social-movements-change.social-movements.new-social-movements", "leaf": "PS.9B", "label": "What goals do new social movements emphasize?"},
-    {"id": "PS.9B.social-movements-change.collective-behavior.collective-behavior-defined.c1", "parent": "PS.9B.social-movements-change.collective-behavior.collective-behavior-defined", "leaf": "PS.9B", "label": "What is collective behavior?"},
-    {"id": "PS.9B.social-movements-change.collective-behavior.crowds-mobs.c1", "parent": "PS.9B.social-movements-change.collective-behavior.crowds-mobs", "leaf": "PS.9B", "label": "How do crowds, mobs, and riots differ?"},
-    {"id": "PS.9B.social-movements-change.collective-behavior.mass-public.c1", "parent": "PS.9B.social-movements-change.collective-behavior.mass-public", "leaf": "PS.9B", "label": "How does a mass differ from a public?"},
-    {"id": "PS.9B.social-movements-change.collective-behavior.mass-hysteria-fads.c1", "parent": "PS.9B.social-movements-change.collective-behavior.mass-hysteria-fads", "leaf": "PS.9B", "label": "How do mass hysteria and fads differ?"},
-    {"id": "PS.9B.social-movements-change.collective-behavior.contagion-emergent-norm.c1", "parent": "PS.9B.social-movements-change.collective-behavior.contagion-emergent-norm", "leaf": "PS.9B", "label": "How does contagion theory differ from emergent-norm theory?"}
-  ] }
+{
+    "fc": "FC9",
+    "cards": [
+        {
+            "id": "PS.9A.theoretical-approaches.macro-micro.macrosociology.c1",
+            "parent": "PS.9A.theoretical-approaches.macro-micro.macrosociology",
+            "leaf": "PS.9A",
+            "label": "What scale of social phenomena does macrosociology primarily examine?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.macro-micro.macrosociology.c2",
+            "parent": "PS.9A.theoretical-approaches.macro-micro.macrosociology",
+            "leaf": "PS.9A",
+            "label": "Which focus fits macrosociology: face-to-face talk or society-wide inequality?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.macro-micro.microsociology.c1",
+            "parent": "PS.9A.theoretical-approaches.macro-micro.microsociology",
+            "leaf": "PS.9A",
+            "label": "What level of social life does microsociology analyze?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.macro-micro.microsociology.c2",
+            "parent": "PS.9A.theoretical-approaches.macro-micro.microsociology",
+            "leaf": "PS.9A",
+            "label": "Which approach studies everyday face-to-face construction of meaning?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.macro-micro.levels-of-analysis.c1",
+            "parent": "PS.9A.theoretical-approaches.macro-micro.levels-of-analysis",
+            "leaf": "PS.9A",
+            "label": "How do the micro, meso, and macro levels of analysis differ?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.macro-micro.origins-positivism.c1",
+            "parent": "PS.9A.theoretical-approaches.macro-micro.origins-positivism",
+            "leaf": "PS.9A",
+            "label": "Who coined the term sociology and championed positivism?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.macro-micro.sociological-imagination.c1",
+            "parent": "PS.9A.theoretical-approaches.macro-micro.sociological-imagination",
+            "leaf": "PS.9A",
+            "label": "What does Mills' sociological imagination connect personal troubles to?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.functionalism.core-claim.c1",
+            "parent": "PS.9A.theoretical-approaches.functionalism.core-claim",
+            "leaf": "PS.9A",
+            "label": "How does functionalism characterize the parts of a society?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.functionalism.core-claim.c2",
+            "parent": "PS.9A.theoretical-approaches.functionalism.core-claim",
+            "leaf": "PS.9A",
+            "label": "What outcome do functionalists say each social part helps maintain?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.functionalism.durkheim.c1",
+            "parent": "PS.9A.theoretical-approaches.functionalism.durkheim",
+            "leaf": "PS.9A",
+            "label": "Which founder of functionalism emphasized social facts and solidarity?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.functionalism.durkheim.c2",
+            "parent": "PS.9A.theoretical-approaches.functionalism.durkheim",
+            "leaf": "PS.9A",
+            "label": "What did Durkheim say institutions do for individuals in society?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.functionalism.manifest-functions.c1",
+            "parent": "PS.9A.theoretical-approaches.functionalism.manifest-functions",
+            "leaf": "PS.9A",
+            "label": "What defines a manifest function of an institution?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.functionalism.manifest-functions.c2",
+            "parent": "PS.9A.theoretical-approaches.functionalism.manifest-functions",
+            "leaf": "PS.9A",
+            "label": "Educating children is which type of function of schools?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.functionalism.latent-functions.c1",
+            "parent": "PS.9A.theoretical-approaches.functionalism.latent-functions",
+            "leaf": "PS.9A",
+            "label": "What defines a latent function of a social structure?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.functionalism.latent-functions.c2",
+            "parent": "PS.9A.theoretical-approaches.functionalism.latent-functions",
+            "leaf": "PS.9A",
+            "label": "Schools providing childcare and networking illustrates which function?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.functionalism.dysfunction.c1",
+            "parent": "PS.9A.theoretical-approaches.functionalism.dysfunction",
+            "leaf": "PS.9A",
+            "label": "What is a dysfunction in structural-functionalist theory?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.functionalism.merton.c1",
+            "parent": "PS.9A.theoretical-approaches.functionalism.merton",
+            "leaf": "PS.9A",
+            "label": "What refinement to functionalism is Robert Merton known for?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.functionalism.social-facts.c1",
+            "parent": "PS.9A.theoretical-approaches.functionalism.social-facts",
+            "leaf": "PS.9A",
+            "label": "What are Durkheim's social facts?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.functionalism.social-facts.c2",
+            "parent": "PS.9A.theoretical-approaches.functionalism.social-facts",
+            "leaf": "PS.9A",
+            "label": "Why are social facts considered external and coercive?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.functionalism.solidarity.c1",
+            "parent": "PS.9A.theoretical-approaches.functionalism.solidarity",
+            "leaf": "PS.9A",
+            "label": "How does mechanical solidarity differ from organic solidarity?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.functionalism.anomie.c1",
+            "parent": "PS.9A.theoretical-approaches.functionalism.anomie",
+            "leaf": "PS.9A",
+            "label": "What does Durkheim's concept of anomie describe?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.functionalism.anomie.c2",
+            "parent": "PS.9A.theoretical-approaches.functionalism.anomie",
+            "leaf": "PS.9A",
+            "label": "When is anomie most likely to arise in a society?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.conflict.core-claim.c1",
+            "parent": "PS.9A.theoretical-approaches.conflict.core-claim",
+            "leaf": "PS.9A",
+            "label": "According to conflict theory, what maintains social order?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.conflict.core-claim.c2",
+            "parent": "PS.9A.theoretical-approaches.conflict.core-claim",
+            "leaf": "PS.9A",
+            "label": "What do groups compete over in conflict theory?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.conflict.marx.c1",
+            "parent": "PS.9A.theoretical-approaches.conflict.marx",
+            "leaf": "PS.9A",
+            "label": "What did Marx say drives social change?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.conflict.marx.c2",
+            "parent": "PS.9A.theoretical-approaches.conflict.marx",
+            "leaf": "PS.9A",
+            "label": "Marx's class conflict is rooted in control of what?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.conflict.bourgeoisie-proletariat.c1",
+            "parent": "PS.9A.theoretical-approaches.conflict.bourgeoisie-proletariat",
+            "leaf": "PS.9A",
+            "label": "How do the bourgeoisie and proletariat differ in Marx's model?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.conflict.alienation.c1",
+            "parent": "PS.9A.theoretical-approaches.conflict.alienation",
+            "leaf": "PS.9A",
+            "label": "What does Marx's concept of alienation describe under capitalism?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.conflict.false-consciousness.c1",
+            "parent": "PS.9A.theoretical-approaches.conflict.false-consciousness",
+            "leaf": "PS.9A",
+            "label": "How does false consciousness differ from class consciousness?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.conflict.power-elite.c1",
+            "parent": "PS.9A.theoretical-approaches.conflict.power-elite",
+            "leaf": "PS.9A",
+            "label": "How do conflict theorists say elites maintain their dominance?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.conflict.weber-extension.c1",
+            "parent": "PS.9A.theoretical-approaches.conflict.weber-extension",
+            "leaf": "PS.9A",
+            "label": "What two dimensions did Weber add to Marx's economic view of conflict?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.conflict.verstehen.c1",
+            "parent": "PS.9A.theoretical-approaches.conflict.verstehen",
+            "leaf": "PS.9A",
+            "label": "What does Weber's interpretive method of Verstehen involve?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.symbolic-interactionism.core-claim.c1",
+            "parent": "PS.9A.theoretical-approaches.symbolic-interactionism.core-claim",
+            "leaf": "PS.9A",
+            "label": "On what basis do people act toward things in symbolic interactionism?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.symbolic-interactionism.core-claim.c2",
+            "parent": "PS.9A.theoretical-approaches.symbolic-interactionism.core-claim",
+            "leaf": "PS.9A",
+            "label": "Where do the meanings of symbols arise and change?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.symbolic-interactionism.mead.c1",
+            "parent": "PS.9A.theoretical-approaches.symbolic-interactionism.mead",
+            "leaf": "PS.9A",
+            "label": "Which theorist explained the social self through role-taking?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.symbolic-interactionism.blumer.c1",
+            "parent": "PS.9A.theoretical-approaches.symbolic-interactionism.blumer",
+            "leaf": "PS.9A",
+            "label": "Who coined the term symbolic interactionism and set out its premises?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.symbolic-interactionism.dramaturgy.c1",
+            "parent": "PS.9A.theoretical-approaches.symbolic-interactionism.dramaturgy",
+            "leaf": "PS.9A",
+            "label": "What metaphor does Goffman's dramaturgical approach use for interaction?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.symbolic-interactionism.dramaturgy.c2",
+            "parent": "PS.9A.theoretical-approaches.symbolic-interactionism.dramaturgy",
+            "leaf": "PS.9A",
+            "label": "Which concepts does dramaturgy use to analyze self-presentation?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.symbolic-interactionism.impression-management.c1",
+            "parent": "PS.9A.theoretical-approaches.symbolic-interactionism.impression-management",
+            "leaf": "PS.9A",
+            "label": "What is impression management?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.symbolic-interactionism.impression-management.c2",
+            "parent": "PS.9A.theoretical-approaches.symbolic-interactionism.impression-management",
+            "leaf": "PS.9A",
+            "label": "Controlling how others perceive you through self-presentation is called what?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.symbolic-interactionism.front-back-stage.c1",
+            "parent": "PS.9A.theoretical-approaches.symbolic-interactionism.front-back-stage",
+            "leaf": "PS.9A",
+            "label": "How does front stage differ from back stage behavior?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.social-constructionism.core-claim.c1",
+            "parent": "PS.9A.theoretical-approaches.social-constructionism.core-claim",
+            "leaf": "PS.9A",
+            "label": "What does social constructionism claim about shared meanings and categories?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.social-constructionism.core-claim.c2",
+            "parent": "PS.9A.theoretical-approaches.social-constructionism.core-claim",
+            "leaf": "PS.9A",
+            "label": "Per constructionism, are institutions objective facts or social agreements?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.social-constructionism.examples.c1",
+            "parent": "PS.9A.theoretical-approaches.social-constructionism.examples",
+            "leaf": "PS.9A",
+            "label": "Which categories are commonly cited as socially constructed?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.exchange-rational-choice.exchange.c1",
+            "parent": "PS.9A.theoretical-approaches.exchange-rational-choice.exchange",
+            "leaf": "PS.9A",
+            "label": "How does social exchange theory model relationships?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.exchange-rational-choice.rational-choice.c1",
+            "parent": "PS.9A.theoretical-approaches.exchange-rational-choice.rational-choice",
+            "leaf": "PS.9A",
+            "label": "What assumption underlies rational choice theory?"
+        },
+        {
+            "id": "PS.9A.theoretical-approaches.feminist.core-claim.c1",
+            "parent": "PS.9A.theoretical-approaches.feminist.core-claim",
+            "leaf": "PS.9A",
+            "label": "What lens does feminist theory use to analyze social institutions?"
+        },
+        {
+            "id": "PS.9A.social-institutions.definition.concept.c1",
+            "parent": "PS.9A.social-institutions.definition.concept",
+            "leaf": "PS.9A",
+            "label": "What defines a social institution?"
+        },
+        {
+            "id": "PS.9A.social-institutions.definition.concept.c2",
+            "parent": "PS.9A.social-institutions.definition.concept",
+            "leaf": "PS.9A",
+            "label": "Which is a social institution: education or a casual friendship?"
+        },
+        {
+            "id": "PS.9A.social-institutions.definition.functions.c1",
+            "parent": "PS.9A.social-institutions.definition.functions",
+            "leaf": "PS.9A",
+            "label": "What core functions do social institutions perform for society?"
+        },
+        {
+            "id": "PS.9A.social-institutions.family.forms.c1",
+            "parent": "PS.9A.social-institutions.family.forms",
+            "leaf": "PS.9A",
+            "label": "How does monogamy differ from polygamy?"
+        },
+        {
+            "id": "PS.9A.social-institutions.family.forms.c2",
+            "parent": "PS.9A.social-institutions.family.forms",
+            "leaf": "PS.9A",
+            "label": "How do polygyny and polyandry differ?"
+        },
+        {
+            "id": "PS.9A.social-institutions.family.kinship.c1",
+            "parent": "PS.9A.social-institutions.family.kinship",
+            "leaf": "PS.9A",
+            "label": "What social ties make up kinship?"
+        },
+        {
+            "id": "PS.9A.social-institutions.family.nuclear-extended.c1",
+            "parent": "PS.9A.social-institutions.family.nuclear-extended",
+            "leaf": "PS.9A",
+            "label": "How does a nuclear family differ from an extended family?"
+        },
+        {
+            "id": "PS.9A.social-institutions.family.descent.c1",
+            "parent": "PS.9A.social-institutions.family.descent",
+            "leaf": "PS.9A",
+            "label": "How do patrilineal, matrilineal, and bilateral descent differ?"
+        },
+        {
+            "id": "PS.9A.social-institutions.family.residence.c1",
+            "parent": "PS.9A.social-institutions.family.residence",
+            "leaf": "PS.9A",
+            "label": "How do patrilocal, matrilocal, and neolocal residence differ?"
+        },
+        {
+            "id": "PS.9A.social-institutions.family.endogamy-exogamy.c1",
+            "parent": "PS.9A.social-institutions.family.endogamy-exogamy",
+            "leaf": "PS.9A",
+            "label": "How does endogamy differ from exogamy in mate selection?"
+        },
+        {
+            "id": "PS.9A.social-institutions.family.violence.c1",
+            "parent": "PS.9A.social-institutions.family.violence",
+            "leaf": "PS.9A",
+            "label": "What forms of violence fall under family or domestic violence?"
+        },
+        {
+            "id": "PS.9A.social-institutions.education.functions.c1",
+            "parent": "PS.9A.social-institutions.education.functions",
+            "leaf": "PS.9A",
+            "label": "What manifest functions does the institution of education serve?"
+        },
+        {
+            "id": "PS.9A.social-institutions.education.hidden-curriculum.c1",
+            "parent": "PS.9A.social-institutions.education.hidden-curriculum",
+            "leaf": "PS.9A",
+            "label": "What does the hidden curriculum transmit to students?"
+        },
+        {
+            "id": "PS.9A.social-institutions.education.hidden-curriculum.c2",
+            "parent": "PS.9A.social-institutions.education.hidden-curriculum",
+            "leaf": "PS.9A",
+            "label": "Teaching punctuality and obedience alongside academics illustrates what?"
+        },
+        {
+            "id": "PS.9A.social-institutions.education.teacher-expectancy.c1",
+            "parent": "PS.9A.social-institutions.education.teacher-expectancy",
+            "leaf": "PS.9A",
+            "label": "What does the teacher expectancy (Pygmalion) effect describe?"
+        },
+        {
+            "id": "PS.9A.social-institutions.education.teacher-expectancy.c2",
+            "parent": "PS.9A.social-institutions.education.teacher-expectancy",
+            "leaf": "PS.9A",
+            "label": "The teacher expectancy effect is an example of what broader phenomenon?"
+        },
+        {
+            "id": "PS.9A.social-institutions.education.tracking.c1",
+            "parent": "PS.9A.social-institutions.education.tracking",
+            "leaf": "PS.9A",
+            "label": "Why do conflict theorists criticize educational tracking?"
+        },
+        {
+            "id": "PS.9A.social-institutions.education.credentialism.c1",
+            "parent": "PS.9A.social-institutions.education.credentialism",
+            "leaf": "PS.9A",
+            "label": "What does credentialism refer to in education and hiring?"
+        },
+        {
+            "id": "PS.9A.social-institutions.religion.durkheim-sacred.c1",
+            "parent": "PS.9A.social-institutions.religion.durkheim-sacred",
+            "leaf": "PS.9A",
+            "label": "How did Durkheim distinguish the sacred from the profane?"
+        },
+        {
+            "id": "PS.9A.social-institutions.religion.functions.c1",
+            "parent": "PS.9A.social-institutions.religion.functions",
+            "leaf": "PS.9A",
+            "label": "What functions does religion serve for a society?"
+        },
+        {
+            "id": "PS.9A.social-institutions.religion.organizations.c1",
+            "parent": "PS.9A.social-institutions.religion.organizations",
+            "leaf": "PS.9A",
+            "label": "How do a church and a sect differ as religious organizations?"
+        },
+        {
+            "id": "PS.9A.social-institutions.religion.organizations.c2",
+            "parent": "PS.9A.social-institutions.religion.organizations",
+            "leaf": "PS.9A",
+            "label": "Which religious organization is a state-sponsored ecclesia?"
+        },
+        {
+            "id": "PS.9A.social-institutions.religion.modernization.c1",
+            "parent": "PS.9A.social-institutions.religion.modernization",
+            "leaf": "PS.9A",
+            "label": "What does secularization describe?"
+        },
+        {
+            "id": "PS.9A.social-institutions.religion.modernization.c2",
+            "parent": "PS.9A.social-institutions.religion.modernization",
+            "leaf": "PS.9A",
+            "label": "How does fundamentalism differ from secularization?"
+        },
+        {
+            "id": "PS.9A.social-institutions.government-economy.power-authority.c1",
+            "parent": "PS.9A.social-institutions.government-economy.power-authority",
+            "leaf": "PS.9A",
+            "label": "How does power differ from authority?"
+        },
+        {
+            "id": "PS.9A.social-institutions.government-economy.power-authority.c2",
+            "parent": "PS.9A.social-institutions.government-economy.power-authority",
+            "leaf": "PS.9A",
+            "label": "What makes authority distinct from mere coercive power?"
+        },
+        {
+            "id": "PS.9A.social-institutions.government-economy.weber-authority.c1",
+            "parent": "PS.9A.social-institutions.government-economy.weber-authority",
+            "leaf": "PS.9A",
+            "label": "What three types of legitimate authority did Weber identify?"
+        },
+        {
+            "id": "PS.9A.social-institutions.government-economy.weber-authority.c2",
+            "parent": "PS.9A.social-institutions.government-economy.weber-authority",
+            "leaf": "PS.9A",
+            "label": "Authority based on formal rules and offices is which Weberian type?"
+        },
+        {
+            "id": "PS.9A.social-institutions.government-economy.traditional-authority.c1",
+            "parent": "PS.9A.social-institutions.government-economy.traditional-authority",
+            "leaf": "PS.9A",
+            "label": "From what does traditional authority derive its legitimacy?"
+        },
+        {
+            "id": "PS.9A.social-institutions.government-economy.charismatic-authority.c1",
+            "parent": "PS.9A.social-institutions.government-economy.charismatic-authority",
+            "leaf": "PS.9A",
+            "label": "From what does charismatic authority derive its legitimacy?"
+        },
+        {
+            "id": "PS.9A.social-institutions.government-economy.rational-legal-authority.c1",
+            "parent": "PS.9A.social-institutions.government-economy.rational-legal-authority",
+            "leaf": "PS.9A",
+            "label": "From what does rational-legal authority derive its legitimacy?"
+        },
+        {
+            "id": "PS.9A.social-institutions.government-economy.government-types.c1",
+            "parent": "PS.9A.social-institutions.government-economy.government-types",
+            "leaf": "PS.9A",
+            "label": "How do democracy, monarchy, and authoritarianism differ?"
+        },
+        {
+            "id": "PS.9A.social-institutions.government-economy.economic-systems.c1",
+            "parent": "PS.9A.social-institutions.government-economy.economic-systems",
+            "leaf": "PS.9A",
+            "label": "How does capitalism differ from socialism?"
+        },
+        {
+            "id": "PS.9A.social-institutions.government-economy.division-of-labor.c1",
+            "parent": "PS.9A.social-institutions.government-economy.division-of-labor",
+            "leaf": "PS.9A",
+            "label": "What does the division of labor refer to in complex economies?"
+        },
+        {
+            "id": "PS.9A.social-institutions.health-medicine.medicalization.c1",
+            "parent": "PS.9A.social-institutions.health-medicine.medicalization",
+            "leaf": "PS.9A",
+            "label": "What process does medicalization describe?"
+        },
+        {
+            "id": "PS.9A.social-institutions.health-medicine.medicalization.c2",
+            "parent": "PS.9A.social-institutions.health-medicine.medicalization",
+            "leaf": "PS.9A",
+            "label": "Defining shyness as a treatable disorder is an example of what?"
+        },
+        {
+            "id": "PS.9A.social-institutions.health-medicine.sick-role.c1",
+            "parent": "PS.9A.social-institutions.health-medicine.sick-role",
+            "leaf": "PS.9A",
+            "label": "What does Parsons' sick role exempt an ill person from?"
+        },
+        {
+            "id": "PS.9A.social-institutions.health-medicine.sick-role.c2",
+            "parent": "PS.9A.social-institutions.health-medicine.sick-role",
+            "leaf": "PS.9A",
+            "label": "What obligations does the sick role place on an ill person?"
+        },
+        {
+            "id": "PS.9A.social-institutions.health-medicine.illness-experience.c1",
+            "parent": "PS.9A.social-institutions.health-medicine.illness-experience",
+            "leaf": "PS.9A",
+            "label": "What does the social construction of illness emphasize?"
+        },
+        {
+            "id": "PS.9A.social-institutions.media.role.c1",
+            "parent": "PS.9A.social-institutions.media.role",
+            "leaf": "PS.9A",
+            "label": "How does mass media act as an agent of socialization?"
+        },
+        {
+            "id": "PS.9A.culture.definition.concept.c1",
+            "parent": "PS.9A.culture.definition.concept",
+            "leaf": "PS.9A",
+            "label": "What does culture encompass in sociology?"
+        },
+        {
+            "id": "PS.9A.culture.definition.concept.c2",
+            "parent": "PS.9A.culture.definition.concept",
+            "leaf": "PS.9A",
+            "label": "Is culture learned and shared or biologically inherited?"
+        },
+        {
+            "id": "PS.9A.culture.definition.material.c1",
+            "parent": "PS.9A.culture.definition.material",
+            "leaf": "PS.9A",
+            "label": "What does material culture consist of?"
+        },
+        {
+            "id": "PS.9A.culture.definition.material.c2",
+            "parent": "PS.9A.culture.definition.material",
+            "leaf": "PS.9A",
+            "label": "Which is material culture: a tool or a shared belief?"
+        },
+        {
+            "id": "PS.9A.culture.definition.nonmaterial.c1",
+            "parent": "PS.9A.culture.definition.nonmaterial",
+            "leaf": "PS.9A",
+            "label": "What does nonmaterial culture consist of?"
+        },
+        {
+            "id": "PS.9A.culture.definition.nonmaterial.c2",
+            "parent": "PS.9A.culture.definition.nonmaterial",
+            "leaf": "PS.9A",
+            "label": "Which is nonmaterial culture: values or physical artifacts?"
+        },
+        {
+            "id": "PS.9A.culture.symbols-language.symbols.c1",
+            "parent": "PS.9A.culture.symbols-language.symbols",
+            "leaf": "PS.9A",
+            "label": "What is a symbol in a culture?"
+        },
+        {
+            "id": "PS.9A.culture.symbols-language.symbols.c2",
+            "parent": "PS.9A.culture.symbols-language.symbols",
+            "leaf": "PS.9A",
+            "label": "Why can the same gesture carry different meanings across cultures?"
+        },
+        {
+            "id": "PS.9A.culture.symbols-language.language.c1",
+            "parent": "PS.9A.culture.symbols-language.language",
+            "leaf": "PS.9A",
+            "label": "What role does language play in a culture?"
+        },
+        {
+            "id": "PS.9A.culture.symbols-language.language.c2",
+            "parent": "PS.9A.culture.symbols-language.language",
+            "leaf": "PS.9A",
+            "label": "Why is language central to transmitting culture?"
+        },
+        {
+            "id": "PS.9A.culture.symbols-language.sapir-whorf.c1",
+            "parent": "PS.9A.culture.symbols-language.sapir-whorf",
+            "leaf": "PS.9A",
+            "label": "What does the Sapir-Whorf hypothesis propose?"
+        },
+        {
+            "id": "PS.9A.culture.symbols-language.sapir-whorf.c2",
+            "parent": "PS.9A.culture.symbols-language.sapir-whorf",
+            "leaf": "PS.9A",
+            "label": "Linguistic relativity claims language shapes what?"
+        },
+        {
+            "id": "PS.9A.culture.values-beliefs.values.c1",
+            "parent": "PS.9A.culture.values-beliefs.values",
+            "leaf": "PS.9A",
+            "label": "What are values in a culture?"
+        },
+        {
+            "id": "PS.9A.culture.values-beliefs.beliefs.c1",
+            "parent": "PS.9A.culture.values-beliefs.beliefs",
+            "leaf": "PS.9A",
+            "label": "How do beliefs differ from values?"
+        },
+        {
+            "id": "PS.9A.culture.norms.definition.c1",
+            "parent": "PS.9A.culture.norms.definition",
+            "leaf": "PS.9A",
+            "label": "What are norms in a society?"
+        },
+        {
+            "id": "PS.9A.culture.norms.definition.c2",
+            "parent": "PS.9A.culture.norms.definition",
+            "leaf": "PS.9A",
+            "label": "What enforces norms when they are violated?"
+        },
+        {
+            "id": "PS.9A.culture.norms.folkways.c1",
+            "parent": "PS.9A.culture.norms.folkways",
+            "leaf": "PS.9A",
+            "label": "What are folkways, and how serious is violating them?"
+        },
+        {
+            "id": "PS.9A.culture.norms.folkways.c2",
+            "parent": "PS.9A.culture.norms.folkways",
+            "leaf": "PS.9A",
+            "label": "Which is a folkway: table manners or a law against theft?"
+        },
+        {
+            "id": "PS.9A.culture.norms.mores.c1",
+            "parent": "PS.9A.culture.norms.mores",
+            "leaf": "PS.9A",
+            "label": "How do mores differ from folkways?"
+        },
+        {
+            "id": "PS.9A.culture.norms.mores.c2",
+            "parent": "PS.9A.culture.norms.mores",
+            "leaf": "PS.9A",
+            "label": "Which norm carries strong moral weight: mores or folkways?"
+        },
+        {
+            "id": "PS.9A.culture.norms.taboos.c1",
+            "parent": "PS.9A.culture.norms.taboos",
+            "leaf": "PS.9A",
+            "label": "What makes a taboo the strongest type of more?"
+        },
+        {
+            "id": "PS.9A.culture.norms.laws.c1",
+            "parent": "PS.9A.culture.norms.laws",
+            "leaf": "PS.9A",
+            "label": "What distinguishes laws from other kinds of norms?"
+        },
+        {
+            "id": "PS.9A.culture.norms.sanctions.c1",
+            "parent": "PS.9A.culture.norms.sanctions",
+            "leaf": "PS.9A",
+            "label": "What are sanctions, and how can they be classified?"
+        },
+        {
+            "id": "PS.9A.culture.variation.subculture.c1",
+            "parent": "PS.9A.culture.variation.subculture",
+            "leaf": "PS.9A",
+            "label": "What defines a subculture?"
+        },
+        {
+            "id": "PS.9A.culture.variation.subculture.c2",
+            "parent": "PS.9A.culture.variation.subculture",
+            "leaf": "PS.9A",
+            "label": "Does a subculture reject or participate in the larger culture?"
+        },
+        {
+            "id": "PS.9A.culture.variation.counterculture.c1",
+            "parent": "PS.9A.culture.variation.counterculture",
+            "leaf": "PS.9A",
+            "label": "What defines a counterculture?"
+        },
+        {
+            "id": "PS.9A.culture.variation.counterculture.c2",
+            "parent": "PS.9A.culture.variation.counterculture",
+            "leaf": "PS.9A",
+            "label": "How does a counterculture differ from a subculture?"
+        },
+        {
+            "id": "PS.9A.culture.variation.ethnocentrism.c1",
+            "parent": "PS.9A.culture.variation.ethnocentrism",
+            "leaf": "PS.9A",
+            "label": "What is ethnocentrism?"
+        },
+        {
+            "id": "PS.9A.culture.variation.ethnocentrism.c2",
+            "parent": "PS.9A.culture.variation.ethnocentrism",
+            "leaf": "PS.9A",
+            "label": "Judging another culture by your own standards is called what?"
+        },
+        {
+            "id": "PS.9A.culture.variation.cultural-relativism.c1",
+            "parent": "PS.9A.culture.variation.cultural-relativism",
+            "leaf": "PS.9A",
+            "label": "What does cultural relativism involve?"
+        },
+        {
+            "id": "PS.9A.culture.variation.cultural-relativism.c2",
+            "parent": "PS.9A.culture.variation.cultural-relativism",
+            "leaf": "PS.9A",
+            "label": "How does cultural relativism contrast with ethnocentrism?"
+        },
+        {
+            "id": "PS.9A.culture.variation.culture-shock.c1",
+            "parent": "PS.9A.culture.variation.culture-shock",
+            "leaf": "PS.9A",
+            "label": "What is culture shock?"
+        },
+        {
+            "id": "PS.9A.culture.variation.cultural-universals.c1",
+            "parent": "PS.9A.culture.variation.cultural-universals",
+            "leaf": "PS.9A",
+            "label": "What are cultural universals?"
+        },
+        {
+            "id": "PS.9A.culture.capital.cultural-capital.c1",
+            "parent": "PS.9A.culture.capital.cultural-capital",
+            "leaf": "PS.9A",
+            "label": "What does Bourdieu's cultural capital consist of?"
+        },
+        {
+            "id": "PS.9A.culture.capital.cultural-capital.c2",
+            "parent": "PS.9A.culture.capital.cultural-capital",
+            "leaf": "PS.9A",
+            "label": "How does cultural capital confer social advantage?"
+        },
+        {
+            "id": "PS.9A.culture.capital.social-capital.c1",
+            "parent": "PS.9A.culture.capital.social-capital",
+            "leaf": "PS.9A",
+            "label": "What is social capital?"
+        },
+        {
+            "id": "PS.9A.culture.capital.social-capital.c2",
+            "parent": "PS.9A.culture.capital.social-capital",
+            "leaf": "PS.9A",
+            "label": "From what do people derive their social capital?"
+        },
+        {
+            "id": "PS.9A.culture.transmission-change.cultural-transmission.c1",
+            "parent": "PS.9A.culture.transmission-change.cultural-transmission",
+            "leaf": "PS.9A",
+            "label": "What is cultural transmission?"
+        },
+        {
+            "id": "PS.9A.culture.transmission-change.diffusion.c1",
+            "parent": "PS.9A.culture.transmission-change.diffusion",
+            "leaf": "PS.9A",
+            "label": "What is cultural diffusion?"
+        },
+        {
+            "id": "PS.9A.culture.transmission-change.cultural-lag.c1",
+            "parent": "PS.9A.culture.transmission-change.cultural-lag",
+            "leaf": "PS.9A",
+            "label": "What does cultural lag describe?"
+        },
+        {
+            "id": "PS.9A.culture.transmission-change.cultural-lag.c2",
+            "parent": "PS.9A.culture.transmission-change.cultural-lag",
+            "leaf": "PS.9A",
+            "label": "Laws lagging behind new technology illustrates what concept?"
+        },
+        {
+            "id": "PS.9A.culture.transmission-change.assimilation.c1",
+            "parent": "PS.9A.culture.transmission-change.assimilation",
+            "leaf": "PS.9A",
+            "label": "What does assimilation describe for a minority group?"
+        },
+        {
+            "id": "PS.9A.culture.transmission-change.multiculturalism.c1",
+            "parent": "PS.9A.culture.transmission-change.multiculturalism",
+            "leaf": "PS.9A",
+            "label": "What does multiculturalism or cultural pluralism describe?"
+        },
+        {
+            "id": "PS.9A.culture.transmission-change.high-pop-culture.c1",
+            "parent": "PS.9A.culture.transmission-change.high-pop-culture",
+            "leaf": "PS.9A",
+            "label": "How does high culture differ from popular culture?"
+        },
+        {
+            "id": "PS.9A.culture.evolution-perspectives.evolution-human-culture.c1",
+            "parent": "PS.9A.culture.evolution-perspectives.evolution-human-culture",
+            "leaf": "PS.9A",
+            "label": "What evolved human capacities help shape culture?"
+        },
+        {
+            "id": "PS.9A.demographics.concepts.demography.c1",
+            "parent": "PS.9A.demographics.concepts.demography",
+            "leaf": "PS.9A",
+            "label": "What does demography study?"
+        },
+        {
+            "id": "PS.9A.demographics.concepts.fertility-mortality.c1",
+            "parent": "PS.9A.demographics.concepts.fertility-mortality",
+            "leaf": "PS.9A",
+            "label": "How do fertility and mortality rates differ?"
+        },
+        {
+            "id": "PS.9A.demographics.concepts.migration.c1",
+            "parent": "PS.9A.demographics.concepts.migration",
+            "leaf": "PS.9A",
+            "label": "How do immigration and emigration differ?"
+        },
+        {
+            "id": "PS.9A.demographics.concepts.push-pull.c1",
+            "parent": "PS.9A.demographics.concepts.push-pull",
+            "leaf": "PS.9A",
+            "label": "How do push factors differ from pull factors in migration?"
+        },
+        {
+            "id": "PS.9A.demographics.concepts.population-pyramid.c1",
+            "parent": "PS.9A.demographics.concepts.population-pyramid",
+            "leaf": "PS.9A",
+            "label": "What does a population pyramid depict about a population?"
+        },
+        {
+            "id": "PS.9A.demographics.transition.demographic-transition.c1",
+            "parent": "PS.9A.demographics.transition.demographic-transition",
+            "leaf": "PS.9A",
+            "label": "What shift does demographic transition theory describe?"
+        },
+        {
+            "id": "PS.9A.demographics.transition.demographic-transition.c2",
+            "parent": "PS.9A.demographics.transition.demographic-transition",
+            "leaf": "PS.9A",
+            "label": "What drives the demographic transition in a society?"
+        },
+        {
+            "id": "PS.9A.demographics.transition.malthusian.c1",
+            "parent": "PS.9A.demographics.transition.malthusian",
+            "leaf": "PS.9A",
+            "label": "What did Malthus predict about population and food supply?"
+        },
+        {
+            "id": "PS.9A.demographics.transition.population-growth.c1",
+            "parent": "PS.9A.demographics.transition.population-growth",
+            "leaf": "PS.9A",
+            "label": "How is population change computed from births, deaths, and migration?"
+        },
+        {
+            "id": "PS.9A.demographics.age.aging-population.c1",
+            "parent": "PS.9A.demographics.age.aging-population",
+            "leaf": "PS.9A",
+            "label": "What trends cause a population to age?"
+        },
+        {
+            "id": "PS.9A.demographics.age.ageism.c1",
+            "parent": "PS.9A.demographics.age.ageism",
+            "leaf": "PS.9A",
+            "label": "What is ageism?"
+        },
+        {
+            "id": "PS.9A.demographics.gender.sex-vs-gender.c1",
+            "parent": "PS.9A.demographics.gender.sex-vs-gender",
+            "leaf": "PS.9A",
+            "label": "How does sex differ from gender?"
+        },
+        {
+            "id": "PS.9A.demographics.gender.sex-vs-gender.c2",
+            "parent": "PS.9A.demographics.gender.sex-vs-gender",
+            "leaf": "PS.9A",
+            "label": "Which is socially constructed: sex or gender?"
+        },
+        {
+            "id": "PS.9A.demographics.gender.gender-roles.c1",
+            "parent": "PS.9A.demographics.gender.gender-roles",
+            "leaf": "PS.9A",
+            "label": "What are gender roles?"
+        },
+        {
+            "id": "PS.9A.demographics.gender.gender-inequality.c1",
+            "parent": "PS.9A.demographics.gender.gender-inequality",
+            "leaf": "PS.9A",
+            "label": "What does gender stratification produce, such as the wage gap?"
+        },
+        {
+            "id": "PS.9A.demographics.race-ethnicity.race.c1",
+            "parent": "PS.9A.demographics.race-ethnicity.race",
+            "leaf": "PS.9A",
+            "label": "How does sociology define race?"
+        },
+        {
+            "id": "PS.9A.demographics.race-ethnicity.race.c2",
+            "parent": "PS.9A.demographics.race-ethnicity.race",
+            "leaf": "PS.9A",
+            "label": "Is race primarily a biological or a social category?"
+        },
+        {
+            "id": "PS.9A.demographics.race-ethnicity.ethnicity.c1",
+            "parent": "PS.9A.demographics.race-ethnicity.ethnicity",
+            "leaf": "PS.9A",
+            "label": "What does ethnicity refer to?"
+        },
+        {
+            "id": "PS.9A.demographics.race-ethnicity.ethnicity.c2",
+            "parent": "PS.9A.demographics.race-ethnicity.ethnicity",
+            "leaf": "PS.9A",
+            "label": "How does ethnicity differ from race?"
+        },
+        {
+            "id": "PS.9A.demographics.race-ethnicity.minority-group.c1",
+            "parent": "PS.9A.demographics.race-ethnicity.minority-group",
+            "leaf": "PS.9A",
+            "label": "What defines a minority group sociologically?"
+        },
+        {
+            "id": "PS.9A.demographics.race-ethnicity.intersectionality.c1",
+            "parent": "PS.9A.demographics.race-ethnicity.intersectionality",
+            "leaf": "PS.9A",
+            "label": "What does intersectionality describe?"
+        },
+        {
+            "id": "PS.9A.demographics.race-ethnicity.intersectionality.c2",
+            "parent": "PS.9A.demographics.race-ethnicity.intersectionality",
+            "leaf": "PS.9A",
+            "label": "How can overlapping identities create distinct disadvantage?"
+        },
+        {
+            "id": "PS.9A.demographics.race-ethnicity.patterns-relations.c1",
+            "parent": "PS.9A.demographics.race-ethnicity.patterns-relations",
+            "leaf": "PS.9A",
+            "label": "What intergroup relations range from pluralism to genocide?"
+        },
+        {
+            "id": "PS.9A.demographics.immigration.status.c1",
+            "parent": "PS.9A.demographics.immigration.status",
+            "leaf": "PS.9A",
+            "label": "How does immigration status shape access to rights and resources?"
+        },
+        {
+            "id": "PS.9A.demographics.sexual-orientation.concept.c1",
+            "parent": "PS.9A.demographics.sexual-orientation.concept",
+            "leaf": "PS.9A",
+            "label": "How is sexual orientation an axis of social structure?"
+        },
+        {
+            "id": "PS.9A.social-change.urbanization.concept.c1",
+            "parent": "PS.9A.social-change.urbanization.concept",
+            "leaf": "PS.9A",
+            "label": "What does urbanization describe?"
+        },
+        {
+            "id": "PS.9A.social-change.urbanization.suburbanization.c1",
+            "parent": "PS.9A.social-change.urbanization.suburbanization",
+            "leaf": "PS.9A",
+            "label": "How can suburbanization contribute to inner-city decline?"
+        },
+        {
+            "id": "PS.9A.social-change.urbanization.gentrification.c1",
+            "parent": "PS.9A.social-change.urbanization.gentrification",
+            "leaf": "PS.9A",
+            "label": "What is gentrification, and whom can it displace?"
+        },
+        {
+            "id": "PS.9A.social-change.globalization.concept.c1",
+            "parent": "PS.9A.social-change.globalization.concept",
+            "leaf": "PS.9A",
+            "label": "What does globalization describe?"
+        },
+        {
+            "id": "PS.9A.social-change.globalization.concept.c2",
+            "parent": "PS.9A.social-change.globalization.concept",
+            "leaf": "PS.9A",
+            "label": "What becomes increasingly interconnected under globalization?"
+        },
+        {
+            "id": "PS.9A.social-change.globalization.factors.c1",
+            "parent": "PS.9A.social-change.globalization.factors",
+            "leaf": "PS.9A",
+            "label": "What drives globalization, and what backlash can it produce?"
+        },
+        {
+            "id": "PS.9A.social-change.social-movements.concept.c1",
+            "parent": "PS.9A.social-change.social-movements.concept",
+            "leaf": "PS.9A",
+            "label": "What is a social movement?"
+        },
+        {
+            "id": "PS.9A.social-change.social-movements.concept.c2",
+            "parent": "PS.9A.social-change.social-movements.concept",
+            "leaf": "PS.9A",
+            "label": "How do proactive and reactive social movements differ?"
+        },
+        {
+            "id": "PS.9A.social-change.social-movements.relative-deprivation.c1",
+            "parent": "PS.9A.social-change.social-movements.relative-deprivation",
+            "leaf": "PS.9A",
+            "label": "What does relative deprivation theory say sparks social movements?"
+        },
+        {
+            "id": "PS.9A.social-change.social-movements.resource-mobilization.c1",
+            "parent": "PS.9A.social-change.social-movements.resource-mobilization",
+            "leaf": "PS.9A",
+            "label": "What does resource mobilization theory say drives a movement's success?"
+        },
+        {
+            "id": "PS.9A.social-change.modernization.concept.c1",
+            "parent": "PS.9A.social-change.modernization.concept",
+            "leaf": "PS.9A",
+            "label": "What transformation does modernization describe?"
+        },
+        {
+            "id": "PS.9A.social-change.collective-behavior.concept.c1",
+            "parent": "PS.9A.social-change.collective-behavior.concept",
+            "leaf": "PS.9A",
+            "label": "What kinds of activity count as collective behavior?"
+        },
+        {
+            "id": "PS.9A.social-interaction.status.definition.c1",
+            "parent": "PS.9A.social-interaction.status.definition",
+            "leaf": "PS.9A",
+            "label": "What is a status in sociology?"
+        },
+        {
+            "id": "PS.9A.social-interaction.status.definition.c2",
+            "parent": "PS.9A.social-interaction.status.definition",
+            "leaf": "PS.9A",
+            "label": "What do statuses carry with them for the person who occupies them?"
+        },
+        {
+            "id": "PS.9A.social-interaction.status.ascribed.c1",
+            "parent": "PS.9A.social-interaction.status.ascribed",
+            "leaf": "PS.9A",
+            "label": "What is an ascribed status?"
+        },
+        {
+            "id": "PS.9A.social-interaction.status.ascribed.c2",
+            "parent": "PS.9A.social-interaction.status.ascribed",
+            "leaf": "PS.9A",
+            "label": "Which is an ascribed status: race or occupation?"
+        },
+        {
+            "id": "PS.9A.social-interaction.status.achieved.c1",
+            "parent": "PS.9A.social-interaction.status.achieved",
+            "leaf": "PS.9A",
+            "label": "What is an achieved status?"
+        },
+        {
+            "id": "PS.9A.social-interaction.status.achieved.c2",
+            "parent": "PS.9A.social-interaction.status.achieved",
+            "leaf": "PS.9A",
+            "label": "Which is an achieved status: physician or sex assigned at birth?"
+        },
+        {
+            "id": "PS.9A.social-interaction.status.master.c1",
+            "parent": "PS.9A.social-interaction.status.master",
+            "leaf": "PS.9A",
+            "label": "What is a master status?"
+        },
+        {
+            "id": "PS.9A.social-interaction.status.master.c2",
+            "parent": "PS.9A.social-interaction.status.master",
+            "leaf": "PS.9A",
+            "label": "A status that overrides all others in interaction is called what?"
+        },
+        {
+            "id": "PS.9A.social-interaction.status.status-set.c1",
+            "parent": "PS.9A.social-interaction.status.status-set",
+            "leaf": "PS.9A",
+            "label": "What is a status set?"
+        },
+        {
+            "id": "PS.9A.social-interaction.role.definition.c1",
+            "parent": "PS.9A.social-interaction.role.definition",
+            "leaf": "PS.9A",
+            "label": "What is a role in relation to a status?"
+        },
+        {
+            "id": "PS.9A.social-interaction.role.definition.c2",
+            "parent": "PS.9A.social-interaction.role.definition",
+            "leaf": "PS.9A",
+            "label": "What does a role attach to a particular social status?"
+        },
+        {
+            "id": "PS.9A.social-interaction.role.role-conflict.c1",
+            "parent": "PS.9A.social-interaction.role.role-conflict",
+            "leaf": "PS.9A",
+            "label": "What is role conflict?"
+        },
+        {
+            "id": "PS.9A.social-interaction.role.role-conflict.c2",
+            "parent": "PS.9A.social-interaction.role.role-conflict",
+            "leaf": "PS.9A",
+            "label": "Tension between the demands of two different statuses is called what?"
+        },
+        {
+            "id": "PS.9A.social-interaction.role.role-strain.c1",
+            "parent": "PS.9A.social-interaction.role.role-strain",
+            "leaf": "PS.9A",
+            "label": "What is role strain?"
+        },
+        {
+            "id": "PS.9A.social-interaction.role.role-strain.c2",
+            "parent": "PS.9A.social-interaction.role.role-strain",
+            "leaf": "PS.9A",
+            "label": "How does role strain differ from role conflict?"
+        },
+        {
+            "id": "PS.9A.social-interaction.role.role-exit.c1",
+            "parent": "PS.9A.social-interaction.role.role-exit",
+            "leaf": "PS.9A",
+            "label": "What does role exit involve?"
+        },
+        {
+            "id": "PS.9A.social-interaction.role.role-set.c1",
+            "parent": "PS.9A.social-interaction.role.role-set",
+            "leaf": "PS.9A",
+            "label": "What is a role set?"
+        },
+        {
+            "id": "PS.9A.social-interaction.groups.primary.c1",
+            "parent": "PS.9A.social-interaction.groups.primary",
+            "leaf": "PS.9A",
+            "label": "What characterizes a primary group?"
+        },
+        {
+            "id": "PS.9A.social-interaction.groups.primary.c2",
+            "parent": "PS.9A.social-interaction.groups.primary",
+            "leaf": "PS.9A",
+            "label": "Which is a primary group: family or coworkers?"
+        },
+        {
+            "id": "PS.9A.social-interaction.groups.secondary.c1",
+            "parent": "PS.9A.social-interaction.groups.secondary",
+            "leaf": "PS.9A",
+            "label": "What characterizes a secondary group?"
+        },
+        {
+            "id": "PS.9A.social-interaction.groups.secondary.c2",
+            "parent": "PS.9A.social-interaction.groups.secondary",
+            "leaf": "PS.9A",
+            "label": "How does a secondary group differ from a primary group?"
+        },
+        {
+            "id": "PS.9A.social-interaction.groups.in-out-group.c1",
+            "parent": "PS.9A.social-interaction.groups.in-out-group",
+            "leaf": "PS.9A",
+            "label": "How does an in-group differ from an out-group?"
+        },
+        {
+            "id": "PS.9A.social-interaction.groups.in-out-group.c2",
+            "parent": "PS.9A.social-interaction.groups.in-out-group",
+            "leaf": "PS.9A",
+            "label": "Which group does a person identify with and feel loyalty toward?"
+        },
+        {
+            "id": "PS.9A.social-interaction.groups.reference-group.c1",
+            "parent": "PS.9A.social-interaction.groups.reference-group",
+            "leaf": "PS.9A",
+            "label": "What is a reference group?"
+        },
+        {
+            "id": "PS.9A.social-interaction.groups.reference-group.c2",
+            "parent": "PS.9A.social-interaction.groups.reference-group",
+            "leaf": "PS.9A",
+            "label": "Using a group as a standard to judge yourself defines what?"
+        },
+        {
+            "id": "PS.9A.social-interaction.groups.dyad-triad.c1",
+            "parent": "PS.9A.social-interaction.groups.dyad-triad",
+            "leaf": "PS.9A",
+            "label": "How do a dyad and a triad differ in stability?"
+        },
+        {
+            "id": "PS.9A.social-interaction.groups.network.c1",
+            "parent": "PS.9A.social-interaction.groups.network",
+            "leaf": "PS.9A",
+            "label": "What is a social network, and what flows through it?"
+        },
+        {
+            "id": "PS.9A.social-interaction.groups.group-conformity.c1",
+            "parent": "PS.9A.social-interaction.groups.group-conformity",
+            "leaf": "PS.9A",
+            "label": "What is groupthink, and what drives it?"
+        },
+        {
+            "id": "PS.9A.social-interaction.organizations.formal-org.c1",
+            "parent": "PS.9A.social-interaction.organizations.formal-org",
+            "leaf": "PS.9A",
+            "label": "What defines a formal organization?"
+        },
+        {
+            "id": "PS.9A.social-interaction.organizations.bureaucracy.c1",
+            "parent": "PS.9A.social-interaction.organizations.bureaucracy",
+            "leaf": "PS.9A",
+            "label": "What features define Weber's ideal bureaucracy?"
+        },
+        {
+            "id": "PS.9A.social-interaction.organizations.bureaucracy.c2",
+            "parent": "PS.9A.social-interaction.organizations.bureaucracy",
+            "leaf": "PS.9A",
+            "label": "Which trait is characteristic of bureaucracy: impersonality or personal ties?"
+        },
+        {
+            "id": "PS.9A.social-interaction.organizations.iron-law.c1",
+            "parent": "PS.9A.social-interaction.organizations.iron-law",
+            "leaf": "PS.9A",
+            "label": "What does Michels' iron law of oligarchy claim?"
+        },
+        {
+            "id": "PS.9A.social-interaction.organizations.mcdonaldization.c1",
+            "parent": "PS.9A.social-interaction.organizations.mcdonaldization",
+            "leaf": "PS.9A",
+            "label": "What four principles define Ritzer's McDonaldization?"
+        },
+        {
+            "id": "PS.9A.social-construction-reality.process.definition-of-situation.c1",
+            "parent": "PS.9A.social-construction-reality.process.definition-of-situation",
+            "leaf": "PS.9A",
+            "label": "What does the Thomas theorem state?"
+        },
+        {
+            "id": "PS.9A.social-construction-reality.process.definition-of-situation.c2",
+            "parent": "PS.9A.social-construction-reality.process.definition-of-situation",
+            "leaf": "PS.9A",
+            "label": "How can defining a situation as real produce real consequences?"
+        },
+        {
+            "id": "PS.9A.social-construction-reality.process.self-fulfilling.c1",
+            "parent": "PS.9A.social-construction-reality.process.self-fulfilling",
+            "leaf": "PS.9A",
+            "label": "What is a self-fulfilling prophecy?"
+        },
+        {
+            "id": "PS.9A.social-construction-reality.process.self-fulfilling.c2",
+            "parent": "PS.9A.social-construction-reality.process.self-fulfilling",
+            "leaf": "PS.9A",
+            "label": "How can a false belief become true through people's behavior?"
+        },
+        {
+            "id": "PS.9A.social-construction-reality.process.ethnomethodology.c1",
+            "parent": "PS.9A.social-construction-reality.process.ethnomethodology",
+            "leaf": "PS.9A",
+            "label": "What does ethnomethodology study?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.foundations.demography-defined.c1",
+            "parent": "PS.9B.demographic-structure.foundations.demography-defined",
+            "leaf": "PS.9B",
+            "label": "What does demography scientifically study?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.foundations.population.c1",
+            "parent": "PS.9B.demographic-structure.foundations.population",
+            "leaf": "PS.9B",
+            "label": "What is a population in demographic terms?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.foundations.cohort.c1",
+            "parent": "PS.9B.demographic-structure.foundations.cohort",
+            "leaf": "PS.9B",
+            "label": "What is a cohort, most often a birth cohort?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.foundations.census.c1",
+            "parent": "PS.9B.demographic-structure.foundations.census",
+            "leaf": "PS.9B",
+            "label": "What is a census, and what does it give demographers?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.foundations.vital-statistics.c1",
+            "parent": "PS.9B.demographic-structure.foundations.vital-statistics",
+            "leaf": "PS.9B",
+            "label": "What events do vital statistics record?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.foundations.population-distribution.c1",
+            "parent": "PS.9B.demographic-structure.foundations.population-distribution",
+            "leaf": "PS.9B",
+            "label": "How does population distribution differ from population density?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.foundations.demographic-transition-preview.c1",
+            "parent": "PS.9B.demographic-structure.foundations.demographic-transition-preview",
+            "leaf": "PS.9B",
+            "label": "What core variables shape a population's demographic structure?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.age.age-cohort.c1",
+            "parent": "PS.9B.demographic-structure.age.age-cohort",
+            "leaf": "PS.9B",
+            "label": "What is an age cohort?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.age.generation.c1",
+            "parent": "PS.9B.demographic-structure.age.generation",
+            "leaf": "PS.9B",
+            "label": "What is a generation in demographic terms?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.age.median-age.c1",
+            "parent": "PS.9B.demographic-structure.age.median-age",
+            "leaf": "PS.9B",
+            "label": "What does the median age of a population indicate?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.age.population-pyramid.c1",
+            "parent": "PS.9B.demographic-structure.age.population-pyramid",
+            "leaf": "PS.9B",
+            "label": "What does a population age-sex pyramid display?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.age.population-pyramid.c2",
+            "parent": "PS.9B.demographic-structure.age.population-pyramid",
+            "leaf": "PS.9B",
+            "label": "How is a population pyramid structured as a graph?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.age.expansive-pyramid.c1",
+            "parent": "PS.9B.demographic-structure.age.expansive-pyramid",
+            "leaf": "PS.9B",
+            "label": "What population trend does an expansive pyramid reflect?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.age.constrictive-pyramid.c1",
+            "parent": "PS.9B.demographic-structure.age.constrictive-pyramid",
+            "leaf": "PS.9B",
+            "label": "What population trend does a constrictive pyramid reflect?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.age.stationary-pyramid.c1",
+            "parent": "PS.9B.demographic-structure.age.stationary-pyramid",
+            "leaf": "PS.9B",
+            "label": "What does a stationary population pyramid indicate?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.age.dependency-ratio.c1",
+            "parent": "PS.9B.demographic-structure.age.dependency-ratio",
+            "leaf": "PS.9B",
+            "label": "What does the age dependency ratio compare?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.age.dependency-ratio.c2",
+            "parent": "PS.9B.demographic-structure.age.dependency-ratio",
+            "leaf": "PS.9B",
+            "label": "Which ages count as dependent in the dependency ratio?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.age.youth-old-age-dependency.c1",
+            "parent": "PS.9B.demographic-structure.age.youth-old-age-dependency",
+            "leaf": "PS.9B",
+            "label": "How do youth and old-age dependency ratios differ?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.age.aging-population.c1",
+            "parent": "PS.9B.demographic-structure.age.aging-population",
+            "leaf": "PS.9B",
+            "label": "What causes population aging or graying?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.age.baby-boom.c1",
+            "parent": "PS.9B.demographic-structure.age.baby-boom",
+            "leaf": "PS.9B",
+            "label": "How does a baby-boom cohort strain institutions as it ages?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.age.cohort-vs-period-vs-age.c1",
+            "parent": "PS.9B.demographic-structure.age.cohort-vs-period-vs-age",
+            "leaf": "PS.9B",
+            "label": "How do age, period, and cohort effects differ?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.gender.sex-vs-gender.c1",
+            "parent": "PS.9B.demographic-structure.gender.sex-vs-gender",
+            "leaf": "PS.9B",
+            "label": "How does sex differ from gender?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.gender.sex-vs-gender.c2",
+            "parent": "PS.9B.demographic-structure.gender.sex-vs-gender",
+            "leaf": "PS.9B",
+            "label": "Which refers to biological characteristics: sex or gender?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.gender.gender-identity.c1",
+            "parent": "PS.9B.demographic-structure.gender.gender-identity",
+            "leaf": "PS.9B",
+            "label": "What is gender identity?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.gender.transgender-nonbinary.c1",
+            "parent": "PS.9B.demographic-structure.gender.transgender-nonbinary",
+            "leaf": "PS.9B",
+            "label": "How do transgender and nonbinary identities differ?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.gender.gender-roles.c1",
+            "parent": "PS.9B.demographic-structure.gender.gender-roles",
+            "leaf": "PS.9B",
+            "label": "What are gender roles?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.gender.sex-ratio.c1",
+            "parent": "PS.9B.demographic-structure.gender.sex-ratio",
+            "leaf": "PS.9B",
+            "label": "What does the sex ratio of a population measure?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.gender.gender-segregation.c1",
+            "parent": "PS.9B.demographic-structure.gender.gender-segregation",
+            "leaf": "PS.9B",
+            "label": "What is gender segregation?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.gender.gender-stratification.c1",
+            "parent": "PS.9B.demographic-structure.gender.gender-stratification",
+            "leaf": "PS.9B",
+            "label": "What does gender stratification rank?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.gender.gender-inequality.c1",
+            "parent": "PS.9B.demographic-structure.gender.gender-inequality",
+            "leaf": "PS.9B",
+            "label": "What does gender inequality describe, such as the glass ceiling?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.race-ethnicity.race.c1",
+            "parent": "PS.9B.demographic-structure.race-ethnicity.race",
+            "leaf": "PS.9B",
+            "label": "How is race defined as a social construction?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.race-ethnicity.race.c2",
+            "parent": "PS.9B.demographic-structure.race-ethnicity.race",
+            "leaf": "PS.9B",
+            "label": "Does race have a firm biological basis?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.race-ethnicity.ethnicity.c1",
+            "parent": "PS.9B.demographic-structure.race-ethnicity.ethnicity",
+            "leaf": "PS.9B",
+            "label": "What does ethnicity include?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.race-ethnicity.ethnicity.c2",
+            "parent": "PS.9B.demographic-structure.race-ethnicity.ethnicity",
+            "leaf": "PS.9B",
+            "label": "How does ethnicity differ from race?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.race-ethnicity.symbolic-ethnicity.c1",
+            "parent": "PS.9B.demographic-structure.race-ethnicity.symbolic-ethnicity",
+            "leaf": "PS.9B",
+            "label": "What is symbolic ethnicity?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.race-ethnicity.racialization.c1",
+            "parent": "PS.9B.demographic-structure.race-ethnicity.racialization",
+            "leaf": "PS.9B",
+            "label": "What process does racialization describe?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.race-ethnicity.hypodescent.c1",
+            "parent": "PS.9B.demographic-structure.race-ethnicity.hypodescent",
+            "leaf": "PS.9B",
+            "label": "Whom did the one-drop rule (hypodescent) assign to a subordinate group?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.race-ethnicity.minority-group.c1",
+            "parent": "PS.9B.demographic-structure.race-ethnicity.minority-group",
+            "leaf": "PS.9B",
+            "label": "What defines a minority group regardless of its numbers?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.race-ethnicity.dominant-group.c1",
+            "parent": "PS.9B.demographic-structure.race-ethnicity.dominant-group",
+            "leaf": "PS.9B",
+            "label": "What characterizes the dominant or majority group?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.race-ethnicity.assimilation.c1",
+            "parent": "PS.9B.demographic-structure.race-ethnicity.assimilation",
+            "leaf": "PS.9B",
+            "label": "What does assimilation describe for a minority group?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.race-ethnicity.amalgamation.c1",
+            "parent": "PS.9B.demographic-structure.race-ethnicity.amalgamation",
+            "leaf": "PS.9B",
+            "label": "What does amalgamation, or the melting pot, describe?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.race-ethnicity.multiculturalism.c1",
+            "parent": "PS.9B.demographic-structure.race-ethnicity.multiculturalism",
+            "leaf": "PS.9B",
+            "label": "What does multiculturalism or pluralism describe?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.race-ethnicity.segregation.c1",
+            "parent": "PS.9B.demographic-structure.race-ethnicity.segregation",
+            "leaf": "PS.9B",
+            "label": "How does de jure segregation differ from de facto segregation?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.immigration.immigrant.c1",
+            "parent": "PS.9B.demographic-structure.immigration.immigrant",
+            "leaf": "PS.9B",
+            "label": "Who is an immigrant?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.immigration.emigrant.c1",
+            "parent": "PS.9B.demographic-structure.immigration.emigrant",
+            "leaf": "PS.9B",
+            "label": "Who is an emigrant?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.immigration.refugee-vs-asylum.c1",
+            "parent": "PS.9B.demographic-structure.immigration.refugee-vs-asylum",
+            "leaf": "PS.9B",
+            "label": "How does a refugee differ from an asylum seeker?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.immigration.documented-undocumented.c1",
+            "parent": "PS.9B.demographic-structure.immigration.documented-undocumented",
+            "leaf": "PS.9B",
+            "label": "How do documented and undocumented immigrants differ?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.immigration.internally-displaced.c1",
+            "parent": "PS.9B.demographic-structure.immigration.internally-displaced",
+            "leaf": "PS.9B",
+            "label": "How do internally displaced persons differ from refugees?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.sexual-orientation.sexual-orientation.c1",
+            "parent": "PS.9B.demographic-structure.sexual-orientation.sexual-orientation",
+            "leaf": "PS.9B",
+            "label": "What does sexual orientation describe?"
+        },
+        {
+            "id": "PS.9B.demographic-structure.sexual-orientation.orientation-vs-identity.c1",
+            "parent": "PS.9B.demographic-structure.sexual-orientation.orientation-vs-identity",
+            "leaf": "PS.9B",
+            "label": "How does sexual orientation differ from gender identity?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.fertility.fecundity.c1",
+            "parent": "PS.9B.demographic-processes.fertility.fecundity",
+            "leaf": "PS.9B",
+            "label": "How does fecundity differ from realized fertility?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.fertility.fertility.c1",
+            "parent": "PS.9B.demographic-processes.fertility.fertility",
+            "leaf": "PS.9B",
+            "label": "What does realized fertility reflect about a population?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.fertility.crude-birth-rate.c1",
+            "parent": "PS.9B.demographic-processes.fertility.crude-birth-rate",
+            "leaf": "PS.9B",
+            "label": "What does the crude birth rate measure?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.fertility.crude-birth-rate.c2",
+            "parent": "PS.9B.demographic-processes.fertility.crude-birth-rate",
+            "leaf": "PS.9B",
+            "label": "Per how many people is the crude birth rate expressed?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.fertility.general-fertility-rate.c1",
+            "parent": "PS.9B.demographic-processes.fertility.general-fertility-rate",
+            "leaf": "PS.9B",
+            "label": "What population base does the general fertility rate use?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.fertility.age-specific-fertility-rate.c1",
+            "parent": "PS.9B.demographic-processes.fertility.age-specific-fertility-rate",
+            "leaf": "PS.9B",
+            "label": "What does the age-specific fertility rate measure?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.fertility.total-fertility-rate.c1",
+            "parent": "PS.9B.demographic-processes.fertility.total-fertility-rate",
+            "leaf": "PS.9B",
+            "label": "What does the total fertility rate estimate?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.fertility.total-fertility-rate.c2",
+            "parent": "PS.9B.demographic-processes.fertility.total-fertility-rate",
+            "leaf": "PS.9B",
+            "label": "How is the TFR interpreted over a woman's lifetime?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.fertility.replacement-rate.c1",
+            "parent": "PS.9B.demographic-processes.fertility.replacement-rate",
+            "leaf": "PS.9B",
+            "label": "What TFR value represents replacement-level fertility?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.fertility.replacement-rate.c2",
+            "parent": "PS.9B.demographic-processes.fertility.replacement-rate",
+            "leaf": "PS.9B",
+            "label": "Why is replacement fertility about 2.1 rather than 2.0?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.fertility.fertility-determinants.c1",
+            "parent": "PS.9B.demographic-processes.fertility.fertility-determinants",
+            "leaf": "PS.9B",
+            "label": "What social factors shape a population's fertility?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.mortality.crude-death-rate.c1",
+            "parent": "PS.9B.demographic-processes.mortality.crude-death-rate",
+            "leaf": "PS.9B",
+            "label": "What does the crude death rate measure?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.mortality.crude-death-rate.c2",
+            "parent": "PS.9B.demographic-processes.mortality.crude-death-rate",
+            "leaf": "PS.9B",
+            "label": "Per how many people is the crude death rate expressed?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.mortality.age-specific-death-rate.c1",
+            "parent": "PS.9B.demographic-processes.mortality.age-specific-death-rate",
+            "leaf": "PS.9B",
+            "label": "Why is the age-specific death rate useful for comparing populations?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.mortality.infant-mortality-rate.c1",
+            "parent": "PS.9B.demographic-processes.mortality.infant-mortality-rate",
+            "leaf": "PS.9B",
+            "label": "What does the infant mortality rate measure?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.mortality.infant-mortality-rate.c2",
+            "parent": "PS.9B.demographic-processes.mortality.infant-mortality-rate",
+            "leaf": "PS.9B",
+            "label": "Why is infant mortality a sensitive indicator of population health?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.mortality.maternal-mortality-rate.c1",
+            "parent": "PS.9B.demographic-processes.mortality.maternal-mortality-rate",
+            "leaf": "PS.9B",
+            "label": "What does the maternal mortality rate measure?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.mortality.morbidity.c1",
+            "parent": "PS.9B.demographic-processes.mortality.morbidity",
+            "leaf": "PS.9B",
+            "label": "How does morbidity differ from mortality?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.mortality.life-expectancy.c1",
+            "parent": "PS.9B.demographic-processes.mortality.life-expectancy",
+            "leaf": "PS.9B",
+            "label": "What does life expectancy estimate?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.mortality.life-expectancy.c2",
+            "parent": "PS.9B.demographic-processes.mortality.life-expectancy",
+            "leaf": "PS.9B",
+            "label": "How does life expectancy differ from maximum life span?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.mortality.life-span.c1",
+            "parent": "PS.9B.demographic-processes.mortality.life-span",
+            "leaf": "PS.9B",
+            "label": "What does maximum life span refer to?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.mortality.epidemiologic-transition.c1",
+            "parent": "PS.9B.demographic-processes.mortality.epidemiologic-transition",
+            "leaf": "PS.9B",
+            "label": "What shift does the epidemiologic transition describe?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.migration.migration-defined.c1",
+            "parent": "PS.9B.demographic-processes.migration.migration-defined",
+            "leaf": "PS.9B",
+            "label": "What does migration change for both origin and destination?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.migration.immigration-emigration.c1",
+            "parent": "PS.9B.demographic-processes.migration.immigration-emigration",
+            "leaf": "PS.9B",
+            "label": "How do immigration and emigration differ?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.migration.net-migration-rate.c1",
+            "parent": "PS.9B.demographic-processes.migration.net-migration-rate",
+            "leaf": "PS.9B",
+            "label": "How is the net migration rate calculated?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.migration.push-pull-factors.c1",
+            "parent": "PS.9B.demographic-processes.migration.push-pull-factors",
+            "leaf": "PS.9B",
+            "label": "How do push factors differ from pull factors?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.migration.push-pull-factors.c2",
+            "parent": "PS.9B.demographic-processes.migration.push-pull-factors",
+            "leaf": "PS.9B",
+            "label": "Is war a push or a pull factor in migration?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.migration.voluntary-forced.c1",
+            "parent": "PS.9B.demographic-processes.migration.voluntary-forced",
+            "leaf": "PS.9B",
+            "label": "How does voluntary migration differ from forced migration?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.migration.chain-migration.c1",
+            "parent": "PS.9B.demographic-processes.migration.chain-migration",
+            "leaf": "PS.9B",
+            "label": "What does chain migration describe?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.migration.internal-vs-international.c1",
+            "parent": "PS.9B.demographic-processes.migration.internal-vs-international",
+            "leaf": "PS.9B",
+            "label": "How does internal migration differ from international migration?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.migration.urbanization-link.c1",
+            "parent": "PS.9B.demographic-processes.migration.urbanization-link",
+            "leaf": "PS.9B",
+            "label": "How does rural-to-urban migration drive urbanization?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.population-change-equation.balancing-equation.c1",
+            "parent": "PS.9B.demographic-processes.population-change-equation.balancing-equation",
+            "leaf": "PS.9B",
+            "label": "What terms make up the demographic balancing equation?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.population-change-equation.balancing-equation.c2",
+            "parent": "PS.9B.demographic-processes.population-change-equation.balancing-equation",
+            "leaf": "PS.9B",
+            "label": "What two components sum to total population change?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.population-change-equation.natural-increase.c1",
+            "parent": "PS.9B.demographic-processes.population-change-equation.natural-increase",
+            "leaf": "PS.9B",
+            "label": "How is the rate of natural increase calculated?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.population-change-equation.population-growth-rate.c1",
+            "parent": "PS.9B.demographic-processes.population-change-equation.population-growth-rate",
+            "leaf": "PS.9B",
+            "label": "What does the population growth rate express?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.population-change-equation.zero-population-growth.c1",
+            "parent": "PS.9B.demographic-processes.population-change-equation.zero-population-growth",
+            "leaf": "PS.9B",
+            "label": "When does zero population growth occur?"
+        },
+        {
+            "id": "PS.9B.demographic-processes.population-change-equation.doubling-time.c1",
+            "parent": "PS.9B.demographic-processes.population-change-equation.doubling-time",
+            "leaf": "PS.9B",
+            "label": "How does the rule of 70 approximate doubling time?"
+        },
+        {
+            "id": "PS.9B.population-dynamics.growth-models.exponential-growth.c1",
+            "parent": "PS.9B.population-dynamics.growth-models.exponential-growth",
+            "leaf": "PS.9B",
+            "label": "What curve does exponential population growth produce?"
+        },
+        {
+            "id": "PS.9B.population-dynamics.growth-models.logistic-growth.c1",
+            "parent": "PS.9B.population-dynamics.growth-models.logistic-growth",
+            "leaf": "PS.9B",
+            "label": "Why does logistic growth slow as a population rises?"
+        },
+        {
+            "id": "PS.9B.population-dynamics.growth-models.carrying-capacity.c1",
+            "parent": "PS.9B.population-dynamics.growth-models.carrying-capacity",
+            "leaf": "PS.9B",
+            "label": "What is an environment's carrying capacity?"
+        },
+        {
+            "id": "PS.9B.population-dynamics.malthus.malthusian-theory.c1",
+            "parent": "PS.9B.population-dynamics.malthus.malthusian-theory",
+            "leaf": "PS.9B",
+            "label": "How did Malthus contrast population growth with food supply?"
+        },
+        {
+            "id": "PS.9B.population-dynamics.malthus.positive-checks.c1",
+            "parent": "PS.9B.population-dynamics.malthus.positive-checks",
+            "leaf": "PS.9B",
+            "label": "What are Malthusian positive checks on population?"
+        },
+        {
+            "id": "PS.9B.population-dynamics.malthus.preventive-checks.c1",
+            "parent": "PS.9B.population-dynamics.malthus.preventive-checks",
+            "leaf": "PS.9B",
+            "label": "What are Malthusian preventive checks on population?"
+        },
+        {
+            "id": "PS.9B.population-dynamics.malthus.malthusian-catastrophe.c1",
+            "parent": "PS.9B.population-dynamics.malthus.malthusian-catastrophe",
+            "leaf": "PS.9B",
+            "label": "What is a Malthusian catastrophe?"
+        },
+        {
+            "id": "PS.9B.population-dynamics.malthus.neo-malthusian.c1",
+            "parent": "PS.9B.population-dynamics.malthus.neo-malthusian",
+            "leaf": "PS.9B",
+            "label": "What concern do neo-Malthusians revive, and what do critics note?"
+        },
+        {
+            "id": "PS.9B.population-dynamics.demographic-transition.dtm-overview.c1",
+            "parent": "PS.9B.population-dynamics.demographic-transition.dtm-overview",
+            "leaf": "PS.9B",
+            "label": "What shift does the demographic transition model map?"
+        },
+        {
+            "id": "PS.9B.population-dynamics.demographic-transition.dtm-overview.c2",
+            "parent": "PS.9B.population-dynamics.demographic-transition.dtm-overview",
+            "leaf": "PS.9B",
+            "label": "What changes across the stages of the DTM?"
+        },
+        {
+            "id": "PS.9B.population-dynamics.demographic-transition.stage-1.c1",
+            "parent": "PS.9B.population-dynamics.demographic-transition.stage-1",
+            "leaf": "PS.9B",
+            "label": "What birth and death rates define DTM Stage 1?"
+        },
+        {
+            "id": "PS.9B.population-dynamics.demographic-transition.stage-2.c1",
+            "parent": "PS.9B.population-dynamics.demographic-transition.stage-2",
+            "leaf": "PS.9B",
+            "label": "What happens to birth and death rates in DTM Stage 2?"
+        },
+        {
+            "id": "PS.9B.population-dynamics.demographic-transition.stage-2.c2",
+            "parent": "PS.9B.population-dynamics.demographic-transition.stage-2",
+            "leaf": "PS.9B",
+            "label": "Why does population grow rapidly in DTM Stage 2?"
+        },
+        {
+            "id": "PS.9B.population-dynamics.demographic-transition.stage-3.c1",
+            "parent": "PS.9B.population-dynamics.demographic-transition.stage-3",
+            "leaf": "PS.9B",
+            "label": "What happens to birth and death rates in DTM Stage 3?"
+        },
+        {
+            "id": "PS.9B.population-dynamics.demographic-transition.stage-3.c2",
+            "parent": "PS.9B.population-dynamics.demographic-transition.stage-3",
+            "leaf": "PS.9B",
+            "label": "Why does population growth slow in DTM Stage 3?"
+        },
+        {
+            "id": "PS.9B.population-dynamics.demographic-transition.stage-4.c1",
+            "parent": "PS.9B.population-dynamics.demographic-transition.stage-4",
+            "leaf": "PS.9B",
+            "label": "What birth and death rates define DTM Stage 4?"
+        },
+        {
+            "id": "PS.9B.population-dynamics.demographic-transition.stage-5.c1",
+            "parent": "PS.9B.population-dynamics.demographic-transition.stage-5",
+            "leaf": "PS.9B",
+            "label": "What distinguishes a proposed DTM Stage 5?"
+        },
+        {
+            "id": "PS.9B.population-dynamics.demographic-transition.second-demographic-transition.c1",
+            "parent": "PS.9B.population-dynamics.demographic-transition.second-demographic-transition",
+            "leaf": "PS.9B",
+            "label": "What does the second demographic transition describe?"
+        },
+        {
+            "id": "PS.9B.population-dynamics.thomas-theorem-link.population-decline.c1",
+            "parent": "PS.9B.population-dynamics.thomas-theorem-link.population-decline",
+            "leaf": "PS.9B",
+            "label": "When does population decline or depopulation occur?"
+        },
+        {
+            "id": "PS.9B.population-dynamics.thomas-theorem-link.population-momentum.c1",
+            "parent": "PS.9B.population-dynamics.thomas-theorem-link.population-momentum",
+            "leaf": "PS.9B",
+            "label": "Why does population momentum continue growth after fertility falls?"
+        },
+        {
+            "id": "PS.9B.population-dynamics.thomas-theorem-link.population-projection.c1",
+            "parent": "PS.9B.population-dynamics.thomas-theorem-link.population-projection",
+            "leaf": "PS.9B",
+            "label": "What does a population projection estimate?"
+        },
+        {
+            "id": "PS.9B.population-dynamics.thomas-theorem-link.overpopulation.c1",
+            "parent": "PS.9B.population-dynamics.thomas-theorem-link.overpopulation",
+            "leaf": "PS.9B",
+            "label": "What defines overpopulation relative to carrying capacity?"
+        },
+        {
+            "id": "PS.9B.social-movements-change.urbanization.urbanization-defined.c1",
+            "parent": "PS.9B.social-movements-change.urbanization.urbanization-defined",
+            "leaf": "PS.9B",
+            "label": "What does urbanization describe?"
+        },
+        {
+            "id": "PS.9B.social-movements-change.urbanization.suburbanization.c1",
+            "parent": "PS.9B.social-movements-change.urbanization.suburbanization",
+            "leaf": "PS.9B",
+            "label": "What does suburbanization describe?"
+        },
+        {
+            "id": "PS.9B.social-movements-change.urbanization.urban-sprawl.c1",
+            "parent": "PS.9B.social-movements-change.urbanization.urban-sprawl",
+            "leaf": "PS.9B",
+            "label": "What is urban sprawl?"
+        },
+        {
+            "id": "PS.9B.social-movements-change.urbanization.urban-decline-renewal.c1",
+            "parent": "PS.9B.social-movements-change.urbanization.urban-decline-renewal",
+            "leaf": "PS.9B",
+            "label": "How does urban decline differ from gentrification?"
+        },
+        {
+            "id": "PS.9B.social-movements-change.urbanization.white-flight.c1",
+            "parent": "PS.9B.social-movements-change.urbanization.white-flight",
+            "leaf": "PS.9B",
+            "label": "What does white flight describe?"
+        },
+        {
+            "id": "PS.9B.social-movements-change.urbanization.megacities.c1",
+            "parent": "PS.9B.social-movements-change.urbanization.megacities",
+            "leaf": "PS.9B",
+            "label": "What defines a megacity?"
+        },
+        {
+            "id": "PS.9B.social-movements-change.globalization.globalization-defined.c1",
+            "parent": "PS.9B.social-movements-change.globalization.globalization-defined",
+            "leaf": "PS.9B",
+            "label": "What does globalization describe?"
+        },
+        {
+            "id": "PS.9B.social-movements-change.globalization.economic-interdependence.c1",
+            "parent": "PS.9B.social-movements-change.globalization.economic-interdependence",
+            "leaf": "PS.9B",
+            "label": "How does globalization create economic interdependence?"
+        },
+        {
+            "id": "PS.9B.social-movements-change.globalization.cultural-diffusion.c1",
+            "parent": "PS.9B.social-movements-change.globalization.cultural-diffusion",
+            "leaf": "PS.9B",
+            "label": "What does cultural diffusion and homogenization describe?"
+        },
+        {
+            "id": "PS.9B.social-movements-change.globalization.civil-unrest-terrorism.c1",
+            "parent": "PS.9B.social-movements-change.globalization.civil-unrest-terrorism",
+            "leaf": "PS.9B",
+            "label": "How can civil unrest and terrorism relate to globalization strain?"
+        },
+        {
+            "id": "PS.9B.social-movements-change.social-movements.social-movement-defined.c1",
+            "parent": "PS.9B.social-movements-change.social-movements.social-movement-defined",
+            "leaf": "PS.9B",
+            "label": "What is a social movement?"
+        },
+        {
+            "id": "PS.9B.social-movements-change.social-movements.proactive-reactive.c1",
+            "parent": "PS.9B.social-movements-change.social-movements.proactive-reactive",
+            "leaf": "PS.9B",
+            "label": "How do proactive and reactive movements differ?"
+        },
+        {
+            "id": "PS.9B.social-movements-change.social-movements.movement-types.c1",
+            "parent": "PS.9B.social-movements-change.social-movements.movement-types",
+            "leaf": "PS.9B",
+            "label": "How do reformative and revolutionary movements differ?"
+        },
+        {
+            "id": "PS.9B.social-movements-change.social-movements.movement-lifecycle.c1",
+            "parent": "PS.9B.social-movements-change.social-movements.movement-lifecycle",
+            "leaf": "PS.9B",
+            "label": "What stages make up a social movement's life cycle?"
+        },
+        {
+            "id": "PS.9B.social-movements-change.social-movements.relative-deprivation.c1",
+            "parent": "PS.9B.social-movements-change.social-movements.relative-deprivation",
+            "leaf": "PS.9B",
+            "label": "What does relative deprivation theory say sparks movements?"
+        },
+        {
+            "id": "PS.9B.social-movements-change.social-movements.resource-mobilization.c1",
+            "parent": "PS.9B.social-movements-change.social-movements.resource-mobilization",
+            "leaf": "PS.9B",
+            "label": "What does resource mobilization theory say movements need to succeed?"
+        },
+        {
+            "id": "PS.9B.social-movements-change.social-movements.new-social-movements.c1",
+            "parent": "PS.9B.social-movements-change.social-movements.new-social-movements",
+            "leaf": "PS.9B",
+            "label": "What goals do new social movements emphasize?"
+        },
+        {
+            "id": "PS.9B.social-movements-change.collective-behavior.collective-behavior-defined.c1",
+            "parent": "PS.9B.social-movements-change.collective-behavior.collective-behavior-defined",
+            "leaf": "PS.9B",
+            "label": "What is collective behavior?"
+        },
+        {
+            "id": "PS.9B.social-movements-change.collective-behavior.crowds-mobs.c1",
+            "parent": "PS.9B.social-movements-change.collective-behavior.crowds-mobs",
+            "leaf": "PS.9B",
+            "label": "How do crowds, mobs, and riots differ?"
+        },
+        {
+            "id": "PS.9B.social-movements-change.collective-behavior.mass-public.c1",
+            "parent": "PS.9B.social-movements-change.collective-behavior.mass-public",
+            "leaf": "PS.9B",
+            "label": "How does a mass differ from a public?"
+        },
+        {
+            "id": "PS.9B.social-movements-change.collective-behavior.mass-hysteria-fads.c1",
+            "parent": "PS.9B.social-movements-change.collective-behavior.mass-hysteria-fads",
+            "leaf": "PS.9B",
+            "label": "How do mass hysteria and fads differ?"
+        },
+        {
+            "id": "PS.9B.social-movements-change.collective-behavior.contagion-emergent-norm.c1",
+            "parent": "PS.9B.social-movements-change.collective-behavior.contagion-emergent-norm",
+            "leaf": "PS.9B",
+            "label": "How does contagion theory differ from emergent-norm theory?"
+        }
+    ]
+}

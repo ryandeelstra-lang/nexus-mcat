@@ -74,6 +74,16 @@ _TOOLBAR_ICONS: dict[str, str] = {
         '<path d="M7.25 6h5.5"/>'
         "</svg>"
     ),
+    # sprout in soil — the Knowledge Garden (Decisions 40-42)
+    "garden": (
+        '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" '
+        'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'
+        '<path d="M10 16.5v-5.5"/>'
+        '<path d="M10 11c0-2.5-2-4.5-4.5-4.5C5.5 9 7.5 11 10 11Z"/>'
+        '<path d="M10 9.5c0-2.5 2-4.5 4.5-4.5C14.5 7.5 12.5 9.5 10 9.5Z"/>'
+        '<path d="M4.5 16.5h11"/>'
+        "</svg>"
+    ),
     # circular arrows — sync
     "sync": (
         '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" '
@@ -97,6 +107,7 @@ _STATE_TO_ACTIVE_ITEM: dict[str, str] = {
     "stats": "stats",
     "add": "add",
     "browse": "browse",
+    "garden": "garden",
 }
 
 
@@ -490,6 +501,15 @@ class Toolbar:
                 id="graph",
                 icon=_TOOLBAR_ICONS["graph"],
             ),
+            # charged_up: the Knowledge Garden — the playable world (Decisions 40-42).
+            self.create_link(
+                "garden",
+                "Garden",
+                self._gardenLinkHandler,
+                tip=tr.actions_shortcut_key(val="N"),
+                id="garden",
+                icon=_TOOLBAR_ICONS["garden"],
+            ),
         ]
 
         links.append(self._create_sync_link())
@@ -591,6 +611,9 @@ class Toolbar:
 
     def _graphLinkHandler(self) -> None:
         self.mw.moveToState("knowledgeGraph")
+
+    def _gardenLinkHandler(self) -> None:
+        self.mw.moveToState("garden")
 
     def _syncLinkHandler(self) -> None:
         self.mw.on_sync_button_clicked()

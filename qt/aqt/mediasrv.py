@@ -425,6 +425,7 @@ def is_sveltekit_page(path: str) -> bool:
         "knowledge-graph",
         "scores-dashboard",
         "home",
+        "garden",
     ]
 
 
@@ -761,6 +762,46 @@ def scores_dashboard() -> bytes:
     return json.dumps(payload).encode("utf-8")
 
 
+def garden_state() -> bytes:
+    """charged_up: the Knowledge Garden's additive state bridge (docs/26 G0/I5).
+
+    POST /_anki/gardenState with a JSON body:
+      {"op": "get"}                                   -> the whole document map
+      {"op": "get", "key": "economy"}                 -> one document
+      {"op": "set", "key": "economy", "doc": {...}}   -> upsert one document
+    All persistence goes to the additive sidecar beside the collection
+    (scores.telemetry.garden) — never into the collection itself (Decision 19).
+    Requires api access (Bearer header), like every charged_up bridge."""
+    import json
+    import time as _time
+
+    payload = json.loads(request.data or b"{}")
+    op = payload.get("op")
+    col = aqt.mw.col
+    if col is None:
+        abort(503)
+
+    try:
+        from scores.telemetry import garden as garden_store
+    except ImportError:
+        # The scores engine is optional in stripped builds; the garden then runs
+        # session-only (the TS store keeps its in-memory working copy).
+        return json.dumps({}).encode("utf-8")
+
+    if op == "get":
+        docs = garden_store.get_state(col, payload.get("key"))
+        return json.dumps(docs).encode("utf-8")
+    if op == "set":
+        key = payload.get("key")
+        doc = payload.get("doc")
+        if not isinstance(key, str) or not isinstance(doc, dict):
+            abort(400)
+        garden_store.set_state(col, key, doc, now_ms=int(_time.time() * 1000))
+        return b"{}"
+    abort(400)
+    return b""  # unreachable; satisfies the type checker
+
+
 post_handler_list = [
     congrats_info,
     get_deck_configs_for_update,
@@ -778,6 +819,7 @@ post_handler_list = [
     deck_options_ready,
     save_custom_colours,
     scores_dashboard,
+    garden_state,
 ]
 
 
@@ -787,6 +829,13 @@ exposed_backend_list = [
     "get_custom_colours",
     # DeckService
     "get_deck_names",
+    # charged_up (Knowledge Garden, docs/26 G0.3): per-topic due/new counts drive plant
+    # droop state, and deck scoping is how the Keeper serves one pending topic's queue.
+    # deck_tree + get_deck_id_by_name are read-only; set_current_deck is the standard
+    # current-deck op (a normal config write, undoable — never touches scheduling state).
+    "deck_tree",
+    "get_deck_id_by_name",
+    "set_current_deck",
     # I18nService
     "i18n_resources",
     # ImportExportService

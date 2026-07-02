@@ -15,6 +15,7 @@ from anki.notes import Note, NoteFieldsCheckResult, NoteId
 from anki.utils import html_to_text_line, is_mac
 from aqt import AnkiQt, gui_hooks
 from aqt.deckchooser import DeckChooser
+from aqt.main import MainWindowState
 from aqt.notetypechooser import NotetypeChooser
 from aqt.operations.note import add_note
 from aqt.qt import *
@@ -45,7 +46,7 @@ class AddCards(QMainWindow):
             mw if embedded else None,
             Qt.WindowType.Widget if embedded else Qt.WindowType.Window,
         )
-        self._add_return_state = "deckBrowser"
+        self._add_return_state: MainWindowState = "deckBrowser"
         self._close_event_has_cleaned_up = False
         self.mw = mw
         self.col = mw.col

@@ -34,6 +34,7 @@ from aqt.editor import Editor, EditorWebView
 from aqt.errors import show_exception
 from aqt.exporting import ExportDialog as LegacyExportDialog
 from aqt.import_export.exporting import ExportDialog
+from aqt.main import MainWindowState
 from aqt.operations.card import set_card_deck, set_card_flag
 from aqt.operations.collection import redo, undo
 from aqt.operations.note import remove_notes
@@ -140,7 +141,7 @@ class Browser(QMainWindow):
             Qt.WindowType.Widget if embedded else Qt.WindowType.Window,
         )
         self._embedded = embedded
-        self._browse_return_state = "deckBrowser"
+        self._browse_return_state: MainWindowState = "deckBrowser"
         self.mw = mw
         self.col = self.mw.col
         self.lastFilter = ""
@@ -597,7 +598,8 @@ class Browser(QMainWindow):
             else tr.browsing_window_title
         )
         self.setWindowTitle(
-            without_unicode_isolation(tr_title(total=cur, selected=selected)) + " — Nexus"
+            without_unicode_isolation(tr_title(total=cur, selected=selected))
+            + " — Nexus"
         )
 
     def search_for_terms(self, *search_terms: str | SearchNode) -> None:

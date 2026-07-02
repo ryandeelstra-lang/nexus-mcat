@@ -237,6 +237,60 @@ class TestKnowledgeGraphWiring:
         assert hasattr(Toolbar, "_graphLinkHandler")
 
 
+class TestGardenWiring:
+    """charged_up: guards the runtime wiring of the Knowledge Garden surface (Decisions
+    40-42). The predecessor VIEW shipped with api-access + endpoint exposure missing and
+    only a security audit caught it (the V8 lesson, morning report §9) — for the garden
+    these are scaffold-gate tests from day one (docs/26 G0.3)."""
+
+    def test_garden_review_loop_endpoints_registered(self) -> None:
+        # The Keeper's panel runs the REAL review loop; each RPC must be exposed or the
+        # garden 404s. masteryQuery + deckTree drive growth/droop stages; scoresDashboard
+        # feeds the almanac; gardenState is the additive store bridge; the deck-scoping
+        # pair is how the Keeper serves one pending topic's queue.
+        for endpoint in (
+            "masteryQuery",
+            "getQueuedCards",
+            "renderExistingCard",
+            "answerCard",
+            "scoresDashboard",
+            "gardenState",
+            "deckTree",
+            "getDeckIdByName",
+            "setCurrentDeck",
+        ):
+            assert endpoint in post_handlers, f"{endpoint} missing from post_handlers"
+
+    def test_garden_is_a_sveltekit_page(self) -> None:
+        assert is_sveltekit_page("garden")
+
+    def test_garden_webview_has_api_access(self) -> None:
+        # Without api access the AuthInterceptor injects no Bearer header and mediasrv
+        # 403s every RPC POST from the garden — the world would render but never grow.
+        from aqt.webview import API_ACCESS_WEBVIEW_KINDS, AnkiWebViewKind
+
+        assert AnkiWebViewKind.GARDEN in API_ACCESS_WEBVIEW_KINDS
+
+    def test_garden_is_an_integrated_main_window_state(self) -> None:
+        # The garden is an in-window screen (toolbar tab -> moveToState), like the graph.
+        from aqt.main import AnkiQt
+        from aqt.toolbar import Toolbar
+
+        assert hasattr(AnkiQt, "_gardenState")
+        assert hasattr(AnkiQt, "_gardenCleanup")
+        assert hasattr(Toolbar, "_gardenLinkHandler")
+
+    def test_garden_state_bridge_is_additive_only(self) -> None:
+        # The garden's persistent state (currency, pending queue, tutorial beats) lives
+        # in the additive sidecar (Decision 19 / docs/26 I5) — the handler documents the
+        # wall, and the store module lives under scores.telemetry beside the sidecar.
+        from aqt.mediasrv import garden_state
+
+        assert garden_state.__doc__ is not None
+        assert "additive" in garden_state.__doc__.lower()
+        assert "never into the collection" in garden_state.__doc__.lower()
+
+
 class TestScoresLoaderSurfacesBrokenEngine:
     """charged_up: the scores bridge is the single source of truth for the readiness/mastery numbers
     a student trusts. A genuinely-broken engine (present, but with a broken transitive import) must
@@ -430,8 +484,6 @@ class TestChargedUpHeadlessChrome:
         assert params["embedded"].default is False
         # Embedded mode drops the Anki menu bar for ownership...
         assert hasattr(Browser, "_charged_up_strip_menu_bar")
-        assert "menubar.hide()" in inspect.getsource(
-            Browser._charged_up_strip_menu_bar
-        )
+        assert "menubar.hide()" in inspect.getsource(Browser._charged_up_strip_menu_bar)
         # ...and closes non-destructively (instance reused, not torn down).
         assert "self._embedded" in inspect.getsource(Browser.closeEvent)

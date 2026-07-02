@@ -21,6 +21,12 @@ const configure = (proxy: any, _options: any) => {
 const viteConfig = defineViteConfig({
     plugins: [sveltekit(), svg({})],
     cacheDir: "../node_modules/.vite",
+    // charged_up: the Knowledge Garden route is React (.tsx) inside the SvelteKit app
+    // (Decision 41, garden-first path A). Vite's esbuild transforms .tsx natively; the
+    // automatic runtime imports react/jsx-runtime so components never import React for JSX.
+    esbuild: {
+        jsx: "automatic",
+    },
     build: {
         reportCompressedSize: false,
         // defaults use chrome87, but we need 77 for qt 5.14

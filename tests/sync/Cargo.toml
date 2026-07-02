@@ -1,0 +1,33 @@
+# charged_up: the §7b host-side sync integration test. It drives the SAME 4-symbol iOS
+# C ABI the ChargedUp app uses (anki-ios) against the SAME self-hosted anki-sync-server
+# (anki::sync::http_server), proving two independent collections log in + review offline +
+# sync both ways with none lost/doubled, and that same-card edits resolve last-write-wins.
+#
+# Its own [workspace] table detaches it from the main Anki workspace so `just check`'s
+# unscoped `cargo --all` never builds it. Run via scripts/run_sync_test.sh (which pins
+# CARGO_TARGET_DIR under ./target so minilints never scans generated proto .rs).
+[package]
+name = "charged-up-sync-tests"
+version = "0.1.0"
+edition = "2021"
+license = "AGPL-3.0-or-later"
+publish = false
+
+[lib]
+path = "src/lib.rs"
+
+[dev-dependencies]
+# The engine (Backend type + the real in-process anki-sync-server) and its proto messages.
+anki = { path = "../../rslib", features = ["rustls"] }
+# The iOS FFI staticlib — we call its 4 extern "C" symbols exactly as Swift does.
+anki-ios = { path = "../../anki-ios" }
+anki_proto = { path = "../../rslib/proto" }
+anyhow = "1"
+# Same versions the engine uses, so prost/prost-reflect/rusqlite/tokio unify to one build
+# (one linked SQLite, one tokio) instead of double-linking.
+prost = "0.13"
+prost-reflect = "0.14.7"
+rusqlite = { version = "0.36.0", features = ["bundled"] }
+tempfile = "3"
+
+[workspace]

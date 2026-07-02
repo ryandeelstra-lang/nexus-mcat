@@ -12,11 +12,16 @@ use anki::backend::Backend;
 use std::panic::catch_unwind;
 
 /// A Rust-owned byte buffer handed to Swift. Free it with `anki_buffer_free` (exact cap).
+///
+/// Fields are `pub` so a Rust FFI *consumer* (the host-side sync integration test under
+/// `tests/sync/`) can copy the bytes out exactly as Swift does through the C struct. This
+/// changes neither the C ABI (the `#[repr(C)]` layout is identical) nor the exported symbol
+/// set (still the same 4 `anki_*` functions).
 #[repr(C)]
 pub struct AnkiBuffer {
-    ptr: *mut u8,
-    len: usize,
-    cap: usize,
+    pub ptr: *mut u8,
+    pub len: usize,
+    pub cap: usize,
 }
 
 impl AnkiBuffer {

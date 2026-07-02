@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <!-- Core bundle keys. XcodeGen sets GENERATE_INFOPLIST_FILE=NO for a custom
+       Info.plist, so Xcode no longer synthesises these; declare them here via
+       build-setting variables that -expandbuildsettings resolves at build time.
+       Without CFBundleIdentifier/CFBundleExecutable the .app won't install. -->
+  <key>CFBundleIdentifier</key>
+  <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+  <key>CFBundleExecutable</key>
+  <string>$(EXECUTABLE_NAME)</string>
+  <key>CFBundleName</key>
+  <string>$(PRODUCT_NAME)</string>
+  <key>CFBundlePackageType</key>
+  <string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
+  <key>CFBundleInfoDictionaryVersion</key>
+  <string>6.0</string>
+  <key>CFBundleShortVersionString</key>
+  <string>1.0</string>
+  <key>CFBundleVersion</key>
+  <string>1</string>
+  <key>CFBundleDevelopmentRegion</key>
+  <string>$(DEVELOPMENT_LANGUAGE)</string>
+  <key>LSRequiresIPhoneOS</key>
+  <true/>
+  <key>CFBundleDisplayName</key>
+  <string>charged_up</string>
+  <key>UILaunchScreen</key>
+  <dict/>
+  <!-- The self-hosted anki-sync-server runs plain HTTP on the LAN/localhost (docs/mcat/SYNC.md),
+       so allow local networking. Real-internet sync uses HTTPS via rustls and is unaffected. -->
+  <key>NSAppTransportSecurity</key>
+  <dict>
+    <key>NSAllowsLocalNetworking</key>
+    <true/>
+  </dict>
+  <key>NSLocalNetworkUsageDescription</key>
+  <string>charged_up syncs your reviews with your self-hosted Anki sync server on your local network.</string>
+  <!-- Bundled Inter (OFL, static 400/500/600 in ChargedUp/Fonts/) so the phone renders the same
+       typeface as the desktop "Nexus" design language. Theme falls back to the system font if a
+       face is ever missing. Registered here so UIKit/CoreText load them at launch. -->
+  <key>UIAppFonts</key>
+  <array>
+    <string>Inter_400Regular.ttf</string>
+    <string>Inter_500Medium.ttf</string>
+    <string>Inter_600SemiBold.ttf</string>
+  </array>
+</dict>
+</plist>

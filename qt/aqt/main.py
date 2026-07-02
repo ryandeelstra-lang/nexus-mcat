@@ -98,6 +98,7 @@ MainWindowState = Literal[
     "resetRequired",
     "profileManager",
     "knowledgeGraph",
+    "voiceReview",
     "home",
     "stats",
     "add",
@@ -190,6 +191,8 @@ class AnkiQt(QMainWindow):
     # plus the route mode currently loaded into it ("full" | "backdrop" | None when unloaded).
     graph_web: AnkiWebView
     home_web: AnkiWebView
+    # charged_up: dedicated api-access webview for the voice-flashcard Keeper's Shop (mic + STT).
+    voice_web: AnkiWebView
     # charged_up: in-window Anki review stats (the graphs page), so "Stats" never
     # opens a separate native window.
     stats_web: AnkiWebView
@@ -786,8 +789,22 @@ class AnkiQt(QMainWindow):
     # Tracking main window state (deck browser, reviewer, etc)
     ##########################################################################
 
+    def _voice_reviews_enabled(self) -> bool:
+        """charged_up: voice flashcards are the default study surface (doc 24) — the student
+        answers out loud instead of flipping cards. On unless explicitly turned off via the
+        ``CHARGED_UP_VOICE_REVIEWS=0`` escape hatch (kept so the classic reviewer stays reachable
+        for debugging / accessibility, never a one-way door)."""
+        return os.environ.get("CHARGED_UP_VOICE_REVIEWS", "1") != "0"
+
     def moveToState(self, state: MainWindowState, *args: Any) -> None:
         # print("-> move from", self.state, "to", state)
+        # charged_up: the flip-card reviewer is replaced by the Keeper's spoken-quiz loop. EVERY
+        # path into studying (toolbar Study, overview "Study Now", the `s` key, deck browser) funnels
+        # through moveToState("review"), so redirecting it here makes voice the one study surface —
+        # you never flip a card. The real graded review still happens (server-side answerCard in the
+        # voice loop), so scheduling/FSRS/the graph are unaffected.
+        if state == "review" and self._voice_reviews_enabled():
+            state = "voiceReview"
         oldState = self.state
         cleanup = getattr(self, f"_{oldState}Cleanup", None)
         if cleanup:
@@ -905,7 +922,9 @@ class AnkiQt(QMainWindow):
             self._addcards_embedded.hide()
         if state != "browse" and getattr(self, "_browser_embedded", None) is not None:
             self._browser_embedded.hide()
-        if state in ("knowledgeGraph", "home"):
+        if state != "voiceReview" and getattr(self, "voice_web", None) is not None:
+            self.voice_web.hide()
+        if state in ("knowledgeGraph", "voiceReview", "home"):
             return
         if state in ("deckBrowser", "overview"):
             self._load_graph_web("backdrop", force=False)
@@ -945,6 +964,24 @@ class AnkiQt(QMainWindow):
     def _knowledgeGraphCleanup(self, newState: MainWindowState) -> None:
         # Hand the central area back to mw.web for the next screen.
         self.graph_web.hide()
+        self.web.show()
+
+    # charged_up: the voice-flashcard Keeper's Shop (doc 24) — an in-window screen.
+    ##########################################################################
+
+    def _voiceReviewState(self, oldState: MainWindowState) -> None:
+        # The spoken-quiz loop, rendered in the SAME window (no separate dialog). Reloaded each
+        # visit so the due set + Keeper's first line are fresh.
+        self.voice_web.load_sveltekit_page("voice-review")
+        self.web.hide()
+        self.graph_web.hide()
+        self.home_web.hide()
+        self.voice_web.show()
+        self.voice_web.setFocus()
+        self.toolbar.redraw()
+
+    def _voiceReviewCleanup(self, newState: MainWindowState) -> None:
+        self.voice_web.hide()
         self.web.show()
 
     # charged_up: in-window review stats (Anki's graphs page, no popup dialog).
@@ -1056,11 +1093,18 @@ class AnkiQt(QMainWindow):
     def _on_home_cmd(self, cmd: str) -> None:
         # JS -> Python bridge for the Nexus home buttons (ts/routes/home/Home.svelte).
         if cmd == "home:study":
-            self.moveToState("deckBrowser")
+            # charged_up: "Start studying" opens the Keeper's spoken quiz — the default study
+            # surface (doc 24). Falls back to the deck list only if voice reviews are disabled.
+            if self._voice_reviews_enabled():
+                self.moveToState("voiceReview")
+            else:
+                self.moveToState("deckBrowser")
         elif cmd in ("home:map", "home:scores"):
             # the three scores live inside the graph screen's Scores tab; open it directly
             self._pending_graph_tab = "scores" if cmd == "home:scores" else None
             self.moveToState("knowledgeGraph")
+        elif cmd == "home:voice":
+            self.moveToState("voiceReview")
         elif cmd == "home:browse":
             self.moveToState("browse")
         elif cmd == "home:add":
@@ -1236,6 +1280,11 @@ title="{}" {}>{}</button>""".format(
         self.stats_web = AnkiWebView(kind=AnkiWebViewKind.DECK_STATS)
         self.stats_web.disable_zoom()
         self.centralStack.addWidget(self.stats_web)
+        # charged_up: the voice-flashcard Keeper's Shop — its own api-access webview (needs mic +
+        # the audioReview* endpoints). Added last so it sits in front when shown; hidden otherwise.
+        self.voice_web = AnkiWebView(kind=AnkiWebViewKind.VOICE_REVIEW)
+        self.voice_web.disable_zoom()
+        self.centralStack.addWidget(self.voice_web)
         # charged_up: the in-window Add + Browse screens (AddCards / Browser,
         # embedded) are created lazily on first use; None until then.
         self._addcards_embedded = None
@@ -1243,6 +1292,7 @@ title="{}" {}>{}</button>""".format(
         self.graph_web.hide()
         self.home_web.hide()
         self.stats_web.hide()
+        self.voice_web.hide()
         # bottom area
         sweb = self.bottomWeb = BottomWebView(self)
         sweb.setFocusPolicy(Qt.FocusPolicy.WheelFocus)

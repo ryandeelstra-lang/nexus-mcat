@@ -8,7 +8,10 @@ import json
 import math
 import re
 from collections.abc import Callable, Sequence
-from typing import Any, cast
+from typing import TYPE_CHECKING, Any, cast
+
+if TYPE_CHECKING:
+    from aqt.main import MainWindowState
 
 from markdown import markdown
 
@@ -140,7 +143,7 @@ class Browser(QMainWindow):
             Qt.WindowType.Widget if embedded else Qt.WindowType.Window,
         )
         self._embedded = embedded
-        self._browse_return_state = "deckBrowser"
+        self._browse_return_state: MainWindowState = "deckBrowser"
         self.mw = mw
         self.col = self.mw.col
         self.lastFilter = ""
@@ -597,7 +600,8 @@ class Browser(QMainWindow):
             else tr.browsing_window_title
         )
         self.setWindowTitle(
-            without_unicode_isolation(tr_title(total=cur, selected=selected)) + " — Nexus"
+            without_unicode_isolation(tr_title(total=cur, selected=selected))
+            + " — Nexus"
         )
 
     def search_for_terms(self, *search_terms: str | SearchNode) -> None:

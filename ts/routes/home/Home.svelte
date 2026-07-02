@@ -43,6 +43,11 @@ License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
                 Explore your map <span class="arrow">→</span>
             </button>
         </div>
+
+        <button class="keeper-link" on:click={() => go("home:voice")}>
+            <span class="keeper-mic" aria-hidden="true"></span>
+            Visit the Keeper — study out loud
+        </button>
     </section>
 
     <footer class="utility">
@@ -72,7 +77,9 @@ License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
             Roboto,
             sans-serif;
         font-optical-sizing: auto;
-        font-feature-settings: "liga" 1, "calt" 1;
+        font-feature-settings:
+            "liga" 1,
+            "calt" 1;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-rendering: optimizeLegibility;
@@ -280,6 +287,69 @@ License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
         border-color: rgba(59, 130, 246, 0.5);
         box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.22);
     }
+    /* the quiet secondary entry into the spoken Keeper's Shop */
+    .keeper-link {
+        margin-top: 22px;
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        background: none;
+        border: none;
+        font-family: inherit;
+        font-size: 14px;
+        letter-spacing: 0.01em;
+        color: #565a6e;
+        cursor: pointer;
+        padding: 8px 14px;
+        border-radius: 999px;
+        transition:
+            color 0.16s ease,
+            background 0.16s ease;
+    }
+    .nexus .keeper-link {
+        opacity: 0;
+        transform: translateY(14px);
+        transition:
+            opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+            transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+            color 0.16s ease,
+            background 0.16s ease;
+    }
+    .nexus.ready .keeper-link {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0.46s;
+    }
+    .keeper-link:hover {
+        color: #1b1d2a;
+        background: rgba(27, 29, 42, 0.05);
+    }
+    .keeper-link:focus-visible {
+        outline: none;
+        color: #1b1d2a;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+    }
+    .keeper-mic {
+        width: 14px;
+        height: 14px;
+        border-radius: 7px 7px 6px 6px;
+        background: #3b82f6;
+        position: relative;
+        flex: none;
+    }
+    .keeper-mic::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: -5px;
+        width: 8px;
+        height: 4px;
+        border: 1.5px solid #3b82f6;
+        border-top: none;
+        border-radius: 0 0 6px 6px;
+        transform: translateX(-50%);
+    }
+
     .arrow {
         display: inline-block;
         opacity: 0.65;
@@ -333,7 +403,9 @@ License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
         .hero h1,
         .sub,
         .cta-row,
-        .utility {
+        .utility,
+        .nexus .keeper-link,
+        .nexus.ready .keeper-link {
             transition: none;
             opacity: 1;
             transform: none;

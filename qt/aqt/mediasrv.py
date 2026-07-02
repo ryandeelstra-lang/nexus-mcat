@@ -424,6 +424,7 @@ def is_sveltekit_page(path: str) -> bool:
         "image-occlusion",
         "knowledge-graph",
         "scores-dashboard",
+        "voice-review",
         "home",
     ]
 
@@ -761,6 +762,99 @@ def scores_dashboard() -> bytes:
     return json.dumps(payload).encode("utf-8")
 
 
+def _load_voice_review():  # type: ignore[no-untyped-def]
+    """charged_up: import the out-of-tree ``journey.voice_review`` orchestrator (doc 24 §10).
+
+    Mirrors ``_load_scores_display``: dynamic import so the qt type-check never resolves a package
+    outside the aqt tree, and an honest degrade (return None) when the package isn't bundled."""
+    import importlib
+    import importlib.util
+    import sys
+    from pathlib import Path
+
+    try:
+        return importlib.import_module("journey.voice_review")
+    except ImportError:
+        repo_root = (
+            Path(__file__).resolve().parents[2]
+        )  # qt/aqt/mediasrv.py -> repo root
+        if str(repo_root) not in sys.path:
+            sys.path.append(str(repo_root))
+        if importlib.util.find_spec("journey") is None:
+            return None
+        return importlib.import_module("journey.voice_review")
+
+
+def audio_review_next() -> bytes:
+    """charged_up (doc 24 §10): the next due card as a Keeper prompt. Read-only.
+
+    The reference answer is NEVER sent — the client must not hold the answer before the student
+    speaks. Correctness is decided server-side in ``audio_review_grade``."""
+    import json
+
+    voice = _load_voice_review()
+    if voice is None or aqt.mw.col is None:
+        return json.dumps({"available": False}).encode("utf-8")
+    card = voice.next_card(aqt.mw.col)
+    if card is None:
+        return json.dumps({"available": True, "done": True}).encode("utf-8")
+    return json.dumps({"available": True, "done": False, **card}).encode("utf-8")
+
+
+def audio_review_grade() -> bytes:
+    """charged_up (doc 24 §10): grade one spoken/typed answer server-side, apply it through the real
+    scheduler, log to the sidecar, and credit the reward.
+
+    The audio (if any) is transcribed out-of-process in ``ai.stt``; correctness is re-derived from
+    the note here (spoof-proof, §5.2). The client sends no signal that decides correctness."""
+    import json
+
+    voice = _load_voice_review()
+    if voice is None or aqt.mw.col is None:
+        return json.dumps({"available": False}).encode("utf-8")
+
+    req = json.loads(request.data.decode("utf-8")) if request.data else {}
+    card_id = int(req["cardId"])
+    currency = req.get("currency", "water")
+    idk = bool(req.get("idk", False))
+    attempt = int(req.get("attempt", 1))
+    ms_taken = req.get("msTaken")
+    transcript = (req.get("transcript") or "").strip()
+    stt_provider = None
+    stt_model = None
+
+    # An audio clip (base64) transcribes server-side; a typed transcript is used verbatim (§8/§15).
+    audio_b64 = req.get("audioBase64")
+    if audio_b64 and not transcript and not idk:
+        try:
+            import base64
+
+            from ai import stt as ai_stt
+
+            audio_bytes = base64.b64decode(audio_b64)
+            result = ai_stt.transcribe(
+                audio_bytes, mime=req.get("audioMime", "audio/webm")
+            )
+            transcript = result.text
+            stt_provider = result.provider
+            stt_model = result.model
+        except Exception:
+            transcript = ""
+
+    payload = voice.grade_answer(
+        aqt.mw.col,
+        card_id=card_id,
+        transcript=transcript,
+        currency=currency,
+        idk=idk,
+        attempt=attempt,
+        ms_taken=int(ms_taken) if ms_taken is not None else None,
+        stt_provider=stt_provider,
+        stt_model=stt_model,
+    )
+    return json.dumps({"available": True, **payload}).encode("utf-8")
+
+
 post_handler_list = [
     congrats_info,
     get_deck_configs_for_update,
@@ -778,6 +872,8 @@ post_handler_list = [
     deck_options_ready,
     save_custom_colours,
     scores_dashboard,
+    audio_review_next,
+    audio_review_grade,
 ]
 
 

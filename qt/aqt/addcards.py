@@ -4,6 +4,10 @@
 from __future__ import annotations
 
 from collections.abc import Callable
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from aqt.main import MainWindowState
 
 import aqt.editor
 import aqt.forms
@@ -45,7 +49,7 @@ class AddCards(QMainWindow):
             mw if embedded else None,
             Qt.WindowType.Widget if embedded else Qt.WindowType.Window,
         )
-        self._add_return_state = "deckBrowser"
+        self._add_return_state: MainWindowState = "deckBrowser"
         self._close_event_has_cleaned_up = False
         self.mw = mw
         self.col = mw.col

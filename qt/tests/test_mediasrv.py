@@ -237,6 +237,70 @@ class TestKnowledgeGraphWiring:
         assert hasattr(Toolbar, "_graphLinkHandler")
 
 
+class TestVoiceReviewWiring:
+    """charged_up voice flashcards (doc 24 §10/§21.1): guards the runtime wiring of the Keeper's
+    Shop so the spoken-quiz loop can never silently regress to a 404 (unregistered endpoint) or a
+    403 (web view denied API access + mic) — the same class of gap an audit caught for the graph."""
+
+    def test_audio_review_endpoints_registered(self) -> None:
+        # Without these the Keeper's next-card / grade POSTs 404 and the loop is dead.
+        assert "audioReviewNext" in post_handlers
+        assert "audioReviewGrade" in post_handlers
+
+    def test_voice_review_is_a_sveltekit_page(self) -> None:
+        assert is_sveltekit_page("voice-review")
+
+    def test_voice_review_webview_has_api_access(self) -> None:
+        # Without API access the AuthInterceptor injects no Bearer header and mediasrv 403s every
+        # audioReview* / review RPC POST from the shop, so nothing works.
+        from aqt.webview import API_ACCESS_WEBVIEW_KINDS, AnkiWebViewKind
+
+        assert AnkiWebViewKind.VOICE_REVIEW in API_ACCESS_WEBVIEW_KINDS
+
+    def test_voice_review_is_an_integrated_main_window_state(self) -> None:
+        import typing
+
+        from aqt.main import AnkiQt, MainWindowState
+
+        assert hasattr(AnkiQt, "_voiceReviewState")
+        assert hasattr(AnkiQt, "_voiceReviewCleanup")
+        assert "voiceReview" in typing.get_args(MainWindowState)
+
+    def test_review_state_is_redirected_to_voice(self) -> None:
+        # The whole point: the flip-card reviewer is replaced by the spoken quiz. Every study path
+        # funnels through moveToState("review"), so the redirect there means you never flip a card.
+        import inspect
+
+        from aqt.main import AnkiQt
+
+        src = inspect.getsource(AnkiQt.moveToState)
+        assert 'state == "review"' in src
+        assert '"voiceReview"' in src
+        assert hasattr(AnkiQt, "_voice_reviews_enabled")
+
+    def test_home_study_opens_voice(self) -> None:
+        import inspect
+
+        from aqt.main import AnkiQt
+
+        src = inspect.getsource(AnkiQt._on_home_cmd)
+        assert "home:study" in src
+        assert '"voiceReview"' in src
+
+    def test_voice_webview_only_grants_audio_capture(self) -> None:
+        # The mic permission handler must grant ONLY MediaAudioCapture and deny everything else
+        # (no video/screen capture), and only for the VOICE_REVIEW webview kind (fail-closed).
+        import inspect
+
+        from aqt.webview import AnkiWebPage
+
+        src = inspect.getsource(AnkiWebPage._onFeaturePermissionRequested)
+        assert "MediaAudioCapture" in src
+        assert "PermissionDeniedByUser" in src
+        init_src = inspect.getsource(AnkiWebPage.__init__)
+        assert "VOICE_REVIEW" in init_src
+
+
 class TestScoresLoaderSurfacesBrokenEngine:
     """charged_up: the scores bridge is the single source of truth for the readiness/mastery numbers
     a student trusts. A genuinely-broken engine (present, but with a broken transitive import) must
@@ -430,8 +494,6 @@ class TestChargedUpHeadlessChrome:
         assert params["embedded"].default is False
         # Embedded mode drops the Anki menu bar for ownership...
         assert hasattr(Browser, "_charged_up_strip_menu_bar")
-        assert "menubar.hide()" in inspect.getsource(
-            Browser._charged_up_strip_menu_bar
-        )
+        assert "menubar.hide()" in inspect.getsource(Browser._charged_up_strip_menu_bar)
         # ...and closes non-destructively (instance reused, not torn down).
         assert "self._embedded" in inspect.getsource(Browser.closeEvent)

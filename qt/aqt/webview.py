@@ -60,6 +60,7 @@ class AnkiWebViewKind(Enum):
     IMPORT_LOG = "import log"
     IMPORT_ANKI_PACKAGE = "anki package import"
     KNOWLEDGE_GRAPH = "knowledge graph"
+    VOICE_REVIEW = "voice review"
     HOME = "home"
 
 
@@ -134,6 +135,9 @@ API_ACCESS_WEBVIEW_KINDS = frozenset(
         # charged_up: the knowledge-graph VIEW calls the read-only masteryQuery / scoresDashboard
         # endpoints, so it needs the api-access profile (Bearer header).
         AnkiWebViewKind.KNOWLEDGE_GRAPH,
+        # charged_up: the voice-flashcard Keeper's Shop calls audioReviewNext/audioReviewGrade +
+        # the real review RPCs (server-side apply), so it needs the api-access profile too.
+        AnkiWebViewKind.VOICE_REVIEW,
     }
 )
 
@@ -152,6 +156,24 @@ class AnkiWebPage(QWebEnginePage):
         self._kind = kind
         self._setupBridge()
         self.open_links_externally = True
+
+        # charged_up: the voice-flashcard Keeper's Shop needs the microphone (getUserMedia). Grant
+        # audio capture ONLY for that trusted, first-party webview kind — every other page's
+        # permission request is denied (fail-closed). No video/screen capture is ever granted.
+        if kind == AnkiWebViewKind.VOICE_REVIEW:
+            self.featurePermissionRequested.connect(self._onFeaturePermissionRequested)
+
+    def _onFeaturePermissionRequested(
+        self, origin: QUrl, feature: "QWebEnginePage.Feature"
+    ) -> None:
+        if feature == QWebEnginePage.Feature.MediaAudioCapture:
+            self.setFeaturePermission(
+                origin, feature, QWebEnginePage.PermissionPolicy.PermissionGrantedByUser
+            )
+        else:
+            self.setFeaturePermission(
+                origin, feature, QWebEnginePage.PermissionPolicy.PermissionDeniedByUser
+            )
 
     def _profileForPage(self, kind: AnkiWebViewKind) -> QWebEngineProfile:
         have_api_access = kind in API_ACCESS_WEBVIEW_KINDS

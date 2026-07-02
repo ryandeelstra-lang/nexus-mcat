@@ -34,7 +34,6 @@ from aqt.editor import Editor, EditorWebView
 from aqt.errors import show_exception
 from aqt.exporting import ExportDialog as LegacyExportDialog
 from aqt.import_export.exporting import ExportDialog
-from aqt.main import MainWindowState
 from aqt.operations.card import set_card_deck, set_card_flag
 from aqt.operations.collection import redo, undo
 from aqt.operations.note import remove_notes
@@ -122,26 +121,14 @@ class Browser(QMainWindow):
         mw: AnkiQt,
         card: Card | None = None,
         search: tuple[str | SearchNode] | None = None,
-        embedded: bool = False,
     ) -> None:
         """
         card -- try to select the provided card after executing "search" or
                 "deck:current" (if "search" was None)
         search -- set and perform search; caller must ensure validity
-        embedded -- charged_up: host the Browser inside the main window's central
-                stack (no separate window). Fully gated: the default (dialog) path is
-                unchanged, so the DialogManager / add-ons / deep-link searches behave
-                exactly as before.
         """
 
-        # charged_up: as a child widget (embedded) rather than a top-level window.
-        QMainWindow.__init__(
-            self,
-            mw if embedded else None,
-            Qt.WindowType.Widget if embedded else Qt.WindowType.Window,
-        )
-        self._embedded = embedded
-        self._browse_return_state: MainWindowState = "deckBrowser"
+        QMainWindow.__init__(self, None, Qt.WindowType.Window)
         self.mw = mw
         self.col = self.mw.col
         self.lastFilter = ""
@@ -177,11 +164,9 @@ class Browser(QMainWindow):
             if self.layoutDirection() == Qt.LayoutDirection.RightToLeft
             else "editor"
         )
-        if not self._embedded:
-            restoreGeom(self, self._editor_state_key)
+        restoreGeom(self, self._editor_state_key)
         restoreSplitter(self.form.splitter, "editor3")
-        if not self._embedded:
-            restoreState(self, self._editor_state_key)
+        restoreState(self, self._editor_state_key)
 
         # responsive layout
         if self.height() != 0:
@@ -193,28 +178,7 @@ class Browser(QMainWindow):
         # legacy alias
         self.model = MockModel(self)
         self.setupSearch(card, search)
-        if self._embedded:
-            # charged_up: no separate window, and drop the Anki menu bar so the
-            # screen reads as ours (actions stay on shortcuts + right-click menus).
-            self._charged_up_strip_menu_bar()
-        else:
-            self.show()
-
-    def _charged_up_strip_menu_bar(self) -> None:
-        """charged_up: hide the Browser's own Edit/View/Notes/Cards/Go/Help menu bar
-        when embedded in the main window. Every action stays reachable via the
-        table/sidebar right-click menus (which are built from these same QMenus) and
-        via its keyboard shortcut, so nothing is lost — only the Anki chrome."""
-        menubar = self.menuBar()
-        if menubar is None:
-            return
-        for menu in menubar.findChildren(QMenu):
-            for action in menu.actions():
-                if not action.isSeparator():
-                    # keep the action alive on the window so its shortcut still fires
-                    self.addAction(action)
-        menubar.setNativeMenuBar(False)
-        menubar.hide()
+        self.show()
 
     def on_operation_did_execute(
         self, changes: OpChanges, handler: object | None
@@ -447,17 +411,6 @@ class Browser(QMainWindow):
     def closeEvent(self, evt: QCloseEvent | None) -> None:
         assert evt is not None
 
-        if self._embedded:
-            # In-window mode: "close" (e.g. Escape) means leave the Browse screen
-            # and return where we came from, after saving any pending edit — never
-            # the destructive dialog cleanup (the instance is reused).
-            assert self.editor is not None
-            evt.ignore()
-            self.editor.call_after_note_saved(
-                lambda: self.mw.moveToState(self._browse_return_state)
-            )
-            return
-
         if self._closeEventHasCleanedUp:
             evt.accept()
             return
@@ -599,7 +552,6 @@ class Browser(QMainWindow):
         )
         self.setWindowTitle(
             without_unicode_isolation(tr_title(total=cur, selected=selected))
-            + " — Nexus"
         )
 
     def search_for_terms(self, *search_terms: str | SearchNode) -> None:

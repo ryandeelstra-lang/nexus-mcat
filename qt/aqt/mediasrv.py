@@ -422,9 +422,6 @@ def is_sveltekit_page(path: str) -> bool:
         "import-csv",
         "import-page",
         "image-occlusion",
-        "knowledge-graph",
-        "scores-dashboard",
-        "home",
         "garden",
     ]
 
@@ -855,7 +852,7 @@ exposed_backend_list = [
     "graphs",
     "get_graph_preferences",
     "set_graph_preferences",
-    "mastery_query",  # charged_up: read-only per-topic mastery for the knowledge-graph VIEW
+    "mastery_query",  # charged_up: read-only per-topic mastery driving garden growth/bloom
     # TagsService
     "complete_tag",
     # ImageOcclusionService
@@ -868,11 +865,10 @@ exposed_backend_list = [
     # charged_up: render the due card into the study surface's SANDBOXED iframe (read-only).
     "render_existing_card",
     # SchedulerService
-    # charged_up: the integrated study surface (knowledge-graph ?mode=study) runs the REAL review
-    # loop in the api-access graph webview — fetch the next due card, then answer it. answer_card
-    # WRITES the revlog like any review; it is only reachable through the (default-gated) graph
-    # screen, so flag-off behaviour is unchanged. Card markup is rendered into a sandboxed iframe
-    # (no same-origin) so untrusted card HTML can never reach this RPC surface.
+    # charged_up: the garden's Keeper study panel runs the REAL review loop in the api-access
+    # garden webview — fetch the next due card, then answer it. answer_card WRITES the revlog
+    # like any review. Card markup is rendered into a sandboxed iframe (no same-origin) so
+    # untrusted card HTML can never reach this RPC surface.
     "get_queued_cards",
     "answer_card",
     "compute_fsrs_params",

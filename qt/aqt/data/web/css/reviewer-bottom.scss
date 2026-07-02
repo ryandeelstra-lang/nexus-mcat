@@ -92,14 +92,14 @@ button {
  * ease hook and the timer / interval logic are left untouched — chrome only.
  * ============================================================================ */
 
-/* ---- Nexus palette (calm; light mode is the default) ----------------------- */
+/* ---- Knowledge Garden palette (calm; light mode is the default) ------------- */
 /* Grades read as INTERVALS, not a red/green pass-fail (docs/17 §1a/§4):
  * Again = neutral grey, Hard/Easy near-neutral, Good = the section accent. */
-$hig-accent: #3b82f6; // Nexus section-blue — matches the landing page + graph
-$nexus-neutral: #f5f6fa; // calm pill background (never a colored fill)
-$nexus-neutral-hover: #eef0f6;
-$nexus-accent-tint: rgba(59, 130, 246, 0.1);
-$nexus-accent-ring: rgba(59, 130, 246, 0.35);
+$hig-accent: #3b82f6; // section-blue accent
+$kg-neutral: #f5f6fa; // calm pill background (never a colored fill)
+$kg-neutral-hover: #eef0f6;
+$kg-accent-tint: rgba(59, 130, 246, 0.1);
+$kg-accent-ring: rgba(59, 130, 246, 0.35);
 $hig-ink: rgba(0, 0, 0, 0.85);
 $hig-elevation: 0 2px 6px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
 $hig-elevation-hover: 0 6px 16px rgba(0, 0, 0, 0.14),
@@ -235,7 +235,7 @@ body {
     font-size: 15px;
     font-weight: 600;
     color: var(--fg);
-    background: $nexus-neutral;
+    background: $kg-neutral;
     box-shadow: inset 0 0 0 1px var(--border-subtle);
 }
 
@@ -244,33 +244,33 @@ body {
 #middle [data-ease="1"] {
     /* Again — neutral grey, never red */
     color: var(--fg-subtle);
-    background: $nexus-neutral;
+    background: $kg-neutral;
 }
 #middle [data-ease="2"] {
     /* Hard — near-neutral */
-    background: $nexus-neutral;
+    background: $kg-neutral;
 }
 #middle [data-ease="3"] {
     /* Good — the calm section-accent default nudge (tint + accent ink) */
     color: $hig-accent;
-    background: $nexus-accent-tint;
-    box-shadow: inset 0 0 0 1px $nexus-accent-ring;
+    background: $kg-accent-tint;
+    box-shadow: inset 0 0 0 1px $kg-accent-ring;
 }
 #middle [data-ease="4"] {
     /* Easy — near-neutral */
-    background: $nexus-neutral;
+    background: $kg-neutral;
 }
 
 /* the scheduler's default ("Good") is always the accent pill, even in the
  * reduced 2-/3-button layouts where the ease numbers shift */
 #middle #defease {
     color: $hig-accent;
-    background: $nexus-accent-tint;
-    box-shadow: inset 0 0 0 1px $nexus-accent-ring;
+    background: $kg-accent-tint;
+    box-shadow: inset 0 0 0 1px $kg-accent-ring;
 }
 
 #middle [data-ease]:hover {
-    background: $nexus-neutral-hover;
+    background: $kg-neutral-hover;
     transform: translateY(-1px);
 }
 #middle [data-ease="3"]:hover,

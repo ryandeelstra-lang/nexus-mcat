@@ -13,6 +13,11 @@ enum SyncState {
 
 function updateSyncColor(state: SyncState) {
     const elem = document.getElementById("sync");
+    // charged_up (Decision 43): the toolbar nav (incl. the sync link) is gone,
+    // so #sync may not exist; sync status is surfaced in-game instead.
+    if (!elem) {
+        return;
+    }
     switch (state) {
         case SyncState.NoChanges:
             elem.classList.remove("full-sync", "normal-sync");

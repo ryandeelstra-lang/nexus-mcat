@@ -82,7 +82,7 @@ export function stageFor(inputs: StageInputs): GrowthStage {
     return "sprout";
 }
 
-/** Region rollup: card-weighted mean recall (mirrors rollupMastery in graph-render.ts). */
+/** Region rollup: card-weighted mean recall across a region's topics. */
 export function regionBloomFraction(
     topics: ReadonlyArray<Pick<TopicMastery, "cardsWithState" | "averageRecall">>,
 ): number {

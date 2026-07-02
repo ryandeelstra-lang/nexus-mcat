@@ -203,38 +203,39 @@ class TestMediaFileCSP:
             assert _get_csp(resp) is None
 
 
-class TestKnowledgeGraphWiring:
-    """charged_up: guards the runtime wiring of the knowledge-graph VIEW so the live-glow /
-    scores paths can never silently regress to a 404 (unregistered endpoint) or a 403
-    (web view denied API access) — the exact gap an audit caught after the first build."""
+class TestOldFrontendRemoved:
+    """charged_up (Decision 43): the old Nexus-era frontend is GONE. The app boots straight
+    into the full-bleed Knowledge Garden — no home landing, no d3/SVG knowledge-graph VIEW
+    route, no standalone scores-dashboard route, no Anki toolbar menu. These guard that the
+    removal can't silently regress."""
 
-    def test_mastery_query_endpoint_registered(self) -> None:
-        # Without this the graph's masteryQuery() POST 404s and the map stays un-lit.
-        assert "masteryQuery" in post_handlers
+    def test_old_routes_are_not_served(self) -> None:
+        assert not is_sveltekit_page("home")
+        assert not is_sveltekit_page("knowledge-graph")
+        assert not is_sveltekit_page("scores-dashboard")
 
-    def test_scores_dashboard_endpoint_registered(self) -> None:
-        assert "scoresDashboard" in post_handlers
+    def test_old_webview_kinds_are_gone(self) -> None:
+        from aqt.webview import AnkiWebViewKind
 
-    def test_view_pages_are_sveltekit_pages(self) -> None:
-        assert is_sveltekit_page("knowledge-graph")
-        assert is_sveltekit_page("scores-dashboard")
+        assert not hasattr(AnkiWebViewKind, "HOME")
+        assert not hasattr(AnkiWebViewKind, "KNOWLEDGE_GRAPH")
 
-    def test_knowledge_graph_webview_has_api_access(self) -> None:
-        # Without API access the AuthInterceptor injects no Bearer header and mediasrv 403s
-        # every RPC/data POST from the VIEW, so nothing lights up. Import locally so the Qt
-        # dependency doesn't burden the rest of the module.
-        from aqt.webview import API_ACCESS_WEBVIEW_KINDS, AnkiWebViewKind
+    def test_old_states_are_gone(self) -> None:
+        import typing
 
-        assert AnkiWebViewKind.KNOWLEDGE_GRAPH in API_ACCESS_WEBVIEW_KINDS
+        from aqt.main import AnkiQt, MainWindowState
 
-    def test_knowledge_graph_is_an_integrated_main_window_state(self) -> None:
-        # The graph is an in-window screen (toolbar tab -> moveToState), not a separate dialog.
-        from aqt.main import AnkiQt
-        from aqt.toolbar import Toolbar
+        states = typing.get_args(MainWindowState)
+        for dead in ("home", "knowledgeGraph", "stats", "add", "browse"):
+            assert dead not in states
+        assert not hasattr(AnkiQt, "_homeState")
+        assert not hasattr(AnkiQt, "_knowledgeGraphState")
 
-        assert hasattr(AnkiQt, "_knowledgeGraphState")
-        assert hasattr(AnkiQt, "_knowledgeGraphCleanup")
-        assert hasattr(Toolbar, "_graphLinkHandler")
+    def test_toolbar_has_no_nav_links(self) -> None:
+        # The center menu is empty; the garden hides the toolbar entirely anyway.
+        from aqt.toolbar import _STATE_TO_ACTIVE_ITEM
+
+        assert _STATE_TO_ACTIVE_ITEM == {}
 
 
 class TestGardenWiring:
@@ -271,14 +272,21 @@ class TestGardenWiring:
 
         assert AnkiWebViewKind.GARDEN in API_ACCESS_WEBVIEW_KINDS
 
-    def test_garden_is_an_integrated_main_window_state(self) -> None:
-        # The garden is an in-window screen (toolbar tab -> moveToState), like the graph.
-        from aqt.main import AnkiQt
+    def test_garden_is_the_boot_state(self) -> None:
+        # charged_up (Decision 43): the app boots straight into the full-bleed garden —
+        # a main-window state entered from loadCollection, not a toolbar tab (the old
+        # _gardenLinkHandler nav entry is gone with the toolbar menu).
+        import inspect
+        import typing
+
+        from aqt.main import AnkiQt, MainWindowState
         from aqt.toolbar import Toolbar
 
+        assert "garden" in typing.get_args(MainWindowState)
         assert hasattr(AnkiQt, "_gardenState")
         assert hasattr(AnkiQt, "_gardenCleanup")
-        assert hasattr(Toolbar, "_gardenLinkHandler")
+        assert not hasattr(Toolbar, "_gardenLinkHandler")
+        assert 'self.moveToState("garden")' in inspect.getsource(AnkiQt.loadCollection)
 
     def test_garden_state_bridge_is_additive_only(self) -> None:
         # The garden's persistent state (currency, pending queue, tutorial beats) lives
@@ -354,11 +362,9 @@ class TestEditorPageCSP:
 
 
 class TestChargedUpHeadlessChrome:
-    """charged_up: the app is driven by our own web chrome (the Nexus toolbar + home),
-    so Anki's native menu bar must be removed and review Stats must render in-window
-    instead of a popup dialog. These guard that wiring so it can't silently regress
-    back to "this is just Anki" (a visible File/Edit/Tools/Help bar, or Stats opening
-    a separate native window)."""
+    """charged_up (Decision 43): the app is the full-bleed Knowledge Garden, so Anki's
+    native menu bar must be removed. These guard that wiring so it can't silently
+    regress back to "this is just Anki" (a visible File/Edit/Tools/Help bar)."""
 
     def test_native_menu_bar_removal_is_wired_on_startup(self) -> None:
         import inspect
@@ -391,99 +397,14 @@ class TestChargedUpHeadlessChrome:
 
         assert "_native_menu_bar_hidden" in inspect.getsource(AnkiQt.show_menubar)
 
-    def test_stats_is_an_integrated_main_window_state(self) -> None:
-        # Stats is an in-window screen (toolbar tab -> moveToState), not a dialog.
-        from aqt.main import AnkiQt
-        from aqt.toolbar import Toolbar
-
-        assert hasattr(AnkiQt, "_statsState")
-        assert hasattr(AnkiQt, "_statsCleanup")
-        assert hasattr(Toolbar, "_statsLinkHandler")
-
-    def test_stats_is_a_known_window_state(self) -> None:
-        import typing
-
-        from aqt.main import MainWindowState
-
-        assert "stats" in typing.get_args(MainWindowState)
-
-    def test_stats_link_opens_in_window_not_a_popup_dialog(self) -> None:
-        import inspect
-
-        from aqt.toolbar import Toolbar
-
-        src = inspect.getsource(Toolbar._statsLinkHandler)
-        assert 'moveToState("stats")' in src
-        # The old popup path (mw.onStats -> aqt.dialogs.open) must be gone.
-        assert "onStats" not in src
-
-    def test_add_is_an_integrated_main_window_state(self) -> None:
-        from aqt.main import AnkiQt
-
-        assert hasattr(AnkiQt, "_addState")
-        assert hasattr(AnkiQt, "_addCleanup")
-
-    def test_add_is_a_known_window_state(self) -> None:
-        import typing
-
-        from aqt.main import MainWindowState
-
-        assert "add" in typing.get_args(MainWindowState)
-
-    def test_add_link_opens_in_window_not_a_popup_dialog(self) -> None:
-        import inspect
-
-        from aqt.toolbar import Toolbar
-
-        assert 'moveToState("add")' in inspect.getsource(Toolbar._addLinkHandler)
-
-    def test_addcards_embedded_mode_is_gated_and_non_destructive(self) -> None:
+    def test_addcards_and_browser_are_stock_dialogs_again(self) -> None:
+        # charged_up (Decision 43): the in-window embedded Add/Browse states are gone
+        # with the Nexus chrome — both surfaces are stock dialogs again.
         import inspect
 
         from aqt.addcards import AddCards
-
-        # The embedded flag exists and defaults off (dialog path stays unchanged).
-        params = inspect.signature(AddCards.__init__).parameters
-        assert "embedded" in params
-        assert params["embedded"].default is False
-        # Embedded mode must not pop a window (self.show gated behind `not embedded`).
-        assert "if not embedded:" in inspect.getsource(AddCards.__init__)
-        # ...and must not run the destructive dialog cleanup on close.
-        assert "self._embedded" in inspect.getsource(AddCards.closeEvent)
-
-    def test_browse_is_an_integrated_main_window_state(self) -> None:
-        from aqt.main import AnkiQt
-
-        assert hasattr(AnkiQt, "_browseState")
-        assert hasattr(AnkiQt, "_browseCleanup")
-
-    def test_browse_is_a_known_window_state(self) -> None:
-        import typing
-
-        from aqt.main import MainWindowState
-
-        assert "browse" in typing.get_args(MainWindowState)
-
-    def test_browse_link_opens_in_window_not_a_popup_dialog(self) -> None:
-        import inspect
-
-        from aqt.toolbar import Toolbar
-
-        assert 'moveToState("browse")' in inspect.getsource(Toolbar._browseLinkHandler)
-
-    def test_browser_embedded_is_gated_strips_menu_bar_and_non_destructive(
-        self,
-    ) -> None:
-        import inspect
-
         from aqt.browser.browser import Browser
 
-        # Gated embedded flag; the dialog path (deep links / add-ons) is unchanged.
-        params = inspect.signature(Browser.__init__).parameters
-        assert "embedded" in params
-        assert params["embedded"].default is False
-        # Embedded mode drops the Anki menu bar for ownership...
-        assert hasattr(Browser, "_charged_up_strip_menu_bar")
-        assert "menubar.hide()" in inspect.getsource(Browser._charged_up_strip_menu_bar)
-        # ...and closes non-destructively (instance reused, not torn down).
-        assert "self._embedded" in inspect.getsource(Browser.closeEvent)
+        assert "embedded" not in inspect.signature(AddCards.__init__).parameters
+        assert "embedded" not in inspect.signature(Browser.__init__).parameters
+        assert not hasattr(Browser, "_charged_up_strip_menu_bar")

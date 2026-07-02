@@ -1,7 +1,7 @@
 # Copyright: Ankitects Pty Ltd and contributors
 # License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
 
-# charged_up (Nexus): pins the COMPREHENSIVE graph that the detail slider interpolates over
+# charged_up: pins the COMPREHENSIVE knowledge-graph data artifact
 # (spine + concept graph + card leaves). Out-of-process:
 #   out/pyenv/bin/python -m pytest tests/graph/test_full_graph.py
 

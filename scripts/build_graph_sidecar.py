@@ -4,7 +4,8 @@
 
 """charged_up: build the knowledge-graph sidecar (Block I / T-GRAPH).
 
-A versioned JSON sidecar the 3D VIEW renders from. The FROZEN spine is 48 nodes (4 sections + 10
+A versioned JSON sidecar the garden world renders from (worldgen + mastery mapping). The FROZEN
+spine is 48 nodes (4 sections + 10
 Foundational Concepts + 31 content categories + 3 CARS) built FROM docs/data/mcat_taxonomy.yaml (single
 source). BENEATH the content categories, an ADDITIVE topic layer (Nexus outline grain, Decision 2026-07-01)
 adds every AAMC-outline `topic` / `subtopic` node plus a verified topic-level `prerequisite` DAG and a few
@@ -54,7 +55,8 @@ TAXONOMY = ROOT / "docs" / "data" / "mcat_taxonomy.yaml"
 # Kept in its own file so the FROZEN spine taxonomy (and its CI golden-set tests) stays pristine.
 TOPICS = ROOT / "docs" / "data" / "mcat_topics.yaml"
 OUT = ROOT / "graph" / "sidecar.json"
-# Bundled copy the SvelteKit knowledge-graph route imports (vite inlines it at build).
+# Bundled copy the garden imports (ts/routes/garden/state/mastery.ts + game/worldgen.ts;
+# vite inlines it at build).
 TS_OUT = ROOT / "ts" / "lib" / "graph-sidecar.json"
 
 # Curated v1 prerequisite edges (directed; MUST be acyclic — topo-checked in the test). Flows
@@ -142,7 +144,7 @@ def build() -> dict:
             "z": round(4 * math.cos(ang), 2),
         })
 
-    # Attach the deck path to each LEAF node so the VIEW can map live MasteryQuery topics
+    # Attach the deck path to each LEAF node so the garden can map live MasteryQuery topics
     # (keyed by deck_name, e.g. "MCAT::B-B::1A") onto sidecar nodes (keyed by leaf_id, e.g. "BB.1A").
     leaf_path = {leaf["leaf_id"]: leaf["path"] for leaf in leaves}
     for n in nodes:

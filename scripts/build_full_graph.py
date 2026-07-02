@@ -2,20 +2,19 @@
 # Copyright: Ankitects Pty Ltd and contributors
 # License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
 
-"""charged_up (Nexus): build the COMPREHENSIVE knowledge graph the detail slider interpolates over.
+"""charged_up: build the COMPREHENSIVE knowledge-graph data artifact.
 
-Unifies three real layers into one artifact (ts/lib/graph_full.json):
+Unifies three real layers into one artifact (graph/graph_full.json):
   * the frozen spine — 4 sections + 10 Foundational Concepts + 31 content categories + 3 CARS
     (docs/data/mcat_taxonomy.yaml)
   * the deep concept graph — topics / subtopics / concepts with prereq + related edges
     (graph/concept_graph.json, keyed to the same leaves)
   * the deepest card layer — one+ exam-style question per concept (graph/cards_gen/cards_*.json)
 
-Every node gets a `tier` (0 section .. 6 card) and an `appear` threshold in [0,1]. The VIEW's slider t
-shows exactly the nodes with `appear <= t`: t=0 => the 4 sections; sliding up STREAMS IN more nodes
-(never resizing existing ones), parents always before children, higher-yield first. Positions are baked
-deterministically (Fibonacci-sphere clusters around each parent) — no live physics. Read-only; opens no
-collection; imports no engine."""
+Every node gets a `tier` (0 section .. 6 card) and an `appear` threshold in [0,1]: a consumer showing
+nodes with `appear <= t` streams them in layer by layer, parents always before children, higher-yield
+first. Positions are baked deterministically (Fibonacci-sphere clusters around each parent) — no live
+physics. Read-only; opens no collection; imports no engine."""
 
 from __future__ import annotations
 
@@ -30,7 +29,6 @@ TAXONOMY = ROOT / "docs" / "data" / "mcat_taxonomy.yaml"
 CONCEPTS = ROOT / "graph" / "concept_graph.json"
 CARDS_DIR = ROOT / "graph" / "cards_gen"
 OUT = ROOT / "graph" / "graph_full.json"
-TS_OUT = ROOT / "ts" / "lib" / "graph_full.json"
 
 _GOLDEN = math.pi * (3.0 - math.sqrt(5.0))
 
@@ -245,8 +243,6 @@ def build() -> dict:
              "nodes": out_nodes, "edges": out_edges}
     payload = json.dumps(graph, separators=(",", ":"))
     OUT.write_text(payload, encoding="utf-8")
-    TS_OUT.parent.mkdir(parents=True, exist_ok=True)
-    TS_OUT.write_text(payload, encoding="utf-8")
     return graph
 
 

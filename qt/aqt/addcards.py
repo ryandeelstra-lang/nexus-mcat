@@ -15,7 +15,6 @@ from anki.notes import Note, NoteFieldsCheckResult, NoteId
 from anki.utils import html_to_text_line, is_mac
 from aqt import AnkiQt, gui_hooks
 from aqt.deckchooser import DeckChooser
-from aqt.main import MainWindowState
 from aqt.notetypechooser import NotetypeChooser
 from aqt.operations.note import add_note
 from aqt.qt import *
@@ -36,24 +35,15 @@ from aqt.utils import (
 
 
 class AddCards(QMainWindow):
-    def __init__(self, mw: AnkiQt, embedded: bool = False) -> None:
-        # charged_up: when `embedded`, the Add screen is hosted inside the main
-        # window's central stack (no separate window). The flag is fully gated: the
-        # default (dialog) path — used by add-ons, the reviewer's add, and the
-        # DialogManager — is unchanged.
-        self._embedded = embedded
-        super().__init__(
-            mw if embedded else None,
-            Qt.WindowType.Widget if embedded else Qt.WindowType.Window,
-        )
-        self._add_return_state: MainWindowState = "deckBrowser"
+    def __init__(self, mw: AnkiQt) -> None:
+        super().__init__(None, Qt.WindowType.Window)
         self._close_event_has_cleaned_up = False
         self.mw = mw
         self.col = mw.col
         form = aqt.forms.addcards.Ui_Dialog()
         form.setupUi(self)
         self.form = form
-        self.setWindowTitle(f"{tr.actions_add()} — Nexus")
+        self.setWindowTitle(tr.actions_add())
         self.setMinimumHeight(300)
         self.setMinimumWidth(400)
         self.setup_choosers()
@@ -63,13 +53,11 @@ class AddCards(QMainWindow):
         self.history: list[NoteId] = []
         self._last_added_note: Note | None = None
         gui_hooks.operation_did_execute.append(self.on_operation_did_execute)
-        if not embedded:
-            restoreGeom(self, "add")
+        restoreGeom(self, "add")
         gui_hooks.add_cards_did_init(self)
         if not is_mac:
             self.setMenuBar(None)
-        if not embedded:
-            self.show()
+        self.show()
 
     def set_deck(self, deck_id: DeckId) -> None:
         self.deck_chooser.selected_deck_id = deck_id
@@ -360,13 +348,6 @@ class AddCards(QMainWindow):
             super().keyPressEvent(evt)
 
     def closeEvent(self, evt: QCloseEvent) -> None:
-        if self._embedded:
-            # In-window mode: "close" (e.g. Escape) means leave the Add screen and
-            # return to where we came from, keeping the editor content intact for
-            # next time — never the destructive dialog cleanup.
-            evt.ignore()
-            self.mw.moveToState(self._add_return_state)
-            return
         if self._close_event_has_cleaned_up:
             evt.accept()
             return

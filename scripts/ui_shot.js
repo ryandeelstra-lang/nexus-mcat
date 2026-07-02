@@ -4,16 +4,14 @@
 // charged_up UI-evaluator harness — a dependency-free CDP screenshotter for
 // Anki's QtWebEngine surfaces. The dev launcher (`run:9`) exports
 // QTWEBENGINE_REMOTE_DEBUGGING=8080, so every web view (toolbar, deck browser,
-// overview, reviewer, the SvelteKit home/knowledge-graph/scores routes) is a
-// live CDP "page" target we can drive (pycmd) and screenshot. Uses Node's
-// built-in fetch + WebSocket (Node 22) — no new dependency, no Yarn age-gate.
+// overview, reviewer, the SvelteKit garden route) is a live CDP "page" target
+// we can drive (pycmd) and screenshot. Uses Node's built-in fetch + WebSocket
+// (Node 22) — no new dependency, no Yarn age-gate.
 //
 // Usage:
 //   node scripts/ui_shot.js all <outdir>                 # shoot every page target
 //   node scripts/ui_shot.js <out.png> --url <substr>     # shoot the view whose URL matches
 //   node scripts/ui_shot.js <out.png> --sel <cssSel>     # shoot the view containing a selector
-//   node scripts/ui_shot.js <out.png> --sel .nexus --nav home:study --on /home
-//        # first pycmd("home:study") in the /home view, wait, then shoot .nexus
 //
 // Env: CDP_PORT (default 8080), SHOT_WAIT_MS (settle after nav, default 2500).
 
@@ -138,7 +136,8 @@ function arg(flag) {
     const urlSub = arg("--url");
     const selector = arg("--sel");
     const navCmd = arg("--nav");
-    const navOn = arg("--on") || "/home";
+    // Default nav target = the garden page (the app's only user-facing surface).
+    const navOn = arg("--on") || "garden";
     if (!outfile) {
         console.error("usage: node scripts/ui_shot.js all <dir> | <out.png> --url|--sel <x>");
         process.exit(2);

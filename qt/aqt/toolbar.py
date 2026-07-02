@@ -13,7 +13,6 @@ from aqt import gui_hooks, props
 from aqt.qt import *
 from aqt.sync import get_sync_status
 from aqt.theme import theme_manager
-from aqt.utils import tr
 from aqt.webview import AnkiWebView, AnkiWebViewKind
 
 
@@ -22,93 +21,12 @@ class HideMode(enum.IntEnum):
     ALWAYS = 1
 
 
-# charged_up: inline-SVG glyphs for the top toolbar (Apple-HIG unified bar).
-# 20x20 viewBox, 1.6px strokes, currentColor so they tint with fg / active
-# accent. Each is paired with a text label in _centerLinks (never icon-only).
-_TOOLBAR_ICONS: dict[str, str] = {
-    # house — return to Nexus
-    "home": (
-        '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" '
-        'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'
-        '<path d="M3.5 9.2 10 3.75l6.5 5.45"/>'
-        '<path d="M5 8.3V15.5a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V8.3"/>'
-        '<path d="M8.25 16.5v-4a.75.75 0 0 1 .75-.75h2a.75.75 0 0 1 .75.75v4"/>'
-        "</svg>"
-    ),
-    # stacked cards — decks
-    "decks": (
-        '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" '
-        'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'
-        '<rect x="3.75" y="6.75" width="12.5" height="9.5" rx="1.75"/>'
-        '<path d="M6 4.75h8"/><path d="M5 6.75V15.5"/>'
-        "</svg>"
-    ),
-    # plus — add
-    "add": (
-        '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" '
-        'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'
-        '<path d="M10 4.5v11"/><path d="M4.5 10h11"/>'
-        "</svg>"
-    ),
-    # magnifier — browse
-    "browse": (
-        '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" '
-        'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'
-        '<circle cx="8.75" cy="8.75" r="4.75"/><path d="M12.4 12.4 16 16"/>'
-        "</svg>"
-    ),
-    # bar chart — stats
-    "stats": (
-        '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" '
-        'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'
-        '<path d="M5 15V9.5"/><path d="M10 15V5"/><path d="M15 15v-3.5"/>'
-        "</svg>"
-    ),
-    # linked nodes — the knowledge-graph Map
-    "graph": (
-        '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" '
-        'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'
-        '<circle cx="5.25" cy="6" r="2"/><circle cx="14.75" cy="6" r="2"/>'
-        '<circle cx="10" cy="14.5" r="2"/>'
-        '<path d="M6.9 7.2 8.6 13"/><path d="M13.1 7.2 11.4 13"/>'
-        '<path d="M7.25 6h5.5"/>'
-        "</svg>"
-    ),
-    # sprout in soil — the Knowledge Garden (Decisions 40-42)
-    "garden": (
-        '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" '
-        'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'
-        '<path d="M10 16.5v-5.5"/>'
-        '<path d="M10 11c0-2.5-2-4.5-4.5-4.5C5.5 9 7.5 11 10 11Z"/>'
-        '<path d="M10 9.5c0-2.5 2-4.5 4.5-4.5C14.5 7.5 12.5 9.5 10 9.5Z"/>'
-        '<path d="M4.5 16.5h11"/>'
-        "</svg>"
-    ),
-    # circular arrows — sync
-    "sync": (
-        '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" '
-        'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'
-        '<path d="M15.5 6.5A6 6 0 0 0 4.6 8"/>'
-        '<path d="M4.5 13.5A6 6 0 0 0 15.4 12"/>'
-        '<path d="M15.5 4v2.5H13"/><path d="M4.5 16v-2.5H7"/>'
-        "</svg>"
-    ),
-}
-
 # charged_up: which toolbar item id owns the "active" highlight for each
 # MainWindowState. Modal surfaces (Add, Browse) are not states, so they never
 # hold a persistent active state — that is expected.
-_STATE_TO_ACTIVE_ITEM: dict[str, str] = {
-    "home": "home",
-    "deckBrowser": "decks",
-    "overview": "decks",
-    "review": "decks",
-    "knowledgeGraph": "graph",
-    "stats": "stats",
-    "add": "add",
-    "browse": "browse",
-    "garden": "garden",
-}
+# charged_up (Decision 43): the toolbar menu is gone (the app is the full-bleed garden), so
+# there are no nav items to highlight. Kept as an empty map so set_active_item stays a no-op.
+_STATE_TO_ACTIVE_ITEM: dict[str, str] = {}
 
 
 # wrapper class for set_bridge_command()
@@ -360,9 +278,11 @@ class Toolbar:
     def __init__(self, mw: aqt.AnkiQt, web: AnkiWebView) -> None:
         self.mw = mw
         self.web = web
-        self.link_handlers: dict[str, Callable] = {
-            "study": self._studyLinkHandler,
-        }
+        # charged_up (Decision 43): the toolbar menu and all its per-surface link
+        # handlers (home / decks / study / add / browse / stats / graph / garden /
+        # sync) are gone — the app boots straight into the garden. Start empty;
+        # add-ons may still register handlers via create_link().
+        self.link_handlers: dict[str, Callable] = {}
         self.web.requiresCol = False
 
     def draw(
@@ -447,75 +367,11 @@ class Toolbar:
         )
 
     def _centerLinks(self) -> str:
-        links = [
-            # charged_up: Home returns to the Nexus screen; placed first so the
-            # bar reads left-to-right as a clear "you are here" map.
-            self.create_link(
-                "home",
-                tr.actions_home() if hasattr(tr, "actions_home") else "Home",
-                self._homeLinkHandler,
-                tip=tr.actions_shortcut_key(val="H"),
-                id="home",
-                icon=_TOOLBAR_ICONS["home"],
-            ),
-            self.create_link(
-                "decks",
-                tr.actions_decks(),
-                self._deckLinkHandler,
-                tip=tr.actions_shortcut_key(val="D"),
-                id="decks",
-                icon=_TOOLBAR_ICONS["decks"],
-            ),
-            self.create_link(
-                "add",
-                tr.actions_add(),
-                self._addLinkHandler,
-                tip=tr.actions_shortcut_key(val="A"),
-                id="add",
-                icon=_TOOLBAR_ICONS["add"],
-            ),
-            self.create_link(
-                "browse",
-                tr.qt_misc_browse(),
-                self._browseLinkHandler,
-                tip=tr.actions_shortcut_key(val="B"),
-                id="browse",
-                icon=_TOOLBAR_ICONS["browse"],
-            ),
-            self.create_link(
-                "stats",
-                tr.qt_misc_stats(),
-                self._statsLinkHandler,
-                tip=tr.actions_shortcut_key(val="T"),
-                id="stats",
-                icon=_TOOLBAR_ICONS["stats"],
-            ),
-            # charged_up: the MCAT knowledge-graph VIEW, integrated as a
-            # main-window screen. Labelled "Map" for intuitiveness — it reads
-            # like "the map of what I know", not an abstract "graph".
-            self.create_link(
-                "graph",
-                "Map",
-                self._graphLinkHandler,
-                tip=tr.actions_shortcut_key(val="G"),
-                id="graph",
-                icon=_TOOLBAR_ICONS["graph"],
-            ),
-            # charged_up: the Knowledge Garden — the playable world (Decisions 40-42).
-            self.create_link(
-                "garden",
-                "Garden",
-                self._gardenLinkHandler,
-                tip=tr.actions_shortcut_key(val="N"),
-                id="garden",
-                icon=_TOOLBAR_ICONS["garden"],
-            ),
-        ]
-
-        links.append(self._create_sync_link())
-
+        # charged_up (Decision 43): the app IS the Knowledge Garden — there is no navigation
+        # menu. The garden owns the whole window and hides this toolbar entirely (see
+        # AnkiQt._gardenState). No Home / Decks / Add / Browse / Stats / Map / Sync links.
+        links: list[str] = []
         gui_hooks.top_toolbar_did_init_links(links, self)
-
         return "\n".join(links)
 
     # Add-ons
@@ -537,26 +393,13 @@ class Toolbar:
     # Sync
     ######################################################################
 
-    def _create_sync_link(self) -> str:
-        name = tr.qt_misc_sync()
-        title = tr.actions_shortcut_key(val="Y")
-        label = "sync"
-        self.link_handlers[label] = self._syncLinkHandler
-
-        # charged_up: match the icon + label vocabulary of the center items.
-        # The sync-state color (needs-sync) lands on the whole pill via the
-        # #sync .normal-sync / .full-sync rules, so it's obvious at a glance;
-        # the spinner still replaces the glyph while a sync is running.
-        icon = _TOOLBAR_ICONS["sync"]
-        return f"""
-<a class=hitem tabindex="-1" aria-label="{name}" title="{title}" id="{label}" href=# onclick="return pycmd('{label}')"
-><span class="hicon">{icon}<img id=sync-spinner src='/_anki/imgs/refresh.svg'></span><span class="hlabel">{name}</span>
-</a>"""
-
     def set_sync_active(self, active: bool) -> None:
+        # charged_up (Decision 43): #sync-spinner only existed inside the removed
+        # toolbar sync link; guard so media sync can't throw in the webview.
         method = "add" if active else "remove"
         self.web.eval(
-            f"document.getElementById('sync-spinner').classList.{method}('spin')"
+            "var el = document.getElementById('sync-spinner'); "
+            f"if (el) el.classList.{method}('spin');"
         )
 
     def set_sync_status(self, status: SyncStatus) -> None:
@@ -582,41 +425,9 @@ class Toolbar:
             f"if (window.setActiveToolbarItem) setActiveToolbarItem('{item_id}')"
         )
 
-    def _homeLinkHandler(self) -> None:
-        # charged_up: return to the Nexus front-door screen.
-        self.mw.moveToState("home")
-
-    def _deckLinkHandler(self) -> None:
-        self.mw.moveToState("deckBrowser")
-
-    def _studyLinkHandler(self) -> None:
-        # if overview already shown, switch to review
-        if self.mw.state == "overview":
-            self.mw.col.startTimebox()
-            self.mw.moveToState("review")
-        else:
-            self.mw.onOverview()
-
-    def _addLinkHandler(self) -> None:
-        # charged_up: add cards in-window (no popup dialog).
-        self.mw.moveToState("add")
-
-    def _browseLinkHandler(self) -> None:
-        # charged_up: browse in-window (no popup dialog).
-        self.mw.moveToState("browse")
-
-    def _statsLinkHandler(self) -> None:
-        # charged_up: review stats live in-window now (no popup dialog).
-        self.mw.moveToState("stats")
-
-    def _graphLinkHandler(self) -> None:
-        self.mw.moveToState("knowledgeGraph")
-
-    def _gardenLinkHandler(self) -> None:
-        self.mw.moveToState("garden")
-
-    def _syncLinkHandler(self) -> None:
-        self.mw.on_sync_button_clicked()
+    # charged_up (Decision 43): the per-surface link handlers (home / decks / study / add /
+    # browse / stats / graph / garden / sync) are removed with the toolbar menu itself. The
+    # app boots straight into the garden; there is nothing to navigate to.
 
     # HTML & CSS
     ######################################################################

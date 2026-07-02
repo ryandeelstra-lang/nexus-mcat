@@ -1,5 +1,5 @@
-// charged_up: the Keeper's question panel — the REAL review loop ported 1:1 from
-// ts/routes/knowledge-graph/StudyCard.svelte to React (docs/26 G1.4; doc 23 §21.2).
+// charged_up: the Keeper's question panel — the REAL review loop, ported 1:1 to React
+// from the retired Nexus-era StudyCard.svelte (Decision 43; docs/26 G1.4; doc 23 §21.2).
 // getQueuedCards -> renderExistingCard -> reveal -> answerCard -> next; identical RPCs,
 // identical args, the same sandboxed iframe. The garden adds ONLY presentation: cozy grade
 // buttons ("Again" a soft rose, never a red buzzer), a growth-tick event per graded answer,

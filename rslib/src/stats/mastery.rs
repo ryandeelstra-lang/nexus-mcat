@@ -3,10 +3,10 @@
 
 //! charged_up: read-only per-topic (true-deck) mastery aggregation.
 //!
-//! Powers the dashboard's three honest scores and the knowledge-graph node
-//! state. Read-only: it issues no writes of its own — the only sanctioned
-//! config delta on its path is Anki's pre-existing `{rollover, localOffset}`
-//! timing self-heal, which we move to collection OPEN (see
+//! Powers the three honest scores (the garden's almanac/barn) and each
+//! garden plant's growth stage. Read-only: it issues no writes of its own — the
+//! only sanctioned config delta on its path is Anki's pre-existing `{rollover,
+//! localOffset}` timing self-heal, which we move to collection OPEN (see
 //! `backend/collection.rs`) so the first call here writes nothing.
 
 use std::collections::HashMap;
@@ -78,7 +78,7 @@ impl Collection {
                 acc.reviewed_card_count += 1;
             }
             if let Some(state) = card.memory_state {
-                // Mirror stats/card.rs's per-card retrievability so the dashboard/graph agree
+                // Mirror stats/card.rs's per-card retrievability so the almanac/garden agree
                 // with the card-info screen, but stay READ-ONLY: when the card
                 // has no stored last_review_time, fall back to the revlog's
                 // last review (no write-back) instead of defaulting elapsed to
@@ -483,7 +483,7 @@ mod test {
     fn mastery_query_null_decay_uses_fsrs5_default() -> Result<()> {
         // A card with memory_state but NO stored `decay` must fall back to the FSRS-5
         // default (0.5) — exactly what card-info / the browser (stats/card.rs) compute
-        // — NOT the FSRS-6 default, or the dashboard/graph recall silently
+        // — NOT the FSRS-6 default, or the almanac/garden recall silently
         // disagrees with the card-info screen for the same card.
         let mut col = Collection::new();
         let cp = DeckAdder::new("MCAT::C-P").add(&mut col);

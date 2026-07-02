@@ -247,9 +247,9 @@ message Dataset {
   int64 next_day_at = 4;
 }
 
-// charged_up: per-topic mastery aggregation for the dashboard + the
-// knowledge-graph node-state. Read-only (no transact / no schema bump). Fields
-// are positional-append-only.
+// charged_up: per-topic mastery aggregation for the three honest scores + the
+// garden's plant growth stages. Read-only (no transact / no schema bump).
+// Fields are positional-append-only.
 message MasteryQueryRequest {
   // Anki search selecting the cards to aggregate (empty = whole collection).
   string search = 1;

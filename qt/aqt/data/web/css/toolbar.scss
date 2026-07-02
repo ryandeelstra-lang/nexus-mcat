@@ -228,8 +228,3 @@ body.fancy:not(.flat) .hitem {
 .hlabel {
     line-height: 1;
 }
-
-/* keep the sync spinner tucked next to the sync glyph */
-#sync .hicon {
-    position: relative;
-}

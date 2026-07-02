@@ -97,11 +97,6 @@ MainWindowState = Literal[
     "review",
     "resetRequired",
     "profileManager",
-    "knowledgeGraph",
-    "home",
-    "stats",
-    "add",
-    "browse",
     "garden",
 ]
 
@@ -187,16 +182,9 @@ class AnkiQt(QMainWindow):
     pm: ProfileManagerType
     web: MainWebView
     bottomWeb: BottomWebView
-    # charged_up: dedicated api-access webview for the integrated knowledge-graph screen/backdrop,
-    # plus the route mode currently loaded into it ("full" | "backdrop" | None when unloaded).
-    graph_web: AnkiWebView
-    home_web: AnkiWebView
-    # charged_up: in-window Anki review stats (the graphs page), so "Stats" never
-    # opens a separate native window.
-    stats_web: AnkiWebView
-    _graph_web_mode: str | None
-    # charged_up: the Knowledge Garden webview (Decisions 40-42) + whether its route has
-    # been loaded (the world keeps its Phaser state across visits, so load-once).
+    # charged_up (Decisions 40-43): the Knowledge Garden is the app's ONLY user-facing
+    # surface. Its api-access webview hosts the playable world + DOM panels; the world keeps
+    # its Phaser state across the (rare) state changes, so the route is loaded once.
     garden_web: AnkiWebView
     _garden_web_loaded: bool
 
@@ -697,8 +685,9 @@ class AnkiQt(QMainWindow):
             self.apply_collection_options()
             # charged_up: on first run, import the bundled prefilled MCAT deck (idempotent).
             self._maybe_import_starter_deck()
-            # charged_up: open on the Nexus home (the front door), not the raw deck list.
-            self.moveToState("home")
+            # charged_up: the app IS the game — open straight into the full-bleed Knowledge
+            # Garden (Decision 43). There is no home landing, deck list, or toolbar menu.
+            self.moveToState("garden")
         except Exception:
             # dump error to stderr so it gets picked up by errors.py
             traceback.print_exc()
@@ -800,7 +789,7 @@ class AnkiQt(QMainWindow):
         self.clearStateShortcuts()
         self.state = state
         gui_hooks.state_will_change(state, oldState)
-        self._update_graph_backdrop(state)
+        self._update_central_stack(state)
         getattr(self, f"_{state}State", lambda *_: None)(oldState, *args)
         if state != "resetRequired":
             self.bottomWeb.adjustHeightToFit()
@@ -866,7 +855,7 @@ class AnkiQt(QMainWindow):
 
     def _maybe_import_starter_deck(self) -> None:
         """On first run (no MCAT deck yet), silently import the bundled prefilled DOK-1 deck and make
-        it the current deck, so the graph's study surface (?mode=study) serves it. Idempotent — skips
+        it the current deck, so the garden's Keeper study surface serves it. Idempotent — skips
         once an MCAT deck exists. Additive only: importing does not bump the collection schema
         (V18 -> V18), consistent with the read-free/act-additive integrity rule."""
         if self.col is None or self.col.decks.by_name("MCAT") is not None:
@@ -892,207 +881,42 @@ class AnkiQt(QMainWindow):
             # Never block startup on the starter-deck import — log and continue.
             traceback.print_exc()
 
-    # charged_up: the integrated MCAT knowledge-graph screen
+    # charged_up (Decision 43): the central stack (garden vs engine web view)
     ##########################################################################
 
-    def _update_graph_backdrop(self, state: MainWindowState) -> None:
-        """Show the calm static graph as a dim backdrop behind the study-flow screens (deck list +
-        overview), with mw.web transparent in front so it shows through. Every other screen keeps
-        mw.web opaque and the backdrop hidden — the reviewer's card rendering is never touched. The
-        full 'knowledgeGraph' screen manages graph_web itself, so leave it alone here."""
-        # charged_up: the Nexus home owns the central area in the 'home' state (see _homeState);
-        # keep it hidden in every other state. Same for the in-window stats + garden screens.
-        if state != "home":
-            self.home_web.hide()
-        if state != "stats":
-            self.stats_web.hide()
-        if state != "garden":
-            self.garden_web.hide()
-        if state != "add" and getattr(self, "_addcards_embedded", None) is not None:
-            self._addcards_embedded.hide()
-        if state != "browse" and getattr(self, "_browser_embedded", None) is not None:
-            self._browser_embedded.hide()
-        if state in ("knowledgeGraph", "home"):
-            return
-        if state in ("deckBrowser", "overview"):
-            self._load_graph_web("backdrop", force=False)
-            self.web.page().setBackgroundColor(QColor(Qt.GlobalColor.transparent))
-            self.graph_web.show()
+    def _update_central_stack(self, state: MainWindowState) -> None:
+        """charged_up (Decision 43): the central area shows the Knowledge Garden and nothing
+        else. The garden owns the whole window (top/bottom Anki toolbars hidden) in the
+        'garden' state; the (unreachable-but-valid) engine web view backs any other state."""
+        if state == "garden":
+            self.web.hide()
+            self.garden_web.show()
         else:
-            self.graph_web.hide()
+            self.garden_web.hide()
             self.web.page().setBackgroundColor(theme_manager.qcolor(colors.CANVAS))
+            self.web.show()
 
-    def _load_graph_web(
-        self, mode: str, *, force: bool, tab: str | None = None
-    ) -> None:
-        """Load the knowledge-graph route into the dedicated webview, in 'full' (explorable) or
-        'backdrop' (dim, static) mode. In 'full' mode an optional tab ('scores') opens that tab
-        directly. Reload only when the mode/tab changes, unless force=True (the explore screen
-        forces a reload so the live mastery glow is fresh each visit)."""
-        key = mode if tab is None else f"{mode}:{tab}"
-        if force or self._graph_web_mode != key:
-            if mode == "full":
-                suffix = f"?tab={tab}" if tab else ""
-            else:
-                suffix = f"?mode={mode}"
-            self.graph_web.load_sveltekit_page(f"knowledge-graph{suffix}")
-            self._graph_web_mode = key
-
-    def _knowledgeGraphState(self, oldState: MainWindowState) -> None:
-        # Full, interactive Graph screen — rendered in the SAME window (no separate dialog).
-        # home:scores routes here with a pending "scores" tab so it opens on the Scores tab.
-        tab = getattr(self, "_pending_graph_tab", None)
-        self._pending_graph_tab = None
-        self._load_graph_web("full", force=True, tab=tab)
-        self.web.hide()
-        self.graph_web.show()
-        self.graph_web.setFocus()
-        self.toolbar.redraw()
-
-    def _knowledgeGraphCleanup(self, newState: MainWindowState) -> None:
-        # Hand the central area back to mw.web for the next screen.
-        self.graph_web.hide()
-        self.web.show()
-
-    # charged_up: the Knowledge Garden screen (Decisions 40-42; docs/26 G0)
+    # charged_up: the Knowledge Garden screen — the app's front door (Decisions 40-43; docs/26 G0)
     ##########################################################################
 
     def _gardenState(self, oldState: MainWindowState) -> None:
-        # The playable garden, rendered in the SAME window (stacked webview, api access).
-        # The world keeps its Phaser state across visits — load the route once and re-show
-        # (masteryQuery re-polls on its own bus events), unlike the graph's force-reload.
+        # The playable garden fills the whole window. The world keeps its Phaser state across
+        # the (rare) state changes — load the route once and re-show (masteryQuery re-polls on
+        # its own bus events). Full-bleed: the Anki top/bottom toolbars are hidden so nothing
+        # but the game is on screen.
         if not self._garden_web_loaded:
             self.garden_web.load_sveltekit_page("garden")
             self._garden_web_loaded = True
+        self.toolbarWeb.hide()
+        self.bottomWeb.hide()
         self.web.hide()
         self.garden_web.show()
         self.garden_web.setFocus()
-        self.toolbar.redraw()
 
     def _gardenCleanup(self, newState: MainWindowState) -> None:
         self.garden_web.hide()
+        self.toolbarWeb.show()
         self.web.show()
-
-    # charged_up: in-window review stats (Anki's graphs page, no popup dialog).
-    ##########################################################################
-
-    def _statsState(self, oldState: MainWindowState) -> None:
-        # Anki's review-stats graphs, rendered in the SAME window instead of the
-        # NewDeckStats dialog. Scope follows the currently-selected deck.
-        self.stats_web.set_bridge_command(self._on_stats_bridge_cmd, self)
-        self.stats_web.load_sveltekit_page("graphs")
-        self.web.hide()
-        self.graph_web.hide()
-        self.home_web.hide()
-        self.stats_web.show()
-        self.stats_web.setFocus()
-        self.toolbar.redraw()
-
-    def _statsCleanup(self, newState: MainWindowState) -> None:
-        self.stats_web.hide()
-        self.web.show()
-
-    def _on_stats_bridge_cmd(self, cmd: str) -> bool:
-        # The graphs page can ask to open the browser on a search (e.g. clicking a
-        # bar); honour it exactly like the old NewDeckStats dialog did.
-        if cmd.startswith("browserSearch"):
-            _, query = cmd.split(":", 1)
-            browser = aqt.dialogs.open("Browser", self)
-            browser.search_for(query)
-        return False
-
-    # charged_up: in-window Add screen (the AddCards editor, no popup window).
-    ##########################################################################
-
-    def _addState(self, oldState: MainWindowState) -> None:
-        # Host the AddCards editor inside the central stack instead of a separate
-        # window. A single embedded instance is created lazily and reused; its
-        # content is preserved across navigation (no destructive close).
-        from aqt.addcards import AddCards
-
-        if getattr(self, "_addcards_embedded", None) is None:
-            self._addcards_embedded = AddCards(self, embedded=True)
-            self.centralStack.addWidget(self._addcards_embedded)
-        else:
-            # refresh notetype/deck defaults when the editor is empty
-            self._addcards_embedded.reopen(self)
-        self._addcards_embedded._add_return_state = (
-            oldState if oldState != "add" else "deckBrowser"
-        )
-        self.web.hide()
-        self.graph_web.hide()
-        self.home_web.hide()
-        self.stats_web.hide()
-        self._addcards_embedded.show()
-        self._addcards_embedded.setFocus()
-        self.toolbar.redraw()
-
-    def _addCleanup(self, newState: MainWindowState) -> None:
-        if getattr(self, "_addcards_embedded", None) is not None:
-            self._addcards_embedded.hide()
-        self.web.show()
-
-    # charged_up: in-window Browse screen (the full Browser, no popup window).
-    ##########################################################################
-
-    def _browseState(self, oldState: MainWindowState, *args: Any) -> None:
-        # Host the full Browser inside the central stack instead of a separate
-        # window. A single embedded instance is created lazily and reused; its
-        # search/selection are preserved across navigation (no destructive close).
-        from aqt.browser import Browser
-
-        if getattr(self, "_browser_embedded", None) is None:
-            self._browser_embedded = Browser(self, embedded=True)
-            self.centralStack.addWidget(self._browser_embedded)
-        self._browser_embedded._browse_return_state = (
-            oldState if oldState != "browse" else "deckBrowser"
-        )
-        self.web.hide()
-        self.graph_web.hide()
-        self.home_web.hide()
-        self.stats_web.hide()
-        if getattr(self, "_addcards_embedded", None) is not None:
-            self._addcards_embedded.hide()
-        self._browser_embedded.show()
-        self._browser_embedded.setFocus()
-        self._browser_embedded.form.searchEdit.setFocus()
-        self.toolbar.redraw()
-
-    def _browseCleanup(self, newState: MainWindowState) -> None:
-        if getattr(self, "_browser_embedded", None) is not None:
-            self._browser_embedded.hide()
-        self.web.show()
-
-    # charged_up: Nexus — the in-app landing/home (the front door the app opens to).
-    ##########################################################################
-
-    def _homeState(self, oldState: MainWindowState) -> None:
-        self.home_web.load_sveltekit_page("home")
-        self.home_web.set_bridge_command(self._on_home_cmd, self)
-        self.web.hide()
-        self.graph_web.hide()
-        self.home_web.show()
-        self.home_web.setFocus()
-        self.toolbar.redraw()
-
-    def _homeCleanup(self, newState: MainWindowState) -> None:
-        self.home_web.hide()
-        self.web.show()
-
-    def _on_home_cmd(self, cmd: str) -> None:
-        # JS -> Python bridge for the Nexus home buttons (ts/routes/home/Home.svelte).
-        if cmd == "home:study":
-            self.moveToState("deckBrowser")
-        elif cmd in ("home:map", "home:scores"):
-            # the three scores live inside the graph screen's Scores tab; open it directly
-            self._pending_graph_tab = "scores" if cmd == "home:scores" else None
-            self.moveToState("knowledgeGraph")
-        elif cmd == "home:browse":
-            self.moveToState("browse")
-        elif cmd == "home:add":
-            self.moveToState("add")
-        elif cmd == "home:sync":
-            self.on_sync_button_clicked()
 
     # Resetting state
     ##########################################################################
@@ -1233,14 +1057,9 @@ title="{}" {}>{}</button>""".format(
         self.toolbar = Toolbar(self, tweb)
         # main area
         self.web = MainWebView(self)
-        # charged_up: the MCAT knowledge-graph VIEW lives in the SAME window via a dedicated
-        # api-access webview that overlaps mw.web in a stacked layout (added FIRST => sits BEHIND).
-        # It serves as the explorable "Graph" screen and (Stage 2) the calm backdrop behind the deck
-        # list/overview. mw.web (kind MAIN, no api access, renders untrusted card HTML during review)
-        # is never used to host the graph, preserving the security boundary.
-        self.graph_web = AnkiWebView(kind=AnkiWebViewKind.KNOWLEDGE_GRAPH)
-        self.graph_web.disable_zoom()
-        self._graph_web_mode = None  # currently-loaded route mode (None=unloaded)
+        # charged_up (Decision 43): the central area is a stacked layout holding just the
+        # (unreachable-but-valid) engine web view and the Knowledge Garden. The old Nexus
+        # surfaces (home landing, d3/SVG knowledge-graph VIEW, in-window stats) are gone.
         graph_stack = QWidget(self)
         graph_stack.setSizePolicy(
             QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding
@@ -1248,35 +1067,15 @@ title="{}" {}>{}</button>""".format(
         self.centralStack = QStackedLayout(graph_stack)
         self.centralStack.setContentsMargins(0, 0, 0, 0)
         self.centralStack.setStackingMode(QStackedLayout.StackingMode.StackAll)
-        self.centralStack.addWidget(self.graph_web)  # behind
-        self.centralStack.addWidget(self.web)  # in front
-        # charged_up: Nexus home — a dedicated webview for the front-door landing, on top when shown,
-        # hidden in every other state (see _update_graph_backdrop / _homeState).
-        self.home_web = AnkiWebView(kind=AnkiWebViewKind.HOME)
-        self.home_web.disable_zoom()
-        self.centralStack.addWidget(
-            self.home_web
-        )  # in front (shown only in 'home' state)
-        # charged_up: in-window Anki review stats (the graphs page). Added last so it
-        # sits in front when shown; hidden in every other state (see _statsState).
-        self.stats_web = AnkiWebView(kind=AnkiWebViewKind.DECK_STATS)
-        self.stats_web.disable_zoom()
-        self.centralStack.addWidget(self.stats_web)
-        # charged_up: the Knowledge Garden (Decisions 40-42) — a dedicated api-access webview
-        # for the playable pixel-art world + its DOM panels. Same stacked-central pattern as
-        # the graph/home/stats screens; card HTML stays in the garden page's own sandboxed
-        # iframe, never in this api-access page's origin (docs/26 I6).
+        self.centralStack.addWidget(self.web)
+        # charged_up: the Knowledge Garden (Decisions 40-43) — the app's only user-facing
+        # surface: a dedicated api-access webview for the playable pixel-art world + its DOM
+        # panels. Card HTML stays in the garden page's own sandboxed iframe, never in this
+        # api-access page's origin (docs/26 I6).
         self.garden_web = AnkiWebView(kind=AnkiWebViewKind.GARDEN)
         self.garden_web.disable_zoom()
         self._garden_web_loaded = False
         self.centralStack.addWidget(self.garden_web)
-        # charged_up: the in-window Add + Browse screens (AddCards / Browser,
-        # embedded) are created lazily on first use; None until then.
-        self._addcards_embedded = None
-        self._browser_embedded = None
-        self.graph_web.hide()
-        self.home_web.hide()
-        self.stats_web.hide()
         self.garden_web.hide()
         # bottom area
         sweb = self.bottomWeb = BottomWebView(self)
@@ -1490,15 +1289,12 @@ title="{}" {}>{}</button>""".format(
     ##########################################################################
 
     def setupKeys(self) -> None:
+        # charged_up (Decision 43): the app is the Knowledge Garden. The stock single-key
+        # nav shortcuts (d/s/a/b/t) are REMOVED — they collided with the game's WASD movement
+        # (a=walk left, s=down, d=right) and pointed at deleted surfaces (decks/add/browse/
+        # stats). Only the debug console survives.
         globalShortcuts = [
             ("Ctrl+:", show_debug_console),
-            ("d", lambda: self.moveToState("deckBrowser")),
-            ("s", self.onStudyKey),
-            ("a", self.onAddCard),
-            ("b", self.onBrowse),
-            ("t", self.onStats),
-            ("Shift+t", self.onStats),
-            ("y", self.on_sync_button_clicked),
         ]
         self.applyShortcuts(globalShortcuts)
         self.stateShortcuts: list[QShortcut] = []
@@ -1792,8 +1588,8 @@ title="{}" {}>{}</button>""".format(
         m.actionFullScreen.setShortcutContext(Qt.ShortcutContext.ApplicationShortcut)
 
     def updateTitleBar(self) -> None:
-        # charged_up: the product is "Nexus", not Anki (AGPL credit lives in NOTICE.md).
-        self.setWindowTitle("Nexus")
+        # charged_up: the product is "Knowledge Garden", not Anki (AGPL credit lives in NOTICE.md).
+        self.setWindowTitle("Knowledge Garden")
 
     # View
     ##########################################################################
@@ -1839,8 +1635,8 @@ title="{}" {}>{}</button>""".format(
     ##########################################################################
 
     def _hide_native_menu_bar(self) -> None:
-        """The app is driven entirely by our own web chrome (the Nexus toolbar +
-        home screen), so Anki's native File / Edit / View / Tools / Help menu bar
+        """The app is driven entirely by the Knowledge Garden's web surface
+        (Decision 43), so Anki's native File / Edit / View / Tools / Help menu bar
         must never appear: it is the loudest "this is Anki" signal and every item
         spawns a separate native window. We keep each action alive and reachable by
         its keyboard shortcut — only the visible menu bar (and, on macOS, its

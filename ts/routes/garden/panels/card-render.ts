@@ -1,8 +1,8 @@
 // Copyright: Ankitects Pty Ltd and contributors
 // License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
 
-// charged_up: ported 1:1 from ts/routes/knowledge-graph/card-render.ts for the garden's
-// Keeper panel (docs/26 G1.4, I6). Card markup is untrusted (hand-authored today,
+// charged_up: ported 1:1 from the retired Nexus-era card renderer (Decision 43) for the
+// garden's Keeper panel (docs/26 G1.4, I6). Card markup is untrusted (hand-authored today,
 // AI-generated tomorrow) and this is an api-access page, so the card renders ONLY inside
 // an <iframe sandbox="allow-scripts"> (no allow-same-origin): any script in a card runs in
 // an opaque origin with no Bearer header -> mediasrv 403s every POST it could attempt.

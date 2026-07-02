@@ -38,12 +38,14 @@ CREATE TABLE IF NOT EXISTS garden_state (
 """
 
 # Keys the TS store round-trips today. Kept as a doc-comment, not an allowlist — the store is
-# a generic seam; shapes are owned/validated by the TS layer.
+# a generic seam; shapes are owned/validated by the TS layer. A doc is any JSON value (objects
+# for economy/tutorial/settings, an array for the pending queue).
 #   "economy"    -> {seeds, water, xp}
-#   "pending"    -> {queued: [{nodeId, kind, ts}]}
+#   "pending"    -> [{nodeId, deckPath, kind, pours, queuedAtMs}, ...]
 #   "tutorial"   -> {beat, done}
-#   "paraphrase" -> {passed: {nodeId: ts}}
-#   "unlocks"    -> {waystones: [id], gates: [id]}
+#   "paraphrase" -> {nodeId: ts}
+#   "weeds"      -> {nodeId: {cause, ts}}
+#   "unlocks"    -> {waystones: [id]}
 #   "settings"   -> {muted, volume}
 
 
@@ -68,7 +70,7 @@ def get_state(col: Collection, key: str | None = None) -> dict[str, Any]:
         conn.close()
 
 
-def set_state(col: Collection, key: str, doc: dict[str, Any], now_ms: int) -> None:
+def set_state(col: Collection, key: str, doc: Any, now_ms: int) -> None:
     """Upsert one garden document. Additive sidecar write only (Decision 19)."""
     conn = _connect(col)
     try:

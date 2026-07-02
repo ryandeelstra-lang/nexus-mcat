@@ -794,7 +794,9 @@ def garden_state() -> bytes:
     if op == "set":
         key = payload.get("key")
         doc = payload.get("doc")
-        if not isinstance(key, str) or not isinstance(doc, dict):
+        # Garden documents are JSON values — most are objects (economy, tutorial), but the
+        # pending queue is a JSON array. Accept either; reject scalars.
+        if not isinstance(key, str) or not isinstance(doc, (dict, list)):
             abort(400)
         garden_store.set_state(col, key, doc, now_ms=int(_time.time() * 1000))
         return b"{}"

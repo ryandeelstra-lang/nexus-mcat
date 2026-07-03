@@ -621,6 +621,46 @@
     background: rgba(215, 234, 208, 0.96);
 }
 
+@media (prefers-reduced-motion: no-preference) {
+    .voice-beat-good {
+        animation: voice-bloom-pop 420ms ease-out;
+    }
+
+    .voice-beat-good .voice-beat-icon,
+    .voice-bloom-tag {
+        animation: voice-petal-drift 1.6s ease-in-out;
+        display: inline-block;
+    }
+
+    @keyframes voice-bloom-pop {
+        0% {
+            transform: scale(0.985);
+        }
+
+        60% {
+            transform: scale(1.008);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    @keyframes voice-petal-drift {
+        0% {
+            transform: translateY(0) rotate(0deg);
+        }
+
+        40% {
+            transform: translateY(-3px) rotate(-8deg);
+        }
+
+        100% {
+            transform: translateY(0) rotate(0deg);
+        }
+    }
+}
+
 .voice-beat-okay {
     background: rgba(233, 240, 214, 0.96);
 }

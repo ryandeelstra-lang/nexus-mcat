@@ -483,6 +483,37 @@
     margin: 0;
 }
 
+.sr-only {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+.voice-caret {
+    background: #6b4a2f;
+    display: inline-block;
+    height: 1em;
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    width: 2px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .voice-caret {
+        animation: voice-caret-blink 0.8s step-end infinite;
+    }
+
+    @keyframes voice-caret-blink {
+        50% {
+            opacity: 0;
+        }
+    }
+}
+
 .voice-hint {
     color: #6b4a2f;
     font-size: 14px !important;

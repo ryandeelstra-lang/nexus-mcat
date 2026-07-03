@@ -12,6 +12,7 @@ import { renderExistingCard } from "@generated/backend";
 
 import { buildCardSrcdoc, nodesToHtml } from "./card-render";
 import { StudyCard } from "./StudyCard";
+import { useTextCrawl } from "./use-text-crawl";
 import { useVoiceReview } from "./use-voice-review";
 import type { VoiceBucket, VoiceGradeResult } from "./voice-api";
 import { micSupported } from "./voice-capture";
@@ -128,6 +129,12 @@ export function VoiceStudyCard(props: VoiceStudyCardProps): React.ReactElement {
     const answerable = state.phase === "prompt" || state.phase === "rePrompt";
     const canMic = state.stt.available && micSupported();
 
+    const keeperLine = state.rePrompt?.keeperLine ?? state.card?.keeperLine ?? "";
+    const counts = state.card?.counts ?? { new: 0, learning: 0, review: 0 };
+    // The line crawls out Zelda-style; the sr-only copy carries it for AT (spec §11).
+    // Declared before the classic-fallback early return so hook order never changes.
+    const crawl = useTextCrawl(keeperLine);
+
     const submitTyped = useCallback(async (): Promise<void> => {
         const text = typed;
         setTyped("");
@@ -187,9 +194,6 @@ export function VoiceStudyCard(props: VoiceStudyCardProps): React.ReactElement {
         );
     }
 
-    const keeperLine = state.rePrompt?.keeperLine ?? state.card?.keeperLine ?? "";
-    const counts = state.card?.counts ?? { new: 0, learning: 0, review: 0 };
-
     return (
         <div className="keeper-panel" role="dialog" aria-label="The Keeper's questions">
             <div className="keeper-panel-header">
@@ -206,8 +210,12 @@ export function VoiceStudyCard(props: VoiceStudyCardProps): React.ReactElement {
 
             {(answerable || state.phase === "listening" || state.phase === "thinking") && (
                 <>
-                    <div className="voice-keeper-line" aria-live="polite">
-                        <p>{keeperLine}</p>
+                    <div className="voice-keeper-line" onClick={crawl.finish}>
+                        <p aria-hidden="true">
+                            {crawl.shown}
+                            {!crawl.done && <span className="voice-caret" />}
+                        </p>
+                        <p className="sr-only" aria-live="polite">{keeperLine}</p>
                         {state.rePrompt?.hint && <p className="voice-hint">{state.rePrompt.hint}</p>}
                         {state.card?.isFreshVariant && (
                             <span

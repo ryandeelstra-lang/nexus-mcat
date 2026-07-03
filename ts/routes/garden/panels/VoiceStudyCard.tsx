@@ -11,6 +11,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { renderExistingCard } from "@generated/backend";
 
+import { assetUrl } from "../game/assets";
 import { buildCardSrcdoc, nodesToHtml } from "./card-render";
 import { composeKeeperReply, useDialogueReveal, verdictFor } from "./use-dialogue-reveal";
 import { KeeperDialogue } from "./KeeperDialogue";
@@ -58,7 +59,9 @@ const BUCKET_BEAT: Record<VoiceBucket, { flavor: string; icon: string; tone: str
 const MEDIA_MARKER = /<img|<svg|mjx-|\\\(|\\\[|\$\$/i;
 
 function keeperPortraitSrc(): string {
-    return new URL("../assets/char/keeper-portrait.png", globalThis.location.href).toString();
+    // The wrong "assets/char/…" path silently 404'd, so the Keeper had no face. Resolve the
+    // bundled URL through the same glob the world uses (dev + prod safe).
+    return assetUrl("keeper-portrait") ?? "";
 }
 
 export function VoiceStudyCard(props: VoiceStudyCardProps): React.ReactElement {

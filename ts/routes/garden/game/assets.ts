@@ -71,6 +71,11 @@ export function hasAssetKey(key: string): boolean {
     return URL_BY_KEY.has(key);
 }
 
+/** Resolve a bundled asset's URL by basename key (e.g. "keeper-portrait") for the DOM layer. */
+export function assetUrl(key: string): string | undefined {
+    return URL_BY_KEY.get(key);
+}
+
 /** All discovered asset keys (the cinematic renderer uses this for selective preloads). */
 export function allAssetKeys(): string[] {
     return [...URL_BY_KEY.keys()];

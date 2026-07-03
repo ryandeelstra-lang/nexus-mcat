@@ -89,6 +89,62 @@ def _tokens(text: str) -> list[str]:
     return [t for t in _WORD.findall((text or "").lower()) if t not in _STOPWORDS]
 
 
+# Light, dependency-free stemmer for the DISPLAY-ONLY key-point match (never the score): folds
+# common English suffixes so "hybridized"/"hybridization", "replicates"/"replication",
+# "dendrites"/"dendrite" match when we list what the answer covered/missed. Order matters
+# (longest suffix first); we never stem below 3 chars so short terms stay intact.
+_SUFFIXES = ("ization", "isation", "ications", "ication", "ously", "ing", "edly", "tion",
+             "sion", "ies", "ers", "est", "ed", "es", "ly", "al", "s")
+
+
+def _stem(word: str) -> str:
+    if len(word) <= 4 or any(c.isdigit() for c in word):
+        return word
+    for suf in _SUFFIXES:
+        if word.endswith(suf) and len(word) - len(suf) >= 3:
+            return word[: -len(suf)]
+    return word
+
+
+def _key_terms(reference: str) -> list[str]:
+    """The distinctive content words of the reference, in order, de-duplicated by stem — the
+    'key points' a good answer should hit. Display only (does not affect the score)."""
+    seen: set[str] = set()
+    out: list[str] = []
+    for w in _tokens(reference):
+        s = _stem(w)
+        if s in seen or len(w) < 3:
+            continue
+        seen.add(s)
+        out.append(w)
+    return out
+
+
+def _lexical_feedback(reference: str, transcript: str) -> tuple[list[str], list[str], str]:
+    """Stemmed hit/missed key-point lists + a tutor-voiced rationale for the AI-OFF path.
+
+    Returns (hit, missed, rationale). Purely presentational: the bucket still comes from
+    ``lexical_score`` unchanged, so calibration and the downward-safe invariant are untouched.
+    """
+    answer_stems = {_stem(w) for w in _tokens(transcript)}
+    hit: list[str] = []
+    missed: list[str] = []
+    for term in _key_terms(reference):
+        (hit if _stem(term) in answer_stems else missed).append(term)
+    if not hit and not missed:
+        rationale = "Scored by keyword match against the card's answer."
+    elif not missed:
+        rationale = "Keyword match: you named every key term the card lists — nicely covered."
+    elif not hit:
+        preview = ", ".join(missed[:3])
+        rationale = f"Keyword match: the card was looking for {preview}. Say those next time."
+    else:
+        got = ", ".join(hit[:3])
+        gap = ", ".join(missed[:3])
+        rationale = f"Keyword match: you got {got}; still missing {gap}."
+    return hit, missed, rationale
+
+
 def lexical_score(reference_answer: str, transcript: str) -> float:
     """The deterministic, offline 0..1 match floor.
 
@@ -234,13 +290,14 @@ def grade_spoken(
             # fabricated semantic score, never a crash in the review loop.
             pass
 
-    hit = sorted(set(_tokens(reference_answer)) & set(_tokens(transcript)))
-    missed = sorted(set(_tokens(reference_answer)) - set(_tokens(transcript)))
+    # Stemmed, ordered key-point feedback + a tutor-voiced rationale (display only — the bucket
+    # is still the deterministic lexical floor, so the downward-safe invariant is preserved).
+    hit, missed, rationale = _lexical_feedback(reference_answer, transcript)
     return Grade(
         score_0_100=round(lex * 100, 1),
         bucket=bucket_for(lex),
         method="lexical",
-        rationale="Scored by keyword match against the card's answer.",
+        rationale=rationale,
         key_points_hit=hit,
         key_points_missed=missed,
         sentinel=LEXICAL_SENTINEL,

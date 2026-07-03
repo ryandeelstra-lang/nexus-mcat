@@ -13,9 +13,9 @@ import { renderExistingCard } from "@generated/backend";
 
 import { assetUrl } from "../game/assets";
 import { buildCardSrcdoc, nodesToHtml } from "./card-render";
-import { composeKeeperReply, useDialogueReveal, verdictFor } from "./use-dialogue-reveal";
 import { KeeperDialogue } from "./KeeperDialogue";
 import { StudyCard } from "./StudyCard";
+import { composeKeeperReply, useDialogueReveal, verdictFor } from "./use-dialogue-reveal";
 import { useKeeperTts } from "./use-keeper-tts";
 import { useLiveTranscript } from "./use-live-transcript";
 import { useTextCrawl } from "./use-text-crawl";
@@ -440,9 +440,7 @@ export function VoiceStudyCard(props: VoiceStudyCardProps): React.ReactElement {
                                     {BUCKET_BEAT[state.result.bucket].icon}
                                 </span>{" "}
                                 {verdict.headline}
-                                {state.result.recovered && (
-                                    <span className="voice-recovered-tag">recovered</span>
-                                )}
+                                {state.result.recovered && <span className="voice-recovered-tag">recovered</span>}
                                 {state.result.bloomed && <span className="voice-bloom-tag">bloom ✿</span>}
                             </h3>
                             <p className="voice-flavor">{BUCKET_BEAT[state.result.bucket].flavor}</p>

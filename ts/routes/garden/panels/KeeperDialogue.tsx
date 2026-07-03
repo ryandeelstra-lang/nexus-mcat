@@ -80,9 +80,7 @@ export function KeeperDialogue(props: KeeperDialogueProps): React.ReactElement {
                         {body}
                         {showCaret && <span className="voice-caret" />}
                     </p>
-                    {srText !== undefined && (
-                        <p className="sr-only" aria-live="polite">{srText}</p>
-                    )}
+                    {srText !== undefined && <p className="sr-only" aria-live="polite">{srText}</p>}
                 </div>
                 {children && <div className="keeper-dialogue-choices">{children}</div>}
             </div>

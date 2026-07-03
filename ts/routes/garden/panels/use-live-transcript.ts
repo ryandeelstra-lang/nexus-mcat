@@ -41,7 +41,7 @@ interface SpeechRecognitionLike {
     stop(): void;
     abort(): void;
 }
-type SpeechRecognitionCtor = new () => SpeechRecognitionLike;
+type SpeechRecognitionCtor = new() => SpeechRecognitionLike;
 
 function recognitionCtor(): SpeechRecognitionCtor | null {
     if (typeof globalThis === "undefined") {

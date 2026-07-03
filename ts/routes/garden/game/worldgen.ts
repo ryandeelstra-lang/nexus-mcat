@@ -533,9 +533,7 @@ export function buildWorldPlan(): WorldPlan {
         (e) => authoredGates.get(`${e.src}->${e.dst}`) ?? gateBetweenPlants(e, plantsById),
     );
 
-    const interactions = regions.flatMap((r) =>
-        r.interactions.map((i) => ({ ...i, section: r.section }))
-    );
+    const interactions = regions.flatMap((r) => r.interactions.map((i) => ({ ...i, section: r.section })));
 
     return {
         widthTiles: WORLD_WIDTH_TILES,

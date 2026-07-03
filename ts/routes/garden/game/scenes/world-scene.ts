@@ -477,8 +477,10 @@ export class WorldScene extends Phaser.Scene {
             if (this.panelOpen) {
                 return;
             }
-            if (this.nearTarget === "keeper" || this.nearTarget === "waystone"
-                || this.nearTarget === "gate" || this.nearTarget === "flavor") {
+            if (
+                this.nearTarget === "keeper" || this.nearTarget === "waystone"
+                || this.nearTarget === "gate" || this.nearTarget === "flavor"
+            ) {
                 this.tryInteract();
             } else {
                 this.waterGround();

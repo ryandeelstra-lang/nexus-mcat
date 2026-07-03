@@ -8,8 +8,8 @@
 import { writeFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
-import { effectivePalettePreview } from "./preview-palette";
 import { buildWorldPlan } from "../worldgen";
+import { effectivePalettePreview } from "./preview-palette";
 
 const SCALE = 12; // px per tile
 

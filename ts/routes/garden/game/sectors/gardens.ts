@@ -99,32 +99,28 @@ export const GARDENS: SectorLayout = {
             tileX: 35,
             tileY: 22,
             title: "The Trailhead",
-            line:
-                "Foundations first, gardener. Hold the passage as it is — not as you wish it were — and the "
+            line: "Foundations first, gardener. Hold the passage as it is — not as you wish it were — and the "
                 + "first span will bear you.",
         },
         {
             tileX: 43,
             tileY: 28,
             title: "The Overlook",
-            line:
-                "Mid-span, there is only mist and the words themselves. Everything you need is within the "
+            line: "Mid-span, there is only mist and the words themselves. Everything you need is within the "
                 + "text. Reason from it — nothing more.",
         },
         {
             tileX: 52,
             tileY: 23,
             title: "The Supertrees",
-            line:
-                "The tallest trees drink the light and give it back. Read beyond the passage now — carry "
+            line: "The tallest trees drink the light and give it back. Read beyond the passage now — carry "
                 + "its truth somewhere new.",
         },
         {
             tileX: 50,
             tileY: 36,
             title: "The Cloudhouse",
-            line:
-                "The Cloudhouse keeps a climate this island never had. New contexts test old conclusions — "
+            line: "The Cloudhouse keeps a climate this island never had. New contexts test old conclusions — "
                 + "that is reasoning beyond.",
         },
     ],

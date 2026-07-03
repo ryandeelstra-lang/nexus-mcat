@@ -112,24 +112,21 @@ export const KEUKENHOF: SectorLayout = {
             tileX: 47,
             tileY: 6,
             title: "The Lock-Bridge",
-            line:
-                "The lock lifts the water uphill a step at a time. Bloom the cell, and the way over to the "
+            line: "The lock lifts the water uphill a step at a time. Bloom the cell, and the way over to the "
                 + "body's great systems opens — no shortcuts across still water.",
         },
         {
             tileX: 49,
             tileY: 1,
             title: "The Windmill",
-            line:
-                "The mill turns grain to bread the way your cells turn fuel to life — patient, relentless "
+            line: "The mill turns grain to bread the way your cells turn fuel to life — patient, relentless "
                 + "machinery. Everything on this rise is built from the beds below.",
         },
         {
             tileX: 33,
             tileY: 13,
             title: "The Protein Bed",
-            line:
-                "Every tulip in this park began as a bulb; everything alive began as a protein. You've come "
+            line: "Every tulip in this park began as a bulb; everything alive began as a protein. You've come "
                 + "from the chemists' garden — start biology here, at the root.",
         },
     ],

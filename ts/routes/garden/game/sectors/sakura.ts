@@ -135,15 +135,13 @@ export const SAKURA: SectorLayout = {
             tileX: 22,
             tileY: 5,
             title: "The Spring",
-            line:
-                "Every thought begins as a trickle. Listen — the spring only says what the world tells it.",
+            line: "Every thought begins as a trickle. Listen — the spring only says what the world tells it.",
         },
         {
             tileX: 5,
             tileY: 9,
             title: "The Dell Bridge",
-            line:
-                "The stream splits here — what you notice becomes what you do. Cross, and meet the others.",
+            line: "The stream splits here — what you notice becomes what you do. Cross, and meet the others.",
         },
         {
             tileX: 7,
@@ -155,8 +153,7 @@ export const SAKURA: SectorLayout = {
             tileX: 13,
             tileY: 16,
             title: "The Taiko-bashi",
-            line:
-                "The drum bridge meets its reflection and the circle closes — one stream, many koi, one pond.",
+            line: "The drum bridge meets its reflection and the circle closes — one stream, many koi, one pond.",
         },
     ],
     critters: [

@@ -93,8 +93,25 @@ def _tokens(text: str) -> list[str]:
 # common English suffixes so "hybridized"/"hybridization", "replicates"/"replication",
 # "dendrites"/"dendrite" match when we list what the answer covered/missed. Order matters
 # (longest suffix first); we never stem below 3 chars so short terms stay intact.
-_SUFFIXES = ("ization", "isation", "ications", "ication", "ously", "ing", "edly", "tion",
-             "sion", "ies", "ers", "est", "ed", "es", "ly", "al", "s")
+_SUFFIXES = (
+    "ization",
+    "isation",
+    "ications",
+    "ication",
+    "ously",
+    "ing",
+    "edly",
+    "tion",
+    "sion",
+    "ies",
+    "ers",
+    "est",
+    "ed",
+    "es",
+    "ly",
+    "al",
+    "s",
+)
 
 
 def _stem(word: str) -> str:
@@ -120,7 +137,9 @@ def _key_terms(reference: str) -> list[str]:
     return out
 
 
-def _lexical_feedback(reference: str, transcript: str) -> tuple[list[str], list[str], str]:
+def _lexical_feedback(
+    reference: str, transcript: str
+) -> tuple[list[str], list[str], str]:
     """Stemmed hit/missed key-point lists + a tutor-voiced rationale for the AI-OFF path.
 
     Returns (hit, missed, rationale). Purely presentational: the bucket still comes from
@@ -134,10 +153,14 @@ def _lexical_feedback(reference: str, transcript: str) -> tuple[list[str], list[
     if not hit and not missed:
         rationale = "Scored by keyword match against the card's answer."
     elif not missed:
-        rationale = "Keyword match: you named every key term the card lists — nicely covered."
+        rationale = (
+            "Keyword match: you named every key term the card lists — nicely covered."
+        )
     elif not hit:
         preview = ", ".join(missed[:3])
-        rationale = f"Keyword match: the card was looking for {preview}. Say those next time."
+        rationale = (
+            f"Keyword match: the card was looking for {preview}. Say those next time."
+        )
     else:
         got = ", ".join(hit[:3])
         gap = ", ".join(missed[:3])

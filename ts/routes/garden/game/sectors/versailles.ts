@@ -145,32 +145,28 @@ export const VERSAILLES: SectorLayout = {
             tileY: 30,
             radius: 2.6,
             title: "The Fountain of First Principles",
-            line:
-                "The Fountain of First Principles. Physics lifts the water; chemistry teaches it to shine. "
+            line: "The Fountain of First Principles. Physics lifts the water; chemistry teaches it to shine. "
                 + "Every allée in this garden begins here.",
         },
         {
             tileX: 9,
             tileY: 30,
             title: "The Canal Overlook",
-            line:
-                "The Grand Canal runs straight as a good derivation. Master what lies beneath matter, and "
+            line: "The Grand Canal runs straight as a good derivation. Master what lies beneath matter, and "
                 + "you can see the far end from where you stand.",
         },
         {
             tileX: 24,
             tileY: 30,
             title: "The Exedra",
-            line:
-                "Marble remembers what students forget: motion, fluids, circuits, waves, atoms — one axis, "
+            line: "Marble remembers what students forget: motion, fluids, circuits, waves, atoms — one axis, "
                 + "walked in order.",
         },
         {
             tileX: 24,
             tileY: 22,
             title: "The Entrance Urn",
-            line:
-                "Beyond this hedge, Keukenhof's canals wait for your biomolecules. Bloom the bonds bed "
+            line: "Beyond this hedge, Keukenhof's canals wait for your biomolecules. Bloom the bonds bed "
                 + "below — then biology drinks.",
         },
     ],

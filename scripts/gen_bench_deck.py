@@ -96,7 +96,9 @@ def build(out_path: str, n_cards: int = 50000, n_answer: int = 4000, seed: int =
                 card = col.sched.getCard()
                 if card is None:
                     break
-                col.sched.answerCard(card, rng.choice([2, 3, 3, 4]))  # Hard/Good/Good/Easy
+                # Again/Hard/Good/Good/Easy — include lapses so observed recall varies (a realistic
+                # success/failure mix), otherwise the held-out calibration curve degenerates to one bin.
+                col.sched.answerCard(card, rng.choice([1, 2, 3, 3, 4]))
                 col.sched.bury_cards([card.id], manual=False)
                 reviewed += 1
             col.sched.unbury_deck(mcat_did)

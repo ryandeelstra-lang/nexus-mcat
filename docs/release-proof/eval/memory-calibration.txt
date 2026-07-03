@@ -1,0 +1,14 @@
+== Memory calibration (held-out reviews) ==
+data_provenance = synthetic   (SYNTHETIC — calibration shape only, not a real learner)
+n_heldout = 4000   Brier = 0.166352   log_loss = 0.518004
+       bin      n   mean_pred  observed
+0.0-0.1      0         0.0       0.0  
+0.1-0.2      0         0.0       0.0  
+0.2-0.3      0         0.0       0.0  
+0.3-0.4      0         0.0       0.0  
+0.4-0.5      0         0.0       0.0  
+0.5-0.6      0         0.0       0.0  
+0.6-0.7      0         0.0       0.0  
+0.7-0.8   4000      0.7071    0.8055  ################
+0.8-0.9      0         0.0       0.0  
+0.9-1.0      0         0.0       0.0  

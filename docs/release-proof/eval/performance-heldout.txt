@@ -1,0 +1,3 @@
+== Performance model — held-out exam-style accuracy ==
+n_heldout=24  accuracy=0.7083  wrong_rate=0.2917  90% range=[0.5417, 0.8333]  baseline=0.5417
+beats_baseline = True

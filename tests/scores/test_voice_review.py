@@ -323,3 +323,15 @@ def test_bad_variants_file_never_breaks_the_loop(monkeypatch, tmp_path):
     monkeypatch.setattr(voice_review, "_VARIANTS_DIR", vdir)
     monkeypatch.setattr(voice_review, "_variants_cache", None)
     assert voice_review.load_variants() == {}
+
+
+@pytest.mark.skipif(
+    not (voice_review._VARIANTS_DIR.is_dir() and any(voice_review._VARIANTS_DIR.glob("*.jsonl"))),
+    reason="variants corpus not generated yet (scripts/gen_spoken_variants.py needs ANTHROPIC_API_KEY)",
+)
+def test_real_variants_corpus_loads(monkeypatch):
+    """The shipped corpus indexes without error and every row has provenance (C2)."""
+    monkeypatch.setattr(voice_review, "_variants_cache", None)
+    index = voice_review.load_variants()
+    assert len(index) > 4000
+    assert all(row.get("source_id") for row in index.values())

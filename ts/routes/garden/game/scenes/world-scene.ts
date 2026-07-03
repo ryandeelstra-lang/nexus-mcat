@@ -35,6 +35,16 @@ interface PlantObject {
 
 const INTERACT_RADIUS = 1.5;
 
+/** First key with a loaded asset, or the last as the placeholder fallback. */
+function pickFirstAsset(keys: string[]): string {
+    for (const k of keys) {
+        if (hasAssetKey(k)) {
+            return k;
+        }
+    }
+    return keys[keys.length - 1];
+}
+
 export class WorldScene extends Phaser.Scene {
     private bus!: TypedBus;
     private plan!: WorldPlan;
@@ -435,9 +445,9 @@ export class WorldScene extends Phaser.Scene {
         }
         // The Keeper is one of the gardener's own kind — a mentor in the same art family
         // as the player, not an out-of-place sage. Aspect-preserved so it isn't squished.
-        const keeperKey = hasAssetKey("keeper-gardener")
-            ? "keeper-gardener"
-            : (hasAssetKey("char-gardener-1-0") ? "char-gardener-1-0" : "keeper-meditating");
+        const keeperKey = pickFirstAsset(
+            ["keeper-gardener", "char-gardener-1-0", "keeper-meditating"],
+        );
         this.keeper = this.add.image(kx, ky, ensureTexture(this, keeperKey));
         this.keeper.setOrigin(0.5, 1);
         sizeToHeightTiles(this.keeper, 2.6);
@@ -599,18 +609,15 @@ export class WorldScene extends Phaser.Scene {
         const stepA = Math.floor(this.time.now / 150) % 2 === 0;
         let key: string;
         let flip = false;
+        const walkFrame = stepA ? "a" : "b";
         switch (this.facing) {
             case "left":
             case "right":
-                key = moving
-                    ? (stepA ? "gardener-walk-side-a" : "gardener-walk-side-b")
-                    : "gardener-idle-side-a";
+                key = moving ? `gardener-walk-side-${walkFrame}` : "gardener-idle-side-a";
                 flip = this.facing === "right";
                 break;
             case "down":
-                key = moving
-                    ? (stepA ? "gardener-walk-down-a" : "gardener-walk-down-b")
-                    : "gardener-idle-down";
+                key = moving ? `gardener-walk-down-${walkFrame}` : "gardener-idle-down";
                 break;
             case "up":
                 key = "gardener-idle-up";

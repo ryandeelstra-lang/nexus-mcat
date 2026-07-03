@@ -240,7 +240,13 @@ function trailForSection(section: GardenSection, rect: RegionRect): {
     trail: TileCoord[];
     water: TileCoord[];
 } {
-    const rowStep = section === "P-S" ? 4 : section === "CARS" ? 6 : 5;
+    const rowStepBySection: Record<GardenSection, number> = {
+        "P-S": 4,
+        "CARS": 6,
+        "B-B": 5,
+        "C-P": 5,
+    };
+    const rowStep = rowStepBySection[section];
     const water = regionWater(section, rect);
     const wset = new Set(water.map((w) => tileKey(w.tileX, w.tileY)));
     // Keep the trail off water so paths never run through a pond.

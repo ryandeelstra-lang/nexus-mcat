@@ -590,17 +590,10 @@ export function hedgeTilesForRegion(rect: RegionRect): TileCoord[] {
     return hedges;
 }
 
-/** Collision: water/hedge/prop solid; trail+grass+land-gaps walkable.
- * Prereq door-gates are GONE (2026-07-03): progression is now per-sector (a full MCAT test
- * unlocks a garden — see sector locks in the world scene), so `plan.gates` is data only and
- * never rendered or solid. `stageByNode` stays in the signature for the sector-lock overlay
- * the world scene layers on top. */
-export function tileIsSolid(
-    plan: WorldPlan,
-    tileX: number,
-    tileY: number,
-    _stageByNode: Map<string, GrowthStage>,
-): boolean {
+/** Terrain water collision: water tiles are solid EXCEPT land-gap crossings (flat fords).
+ * The scene's realistic body collision (bushes/props/hedges) lives in feet-level base
+ * boxes (game/collision.ts), not here — this is the pure terrain layer only. */
+export function waterIsSolid(plan: WorldPlan, tileX: number, tileY: number): boolean {
     for (const r of plan.regions) {
         // Land-gaps (bridge decks / stepping stones) are walkable even though painted as water.
         const isGap = r.landGaps.some((g) => g.tileX === tileX && g.tileY === tileY);
@@ -612,6 +605,26 @@ export function tileIsSolid(
                 return true;
             }
         }
+    }
+    return false;
+}
+
+/** Pure tile-solidity model: water/hedge/prop-anchor solid; trail+grass+land-gaps walkable.
+ * Prereq door-gates are GONE (2026-07-03): progression is now per-sector (a full MCAT test
+ * unlocks a garden — see sector locks in the world scene), so `plan.gates` is data only and
+ * never rendered or solid. `stageByNode` stays in the signature for the sector-lock overlay
+ * the world scene layers on top. NOTE: the live scene uses `waterIsSolid` + per-sprite base
+ * boxes for movement; this whole-tile view remains for tests/tools that want a coarse map. */
+export function tileIsSolid(
+    plan: WorldPlan,
+    tileX: number,
+    tileY: number,
+    _stageByNode: Map<string, GrowthStage>,
+): boolean {
+    if (waterIsSolid(plan, tileX, tileY)) {
+        return true;
+    }
+    for (const r of plan.regions) {
         for (const p of r.props) {
             if (p.tileX === tileX && p.tileY === tileY) {
                 return true;

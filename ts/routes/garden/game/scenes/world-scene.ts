@@ -8,12 +8,21 @@ import type { TypedBus } from "../../state/bus";
 import type { MasterySnapshot, TopicMastery } from "../../state/mastery";
 import { type GrowthStage, stageFor } from "../../state/stage";
 import { applyDisplaySize, DISPLAY, ensureTexture, hasAssetKey, sizeToHeightTiles, stageTextureKey } from "../assets";
+import { baseBoxFor, boxesOverlap, footBoxAt, moveWithSlide, type SolidBox } from "../collision";
 import { skyStateFor } from "../daynight";
 import { planFlora } from "../flora";
 import { FloraLayer } from "../flora-layer";
 import { sectorFor } from "../sectors/index";
 import { buildTerrainModel, paintGround, planDecor, type TerrainModel } from "../terrain";
-import { buildWorldPlan, KEEPER_TILE, type PlantSpot, type TileCoord, tileIsSolid, type WorldPlan } from "../worldgen";
+import {
+    buildWorldPlan,
+    type GardenSection,
+    KEEPER_TILE,
+    type PlantSpot,
+    type TileCoord,
+    waterIsSolid,
+    type WorldPlan,
+} from "../worldgen";
 
 export interface GardenFlags {
     paraphrase: Record<string, number>;
@@ -52,36 +61,88 @@ type Dir8 =
 
 /** Movement vector (each component -1|0|1) → one of the eight facings. */
 function facing8(dx: number, dy: number): Dir8 {
-    const v = dy < 0 ? "up" : dy > 0 ? "down" : "";
-    const h = dx < 0 ? "left" : dx > 0 ? "right" : "";
+    let v = "";
+    if (dy < 0) {
+        v = "up";
+    } else if (dy > 0) {
+        v = "down";
+    }
+    let h = "";
+    if (dx < 0) {
+        h = "left";
+    } else if (dx > 0) {
+        h = "right";
+    }
     if (v && h) {
         return `${v}-${h}` as Dir8;
     }
     return (v || h || "down") as Dir8;
 }
 
-/** Per-facing art: which walk/idle animation plays and whether it's mirrored. The gardener
- * art has a front (down) and a left-facing side walk cycle plus a back (up) idle; right and
- * the right-leaning diagonals mirror the side frames, and every diagonal borrows the side
- * stride so it animates like a real walk. Due-up has no step art, so it holds the back idle
- * and leans on the walk bob for a sense of stride. */
-interface FacingArt {
-    walk: string;
-    idle: string;
+/** Gardener frame texture keys (individual PNGs, not a sprite-atlas). */
+const G = {
+    idleDown: "gardener-idle-down",
+    idleUp: "gardener-idle-up",
+    idleSide: "gardener-idle-side-a",
+    walkDownA: "gardener-walk-down-a",
+    walkDownB: "gardener-walk-down-b",
+    walkSideA: "gardener-walk-side-a",
+    walkSideB: "gardener-walk-side-b",
+    // Synthesized at runtime (leg band mirrored): the source art's two side "walk" frames
+    // both lead with the SAME foot, so these fabricate the missing opposite-foot contacts.
+    walkSideOppA: "gardener-walk-side-opp-a",
+    walkSideOppB: "gardener-walk-side-opp-b",
+} as const;
+
+/** One pose of a walk cycle: a texture + whether it's mirrored. Mirroring does double duty —
+ * it swaps the leading foot on the front/back views (a front view mirrored still faces the
+ * camera) and it faces the left-only side art to the right. */
+interface Pose {
+    key: string;
     flip: boolean;
 }
-const SIDE_LEFT: FacingArt = { walk: "av-walk-side", idle: "av-idle-side", flip: false };
-const SIDE_RIGHT: FacingArt = { walk: "av-walk-side", idle: "av-idle-side", flip: true };
-const FACING_ART: Record<Dir8, FacingArt> = {
-    "down": { walk: "av-walk-down", idle: "av-idle-down", flip: false },
-    "up": { walk: "av-walk-up", idle: "av-idle-up", flip: false },
-    "left": SIDE_LEFT,
-    "up-left": SIDE_LEFT,
-    "down-left": SIDE_LEFT,
-    "right": SIDE_RIGHT,
-    "up-right": SIDE_RIGHT,
-    "down-right": SIDE_RIGHT,
+interface Gait {
+    walk: Pose[];
+    idle: Pose;
+}
+const pose = (key: string, flip = false): Pose => ({ key, flip });
+
+/** The three drawable gaits. Front/back swap feet by mirroring the whole frame (the swung
+ * watering can reads as a natural arm swing); the side gait alternates each real frame with
+ * its synthesized opposite-foot twin so the legs actually scissor. */
+type GaitId = "down" | "up" | "side";
+const GAIT: Record<GaitId, Gait> = {
+    down: {
+        walk: [pose(G.walkDownA), pose(G.walkDownA, true), pose(G.walkDownB), pose(G.walkDownB, true)],
+        idle: pose(G.idleDown),
+    },
+    up: {
+        // No back-facing step art exists; the vertical bob carries the stride here.
+        walk: [pose(G.idleUp)],
+        idle: pose(G.idleUp),
+    },
+    side: {
+        walk: [pose(G.walkSideA), pose(G.walkSideOppA), pose(G.walkSideB), pose(G.walkSideOppB)],
+        idle: pose(G.idleSide),
+    },
 };
+
+/** Each of the eight facings → which gait to draw and whether the whole sprite is mirrored.
+ * The side art faces left, so right + the right-leaning diagonals flip; every diagonal
+ * borrows the side gait so it walks with a real alternating stride. */
+const FACING_GAIT: Record<Dir8, { gait: GaitId; flip: boolean }> = {
+    "down": { gait: "down", flip: false },
+    "up": { gait: "up", flip: false },
+    "left": { gait: "side", flip: false },
+    "up-left": { gait: "side", flip: false },
+    "down-left": { gait: "side", flip: false },
+    "right": { gait: "side", flip: true },
+    "up-right": { gait: "side", flip: true },
+    "down-right": { gait: "side", flip: true },
+};
+
+/** Walk playback speed, in poses per second (frame-rate independent via the phase clock). */
+const WALK_FPS = 8;
 
 export class WorldScene extends Phaser.Scene {
     private bus!: TypedBus;
@@ -94,12 +155,14 @@ export class WorldScene extends Phaser.Scene {
     private terrain: TerrainModel | null = null;
     private plants = new Map<string, PlantObject>();
     private stageByNode = new Map<string, GrowthStage>();
-    private solidFn!: (x: number, y: number) => boolean;
+    /** Feet-level base boxes for every standing thing (bushes, trees, props, hedges,
+     * structures, the Keeper) — realistic collision: block at the trunk, layer above it. */
+    private solidBoxes: SolidBox[] = [];
     /** Ground flora (bone-meal watering): preset flowers that grow where you pour. */
     private flora: FloraLayer | null = null;
     private isMovingNow = false;
 
-    private avatar!: Phaser.Physics.Arcade.Sprite;
+    private avatar!: Phaser.GameObjects.Sprite;
     private keeper!: Phaser.GameObjects.Image;
     private keeperLantern!: Phaser.GameObjects.Arc;
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
@@ -143,6 +206,8 @@ export class WorldScene extends Phaser.Scene {
     private avatarTile = { tileX: KEEPER_TILE.tileX + 2, tileY: KEEPER_TILE.tileY };
     private tendNextTile: { tileX: number; tileY: number } | null = null;
     private facing: Dir8 = "down";
+    /** Smooth, frame-rate-independent walk clock (advances in "poses"; drives frame + bob). */
+    private walkPhase = 0;
 
     constructor() {
         super("world");
@@ -162,7 +227,6 @@ export class WorldScene extends Phaser.Scene {
         const worldW = this.plan.widthTiles * ts;
         const worldH = this.plan.heightTiles * ts;
 
-        this.physics.world.setBounds(0, 0, worldW, worldH);
         this.cameras.main.setBounds(0, 0, worldW, worldH);
         // Compact overworld: a lower zoom reveals more of the island so it reads as
         // ~2 screens across (Champions-Island feel) while sprites stay chunky.
@@ -171,9 +235,6 @@ export class WorldScene extends Phaser.Scene {
         this.sectorUnlocks = new Set(
             (this.registry.get("sectorUnlocks") as string[] | undefined) ?? [],
         );
-        this.solidFn = (tx, ty) =>
-            this.lockedRegionAt(tx, ty) !== null
-            || tileIsSolid(this.plan, tx, ty, this.stageByNode);
 
         this.renderGround();
         this.renderDecor();
@@ -182,7 +243,7 @@ export class WorldScene extends Phaser.Scene {
         this.renderSectorLocks();
         this.spawnLanternGlows();
         this.spawnCritters();
-        this.setupAvatarAnimations();
+        this.setupAvatarTextures();
         this.spawnAvatar();
         this.spawnKeeper();
         this.setupInput();
@@ -228,7 +289,7 @@ export class WorldScene extends Phaser.Scene {
         return this.tendNextTile;
     }
 
-    update(_time: number, delta: number): void {
+    update(time: number, delta: number): void {
         this.panelOpen = this.registry.get("panelOpen") as boolean ?? false;
         this.flags = this.registry.get("gardenFlags") as GardenFlags ?? this.flags;
 
@@ -236,6 +297,8 @@ export class WorldScene extends Phaser.Scene {
         this.updateInteractPrompt();
         this.bobKeeper(delta);
         this.updateCritters();
+        // The living wind: grown flowers sway as one field; completed lines host gusts.
+        this.flora?.tick(time);
         // Walking through grown flowers rustles them (cooldown-guarded, cheap).
         if (this.isMovingNow && this.flora && this.avatar) {
             this.flora.rustle(this.avatar.x, this.avatar.y);
@@ -275,16 +338,27 @@ export class WorldScene extends Phaser.Scene {
             return;
         }
         const counts = this.registry.get("floraState") as Record<string, number> | undefined;
+        // Landmark anchors give the mass-bloom ambience something to reach toward
+        // (CARS root-veins → the Supertrees; C-P could target the fountain later).
+        const anchors: Partial<Record<GardenSection, TileCoord>> = {};
+        for (const r of this.plan.regions) {
+            const landmark = r.props.find((p) => p.key.startsWith("struct-landmark-"));
+            if (landmark) {
+                anchors[r.section] = { tileX: landmark.tileX, tileY: landmark.tileY };
+            }
+        }
         this.flora = new FloraLayer(
             this,
             planFlora(this.plan, this.terrain),
             counts ?? {},
             this.reducedMotion,
             (spot) => this.lockedRegionAt(spot.tileX, spot.tileY) === null,
+            anchors,
         );
     }
 
-    /** Deterministic foliage scatter — trees/bushes/flowers clustered by species. */
+    /** Deterministic foliage scatter — trees/bushes clustered by species. Every standing
+     * item gets a feet-level base box: block at the trunk, walk behind the canopy. */
     private renderDecor(): void {
         const ts = DISPLAY.tile;
         if (!this.terrain) {
@@ -296,6 +370,16 @@ export class WorldScene extends Phaser.Scene {
             sizeToHeightTiles(img, d.hTiles);
             img.setFlipX(d.flip);
             img.setDepth(d.flat ? -5 : d.y / ts);
+            if (!d.flat) {
+                this.solidBoxes.push(
+                    baseBoxFor(img.x, img.y, img.displayWidth, {
+                        // Hedges are WALLS (wide, taller box); ordinary foliage blocks only
+                        // at a narrow trunk so brushing past feels natural.
+                        widthFactor: d.key === "foliage-versailles-20" ? 0.92 : 0.45,
+                        heightPx: d.key === "foliage-versailles-20" ? 20 : 12,
+                    }),
+                );
+            }
         }
     }
 
@@ -312,7 +396,17 @@ export class WorldScene extends Phaser.Scene {
                 } else {
                     applyDisplaySize(img);
                 }
-                img.setDepth(p.tileY + 0.5);
+                img.setDepth(img.y / ts);
+                // Big landmarks block wider at the base (you still walk BEHIND them —
+                // "go behind but not through"); small props block a narrow trunk.
+                const landmark = p.key.startsWith("struct-");
+                this.solidBoxes.push(
+                    baseBoxFor(img.x, img.y, img.displayWidth, {
+                        widthFactor: landmark ? 0.6 : 0.45,
+                        heightPx: landmark ? 16 : 12,
+                        maxWidthPx: landmark ? 110 : 72,
+                    }),
+                );
             }
             // Region waystone (fast-travel marker).
             const wsKey = hasAssetKey("struct-waystone-dormant")
@@ -325,19 +419,20 @@ export class WorldScene extends Phaser.Scene {
             );
             ws.setOrigin(0.5, 1);
             applyDisplaySize(ws);
-            ws.setDepth(r.waystone.tileY + 0.5);
+            ws.setDepth(ws.y / ts);
+            this.solidBoxes.push(baseBoxFor(ws.x, ws.y, ws.displayWidth, { heightPx: 10 }));
 
             // Plots render NOTHING until they have real engine state (2026-07-03: no more
             // soil holes/beds — you water the grass and the region's preset flower appears
             // there, growing with real mastery). The invisible sprite keeps the spot alive
-            // for watering/growth targeting.
+            // for watering/growth targeting. Plants never collide — you tend right up to them.
             for (const spot of r.plants) {
                 const stage = this.stageByNode.get(spot.nodeId) ?? "bare-soil";
                 const key = ensureTexture(this, stageTextureKey(stage));
                 const spr = this.add.image(spot.tileX * ts + ts / 2, spot.tileY * ts + ts, key);
                 spr.setOrigin(0.5, 1);
                 applyDisplaySize(spr);
-                spr.setDepth(spot.tileY + 0.6);
+                spr.setDepth(spr.y / ts);
                 spr.setVisible(stage !== "bare-soil");
                 this.plants.set(spot.nodeId, { nodeId: spot.nodeId, sprite: spr, spot });
             }
@@ -446,14 +541,49 @@ export class WorldScene extends Phaser.Scene {
         const ts = DISPLAY.tile;
         const sx = (KEEPER_TILE.tileX + 2) * ts + ts / 2;
         const sy = KEEPER_TILE.tileY * ts + ts;
-        this.avatar = this.physics.add.sprite(sx, sy, ensureTexture(this, "gardener-idle-down"));
+        // A plain sprite: movement + collision are ours (feet-box slide in moveAvatar),
+        // not arcade physics — that's what makes behind/in-front layering honest.
+        this.avatar = this.add.sprite(sx, sy, ensureTexture(this, G.idleDown));
         this.avatar.setOrigin(0.5, 1);
-        this.avatar.play("av-idle-down");
         this.refreshAvatarView();
-        this.avatar.setDepth(KEEPER_TILE.tileY + 0.8);
-        this.avatar.setCollideWorldBounds(true);
+        this.avatar.setDepth(this.avatar.y / ts);
         this.cameras.main.startFollow(this.avatar, true, 0.12, 0.12);
         this.avatarTile = { tileX: KEEPER_TILE.tileX + 2, tileY: KEEPER_TILE.tileY };
+    }
+
+    /** Would the avatar's FEET at (x, y) collide? World rim, water (minus fords), locked
+     * gardens, and every standing thing's base box. */
+    private footBlocked(x: number, y: number): boolean {
+        const ts = DISPLAY.tile;
+        const worldW = this.plan.widthTiles * ts;
+        const worldH = this.plan.heightTiles * ts;
+        if (x < 10 || x > worldW - 10 || y < ts * 0.9 || y > worldH - 2) {
+            return true;
+        }
+        const foot = footBoxAt(x, y);
+        // Probe the foot box's corners against tile-level terrain (the box is ≪ tile size).
+        const corners = [
+            { px: foot.left, py: foot.top },
+            { px: foot.left + foot.w, py: foot.top },
+            { px: foot.left, py: foot.top + foot.h },
+            { px: foot.left + foot.w, py: foot.top + foot.h },
+        ];
+        for (const c of corners) {
+            const tx = Math.floor(c.px / ts);
+            const ty = Math.floor(c.py / ts);
+            if (waterIsSolid(this.plan, tx, ty)) {
+                return true;
+            }
+            if (this.lockedRegionAt(tx, ty) !== null) {
+                return true;
+            }
+        }
+        for (const box of this.solidBoxes) {
+            if (boxesOverlap(foot, box)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private spawnLanternGlows(): void {
@@ -563,14 +693,24 @@ export class WorldScene extends Phaser.Scene {
             const gz = this.add.image(kx, ky - 1.6 * ts, ensureTexture(this, "struct-gazebo"));
             gz.setOrigin(0.5, 1);
             sizeToHeightTiles(gz, 4.6);
-            gz.setDepth(KEEPER_TILE.tileY - 1.6 + 0.5);
+            gz.setDepth(gz.y / ts);
+            this.solidBoxes.push(
+                baseBoxFor(gz.x, gz.y, gz.displayWidth, {
+                    widthFactor: 0.7,
+                    heightPx: 18,
+                    maxWidthPx: 120,
+                }),
+            );
         }
         // The Keeper is a MONK — the meditating sage, not a gardener (2026-07-03).
         const keeperKey = pickFirstAsset(["keeper-meditating", "keeper-gardener"]);
         this.keeper = this.add.image(kx, ky, ensureTexture(this, keeperKey));
         this.keeper.setOrigin(0.5, 1);
         sizeToHeightTiles(this.keeper, 2.2);
-        this.keeper.setDepth(KEEPER_TILE.tileY + 0.75);
+        this.keeper.setDepth(this.keeper.y / ts);
+        this.solidBoxes.push(
+            baseBoxFor(kx, ky, this.keeper.displayWidth, { widthFactor: 0.55, heightPx: 14 }),
+        );
 
         this.keeperLantern = this.add.circle(kx + 20, ky - 40, 8, 0xffe066, 0.5);
         this.keeperLantern.setDepth(KEEPER_TILE.tileY + 0.76);
@@ -702,8 +842,8 @@ export class WorldScene extends Phaser.Scene {
         });
     }
 
-    private moveAvatar(_delta: number): void {
-        if (!this.avatar?.body) {
+    private moveAvatar(delta: number): void {
+        if (!this.avatar) {
             return;
         }
         const speed = 96;
@@ -722,13 +862,21 @@ export class WorldScene extends Phaser.Scene {
 
         const moving = dx !== 0 || dy !== 0;
         this.isMovingNow = moving;
-        // Normalise so diagonals aren't ~40% faster than the cardinals.
-        const inv = moving ? 1 / Math.hypot(dx, dy) : 0;
-        const vx = dx * speed * inv;
-        const vy = dy * speed * inv;
-        this.avatar.setVelocity(vx, vy);
         if (moving) {
-            this.resolveTileCollision(vx, vy);
+            // Normalise so diagonals aren't ~40% faster, integrate by real frame time,
+            // then slide: X and Y resolve independently against the feet-box world, so
+            // pushing into a bush glides you along it instead of pinning you.
+            const inv = 1 / Math.hypot(dx, dy);
+            const stepX = dx * speed * inv * (delta / 1000);
+            const stepY = dy * speed * inv * (delta / 1000);
+            const next = moveWithSlide(
+                this.avatar.x,
+                this.avatar.y,
+                stepX,
+                stepY,
+                (x, y) => this.footBlocked(x, y),
+            );
+            this.avatar.setPosition(next.x, next.y);
         }
 
         this.avatarTile = {
@@ -736,97 +884,109 @@ export class WorldScene extends Phaser.Scene {
             tileY: Math.floor((this.avatar.y - DISPLAY.tile * 0.5) / DISPLAY.tile),
         };
 
-        this.updateAvatarFrame(dx, dy, moving);
+        this.updateAvatarFrame(dx, dy, moving, delta);
         this.refreshAvatarView();
-        this.avatar.setDepth(this.avatarTile.tileY + 0.8);
+        // Pixel-Y depth: south of a bush's base you draw over it, north of it the canopy
+        // covers you — the same rule every standing sprite uses.
+        this.avatar.setDepth(this.avatar.y / DISPLAY.tile);
     }
 
-    /** Register the gardener's walk/idle animations once. The frames are individual PNGs
-     * (not a sprite-atlas), so each is referenced by texture key; ensureTexture guarantees
-     * every key exists (real art or a placeholder) before the animation is created. */
-    private setupAvatarAnimations(): void {
-        const mk = (key: string, frames: string[], frameRate: number): void => {
-            if (this.anims.exists(key)) {
-                return;
+    /** Prepare the gardener's runtime textures. Guarantees every real frame exists (art or a
+     * placeholder), then fabricates the opposite-foot side contacts the source art lacks. */
+    private setupAvatarTextures(): void {
+        for (const key of Object.values(G)) {
+            if (key !== G.walkSideOppA && key !== G.walkSideOppB) {
+                ensureTexture(this, key);
             }
-            for (const f of frames) {
-                ensureTexture(this, f);
-            }
-            this.anims.create({
-                key,
-                frames: frames.map((f) => ({ key: f })),
-                frameRate,
-                repeat: -1,
-            });
-        };
-        // Idle poses are single frames; their gentle "breathing" is the scale bob in
-        // refreshAvatarView, so it switches off cleanly under prefers-reduced-motion.
-        mk("av-idle-down", ["gardener-idle-down"], 1);
-        mk("av-idle-up", ["gardener-idle-up"], 1);
-        mk("av-idle-side", ["gardener-idle-side-a"], 1);
-        // Two contact poses per stride (left foot, right foot). ~8fps + the step bob reads
-        // as full, weighted steps instead of the old 2-frame flicker.
-        mk("av-walk-down", ["gardener-walk-down-a", "gardener-walk-down-b"], 8);
-        mk("av-walk-side", ["gardener-walk-side-a", "gardener-walk-side-b"], 8);
-        // No back-facing step art exists, so due-up holds the back idle and the bob strides.
-        mk("av-walk-up", ["gardener-idle-up"], 1);
+        }
+        this.makeLegMirrorTexture(G.walkSideA, G.walkSideOppA);
+        this.makeLegMirrorTexture(G.walkSideB, G.walkSideOppB);
     }
 
-    /** 8-direction walk/idle state machine, driven off the raw movement vector. */
-    private updateAvatarFrame(dx: number, dy: number, moving: boolean): void {
+    /** Build `dstKey` from `srcKey` with the lower `frac` of the frame (the legs/boots)
+     * mirrored horizontally about the leg band's opaque centroid — swapping which foot leads
+     * while the upper body and the held watering can stay put. This turns the art's two
+     * same-foot side poses into a real alternating stride. */
+    private makeLegMirrorTexture(srcKey: string, dstKey: string, frac = 0.44): void {
+        if (this.textures.exists(dstKey)) {
+            return;
+        }
+        const img = this.textures.get(srcKey).getSourceImage() as HTMLImageElement | HTMLCanvasElement;
+        const w = Math.floor(img.width);
+        const h = Math.floor(img.height);
+        if (w <= 0 || h <= 0) {
+            return;
+        }
+        const tex = this.textures.createCanvas(dstKey, w, h);
+        if (!tex) {
+            return;
+        }
+        const ctx = tex.getContext();
+        const cut = Math.floor(h * (1 - frac));
+        const bandH = h - cut;
+        ctx.clearRect(0, 0, w, h);
+        ctx.drawImage(img, 0, 0);
+        // Opaque centroid of the leg band → the vertical axis we mirror the boots about.
+        const band = ctx.getImageData(0, cut, w, bandH);
+        let sumX = 0;
+        let count = 0;
+        for (let y = 0; y < bandH; y++) {
+            for (let x = 0; x < w; x++) {
+                if (band.data[(y * w + x) * 4 + 3] > 40) {
+                    sumX += x;
+                    count++;
+                }
+            }
+        }
+        const cx = count > 0 ? sumX / count : w / 2;
+        ctx.clearRect(0, cut, w, bandH);
+        ctx.save();
+        ctx.translate(2 * cx, 0);
+        ctx.scale(-1, 1);
+        ctx.drawImage(img, 0, cut, w, bandH, 0, cut, w, bandH);
+        ctx.restore();
+        tex.refresh();
+    }
+
+    /** 8-direction walk/idle driver. Advances a smooth, frame-rate-independent step clock and
+     * draws the current pose (texture + mirror); diagonals walk with the side gait. */
+    private updateAvatarFrame(dx: number, dy: number, moving: boolean, delta: number): void {
         if (moving) {
             this.facing = facing8(dx, dy);
         }
-        const art = FACING_ART[this.facing];
-        this.avatar.play(moving ? art.walk : art.idle, true);
-        this.avatar.setFlipX(art.flip);
+        const fg = FACING_GAIT[this.facing];
+        const gait = GAIT[fg.gait];
+        let frame: Pose;
+        if (moving) {
+            this.walkPhase += (delta / 1000) * WALK_FPS;
+            frame = gait.walk[Math.floor(this.walkPhase) % gait.walk.length];
+        } else {
+            this.walkPhase = 0;
+            frame = gait.idle;
+        }
+        this.avatar.setTexture(ensureTexture(this, frame.key));
+        // Per-pose mirror (foot swap) XOR facing mirror (right-facing side art).
+        this.avatar.setFlipX(frame.flip !== fg.flip);
     }
 
-    /** Size the avatar to a constant on-screen height with its native aspect preserved —
-     * the sliced frames differ in pixel size, and the old code force-fit each into one
-     * 32×40 box, which made the character's proportions "pop" every frame. A subtle
-     * vertical bob (two dips per stride) then gives the walk weight and smoothness. */
+    /** Size the avatar to a constant on-screen height with its native aspect preserved — the
+     * sliced frames differ in pixel size, and the old code force-fit each into one 32×40 box,
+     * making the character's proportions "pop" every frame. A gentle vertical bob, synced to
+     * the step clock (highest at mid-stride), then gives the walk weight and smoothness. */
     private refreshAvatarView(): void {
         const frameH = this.avatar.frame.height;
         const scale = frameH > 0 ? DISPLAY.avatarHeight / frameH : 1;
         let bob = 1;
         if (!this.reducedMotion) {
-            const t = this.time.now / 1000;
             if (this.isMovingNow) {
-                // Due-up has no step frames, so a slightly deeper, faster bob stands in
-                // for the missing back-walk stride.
-                const up = this.facing === "up";
-                const hz = up ? 9 : 8;
-                const amp = up ? 0.06 : 0.05;
-                bob = 1 + amp * Math.sin(t * Math.PI * hz);
+                // Due-up has no step frames, so it leans on a slightly deeper bob.
+                const amp = this.facing === "up" ? 0.06 : 0.045;
+                bob = 1 + amp * Math.abs(Math.sin(this.walkPhase * Math.PI));
             } else {
-                bob = 1 + 0.012 * Math.sin(t * Math.PI * 1.2);
+                bob = 1 + 0.012 * Math.sin((this.time.now / 1000) * Math.PI * 1.2);
             }
         }
         this.avatar.setScale(scale, scale * bob);
-    }
-
-    private resolveTileCollision(vx: number, vy: number): void {
-        const ts = DISPLAY.tile;
-        const nextX = this.avatar.x + vx * (1 / 60);
-        const nextY = this.avatar.y + vy * (1 / 60);
-        const tx = Math.floor(nextX / ts);
-        const ty = Math.floor((nextY - ts * 0.5) / ts);
-        if (this.solidFn(tx, ty)) {
-            this.avatar.setVelocity(0, 0);
-            // Simple axis separation
-            if (
-                vx !== 0 && !this.solidFn(Math.floor((this.avatar.x + Math.sign(vx) * 8) / ts), this.avatarTile.tileY)
-            ) {
-                this.avatar.x += vx * (1 / 60);
-            }
-            if (
-                vy !== 0
-                && !this.solidFn(this.avatarTile.tileX, Math.floor((this.avatar.y + Math.sign(vy) * 8 - ts * 0.5) / ts))
-            ) {
-                this.avatar.y += vy * (1 / 60);
-            }
-        }
     }
 
     private distTiles(ax: number, ay: number, bx: number, by: number): number {
@@ -961,8 +1121,17 @@ export class WorldScene extends Phaser.Scene {
         }
         const ts = DISPLAY.tile;
         const ws = region.waystone;
-        this.avatar.setPosition(ws.tileX * ts + ts / 2, ws.tileY * ts + ts);
-        this.avatarTile = { tileX: ws.tileX, tileY: ws.tileY };
+        // Arrive one tile SOUTH of the stone (never inside its base box), sliding further
+        // south if something occupies that spot.
+        let y = (ws.tileY + 2) * ts;
+        for (let tries = 0; tries < 4 && this.footBlocked(ws.tileX * ts + ts / 2, y); tries++) {
+            y += ts;
+        }
+        this.avatar.setPosition(ws.tileX * ts + ts / 2, y);
+        this.avatarTile = {
+            tileX: Math.floor(this.avatar.x / ts),
+            tileY: Math.floor((this.avatar.y - ts * 0.5) / ts),
+        };
     }
 
     private setupSky(): void {
@@ -1019,7 +1188,9 @@ export class WorldScene extends Phaser.Scene {
         );
     }
 
-    /** A pour was paid for — grow the ground flora, persist the counts, celebrate bands. */
+    /** A pour was paid for — grow the ground flora, persist the counts, celebrate bands.
+     * (The FloraLayer owns the celebration itself now: the domino halo wave down the line
+     * plus each garden's persistent completion visuals — ribbons, gravel, veins.) */
     private onFloraWater(aimTileX: number, aimTileY: number): void {
         if (!this.flora) {
             return;
@@ -1030,38 +1201,9 @@ export class WorldScene extends Phaser.Scene {
         }
         for (const bandId of result.bandsCompleted) {
             const section = bandId.split(":")[0];
-            const flowers = result.changed.filter((c) => c.spot.bandId === bandId).length;
+            const flowers = this.flora.bandTiles(bandId).length;
             this.bus.emit("flora:band-bloomed", { section, bandId, flowers });
-            this.fxBandBloomed(bandId);
         }
-    }
-
-    /** Band celebration: a sparkle wave along the completed color line. */
-    private fxBandBloomed(bandId: string): void {
-        if (this.reducedMotion || !this.flora) {
-            return;
-        }
-        const ts = DISPLAY.tile;
-        this.flora.bandTiles(bandId).forEach((tile, i) => {
-            this.time.delayedCall(i * 40, () => {
-                const star = this.add.star(
-                    tile.tileX * ts + ts / 2,
-                    tile.tileY * ts + ts * 0.4,
-                    4,
-                    2,
-                    5,
-                    0xffe066,
-                );
-                star.setDepth(8650);
-                this.tweens.add({
-                    targets: star,
-                    y: star.y - 10,
-                    alpha: 0,
-                    duration: 520,
-                    onComplete: () => star.destroy(),
-                });
-            });
-        });
     }
 
     private plantWorldPos(nodeId: string): { x: number; y: number } | null {

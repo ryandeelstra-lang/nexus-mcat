@@ -1,0 +1,4 @@
+== 7d paraphrase test (30 cards x 2 rewordings) ==
+n=30  mean_recall=0.7267  mean_reworded_accuracy=0.6
+GAP (mean |recall - accuracy|) = 0.2693  90% range [0.2133, 0.3277]
+Interpretation: a non-trivial gap means performance != memory (the bridge exists).

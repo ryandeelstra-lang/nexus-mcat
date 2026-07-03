@@ -6,7 +6,15 @@
 //   region → distinct musical identity · §9.5 clock → brightness · activity → layer mix.
 import { describe, expect, it } from "vitest";
 
-import { midiToFreq, type Mood, REGION_IDS, REGION_PROFILES, regionForSection, skyState, toneTargets } from "./theory";
+import {
+    midiToFreq,
+    REGION_IDS,
+    REGION_PROFILES,
+    regionForSection,
+    skyState,
+    toneTargets,
+    type Mood,
+} from "./theory";
 
 const at = (h: number, m = 0): Date => {
     const d = new Date(2026, 6, 2, h, m, 0, 0); // fixed local wall-clock; DST-free math

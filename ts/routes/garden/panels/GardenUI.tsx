@@ -6,13 +6,13 @@ import { canPlant, canWater, spendPlant, spendWater } from "../state/economy";
 import type { MasterySnapshot } from "../state/mastery";
 import { stageFor } from "../state/stage";
 import type { GardenDoc, GardenStore } from "../state/store";
+import { activeWeeds } from "./keeper-logic";
 import { AlmanacPanel } from "./AlmanacPanel";
 import { extractProjectionLine } from "./dashboard";
 import { HarvestPanel } from "./HarvestPanel";
 import { Hud } from "./Hud";
-import { activeWeeds } from "./keeper-logic";
 import { KeeperPanel, type KeeperSessionSummary } from "./KeeperPanel";
-import { type DashboardData, fetchDashboard } from "./rpc";
+import { fetchDashboard, type DashboardData } from "./rpc";
 import "../garden.css";
 
 type Overlay = "none" | "keeper" | "almanac" | "harvest" | "map-help" | "plant-card";
@@ -96,11 +96,6 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
         const offKeeper = bus.on("keeper:interact", () => {
             setOverlay("keeper");
         });
-        // Live HUD: every graded answer refills water (doc 23 §7) — the chips must tick
-        // mid-session, not only at session end.
-        const offGrowth = bus.on("growth:tick", () => {
-            syncFromStore();
-        });
         const offReviewClosed = bus.on("review:closed", ({ answered, blooms }) => {
             const wateredPlots = lastKeeperSummary.current?.wateredPlots ?? answered;
             setHarvest({ answered, blooms, wateredPlots });
@@ -118,7 +113,6 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
         return () => {
             offPlant();
             offKeeper();
-            offGrowth();
             offReviewClosed();
         };
     }, [refreshDashboard, refreshSnapshot, refreshWeeds, syncFromStore]);
@@ -192,12 +186,7 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
                     <div className="panel-card plant-card-popover">
                         <div className="panel-header">
                             <h2>{selectedTopic.label}</h2>
-                            <button
-                                className="keeper-close"
-                                onClick={() =>
-                                    setOverlay("none")}
-                                aria-label="Close"
-                            >
+                            <button className="keeper-close" onClick={() => setOverlay("none")} aria-label="Close">
                                 ✕
                             </button>
                         </div>
@@ -209,12 +198,10 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
                                 <span
                                     className="memory-bar-fill"
                                     style={{
-                                        width: `${
-                                            Math.max(
-                                                0,
-                                                Math.min(100, selectedTopic.averageRecall * 100),
-                                            )
-                                        }%`,
+                                        width: `${Math.max(
+                                            0,
+                                            Math.min(100, selectedTopic.averageRecall * 100),
+                                        )}%`,
                                     }}
                                 />
                             </div>

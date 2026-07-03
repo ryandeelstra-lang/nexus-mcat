@@ -1,5 +1,5 @@
-<!-- Copyright: Ankitects Pty Ltd and contributors
-License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html -->
+// Copyright: Ankitects Pty Ltd and contributors
+// License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
 
 <script lang="ts">
     // charged_up: the Knowledge Garden surface (Decisions 40-42). This page is a THIN serving

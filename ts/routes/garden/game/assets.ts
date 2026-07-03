@@ -5,7 +5,7 @@
 // through ensureTexture so the game is playable with zero binary assets.
 import type Phaser from "phaser";
 
-import { type GrowthStage, STAGE_ORDER } from "../state/stage";
+import { STAGE_ORDER, type GrowthStage } from "../state/stage";
 
 /** Display heights on the 32px tile grid (doc task B). */
 export const DISPLAY = {
@@ -33,20 +33,16 @@ const URL_BY_KEY = new Map<string, string>();
 for (const [path, mod] of Object.entries(globModules)) {
     const url = typeof mod === "string" ? mod : mod.default;
     if (url) {
-        // Production glob URLs are emitted relative to the CHUNK ("../assets/x.hash.png");
-        // Phaser would resolve them against the page URL and 404. Absolutize against this
-        // module's own URL so both dev ("/...") and prod resolve correctly.
-        URL_BY_KEY.set(basenameKey(path), new URL(url, import.meta.url).href);
+        URL_BY_KEY.set(basenameKey(path), url);
     }
 }
 
 let manifestLoaded = false;
 
-// Optional manifest: resolved through a lazy glob so the production build never fails when
-// the file is absent (a bare dynamic import would be a hard Rollup resolve error).
+// Glob (not a bare dynamic import) so Vite tolerates the manifest being absent.
 const manifestModules = import.meta.glob("../assets/manifest.json", {
     import: "default",
-});
+}) as Record<string, () => Promise<Record<string, string>>>;
 
 async function loadManifest(): Promise<void> {
     if (manifestLoaded) {
@@ -54,21 +50,45 @@ async function loadManifest(): Promise<void> {
     }
     manifestLoaded = true;
     try {
-        for (const loader of Object.values(manifestModules)) {
-            const manifest = (await loader()) as Record<string, string>;
+        for (const load of Object.values(manifestModules)) {
+            const manifest = await load();
             for (const [key, path] of Object.entries(manifest)) {
-                if (!URL_BY_KEY.has(key) && path) {
+                if (!URL_BY_KEY.has(key) && typeof path === "string") {
                     URL_BY_KEY.set(key, path);
                 }
             }
         }
     } catch {
-        // manifest optional until the art pipeline lands
+        // manifest optional until G1 art pipeline lands
     }
 }
 
 export function hasAssetKey(key: string): boolean {
     return URL_BY_KEY.has(key);
+}
+
+/** All discovered asset keys (cinematic renderer uses this for selective preloads). */
+export function allAssetKeys(): string[] {
+    return [...URL_BY_KEY.keys()];
+}
+
+/** Preload only the keys matching a predicate (cinematic renderer boot). */
+export async function preloadAssetsMatching(
+    scene: Phaser.Scene,
+    predicate: (key: string) => boolean,
+): Promise<void> {
+    await loadManifest();
+    for (const [key, url] of URL_BY_KEY) {
+        if (predicate(key) && !scene.textures.exists(key)) {
+            scene.load.image(key, url);
+        }
+    }
+    if (scene.load.list.size > 0) {
+        await new Promise<void>((resolve) => {
+            scene.load.once("complete", () => resolve());
+            scene.load.start();
+        });
+    }
 }
 
 export function stageTextureKey(stage: GrowthStage): string {
@@ -92,8 +112,7 @@ export async function preloadDiscoveredAssets(scene: Phaser.Scene): Promise<void
             scene.load.image(key, url);
         }
     }
-    // NOTE: Phaser's totalToLoad is only computed by start() — gate on the PENDING list
-    // (load.list) or the loader never runs and every texture silently falls back.
+    // NB: totalToLoad stays 0 until start() — gate on the pending list instead.
     if (scene.load.list.size > 0) {
         await new Promise<void>((resolve) => {
             scene.load.once("complete", () => resolve());
@@ -154,11 +173,8 @@ function drawPlantStage(g: Phaser.GameObjects.Graphics, stage: GrowthStage): voi
         case "drooping":
             g.lineStyle(3, 0x4a8f3a, 1);
             g.beginPath();
-            // A bent-over stem: two segments approximate the droop curve (Phaser's
-            // Graphics path API has no quadratic bezier).
             g.moveTo(w / 2, h - 10);
-            g.lineTo(w / 2 + 10, h - 22);
-            g.lineTo(w / 2 + 14, h - 8);
+            g.quadraticCurveTo(w / 2 + 14, h - 20, w / 2 + 10, h - 8);
             g.strokePath();
             g.fillStyle(0x5cb848, 1);
             g.fillEllipse(w / 2 + 10, h - 10, 8, 5);
@@ -196,24 +212,13 @@ function generatePlaceholder(scene: Phaser.Scene, key: string): void {
         const isPath = key.includes("-path-");
         const isPond = key.includes("-pond-");
         const region = key.split("-")[1] ?? "sakura";
-        const palette: Record<string, { grass: number; path: number; pond: number }> = {
-            sakura: { grass: 0x7dba6a, path: 0xc4a882, pond: 0x2e4756 },
-            keukenhof: { grass: 0x5cb848, path: 0xd4c4a0, pond: 0x2a9d8f },
-            versailles: { grass: 0x2f5d3a, path: 0xeae3d2, pond: 0x3a6ea5 },
-            "gardens-by-the-bay": { grass: 0x141b34, path: 0x9d4edd, pond: 0x0e7c7b },
+        const palette: Record<string, number> = {
+            sakura: isPond ? 0x2e4756 : isPath ? 0xc4a882 : 0x7dba6a,
+            keukenhof: isPond ? 0x2a9d8f : isPath ? 0xd4c4a0 : 0x5cb848,
+            versailles: isPond ? 0x3a6ea5 : isPath ? 0xeae3d2 : 0x2f5d3a,
+            "gardens-by-the-bay": isPond ? 0x0e7c7b : isPath ? 0x9d4edd : 0x141b34,
         };
-        const regionPalette = palette[region];
-        let fill = 0x6b8e4e;
-        if (regionPalette) {
-            if (isPond) {
-                fill = regionPalette.pond;
-            } else if (isPath) {
-                fill = regionPalette.path;
-            } else {
-                fill = regionPalette.grass;
-            }
-        }
-        g.fillStyle(fill, 1);
+        g.fillStyle(palette[region] ?? 0x6b8e4e, 1);
         g.fillRect(0, 0, DISPLAY.tile, DISPLAY.tile);
         if (isPath) {
             g.fillStyle(0x000000, 0.08);

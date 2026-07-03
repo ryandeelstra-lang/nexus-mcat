@@ -3,8 +3,8 @@
 
 // charged_up: client-only Phaser factory (doc 23 §12.3). Dynamic-imported by GardenApp so
 // Phaser never loads on any other page and never runs during a prerender pass.
-import { bus } from "../state/bus";
 import type { MasterySnapshot } from "../state/mastery";
+import { bus } from "../state/bus";
 
 import type { GardenFlags } from "./scenes/world-scene";
 
@@ -52,10 +52,6 @@ export async function createGame(
     game.registry.set("gardenFlags", defaultFlags);
     game.registry.set("panelOpen", false);
     game.registry.set("bus", bus);
-
-    // Dev/verification handle (harmless in prod): lets the CDP harness inspect
-    // textures/scenes when verifying render fidelity (docs/26 gate evidence).
-    (globalThis as Record<string, unknown>).__gardenGame = game;
 
     return game;
 }

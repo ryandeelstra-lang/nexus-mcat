@@ -6,7 +6,13 @@ import { describe, expect, it } from "vitest";
 
 import type { GrowthStage } from "../state/stage";
 
-import { allLeafIds, buildWorldPlan, gateIsOpen, LEAF_PREREQ, tileIsSolid } from "./worldgen";
+import {
+    allLeafIds,
+    buildWorldPlan,
+    gateIsOpen,
+    LEAF_PREREQ,
+    tileIsSolid,
+} from "./worldgen";
 
 describe("buildWorldPlan", () => {
     it("is deterministic (same input → same plan)", () => {

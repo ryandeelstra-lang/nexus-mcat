@@ -12,7 +12,14 @@
 // never needs Web Audio. Integrity: purely cosmetic, reads environment only (like the sky).
 import type { GardenEvents } from "../state/bus";
 
-import { type Mood, REGION_IDS, REGION_PROFILES, type RegionId, skyState, toneTargets } from "./theory";
+import {
+    REGION_IDS,
+    REGION_PROFILES,
+    skyState,
+    toneTargets,
+    type Mood,
+    type RegionId,
+} from "./theory";
 
 function isRegionId(v: string): v is RegionId {
     return (REGION_IDS as readonly string[]).includes(v);

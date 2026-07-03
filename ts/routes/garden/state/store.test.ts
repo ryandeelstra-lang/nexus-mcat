@@ -6,7 +6,7 @@
 // accumulation, delivery, paraphrase records, and survival across a simulated restart.
 import { describe, expect, it } from "vitest";
 
-import { type GardenDoc, GardenStore } from "./store";
+import { GardenStore, type GardenDoc } from "./store";
 
 /** In-memory fake of the gardenState bridge (simulates the sidecar across restarts). */
 function fakeSidecar(initial: Partial<GardenDoc> = {}) {

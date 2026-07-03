@@ -1,7 +1,15 @@
 // charged_up: almanac panel (doc 23 §6.6) — formats engine values only, never computes scores.
 import React, { useState } from "react";
 
-import { asCoverage, asMetric, asNumber, asRange, asString, extractReviewCount, hasSyntheticCaveat } from "./dashboard";
+import {
+    asCoverage,
+    asMetric,
+    asNumber,
+    asRange,
+    asString,
+    extractReviewCount,
+    hasSyntheticCaveat,
+} from "./dashboard";
 import type { DashboardData, DashboardMetric } from "./rpc";
 
 interface AlmanacPanelProps {
@@ -123,7 +131,9 @@ export function AlmanacPanel(props: AlmanacPanelProps): React.ReactElement {
                                     {uncovered.map((entry) => <li key={entry}>{entry}</li>)}
                                 </ul>
                             )
-                            : <p>None listed in this payload.</p>}
+                            : (
+                                <p>None listed in this payload.</p>
+                            )}
                     </details>
                 </section>
             </div>

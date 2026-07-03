@@ -8,7 +8,12 @@ import { onBloom, onGradedAnswer } from "../state/economy";
 import type { MasterySnapshot } from "../state/mastery";
 import { stageFor } from "../state/stage";
 import type { GardenStore } from "../state/store";
-import { activeWeeds, planDelivery, recordWeed, type WeedCause } from "./keeper-logic";
+import {
+    activeWeeds,
+    planDelivery,
+    recordWeed,
+    type WeedCause,
+} from "./keeper-logic";
 import { ProveIt, type ProveItTopic } from "./ProveIt";
 import { scopeToDeck } from "./rpc";
 import { isFastAnswer, StudyCard } from "./StudyCard";

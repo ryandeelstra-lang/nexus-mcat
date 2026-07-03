@@ -7,7 +7,7 @@
 // the sidecar SQLite beside the collection (scores/telemetry/garden.py). NEVER the
 // collection itself. The engine sees reads + answerCard only.
 
-import { type Balances, initialBalances } from "./economy";
+import { initialBalances, type Balances } from "./economy";
 
 export interface PendingEntry {
     nodeId: string;
@@ -118,7 +118,9 @@ export class GardenStore {
         );
         let pending: PendingEntry[];
         if (existing) {
-            pending = this.doc.pending.map((p) => p === existing ? { ...p, pours: p.pours + 1 } : p);
+            pending = this.doc.pending.map((p) =>
+                p === existing ? { ...p, pours: p.pours + 1 } : p
+            );
         } else {
             pending = [
                 ...this.doc.pending,

@@ -153,13 +153,10 @@ export const REGION_PROFILES: Record<RegionId, RegionProfile> = {
 /** Best-effort map from a sidecar section string → its themed region (doc 23 §9.3). */
 export function regionForSection(section: string): RegionId {
     const s = section.toUpperCase();
-    if (s.includes("P") && s.includes("S")) { return "sakura"; // Psych/Soc
-     }
-    if (s.startsWith("B")) { return "keukenhof"; // Bio/Biochem
-     }
-    if (s.includes("C") && s.includes("P")) { return "versailles"; // Chem/Phys
-     }
-    if (s.includes("CARS") || s.startsWith("CA")) { return "gardens-by-the-bay"; }
+    if (s.includes("P") && s.includes("S")) return "sakura"; // Psych/Soc
+    if (s.startsWith("B")) return "keukenhof"; // Bio/Biochem
+    if (s.includes("C") && s.includes("P")) return "versailles"; // Chem/Phys
+    if (s.includes("CARS") || s.startsWith("CA")) return "gardens-by-the-bay";
     return "sakura"; // v1 default region (docs/26 G1)
 }
 
@@ -320,8 +317,8 @@ export function toneTargets(sky: SkyState, mood: Mood): ToneTargets {
     // Warmth: 700 Hz (deep night) → ~2600 Hz (golden peak). Studying/bloom pull it down
     // for a mellower, less "present" background.
     let cutoffHz = 700 + 1900 * sky.brightness;
-    if (mood === "studying") { cutoffHz *= 0.7; }
-    if (mood === "bloom") { cutoffHz *= 0.55; }
+    if (mood === "studying") cutoffHz *= 0.7;
+    if (mood === "bloom") cutoffHz *= 0.55;
     cutoffHz = clamp(cutoffHz, 500, 4000);
 
     return { mix, cutoffHz };
@@ -337,13 +334,7 @@ export function midiToFreq(midi: number): number {
 }
 
 export function clamp(x: number, lo: number, hi: number): number {
-    if (x < lo) {
-        return lo;
-    }
-    if (x > hi) {
-        return hi;
-    }
-    return x;
+    return x < lo ? lo : x > hi ? hi : x;
 }
 
 export function clamp01(x: number): number {

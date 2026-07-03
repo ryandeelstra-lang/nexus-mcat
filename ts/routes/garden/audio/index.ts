@@ -11,8 +11,8 @@ import { bus } from "../state/bus";
 import { MusicDirector } from "./music-director";
 import type { RegionId } from "./theory";
 
-export { MusicDirector } from "./music-director";
 export type { RegionId } from "./theory";
+export { MusicDirector } from "./music-director";
 
 export interface MusicHandle {
     /** Which garden the score sounds like (call as the avatar crosses a border). */
@@ -34,18 +34,10 @@ export interface StartMusicOptions {
 /** A no-op handle for when audio can't run (no Web Audio) — the garden never hard-fails on sound. */
 function silentHandle(): MusicHandle {
     return {
-        setRegion(_region) {
-            return;
-        },
-        setMuted(_muted) {
-            return;
-        },
-        setVolume(_v) {
-            return;
-        },
-        dispose() {
-            return;
-        },
+        setRegion() {},
+        setMuted() {},
+        setVolume() {},
+        dispose() {},
     };
 }
 

@@ -8,9 +8,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { TypedBus } from "../state/bus";
+import { REGION_PROFILES, type LayerMix, type RegionProfile } from "./theory";
 import type { MusicEngine } from "./lofi-engine";
 import { MusicDirector, type MusicDirectorOptions } from "./music-director";
-import { type LayerMix, REGION_PROFILES, type RegionProfile } from "./theory";
 
 class FakeEngine implements MusicEngine {
     running = false;
@@ -28,9 +28,7 @@ class FakeEngine implements MusicEngine {
     stop(): void {
         this.running = false;
     }
-    dispose(): void {
-        return;
-    }
+    dispose(): void {}
     setRegion(p: RegionProfile): void {
         this.region = p;
     }

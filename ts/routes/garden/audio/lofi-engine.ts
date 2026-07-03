@@ -10,7 +10,14 @@
 //
 // Browser-only: this module touches the Web Audio API and must never run during SSR or in a
 // node test. The pure decisions live in theory.ts; this file only *renders* them to sound.
-import { clamp, clamp01, type LayerMix, midiToFreq, REGION_PROFILES, type RegionProfile } from "./theory";
+import {
+    clamp,
+    clamp01,
+    midiToFreq,
+    REGION_PROFILES,
+    type LayerMix,
+    type RegionProfile,
+} from "./theory";
 
 /** The surface the director drives. Kept minimal so a fake stands in for it in tests. */
 export interface MusicEngine {
@@ -232,22 +239,22 @@ export class LofiEngine implements MusicEngine {
         }
 
         // Bass: root on beats 1 & 3; a walking fifth lead-in before the bar turns.
-        if (this.step === 0) { this.playBass(chord.bass, t, sixteenth * 6); }
-        if (this.step === 8) { this.playBass(chord.bass, t, sixteenth * 5); }
-        if (this.step === 14) { this.playBass(chord.bass + 7, t, sixteenth * 2, 0.7); }
+        if (this.step === 0) this.playBass(chord.bass, t, sixteenth * 6);
+        if (this.step === 8) this.playBass(chord.bass, t, sixteenth * 5);
+        if (this.step === 14) this.playBass(chord.bass + 7, t, sixteenth * 2, 0.7);
 
         // Boom-bap-ish lofi drums.
-        if (this.step === 0 || this.step === 10) { this.kick(t); }
-        if (this.step === 4 || this.step === 12) { this.snare(t); }
-        if (this.step % 2 === 0) { this.hat(t, this.step % 4 === 0 ? 0.5 : 0.32); }
+        if (this.step === 0 || this.step === 10) this.kick(t);
+        if (this.step === 4 || this.step === 12) this.snare(t);
+        if (this.step % 2 === 0) this.hat(t, this.step % 4 === 0 ? 0.5 : 0.32);
 
         // Sparse region-flavored lead plucks.
         if (this.leadPhraseActive && (this.step === 4 || this.step === 7 || this.step === 12)) {
-            if (Math.random() < 0.8) { this.playLead(this.pickLeadMidi(), t, sixteenth * 3); }
+            if (Math.random() < 0.8) this.playLead(this.pickLeadMidi(), t, sixteenth * 3);
         }
 
         // Occasional vinyl pop for texture.
-        if (Math.random() < 0.06) { this.pop(t); }
+        if (Math.random() < 0.06) this.pop(t);
     }
 
     private pickLeadMidi(): number {

@@ -128,6 +128,14 @@ function hashString(s: string): number {
     return h >>> 0;
 }
 
+function inRect(x: number, y: number, r: RegionRect): boolean {
+    return x >= r.x && x < r.x + r.w && y >= r.y && y < r.y + r.h;
+}
+
+function dist(a: TileCoord, b: TileCoord): number {
+    return Math.hypot(a.tileX - b.tileX, a.tileY - b.tileY);
+}
+
 /** Sakura: stream spine + winding path (§6.2, §9.3). */
 function trailSakura(r: RegionRect): { trail: TileCoord[]; water: TileCoord[] } {
     const trail: TileCoord[] = [];

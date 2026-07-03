@@ -51,8 +51,7 @@ export const TUTORIAL_BEATS: readonly TutorialBeat[] = [
     },
     {
         id: 3,
-        hint:
-            "\u201cTend it — walk up and water it.\u201d Each pour \uD83D\uDCA7 queues its questions for your next visit.",
+        hint: "\u201cTend it — walk up and water it.\u201d Each pour \uD83D\uDCA7 queues its questions for your next visit.",
         focus: "plant",
         advanceOn: "watered",
     },

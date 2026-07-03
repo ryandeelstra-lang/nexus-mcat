@@ -32,21 +32,105 @@ export interface DashboardData extends Record<string, unknown> {
     coverage?: DashboardCoverage | null;
 }
 
+type RpcFn = (args?: unknown, opts?: unknown) => Promise<unknown>;
+
+interface DeckNode {
+    name?: string;
+    deckId?: unknown;
+    id?: unknown;
+    did?: unknown;
+    children?: DeckNode[];
+}
+
 function isRecord(value: unknown): value is Record<string, unknown> {
     return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
+function asRpc(name: string): RpcFn {
+    const candidate = (backend as Record<string, unknown>)[name];
+    if (typeof candidate !== "function") {
+        throw new Error(`Missing backend RPC: ${name}`);
+    }
+    return candidate as RpcFn;
+}
+
+function toDeckNode(value: unknown): DeckNode | null {
+    if (!isRecord(value)) {
+        return null;
+    }
+    const childrenRaw = value.children;
+    const children = Array.isArray(childrenRaw)
+        ? childrenRaw.map((child) => toDeckNode(child)).filter((child): child is DeckNode => child !== null)
+        : [];
+    return {
+        name: typeof value.name === "string" ? value.name : undefined,
+        deckId: value.deckId,
+        id: value.id,
+        did: value.did,
+        children,
+    };
+}
+
+function findDeckNodeByPath(node: DeckNode, wantedPath: string, prefix = ""): DeckNode | null {
+    const path = node.name ? (prefix ? `${prefix}::${node.name}` : node.name) : prefix;
+    if (path === wantedPath) {
+        return node;
+    }
+    for (const child of node.children ?? []) {
+        const found = findDeckNodeByPath(child, wantedPath, path);
+        if (found) {
+            return found;
+        }
+    }
+    return null;
+}
+
+function pickDeckIdentifier(node: DeckNode | null): unknown {
+    if (!node) {
+        return undefined;
+    }
+    return node.deckId ?? node.id ?? node.did;
+}
+
+async function callSetCurrentDeck(id: unknown, deckPath: string): Promise<void> {
+    const setDeck = asRpc("setCurrentDeck");
+    const attempts: unknown[] = [
+        { deckId: id },
+        { did: id },
+        { id },
+        { deckName: deckPath },
+        { name: deckPath },
+        id,
+        deckPath,
+    ];
+    let lastError: unknown = null;
+    for (const args of attempts) {
+        try {
+            await setDeck(args, { alertOnError: false });
+            return;
+        } catch (err) {
+            lastError = err;
+        }
+    }
+    throw new Error(
+        `setCurrentDeck failed for "${deckPath}"${lastError instanceof Error ? `: ${lastError.message}` : ""}`,
+    );
+}
+
 /**
- * Scope the engine's queue to one deck subtree (the Keeper serving a pending topic).
- * Pinned generated names (out/ts/lib/generated/backend.ts):
- *   getDeckIdByName(generic.String{val}) -> DeckId{did}
- *   setCurrentDeck(DeckId{did}) -> OpChanges
- * This is the standard current-deck mechanism — getQueuedCards then serves that subtree;
- * FSRS still owns every interval (docs/26 I1).
+ * TODO(garden-g0): Integrator should pin exact generated RPC names/arg shapes here.
+ * This seam intentionally centralizes name drift to one file.
  */
 export async function scopeToDeck(deckPath: string): Promise<void> {
-    const deck = await backend.getDeckIdByName({ val: deckPath }, { alertOnError: false });
-    await backend.setCurrentDeck({ did: deck.did }, { alertOnError: false });
+    const treeFn = asRpc("deckTree");
+    const treeRaw = await treeFn(
+        { now: BigInt(Math.floor(Date.now() / 1000)) },
+        { alertOnError: false },
+    );
+    const treeObj = isRecord(treeRaw) && "top" in treeRaw ? toDeckNode(treeRaw.top) : toDeckNode(treeRaw);
+    const target = findDeckNodeByPath(treeObj ?? { children: [] }, deckPath);
+    const deckId = pickDeckIdentifier(target);
+    await callSetCurrentDeck(deckId, deckPath);
 }
 
 export async function fetchDashboard(): Promise<DashboardData> {

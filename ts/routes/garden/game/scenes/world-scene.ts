@@ -4,9 +4,6 @@
 // charged_up: walkable overworld — tile layers, avatar, plants, gates, juice, day/night (doc 23 §6–§9).
 import Phaser from "phaser";
 
-import type { TypedBus } from "../../state/bus";
-import type { MasterySnapshot, TopicMastery } from "../../state/mastery";
-import { type GrowthStage, stageFor } from "../../state/stage";
 import {
     applyDisplaySize,
     DISPLAY,
@@ -17,13 +14,16 @@ import {
     stageTextureKey,
 } from "../assets";
 import { skyStateFor } from "../daynight";
+import type { TypedBus } from "../../state/bus";
+import type { MasterySnapshot, TopicMastery } from "../../state/mastery";
+import { stageFor, type GrowthStage } from "../../state/stage";
 import {
     buildWorldPlan,
     gateIsOpen,
-    type GateSpot,
     KEEPER_TILE,
-    type PlantSpot,
     tileIsSolid,
+    type GateSpot,
+    type PlantSpot,
     type WorldPlan,
 } from "../worldgen";
 
@@ -58,12 +58,7 @@ export class WorldScene extends Phaser.Scene {
     private keeper!: Phaser.GameObjects.Image;
     private keeperLantern!: Phaser.GameObjects.Arc;
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
-    private wasd!: {
-        W: Phaser.Input.Keyboard.Key;
-        A: Phaser.Input.Keyboard.Key;
-        S: Phaser.Input.Keyboard.Key;
-        D: Phaser.Input.Keyboard.Key;
-    };
+    private wasd!: { W: Phaser.Input.Keyboard.Key; A: Phaser.Input.Keyboard.Key; S: Phaser.Input.Keyboard.Key; D: Phaser.Input.Keyboard.Key };
     private interactKey!: Phaser.Input.Keyboard.Key;
     private spaceKey!: Phaser.Input.Keyboard.Key;
 
@@ -252,6 +247,7 @@ export class WorldScene extends Phaser.Scene {
     }
 
     private renderGates(): void {
+        const ts = DISPLAY.tile;
         for (const g of this.plan.gates) {
             this.refreshGateSprite(g);
         }
@@ -332,7 +328,7 @@ export class WorldScene extends Phaser.Scene {
         this.keeperLantern.setDepth(KEEPER_TILE.tileY + 0.76);
     }
 
-    private bobKeeper(_delta: number): void {
+    private bobKeeper(delta: number): void {
         if (this.reducedMotion || !this.keeper) {
             return;
         }
@@ -409,15 +405,10 @@ export class WorldScene extends Phaser.Scene {
         if (this.solidFn(tx, ty)) {
             this.avatar.setVelocity(0, 0);
             // Simple axis separation
-            if (
-                vx !== 0 && !this.solidFn(Math.floor((this.avatar.x + Math.sign(vx) * 8) / ts), this.avatarTile.tileY)
-            ) {
+            if (vx !== 0 && !this.solidFn(Math.floor((this.avatar.x + Math.sign(vx) * 8) / ts), this.avatarTile.tileY)) {
                 this.avatar.x += vx * (1 / 60);
             }
-            if (
-                vy !== 0
-                && !this.solidFn(this.avatarTile.tileX, Math.floor((this.avatar.y + Math.sign(vy) * 8 - ts * 0.5) / ts))
-            ) {
+            if (vy !== 0 && !this.solidFn(this.avatarTile.tileX, Math.floor((this.avatar.y + Math.sign(vy) * 8 - ts * 0.5) / ts))) {
                 this.avatar.y += vy * (1 / 60);
             }
         }
@@ -689,10 +680,8 @@ export class WorldScene extends Phaser.Scene {
             if (t.dueCount <= 0) {
                 continue;
             }
-            if (
-                !best || t.dueCount > best.dueCount
-                || (t.dueCount === best.dueCount && t.averageRecall < best.averageRecall)
-            ) {
+            if (!best || t.dueCount > best.dueCount
+                || (t.dueCount === best.dueCount && t.averageRecall < best.averageRecall)) {
                 best = t;
             }
         }

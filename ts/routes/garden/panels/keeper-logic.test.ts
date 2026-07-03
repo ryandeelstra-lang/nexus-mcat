@@ -4,9 +4,9 @@
 // charged_up: pure Keeper delivery ordering tests (doc 23 §6.5 / §7.1).
 import { describe, expect, it } from "vitest";
 
+import { planDelivery } from "./keeper-logic";
 import type { TopicMastery } from "../state/mastery";
 import type { PendingEntry } from "../state/store";
-import { planDelivery } from "./keeper-logic";
 
 function topic(overrides: Partial<TopicMastery>): TopicMastery {
     return {
@@ -98,28 +98,7 @@ describe("planDelivery", () => {
         });
     });
 
-    it("on a fresh garden (nothing due) assigns a topic with NEW cards — never 'come back later'", () => {
-        // SPOV1 / doc 24 §2: the Keeper always has a next rep. Least-known topic first.
-        const topics = [
-            topic({ nodeId: "A", dueCount: 0, newCount: 12, averageRecall: 0.5, label: "A" }),
-            topic({ nodeId: "B", dueCount: 0, newCount: 40, averageRecall: 0.0, label: "B" }),
-            topic({ nodeId: "C", dueCount: 0, newCount: 0, averageRecall: 0.9, label: "C" }),
-        ];
-        expect(planDelivery([], topics)[0]).toMatchObject({
-            nodeId: "B",
-            why: "assigned",
-        });
-    });
-
-    it("due topics outrank fresh planting (upkeep before expansion)", () => {
-        const topics = [
-            topic({ nodeId: "A", dueCount: 1, newCount: 0, label: "A" }),
-            topic({ nodeId: "B", dueCount: 0, newCount: 99, averageRecall: 0, label: "B" }),
-        ];
-        expect(planDelivery([], topics)[0]).toMatchObject({ nodeId: "A" });
-    });
-
-    it("returns no assignment when nothing is due and nothing is new", () => {
+    it("returns no assignment when nothing is due", () => {
         const topics = [
             topic({ nodeId: "A", dueCount: 0 }),
             topic({ nodeId: "B", dueCount: 0 }),

@@ -3,8 +3,8 @@ import React, { useRef, useState } from "react";
 
 import { CardAnswer_Rating } from "@generated/anki/scheduler_pb";
 
-import { scopeToDeck } from "./rpc";
 import { StudyCard } from "./StudyCard";
+import { scopeToDeck } from "./rpc";
 
 export interface ProveItTopic {
     nodeId: string;
@@ -58,14 +58,12 @@ export function ProveIt(props: ProveItProps): React.ReactElement {
                 <div className="proveit-brief">
                     <h3>Prove it: {topic.label}</h3>
                     <p>
-                        You remember this - can you use it? Explain the core idea in one line, then take a reworded
-                        check.
+                        You remember this - can you use it?
+                        Explain the core idea in one line, then take a reworded check.
                     </p>
-                    {
-                        /* v1 seam (doc 23 §17): StudyCard cannot yet invert prompt/answer, so we
+                    {/* v1 seam (doc 23 §17): StudyCard cannot yet invert prompt/answer, so we
                         require retrieval-through-explanation before the variant grade step. G3.4
-                        hardens this into real generated variants. */
-                    }
+                        hardens this into real generated variants. */}
                     <label className="proveit-label" htmlFor="proveit-explanation">
                         Your explanation
                     </label>

@@ -110,11 +110,11 @@ export async function fetchMasterySnapshot(): Promise<MasterySnapshot> {
         deckTree({ now: BigInt(Math.floor(Date.now() / 1000)) }, { alertOnError: false }),
     ]);
 
-    // deckTree returns the ROOT node directly (proto: DeckTree(DeckTreeRequest) ->
-    // DeckTreeNode); real decks are its children, names are per-segment.
     const dueByPath = new Map<string, DeckTreeCounts>();
-    for (const child of tree.children) {
-        flattenDeckTree(child as never, "", dueByPath);
+    if (tree.top) {
+        for (const child of tree.top.children) {
+            flattenDeckTree(child as never, "", dueByPath);
+        }
     }
 
     const topics: TopicMastery[] = [];

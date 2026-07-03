@@ -5,10 +5,20 @@
 // "map:toggle"; React owns travel rules on "map:travel".
 import Phaser from "phaser";
 
-import type { TypedBus } from "../../state/bus";
-import { DISPLAY } from "../assets";
+import {
+    applyDisplaySize,
+    DISPLAY,
+    ensureTexture,
+    regionThemeFromSection,
+} from "../assets";
 import { skyStateFor } from "../daynight";
-import { buildWorldPlan, type GardenSection, type WorldPlan } from "../worldgen";
+import type { TypedBus } from "../../state/bus";
+import type { MasterySnapshot, TopicMastery } from "../../state/mastery";
+import {
+    buildWorldPlan,
+    type GardenSection,
+    type WorldPlan,
+} from "../worldgen";
 
 const SECTION_LABELS: Record<GardenSection, string> = {
     "P-S": "Sakura",
@@ -87,6 +97,7 @@ export class MapScene extends Phaser.Scene {
         this.miniRoot.add(bg);
 
         for (const region of this.plan.regions) {
+            const theme = regionThemeFromSection(region.section);
             const rx = region.rect.x * ts * scale;
             const ry = region.rect.y * ts * scale;
             const rw = region.rect.w * ts * scale;

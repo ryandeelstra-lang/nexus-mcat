@@ -153,10 +153,11 @@ function trailKeukenhof(r: RegionRect): { trail: TileCoord[]; water: TileCoord[]
     const water: TileCoord[] = [];
     const canalX = r.x + Math.floor(r.w * 0.35);
     for (let y = r.y + 2; y < r.y + r.h - 2; y++) {
-        water.push({ tileX: canalX, tileY: y });
-        water.push({ tileX: canalX + 1, tileY: y });
+        const drift = Math.round(Math.sin(y * 0.18) * 2);
+        water.push({ tileX: canalX + drift, tileY: y });
+        water.push({ tileX: canalX + drift + 1, tileY: y });
         const offset = Math.round(Math.sin(y * 0.4) * 2);
-        trail.push({ tileX: canalX + 4 + offset, tileY: y });
+        trail.push({ tileX: canalX + 5 + offset, tileY: y });
     }
     return { trail, water };
 }
@@ -180,17 +181,29 @@ function trailVersailles(r: RegionRect): { trail: TileCoord[]; water: TileCoord[
     return { trail, water };
 }
 
-/** Gardens by the Bay: elevated boardwalk / skyway (§9.3). */
+/** Gardens by the Bay: winding boardwalk + two mist lagoons (§9.3). */
 function trailGbtb(r: RegionRect): { trail: TileCoord[]; water: TileCoord[] } {
     const trail: TileCoord[] = [];
     const water: TileCoord[] = [];
     const walkY = r.y + Math.floor(r.h * 0.45);
     for (let x = r.x + 2; x < r.x + r.w - 2; x++) {
-        trail.push({ tileX: x, tileY: walkY });
+        const wobble = Math.round(Math.sin((x - r.x) * 0.12) * 1.5);
+        trail.push({ tileX: x, tileY: walkY + wobble });
     }
-    // Mist pools beneath the skyway
-    for (let x = r.x + 6; x < r.x + r.w - 6; x += 3) {
-        water.push({ tileX: x, tileY: walkY + 3 });
+    // Two organic mist lagoons flanking the walk.
+    const pools = [
+        { cx: r.x + Math.floor(r.w * 0.3), cy: walkY + 7, rr: 3.4 },
+        { cx: r.x + Math.floor(r.w * 0.72), cy: walkY - 8, rr: 4.2 },
+    ];
+    for (const p of pools) {
+        const rCeil = Math.ceil(p.rr);
+        for (let dy = -rCeil; dy <= rCeil; dy++) {
+            for (let dx = -rCeil; dx <= rCeil; dx++) {
+                if (dx * dx + dy * dy <= p.rr * p.rr) {
+                    water.push({ tileX: p.cx + dx, tileY: p.cy + dy });
+                }
+            }
+        }
     }
     return { trail, water };
 }
@@ -228,25 +241,7 @@ function dedupeTiles(tiles: TileCoord[]): TileCoord[] {
     return out;
 }
 
-function regionThemeKey(section: GardenSection): string {
-    switch (section) {
-        case "P-S":
-            return "sakura";
-        case "B-B":
-            return "keukenhof";
-        case "C-P":
-            return "versailles";
-        case "CARS":
-            return "gardens-by-the-bay";
-        default: {
-            const _exhaustive: never = section;
-            return _exhaustive;
-        }
-    }
-}
-
 function propsForRegion(section: GardenSection, rect: RegionRect): PropSpot[] {
-    const theme = regionThemeKey(section);
     const props: PropSpot[] = [];
     const cx = rect.x + Math.floor(rect.w / 2);
     const cy = rect.y + Math.floor(rect.h / 2);
@@ -257,28 +252,31 @@ function propsForRegion(section: GardenSection, rect: RegionRect): PropSpot[] {
                 { key: "prop-sakura-cherry-tree", tileX: rect.x + 8, tileY: rect.y + 6 },
                 { key: "prop-sakura-lantern-a", tileX: cx - 6, tileY: cy - 4 },
                 { key: "prop-sakura-lantern-b", tileX: cx + 6, tileY: cy - 4 },
-                { key: "prop-sakura-bridge", tileX: cx, tileY: cy + 2 },
+                { key: "struct-bridge-sakura", tileX: cx, tileY: cy + 2 },
             );
             break;
         case "B-B":
             props.push(
-                { key: `prop-${theme}-tulip-00`, tileX: rect.x + 10, tileY: rect.y + 8 },
-                { key: `prop-${theme}-tulip-01`, tileX: rect.x + 14, tileY: rect.y + 10 },
-                { key: `prop-${theme}-windmill`, tileX: rect.x + rect.w - 10, tileY: rect.y + 6 },
+                { key: "prop-keukenhof-10", tileX: rect.x + 10, tileY: rect.y + 8 },
+                { key: "prop-keukenhof-36", tileX: rect.x + 14, tileY: rect.y + 26 },
+                {
+                    key: "struct-landmark-keukenhof-windmill",
+                    tileX: rect.x + rect.w - 10,
+                    tileY: rect.y + 6,
+                },
             );
             break;
         case "C-P":
             props.push(
-                { key: `prop-${theme}-fountain`, tileX: cx, tileY: rect.y + 4 },
-                { key: `prop-${theme}-statue`, tileX: rect.x + 8, tileY: cy },
-                { key: `prop-${theme}-hedge`, tileX: rect.x + 4, tileY: cy - 6 },
+                { key: "struct-landmark-versailles-fountain", tileX: cx, tileY: rect.y + 5 },
+                { key: "prop-versailles-r0-03", tileX: rect.x + 8, tileY: cy - 8 },
+                { key: "prop-versailles-sig-01", tileX: rect.x + rect.w - 9, tileY: cy + 9 },
             );
             break;
         case "CARS":
             props.push(
-                { key: `prop-${theme}-supertree`, tileX: cx - 8, tileY: cy - 2 },
-                { key: `prop-${theme}-supertree`, tileX: cx + 8, tileY: cy - 2 },
-                { key: `prop-${theme}-glow`, tileX: cx, tileY: cy },
+                { key: "struct-landmark-gardens-supertrees", tileX: cx - 8, tileY: cy - 8 },
+                { key: "prop-gardens-by-the-bay-09", tileX: cx + 10, tileY: cy + 8 },
             );
             break;
         default: {
@@ -462,7 +460,7 @@ export function plantSpotByNode(plan: WorldPlan, nodeId: string): PlantSpot | un
     return undefined;
 }
 
-function hedgeTilesForRegion(rect: RegionRect): TileCoord[] {
+export function hedgeTilesForRegion(rect: RegionRect): TileCoord[] {
     if (rect.section !== "C-P") {
         return [];
     }

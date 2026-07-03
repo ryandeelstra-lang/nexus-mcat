@@ -12,7 +12,7 @@ import { activeWeeds, planDelivery, recordWeed, type WeedCause } from "./keeper-
 import { ProveIt, type ProveItTopic } from "./ProveIt";
 import { scopeToDeck } from "./rpc";
 import { isFastAnswer } from "./StudyCard";
-import { VoiceStudyCard, type VoiceGradedEvent } from "./VoiceStudyCard";
+import { type VoiceGradedEvent, VoiceStudyCard } from "./VoiceStudyCard";
 
 export interface KeeperSessionSummary {
     answered: number;

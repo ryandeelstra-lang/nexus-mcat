@@ -45,8 +45,8 @@ export function ProveIt(props: ProveItProps): React.ReactElement {
                 <div className="proveit-brief">
                     <h3>Prove it: {topic.label}</h3>
                     <p>
-                        You remember this — can you use it? The Keeper will ask it a new way; answer out loud (or
-                        type) in your own words.
+                        You remember this — can you use it? The Keeper will ask it a new way; answer out loud (or type)
+                        in your own words.
                     </p>
                     <div className="proveit-actions">
                         <button

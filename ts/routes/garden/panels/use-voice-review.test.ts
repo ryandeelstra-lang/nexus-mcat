@@ -6,12 +6,7 @@
 // are covered without a DOM.
 import { describe, expect, it } from "vitest";
 
-import {
-    INITIAL_VOICE_STATE,
-    MS_TAKEN_CAP,
-    voiceReviewReducer,
-    type VoiceReviewState,
-} from "./use-voice-review";
+import { INITIAL_VOICE_STATE, MS_TAKEN_CAP, voiceReviewReducer, type VoiceReviewState } from "./use-voice-review";
 import type { VoiceGradeResult, VoiceNextCard } from "./voice-api";
 
 const CARD: VoiceNextCard = {

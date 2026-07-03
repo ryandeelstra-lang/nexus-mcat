@@ -7,16 +7,9 @@ import Phaser from "phaser";
 import type { TypedBus } from "../../state/bus";
 import type { MasterySnapshot, TopicMastery } from "../../state/mastery";
 import { type GrowthStage, stageFor } from "../../state/stage";
-import {
-    applyDisplaySize,
-    DISPLAY,
-    ensureTexture,
-    regionGrassKey,
-    regionPathKey,
-    regionThemeFromSection,
-    stageTextureKey,
-} from "../assets";
+import { applyDisplaySize, DISPLAY, ensureTexture, hasAssetKey, sizeToHeightTiles, stageTextureKey } from "../assets";
 import { skyStateFor } from "../daynight";
+import { buildTerrainModel, paintGround, planDecor, type TerrainModel } from "../terrain";
 import {
     buildWorldPlan,
     gateIsOpen,
@@ -49,6 +42,7 @@ export class WorldScene extends Phaser.Scene {
     private reducedMotion = false;
     private panelOpen = false;
 
+    private terrain: TerrainModel | null = null;
     private plants = new Map<string, PlantObject>();
     private gates = new Map<string, Phaser.GameObjects.Image>();
     private stageByNode = new Map<string, GrowthStage>();
@@ -105,6 +99,7 @@ export class WorldScene extends Phaser.Scene {
         this.solidFn = (tx, ty) => tileIsSolid(this.plan, tx, ty, this.stageByNode);
 
         this.renderGround();
+        this.renderDecor();
         this.renderGates();
         this.renderPropsAndPlants();
         this.spawnLanternGlows();
@@ -181,50 +176,45 @@ export class WorldScene extends Phaser.Scene {
     }
 
     private renderGround(): void {
+        // One painted organic surface (noise grass, wavy borders, winding paths,
+        // shorelined water) instead of a per-tile checkerboard — no visible grid.
+        this.terrain = buildTerrainModel(this.plan);
+        paintGround(this, this.plan, this.terrain);
+    }
+
+    /** Deterministic foliage scatter — trees/bushes/flowers clustered by species. */
+    private renderDecor(): void {
         const ts = DISPLAY.tile;
-        const trailSet = new Set<string>();
-        for (const r of this.plan.regions) {
-            const theme = regionThemeFromSection(r.section);
-            for (let y = r.rect.y; y < r.rect.y + r.rect.h; y++) {
-                for (let x = r.rect.x; x < r.rect.x + r.rect.w; x++) {
-                    const variant = (x + y) % 3;
-                    const key = ensureTexture(this, regionGrassKey(theme, variant));
-                    const img = this.add.image(x * ts, y * ts, key).setOrigin(0, 0);
-                    applyDisplaySize(img);
-                    img.setDepth(y);
-                }
-            }
-            for (const t of r.trailTiles) {
-                trailSet.add(`${t.tileX},${t.tileY}`);
-            }
-            for (const t of r.waterTiles) {
-                const pondKey = theme === "sakura"
-                    ? ensureTexture(this, `tile-sakura-pond-${String((t.tileX + t.tileY) % 6).padStart(2, "0")}`)
-                    : ensureTexture(this, regionGrassKey(theme, 0));
-                const img = this.add.image(t.tileX * ts, t.tileY * ts, pondKey).setOrigin(0, 0);
-                applyDisplaySize(img);
-                img.setDepth(t.tileY + 0.1);
-            }
-            for (const t of r.trailTiles) {
-                const variant = (t.tileX + t.tileY) % 3;
-                const key = ensureTexture(this, regionPathKey(theme, variant));
-                const img = this.add.image(t.tileX * ts, t.tileY * ts, key).setOrigin(0, 0);
-                applyDisplaySize(img);
-                img.setDepth(t.tileY + 0.2);
-            }
+        if (!this.terrain) {
+            return;
         }
-        // Center plaza path
-        for (const t of this.plan.center.plazaTiles) {
-            const key = ensureTexture(this, regionPathKey("sakura", 1));
-            const img = this.add.image(t.tileX * ts, t.tileY * ts, key).setOrigin(0, 0);
-            applyDisplaySize(img);
-            img.setDepth(t.tileY + 0.15);
+        for (const d of planDecor(this.plan, this.terrain)) {
+            const img = this.add.image(d.x, d.y, ensureTexture(this, d.key));
+            img.setOrigin(0.5, 1);
+            sizeToHeightTiles(img, d.hTiles);
+            img.setFlipX(d.flip);
+            img.setDepth(d.flat ? -5 : d.y / ts);
         }
+    }
+
+    /** Small soil-bed decal so plants read as planted beside the trail. */
+    private ensureBedTexture(): string {
+        const key = "plant-bed";
+        if (!this.textures.exists(key)) {
+            const g = this.make.graphics({ x: 0, y: 0 }, false);
+            g.fillStyle(0x4a3524, 1);
+            g.fillEllipse(24, 10, 44, 18);
+            g.fillStyle(0x5e442e, 1);
+            g.fillEllipse(24, 9, 36, 12);
+            g.generateTexture(key, 48, 20);
+            g.destroy();
+        }
+        return key;
     }
 
     private renderPropsAndPlants(): void {
         const ts = DISPLAY.tile;
-        const sortables: Array<{ obj: Phaser.GameObjects.Image; depth: number }> = [];
+        const bedKey = this.ensureBedTexture();
 
         for (const r of this.plan.regions) {
             for (const p of r.props) {
@@ -232,22 +222,33 @@ export class WorldScene extends Phaser.Scene {
                 const img = this.add.image(p.tileX * ts + ts / 2, p.tileY * ts + ts, key);
                 img.setOrigin(0.5, 1);
                 applyDisplaySize(img);
-                sortables.push({ obj: img, depth: p.tileY + 0.5 });
+                img.setDepth(p.tileY + 0.5);
             }
+            // Region waystone (fast-travel marker).
+            const wsKey = hasAssetKey("struct-waystone-dormant")
+                ? "struct-waystone-dormant"
+                : "struct-waystone";
+            const ws = this.add.image(
+                r.waystone.tileX * ts + ts / 2,
+                r.waystone.tileY * ts + ts,
+                ensureTexture(this, wsKey),
+            );
+            ws.setOrigin(0.5, 1);
+            applyDisplaySize(ws);
+            ws.setDepth(r.waystone.tileY + 0.5);
+
             for (const spot of r.plants) {
+                const bed = this.add.image(spot.tileX * ts + ts / 2, spot.tileY * ts + ts, bedKey);
+                bed.setOrigin(0.5, 0.75);
+                bed.setDepth(spot.tileY + 0.55);
                 const stage = this.stageByNode.get(spot.nodeId) ?? "bare-soil";
                 const key = ensureTexture(this, stageTextureKey(stage));
                 const spr = this.add.image(spot.tileX * ts + ts / 2, spot.tileY * ts + ts, key);
                 spr.setOrigin(0.5, 1);
                 applyDisplaySize(spr);
-                sortables.push({ obj: spr, depth: spot.tileY + 0.6 });
+                spr.setDepth(spot.tileY + 0.6);
                 this.plants.set(spot.nodeId, { nodeId: spot.nodeId, sprite: spr, spot });
             }
-        }
-
-        sortables.sort((a, b) => a.depth - b.depth);
-        for (const s of sortables) {
-            s.obj.setDepth(s.depth);
         }
     }
 
@@ -260,14 +261,17 @@ export class WorldScene extends Phaser.Scene {
     private refreshGateSprite(g: GateSpot): void {
         const ts = DISPLAY.tile;
         const open = gateIsOpen(g, this.stageByNode);
-        const key = ensureTexture(this, open ? "gate-open" : "gate-closed");
+        const openKey = hasAssetKey("struct-gate-open") ? "struct-gate-open" : "gate-open";
+        const closedKey = hasAssetKey("struct-gate-locked") ? "struct-gate-locked" : "gate-closed";
+        const key = ensureTexture(this, open ? openKey : closedKey);
         const existing = this.gates.get(g.id);
         if (existing) {
             existing.setTexture(key);
+            applyDisplaySize(existing);
             return;
         }
-        const img = this.add.image(g.tileX * ts + ts / 2, g.tileY * ts + ts / 2, key);
-        img.setOrigin(0.5, 0.5);
+        const img = this.add.image(g.tileX * ts + ts / 2, (g.tileY + 1) * ts, key);
+        img.setOrigin(0.5, 1);
         applyDisplaySize(img);
         img.setDepth(g.tileY + 0.55);
         this.gates.set(g.id, img);
@@ -323,6 +327,14 @@ export class WorldScene extends Phaser.Scene {
         const ts = DISPLAY.tile;
         const kx = KEEPER_TILE.tileX * ts + ts / 2;
         const ky = KEEPER_TILE.tileY * ts + ts;
+
+        // A gazebo anchors the plaza behind the Keeper.
+        if (hasAssetKey("struct-gazebo")) {
+            const gz = this.add.image(kx + 3.6 * ts, ky - 2.2 * ts, ensureTexture(this, "struct-gazebo"));
+            gz.setOrigin(0.5, 1);
+            applyDisplaySize(gz);
+            gz.setDepth(KEEPER_TILE.tileY - 2.2 + 0.5);
+        }
         this.keeper = this.add.image(kx, ky, ensureTexture(this, "keeper-meditating"));
         this.keeper.setOrigin(0.5, 1);
         applyDisplaySize(this.keeper);

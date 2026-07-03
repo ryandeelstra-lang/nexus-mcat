@@ -208,9 +208,7 @@ export function VoiceStudyCard(props: VoiceStudyCardProps): React.ReactElement {
                 <>
                     <div className="voice-keeper-line" aria-live="polite">
                         <p>{keeperLine}</p>
-                        {state.rePrompt?.hint && (
-                            <p className="voice-hint">{state.rePrompt.hint}</p>
-                        )}
+                        {state.rePrompt?.hint && <p className="voice-hint">{state.rePrompt.hint}</p>}
                         {state.card?.isFreshVariant && (
                             <span
                                 className="voice-variant-badge"
@@ -309,20 +307,14 @@ export function VoiceStudyCard(props: VoiceStudyCardProps): React.ReactElement {
                             {BUCKET_BEAT[state.result.bucket].icon}
                         </span>{" "}
                         {BUCKET_BEAT[state.result.bucket].title}
-                        {state.result.recovered && (
-                            <span className="voice-recovered-tag"> recovered</span>
-                        )}
-                        {state.result.bloomed && (
-                            <span className="voice-bloom-tag"> bloom ✿</span>
-                        )}
+                        {state.result.recovered && <span className="voice-recovered-tag">recovered</span>}
+                        {state.result.bloomed && <span className="voice-bloom-tag">bloom ✿</span>}
                     </h3>
                     <p className="voice-transcript">
                         You said: “{state.result.transcript}”
                     </p>
                     <p className="voice-answer">Answer: {state.result.correctAnswer}</p>
-                    {state.result.rationale && (
-                        <p className="voice-why">{state.result.rationale}</p>
-                    )}
+                    {state.result.rationale && <p className="voice-why">{state.result.rationale}</p>}
                     {state.result.keyPointsHit.length > 0 && (
                         <p className="voice-points-hit">
                             ✓ {state.result.keyPointsHit.join(" · ")}

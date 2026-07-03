@@ -1,0 +1,9 @@
+PYTHONPATH=/Users/ryandeelstra/charged_up/codebase/anki-garden/out/pylib:/Users/ryandeelstra/charged_up/codebase/anki-garden /Users/ryandeelstra/charged_up/codebase/anki-garden/out/pyenv/bin/python scripts/bench.py --collection /tmp/bench50k.anki2 --iters 200
+anki-garden/scripts/bench.py:62:reset() is deprecated: no longer required
+action                 p50(ms)   p95(ms)   worst(ms)    budget  result
+button_ack                1.72     3.234      46.706        50    PASS
+next_card                1.073     2.185      92.913       100    PASS
+dashboard_load         527.835   527.835     527.835      1000    PASS
+dashboard_refresh      276.039  1026.799    3964.359       500    FAIL
+N per action = 200; source = /tmp/bench50k.anki2; device = local dev machine (arm64 macOS)
+make: *** [bench] Error 1

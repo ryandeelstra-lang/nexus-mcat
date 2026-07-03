@@ -8,7 +8,9 @@
 // or autoplay is blocked entirely, the overlay simply steps aside.
 import React, { useCallback, useEffect, useRef } from "react";
 
-const INTRO_SEEN_KEY = "garden.introSeen.v1";
+// Bump this when the intro video changes so the new cut replays once for players who
+// already saw a prior version (the seen-flag is versioned, not a bare boolean).
+const INTRO_SEEN_KEY = "garden.introSeen.v2";
 
 // Deferred via glob so builds without the rendered video stay green.
 const INTRO_URLS = import.meta.glob("../assets/video/intro.mp4", {

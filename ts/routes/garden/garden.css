@@ -656,6 +656,184 @@
     z-index: 1;
 }
 
+/* ── the voice Keeper reviewer (voice-Keeper spec §3) ─────────────────────────
+   Buckets are signaled by TITLE WORDS + a shape icon (✿/🌱/↻/💧); the tone classes
+   add only a soft background tint — hue is never the sole signal (§11). */
+
+.voice-keeper-line {
+    background: rgba(246, 234, 216, 0.96);
+    border: 2px solid #6b4a2f;
+    border-radius: 6px;
+    color: #2b2416;
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 10px 12px;
+    position: relative;
+    z-index: 1;
+}
+
+.voice-keeper-line p {
+    margin: 0;
+}
+
+.voice-hint {
+    color: #6b5a3f;
+    font-size: 13px;
+    font-style: italic;
+    margin-top: 6px !important;
+}
+
+.voice-variant-badge {
+    background: #e9d8f0;
+    border: 1px solid #8a6644;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    margin-top: 6px;
+    padding: 1px 6px;
+    position: absolute;
+    right: 8px;
+    top: 6px;
+}
+
+.voice-answer-row {
+    align-items: stretch;
+}
+
+.voice-mic {
+    background: #8fbf7b;
+    flex: 0 0 auto;
+    font-weight: 700;
+}
+
+.voice-mic-live {
+    animation: voice-pulse 1.2s ease-in-out infinite;
+    background: #d98c8c;
+}
+
+@keyframes voice-pulse {
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(217, 140, 140, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(217, 140, 140, 0);
+    }
+}
+
+.voice-type-row {
+    display: flex;
+    flex: 1 1 240px;
+    gap: 6px;
+}
+
+.voice-type-field {
+    background: #f9f1e5;
+    border: 2px solid #8a6644;
+    border-radius: 6px;
+    color: #2b2416;
+    flex: 1;
+    font-size: 14px;
+    padding: 6px 8px;
+}
+
+.voice-idk {
+    background: #d9d2c3;
+    flex: 0 0 auto;
+}
+
+.voice-result {
+    background: rgba(246, 234, 216, 0.96);
+    border: 2px solid #6b4a2f;
+    border-radius: 6px;
+    color: #2b2416;
+    padding: 10px 12px;
+    position: relative;
+    z-index: 1;
+}
+
+.voice-result h3 {
+    font-size: 16px;
+    margin: 0 0 8px;
+}
+
+.voice-result p {
+    font-size: 14px;
+    line-height: 1.45;
+    margin: 4px 0;
+}
+
+.voice-beat-good {
+    background: rgba(215, 234, 208, 0.96);
+}
+
+.voice-beat-okay {
+    background: rgba(233, 240, 214, 0.96);
+}
+
+.voice-beat-ask {
+    background: rgba(243, 216, 188, 0.96);
+}
+
+.voice-beat-idk {
+    background: rgba(217, 231, 245, 0.96);
+}
+
+.voice-bloom-tag {
+    color: #7a4f9e;
+    font-weight: 700;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .voice-beat-good .voice-beat-icon {
+        animation: voice-bloom-pop 0.6s ease-out 1;
+        display: inline-block;
+    }
+}
+
+@keyframes voice-bloom-pop {
+    0% {
+        transform: scale(0.4) rotate(-20deg);
+    }
+    60% {
+        transform: scale(1.35) rotate(8deg);
+    }
+    100% {
+        transform: scale(1) rotate(0);
+    }
+}
+
+.voice-transcript {
+    font-style: italic;
+}
+
+.voice-points-hit {
+    color: #3d6b2f;
+}
+
+.voice-points-missed {
+    color: #8a4b3a;
+}
+
+.voice-score {
+    font-weight: 700;
+}
+
+.voice-sentinel {
+    color: #6b5a3f;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.voice-appeal {
+    background: #d9d2c3;
+    font-size: 13px;
+}
+
+.voice-mic-error {
+    background: rgba(243, 216, 188, 0.9);
+}
+
 @media (max-width: 720px) {
     .hud-top-right {
         flex-wrap: wrap;
@@ -664,6 +842,10 @@
     }
 
     .keeper-grades {
+        flex-direction: column;
+    }
+
+    .voice-answer-row {
         flex-direction: column;
     }
 }

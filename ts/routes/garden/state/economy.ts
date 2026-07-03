@@ -82,3 +82,34 @@ export function onGradedAnswer(b: Balances, cfg: EconomyConfig = ECONOMY): Balan
 export function onBloom(b: Balances, cfg: EconomyConfig = ECONOMY): Balances {
     return { ...b, seeds: b.seeds + cfg.seedsPerBloom };
 }
+
+/** Mirrors voice-api's VoiceBucket — kept as a local literal union so the state layer
+ * never imports from panels (both sides are pinned by tests). */
+export type VoiceBucket = "good" | "okay" | "ask_again" | "dont_know";
+
+/** Doc 24 §3 bucket-scaled WATER rewards (voice-Keeper spec ruling 2). Seeds still come
+ * only from blooms. */
+export const VOICE_WATER_REWARD: Record<VoiceBucket, number> = {
+    good: 3,
+    okay: 2,
+    ask_again: 1,
+    dont_know: 1,
+};
+const RECOVERED_REWARD = 2;
+
+/**
+ * A voice-graded answer landed in the engine. Better answers pay more water; a recovered
+ * second attempt pays +2 (doc 24 §13 "recovered"); showing up always pays at least +1.
+ * Integrity unchanged (I4): currency never buys mastery or growth.
+ */
+export function onVoiceGradedAnswer(
+    b: Balances,
+    bucket: VoiceBucket,
+    recovered: boolean,
+    cfg: EconomyConfig = ECONOMY,
+): Balances {
+    const reward = recovered && (bucket === "good" || bucket === "okay")
+        ? RECOVERED_REWARD
+        : VOICE_WATER_REWARD[bucket];
+    return { ...b, water: b.water + reward, xp: b.xp + cfg.xpPerGradedAnswer };
+}

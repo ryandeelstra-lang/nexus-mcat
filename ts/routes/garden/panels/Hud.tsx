@@ -50,11 +50,13 @@ function tutorialHint(tutorial: TutorialState): string {
         case 0:
             return "Walk to the Keeper at the center.";
         case 1:
-            return "Plant one topic, then water it.";
+            return "Talk with the Keeper to begin.";
         case 2:
-            return "Return to the Keeper to answer queued cards.";
+            return "Answer aloud or by typing - every answer refills water.";
         case 3:
-            return "Keep tending - blooms open new paths.";
+            return "Walk anywhere and press Space to water the ground.";
+        case 4:
+            return "Explain it in your words - the plant blooms and a gate opens.";
         default:
             return "One plot at a time is enough.";
     }

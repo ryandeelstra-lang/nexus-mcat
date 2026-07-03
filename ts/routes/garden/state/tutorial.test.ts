@@ -18,18 +18,16 @@ import {
 const HAPPY_PATH: TutorialEvent["kind"][] = [
     "reached-keeper",
     "keeper-opened",
-    "planted",
-    "watered",
-    "keeper-opened",
     "answered",
+    "watered",
     "bloomed",
     "map-opened",
 ];
 
 describe("tutorial — the doc 23 §10.4 beat sheet", () => {
-    it("has exactly 8 beats with stable ids", () => {
-        expect(TUTORIAL_BEATS).toHaveLength(8);
-        expect(TUTORIAL_BEATS.map((b) => b.id)).toEqual([0, 1, 2, 3, 4, 5, 6, 7]);
+    it("has exactly 6 beats with stable ids", () => {
+        expect(TUTORIAL_BEATS).toHaveLength(6);
+        expect(TUTORIAL_BEATS.map((b) => b.id)).toEqual([0, 1, 2, 3, 4, 5]);
     });
 
     it("completes start-to-finish on the happy path", () => {
@@ -62,7 +60,7 @@ describe("tutorial — the doc 23 §10.4 beat sheet", () => {
     });
 
     it("a finished tutorial never re-opens", () => {
-        const done: TutorialSnapshot = { beat: 8, done: true };
+        const done: TutorialSnapshot = { beat: 6, done: true };
         expect(currentBeat(done)).toBeNull();
         expect(advance(done, { kind: "map-opened" })).toBe(done);
     });

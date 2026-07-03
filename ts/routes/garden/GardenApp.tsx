@@ -130,8 +130,8 @@ export function GardenApp(): React.ReactElement {
                 feed({ kind: "reached-keeper" });
                 feed({ kind: "keeper-opened" });
             }),
-            bus.on("plant:planted", () => feed({ kind: "planted" })),
             bus.on("plant:watered", () => feed({ kind: "watered" })),
+            bus.on("ground:watered", () => feed({ kind: "watered" })),
             bus.on("growth:tick", () => feed({ kind: "answered" })),
             bus.on("plant:bloomed", () => {
                 feed({ kind: "bloomed" });

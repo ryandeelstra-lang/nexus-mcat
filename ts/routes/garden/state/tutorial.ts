@@ -21,14 +21,15 @@ export interface TutorialBeat {
 export type TutorialEvent =
     | { kind: "moved" }
     | { kind: "reached-keeper" }
-    | { kind: "planted" }
     | { kind: "watered" }
     | { kind: "keeper-opened" }
     | { kind: "answered" }
     | { kind: "bloomed" }
     | { kind: "map-opened" };
 
-/** Doc 23 §10.4, beats 1–8 (the splash is outside the machine — Decision 37 owns it). */
+/** Doc 23 §10.4, the new loop (talk → answer → water anywhere → bloom → map). The splash is
+ * outside the machine — Decision 37 owns it. Planting a seed is gone (Decision, 2026-07-03):
+ * the player waters the ground itself and the garden wakes where they tend. */
 export const TUTORIAL_BEATS: readonly TutorialBeat[] = [
     {
         id: 0,
@@ -39,45 +40,33 @@ export const TUTORIAL_BEATS: readonly TutorialBeat[] = [
     {
         id: 1,
         hint: "The Keeper: \u201cThis garden is your mind — mostly bare paths, for now. "
-            + "That's not a verdict; it's room to grow. Let's plant something.\u201d",
+            + "That's not a verdict; it's room to grow. Sit with me a moment.\u201d",
         focus: "keeper",
         advanceOn: "keeper-opened",
     },
     {
         id: 2,
-        hint: "\u201cEvery plant starts as a question.\u201d Walk to the glowing plot and plant a seed \uD83C\uDF31.",
-        focus: "plant",
-        advanceOn: "planted",
-    },
-    {
-        id: 3,
-        hint:
-            "\u201cTend it — walk up and water it.\u201d Each pour \uD83D\uDCA7 queues its questions for your next visit.",
-        focus: "plant",
-        advanceOn: "watered",
-    },
-    {
-        id: 4,
-        hint: "\u201cKnowledge fades if you don't return. Your questions are growing underground — "
-            + "come see me when you're ready.\u201d",
-        focus: "keeper",
-        advanceOn: "keeper-opened",
-    },
-    {
-        id: 5,
-        hint: "Answer the questions you queued. Each graded answer grows the plant — and refills your water.",
+        hint: "\u201cJust talk with me.\u201d Speak or type your answer — I grade what you truly know, "
+            + "and every answer refills your water \uD83D\uDCA7.",
         focus: "keeper",
         advanceOn: "answered",
     },
     {
-        id: 6,
+        id: 3,
+        hint: "\u201cNow tend the ground.\u201d Walk anywhere and press Space to water \uD83D\uDCA7 — "
+            + "where you pour, the garden wakes.",
+        focus: "none",
+        advanceOn: "watered",
+    },
+    {
+        id: 4,
         hint: "\u201cYou didn't just remember it — you can explain it.\u201d When a reworded check passes, "
             + "the plant BLOOMS and a gate on the path opens.",
         focus: "plant",
         advanceOn: "bloomed",
     },
     {
-        id: 7,
+        id: 5,
         hint: "\u201cThis is your whole world. Bloom it, and paths open. Come back daily — "
             + "I'll tell you what to tend.\u201d Press M to see your map, then start today's tending.",
         focus: "map",
@@ -114,5 +103,5 @@ export function advance(state: TutorialSnapshot, event: TutorialEvent): Tutorial
     return { beat: next, done: false };
 }
 
-/** The bloom beat (id 6) must never be skippable by non-bloom events — pinned by tests. */
-export const BLOOM_BEAT_ID = 6;
+/** The bloom beat (id 4) must never be skippable by non-bloom events — pinned by tests. */
+export const BLOOM_BEAT_ID = 4;

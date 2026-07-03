@@ -295,15 +295,45 @@
     fill: #8bbfe5;
 }
 
+/* Zelda-style: the Keeper talks to you IN the world. The backdrop only softly darkens the
+ * top of the scene, the dialogue anchors to the bottom like a JRPG textbox, and the world
+ * stays visible behind it so it feels like a conversation, not a modal card. */
 .keeper-overlay {
-    align-items: flex-start;
+    align-items: flex-end;
+    justify-content: center;
     overflow-y: auto;
-    padding-top: 20px;
+    padding: 0 clamp(12px, 4vw, 48px) clamp(14px, 3.5vh, 40px);
+    background: linear-gradient(
+        180deg,
+        rgba(18, 12, 8, 0.16) 0%,
+        rgba(18, 12, 8, 0.28) 55%,
+        rgba(18, 12, 8, 0.52) 100%
+    );
 }
 
 .keeper-panel-shell {
-    max-width: min(940px, 96vw);
+    display: grid;
+    gap: 10px;
+    max-width: min(980px, 96vw);
     width: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .keeper-panel-shell {
+        animation: keeper-rise 220ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    @keyframes keeper-rise {
+        from {
+            opacity: 0;
+            transform: translateY(18px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 }
 
 .keeper-greeting {
@@ -726,30 +756,50 @@
 
 .keeper-panel-dialogue {
     gap: 12px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+}
+
+.keeper-panel-dialogue::before {
+    display: none;
 }
 
 .keeper-dialogue {
     align-items: flex-start;
-    background: #f6ead8;
+    background:
+        radial-gradient(120% 140% at 12% 0%, rgba(255, 249, 236, 0.9), transparent 60%),
+        #f6ead8;
     border: 3px solid #6b4a2f;
-    border-radius: 8px;
-    box-shadow: 0 4px 0 #3f2c1a;
+    border-radius: 12px;
+    box-shadow: 0 8px 0 #3f2c1a, 0 14px 28px rgba(20, 12, 6, 0.4);
     display: flex;
-    gap: 12px;
-    padding: 12px 14px;
+    gap: 16px;
+    padding: 16px 18px;
     position: relative;
     z-index: 1;
 }
 
+.keeper-dialogue::after {
+    border: 2px solid rgba(107, 74, 47, 0.3);
+    border-radius: 8px;
+    content: "";
+    inset: 6px;
+    pointer-events: none;
+    position: absolute;
+}
+
 .keeper-dialogue-portrait {
     background: #efe0c6;
-    border: 2px solid #6b4a2f;
-    border-radius: 6px;
+    border: 3px solid #6b4a2f;
+    border-radius: 10px;
+    box-shadow: inset 0 0 0 2px rgba(255, 249, 236, 0.6);
     flex: 0 0 auto;
-    height: 72px;
+    height: 108px;
     image-rendering: pixelated;
     object-fit: cover;
-    width: 72px;
+    width: 108px;
 }
 
 .keeper-dialogue-body {
@@ -767,10 +817,10 @@
 }
 
 .keeper-dialogue-name {
-    color: #6b4a2f;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.02em;
+    color: #7a5230;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
 }
 
@@ -785,9 +835,10 @@
 
 .keeper-dialogue-text p {
     font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    font-size: 18px;
-    line-height: 1.5;
+    font-size: 20px;
+    line-height: 1.55;
     margin: 0;
+    min-height: 1.55em;
 }
 
 .keeper-dialogue-choices {
@@ -1090,6 +1141,42 @@
     margin-top: 8px;
     position: relative;
     z-index: 1;
+}
+
+/* Transient tending feedback (out of water, watered open ground) — a gentle world toast. */
+.garden-toast {
+    background: rgba(246, 234, 216, 0.96);
+    border: 2px solid #6b4a2f;
+    border-radius: 8px;
+    box-shadow: 0 4px 0 #3f2c1a;
+    color: #2b2416;
+    font-size: 15px;
+    font-weight: 600;
+    left: 50%;
+    padding: 8px 16px;
+    pointer-events: none;
+    position: absolute;
+    top: 76px;
+    transform: translateX(-50%);
+    z-index: 60;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .garden-toast {
+        animation: garden-toast-in 200ms ease-out;
+    }
+
+    @keyframes garden-toast-in {
+        from {
+            opacity: 0;
+            transform: translate(-50%, -8px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+    }
 }
 
 .map-help-panel {

@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { bus } from "../state/bus";
-import { canPlant, canWater, spendPlant, spendWater } from "../state/economy";
+import { canWater, spendWater } from "../state/economy";
 import type { MasterySnapshot } from "../state/mastery";
 import { stageFor } from "../state/stage";
 import type { GardenDoc, GardenStore } from "../state/store";
@@ -53,7 +53,9 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
     const [dashboard, setDashboard] = useState<DashboardData | null>(null);
     const [harvest, setHarvest] = useState<HarvestState | null>(null);
     const [weeds, setWeeds] = useState<Record<string, WeedState>>({});
+    const [toast, setToast] = useState<string>("");
     const lastKeeperSummary = useRef<KeeperSessionSummary | null>(null);
+    const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const growthLine = useMemo(() => extractProjectionLine(dashboard), [dashboard]);
     const selectedTopic = selectedNodeId ? snapshot.byNode.get(selectedNodeId) ?? null : null;
@@ -79,6 +81,42 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
         setWeeds(payload);
     }, []);
 
+    const flashToast = useCallback((message: string): void => {
+        setToast(message);
+        if (toastTimer.current) {
+            clearTimeout(toastTimer.current);
+        }
+        toastTimer.current = setTimeout(() => setToast(""), 2400);
+    }, []);
+
+    /** Water the ground where the player stands (Space anywhere). The world owns the cosmetic
+     * burst; here we own the ledger: spend one pour, and if the pour reached a plot, queue that
+     * topic for the next Keeper visit (I1 — queueing only, never a due-date write). */
+    const waterGround = useCallback(
+        (nodeId: string | null): void => {
+            if (!canWater(store.snapshot.economy)) {
+                flashToast("Out of water — answer at the Keeper to refill 💧");
+                return;
+            }
+            store.setBalances(spendWater(store.snapshot.economy));
+            if (nodeId) {
+                const topic = snapshot.byNode.get(nodeId);
+                if (topic) {
+                    store.enqueue({
+                        nodeId,
+                        deckPath: topic.deckPath,
+                        kind: "water",
+                    });
+                }
+                bus.emit("plant:watered", { nodeId });
+            } else {
+                flashToast("The soil drinks it in. Water beside a plot to tend it 🌱");
+            }
+            setDoc(cloneDoc(store.snapshot));
+        },
+        [store, snapshot, flashToast],
+    );
+
     useEffect(() => {
         void store.load()
             .then(() => syncFromStore())
@@ -95,6 +133,9 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
         });
         const offKeeper = bus.on("keeper:interact", () => {
             setOverlay("keeper");
+        });
+        const offGround = bus.on("ground:watered", ({ nodeId }) => {
+            waterGround(nodeId);
         });
         // Live HUD: every graded answer refills water (doc 23 §7) — the chips must tick
         // mid-session, not only at session end.
@@ -118,10 +159,11 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
         return () => {
             offPlant();
             offKeeper();
+            offGround();
             offGrowth();
             offReviewClosed();
         };
-    }, [refreshDashboard, refreshSnapshot, refreshWeeds, syncFromStore]);
+    }, [refreshDashboard, refreshSnapshot, refreshWeeds, syncFromStore, waterGround]);
 
     useEffect(() => {
         function onKeydown(e: KeyboardEvent): void {
@@ -155,29 +197,15 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
         }
     }
 
-    function plantSelectedTopic(): void {
-        if (!selectedTopic) {
-            return;
-        }
-        try {
-            store.setBalances(spendPlant(store.snapshot.economy));
-            store.enqueue({
-                nodeId: selectedTopic.nodeId,
-                deckPath: selectedTopic.deckPath,
-                kind: "plant",
-            });
-            bus.emit("plant:planted", { nodeId: selectedTopic.nodeId });
-            syncFromStore();
-        } catch {
-            syncFromStore();
-        }
-    }
-
     const canWaterNow = canWater(doc.economy);
-    const canPlantNow = canPlant(doc.economy);
 
     return (
         <div className="garden-ui">
+            {toast && (
+                <div className="garden-toast" role="status" aria-live="polite">
+                    {toast}
+                </div>
+            )}
             <Hud
                 balances={doc.economy}
                 tutorial={doc.tutorial}
@@ -232,22 +260,9 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
                                     Out of water - answer questions at the Keeper to refill.
                                 </p>
                             )}
-                            {selectedStage === "bare-soil" && (
-                                <>
-                                    <button
-                                        className="hud-ghost-button"
-                                        onClick={plantSelectedTopic}
-                                        disabled={!canPlantNow}
-                                    >
-                                        Plant 🌱
-                                    </button>
-                                    {!canPlantNow && (
-                                        <p className="plant-card-reason">
-                                            Out of seeds - blooms refill seeds.
-                                        </p>
-                                    )}
-                                </>
-                            )}
+                            <p className="plant-card-reason">
+                                Tip: walk anywhere and press <kbd>Space</kbd> to water the ground.
+                            </p>
                         </div>
                     </div>
                 </div>

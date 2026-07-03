@@ -10,8 +10,15 @@ export interface GardenEvents {
     "plant:interact": { nodeId: string };
     /** A pour was spent on a plant (already validated by the store). */
     "plant:watered": { nodeId: string };
-    /** A seed was spent planting a topic (queues its intro cards). */
-    "plant:planted": { nodeId: string };
+    /**
+     * The player watered the ground itself (Space anywhere — the primary tending verb).
+     * `x`/`y` are world px for the cosmetic greening burst; `nodeId` is the nearest plot the
+     * pour reaches (or null on open ground). The panel layer validates/spends water and,
+     * when a plot is reached, queues it for the next Keeper visit.
+     */
+    "ground:watered": { x: number; y: number; nodeId: string | null };
+    /** The world asks the panel layer whether a pour is affordable (HUD feedback only). */
+    "water:denied": Record<string, never>;
     /** A graded answer landed in the engine; the world should tick growth. */
     "growth:tick": { nodeId: string; rating: number; msTaken: number; fast: boolean };
     /** The paraphrase gate passed for a topic — the bloom moment (biggest juice). */

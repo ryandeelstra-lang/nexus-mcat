@@ -375,10 +375,79 @@ export class WorldScene extends Phaser.Scene {
         this.spaceKey = this.input.keyboard.addKey("SPACE");
 
         this.interactKey.on("down", () => this.tryInteract());
+        // Space is the tending verb (docs 2026-07-03): near a person/marker it interacts
+        // (talk to the Keeper, use a waystone/gate); on open ground it WATERS where you stand
+        // and the garden wakes there. Planting seeds is gone — you water the ground itself.
         this.spaceKey.on("down", () => {
-            if (!this.panelOpen) {
-                this.tryInteract();
+            if (this.panelOpen) {
+                return;
             }
+            if (this.nearTarget === "keeper" || this.nearTarget === "waystone"
+                || this.nearTarget === "gate") {
+                this.tryInteract();
+            } else {
+                this.waterGround();
+            }
+        });
+    }
+
+    /** Water the ground at the avatar's feet: cosmetic greening burst + a request to the panel
+     * layer (which owns the water ledger) to spend a pour and queue the nearest plot. */
+    private waterGround(): void {
+        if (!this.avatar) {
+            return;
+        }
+        const nodeId = this.nearestPlotNode(6);
+        this.bus.emit("ground:watered", {
+            x: this.avatar.x,
+            y: this.avatar.y - DISPLAY.tile * 0.5,
+            nodeId,
+        });
+        this.fxGroundWater(this.avatar.x, this.avatar.y);
+    }
+
+    /** The nearest plot within `maxTiles` of the avatar (or null on open ground). */
+    private nearestPlotNode(maxTiles: number): string | null {
+        const ax = this.avatarTile.tileX + 0.5;
+        const ay = this.avatarTile.tileY + 0.5;
+        let best: string | null = null;
+        let bestD = maxTiles;
+        for (const [, plant] of this.plants) {
+            const d = this.distTiles(ax, ay, plant.spot.tileX + 0.5, plant.spot.tileY + 0.5);
+            if (d < bestD) {
+                bestD = d;
+                best = plant.nodeId;
+            }
+        }
+        return best;
+    }
+
+    /** A ring of droplets + a soft green "wake" pulse where the player pours. Cosmetic only —
+     * real growth still comes from graded reviews (I4); this just makes tending feel alive. */
+    private fxGroundWater(x: number, y: number): void {
+        if (this.reducedMotion) {
+            return;
+        }
+        const drops = this.add.particles(x, y - DISPLAY.tile * 0.4, ensureTexture(this, "fx-droplet"), {
+            speed: { min: 30, max: 70 },
+            angle: { min: 200, max: 340 },
+            lifespan: 480,
+            quantity: 10,
+            scale: { start: 0.5, end: 0 },
+            gravityY: 120,
+            tint: 0x6ec5ff,
+        });
+        drops.setDepth(8500);
+        this.time.delayedCall(560, () => drops.destroy());
+        const pulse = this.add.circle(x, y - 4, 8, 0x8fdc72, 0.4);
+        pulse.setDepth(this.avatarTile.tileY + 0.4);
+        this.tweens.add({
+            targets: pulse,
+            scale: 4,
+            alpha: 0,
+            duration: 620,
+            ease: "Cubic.easeOut",
+            onComplete: () => pulse.destroy(),
         });
     }
 

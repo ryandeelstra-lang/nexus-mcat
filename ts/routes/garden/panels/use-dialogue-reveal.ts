@@ -10,8 +10,8 @@ import { useEffect, useRef, useState } from "react";
 
 import type { VoiceBucket } from "./voice-api";
 
-const WORDS_PER_TICK = 2;
-const TICK_MS = 55;
+const WORDS_PER_TICK = 3;
+const TICK_MS = 42;
 const _WS = /\s+/;
 
 export interface KeeperReplyInput {

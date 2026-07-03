@@ -196,6 +196,14 @@ export function VoiceStudyCard(props: VoiceStudyCardProps): React.ReactElement {
     stopRef.current = tts.stop;
     useEffect(() => () => stopRef.current(), []);
 
+    // Snappy feel: as soon as a fresh ask is answerable, focus the type field so the player can
+    // talk back immediately (mic stays one Space away). Never steals focus mid-listen/thinking.
+    useEffect(() => {
+        if (answerable && !canMic) {
+            typedRef.current?.focus();
+        }
+    }, [answerable, canMic, state.card?.cardId]);
+
     const submitTyped = useCallback(async (): Promise<void> => {
         const text = typed;
         setTyped("");

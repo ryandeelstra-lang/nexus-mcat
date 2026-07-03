@@ -36,10 +36,6 @@ const MISS_CHIPS: Array<{ cause: WeedCause; label: string }> = [
     { cause: "too-slow", label: "too slow" },
 ];
 
-function keeperPortraitSrc(): string {
-    return new URL("../assets/char/keeper-portrait.png", globalThis.location.href).toString();
-}
-
 export function KeeperPanel(props: KeeperPanelProps): React.ReactElement {
     const { store, snapshot, refreshSnapshot, onClose, onWeedsChanged } = props;
     const [activeIndex, setActiveIndex] = useState(0);
@@ -53,7 +49,6 @@ export function KeeperPanel(props: KeeperPanelProps): React.ReactElement {
     const [proveQueue, setProveQueue] = useState<ProveItTopic[]>([]);
     const [proveIndex, setProveIndex] = useState(0);
     const [coaching, setCoaching] = useState("");
-    const [showPortrait, setShowPortrait] = useState(true);
 
     const answered = useRef(0);
     const blooms = useRef(0);
@@ -175,21 +170,6 @@ export function KeeperPanel(props: KeeperPanelProps): React.ReactElement {
 
     return (
         <div className="keeper-panel-shell" role="dialog" aria-label="Keeper panel">
-            <div className="keeper-greeting">
-                {showPortrait && (
-                    <img
-                        className="keeper-portrait"
-                        src={keeperPortraitSrc()}
-                        alt=""
-                        onError={() => setShowPortrait(false)}
-                    />
-                )}
-                <div>
-                    <h2>The Keeper</h2>
-                    <p>Bring me what you tended; we will make it grow.</p>
-                </div>
-            </div>
-
             {mode === "study" && current && (
                 <>
                     {scoping && <div className="keeper-status">Preparing {current.label}…</div>}

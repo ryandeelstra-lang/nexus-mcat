@@ -9,6 +9,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import type { GardenGame } from "./game/create-game";
 import { GardenUI } from "./panels/GardenUI";
+import { introPending, IntroVideo } from "./panels/IntroVideo";
 import { activeWeeds } from "./panels/keeper-logic";
 import { bus } from "./state/bus";
 import { fetchMasterySnapshot, type MasterySnapshot } from "./state/mastery";
@@ -24,6 +25,8 @@ export function GardenApp(): React.ReactElement {
     const [phase, setPhase] = useState<BootPhase>("booting");
     const [bootError, setBootError] = useState<string>("");
     const [snapshot, setSnapshot] = useState<MasterySnapshot | null>(null);
+    // Decision-37 splash slot: the first-run cinematic plays over boot, once.
+    const [showIntro, setShowIntro] = useState<boolean>(introPending);
 
     /** Re-read engine truth and push it into the world (drives re-staging every plant). */
     const refreshSnapshot = useCallback(async (): Promise<void> => {
@@ -167,6 +170,7 @@ export function GardenApp(): React.ReactElement {
                     refreshSnapshot={refreshSnapshot}
                 />
             )}
+            {showIntro && <IntroVideo onDone={() => setShowIntro(false)} />}
         </div>
     );
 }

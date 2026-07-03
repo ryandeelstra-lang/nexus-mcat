@@ -71,6 +71,11 @@ export function hasAssetKey(key: string): boolean {
     return URL_BY_KEY.has(key);
 }
 
+/** All discovered asset keys (the cinematic renderer uses this for selective preloads). */
+export function allAssetKeys(): string[] {
+    return [...URL_BY_KEY.keys()];
+}
+
 export function stageTextureKey(stage: GrowthStage): string {
     const idx = STAGE_ORDER.indexOf(stage);
     return `plant-stage-${String(idx).padStart(2, "0")}-${stage}`;
@@ -276,6 +281,28 @@ function generatePlaceholder(scene: Phaser.Scene, key: string): void {
         return;
     }
 
+    if (key.startsWith("foliage-")) {
+        g.fillStyle(0x5b3d2a, 1);
+        g.fillRect(20, 30, 8, 14);
+        g.fillStyle(0x4a7c3f, 1);
+        g.fillCircle(24, 20, 16);
+        g.generateTexture(key, 48, 48);
+        g.destroy();
+        generated.add(key);
+        return;
+    }
+
+    if (key.startsWith("struct-")) {
+        g.fillStyle(0x8b6914, 1);
+        g.fillRect(8, 16, 32, 28);
+        g.fillStyle(0xb33951, 1);
+        g.fillTriangle(4, 18, 24, 2, 44, 18);
+        g.generateTexture(key, 48, 48);
+        g.destroy();
+        generated.add(key);
+        return;
+    }
+
     if (key === "gate-open") {
         g.lineStyle(2, 0x5cb848, 1);
         g.strokeRect(4, 0, 24, 32);
@@ -323,19 +350,73 @@ export function ensureTexture(scene: Phaser.Scene, key: string): string {
     return key;
 }
 
+/** Per-stage display heights in tiles (art is aspect-preserved, so wide flat
+ * stages like bare soil must not be as tall as the bloomed plant). */
+const STAGE_HEIGHT_TILES: Record<string, number> = {
+    "bare-soil": 0.85,
+    "sprout": 0.9,
+    "seedling": 1.1,
+    "growing": 1.35,
+    "budding": 1.4,
+    "bloomed": 1.65,
+    "drooping": 1.1,
+    "weedy": 1.4,
+};
+
+/** Display heights (in tiles) for named world sprites; aspect ratio is preserved. */
+const HEIGHT_TILES: Array<[RegExp, number]> = [
+    [/^struct-landmark-keukenhof-windmill/, 5.5],
+    [/^struct-landmark-versailles-fountain/, 4.0],
+    [/^struct-landmark-gardens-supertrees/, 5.5],
+    [/^struct-landmark-sakura-pond/, 3.2],
+    [/^struct-bridge-/, 3.6],
+    [/^struct-waystone-/, 2.4],
+    [/^struct-gate-/, 1.8],
+    [/^struct-gazebo/, 4.2],
+    [/^struct-/, 4.0],
+    [/^prop-sakura-cherry-tree/, 3.0],
+    [/^prop-sakura-lantern/, 1.3],
+    [/^prop-keukenhof-10$/, 3.4],
+    [/^prop-keukenhof-36$/, 3.8],
+    [/^prop-versailles-r0-03$/, 3.0],
+    [/^prop-versailles-sig-01$/, 3.2],
+    [/^prop-gardens-by-the-bay-09$/, 3.6],
+    [/^prop-/, 1.5],
+];
+
+/** Scale a sprite to a height in tiles, preserving the source aspect ratio. */
+export function sizeToHeightTiles(
+    sprite: Phaser.GameObjects.Image | Phaser.GameObjects.Sprite,
+    hTiles: number,
+): void {
+    const src = sprite.texture.getSourceImage();
+    const h = hTiles * DISPLAY.tile;
+    const w = src.height > 0 ? (src.width / src.height) * h : h;
+    sprite.setDisplaySize(w, h);
+}
+
 /** Apply canonical display size for a sprite key. */
 export function applyDisplaySize(sprite: Phaser.GameObjects.Image | Phaser.GameObjects.Sprite): void {
     const key = sprite.texture.key;
     if (key.startsWith("plant-stage-")) {
-        sprite.setDisplaySize(32, DISPLAY.plantHeight);
+        const stage = key.replace(/^plant-stage-\d{2}-/, "");
+        sizeToHeightTiles(
+            sprite,
+            STAGE_HEIGHT_TILES[stage] ?? DISPLAY.plantHeight / DISPLAY.tile,
+        );
     } else if (key.startsWith("gardener-")) {
         sprite.setDisplaySize(32, DISPLAY.avatarHeight);
     } else if (key.startsWith("keeper-")) {
         sprite.setDisplaySize(40, DISPLAY.keeperHeight);
     } else if (key.startsWith("tile-")) {
         sprite.setDisplaySize(DISPLAY.tile, DISPLAY.tile);
-    } else if (key.startsWith("prop-")) {
-        sprite.setDisplaySize(48 * DISPLAY.propScale, 48 * DISPLAY.propScale);
+    } else {
+        for (const [re, h] of HEIGHT_TILES) {
+            if (re.test(key)) {
+                sizeToHeightTiles(sprite, h);
+                return;
+            }
+        }
     }
 }
 

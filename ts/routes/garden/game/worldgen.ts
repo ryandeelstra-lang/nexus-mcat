@@ -44,6 +44,8 @@ export interface PropSpot {
     key: string;
     tileX: number;
     tileY: number;
+    /** Optional explicit display height in tiles (authored sectors); else the key default. */
+    hTiles?: number;
 }
 
 export interface GateSpot {
@@ -68,6 +70,10 @@ export interface RegionPlan {
     decor: SectorDecor[];
     /** Rectangular field fills (tulip ribbons, parterre beds). */
     fields: FieldFill[];
+    /** Solid + rendered hedge tiles (authored parterre walls). */
+    hedges: TileCoord[];
+    /** Asset key rendered at each hedge tile. */
+    hedgeKey: string;
     /** Walk-up flavor interactions. */
     interactions: SectorInteraction[];
     waystone: TileCoord;
@@ -442,6 +448,8 @@ function serpentineRegion(rect: RegionRect, plantsById: Map<string, PlantSpot>):
         props: propsForRegion(rect.section, rect),
         decor: [],
         fields: [],
+        hedges: [],
+        hedgeKey: "foliage-versailles-20",
         interactions: [],
         waystone: { tileX: rect.x + Math.floor(rect.w / 2), tileY: rect.y + rect.h - 3 },
         authored: false,
@@ -473,9 +481,16 @@ function authoredRegion(rect: RegionRect, plantsById: Map<string, PlantSpot>): R
         waterTiles,
         landGaps: dedupe(layout.landGaps),
         plants,
-        props: layout.props.map((p) => ({ key: p.key, tileX: p.tileX, tileY: p.tileY })),
+        props: layout.props.map((p) => ({
+            key: p.key,
+            tileX: p.tileX,
+            tileY: p.tileY,
+            hTiles: p.hTiles,
+        })),
         decor: layout.decor,
         fields: layout.fields,
+        hedges: dedupe(layout.hedges ?? []),
+        hedgeKey: layout.hedgeKey ?? "foliage-versailles-20",
         interactions: layout.interactions,
         waystone: layout.waystone,
         authored: true,
@@ -597,12 +612,11 @@ export function tileIsSolid(
                 return true;
             }
         }
-        // Hedges are a serpentine-fallback feature only; authored regions place their own.
-        if (!r.authored) {
-            for (const h of hedgeTilesForRegion(r.rect)) {
-                if (h.tileX === tileX && h.tileY === tileY) {
-                    return true;
-                }
+        // Authored regions carry their own hedge tiles; the fallback derives them from the rect.
+        const hedges = r.authored ? r.hedges : hedgeTilesForRegion(r.rect);
+        for (const h of hedges) {
+            if (h.tileX === tileX && h.tileY === tileY) {
+                return true;
             }
         }
     }

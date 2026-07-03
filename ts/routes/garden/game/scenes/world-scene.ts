@@ -240,7 +240,11 @@ export class WorldScene extends Phaser.Scene {
                 const key = ensureTexture(this, p.key);
                 const img = this.add.image(p.tileX * ts + ts / 2, p.tileY * ts + ts, key);
                 img.setOrigin(0.5, 1);
-                applyDisplaySize(img);
+                if (p.hTiles) {
+                    sizeToHeightTiles(img, p.hTiles);
+                } else {
+                    applyDisplaySize(img);
+                }
                 img.setDepth(p.tileY + 0.5);
             }
             // Region waystone (fast-travel marker).

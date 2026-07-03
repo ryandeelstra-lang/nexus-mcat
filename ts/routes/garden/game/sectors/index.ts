@@ -9,10 +9,12 @@ import { GARDENS } from "./gardens";
 import { KEUKENHOF } from "./keukenhof";
 import { SAKURA } from "./sakura";
 import type { SectorLayout } from "./types";
+import { VERSAILLES } from "./versailles";
 
 export const SECTORS: Partial<Record<GardenSection, SectorLayout>> = {
     "P-S": SAKURA,
     "B-B": KEUKENHOF,
+    "C-P": VERSAILLES,
     CARS: GARDENS,
 };
 

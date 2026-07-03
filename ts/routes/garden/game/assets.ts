@@ -382,6 +382,7 @@ const HEIGHT_TILES: Array<[RegExp, number]> = [
     [/^prop-versailles-sig-01$/, 3.2],
     [/^prop-gardens-by-the-bay-09$/, 3.6],
     [/^prop-/, 1.5],
+    [/^foliage-/, 1.4],
 ];
 
 /** Scale a sprite to a height in tiles, preserving the source aspect ratio. */

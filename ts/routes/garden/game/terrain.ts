@@ -691,6 +691,22 @@ export function planDecor(
                 blockPts.push({ x: d.x / TILE, y: d.y / TILE, r: 1.4 });
             }
         }
+        // Authored hedge tiles: render a clipped-hedge sprite on each (collision handled in
+        // worldgen); block scatter so nothing grows through the parterre walls.
+        if (r.authored && exists(r.hedgeKey)) {
+            for (const h of r.hedges) {
+                out.push({
+                    key: r.hedgeKey,
+                    x: h.tileX * TILE + TILE / 2,
+                    y: h.tileY * TILE + TILE,
+                    hTiles: 1.2,
+                    flip: (h.tileX + h.tileY) % 2 === 0,
+                    flat: false,
+                    authored: true,
+                });
+                blockPts.push({ x: h.tileX + 0.5, y: h.tileY + 0.5, r: 0.9 });
+            }
+        }
     }
     for (const g of plan.gates) {
         blockPts.push({ x: g.tileX + 0.5, y: g.tileY + 0.5, r: 2.6 });

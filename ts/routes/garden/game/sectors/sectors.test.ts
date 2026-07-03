@@ -31,9 +31,10 @@ function trailSet(layout: SectorLayout): Set<string> {
 const authored = Object.values(SECTORS) as SectorLayout[];
 
 describe("authored sectors", () => {
-    it("registers Sakura, Keukenhof, and Gardens by the Bay", () => {
+    it("registers all four great gardens", () => {
         expect(SECTORS["P-S"]).toBeDefined();
         expect(SECTORS["B-B"]).toBeDefined();
+        expect(SECTORS["C-P"]).toBeDefined();
         expect(SECTORS.CARS).toBeDefined();
     });
 

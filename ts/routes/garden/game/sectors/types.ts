@@ -21,6 +21,8 @@ export interface SectorProp {
     key: string;
     tileX: number;
     tileY: number;
+    /** Optional explicit display height in tiles (aspect preserved); else the key default. */
+    hTiles?: number;
 }
 
 /** A non-colliding authored decoration: bridges over gaps, hero trees, flat decals, rafts.
@@ -125,6 +127,10 @@ export interface SectorLayout {
     decor: SectorDecor[];
     /** Rectangular field fills (tulip ribbons / parterre beds). */
     fields: FieldFill[];
+    /** Solid hedge tiles (Versailles parterre walls) — collision + rendered as a hedge sprite. */
+    hedges?: TileCoord[];
+    /** Asset key used to render each hedge tile (default a foliage bush). */
+    hedgeKey?: string;
     /** Authored in-region prereq gate positions. */
     gates: SectorGate[];
     /** Region waystone (fast-travel marker). */

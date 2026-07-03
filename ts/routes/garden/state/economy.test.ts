@@ -13,6 +13,7 @@ import {
     initialBalances,
     onBloom,
     onGradedAnswer,
+    onVoiceGradedAnswer,
     spendPlant,
     spendWater,
 } from "./economy";
@@ -84,5 +85,38 @@ describe("economy — the doc 23 §7 contract", () => {
         for (const name of names) {
             expect(name.toLowerCase()).not.toMatch(/mastery|recall|grow|bloom(ed)?state/);
         }
+    });
+});
+
+describe("onVoiceGradedAnswer — voice spec ruling 2 (+3/+2/+2 recovered/+1)", () => {
+    const base = { seeds: 10, water: 10, xp: 0 };
+
+    it("pays +3 water for good", () => {
+        expect(onVoiceGradedAnswer(base, "good", false).water).toBe(13);
+    });
+
+    it("pays +2 for okay", () => {
+        expect(onVoiceGradedAnswer(base, "okay", false).water).toBe(12);
+    });
+
+    it("pays +2 for a recovered second attempt (spec wins over as-built +3)", () => {
+        expect(onVoiceGradedAnswer(base, "good", true).water).toBe(12);
+        expect(onVoiceGradedAnswer(base, "okay", true).water).toBe(12);
+    });
+
+    it("pays +1 for dont_know and terminal ask_again — showing up still pays", () => {
+        expect(onVoiceGradedAnswer(base, "dont_know", false).water).toBe(11);
+        expect(onVoiceGradedAnswer(base, "ask_again", false).water).toBe(11);
+    });
+
+    it("never touches seeds (blooms are the only seed path — I4)", () => {
+        expect(onVoiceGradedAnswer(base, "good", false).seeds).toBe(10);
+        expect(onVoiceGradedAnswer(base, "dont_know", false).seeds).toBe(10);
+    });
+
+    it("still grants xp per graded answer", () => {
+        expect(onVoiceGradedAnswer(base, "good", false).xp).toBe(
+            ECONOMY.xpPerGradedAnswer,
+        );
     });
 });

@@ -421,6 +421,182 @@
     background: #8bbfe5;
 }
 
+/* --- voice Keeper (voice spec §3/§11): buckets signal by words + shape, tints are soft --- */
+
+.voice-keeper-line {
+    background: rgba(246, 234, 216, 0.96);
+    border: 2px solid #6b4a2f;
+    border-radius: 6px;
+    padding: 10px 12px;
+    position: relative;
+    z-index: 1;
+}
+
+.voice-keeper-line p {
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 17px;
+    line-height: 1.45;
+    margin: 0;
+}
+
+.voice-hint {
+    color: #6b4a2f;
+    font-size: 14px !important;
+    font-style: italic;
+    margin-top: 6px !important;
+}
+
+.voice-variant-badge {
+    background: #e9d8f2;
+    border: 1px solid #8a6644;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-top: 6px;
+    padding: 2px 6px;
+    position: absolute;
+    right: 10px;
+    top: 8px;
+}
+
+.voice-card-frame {
+    min-height: 180px;
+}
+
+.voice-answer-row {
+    align-items: stretch;
+}
+
+.voice-mic {
+    background: #8fbf7b;
+    border: 2px solid #6b4a2f;
+    border-radius: 6px;
+    box-shadow: 0 2px 0 #3f2c1a;
+    color: #2b2416;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 700;
+    min-height: 40px;
+    padding: 6px 14px;
+}
+
+.voice-mic-live {
+    background: #d98c8c;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .voice-mic-live {
+        animation: voice-pulse 1.2s ease-in-out infinite;
+    }
+
+    @keyframes voice-pulse {
+        0%,
+        100% {
+            box-shadow: 0 2px 0 #3f2c1a;
+        }
+
+        50% {
+            box-shadow: 0 2px 0 #3f2c1a, 0 0 0 6px rgba(217, 140, 140, 0.35);
+        }
+    }
+}
+
+.voice-type-row {
+    display: inline-flex;
+    flex: 1 1 260px;
+    gap: 6px;
+}
+
+.voice-type-field {
+    background: #fdf7ec;
+    border: 2px solid #6b4a2f;
+    border-radius: 6px;
+    color: #2b2416;
+    flex: 1;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 15px;
+    min-height: 34px;
+    padding: 6px 10px;
+}
+
+.voice-result {
+    background: rgba(246, 234, 216, 0.96);
+    border: 2px solid #6b4a2f;
+    border-radius: 6px;
+    display: grid;
+    gap: 6px;
+    padding: 12px;
+    position: relative;
+    z-index: 1;
+}
+
+.voice-result h3 {
+    font-size: 17px;
+    margin: 0;
+}
+
+.voice-result p {
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 14px;
+    line-height: 1.45;
+    margin: 0;
+}
+
+.voice-beat-good {
+    background: rgba(215, 234, 208, 0.96);
+}
+
+.voice-beat-okay {
+    background: rgba(233, 240, 214, 0.96);
+}
+
+.voice-beat-ask {
+    background: rgba(243, 216, 188, 0.96);
+}
+
+.voice-beat-idk {
+    background: rgba(217, 231, 245, 0.96);
+}
+
+.voice-transcript {
+    font-style: italic;
+}
+
+.voice-answer {
+    font-weight: 600;
+}
+
+.voice-points-hit {
+    color: #3c6b2f;
+}
+
+.voice-points-missed {
+    color: #7a4a2f;
+}
+
+.voice-score {
+    font-weight: 700;
+}
+
+.voice-sentinel {
+    background: #f9f1e5;
+    border: 1px dashed #8a6644;
+    border-radius: 4px;
+    font-size: 13px !important;
+    padding: 4px 8px;
+}
+
+.voice-bloom-tag {
+    color: #7a4a8f;
+    font-weight: 700;
+}
+
+.voice-recovered-tag {
+    color: #3c6b2f;
+    font-size: 13px;
+    font-weight: 700;
+}
+
 .keeper-miss-strip {
     align-items: center;
     background: rgba(246, 234, 216, 0.96);

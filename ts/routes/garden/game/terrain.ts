@@ -12,7 +12,15 @@
 import type Phaser from "phaser";
 
 import { DISPLAY, hasAssetKey } from "./assets";
-import { hedgeTilesForRegion, KEEPER_TILE, type RegionPlan, type TileCoord, type WorldPlan } from "./worldgen";
+import {
+    hedgeTilesForRegion,
+    KEEPER_TILE,
+    type RegionPlan,
+    SPLIT_X,
+    SPLIT_Y,
+    type TileCoord,
+    type WorldPlan,
+} from "./worldgen";
 
 const TILE = DISPLAY.tile;
 /** Painted "pixel" size in world px — chunky, reads as pixel art at camera zoom 2. */
@@ -220,8 +228,8 @@ export function buildTerrainModel(plan: WorldPlan): TerrainModel {
             const py = (gy + 0.5) * GRID;
             const wx = px + (fbm(px * 0.0035, py * 0.0035, 21) - 0.5) * 2 * wob;
             const wy = py + (fbm(px * 0.0035 + 40, py * 0.0035 + 40, 22) - 0.5) * 2 * wob;
-            const east = wx > 60 * TILE;
-            const south = wy > 45 * TILE;
+            const east = wx > SPLIT_X * TILE;
+            const south = wy > SPLIT_Y * TILE;
             if (east) {
                 regionOfCell[gy * gw + gx] = south ? 3 : 1;
             } else {
@@ -312,7 +320,7 @@ const PALETTES: GroundPalette[] = [
         grass: [rgb("#2C4736"), rgb("#26402F"), rgb("#203828")],
         tuft: rgb("#16281E"),
         flowers: [rgb("#3E9C8B"), rgb("#6E48A8"), rgb("#2E7FA0")],
-        flowerDensity: 0.005,
+        flowerDensity: 0.0025,
         pebble: rgb("#3E4A41"),
         path: [rgb("#7B5742"), rgb("#6A4838")],
         pathRim: rgb("#46312A"),
@@ -437,11 +445,12 @@ export function paintGround(scene: Phaser.Scene, plan: WorldPlan, model: Terrain
                                 if (micro > 0.94 && clus > 0.52) {
                                     color = pal.tuft;
                                 } else if (
-                                    clus > 0.63
-                                    && hash2(fq[0], fq[1], 99) < pal.flowerDensity * 8
+                                    clus > 0.66
+                                    && hash2(fq[0], fq[1], 99) < pal.flowerDensity * 6
                                 ) {
+                                    // One species per ~64px patch so drifts read as beds.
                                     color = pal.flowers[
-                                        (hash2(fq[0], fq[1], 100) * pal.flowers.length) | 0
+                                        (hash2(px >> 6, py >> 6, 100) * pal.flowers.length) | 0
                                     ];
                                 } else if (hash2(px, py, 111) < 0.002) {
                                     color = pal.pebble;
@@ -668,10 +677,10 @@ export function planDecor(
     };
 
     const regionAtTile = (tx: number, ty: number): number => {
-        if (tx > 60) {
-            return ty > 45 ? 3 : 1;
+        if (tx > SPLIT_X) {
+            return ty > SPLIT_Y ? 3 : 1;
         }
-        return ty > 45 ? 2 : 0;
+        return ty > SPLIT_Y ? 2 : 0;
     };
 
     // A. Border forest bands — map edge + the seams between regions.
@@ -679,7 +688,7 @@ export function planDecor(
         for (let tx = 1; tx < plan.widthTiles - 1; tx++) {
             const onEdge = tx < 4 || tx >= plan.widthTiles - 4
                 || ty < 4 || ty >= plan.heightTiles - 4;
-            const onSeam = Math.abs(tx - 60) < 2.5 || Math.abs(ty - 45) < 2.5;
+            const onSeam = Math.abs(tx - SPLIT_X) < 2.5 || Math.abs(ty - SPLIT_Y) < 2.5;
             if (!onEdge && !onSeam) {
                 continue;
             }
@@ -752,12 +761,31 @@ function setPieces(
 ): void {
     const { gw, gh, waterDT, trailDT } = model;
 
+    // In the compact world, set pieces share the scatter's clearance rules so they never
+    // land on water or on a plant bed.
+    const plantPts = plan.regions.flatMap((r) => r.plants);
+    const okStanding = (px: number, py: number): boolean => {
+        if (sampleDT(waterDT, gw, gh, px, py) < TILE * 1.0) {
+            return false;
+        }
+        for (const p of plantPts) {
+            const dx = px / TILE - (p.tileX + 0.5);
+            const dy = py / TILE - (p.tileY + 0.5);
+            if (dx * dx + dy * dy < 1.6 * 1.6) {
+                return false;
+            }
+        }
+        return true;
+    };
+
     // Keukenhof: rectangular tulip-field patches (the signature look).
     const bb = plan.regions.find((r) => r.section === "B-B");
     if (bb && TULIP_STRIPS.some(exists)) {
+        const br = bb.rect;
+        // Two tulip-field patches inside the (compact) Keukenhof rect.
         const patches = [
-            { x0: 64, x1: 79, y0: 5, y1: 16 },
-            { x0: 92, x1: 112, y0: 21, y1: 33 },
+            { x0: br.x + 8, x1: br.x + 18, y0: br.y + 2, y1: br.y + 7 },
+            { x0: br.x + 12, x1: br.x + 22, y0: br.y + 10, y1: br.y + 15 },
         ];
         let rowIdx = 0;
         for (const p of patches) {
@@ -782,7 +810,7 @@ function setPieces(
                         break;
                     }
                 }
-                if (blocked) {
+                if (blocked || !okStanding(midX * TILE, y * TILE)) {
                     continue;
                 }
                 out.push({
@@ -804,6 +832,9 @@ function setPieces(
             const rows = new Set(hedgeTilesForRegion(cp.rect).map((t) => t.tileY));
             for (const ty of rows) {
                 for (let tx = cp.rect.x + 3; tx < cp.rect.x + cp.rect.w - 3; tx += 2.6) {
+                    if (!okStanding(tx * TILE, (ty + 1.1) * TILE)) {
+                        continue;
+                    }
                     out.push({
                         key: VERSAILLES_HEDGE,
                         x: tx * TILE,
@@ -827,6 +858,9 @@ function setPieces(
                 break;
             }
             for (const side of [-2.2, 2.2]) {
+                if (!okStanding(along * TILE, (cy + side + 0.5) * TILE)) {
+                    continue;
+                }
                 out.push({
                     key,
                     x: along * TILE,
@@ -842,9 +876,15 @@ function setPieces(
             if (!exists(key)) {
                 continue;
             }
-            const ty = cp.rect.y + 8 + sIdx * 7;
+            const ty = cp.rect.y + 6 + sIdx * 4;
             sIdx++;
+            if (ty > cp.rect.y + cp.rect.h - 5) {
+                break;
+            }
             for (const side of [-2.4, 2.4]) {
+                if (!okStanding((cx + side) * TILE, ty * TILE)) {
+                    continue;
+                }
                 out.push({
                     key,
                     x: (cx + side) * TILE,

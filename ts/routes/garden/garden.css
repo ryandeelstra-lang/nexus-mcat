@@ -722,6 +722,151 @@
     font-weight: 700;
 }
 
+/* --- indie Keeper dialogue box (dialogue-UX plan §3): portrait + wooden frame + choices --- */
+
+.keeper-panel-dialogue {
+    gap: 12px;
+}
+
+.keeper-dialogue {
+    align-items: flex-start;
+    background: #f6ead8;
+    border: 3px solid #6b4a2f;
+    border-radius: 8px;
+    box-shadow: 0 4px 0 #3f2c1a;
+    display: flex;
+    gap: 12px;
+    padding: 12px 14px;
+    position: relative;
+    z-index: 1;
+}
+
+.keeper-dialogue-portrait {
+    background: #efe0c6;
+    border: 2px solid #6b4a2f;
+    border-radius: 6px;
+    flex: 0 0 auto;
+    height: 72px;
+    image-rendering: pixelated;
+    object-fit: cover;
+    width: 72px;
+}
+
+.keeper-dialogue-body {
+    display: grid;
+    flex: 1 1 auto;
+    gap: 8px;
+    min-width: 0;
+}
+
+.keeper-dialogue-namerow {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+}
+
+.keeper-dialogue-name {
+    color: #6b4a2f;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.keeper-dialogue-namerow .voice-variant-badge {
+    margin: 0;
+    position: static;
+}
+
+.keeper-dialogue-text {
+    cursor: default;
+}
+
+.keeper-dialogue-text p {
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 18px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.keeper-dialogue-choices {
+    display: grid;
+    gap: 8px;
+}
+
+.voice-live {
+    background: rgba(253, 247, 236, 0.9);
+    border: 2px dashed #8a6644;
+    border-radius: 6px;
+    display: grid;
+    gap: 4px;
+    padding: 8px 10px;
+}
+
+.voice-live-text {
+    color: #2b2416;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 15px;
+    line-height: 1.4;
+    margin: 0;
+    min-height: 1.4em;
+}
+
+.voice-live-pulse {
+    color: #6b4a2f;
+    font-size: 15px;
+    font-style: italic;
+    margin: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .voice-live-pulse {
+        animation: voice-live-breathe 1.4s ease-in-out infinite;
+    }
+
+    @keyframes voice-live-breathe {
+        0%,
+        100% {
+            opacity: 0.55;
+        }
+
+        50% {
+            opacity: 1;
+        }
+    }
+}
+
+.voice-live-tag {
+    color: #8a6644;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.voice-result-details {
+    display: grid;
+    gap: 6px;
+}
+
+.voice-result-details p {
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 14px;
+    line-height: 1.45;
+    margin: 0;
+}
+
+.voice-verdict {
+    font-size: 18px;
+    margin: 0;
+}
+
+.voice-flavor {
+    color: #6b4a2f;
+    font-size: 13px !important;
+    font-style: italic;
+    margin: 0;
+}
+
 .keeper-miss-strip {
     align-items: center;
     background: rgba(246, 234, 216, 0.96);

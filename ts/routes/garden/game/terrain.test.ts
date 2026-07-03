@@ -43,7 +43,8 @@ describe("planDecor", () => {
     it("is deterministic and non-empty", () => {
         const again = planDecor(plan, model, () => true);
         expect(again).toEqual(decor);
-        expect(decor.length).toBeGreaterThan(150);
+        // Compact island still scatters a lush amount of foliage.
+        expect(decor.length).toBeGreaterThan(80);
     });
 
     it("never places standing decor on water, trails, or the plaza", () => {
@@ -71,7 +72,7 @@ describe("planDecor", () => {
 
 describe("plazaField", () => {
     it("keeper stands inside the plaza; region corners are outside", () => {
-        expect(plazaField(60.5 * TILE_SIZE, 45.5 * TILE_SIZE)).toBeLessThan(1);
+        expect(plazaField(28.5 * TILE_SIZE, 20.5 * TILE_SIZE)).toBeLessThan(1);
         expect(plazaField(5 * TILE_SIZE, 5 * TILE_SIZE)).toBeGreaterThan(1);
     });
 });

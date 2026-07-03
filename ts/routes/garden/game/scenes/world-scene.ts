@@ -73,6 +73,7 @@ export class WorldScene extends Phaser.Scene {
 
     private avatarTile = { tileX: KEEPER_TILE.tileX + 2, tileY: KEEPER_TILE.tileY };
     private tendNextTile: { tileX: number; tileY: number } | null = null;
+    private facing: "down" | "up" | "left" | "right" = "down";
 
     constructor() {
         super("world");
@@ -94,7 +95,9 @@ export class WorldScene extends Phaser.Scene {
 
         this.physics.world.setBounds(0, 0, worldW, worldH);
         this.cameras.main.setBounds(0, 0, worldW, worldH);
-        this.cameras.main.setZoom(2);
+        // Compact overworld: a lower zoom reveals more of the island so it reads as
+        // ~2 screens across (Champions-Island feel) while sprites stay chunky.
+        this.cameras.main.setZoom(1.5);
 
         this.solidFn = (tx, ty) => tileIsSolid(this.plan, tx, ty, this.stageByNode);
 
@@ -335,9 +338,14 @@ export class WorldScene extends Phaser.Scene {
             applyDisplaySize(gz);
             gz.setDepth(KEEPER_TILE.tileY - 2.2 + 0.5);
         }
-        this.keeper = this.add.image(kx, ky, ensureTexture(this, "keeper-meditating"));
+        // The Keeper is one of the gardener's own kind — a mentor in the same art family
+        // as the player, not an out-of-place sage. Aspect-preserved so it isn't squished.
+        const keeperKey = hasAssetKey("keeper-gardener")
+            ? "keeper-gardener"
+            : (hasAssetKey("char-gardener-1-0") ? "char-gardener-1-0" : "keeper-meditating");
+        this.keeper = this.add.image(kx, ky, ensureTexture(this, keeperKey));
         this.keeper.setOrigin(0.5, 1);
-        applyDisplaySize(this.keeper);
+        sizeToHeightTiles(this.keeper, 2.6);
         this.keeper.setDepth(KEEPER_TILE.tileY + 0.75);
 
         this.keeperLantern = this.add.circle(kx + 20, ky - 40, 8, 0xffe066, 0.5);
@@ -378,22 +386,27 @@ export class WorldScene extends Phaser.Scene {
         if (!this.avatar?.body) {
             return;
         }
-        const speed = 90;
-        let vx = 0;
-        let vy = 0;
+        const speed = 96;
+        let dx = 0;
+        let dy = 0;
         if (this.cursors.left.isDown || this.wasd.A.isDown) {
-            vx = -speed;
+            dx = -1;
         } else if (this.cursors.right.isDown || this.wasd.D.isDown) {
-            vx = speed;
+            dx = 1;
         }
         if (this.cursors.up.isDown || this.wasd.W.isDown) {
-            vy = -speed;
+            dy = -1;
         } else if (this.cursors.down.isDown || this.wasd.S.isDown) {
-            vy = speed;
+            dy = 1;
         }
 
+        const moving = dx !== 0 || dy !== 0;
+        // Normalise so diagonals aren't ~40% faster than the cardinals.
+        const inv = moving ? 1 / Math.hypot(dx, dy) : 0;
+        const vx = dx * speed * inv;
+        const vy = dy * speed * inv;
         this.avatar.setVelocity(vx, vy);
-        if (vx !== 0 || vy !== 0) {
+        if (moving) {
             this.resolveTileCollision(vx, vy);
         }
 
@@ -402,14 +415,48 @@ export class WorldScene extends Phaser.Scene {
             tileY: Math.floor((this.avatar.y - DISPLAY.tile * 0.5) / DISPLAY.tile),
         };
 
-        if (Math.abs(vx) > Math.abs(vy)) {
-            this.avatar.setTexture(ensureTexture(this, vx < 0 ? "gardener-idle-side-a" : "gardener-idle-side-b"));
-        } else if (vy !== 0) {
-            const walk = Math.floor(this.time.now / 200) % 2 === 0 ? "gardener-walk-down-a" : "gardener-walk-down-b";
-            this.avatar.setTexture(ensureTexture(this, vy < 0 ? "gardener-idle-up" : walk));
-        }
+        this.updateAvatarFrame(dx, dy, moving);
         applyDisplaySize(this.avatar);
         this.avatar.setDepth(this.avatarTile.tileY + 0.8);
+    }
+
+    /** Directional walk cycle. All side art faces left, so the right walk is mirrored;
+     * there are no back-facing walk frames, so "up" fakes a stride by flipping the idle. */
+    private updateAvatarFrame(dx: number, dy: number, moving: boolean): void {
+        if (moving) {
+            if (Math.abs(dx) > Math.abs(dy)) {
+                this.facing = dx < 0 ? "left" : "right";
+            } else {
+                this.facing = dy < 0 ? "up" : "down";
+            }
+        }
+        const stepA = Math.floor(this.time.now / 150) % 2 === 0;
+        let key: string;
+        let flip = false;
+        switch (this.facing) {
+            case "left":
+            case "right":
+                key = moving
+                    ? (stepA ? "gardener-walk-side-a" : "gardener-walk-side-b")
+                    : "gardener-idle-side-a";
+                flip = this.facing === "right";
+                break;
+            case "down":
+                key = moving
+                    ? (stepA ? "gardener-walk-down-a" : "gardener-walk-down-b")
+                    : "gardener-idle-down";
+                break;
+            case "up":
+                key = "gardener-idle-up";
+                flip = moving && stepA;
+                break;
+            default: {
+                const _exhaustive: never = this.facing;
+                return _exhaustive;
+            }
+        }
+        this.avatar.setTexture(ensureTexture(this, key));
+        this.avatar.setFlipX(flip);
     }
 
     private resolveTileCollision(vx: number, vy: number): void {

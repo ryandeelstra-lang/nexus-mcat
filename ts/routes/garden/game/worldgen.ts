@@ -8,8 +8,11 @@ import type { GrowthStage } from "../state/stage";
 import sidecarJson from "../../../lib/graph-sidecar.json" with { type: "json" };
 
 export const TILE_SIZE = 32;
-export const WORLD_WIDTH_TILES = 120;
-export const WORLD_HEIGHT_TILES = 90;
+// A compact "Champions Island" overworld — a 2×2 region quilt you can cross in a
+// handful of screens (Decision: smaller map, 2026-07-02) rather than the old sprawling
+// 120×90 field. Trails wind (serpentine) so each region still holds all its plants.
+export const WORLD_WIDTH_TILES = 56;
+export const WORLD_HEIGHT_TILES = 40;
 
 export type GardenSection = "P-S" | "B-B" | "C-P" | "CARS";
 
@@ -106,14 +109,19 @@ const LEAF_PREREQ = sidecar.edges.filter(
 
 /** §9.3 region quilt: Sakura NW · Keukenhof NE · Versailles SW · GBTB SE. */
 export const REGION_RECTS: readonly RegionRect[] = [
-    { section: "P-S", x: 0, y: 0, w: 58, h: 42 },
-    { section: "B-B", x: 62, y: 0, w: 58, h: 42 },
-    { section: "C-P", x: 0, y: 48, w: 58, h: 42 },
-    { section: "CARS", x: 62, y: 48, w: 58, h: 42 },
+    { section: "P-S", x: 0, y: 0, w: 26, h: 18 },
+    { section: "B-B", x: 30, y: 0, w: 26, h: 18 },
+    { section: "C-P", x: 0, y: 22, w: 26, h: 18 },
+    { section: "CARS", x: 30, y: 22, w: 26, h: 18 },
 ];
 
-export const CENTER_PLAZA = { x: 45, y: 32, w: 30, h: 26 };
-export const KEEPER_TILE: TileCoord = { tileX: 60, tileY: 45 };
+/** The seam tiles (gap centres) between the four regions — the Keeper plaza sits here.
+ * Shared by the terrain painter so region borders/decor/plaza stay in sync with layout. */
+export const SPLIT_X = 28;
+export const SPLIT_Y = 20;
+
+export const CENTER_PLAZA = { x: 21, y: 15, w: 14, h: 10 };
+export const KEEPER_TILE: TileCoord = { tileX: SPLIT_X, tileY: SPLIT_Y };
 
 function tileKey(x: number, y: number): string {
     return `${x},${y}`;
@@ -128,104 +136,95 @@ function hashString(s: string): number {
     return h >>> 0;
 }
 
-/** Sakura: stream spine + winding path (§6.2, §9.3). */
-function trailSakura(r: RegionRect): { trail: TileCoord[]; water: TileCoord[] } {
+const REGION_MARGIN = 3;
+
+/** Boustrophedon (snake) path winding through a compact region: a long walkable trail
+ * in a small footprint — the Champions-Island look, and enough length that every region
+ * still fits all its plants ≥4 tiles apart. */
+function serpentineTrail(r: RegionRect, rowStep: number): TileCoord[] {
     const trail: TileCoord[] = [];
-    const water: TileCoord[] = [];
-    const streamY = r.y + Math.floor(r.h * 0.55);
-    for (let x = r.x + 2; x < r.x + r.w - 2; x++) {
-        const wobble = Math.round(Math.sin((x - r.x) * 0.35) * 2);
-        water.push({ tileX: x, tileY: streamY + wobble });
-        water.push({ tileX: x, tileY: streamY + wobble + 1 });
-        trail.push({ tileX: x, tileY: streamY + wobble - 3 });
+    const x0 = r.x + REGION_MARGIN;
+    const x1 = r.x + r.w - 1 - REGION_MARGIN;
+    const yTop = r.y + REGION_MARGIN;
+    const yBot = r.y + r.h - 1 - REGION_MARGIN;
+    let dir = 1;
+    for (let y = yTop; y <= yBot; y += rowStep) {
+        if (dir === 1) {
+            for (let x = x0; x <= x1; x++) {
+                trail.push({ tileX: x, tileY: y });
+            }
+        } else {
+            for (let x = x1; x >= x0; x--) {
+                trail.push({ tileX: x, tileY: y });
+            }
+        }
+        // Vertical connector to the next row keeps the path continuous.
+        const endX = dir === 1 ? x1 : x0;
+        for (let yy = y + 1; yy <= Math.min(y + rowStep, yBot); yy++) {
+            trail.push({ tileX: endX, tileY: yy });
+        }
+        dir = -dir;
     }
-    // Bridge crossing at mid-region
-    const bx = r.x + Math.floor(r.w / 2);
-    for (let dy = -2; dy <= 2; dy++) {
-        trail.push({ tileX: bx, tileY: streamY + dy - 3 });
-    }
-    return { trail, water };
+    return trail;
 }
 
-/** Keukenhof: canal-side winding path (§9.3). */
-function trailKeukenhof(r: RegionRect): { trail: TileCoord[]; water: TileCoord[] } {
-    const trail: TileCoord[] = [];
+/** Compact per-theme water feature (rendered with shorelines by the terrain painter). */
+function regionWater(section: GardenSection, r: RegionRect): TileCoord[] {
     const water: TileCoord[] = [];
-    const canalX = r.x + Math.floor(r.w * 0.35);
-    for (let y = r.y + 2; y < r.y + r.h - 2; y++) {
-        const drift = Math.round(Math.sin(y * 0.18) * 2);
-        water.push({ tileX: canalX + drift, tileY: y });
-        water.push({ tileX: canalX + drift + 1, tileY: y });
-        const offset = Math.round(Math.sin(y * 0.4) * 2);
-        trail.push({ tileX: canalX + 5 + offset, tileY: y });
-    }
-    return { trail, water };
-}
-
-/** Versailles: formal symmetric allée grid (§9.3). */
-function trailVersailles(r: RegionRect): { trail: TileCoord[]; water: TileCoord[] } {
-    const trail: TileCoord[] = [];
-    const water: TileCoord[] = [];
-    const cx = r.x + Math.floor(r.w / 2);
-    const cy = r.y + Math.floor(r.h / 2);
-    for (let x = r.x + 2; x < r.x + r.w - 2; x++) {
-        trail.push({ tileX: x, tileY: cy });
-    }
-    for (let y = r.y + 2; y < r.y + r.h - 2; y++) {
-        trail.push({ tileX: cx, tileY: y });
-    }
-    // Grand canal strip
-    for (let x = r.x + 4; x < r.x + r.w - 4; x++) {
-        water.push({ tileX: x, tileY: r.y + r.h - 4 });
-    }
-    return { trail, water };
-}
-
-/** Gardens by the Bay: winding boardwalk + two mist lagoons (§9.3). */
-function trailGbtb(r: RegionRect): { trail: TileCoord[]; water: TileCoord[] } {
-    const trail: TileCoord[] = [];
-    const water: TileCoord[] = [];
-    const walkY = r.y + Math.floor(r.h * 0.45);
-    for (let x = r.x + 2; x < r.x + r.w - 2; x++) {
-        const wobble = Math.round(Math.sin((x - r.x) * 0.12) * 1.5);
-        trail.push({ tileX: x, tileY: walkY + wobble });
-    }
-    // Two organic mist lagoons flanking the walk.
-    const pools = [
-        { cx: r.x + Math.floor(r.w * 0.3), cy: walkY + 7, rr: 3.4 },
-        { cx: r.x + Math.floor(r.w * 0.72), cy: walkY - 8, rr: 4.2 },
-    ];
-    for (const p of pools) {
-        const rCeil = Math.ceil(p.rr);
-        for (let dy = -rCeil; dy <= rCeil; dy++) {
-            for (let dx = -rCeil; dx <= rCeil; dx++) {
-                if (dx * dx + dy * dy <= p.rr * p.rr) {
-                    water.push({ tileX: p.cx + dx, tileY: p.cy + dy });
+    const disc = (cx: number, cy: number, rr: number): void => {
+        const c = Math.ceil(rr);
+        for (let dy = -c; dy <= c; dy++) {
+            for (let dx = -c; dx <= c; dx++) {
+                if (dx * dx + dy * dy <= rr * rr) {
+                    water.push({ tileX: cx + dx, tileY: cy + dy });
                 }
             }
         }
+    };
+    switch (section) {
+        case "P-S":
+            // Koi pond tucked in a corner.
+            disc(r.x + r.w - 6, r.y + r.h - 6, 2.4);
+            break;
+        case "B-B": {
+            // A short canal down the near edge.
+            const canalX = r.x + 4;
+            for (let y = r.y + 3; y <= r.y + r.h - 4; y++) {
+                water.push({ tileX: canalX, tileY: y });
+            }
+            break;
+        }
+        case "C-P":
+            // Grand-canal strip near the foot of the parterre.
+            for (let x = r.x + 4; x <= r.x + r.w - 5; x++) {
+                water.push({ tileX: x, tileY: r.y + r.h - 4 });
+            }
+            break;
+        case "CARS":
+            // Two mist lagoons.
+            disc(r.x + 6, r.y + 5, 2.0);
+            disc(r.x + r.w - 7, r.y + r.h - 6, 2.4);
+            break;
+        default: {
+            const _exhaustive: never = section;
+            return _exhaustive;
+        }
     }
-    return { trail, water };
+    return water;
 }
 
 function trailForSection(section: GardenSection, rect: RegionRect): {
     trail: TileCoord[];
     water: TileCoord[];
 } {
-    switch (section) {
-        case "P-S":
-            return trailSakura(rect);
-        case "B-B":
-            return trailKeukenhof(rect);
-        case "C-P":
-            return trailVersailles(rect);
-        case "CARS":
-            return trailGbtb(rect);
-        default: {
-            const _exhaustive: never = section;
-            return _exhaustive;
-        }
-    }
+    const rowStep = section === "P-S" ? 4 : section === "CARS" ? 6 : 5;
+    const water = regionWater(section, rect);
+    const wset = new Set(water.map((w) => tileKey(w.tileX, w.tileY)));
+    // Keep the trail off water so paths never run through a pond.
+    const trail = serpentineTrail(rect, rowStep).filter(
+        (t) => !wset.has(tileKey(t.tileX, t.tileY)),
+    );
+    return { trail, water };
 }
 
 function dedupeTiles(tiles: TileCoord[]): TileCoord[] {
@@ -249,34 +248,34 @@ function propsForRegion(section: GardenSection, rect: RegionRect): PropSpot[] {
     switch (section) {
         case "P-S":
             props.push(
-                { key: "prop-sakura-cherry-tree", tileX: rect.x + 8, tileY: rect.y + 6 },
-                { key: "prop-sakura-lantern-a", tileX: cx - 6, tileY: cy - 4 },
-                { key: "prop-sakura-lantern-b", tileX: cx + 6, tileY: cy - 4 },
-                { key: "struct-bridge-sakura", tileX: cx, tileY: cy + 2 },
+                { key: "prop-sakura-cherry-tree", tileX: rect.x + 5, tileY: rect.y + 5 },
+                { key: "prop-sakura-lantern-a", tileX: cx - 5, tileY: cy - 3 },
+                { key: "prop-sakura-lantern-b", tileX: cx + 5, tileY: cy - 3 },
+                { key: "struct-bridge-sakura", tileX: cx, tileY: rect.y + rect.h - 5 },
             );
             break;
         case "B-B":
             props.push(
-                { key: "prop-keukenhof-10", tileX: rect.x + 10, tileY: rect.y + 8 },
-                { key: "prop-keukenhof-36", tileX: rect.x + 14, tileY: rect.y + 26 },
+                { key: "prop-keukenhof-10", tileX: rect.x + 7, tileY: rect.y + 5 },
+                { key: "prop-keukenhof-36", tileX: rect.x + 8, tileY: rect.y + rect.h - 5 },
                 {
                     key: "struct-landmark-keukenhof-windmill",
-                    tileX: rect.x + rect.w - 10,
-                    tileY: rect.y + 6,
+                    tileX: rect.x + rect.w - 6,
+                    tileY: rect.y + 5,
                 },
             );
             break;
         case "C-P":
             props.push(
-                { key: "struct-landmark-versailles-fountain", tileX: cx, tileY: rect.y + 5 },
-                { key: "prop-versailles-r0-03", tileX: rect.x + 8, tileY: cy - 8 },
-                { key: "prop-versailles-sig-01", tileX: rect.x + rect.w - 9, tileY: cy + 9 },
+                { key: "struct-landmark-versailles-fountain", tileX: cx, tileY: rect.y + 4 },
+                { key: "prop-versailles-r0-03", tileX: rect.x + 5, tileY: cy - 4 },
+                { key: "prop-versailles-sig-01", tileX: rect.x + rect.w - 6, tileY: cy + 4 },
             );
             break;
         case "CARS":
             props.push(
-                { key: "struct-landmark-gardens-supertrees", tileX: cx - 8, tileY: cy - 8 },
-                { key: "prop-gardens-by-the-bay-09", tileX: cx + 10, tileY: cy + 8 },
+                { key: "struct-landmark-gardens-supertrees", tileX: cx - 5, tileY: cy - 5 },
+                { key: "prop-gardens-by-the-bay-09", tileX: cx + 6, tileY: cy + 5 },
             );
             break;
         default: {
@@ -329,21 +328,30 @@ function placePlantsAlongTrail(
 }
 
 function borderCrossing(a: GardenSection, b: GardenSection): TileCoord {
-    // Cross-region gates sit on plaza rim between quadrants (§6.3).
+    // Cross-region gates sit on the plaza rim between quadrants (§6.3), derived from the
+    // shared seam so they track the compact layout.
     const pair = [a, b].sort().join("|");
+    // Vertically-adjacent columns share the horizontal seam; horizontally-adjacent
+    // rows share the vertical seam; diagonals meet near the Keeper plaza.
+    if (pair === "B-B|P-S") {
+        return { tileX: SPLIT_X, tileY: 6 }; // top edge, between the two top regions
+    }
+    if (pair === "C-P|CARS") {
+        return { tileX: SPLIT_X, tileY: WORLD_HEIGHT_TILES - 6 };
+    }
+    if (pair === "C-P|P-S") {
+        return { tileX: 6, tileY: SPLIT_Y };
+    }
+    if (pair === "B-B|CARS") {
+        return { tileX: WORLD_WIDTH_TILES - 6, tileY: SPLIT_Y };
+    }
     if (pair === "B-B|C-P") {
-        return { tileX: 58, tileY: 44 };
-    }
-    if (pair === "B-B|P-S" || pair === "C-P|P-S") {
-        return { tileX: 58, tileY: 38 };
-    }
-    if (pair === "B-B|CARS" || pair === "C-P|CARS") {
-        return { tileX: 58, tileY: 52 };
+        return { tileX: SPLIT_X - 2, tileY: SPLIT_Y - 2 };
     }
     if (pair === "CARS|P-S") {
-        return { tileX: 60, tileY: 40 };
+        return { tileX: SPLIT_X + 2, tileY: SPLIT_Y - 2 };
     }
-    return { tileX: 60, tileY: 45 };
+    return { tileX: SPLIT_X, tileY: SPLIT_Y };
 }
 
 function nodeSection(nodeId: string): GardenSection {

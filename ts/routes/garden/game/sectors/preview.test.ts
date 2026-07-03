@@ -8,6 +8,8 @@
 import { writeFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
+import { planFlora } from "../flora";
+import { buildTerrainModel } from "../terrain";
 import { buildWorldPlan } from "../worldgen";
 import { effectivePalettePreview } from "./preview-palette";
 
@@ -112,6 +114,13 @@ describe("sector preview", () => {
             for (const it of r.interactions) {
                 dot(it.tileX, it.tileY, 2, [80, 230, 220]);
             }
+        }
+        // Ground flora (watering redesign): every preset flower at full bloom, tinted by
+        // species — the check that bands read as designed color LINES, not confetti.
+        const flora = planFlora(plan, buildTerrainModel(plan));
+        for (const spot of flora.spots.values()) {
+            const t = spot.species.tint;
+            dot(spot.tileX, spot.tileY, 3, [(t >> 16) & 0xff, (t >> 8) & 0xff, t & 0xff]);
         }
         // Gates (green=open-capable / red bar). Draw as small marks.
         for (const g of plan.gates) {

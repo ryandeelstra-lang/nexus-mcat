@@ -53,9 +53,11 @@ export async function createGame(
     game.registry.set("panelOpen", false);
     game.registry.set("bus", bus);
 
-    // Dev/verification handle (harmless in prod): lets the CDP harness inspect
-    // textures/scenes when verifying render fidelity (docs/26 gate evidence).
+    // Dev/verification handles (harmless in prod): let the CDP harness inspect scenes and
+    // drive bus events (e.g. unlock sectors for per-region screenshots) when verifying
+    // render fidelity (docs/26 gate evidence).
     (globalThis as Record<string, unknown>).__gardenGame = game;
+    (globalThis as Record<string, unknown>).__gardenBus = bus;
 
     return game;
 }

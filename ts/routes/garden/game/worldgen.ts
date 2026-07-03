@@ -14,10 +14,10 @@ import sidecarJson from "../../../lib/graph-sidecar.json" with { type: "json" };
 
 export const TILE_SIZE = 32;
 // A compact "Champions Island" overworld — a 2×2 region quilt you can cross in a
-// handful of screens (Decision: smaller map, 2026-07-02) rather than the old sprawling
-// 120×90 field. Trails wind (serpentine) so each region still holds all its plants.
-export const WORLD_WIDTH_TILES = 56;
-export const WORLD_HEIGHT_TILES = 40;
+// handful of screens. Shrunk again 2026-07-03 ("the gardens are much too big"): each
+// garden is now a 19×13 room around a small central plaza.
+export const WORLD_WIDTH_TILES = 44;
+export const WORLD_HEIGHT_TILES = 32;
 
 export type GardenSection = "P-S" | "B-B" | "C-P" | "CARS";
 
@@ -132,18 +132,18 @@ const LEAF_PREREQ = sidecar.edges.filter(
 
 /** §9.3 region quilt: Sakura NW · Keukenhof NE · Versailles SW · GBTB SE. */
 export const REGION_RECTS: readonly RegionRect[] = [
-    { section: "P-S", x: 0, y: 0, w: 26, h: 18 },
-    { section: "B-B", x: 30, y: 0, w: 26, h: 18 },
-    { section: "C-P", x: 0, y: 22, w: 26, h: 18 },
-    { section: "CARS", x: 30, y: 22, w: 26, h: 18 },
+    { section: "P-S", x: 0, y: 0, w: 19, h: 13 },
+    { section: "B-B", x: 25, y: 0, w: 19, h: 13 },
+    { section: "C-P", x: 0, y: 19, w: 19, h: 13 },
+    { section: "CARS", x: 25, y: 19, w: 19, h: 13 },
 ];
 
 /** The seam tiles (gap centres) between the four regions — the Keeper plaza sits here.
  * Shared by the terrain painter so region borders/decor/plaza stay in sync with layout. */
-export const SPLIT_X = 28;
-export const SPLIT_Y = 20;
+export const SPLIT_X = 22;
+export const SPLIT_Y = 16;
 
-export const CENTER_PLAZA = { x: 21, y: 15, w: 14, h: 10 };
+export const CENTER_PLAZA = { x: 17, y: 12, w: 11, h: 8 };
 export const KEEPER_TILE: TileCoord = { tileX: SPLIT_X, tileY: SPLIT_Y };
 
 function tileKey(x: number, y: number): string {
@@ -470,8 +470,13 @@ function authoredRegion(rect: RegionRect, plantsById: Map<string, PlantSpot>): R
         ...layout.pathWaypoints.flatMap((wp) => rasterizePath(wp)),
         ...layout.landGaps,
     ]);
-    // Water = authored water tiles (land-gaps stay water for PAINTING; collision skips them).
-    const waterTiles = dedupe(layout.waterTiles);
+    // Water = authored water tiles MINUS the crossings: a crossing paints as flat path
+    // (a ford/plank at grade), never an arched bridge sprite (2026-07-03 — bridges removed;
+    // "the bridges should all be flat").
+    const gapKeys = new Set(layout.landGaps.map((t) => `${t.tileX},${t.tileY}`));
+    const waterTiles = dedupe(layout.waterTiles).filter(
+        (t) => !gapKeys.has(`${t.tileX},${t.tileY}`),
+    );
     const plants: PlantSpot[] = layout.plots.map((p) => ({
         nodeId: p.nodeId,
         tileX: p.tileX,
@@ -585,21 +590,17 @@ export function hedgeTilesForRegion(rect: RegionRect): TileCoord[] {
     return hedges;
 }
 
-/** Collision: water/hedge/prop solid; trail+grass+land-gaps walkable; closed gates solid. */
+/** Collision: water/hedge/prop solid; trail+grass+land-gaps walkable.
+ * Prereq door-gates are GONE (2026-07-03): progression is now per-sector (a full MCAT test
+ * unlocks a garden — see sector locks in the world scene), so `plan.gates` is data only and
+ * never rendered or solid. `stageByNode` stays in the signature for the sector-lock overlay
+ * the world scene layers on top. */
 export function tileIsSolid(
     plan: WorldPlan,
     tileX: number,
     tileY: number,
-    stageByNode: Map<string, GrowthStage>,
+    _stageByNode: Map<string, GrowthStage>,
 ): boolean {
-    // A closed gate is solid; an open one is walkable — checked first so a gate on a bridge
-    // (a land-gap over water) reads correctly.
-    for (const g of plan.gates) {
-        if (g.tileX === tileX && g.tileY === tileY) {
-            return !gateIsOpen(g, stageByNode);
-        }
-    }
-
     for (const r of plan.regions) {
         // Land-gaps (bridge decks / stepping stones) are walkable even though painted as water.
         const isGap = r.landGaps.some((g) => g.tileX === tileX && g.tileY === tileY);

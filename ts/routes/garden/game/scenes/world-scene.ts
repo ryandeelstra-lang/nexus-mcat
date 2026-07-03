@@ -1,7 +1,7 @@
 // Copyright: Ankitects Pty Ltd and contributors
 // License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
 
-// charged_up: walkable overworld — tile layers, avatar, plants, gates, juice, day/night (doc 23 §6–§9).
+// charged_up: walkable overworld — tile layers, avatar, plants, juice, day/night (doc 23 §6–§9).
 import Phaser from "phaser";
 
 import type { TypedBus } from "../../state/bus";
@@ -9,17 +9,11 @@ import type { MasterySnapshot, TopicMastery } from "../../state/mastery";
 import { type GrowthStage, stageFor } from "../../state/stage";
 import { applyDisplaySize, DISPLAY, ensureTexture, hasAssetKey, sizeToHeightTiles, stageTextureKey } from "../assets";
 import { skyStateFor } from "../daynight";
+import { planFlora } from "../flora";
+import { FloraLayer } from "../flora-layer";
 import { sectorFor } from "../sectors/index";
 import { buildTerrainModel, paintGround, planDecor, type TerrainModel } from "../terrain";
-import {
-    buildWorldPlan,
-    gateIsOpen,
-    type GateSpot,
-    KEEPER_TILE,
-    type PlantSpot,
-    tileIsSolid,
-    type WorldPlan,
-} from "../worldgen";
+import { buildWorldPlan, KEEPER_TILE, type PlantSpot, type TileCoord, tileIsSolid, type WorldPlan } from "../worldgen";
 
 export interface GardenFlags {
     paraphrase: Record<string, number>;
@@ -55,9 +49,11 @@ export class WorldScene extends Phaser.Scene {
 
     private terrain: TerrainModel | null = null;
     private plants = new Map<string, PlantObject>();
-    private gates = new Map<string, Phaser.GameObjects.Image>();
     private stageByNode = new Map<string, GrowthStage>();
     private solidFn!: (x: number, y: number) => boolean;
+    /** Ground flora (bone-meal watering): preset flowers that grow where you pour. */
+    private flora: FloraLayer | null = null;
+    private isMovingNow = false;
 
     private avatar!: Phaser.Physics.Arcade.Sprite;
     private keeper!: Phaser.GameObjects.Image;
@@ -73,10 +69,15 @@ export class WorldScene extends Phaser.Scene {
     private spaceKey!: Phaser.Input.Keyboard.Key;
 
     private interactPrompt!: Phaser.GameObjects.Text;
-    private nearTarget: "plant" | "keeper" | "gate" | "waystone" | "flavor" | null = null;
+    private nearTarget: "plant" | "keeper" | "waystone" | "flavor" | "trial" | null = null;
     private nearNodeId: string | null = null;
     private nearWaystoneId: string | null = null;
     private nearFlavorIdx: number | null = null;
+    private nearTrialSection: string | null = null;
+    /** Sections unlocked by their full MCAT test (registry-fed; locked regions are veiled+solid). */
+    private sectorUnlocks = new Set<string>();
+    private sectorVeils = new Map<string, Phaser.GameObjects.Rectangle>();
+    private trialStones = new Map<string, Phaser.GameObjects.Container>();
     private critters: Array<{
         sprite: Phaser.GameObjects.Arc;
         kind: "shadowLoop" | "moteDrift";
@@ -123,12 +124,18 @@ export class WorldScene extends Phaser.Scene {
         // ~2 screens across (Champions-Island feel) while sprites stay chunky.
         this.cameras.main.setZoom(1.5);
 
-        this.solidFn = (tx, ty) => tileIsSolid(this.plan, tx, ty, this.stageByNode);
+        this.sectorUnlocks = new Set(
+            (this.registry.get("sectorUnlocks") as string[] | undefined) ?? [],
+        );
+        this.solidFn = (tx, ty) =>
+            this.lockedRegionAt(tx, ty) !== null
+            || tileIsSolid(this.plan, tx, ty, this.stageByNode);
 
         this.renderGround();
         this.renderDecor();
-        this.renderGates();
+        this.renderFlora();
         this.renderPropsAndPlants();
+        this.renderSectorLocks();
         this.spawnLanternGlows();
         this.spawnCritters();
         this.spawnAvatar();
@@ -163,6 +170,8 @@ export class WorldScene extends Phaser.Scene {
             off();
         }
         this.unsubscribers = [];
+        this.flora?.destroy();
+        this.flora = null;
     }
 
     /** Map overlay reads avatar position. */
@@ -183,6 +192,10 @@ export class WorldScene extends Phaser.Scene {
         this.updateInteractPrompt();
         this.bobKeeper(delta);
         this.updateCritters();
+        // Walking through grown flowers rustles them (cooldown-guarded, cheap).
+        if (this.isMovingNow && this.flora && this.avatar) {
+            this.flora.rustle(this.avatar.x, this.avatar.y);
+        }
     }
 
     private rebuildStageMap(): void {
@@ -211,6 +224,22 @@ export class WorldScene extends Phaser.Scene {
         paintGround(this, this.plan, this.terrain);
     }
 
+    /** The preset ground flora: every grass tile's flower, restored from persisted pours.
+     * Pours inside a still-locked garden don't grow anything — the mist keeps it asleep. */
+    private renderFlora(): void {
+        if (!this.terrain) {
+            return;
+        }
+        const counts = this.registry.get("floraState") as Record<string, number> | undefined;
+        this.flora = new FloraLayer(
+            this,
+            planFlora(this.plan, this.terrain),
+            counts ?? {},
+            this.reducedMotion,
+            (spot) => this.lockedRegionAt(spot.tileX, spot.tileY) === null,
+        );
+    }
+
     /** Deterministic foliage scatter — trees/bushes/flowers clustered by species. */
     private renderDecor(): void {
         const ts = DISPLAY.tile;
@@ -226,24 +255,8 @@ export class WorldScene extends Phaser.Scene {
         }
     }
 
-    /** Small soil-bed decal so plants read as planted beside the trail. */
-    private ensureBedTexture(): string {
-        const key = "plant-bed";
-        if (!this.textures.exists(key)) {
-            const g = this.make.graphics({ x: 0, y: 0 }, false);
-            g.fillStyle(0x4a3524, 1);
-            g.fillEllipse(24, 10, 44, 18);
-            g.fillStyle(0x5e442e, 1);
-            g.fillEllipse(24, 9, 36, 12);
-            g.generateTexture(key, 48, 20);
-            g.destroy();
-        }
-        return key;
-    }
-
     private renderPropsAndPlants(): void {
         const ts = DISPLAY.tile;
-        const bedKey = this.ensureBedTexture();
 
         for (const r of this.plan.regions) {
             for (const p of r.props) {
@@ -270,44 +283,108 @@ export class WorldScene extends Phaser.Scene {
             applyDisplaySize(ws);
             ws.setDepth(r.waystone.tileY + 0.5);
 
+            // Plots render NOTHING until they have real engine state (2026-07-03: no more
+            // soil holes/beds — you water the grass and the region's preset flower appears
+            // there, growing with real mastery). The invisible sprite keeps the spot alive
+            // for watering/growth targeting.
             for (const spot of r.plants) {
-                const bed = this.add.image(spot.tileX * ts + ts / 2, spot.tileY * ts + ts, bedKey);
-                bed.setOrigin(0.5, 0.75);
-                bed.setDepth(spot.tileY + 0.55);
                 const stage = this.stageByNode.get(spot.nodeId) ?? "bare-soil";
                 const key = ensureTexture(this, stageTextureKey(stage));
                 const spr = this.add.image(spot.tileX * ts + ts / 2, spot.tileY * ts + ts, key);
                 spr.setOrigin(0.5, 1);
                 applyDisplaySize(spr);
                 spr.setDepth(spot.tileY + 0.6);
+                spr.setVisible(stage !== "bare-soil");
                 this.plants.set(spot.nodeId, { nodeId: spot.nodeId, sprite: spr, spot });
             }
         }
     }
 
-    private renderGates(): void {
-        for (const g of this.plan.gates) {
-            this.refreshGateSprite(g);
+    /** The section of the LOCKED region containing this tile, or null (open ground/plaza). */
+    private lockedRegionAt(tileX: number, tileY: number): string | null {
+        for (const r of this.plan.regions) {
+            if (this.sectorUnlocks.has(r.section)) {
+                continue;
+            }
+            if (
+                tileX >= r.rect.x && tileX < r.rect.x + r.rect.w
+                && tileY >= r.rect.y && tileY < r.rect.y + r.rect.h
+            ) {
+                return r.section;
+            }
+        }
+        return null;
+    }
+
+    /** Each locked garden sleeps under a mist veil with a glowing trial stone at its mouth:
+     * take that garden's full MCAT test to lift it (placeholder panel until tests upload). */
+    private renderSectorLocks(): void {
+        const ts = DISPLAY.tile;
+        for (const r of this.plan.regions) {
+            if (this.sectorUnlocks.has(r.section)) {
+                continue;
+            }
+            const veil = this.add.rectangle(
+                r.rect.x * ts,
+                r.rect.y * ts,
+                r.rect.w * ts,
+                r.rect.h * ts,
+                0x101820,
+                0.42,
+            );
+            veil.setOrigin(0, 0);
+            veil.setDepth(7000);
+            this.sectorVeils.set(r.section, veil);
+
+            const mouth = sectorFor(r.section)?.entrance
+                ?? { tileX: r.rect.x + Math.floor(r.rect.w / 2), tileY: r.rect.y + r.rect.h - 1 };
+            const sx = mouth.tileX * ts + ts / 2;
+            const sy = mouth.tileY * ts + ts;
+            const stoneKey = pickFirstAsset(["struct-waystone-active", "struct-waystone-dormant"]);
+            const stone = this.add.image(0, 0, ensureTexture(this, stoneKey));
+            stone.setOrigin(0.5, 1);
+            sizeToHeightTiles(stone, 2.2);
+            const label = this.add.text(0, -2.4 * ts, "⚿ Trial", {
+                fontFamily: "monospace",
+                fontSize: "11px",
+                color: "#ffe066",
+                backgroundColor: "#1a2b1ecc",
+                padding: { x: 4, y: 2 },
+            }).setOrigin(0.5, 1);
+            const group = this.add.container(sx, sy, [stone, label]);
+            group.setDepth(7001);
+            this.trialStones.set(r.section, group);
         }
     }
 
-    private refreshGateSprite(g: GateSpot): void {
-        const ts = DISPLAY.tile;
-        const open = gateIsOpen(g, this.stageByNode);
-        const openKey = hasAssetKey("struct-gate-open") ? "struct-gate-open" : "gate-open";
-        const closedKey = hasAssetKey("struct-gate-locked") ? "struct-gate-locked" : "gate-closed";
-        const key = ensureTexture(this, open ? openKey : closedKey);
-        const existing = this.gates.get(g.id);
-        if (existing) {
-            existing.setTexture(key);
-            applyDisplaySize(existing);
+    private unlockSectorVisuals(section: string): void {
+        this.sectorUnlocks.add(section);
+        const veil = this.sectorVeils.get(section);
+        const stone = this.trialStones.get(section);
+        this.sectorVeils.delete(section);
+        this.trialStones.delete(section);
+        if (this.reducedMotion) {
+            veil?.destroy();
+            stone?.destroy();
             return;
         }
-        const img = this.add.image(g.tileX * ts + ts / 2, (g.tileY + 1) * ts, key);
-        img.setOrigin(0.5, 1);
-        applyDisplaySize(img);
-        img.setDepth(g.tileY + 0.55);
-        this.gates.set(g.id, img);
+        if (veil) {
+            this.tweens.add({
+                targets: veil,
+                alpha: 0,
+                duration: 900,
+                onComplete: () => veil.destroy(),
+            });
+        }
+        if (stone) {
+            this.tweens.add({
+                targets: stone,
+                alpha: 0,
+                y: stone.y - 12,
+                duration: 700,
+                onComplete: () => stone.destroy(),
+            });
+        }
     }
 
     private restagePlants(): void {
@@ -316,9 +393,7 @@ export class WorldScene extends Phaser.Scene {
             const stage = this.stageByNode.get(nodeId) ?? "bare-soil";
             plant.sprite.setTexture(ensureTexture(this, stageTextureKey(stage)));
             applyDisplaySize(plant.sprite);
-        }
-        for (const g of this.plan.gates) {
-            this.refreshGateSprite(g);
+            plant.sprite.setVisible(stage !== "bare-soil");
         }
         this.updateTendMarker();
     }
@@ -436,21 +511,19 @@ export class WorldScene extends Phaser.Scene {
         const kx = KEEPER_TILE.tileX * ts + ts / 2;
         const ky = KEEPER_TILE.tileY * ts + ts;
 
-        // A gazebo anchors the plaza behind the Keeper.
+        // ONE centerpiece at the center of everything (2026-07-03): the gazebo shrine rises
+        // directly behind the Keeper on the plaza axis — nothing else competes with it.
         if (hasAssetKey("struct-gazebo")) {
-            const gz = this.add.image(kx + 3.6 * ts, ky - 2.2 * ts, ensureTexture(this, "struct-gazebo"));
+            const gz = this.add.image(kx, ky - 1.6 * ts, ensureTexture(this, "struct-gazebo"));
             gz.setOrigin(0.5, 1);
-            applyDisplaySize(gz);
-            gz.setDepth(KEEPER_TILE.tileY - 2.2 + 0.5);
+            sizeToHeightTiles(gz, 4.6);
+            gz.setDepth(KEEPER_TILE.tileY - 1.6 + 0.5);
         }
-        // The Keeper is one of the gardener's own kind — a mentor in the same art family
-        // as the player, not an out-of-place sage. Aspect-preserved so it isn't squished.
-        const keeperKey = pickFirstAsset(
-            ["keeper-gardener", "char-gardener-1-0", "keeper-meditating"],
-        );
+        // The Keeper is a MONK — the meditating sage, not a gardener (2026-07-03).
+        const keeperKey = pickFirstAsset(["keeper-meditating", "keeper-gardener"]);
         this.keeper = this.add.image(kx, ky, ensureTexture(this, keeperKey));
         this.keeper.setOrigin(0.5, 1);
-        sizeToHeightTiles(this.keeper, 2.6);
+        sizeToHeightTiles(this.keeper, 2.2);
         this.keeper.setDepth(KEEPER_TILE.tileY + 0.75);
 
         this.keeperLantern = this.add.circle(kx + 20, ky - 40, 8, 0xffe066, 0.5);
@@ -481,7 +554,7 @@ export class WorldScene extends Phaser.Scene {
 
         this.interactKey.on("down", () => this.tryInteract());
         // Space is the tending verb (docs 2026-07-03): near a person/marker it interacts
-        // (talk to the Keeper, use a waystone/gate); on open ground it WATERS where you stand
+        // (talk to the Keeper, use a waystone); on open ground it WATERS where you stand
         // and the garden wakes there. Planting seeds is gone — you water the ground itself.
         this.spaceKey.on("down", () => {
             if (this.panelOpen) {
@@ -489,7 +562,7 @@ export class WorldScene extends Phaser.Scene {
             }
             if (
                 this.nearTarget === "keeper" || this.nearTarget === "waystone"
-                || this.nearTarget === "gate" || this.nearTarget === "flavor"
+                || this.nearTarget === "flavor" || this.nearTarget === "trial"
             ) {
                 this.tryInteract();
             } else {
@@ -498,28 +571,49 @@ export class WorldScene extends Phaser.Scene {
         });
     }
 
-    /** Water the ground at the avatar's feet: cosmetic greening burst + a request to the panel
-     * layer (which owns the water ledger) to spend a pour and queue the nearest plot. */
+    /** The tile the watering can POINTS at: one tile ahead of the avatar's facing. */
+    private aimTile(): TileCoord {
+        const ahead: Record<typeof this.facing, [number, number]> = {
+            down: [0, 1],
+            up: [0, -1],
+            left: [-1, 0],
+            right: [1, 0],
+        };
+        const [dx, dy] = ahead[this.facing];
+        return { tileX: this.avatarTile.tileX + dx, tileY: this.avatarTile.tileY + dy };
+    }
+
+    /** Water where the can points: a request to the panel layer (which owns the water
+     * ledger) to spend a pour; on success it answers with `flora:water` and the ground
+     * flora grows at the splash (aim +2, ring +1). The nearest plot still queues. */
     private waterGround(): void {
         if (!this.avatar) {
             return;
         }
         const nodeId = this.nearestPlotNode(6);
+        const aim = this.aimTile();
         this.bus.emit("ground:watered", {
             x: this.avatar.x,
             y: this.avatar.y - DISPLAY.tile * 0.5,
             nodeId,
+            aimTileX: aim.tileX,
+            aimTileY: aim.tileY,
         });
-        this.fxGroundWater(this.avatar.x, this.avatar.y);
+        const ts = DISPLAY.tile;
+        this.fxGroundWater(aim.tileX * ts + ts / 2, (aim.tileY + 1) * ts);
     }
 
-    /** The nearest plot within `maxTiles` of the avatar (or null on open ground). */
+    /** The nearest plot within `maxTiles` of the avatar (or null on open ground). Plots
+     * inside a still-locked garden don't drink — take the trial first. */
     private nearestPlotNode(maxTiles: number): string | null {
         const ax = this.avatarTile.tileX + 0.5;
         const ay = this.avatarTile.tileY + 0.5;
         let best: string | null = null;
         let bestD = maxTiles;
         for (const [, plant] of this.plants) {
+            if (this.lockedRegionAt(plant.spot.tileX, plant.spot.tileY) !== null) {
+                continue;
+            }
             const d = this.distTiles(ax, ay, plant.spot.tileX + 0.5, plant.spot.tileY + 0.5);
             if (d < bestD) {
                 bestD = d;
@@ -547,7 +641,7 @@ export class WorldScene extends Phaser.Scene {
         drops.setDepth(8500);
         this.time.delayedCall(560, () => drops.destroy());
         const pulse = this.add.circle(x, y - 4, 8, 0x8fdc72, 0.4);
-        pulse.setDepth(this.avatarTile.tileY + 0.4);
+        pulse.setDepth(y / DISPLAY.tile + 0.4);
         this.tweens.add({
             targets: pulse,
             scale: 4,
@@ -577,6 +671,7 @@ export class WorldScene extends Phaser.Scene {
         }
 
         const moving = dx !== 0 || dy !== 0;
+        this.isMovingNow = moving;
         // Normalise so diagonals aren't ~40% faster than the cardinals.
         const inv = moving ? 1 / Math.hypot(dx, dy) : 0;
         const vx = dx * speed * inv;
@@ -668,20 +763,42 @@ export class WorldScene extends Phaser.Scene {
         this.nearNodeId = null;
         this.nearWaystoneId = null;
         this.nearFlavorIdx = null;
+        this.nearTrialSection = null;
+
+        // Trial stones (locked gardens) — checked first so the lock always answers.
+        for (const [section, group] of this.trialStones) {
+            if (
+                this.distTiles(ax, ay, group.x / ts - 0.5 + 0.5, group.y / ts - 1 + 0.5)
+                    <= INTERACT_RADIUS + 0.7
+            ) {
+                this.nearTarget = "trial";
+                this.nearTrialSection = section;
+                break;
+            }
+        }
 
         // Keeper
-        if (this.distTiles(ax, ay, KEEPER_TILE.tileX + 0.5, KEEPER_TILE.tileY + 0.5) <= INTERACT_RADIUS) {
+        if (
+            !this.nearTarget
+            && this.distTiles(ax, ay, KEEPER_TILE.tileX + 0.5, KEEPER_TILE.tileY + 0.5)
+                <= INTERACT_RADIUS
+        ) {
             this.nearTarget = "keeper";
         }
 
-        // Plants
-        for (const [, plant] of this.plants) {
-            const px = plant.spot.tileX + 0.5;
-            const py = plant.spot.tileY + 0.5;
-            if (this.distTiles(ax, ay, px, py) <= INTERACT_RADIUS) {
-                this.nearTarget = "plant";
-                this.nearNodeId = plant.nodeId;
-                break;
+        // Plants (only ones that have sprouted — invisible bare-soil spots aren't targets)
+        if (!this.nearTarget) {
+            for (const [, plant] of this.plants) {
+                if (!plant.sprite.visible) {
+                    continue;
+                }
+                const px = plant.spot.tileX + 0.5;
+                const py = plant.spot.tileY + 0.5;
+                if (this.distTiles(ax, ay, px, py) <= INTERACT_RADIUS) {
+                    this.nearTarget = "plant";
+                    this.nearNodeId = plant.nodeId;
+                    break;
+                }
             }
         }
 
@@ -693,17 +810,6 @@ export class WorldScene extends Phaser.Scene {
                 if (this.distTiles(ax, ay, wx, wy) <= INTERACT_RADIUS) {
                     this.nearTarget = "waystone";
                     this.nearWaystoneId = r.section;
-                    break;
-                }
-            }
-        }
-
-        // Gates
-        if (!this.nearTarget) {
-            for (const g of this.plan.gates) {
-                if (this.distTiles(ax, ay, g.tileX + 0.5, g.tileY + 0.5) <= INTERACT_RADIUS) {
-                    this.nearTarget = "gate";
-                    this.nearNodeId = g.dst;
                     break;
                 }
             }
@@ -749,17 +855,17 @@ export class WorldScene extends Phaser.Scene {
                     this.teleportToWaystone(this.nearWaystoneId);
                 }
                 break;
-            case "gate":
-                if (this.nearNodeId) {
-                    this.bus.emit("plant:interact", { nodeId: this.nearNodeId });
-                }
-                break;
             case "flavor":
                 if (this.nearFlavorIdx !== null) {
                     const it = this.plan.interactions[this.nearFlavorIdx];
                     if (it) {
                         this.bus.emit("world:flavor", { title: it.title, line: it.line });
                     }
+                }
+                break;
+            case "trial":
+                if (this.nearTrialSection) {
+                    this.bus.emit("sector:trial", { section: this.nearTrialSection });
                 }
                 break;
             default: {
@@ -771,8 +877,8 @@ export class WorldScene extends Phaser.Scene {
 
     private teleportToWaystone(waystoneId: string): void {
         const region = this.plan.regions.find((r) => r.section === waystoneId);
-        if (!region || !this.avatar) {
-            return;
+        if (!region || !this.avatar || !this.sectorUnlocks.has(waystoneId)) {
+            return; // a locked garden cannot be fast-travelled into — take its trial first
         }
         const ts = DISPLAY.tile;
         const ws = region.waystone;
@@ -829,7 +935,54 @@ export class WorldScene extends Phaser.Scene {
             this.bus.on("growth:tick", ({ nodeId, fast }) => this.fxGrowthTick(nodeId, fast)),
             this.bus.on("plant:bloomed", ({ nodeId }) => this.fxBloomed(nodeId)),
             this.bus.on("map:travel", ({ waystoneId }) => this.teleportToWaystone(waystoneId)),
+            this.bus.on("sector:unlocked", ({ section }) => this.unlockSectorVisuals(section)),
+            this.bus.on("flora:water", ({ aimTileX, aimTileY }) => this.onFloraWater(aimTileX, aimTileY)),
         );
+    }
+
+    /** A pour was paid for — grow the ground flora, persist the counts, celebrate bands. */
+    private onFloraWater(aimTileX: number, aimTileY: number): void {
+        if (!this.flora) {
+            return;
+        }
+        const result = this.flora.applyPour(aimTileX, aimTileY);
+        if (result.changed.length > 0) {
+            this.bus.emit("flora:changed", { counts: this.flora.snapshotCounts() });
+        }
+        for (const bandId of result.bandsCompleted) {
+            const section = bandId.split(":")[0];
+            const flowers = result.changed.filter((c) => c.spot.bandId === bandId).length;
+            this.bus.emit("flora:band-bloomed", { section, bandId, flowers });
+            this.fxBandBloomed(bandId);
+        }
+    }
+
+    /** Band celebration: a sparkle wave along the completed color line. */
+    private fxBandBloomed(bandId: string): void {
+        if (this.reducedMotion || !this.flora) {
+            return;
+        }
+        const ts = DISPLAY.tile;
+        this.flora.bandTiles(bandId).forEach((tile, i) => {
+            this.time.delayedCall(i * 40, () => {
+                const star = this.add.star(
+                    tile.tileX * ts + ts / 2,
+                    tile.tileY * ts + ts * 0.4,
+                    4,
+                    2,
+                    5,
+                    0xffe066,
+                );
+                star.setDepth(8650);
+                this.tweens.add({
+                    targets: star,
+                    y: star.y - 10,
+                    alpha: 0,
+                    duration: 520,
+                    onComplete: () => star.destroy(),
+                });
+            });
+        });
     }
 
     private plantWorldPos(nodeId: string): { x: number; y: number } | null {

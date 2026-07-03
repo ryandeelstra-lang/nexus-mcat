@@ -30,8 +30,11 @@ export interface GardenDoc {
     /** nodeId -> paraphrase-pass timestamp (mirrors the sidecar variant-pass truth). */
     paraphrase: Record<string, number>;
     tutorial: TutorialState;
-    unlocks: { waystones: string[] };
+    /** `sectors` = garden sections unlocked by passing their full MCAT test (2026-07-03). */
+    unlocks: { waystones: string[]; sectors: string[] };
     settings: { muted: boolean; volume: number };
+    /** Ground-flora watered counts ("x,y" tile -> pours), cosmetic-only (2026-07-03). */
+    flora: Record<string, number>;
 }
 
 export function emptyDoc(): GardenDoc {
@@ -40,8 +43,9 @@ export function emptyDoc(): GardenDoc {
         pending: [],
         paraphrase: {},
         tutorial: { beat: 0, done: false },
-        unlocks: { waystones: [] },
+        unlocks: { waystones: [], sectors: [] },
         settings: { muted: false, volume: 0.7 },
+        flora: {},
     };
 }
 
@@ -96,8 +100,12 @@ export class GardenStore {
             pending: persisted.pending ?? [],
             paraphrase: persisted.paraphrase ?? {},
             tutorial: { ...base.tutorial, ...(persisted.tutorial ?? {}) },
-            unlocks: { ...base.unlocks, ...(persisted.unlocks ?? {}) },
+            unlocks: {
+                waystones: persisted.unlocks?.waystones ?? [],
+                sectors: persisted.unlocks?.sectors ?? [],
+            },
             settings: { ...base.settings, ...(persisted.settings ?? {}) },
+            flora: persisted.flora ?? {},
         };
         return this.doc;
     }
@@ -161,8 +169,28 @@ export class GardenStore {
         if (this.doc.unlocks.waystones.includes(id)) {
             return;
         }
-        const unlocks = { waystones: [...this.doc.unlocks.waystones, id] };
+        const unlocks = { ...this.doc.unlocks, waystones: [...this.doc.unlocks.waystones, id] };
         this.doc = { ...this.doc, unlocks };
         void this.transport.set("unlocks", unlocks);
+    }
+
+    /** Ground-flora watered counts (write-through like every other key). */
+    setFlora(counts: Record<string, number>): void {
+        this.doc = { ...this.doc, flora: counts };
+        void this.transport.set("flora", counts);
+    }
+
+    /** Unlock a garden section (a passed full MCAT test — placeholder-driven for now). */
+    unlockSector(section: string): void {
+        if (this.doc.unlocks.sectors.includes(section)) {
+            return;
+        }
+        const unlocks = { ...this.doc.unlocks, sectors: [...this.doc.unlocks.sectors, section] };
+        this.doc = { ...this.doc, unlocks };
+        void this.transport.set("unlocks", unlocks);
+    }
+
+    hasSector(section: string): boolean {
+        return this.doc.unlocks.sectors.includes(section);
     }
 }

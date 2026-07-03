@@ -37,7 +37,7 @@ const CHUNK = 960;
 // Deterministic noise
 // ---------------------------------------------------------------------------
 
-function hash2(x: number, y: number, seed: number): number {
+export function hash2(x: number, y: number, seed: number): number {
     let h = Math.imul(x | 0, 374761393) + Math.imul(y | 0, 668265263) + Math.imul(seed, 1440662683);
     h = Math.imul(h ^ (h >>> 13), 1274126177);
     return ((h ^ (h >>> 16)) >>> 0) / 4294967296;
@@ -57,7 +57,7 @@ function valueNoise(x: number, y: number, seed: number): number {
     return a + (b - a) * sx + (c - a) * sy + (a - b - c + d) * sx * sy;
 }
 
-function fbm(x: number, y: number, seed: number): number {
+export function fbm(x: number, y: number, seed: number): number {
     return 0.6 * valueNoise(x, y, seed)
         + 0.3 * valueNoise(x * 2.13, y * 2.13, seed + 101)
         + 0.1 * valueNoise(x * 4.31, y * 4.31, seed + 202);
@@ -545,18 +545,17 @@ function fam(prefix: string, ids: number[], h: [number, number]): Family {
 }
 
 const DECOR: Record<number, RegionDecor> = {
+    // 2026-07-03: no ambient FLOWERS anywhere — the player grows the flowers. Scatter is
+    // bushes + the rare tree only, and much sparser than before ("less stuff, still some").
     0: {
         trees: fam("foliage-sakura", [0, 1, 2, 3, 5, 8, 9], [2.6, 3.4]),
         medium: [
             fam("foliage-sakura", [11, 12, 13, 14, 22], [1.2, 1.6]),
             fam("foliage-sakura", [15, 16, 17, 18], [0.9, 1.3]),
-            fam("foliage-sakura", [6, 7, 10], [1.8, 2.4]),
         ],
         small: [
             fam("foliage-sakura", [19, 21, 24, 25, 26, 27], [0.8, 1.1]),
-            fam("prop-sakura-flowers", [0, 1, 2, 3, 4], [0.6, 0.8]),
         ],
-        decals: fam("prop-sakura-petals", [0, 1], [0.5, 0.6]),
     },
     1: {
         trees: fam("foliage-keukenhof", [0, 1, 2, 3, 4, 5], [3.0, 3.6]),
@@ -785,16 +784,16 @@ export function planDecor(
         return ty > SPLIT_Y ? 2 : 0;
     };
 
-    // A. Border forest bands — map edge + the seams between regions.
+    // A. Border forest band — the MAP EDGE only frames the island (seam trees would crowd
+    // the smaller world), and thinner than before.
     for (let ty = 1; ty < plan.heightTiles - 1; ty++) {
         for (let tx = 1; tx < plan.widthTiles - 1; tx++) {
-            const onEdge = tx < 4 || tx >= plan.widthTiles - 4
-                || ty < 4 || ty >= plan.heightTiles - 4;
-            const onSeam = Math.abs(tx - SPLIT_X) < 2.5 || Math.abs(ty - SPLIT_Y) < 2.5;
-            if (!onEdge && !onSeam) {
+            const onEdge = tx < 3 || tx >= plan.widthTiles - 3
+                || ty < 3 || ty >= plan.heightTiles - 3;
+            if (!onEdge) {
                 continue;
             }
-            if (hash2(tx, ty, 201) > 0.34) {
+            if (hash2(tx, ty, 201) > 0.2) {
                 continue;
             }
             const jx = tx + (hash2(tx, ty, 202) - 0.5) * 1.6 + 0.5;
@@ -803,28 +802,26 @@ export function planDecor(
         }
     }
 
-    // B. Interior scatter per region — medium clumps then small fillers, clustered by species.
+    // B. Interior scatter per region — sparse bush clumps only; interior trees come from the
+    // authored sector layouts ("maybe only one large tree in this area").
     for (const r of plan.regions) {
         const reg = REGION_INDEX[r.section];
         const decor = DECOR[reg];
-        for (let ty = r.rect.y + 2; ty < r.rect.y + r.rect.h - 1; ty += 3) {
-            for (let tx = r.rect.x + 2; tx < r.rect.x + r.rect.w - 1; tx += 3) {
-                if (hash2(tx, ty, 301) > 0.5) {
+        for (let ty = r.rect.y + 2; ty < r.rect.y + r.rect.h - 1; ty += 4) {
+            for (let tx = r.rect.x + 2; tx < r.rect.x + r.rect.w - 1; tx += 4) {
+                if (hash2(tx, ty, 301) > 0.3) {
                     continue;
                 }
                 const clus = fbm(tx * 0.11, ty * 0.11, 305);
-                // Dense cluster cores grow full trees; the rest get bushes/flowers.
-                const family = clus > 0.64 && hash2(tx, ty, 306) < 0.65
-                    ? decor.trees
-                    : decor.medium[(clus * decor.medium.length) | 0] ?? decor.medium[0];
+                const family = decor.medium[(clus * decor.medium.length) | 0] ?? decor.medium[0];
                 const jx = tx + (hash2(tx, ty, 302) - 0.5) * 2.4 + 0.5;
                 const jy = ty + (hash2(tx, ty, 303) - 0.5) * 2.4 + 0.5;
                 tryPlace(jx, jy, family, 310);
             }
         }
-        for (let ty = r.rect.y + 1; ty < r.rect.y + r.rect.h - 1; ty += 2) {
-            for (let tx = r.rect.x + 1; tx < r.rect.x + r.rect.w - 1; tx += 2) {
-                if (hash2(tx, ty, 401) > 0.3) {
+        for (let ty = r.rect.y + 1; ty < r.rect.y + r.rect.h - 1; ty += 3) {
+            for (let tx = r.rect.x + 1; tx < r.rect.x + r.rect.w - 1; tx += 3) {
+                if (hash2(tx, ty, 401) > 0.14) {
                     continue;
                 }
                 const clus = fbm(tx * 0.13, ty * 0.13, 405);
@@ -833,18 +830,6 @@ export function planDecor(
                 const jx = tx + (hash2(tx, ty, 402) - 0.5) * 1.8 + 0.5;
                 const jy = ty + (hash2(tx, ty, 403) - 0.5) * 1.8 + 0.5;
                 tryPlace(jx, jy, family, 410);
-            }
-        }
-        if (decor.decals) {
-            for (let ty = r.rect.y + 2; ty < r.rect.y + r.rect.h - 2; ty += 3) {
-                for (let tx = r.rect.x + 2; tx < r.rect.x + r.rect.w - 2; tx += 3) {
-                    if (hash2(tx, ty, 501) > 0.22) {
-                        continue;
-                    }
-                    const jx = tx + (hash2(tx, ty, 502) - 0.5) * 2 + 0.5;
-                    const jy = ty + (hash2(tx, ty, 503) - 0.5) * 2 + 0.5;
-                    tryPlace(jx, jy, decor.decals, 510, true, 1.2);
-                }
             }
         }
     }

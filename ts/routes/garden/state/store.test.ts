@@ -85,6 +85,21 @@ describe("GardenStore — the additive store contract", () => {
         );
     });
 
+    it("ground-flora watered counts persist across a restart", async () => {
+        const { disk, transport } = fakeSidecar();
+        const first = new GardenStore(transport);
+        await first.load();
+        expect(first.snapshot.flora).toEqual({});
+        first.setFlora({ "4,7": 2, "5,7": 5 });
+
+        const second = new GardenStore({
+            get: () => Promise.resolve(Object.fromEntries(disk) as Partial<GardenDoc>),
+            set: transport.set,
+        });
+        const doc = await second.load();
+        expect(doc.flora).toEqual({ "4,7": 2, "5,7": 5 });
+    });
+
     it("partial/corrupt persisted docs merge over safe defaults (versioned-store discipline)", async () => {
         const { transport } = fakeSidecar({
             economy: { seeds: 12 } as never, // missing water/xp

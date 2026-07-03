@@ -262,6 +262,52 @@ function generatePlaceholder(scene: Phaser.Scene, key: string): void {
         return;
     }
 
+    // Ground-flora growth stages (watering redesign 2026-07-03). The bloom uses real
+    // per-region art; sprout/bud are generated pixel shoots so every species grows the
+    // same readable way. Bud keys carry their species tint: "flora-bud-e87ea1".
+    if (key === "flora-sprout") {
+        g.fillStyle(0x3d7a32, 1);
+        g.fillRect(7, 8, 2, 6);
+        g.fillStyle(0x5cb848, 1);
+        g.fillRect(4, 6, 3, 2);
+        g.fillRect(9, 5, 3, 2);
+        g.fillRect(6, 4, 2, 2);
+        g.generateTexture(key, 16, 14);
+        g.destroy();
+        generated.add(key);
+        return;
+    }
+
+    if (key.startsWith("flora-bud-") || key.startsWith("flora-bloom-")) {
+        const isBloom = key.startsWith("flora-bloom-");
+        const tint = parseInt(key.slice(key.lastIndexOf("-") + 1), 16);
+        g.fillStyle(0x3d7a32, 1);
+        g.fillRect(7, 10, 2, 8);
+        g.fillStyle(0x5cb848, 1);
+        g.fillRect(4, 12, 3, 2);
+        g.fillRect(9, 11, 3, 2);
+        if (isBloom) {
+            g.fillStyle(tint, 1);
+            for (let i = 0; i < 5; i++) {
+                const a = (i / 5) * Math.PI * 2 - Math.PI / 2;
+                g.fillCircle(8 + Math.cos(a) * 4, 6 + Math.sin(a) * 4, 3);
+            }
+            g.fillStyle(0xffe066, 0.9);
+            g.fillCircle(8, 6, 2);
+        } else {
+            // A closed bud: species-tinted teardrop over green sepals.
+            g.fillStyle(0x4a8f3a, 1);
+            g.fillCircle(8, 9, 3);
+            g.fillStyle(tint, 1);
+            g.fillCircle(8, 7, 3);
+            g.fillRect(7, 3, 2, 3);
+        }
+        g.generateTexture(key, 16, 18);
+        g.destroy();
+        generated.add(key);
+        return;
+    }
+
     if (key.startsWith("prop-")) {
         if (key.includes("lantern")) {
             g.fillStyle(0xb33951, 1);

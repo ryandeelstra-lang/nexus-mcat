@@ -86,6 +86,8 @@ export function GardenApp(): React.ReactElement {
                 }
                 const game = await createGame(canvasHost.current, snap);
                 gameRef.current = game;
+                game.registry.set("sectorUnlocks", store.snapshot.unlocks.sectors);
+                game.registry.set("floraState", store.snapshot.flora);
                 await pushFlags();
                 setPhase("ready");
             } catch (err) {
@@ -138,6 +140,19 @@ export function GardenApp(): React.ReactElement {
                 void refreshSnapshot();
             }),
             bus.on("map:toggle", () => feed({ kind: "map-opened" })),
+            // Keep the world's sector-unlock registry fresh (survives scene restarts).
+            bus.on("sector:unlocked", () => {
+                const s = storeRef.current;
+                if (s) {
+                    gameRef.current?.registry.set("sectorUnlocks", s.snapshot.unlocks.sectors);
+                }
+            }),
+            // Ground-flora pours persist through the additive store (+ registry, so a scene
+            // restart restores the grown garden without a reload).
+            bus.on("flora:changed", ({ counts }) => {
+                storeRef.current?.setFlora(counts);
+                gameRef.current?.registry.set("floraState", counts);
+            }),
             // Keep the world's panelOpen flag honest so Space never double-fires.
             bus.on("keeper:interact", () => gameRef.current?.registry.set("panelOpen", true)),
             bus.on("review:closed", () => {

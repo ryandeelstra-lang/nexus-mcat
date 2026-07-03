@@ -65,12 +65,11 @@ describe("gateIsOpen", () => {
         expect(gateIsOpen(edge, stages)).toBe(true);
     });
 
-    it("closed gate tile is solid; open gate tile is walkable", () => {
+    it("prereq gates are data-only — never solid (sector locks own progression now)", () => {
+        // 2026-07-03: the little vine doors are gone; a full MCAT test unlocks each garden.
         const plan = buildWorldPlan();
         const gate = plan.gates[0];
         const closed = new Map<string, GrowthStage>();
-        expect(tileIsSolid(plan, gate.tileX, gate.tileY, closed)).toBe(true);
-        const open = new Map<string, GrowthStage>([[gate.src, "bloomed"]]);
-        expect(tileIsSolid(plan, gate.tileX, gate.tileY, open)).toBe(false);
+        expect(tileIsSolid(plan, gate.tileX, gate.tileY, closed)).toBe(false);
     });
 });

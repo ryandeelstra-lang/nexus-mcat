@@ -13,12 +13,27 @@ export interface GardenEvents {
     /**
      * The player watered the ground itself (Space anywhere — the primary tending verb).
      * `x`/`y` are world px for the cosmetic greening burst; `nodeId` is the nearest plot the
-     * pour reaches (or null on open ground). The panel layer validates/spends water and,
-     * when a plot is reached, queues it for the next Keeper visit.
+     * pour reaches (or null on open ground). `aimTileX/Y` is the tile the watering can
+     * POINTS at (one tile ahead of the avatar's facing) — the bone-meal splash center.
+     * The panel layer validates/spends water and, when a plot is reached, queues it for
+     * the next Keeper visit.
      */
-    "ground:watered": { x: number; y: number; nodeId: string | null };
+    "ground:watered": {
+        x: number;
+        y: number;
+        nodeId: string | null;
+        aimTileX: number;
+        aimTileY: number;
+    };
     /** The world asks the panel layer whether a pour is affordable (HUD feedback only). */
     "water:denied": Record<string, never>;
+    /** A pour was PAID FOR (panel ledger) — the world grows the preset ground flora at the
+     *  splash (aim +2, ring +1; bloom at each tile's own 3–7 threshold). */
+    "flora:water": { aimTileX: number; aimTileY: number };
+    /** Ground-flora watered counts changed — the app layer persists them (additive store). */
+    "flora:changed": { counts: Record<string, number> };
+    /** Every flower of one preset color band just bloomed — a cohesion celebration. */
+    "flora:band-bloomed": { section: string; bandId: string; flowers: number };
     /** A graded answer landed in the engine; the world should tick growth. */
     "growth:tick": { nodeId: string; rating: number; msTaken: number; fast: boolean };
     /** The paraphrase gate passed for a topic — the bloom moment (biggest juice). */
@@ -28,6 +43,11 @@ export interface GardenEvents {
     /** The player walked up to a landmark/prop and pressed interact — a Keeper-voiced flavor
      *  line tied to the geography (the "items interact with each character" beat). */
     "world:flavor": { title: string; line: string };
+    /** The player approached a LOCKED garden's trial stone — open the full-MCAT-test panel
+     *  (placeholder until the real tests are uploaded, 2026-07-03). */
+    "sector:trial": { section: string };
+    /** A garden was unlocked (test passed / placeholder) — the world drops its veil. */
+    "sector:unlocked": { section: string };
     /** The review panel closed (session end) — the world may run the harvest beat. */
     "review:closed": { answered: number; blooms: number };
     /** Open/close the map overlay. */

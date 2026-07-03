@@ -1,184 +1,120 @@
 // Copyright: Ankitects Pty Ltd and contributors
 // License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
 
-// charged_up: VERSAILLES (C-P, Chem/Phys) — "The Laws Beneath Matter". Authored from
-// docs/sectors/03. A French formal garden: straight gravel allées on two perpendicular axes
-// meeting at a Fountain Court, a rectangular Grand Canal, clipped hedge parterres, marble
-// statues and gold urns on the beats. Formality IS the theme. All coordinates are WORLD tiles
-// (this rect spans x 0..25, y 22..39).
-import { hline, rect, tiles, vline } from "./helpers";
+// charged_up: VERSAILLES (C-P, Chem/Phys) — "The Laws Beneath Matter". Reauthored from live
+// playtesting (2026-07-03): ONE long winding promenade snakes through the whole parterre in
+// four sweeps, lined by clipped hedges that follow the path with deliberate breaks. The
+// fountain is the centerpiece — the path dips around it so you walk right past. No doors,
+// no canal, no flower scatter; a few marble statues mark the bends. All coordinates are
+// WORLD tiles (this rect spans x 0..18, y 19..31).
+import { hline, tiles } from "./helpers";
 import type { SectorLayout } from "./types";
 
+// Hedge lines shadow the promenade one tile off each sweep, with breaks at plot frontages
+// and at the NE mouth so the plaza connector always reaches the trail.
 const hedges = tiles(
-    hline(22, 12, 22), // north rim wall
-    vline(10, 24, 26), // chem north arm, west wall
-    vline(14, 24, 26), // chem north arm, east wall
-    [{ tileX: 11, tileY: 26 }, { tileX: 13, tileY: 26 }], // gate 5A->5B posts
-    // Fountain-court hedge island (fountain sits open in the center at 12,30).
-    [
-        { tileX: 11, tileY: 29 },
-        { tileX: 12, tileY: 29 },
-        { tileX: 13, tileY: 29 },
-        { tileX: 11, tileY: 30 },
-        { tileX: 13, tileY: 30 },
-        { tileX: 11, tileY: 31 },
-        { tileX: 12, tileY: 31 },
-        { tileX: 13, tileY: 31 },
-    ],
-    [{ tileX: 13, tileY: 27 }], // gate 4E->5B post
-    hline(28, 16, 19), // Grande Allee north wall (gap at x=20 for the bosquet allee)
-    hline(28, 21, 23),
-    [{ tileX: 17, tileY: 29 }, { tileX: 17, tileY: 31 }], // gate 4A->4B posts
-    hline(32, 16, 23), // Grande Allee south wall
-    vline(10, 33, 34), // south arm, west wall
-    vline(14, 33, 34), // south arm, east wall
-    [{ tileX: 11, tileY: 33 }, { tileX: 13, tileY: 33 }], // gate 5B->5E posts
-    [{ tileX: 23, tileY: 24 }, { tileX: 25, tileY: 24 }], // gate 5B->5D posts
+    // Sweep 1 (y=20): hedge above, breaks flanking the 4A plot and clear of the NE mouth.
+    hline(19, 2, 6),
+    hline(19, 8, 9),
+    hline(19, 13, 15),
+    // Sweep 2 (y=23): hedge above, breaks at the 4E frontage and before 5A.
+    hline(22, 3, 5),
+    hline(22, 8, 10),
+    hline(22, 12, 13),
+    // Sweep 3 (y=26): hedge below, breaks aligned with sweep-4's so you can slip through.
+    hline(27, 3, 6),
+    hline(27, 9, 11),
+    hline(27, 13, 14),
+    // Sweep 4 (y=29): hedge above.
+    hline(28, 4, 6),
+    hline(28, 9, 11),
+    hline(28, 13, 14),
+    // South rim below the last sweep, open around the 5C/5E plots.
+    hline(31, 4, 6),
+    hline(31, 11, 12),
 );
 
 export const VERSAILLES: SectorLayout = {
     section: "C-P",
-    entrance: { tileX: 25, tileY: 22 },
+    entrance: { tileX: 17, tileY: 20 },
     pathWaypoints: [
-        // Entrance mouth + North Terrace (dead-west).
+        // One serpentine promenade: NE entrance → four sweeps → SE end. The second sweep
+        // dips a row (x 7..11) so the path bends around the fountain centerpiece at (9,25).
         [
-            { tileX: 25, tileY: 22 },
-            { tileX: 25, tileY: 23 },
-            { tileX: 24, tileY: 23 },
-            { tileX: 12, tileY: 23 },
-        ],
-        // 5D spur (NE).
-        [
-            { tileX: 24, tileY: 23 },
-            { tileX: 24, tileY: 25 },
-        ],
-        // Chemistry allee, north arm → court top.
-        [
-            { tileX: 12, tileY: 23 },
-            { tileX: 12, tileY: 28 },
-        ],
-        // Fountain Court ring (loops around the fountain island).
-        [
-            { tileX: 10, tileY: 28 },
-            { tileX: 14, tileY: 28 },
-            { tileX: 14, tileY: 32 },
-            { tileX: 10, tileY: 32 },
-            { tileX: 10, tileY: 28 },
-        ],
-        // Canal overlook.
-        [
-            { tileX: 10, tileY: 30 },
-            { tileX: 9, tileY: 30 },
-        ],
-        // Grande Allee (physics), east arm.
-        [
-            { tileX: 14, tileY: 30 },
-            { tileX: 23, tileY: 30 },
-        ],
-        // East bosquet allee (terrace → grande allee).
-        [
-            { tileX: 20, tileY: 23 },
-            { tileX: 20, tileY: 30 },
-        ],
-        // Chemistry allee, south arm → orangery.
-        [
-            { tileX: 12, tileY: 32 },
-            { tileX: 12, tileY: 36 },
-        ],
-        // Orangery walk.
-        [
-            { tileX: 12, tileY: 36 },
-            { tileX: 7, tileY: 36 },
+            { tileX: 17, tileY: 20 },
+            { tileX: 2, tileY: 20 },
+            { tileX: 2, tileY: 23 },
+            { tileX: 7, tileY: 23 },
+            { tileX: 7, tileY: 24 },
+            { tileX: 11, tileY: 24 },
+            { tileX: 11, tileY: 23 },
+            { tileX: 16, tileY: 23 },
+            { tileX: 16, tileY: 26 },
+            { tileX: 2, tileY: 26 },
+            { tileX: 2, tileY: 29 },
+            { tileX: 17, tileY: 29 },
         ],
     ],
-    waterTiles: rect(2, 29, 8, 31),
+    waterTiles: [],
     landGaps: [],
     plots: [
-        { nodeId: "CP.5A", tileX: 13, tileY: 24 },
-        { nodeId: "CP.5B", tileX: 11, tileY: 27 },
-        { nodeId: "CP.5C", tileX: 9, tileY: 35 },
-        { nodeId: "CP.5D", tileX: 24, tileY: 26 },
-        { nodeId: "CP.5E", tileX: 13, tileY: 35 },
-        { nodeId: "CP.4A", tileX: 19, tileY: 29 },
-        { nodeId: "CP.4B", tileX: 16, tileY: 31 },
-        { nodeId: "CP.4C", tileX: 21, tileY: 26 },
-        { nodeId: "CP.4D", tileX: 22, tileY: 31 },
-        { nodeId: "CP.4E", tileX: 15, tileY: 28 },
+        // Walk order along the promenade tracks the prereqs loosely: 5D at the NE seam
+        // (the chemistry→biochem read toward Keukenhof), 5A/4A right off the entrance,
+        // then 4E/4C, the 5B/4B middle sweep, and 5E/5C deepest on the last sweep.
+        { nodeId: "CP.5D", tileX: 17, tileY: 21 },
+        { nodeId: "CP.5A", tileX: 14, tileY: 21 },
+        { nodeId: "CP.4A", tileX: 11, tileY: 19 },
+        { nodeId: "CP.4E", tileX: 7, tileY: 21 },
+        { nodeId: "CP.4C", tileX: 1, tileY: 22 },
+        { nodeId: "CP.5B", tileX: 5, tileY: 24 },
+        { nodeId: "CP.4B", tileX: 13, tileY: 24 },
+        { nodeId: "CP.4D", tileX: 16, tileY: 27 },
+        { nodeId: "CP.5C", tileX: 9, tileY: 30 },
+        { nodeId: "CP.5E", tileX: 14, tileY: 30 },
     ],
     props: [
-        { key: "struct-landmark-versailles-fountain", tileX: 12, tileY: 30, hTiles: 3.4 },
-        { key: "foliage-versailles-03", tileX: 9, tileY: 27, hTiles: 2.1 },
-        { key: "foliage-versailles-03", tileX: 15, tileY: 27, hTiles: 2.1 },
-        { key: "foliage-versailles-03", tileX: 9, tileY: 33, hTiles: 2.1 },
-        { key: "foliage-versailles-03", tileX: 15, tileY: 33, hTiles: 2.1 },
-        { key: "prop-versailles-sig-07", tileX: 9, tileY: 29, hTiles: 1.2 },
-        { key: "prop-versailles-sig-07", tileX: 9, tileY: 31, hTiles: 1.2 },
-        { key: "prop-versailles-sig-02", tileX: 15, tileY: 24, hTiles: 2.2 },
-        { key: "prop-versailles-r0-04", tileX: 18, tileY: 24, hTiles: 1.8 },
-        { key: "prop-versailles-r0-14", tileX: 24, tileY: 22, hTiles: 1.6 },
-        { key: "prop-versailles-r0-14", tileX: 8, tileY: 37, hTiles: 1.6 },
-        { key: "prop-versailles-r0-14", tileX: 10, tileY: 37, hTiles: 1.6 },
-        { key: "prop-versailles-sig-06", tileX: 12, tileY: 37, hTiles: 1.8 },
-        { key: "prop-versailles-r0-10", tileX: 24, tileY: 30, hTiles: 1.8 },
-        { key: "foliage-versailles-12", tileX: 24, tileY: 28, hTiles: 1.4 },
-        { key: "foliage-versailles-12", tileX: 24, tileY: 32, hTiles: 1.4 },
+        // The centerpiece: the fountain sits dead-center of the rect, off the path, with
+        // the promenade passing adjacent above (y=24 dip) and below (y=26 sweep).
+        { key: "struct-landmark-versailles-fountain", tileX: 9, tileY: 25, hTiles: 3.4 },
+        { key: "foliage-versailles-03", tileX: 8, tileY: 25, hTiles: 2.1 },
+        { key: "foliage-versailles-03", tileX: 10, tileY: 25, hTiles: 2.1 },
+        // Occasional statues, one at each sweeping bend.
+        { key: "prop-versailles-sig-02", tileX: 1, tileY: 20, hTiles: 2.2 },
+        { key: "prop-versailles-r0-04", tileX: 17, tileY: 24, hTiles: 1.8 },
+        { key: "prop-versailles-r0-10", tileX: 1, tileY: 27, hTiles: 1.8 },
     ],
-    decor: [
-        // Parterre-de-broderie ground decals (the iconic aerial embroidery), non-colliding.
-        { key: "prop-versailles-sig-00", tileX: 6, tileY: 25, hTiles: 2.2, flat: true },
-        { key: "prop-versailles-sig-05", tileX: 6, tileY: 34, hTiles: 2.2, flat: true },
-    ],
+    decor: [],
     fields: [],
     hedges,
     hedgeKey: "foliage-versailles-20",
-    gates: [
-        { src: "CP.5A", dst: "CP.5B", tileX: 12, tileY: 26, orientation: "h" },
-        { src: "CP.4E", dst: "CP.5B", tileX: 13, tileY: 28, orientation: "v" },
-        { src: "CP.4A", dst: "CP.4B", tileX: 17, tileY: 30, orientation: "v" },
-        { src: "CP.5B", dst: "CP.5E", tileX: 12, tileY: 33, orientation: "h" },
-        { src: "CP.5B", dst: "CP.5D", tileX: 24, tileY: 24, orientation: "h" },
-    ],
-    waystone: { tileX: 6, tileY: 36 },
+    gates: [],
+    waystone: { tileX: 17, tileY: 30 },
     interactions: [
         {
-            tileX: 12,
-            tileY: 30,
+            tileX: 9,
+            tileY: 25,
             radius: 2.6,
             title: "The Fountain of First Principles",
             line: "The Fountain of First Principles. Physics lifts the water; chemistry teaches it to shine. "
-                + "Every allée in this garden begins here.",
+                + "The whole promenade winds around this basin.",
         },
         {
-            tileX: 9,
-            tileY: 30,
-            title: "The Canal Overlook",
-            line: "The Grand Canal runs straight as a good derivation. Master what lies beneath matter, and "
-                + "you can see the far end from where you stand.",
-        },
-        {
-            tileX: 24,
-            tileY: 30,
+            tileX: 17,
+            tileY: 24,
             title: "The Exedra",
-            line: "Marble remembers what students forget: motion, fluids, circuits, waves, atoms — one axis, "
-                + "walked in order.",
-        },
-        {
-            tileX: 24,
-            tileY: 22,
-            title: "The Entrance Urn",
-            line: "Beyond this hedge, Keukenhof's canals wait for your biomolecules. Bloom the bonds bed "
-                + "below — then biology drinks.",
+            line: "Marble remembers what students forget: motion, fluids, circuits, waves, atoms — one long "
+                + "walk, taken in order.",
         },
     ],
     critters: [
-        { kind: "moteDrift", count: 3, cx: 10, cy: 28, rx: 14, ry: 32, tint: 0xf2f2e4, speed: 12 },
+        { kind: "moteDrift", count: 3, cx: 7, cy: 24, rx: 11, ry: 26, tint: 0xf2f2e4, speed: 12 },
     ],
     palette: {
         grass: ["#567A16", "#4D7112", "#44670E"],
         path: ["#EAE3D2", "#DED2B6"],
         pathRim: "#B3A47C",
         flowers: ["#F2E6C4", "#E7C860", "#D98A9E"],
-        flowerDensity: 0.003,
+        flowerDensity: 0,
         waterDeep: "#28578B",
         water: "#3A6EA5",
         waterLight: "#7BA7D2",

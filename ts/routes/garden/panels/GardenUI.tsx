@@ -18,6 +18,27 @@ import "../garden.css";
 
 type Overlay = "none" | "keeper" | "almanac" | "harvest" | "map-help" | "plant-card";
 
+/** Player-facing garden names + the MCAT section each trial tests. */
+const SECTION_NAMES: Record<string, string> = {
+    "P-S": "The Sakura Garden",
+    "B-B": "The Keukenhof",
+    "C-P": "The Versailles Parterre",
+    CARS: "The Night Garden",
+};
+const SECTION_TESTS: Record<string, string> = {
+    "P-S": "Psychological, Social & Biological Foundations",
+    "B-B": "Biological & Biochemical Foundations",
+    "C-P": "Chemical & Physical Foundations",
+    CARS: "Critical Analysis & Reasoning Skills",
+};
+/** Celebration line when a whole preset color band blooms (flora:band-bloomed). */
+const BAND_BLOOM_LINES: Record<string, string> = {
+    "P-S": "A ribbon of blossoms opened along the stream 🌸",
+    "B-B": "A tulip line burst into one color 🌷",
+    "C-P": "A parterre ring stands in full bloom 🌹",
+    CARS: "A drift of orchids glows in the mist ✨",
+};
+
 export interface GardenUIProps {
     store: GardenStore;
     snapshot: MasterySnapshot;
@@ -41,8 +62,12 @@ function cloneDoc(doc: GardenDoc): GardenDoc {
         pending: doc.pending.map((entry) => ({ ...entry })),
         paraphrase: { ...doc.paraphrase },
         tutorial: { ...doc.tutorial },
-        unlocks: { waystones: [...doc.unlocks.waystones] },
+        unlocks: {
+            waystones: [...doc.unlocks.waystones],
+            sectors: [...doc.unlocks.sectors],
+        },
         settings: { ...doc.settings },
+        flora: { ...doc.flora },
     };
 }
 
@@ -56,6 +81,7 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
     const [weeds, setWeeds] = useState<Record<string, WeedState>>({});
     const [toast, setToast] = useState<string>("");
     const [flavor, setFlavor] = useState<{ title: string; line: string } | null>(null);
+    const [trialSection, setTrialSection] = useState<string | null>(null);
     const lastKeeperSummary = useRef<KeeperSessionSummary | null>(null);
     const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -91,16 +117,19 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
         toastTimer.current = setTimeout(() => setToast(""), 2400);
     }, []);
 
-    /** Water the ground where the player stands (Space anywhere). The world owns the cosmetic
-     * burst; here we own the ledger: spend one pour, and if the pour reached a plot, queue that
+    /** Water where the can points (Space anywhere). The world owns the cosmetic burst; here
+     * we own the ledger: spend one pour, then answer with `flora:water` so the world grows
+     * the preset ground flowers at the splash. If the pour also reached a plot, queue that
      * topic for the next Keeper visit (I1 — queueing only, never a due-date write). */
     const waterGround = useCallback(
-        (nodeId: string | null): void => {
+        (nodeId: string | null, aimTileX: number, aimTileY: number): void => {
             if (!canWater(store.snapshot.economy)) {
                 flashToast("Out of water — answer at the Keeper to refill 💧");
+                bus.emit("water:denied", {});
                 return;
             }
             store.setBalances(spendWater(store.snapshot.economy));
+            bus.emit("flora:water", { aimTileX, aimTileY });
             if (nodeId) {
                 const topic = snapshot.byNode.get(nodeId);
                 if (topic) {
@@ -111,8 +140,6 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
                     });
                 }
                 bus.emit("plant:watered", { nodeId });
-            } else {
-                flashToast("The soil drinks it in. Water beside a plot to tend it 🌱");
             }
             setDoc(cloneDoc(store.snapshot));
         },
@@ -136,11 +163,17 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
         const offKeeper = bus.on("keeper:interact", () => {
             setOverlay("keeper");
         });
-        const offGround = bus.on("ground:watered", ({ nodeId }) => {
-            waterGround(nodeId);
+        const offGround = bus.on("ground:watered", ({ nodeId, aimTileX, aimTileY }) => {
+            waterGround(nodeId, aimTileX, aimTileY);
+        });
+        const offBand = bus.on("flora:band-bloomed", ({ section }) => {
+            flashToast(BAND_BLOOM_LINES[section] ?? "A whole stretch of flowers stands in bloom ✿");
         });
         const offFlavor = bus.on("world:flavor", ({ title, line }) => {
             setFlavor({ title, line });
+        });
+        const offTrial = bus.on("sector:trial", ({ section }) => {
+            setTrialSection(section);
         });
         // Live HUD: every graded answer refills water (doc 23 §7) — the chips must tick
         // mid-session, not only at session end.
@@ -165,11 +198,23 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
             offPlant();
             offKeeper();
             offGround();
+            offBand();
             offFlavor();
+            offTrial();
             offGrowth();
             offReviewClosed();
         };
-    }, [refreshDashboard, refreshSnapshot, refreshWeeds, syncFromStore, waterGround]);
+    }, [flashToast, refreshDashboard, refreshSnapshot, refreshWeeds, syncFromStore, waterGround]);
+
+    /** Placeholder trial completion: unlocks the garden immediately. The real full MCAT
+     * section tests replace this handler when they upload (2026-07-03 directive). */
+    function completeTrialPlaceholder(section: string): void {
+        store.unlockSector(section);
+        setTrialSection(null);
+        bus.emit("sector:unlocked", { section });
+        flashToast(`${SECTION_NAMES[section] ?? section} unlocked — the mist lifts 🌄`);
+        setDoc(cloneDoc(store.snapshot));
+    }
 
     useEffect(() => {
         function onKeydown(e: KeyboardEvent): void {
@@ -177,6 +222,11 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
             if (flavor && (e.key === "Escape" || e.key === " " || e.key === "Enter" || e.key === "e")) {
                 e.preventDefault();
                 setFlavor(null);
+                return;
+            }
+            if (trialSection && e.key === "Escape") {
+                e.preventDefault();
+                setTrialSection(null);
                 return;
             }
             if (e.key !== "Escape") {
@@ -189,7 +239,7 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
         }
         globalThis.addEventListener("keydown", onKeydown);
         return () => globalThis.removeEventListener("keydown", onKeydown);
-    }, [overlay, flavor]);
+    }, [overlay, flavor, trialSection]);
 
     function waterSelectedTopic(): void {
         if (!selectedTopic) {
@@ -216,6 +266,35 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
             {toast && (
                 <div className="garden-toast" role="status" aria-live="polite">
                     {toast}
+                </div>
+            )}
+            {trialSection && overlay === "none" && (
+                <div className="garden-overlay keeper-overlay">
+                    <div className="keeper-panel-shell">
+                        <KeeperDialogue
+                            speakerName="The Trial Stone"
+                            body={`${SECTION_NAMES[trialSection] ?? trialSection} sleeps under the mist. `
+                                + `Prove yourself on a full ${
+                                    SECTION_TESTS[trialSection] ?? trialSection
+                                } exam and it wakes for you.`}
+                            srText="Sector trial"
+                        >
+                            <div className="keeper-actions">
+                                <button
+                                    className="keeper-reveal"
+                                    onClick={() => completeTrialPlaceholder(trialSection)}
+                                >
+                                    Begin the trial (test coming soon — unlocks now)
+                                </button>
+                                <button
+                                    className="hud-ghost-button"
+                                    onClick={() => setTrialSection(null)}
+                                >
+                                    Not yet <kbd>Esc</kbd>
+                                </button>
+                            </div>
+                        </KeeperDialogue>
+                    </div>
                 </div>
             )}
             {flavor && overlay === "none" && (

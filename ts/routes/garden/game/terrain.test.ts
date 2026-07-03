@@ -5,7 +5,7 @@
 import { describe, expect, it } from "vitest";
 
 import { buildTerrainModel, planDecor, plazaField, sampleDT } from "./terrain";
-import { buildWorldPlan, TILE_SIZE } from "./worldgen";
+import { buildWorldPlan, KEEPER_TILE, TILE_SIZE } from "./worldgen";
 
 const plan = buildWorldPlan();
 
@@ -31,7 +31,15 @@ describe("buildTerrainModel", () => {
             (w.tileY + 0.5) * TILE_SIZE,
         );
         expect(onWater).toBeLessThan(TILE_SIZE / 2);
-        const far = sampleDT(model.waterDT, model.gw, model.gh, 2 * TILE_SIZE, 2 * TILE_SIZE);
+        // The Keeper plaza is water-free by design — a reliable "far from water" probe
+        // regardless of how the compact sectors shape their streams.
+        const far = sampleDT(
+            model.waterDT,
+            model.gw,
+            model.gh,
+            (KEEPER_TILE.tileX + 0.5) * TILE_SIZE,
+            (KEEPER_TILE.tileY + 0.5) * TILE_SIZE,
+        );
         expect(far).toBeGreaterThan(TILE_SIZE * 2);
     });
 });
@@ -43,8 +51,9 @@ describe("planDecor", () => {
     it("is deterministic and non-empty", () => {
         const again = planDecor(plan, model, () => true);
         expect(again).toEqual(decor);
-        // Compact island still scatters a lush amount of foliage.
-        expect(decor.length).toBeGreaterThan(80);
+        // 2026-07-03 declutter: the scatter is deliberately sparse now — some life, not a
+        // jungle ("remove most of the stuff, but make sure there's still some stuff").
+        expect(decor.length).toBeGreaterThan(15);
     });
 
     it("never places standing SCATTER decor on water, trails, or the plaza", () => {
@@ -72,7 +81,9 @@ describe("planDecor", () => {
 
 describe("plazaField", () => {
     it("keeper stands inside the plaza; region corners are outside", () => {
-        expect(plazaField(28.5 * TILE_SIZE, 20.5 * TILE_SIZE)).toBeLessThan(1);
+        expect(
+            plazaField((KEEPER_TILE.tileX + 0.5) * TILE_SIZE, (KEEPER_TILE.tileY + 0.5) * TILE_SIZE),
+        ).toBeLessThan(1);
         expect(plazaField(5 * TILE_SIZE, 5 * TILE_SIZE)).toBeGreaterThan(1);
     });
 });

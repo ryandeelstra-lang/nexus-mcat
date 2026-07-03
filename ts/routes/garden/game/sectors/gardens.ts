@@ -2,137 +2,88 @@
 // License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
 
 // charged_up: GARDENS BY THE BAY (CARS) — "The Ascent of Understanding". Authored from
-// docs/sectors/04. The island's night-garden vista: a boardwalk climbs over two mist lagoons
-// to a grove of glowing Supertrees. Only 3 plots (FOC→RW→RB) — space serves atmosphere.
-// All coordinates are WORLD tiles (this rect spans x 30..55, y 22..39).
-import { disc, subtractTiles, tiles } from "./helpers";
+// docs/sectors/04, re-composed 2026-07-03 after live playtesting: ONE pair of BIG Supertrees
+// in the middle (walk behind them, never through), one mist lagoon the boardwalk crosses at
+// grade, and almost nothing else — space serves atmosphere. Only 3 plots (FOC→RW→RB).
+// All coordinates are WORLD tiles (this rect spans x 25..43, y 19..31).
+import { disc } from "./helpers";
 import type { SectorLayout } from "./types";
 
 const trail = [
-    // The single pilgrimage polyline (entrance stairs → over Lagoon A → overlook → over
-    // Lagoon B → summit ascent).
-    { tileX: 31, tileY: 23 },
-    { tileX: 32, tileY: 23 },
-    { tileX: 32, tileY: 24 },
-    { tileX: 33, tileY: 24 },
-    { tileX: 33, tileY: 25 },
-    { tileX: 34, tileY: 25 },
-    { tileX: 34, tileY: 26 },
-    { tileX: 35, tileY: 26 },
-    { tileX: 35, tileY: 27 },
-    { tileX: 36, tileY: 27 },
-    { tileX: 40, tileY: 27 },
-    { tileX: 41, tileY: 27 },
-    { tileX: 41, tileY: 28 },
-    { tileX: 42, tileY: 28 },
-    { tileX: 42, tileY: 29 },
-    { tileX: 43, tileY: 29 },
-    { tileX: 43, tileY: 31 },
-    { tileX: 48, tileY: 31 },
-    { tileX: 48, tileY: 29 },
-    { tileX: 49, tileY: 29 },
-    { tileX: 49, tileY: 28 },
-    { tileX: 50, tileY: 28 },
-    { tileX: 50, tileY: 27 },
-    { tileX: 51, tileY: 27 },
-    { tileX: 51, tileY: 25 },
+    // The single pilgrimage polyline (NW boardwalk entrance → down the steps → across the
+    // lagoon's north shoulder at grade → east beneath the Supertrees).
+    { tileX: 26, tileY: 20 },
+    { tileX: 26, tileY: 21 },
+    { tileX: 27, tileY: 22 },
+    { tileX: 27, tileY: 23 },
+    { tileX: 28, tileY: 24 },
+    { tileX: 28, tileY: 26 },
+    { tileX: 32, tileY: 26 },
+    { tileX: 32, tileY: 25 },
+    { tileX: 38, tileY: 25 },
 ];
 
-// Two mist lagoons + a summit reflecting pool, minus the causeway trail tiles.
-const lagoons = subtractTiles(
-    tiles(
-        disc(38, 27, 2.7),
-        disc(45.5, 33, 3.4),
-        disc(48, 32, 2.2),
-        disc(54, 29, 1.3),
-    ),
-    trail,
-);
+// The one mist lagoon. The boardwalk clips its north shoulder at (31,26)/(32,26) — those two
+// tiles are landGaps, painted as flat path by the engine (no planks, no bridge sprites).
+const lagoon = disc(32, 28, 2.5);
 
 export const GARDENS: SectorLayout = {
     section: "CARS",
-    entrance: { tileX: 31, tileY: 23 },
+    entrance: { tileX: 26, tileY: 20 },
     pathWaypoints: [trail],
-    waterTiles: lagoons,
-    landGaps: [],
+    waterTiles: lagoon,
+    landGaps: [
+        { tileX: 31, tileY: 26 },
+        { tileX: 32, tileY: 26 },
+    ],
     plots: [
-        { nodeId: "CARS.FOC", tileX: 33, tileY: 23 },
-        { nodeId: "CARS.RW", tileX: 42, tileY: 30 },
-        { nodeId: "CARS.RB", tileX: 52, tileY: 25 },
+        { nodeId: "CARS.FOC", tileX: 27, tileY: 21 },
+        { nodeId: "CARS.RW", tileX: 30, tileY: 25 },
+        { nodeId: "CARS.RB", tileX: 38, tileY: 26 },
     ],
+    // Playtest directive: one or two BIG towers mid-region and nothing else tower-like.
+    // The twin-tree landmark (hTiles 7) plus one companion supertree (5.5) anchor on open
+    // grass with walkable tiles both north (behind) and south (in front) — depth-sort lets
+    // the player pass behind them; the anchor tile alone collides.
     props: [
-        { key: "struct-landmark-gardens-supertrees", tileX: 52, tileY: 23 },
-        { key: "prop-gardens-by-the-bay-sig-00", tileX: 49, tileY: 24 },
-        { key: "prop-gardens-by-the-bay-sig-07", tileX: 53, tileY: 27 },
-        { key: "foliage-gardens-by-the-bay-22", tileX: 50, tileY: 26 },
-        { key: "prop-gardens-by-the-bay-sig-06", tileX: 35, tileY: 22 },
-        { key: "prop-gardens-by-the-bay-16", tileX: 31, tileY: 25 },
-        { key: "prop-gardens-by-the-bay-sig-07", tileX: 36, tileY: 23 },
-        { key: "prop-gardens-by-the-bay-14", tileX: 34, tileY: 28 },
-        { key: "foliage-gardens-by-the-bay-21", tileX: 36, tileY: 30 },
-        { key: "prop-gardens-by-the-bay-12", tileX: 40, tileY: 30 },
-        { key: "prop-gardens-by-the-bay-sig-01", tileX: 43, tileY: 28 },
-        { key: "foliage-gardens-by-the-bay-22", tileX: 45, tileY: 29 },
-        { key: "prop-gardens-by-the-bay-09", tileX: 50, tileY: 36 },
-        { key: "foliage-gardens-by-the-bay-06", tileX: 46, tileY: 37 },
-        { key: "foliage-gardens-by-the-bay-00", tileX: 55, tileY: 28 },
+        { key: "struct-landmark-gardens-supertrees", tileX: 36, tileY: 23, hTiles: 7.0 },
+        { key: "prop-gardens-by-the-bay-sig-00", tileX: 38, tileY: 22, hTiles: 5.5 },
+        { key: "foliage-gardens-by-the-bay-22", tileX: 28, tileY: 21 },
+        { key: "foliage-gardens-by-the-bay-22", tileX: 29, tileY: 28 },
+        { key: "prop-gardens-by-the-bay-sig-07", tileX: 33, tileY: 24 },
     ],
-    decor: [
-        { key: "prop-gardens-by-the-bay-00", tileX: 37, tileY: 27, hTiles: 0.5, flat: true },
-        { key: "prop-gardens-by-the-bay-00", tileX: 39, tileY: 27, hTiles: 0.5, flat: true },
-        { key: "prop-gardens-by-the-bay-00", tileX: 45, tileY: 31, hTiles: 0.5, flat: true },
-        { key: "prop-gardens-by-the-bay-00", tileX: 47, tileY: 31, hTiles: 0.5, flat: true },
-        { key: "prop-gardens-by-the-bay-05", tileX: 43, tileY: 30, hTiles: 0.5, flat: true },
-        { key: "prop-gardens-by-the-bay-sig-05", tileX: 39, tileY: 26, hTiles: 0.6, flat: true },
-        { key: "prop-gardens-by-the-bay-sig-05", tileX: 45, tileY: 34, hTiles: 0.6, flat: true },
-        { key: "prop-gardens-by-the-bay-17", tileX: 52, tileY: 27, hTiles: 0.5, flat: true },
-    ],
+    decor: [],
     fields: [],
-    // CARS has no leaf-level prerequisite edges in the sidecar DAG (unlike the science regions),
-    // so there are no locked gates here — the two lagoon causeways read as scenic crossings, and
-    // the ascent FOC → RW → RB is guided by geography rather than a bar. (If CARS prereq edges are
-    // added to graph-sidecar.json later, restore gates at (38,27) and (46,31).)
+    // CARS has no leaf-level prerequisite edges in the sidecar DAG, and doors are gone
+    // game-wide (2026-07-03) — the ascent FOC → RW → RB is guided by geography alone.
     gates: [],
-    waystone: { tileX: 41, tileY: 26 },
+    waystone: { tileX: 35, tileY: 27 },
     interactions: [
         {
-            tileX: 35,
-            tileY: 22,
-            title: "The Trailhead",
-            line: "Foundations first, gardener. Hold the passage as it is — not as you wish it were — and the "
-                + "first span will bear you.",
-        },
-        {
-            tileX: 43,
-            tileY: 28,
-            title: "The Overlook",
+            tileX: 32,
+            tileY: 27,
+            radius: 2.0,
+            title: "The Mist Lagoon",
             line: "Mid-span, there is only mist and the words themselves. Everything you need is within the "
                 + "text. Reason from it — nothing more.",
         },
         {
-            tileX: 52,
+            tileX: 36,
             tileY: 23,
+            radius: 2.2,
             title: "The Supertrees",
             line: "The tallest trees drink the light and give it back. Read beyond the passage now — carry "
                 + "its truth somewhere new.",
         },
-        {
-            tileX: 50,
-            tileY: 36,
-            title: "The Cloudhouse",
-            line: "The Cloudhouse keeps a climate this island never had. New contexts test old conclusions — "
-                + "that is reasoning beyond.",
-        },
     ],
     critters: [
-        { kind: "moteDrift", count: 6, cx: 39, cy: 26, rx: 45, ry: 34, tint: 0x7fe7da, speed: 9 },
-        { kind: "shadowLoop", count: 3, cx: 45.5, cy: 33, rx: 2.2, ry: 1.6, tint: 0x0a0a0a, speed: 0.32 },
+        { kind: "moteDrift", count: 4, cx: 29, cy: 27, rx: 37, ry: 22, tint: 0x7fe7da, speed: 9 },
+        { kind: "shadowLoop", count: 3, cx: 32, cy: 28, rx: 1.6, ry: 1.2, tint: 0x0a0a0a, speed: 0.32 },
     ],
     palette: {
         grass: ["#24413A", "#1F3A34", "#1A332E"],
         tuft: "#10231F",
-        flowers: ["#35C4AC", "#8A5CF6", "#2E9BC4"],
-        flowerDensity: 0.0035,
+        flowerDensity: 0,
         pebble: "#3A4A4A",
         path: ["#8A5A3C", "#774B31"],
         pathRim: "#3B2A22",

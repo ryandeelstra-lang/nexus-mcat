@@ -19,5 +19,14 @@ path = "lib.rs"
 # is compiled into a downstream crate (rslib's native-tls reqwest line is dev-only). rusqlite stays bundled.
 anki = { path = "../rslib", features = ["rustls"] }
 
+# Host-only test deps for the FFI gate tests (sync_roundtrip / service_indices). These prove the
+# phone's exact bytes-in/bytes-out code path on the host before any Swift is written. Versions match
+# the root workspace so no second copy is resolved.
+[dev-dependencies]
+anki_proto = { path = "../rslib/proto" }
+prost = "0.13"
+tempfile = "3.20"
+tokio = { version = "1.45", features = ["rt-multi-thread", "macros"] }
+
 # Own workspace root so it is fully detached from the main Anki workspace.
 [workspace]

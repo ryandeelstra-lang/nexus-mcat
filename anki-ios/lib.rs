@@ -12,11 +12,13 @@ use anki::backend::Backend;
 use std::panic::catch_unwind;
 
 /// A Rust-owned byte buffer handed to Swift. Free it with `anki_buffer_free` (exact cap).
+/// Fields are `pub` so the C header (`ios-app/Bridging/anki_ios.h`) and the FFI integration
+/// tests can read `ptr`/`len`; the `#[repr(C)]` layout is the ABI contract and must not change.
 #[repr(C)]
 pub struct AnkiBuffer {
-    ptr: *mut u8,
-    len: usize,
-    cap: usize,
+    pub ptr: *mut u8,
+    pub len: usize,
+    pub cap: usize,
 }
 
 impl AnkiBuffer {

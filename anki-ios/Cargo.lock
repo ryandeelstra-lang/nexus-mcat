@@ -146,6 +146,10 @@ name = "anki-ios"
 version = "0.1.0"
 dependencies = [
  "anki",
+ "anki_proto",
+ "prost",
+ "tempfile",
+ "tokio",
 ]
 
 [[package]]

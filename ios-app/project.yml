@@ -1,0 +1,43 @@
+# charged_up Knowledge Garden — iOS companion (XcodeGen). Regenerate with `xcodegen generate`.
+# The app links the shared Anki Rust engine as a staticlib (libanki_ios.a) over the 4-symbol FFI.
+name: KnowledgeGardenCompanion
+options:
+  bundleIdPrefix: com.chargedup.knowledgegarden
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+packages:
+  SwiftProtobuf:
+    url: https://github.com/apple/swift-protobuf
+    from: 1.28.0
+  ScoreKit:
+    path: ScoreKit
+targets:
+  KnowledgeGardenCompanion:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources
+      - path: Generated
+      - path: Resources
+        buildPhase: resources
+    dependencies:
+      - package: SwiftProtobuf
+      - package: ScoreKit
+    info:
+      path: Info.plist
+      properties:
+        UILaunchScreen: {}
+        CFBundleDisplayName: KG Garden
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.chargedup.knowledgegarden.companion
+        SWIFT_OBJC_BRIDGING_HEADER: Bridging/anki_ios.h
+        SWIFT_VERSION: "5.9"
+        ENABLE_USER_SCRIPT_SANDBOXING: NO
+        OTHER_LDFLAGS: "-lanki_ios -framework Security -framework SystemConfiguration -lc++"
+        CODE_SIGNING_ALLOWED: NO
+        "LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]": "$(SRCROOT)/../out/rust/aarch64-apple-ios-sim/release"
+        "LIBRARY_SEARCH_PATHS[sdk=iphoneos*]": "$(SRCROOT)/../out/rust/aarch64-apple-ios/release"

@@ -1,0 +1,8 @@
+# Xcode derived data (rebuilt by smoke_test.sh)
+build/
+# Regenerated from project.yml by `xcodegen generate`
+*.xcodeproj
+# SPM local caches
+.build/
+.swiftpm/
+ScoreKit/.build/

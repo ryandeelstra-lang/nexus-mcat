@@ -24,7 +24,9 @@ describe("buildWorldPlan", () => {
         expect(new Set(placed).size).toBe(34);
     });
 
-    it("plants are ≥4 tiles apart within each region", () => {
+    it("plants are ≥3 tiles apart within each region", () => {
+        // Authored sectors compose plots as tight as 3.0 tiles (docs/sectors/*); the legacy
+        // serpentine fallback keeps ≥4. Three tiles (96px) still clears the ~1.4-tile sprites.
         const plan = buildWorldPlan();
         for (const region of plan.regions) {
             const plants = region.plants;
@@ -33,7 +35,7 @@ describe("buildWorldPlan", () => {
                     const dx = plants[i].tileX - plants[j].tileX;
                     const dy = plants[i].tileY - plants[j].tileY;
                     const d = Math.hypot(dx, dy);
-                    expect(d).toBeGreaterThanOrEqual(4);
+                    expect(d).toBeGreaterThanOrEqual(3);
                 }
             }
         }

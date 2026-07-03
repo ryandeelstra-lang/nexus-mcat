@@ -25,6 +25,9 @@ export interface GardenEvents {
     "plant:bloomed": { nodeId: string };
     /** The player interacted with the Keeper — open the review panel. */
     "keeper:interact": Record<string, never>;
+    /** The player walked up to a landmark/prop and pressed interact — a Keeper-voiced flavor
+     *  line tied to the geography (the "items interact with each character" beat). */
+    "world:flavor": { title: string; line: string };
     /** The review panel closed (session end) — the world may run the harvest beat. */
     "review:closed": { answered: number; blooms: number };
     /** Open/close the map overlay. */

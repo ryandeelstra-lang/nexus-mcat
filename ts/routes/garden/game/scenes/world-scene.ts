@@ -9,6 +9,7 @@ import type { MasterySnapshot, TopicMastery } from "../../state/mastery";
 import { type GrowthStage, stageFor } from "../../state/stage";
 import { applyDisplaySize, DISPLAY, ensureTexture, hasAssetKey, sizeToHeightTiles, stageTextureKey } from "../assets";
 import { skyStateFor } from "../daynight";
+import { sectorFor } from "../sectors/index";
 import { buildTerrainModel, paintGround, planDecor, type TerrainModel } from "../terrain";
 import {
     buildWorldPlan,
@@ -62,9 +63,22 @@ export class WorldScene extends Phaser.Scene {
     private spaceKey!: Phaser.Input.Keyboard.Key;
 
     private interactPrompt!: Phaser.GameObjects.Text;
-    private nearTarget: "plant" | "keeper" | "gate" | "waystone" | null = null;
+    private nearTarget: "plant" | "keeper" | "gate" | "waystone" | "flavor" | null = null;
     private nearNodeId: string | null = null;
     private nearWaystoneId: string | null = null;
+    private nearFlavorIdx: number | null = null;
+    private critters: Array<{
+        sprite: Phaser.GameObjects.Arc;
+        kind: "shadowLoop" | "moteDrift";
+        cx: number;
+        cy: number;
+        rx: number;
+        ry: number;
+        speed: number;
+        phase: number;
+        nightOnly: boolean;
+    }> = [];
+    private isNight = false;
 
     private skyOverlay!: Phaser.GameObjects.Rectangle;
     private lanternGlows: Phaser.GameObjects.Arc[] = [];
@@ -106,6 +120,7 @@ export class WorldScene extends Phaser.Scene {
         this.renderGates();
         this.renderPropsAndPlants();
         this.spawnLanternGlows();
+        this.spawnCritters();
         this.spawnAvatar();
         this.spawnKeeper();
         this.setupInput();
@@ -157,6 +172,7 @@ export class WorldScene extends Phaser.Scene {
         this.cameras.main.startFollow(this.avatar, true, 0.12, 0.12);
         this.updateInteractPrompt();
         this.bobKeeper(delta);
+        this.updateCritters();
     }
 
     private rebuildStageMap(): void {
@@ -326,6 +342,81 @@ export class WorldScene extends Phaser.Scene {
         }
     }
 
+    /** Deterministic ambient life: koi/duck shadow-loops and drifting bee/firefly motes
+     * (docs/sectors/*). Pure timers off this.time.now — no runtime RNG, so the world stays
+     * reproducible. Reduced-motion leaves them static (no per-frame movement). */
+    private spawnCritters(): void {
+        const ts = DISPLAY.tile;
+        for (const r of this.plan.regions) {
+            const layout = sectorFor(r.section)?.critters;
+            if (!layout) {
+                continue;
+            }
+            for (const c of layout) {
+                for (let i = 0; i < c.count; i++) {
+                    const phase = (i / c.count) * Math.PI * 2;
+                    const isMote = c.kind === "moteDrift";
+                    const radius = isMote ? 3 : 6;
+                    const alpha = isMote ? 0.55 : 0.32;
+                    const sprite = this.add.circle(
+                        (c.cx + 0.5) * ts,
+                        (c.cy + 0.5) * ts,
+                        radius,
+                        c.tint,
+                        alpha,
+                    );
+                    sprite.setDepth(isMote ? 8400 : c.cy + 0.45);
+                    if (isMote) {
+                        sprite.setScale(1, 0.6);
+                    } else {
+                        sprite.setScale(1.6, 0.7);
+                    }
+                    this.critters.push({
+                        sprite,
+                        kind: c.kind,
+                        cx: c.cx,
+                        cy: c.cy,
+                        rx: c.rx,
+                        ry: c.ry,
+                        speed: c.speed,
+                        phase,
+                        nightOnly: Boolean(c.nightOnly),
+                    });
+                }
+            }
+        }
+    }
+
+    private updateCritters(): void {
+        if (this.reducedMotion || this.critters.length === 0) {
+            return;
+        }
+        const ts = DISPLAY.tile;
+        const t = this.time.now / 1000;
+        for (const c of this.critters) {
+            if (c.nightOnly && !this.isNight) {
+                c.sprite.setVisible(false);
+                continue;
+            }
+            c.sprite.setVisible(true);
+            if (c.kind === "shadowLoop") {
+                // Circle an ellipse (koi in a pond, ducks tracing a canal line).
+                const a = t * c.speed + c.phase;
+                c.sprite.x = (c.cx + 0.5 + Math.cos(a) * c.rx) * ts;
+                c.sprite.y = (c.cy + 0.5 + Math.sin(a) * c.ry) * ts;
+            } else {
+                // Drift a slow figure-eight between the two anchors (bees/fireflies).
+                const u = (t / c.speed) * Math.PI * 2 + c.phase;
+                const midX = (c.cx + c.rx) / 2;
+                const midY = (c.cy + c.ry) / 2;
+                const spanX = (c.rx - c.cx) / 2;
+                const spanY = (c.ry - c.cy) / 2;
+                c.sprite.x = (midX + 0.5 + Math.sin(u) * spanX) * ts;
+                c.sprite.y = (midY + 0.5 + Math.sin(u * 2) * spanY * 0.5) * ts;
+            }
+        }
+    }
+
     private spawnKeeper(): void {
         const ts = DISPLAY.tile;
         const kx = KEEPER_TILE.tileX * ts + ts / 2;
@@ -383,7 +474,7 @@ export class WorldScene extends Phaser.Scene {
                 return;
             }
             if (this.nearTarget === "keeper" || this.nearTarget === "waystone"
-                || this.nearTarget === "gate") {
+                || this.nearTarget === "gate" || this.nearTarget === "flavor") {
                 this.tryInteract();
             } else {
                 this.waterGround();
@@ -563,6 +654,7 @@ export class WorldScene extends Phaser.Scene {
         this.nearTarget = null;
         this.nearNodeId = null;
         this.nearWaystoneId = null;
+        this.nearFlavorIdx = null;
 
         // Keeper
         if (this.distTiles(ax, ay, KEEPER_TILE.tileX + 0.5, KEEPER_TILE.tileY + 0.5) <= INTERACT_RADIUS) {
@@ -604,6 +696,19 @@ export class WorldScene extends Phaser.Scene {
             }
         }
 
+        // Landmark flavor interactions (walk-up Keeper-voiced lines tied to the geography).
+        if (!this.nearTarget) {
+            for (let i = 0; i < this.plan.interactions.length; i++) {
+                const it = this.plan.interactions[i];
+                const radius = it.radius ?? 1.6;
+                if (this.distTiles(ax, ay, it.tileX + 0.5, it.tileY + 0.5) <= radius) {
+                    this.nearTarget = "flavor";
+                    this.nearFlavorIdx = i;
+                    break;
+                }
+            }
+        }
+
         if (this.nearTarget && !this.panelOpen) {
             this.interactPrompt.setVisible(true);
             this.interactPrompt.setPosition(this.avatar.x, this.avatar.y - ts);
@@ -634,6 +739,14 @@ export class WorldScene extends Phaser.Scene {
             case "gate":
                 if (this.nearNodeId) {
                     this.bus.emit("plant:interact", { nodeId: this.nearNodeId });
+                }
+                break;
+            case "flavor":
+                if (this.nearFlavorIdx !== null) {
+                    const it = this.plan.interactions[this.nearFlavorIdx];
+                    if (it) {
+                        this.bus.emit("world:flavor", { title: it.title, line: it.line });
+                    }
                 }
                 break;
             default: {
@@ -682,6 +795,7 @@ export class WorldScene extends Phaser.Scene {
             }
 
             const isNight = sky.phase === "night" || sky.phase === "dusk";
+            this.isNight = isNight;
             for (const g of this.lanternGlows) {
                 g.setVisible(isNight);
             }

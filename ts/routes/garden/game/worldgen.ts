@@ -2,8 +2,13 @@
 // License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
 
 // charged_up: deterministic overworld layout from graph-sidecar (doc 23 §6, §9.3).
-// Pure logic — no Phaser. One continuous 2×2 quilt around a Keeper clearing.
+// Pure logic — no Phaser. One continuous 2×2 quilt around a Keeper clearing. Each region is
+// either an AUTHORED sector (docs/sectors/* → game/sectors/*) or, until authored, the legacy
+// serpentine fallback below.
 import type { GrowthStage } from "../state/stage";
+import { dedupeTiles as dedupe, rasterizePath } from "./sectors/helpers";
+import { sectorFor } from "./sectors/index";
+import type { FieldFill, SectorDecor, SectorInteraction } from "./sectors/types";
 
 import sidecarJson from "../../../lib/graph-sidecar.json" with { type: "json" };
 
@@ -55,9 +60,19 @@ export interface RegionPlan {
     rect: RegionRect;
     trailTiles: TileCoord[];
     waterTiles: TileCoord[];
+    /** Walkable tiles inside water bounds (bridge decks, stepping stones). */
+    landGaps: TileCoord[];
     plants: PlantSpot[];
     props: PropSpot[];
+    /** Non-colliding authored decoration (bridges, hero trees, decals). */
+    decor: SectorDecor[];
+    /** Rectangular field fills (tulip ribbons, parterre beds). */
+    fields: FieldFill[];
+    /** Walk-up flavor interactions. */
+    interactions: SectorInteraction[];
     waystone: TileCoord;
+    /** True when this region came from an authored sector layout (skip serpentine tweaks). */
+    authored: boolean;
 }
 
 export interface WorldPlan {
@@ -70,6 +85,8 @@ export interface WorldPlan {
         plazaTiles: TileCoord[];
     };
     gates: GateSpot[];
+    /** All walk-up interactions across the world (flattened for the world scene). */
+    interactions: Array<SectorInteraction & { section: GardenSection }>;
 }
 
 interface SidecarNode {
@@ -406,36 +423,104 @@ function plazaTiles(): TileCoord[] {
     return tiles;
 }
 
-/** Build the full overworld plan deterministically from the sidecar. */
+function serpentineRegion(rect: RegionRect, plantsById: Map<string, PlantSpot>): RegionPlan {
+    const { trail, water } = trailForSection(rect.section, rect);
+    const trailTiles = dedupeTiles(trail);
+    const waterTiles = dedupeTiles(water);
+    const leaves = LEAVES_BY_SECTION.get(rect.section) ?? [];
+    const plants = placePlantsAlongTrail(leaves, trailTiles);
+    for (const p of plants) {
+        plantsById.set(p.nodeId, p);
+    }
+    return {
+        section: rect.section,
+        rect,
+        trailTiles,
+        waterTiles,
+        landGaps: [],
+        plants,
+        props: propsForRegion(rect.section, rect),
+        decor: [],
+        fields: [],
+        interactions: [],
+        waystone: { tileX: rect.x + Math.floor(rect.w / 2), tileY: rect.y + rect.h - 3 },
+        authored: false,
+    };
+}
+
+/** Build an authored region from its hand-composed sector layout (docs/sectors/*). */
+function authoredRegion(rect: RegionRect, plantsById: Map<string, PlantSpot>): RegionPlan {
+    const layout = sectorFor(rect.section)!;
+    // Trail = rasterized path polylines + the land-gap crossings (always walkable).
+    const trailTiles = dedupe([
+        ...layout.pathWaypoints.flatMap((wp) => rasterizePath(wp)),
+        ...layout.landGaps,
+    ]);
+    // Water = authored water tiles (land-gaps stay water for PAINTING; collision skips them).
+    const waterTiles = dedupe(layout.waterTiles);
+    const plants: PlantSpot[] = layout.plots.map((p) => ({
+        nodeId: p.nodeId,
+        tileX: p.tileX,
+        tileY: p.tileY,
+    }));
+    for (const p of plants) {
+        plantsById.set(p.nodeId, p);
+    }
+    return {
+        section: rect.section,
+        rect,
+        trailTiles,
+        waterTiles,
+        landGaps: dedupe(layout.landGaps),
+        plants,
+        props: layout.props.map((p) => ({ key: p.key, tileX: p.tileX, tileY: p.tileY })),
+        decor: layout.decor,
+        fields: layout.fields,
+        interactions: layout.interactions,
+        waystone: layout.waystone,
+        authored: true,
+    };
+}
+
+/** Build the full overworld plan deterministically from the sidecar + authored sectors. */
 export function buildWorldPlan(): WorldPlan {
     const plantsById = new Map<string, PlantSpot>();
     const regions: RegionPlan[] = [];
 
     for (const rect of REGION_RECTS) {
-        const { trail, water } = trailForSection(rect.section, rect);
-        const trailTiles = dedupeTiles(trail);
-        const waterTiles = dedupeTiles(water);
-        const leaves = LEAVES_BY_SECTION.get(rect.section) ?? [];
-        const plants = placePlantsAlongTrail(leaves, trailTiles);
-        for (const p of plants) {
-            plantsById.set(p.nodeId, p);
-        }
-        const waystone = {
-            tileX: rect.x + Math.floor(rect.w / 2),
-            tileY: rect.y + rect.h - 3,
-        };
-        regions.push({
-            section: rect.section,
-            rect,
-            trailTiles,
-            waterTiles,
-            plants,
-            props: propsForRegion(rect.section, rect),
-            waystone,
-        });
+        regions.push(
+            sectorFor(rect.section)
+                ? authoredRegion(rect, plantsById)
+                : serpentineRegion(rect, plantsById),
+        );
     }
 
-    const gates = LEAF_PREREQ.map((e) => gateBetweenPlants(e, plantsById));
+    // Authored in-region gate positions override the derived midpoint; every leaf prereq edge
+    // still gets exactly one gate (cross-region + un-authored edges use gateBetweenPlants).
+    const authoredGates = new Map<string, GateSpot>();
+    for (const rect of REGION_RECTS) {
+        const layout = sectorFor(rect.section);
+        if (!layout) {
+            continue;
+        }
+        for (const g of layout.gates) {
+            authoredGates.set(`${g.src}->${g.dst}`, {
+                id: `gate-${g.src}-${g.dst}`,
+                src: g.src,
+                dst: g.dst,
+                tileX: g.tileX,
+                tileY: g.tileY,
+                orientation: g.orientation,
+            });
+        }
+    }
+    const gates = LEAF_PREREQ.map(
+        (e) => authoredGates.get(`${e.src}->${e.dst}`) ?? gateBetweenPlants(e, plantsById),
+    );
+
+    const interactions = regions.flatMap((r) =>
+        r.interactions.map((i) => ({ ...i, section: r.section }))
+    );
 
     return {
         widthTiles: WORLD_WIDTH_TILES,
@@ -447,6 +532,7 @@ export function buildWorldPlan(): WorldPlan {
             plazaTiles: plazaTiles(),
         },
         gates,
+        interactions,
     };
 }
 
@@ -480,14 +566,27 @@ export function hedgeTilesForRegion(rect: RegionRect): TileCoord[] {
     return hedges;
 }
 
-/** Collision: water/hedge/prop solid; trail+grass walkable; closed gates solid. */
+/** Collision: water/hedge/prop solid; trail+grass+land-gaps walkable; closed gates solid. */
 export function tileIsSolid(
     plan: WorldPlan,
     tileX: number,
     tileY: number,
     stageByNode: Map<string, GrowthStage>,
 ): boolean {
+    // A closed gate is solid; an open one is walkable — checked first so a gate on a bridge
+    // (a land-gap over water) reads correctly.
+    for (const g of plan.gates) {
+        if (g.tileX === tileX && g.tileY === tileY) {
+            return !gateIsOpen(g, stageByNode);
+        }
+    }
+
     for (const r of plan.regions) {
+        // Land-gaps (bridge decks / stepping stones) are walkable even though painted as water.
+        const isGap = r.landGaps.some((g) => g.tileX === tileX && g.tileY === tileY);
+        if (isGap) {
+            continue;
+        }
         for (const w of r.waterTiles) {
             if (w.tileX === tileX && w.tileY === tileY) {
                 return true;
@@ -498,18 +597,16 @@ export function tileIsSolid(
                 return true;
             }
         }
-        for (const h of hedgeTilesForRegion(r.rect)) {
-            if (h.tileX === tileX && h.tileY === tileY) {
-                return true;
+        // Hedges are a serpentine-fallback feature only; authored regions place their own.
+        if (!r.authored) {
+            for (const h of hedgeTilesForRegion(r.rect)) {
+                if (h.tileX === tileX && h.tileY === tileY) {
+                    return true;
+                }
             }
         }
     }
 
-    for (const g of plan.gates) {
-        if (g.tileX === tileX && g.tileY === tileY) {
-            return !gateIsOpen(g, stageByNode);
-        }
-    }
     return false;
 }
 

@@ -8,6 +8,7 @@ import { stageFor } from "../state/stage";
 import type { GardenDoc, GardenStore } from "../state/store";
 import { AlmanacPanel } from "./AlmanacPanel";
 import { extractProjectionLine } from "./dashboard";
+import { KeeperDialogue } from "./KeeperDialogue";
 import { HarvestPanel } from "./HarvestPanel";
 import { Hud } from "./Hud";
 import { activeWeeds } from "./keeper-logic";
@@ -54,6 +55,7 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
     const [harvest, setHarvest] = useState<HarvestState | null>(null);
     const [weeds, setWeeds] = useState<Record<string, WeedState>>({});
     const [toast, setToast] = useState<string>("");
+    const [flavor, setFlavor] = useState<{ title: string; line: string } | null>(null);
     const lastKeeperSummary = useRef<KeeperSessionSummary | null>(null);
     const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -137,6 +139,9 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
         const offGround = bus.on("ground:watered", ({ nodeId }) => {
             waterGround(nodeId);
         });
+        const offFlavor = bus.on("world:flavor", ({ title, line }) => {
+            setFlavor({ title, line });
+        });
         // Live HUD: every graded answer refills water (doc 23 §7) — the chips must tick
         // mid-session, not only at session end.
         const offGrowth = bus.on("growth:tick", () => {
@@ -160,6 +165,7 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
             offPlant();
             offKeeper();
             offGround();
+            offFlavor();
             offGrowth();
             offReviewClosed();
         };
@@ -167,6 +173,12 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
 
     useEffect(() => {
         function onKeydown(e: KeyboardEvent): void {
+            // A landmark flavor line dismisses on any of Esc / Space / Enter / E.
+            if (flavor && (e.key === "Escape" || e.key === " " || e.key === "Enter" || e.key === "e")) {
+                e.preventDefault();
+                setFlavor(null);
+                return;
+            }
             if (e.key !== "Escape") {
                 return;
             }
@@ -177,7 +189,7 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
         }
         globalThis.addEventListener("keydown", onKeydown);
         return () => globalThis.removeEventListener("keydown", onKeydown);
-    }, [overlay]);
+    }, [overlay, flavor]);
 
     function waterSelectedTopic(): void {
         if (!selectedTopic) {
@@ -204,6 +216,24 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
             {toast && (
                 <div className="garden-toast" role="status" aria-live="polite">
                     {toast}
+                </div>
+            )}
+            {flavor && overlay === "none" && (
+                <div className="garden-overlay keeper-overlay world-flavor-overlay">
+                    <div className="keeper-panel-shell">
+                        <KeeperDialogue
+                            speakerName={flavor.title}
+                            body={flavor.line}
+                            srText={flavor.line}
+                            onBodyClick={() => setFlavor(null)}
+                        >
+                            <div className="keeper-actions">
+                                <button className="keeper-reveal" onClick={() => setFlavor(null)}>
+                                    Continue <kbd>Space</kbd>
+                                </button>
+                            </div>
+                        </KeeperDialogue>
+                    </div>
                 </div>
             )}
             <Hud

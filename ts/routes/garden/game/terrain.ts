@@ -12,7 +12,10 @@
 import type Phaser from "phaser";
 
 import { DISPLAY, hasAssetKey } from "./assets";
+import { sectorFor } from "./sectors/index";
+import type { PaletteOverride } from "./sectors/types";
 import {
+    type GardenSection,
     hedgeTilesForRegion,
     KEEPER_TILE,
     type RegionPlan,
@@ -331,6 +334,33 @@ const PALETTES: GroundPalette[] = [
     },
 ];
 
+/** Section per region index (mirrors REGION_INDEX) for palette-override lookup. */
+const SECTION_BY_INDEX: GardenSection[] = ["P-S", "B-B", "C-P", "CARS"];
+
+function mergePalette(base: GroundPalette, o: PaletteOverride): GroundPalette {
+    return {
+        grass: o.grass ? [rgb(o.grass[0]), rgb(o.grass[1]), rgb(o.grass[2])] : base.grass,
+        tuft: o.tuft ? rgb(o.tuft) : base.tuft,
+        flowers: o.flowers ? o.flowers.map(rgb) : base.flowers,
+        flowerDensity: o.flowerDensity ?? base.flowerDensity,
+        pebble: o.pebble ? rgb(o.pebble) : base.pebble,
+        path: o.path ? [rgb(o.path[0]), rgb(o.path[1])] : base.path,
+        pathRim: o.pathRim ? rgb(o.pathRim) : base.pathRim,
+        waterDeep: o.waterDeep ? rgb(o.waterDeep) : base.waterDeep,
+        water: o.water ? rgb(o.water) : base.water,
+        waterLight: o.waterLight ? rgb(o.waterLight) : base.waterLight,
+        shore: o.shore ? rgb(o.shore) : base.shore,
+    };
+}
+
+/** The palettes with authored-sector overrides applied (deterministic). */
+function effectivePalettes(): GroundPalette[] {
+    return PALETTES.map((base, i) => {
+        const layout = sectorFor(SECTION_BY_INDEX[i]);
+        return layout?.palette ? mergePalette(base, layout.palette) : base;
+    });
+}
+
 const PLAZA_FILL: [RGB, RGB] = [rgb("#D8BD95"), rgb("#CDB086")];
 const PLAZA_RIM: RGB = rgb("#A38B62");
 
@@ -350,6 +380,7 @@ export function paintGround(scene: Phaser.Scene, plan: WorldPlan, model: Terrain
     const wpx = plan.widthTiles * TILE;
     const hpx = plan.heightTiles * TILE;
     const { gw, gh, waterDT, trailDT, regionOfCell } = model;
+    const palettes = effectivePalettes();
 
     for (let cy0 = 0; cy0 < hpx; cy0 += CHUNK) {
         for (let cx0 = 0; cx0 < wpx; cx0 += CHUNK) {
@@ -381,7 +412,7 @@ export function paintGround(scene: Phaser.Scene, plan: WorldPlan, model: Terrain
                     } else if (dth > 0.82) {
                         gy = Math.min(gh - 1, Math.max(0, gy + (dth > 0.91 ? 1 : -1)));
                     }
-                    const pal = PALETTES[regionOfCell[gy * gw + gx]];
+                    const pal = palettes[regionOfCell[gy * gw + gx]];
 
                     const wd = sampleDT(waterDT, gw, gh, px, py);
                     const td = sampleDT(trailDT, gw, gh, px, py);
@@ -492,6 +523,9 @@ export interface DecorSpot {
     flip: boolean;
     /** Flat ground decals render just above the ground, below every sprite. */
     flat: boolean;
+    /** Hand-placed (authored sector) decor — legitimately spans water (bridges) and skips the
+     * scatter clearance rules. Scatter items leave this unset. */
+    authored?: boolean;
 }
 
 interface Family {
@@ -585,6 +619,51 @@ function pick(family: Family, a: number, b: number, salt: number): { key: string
     return { key: k, h };
 }
 
+/** Emit authored decor + rectangular field fills for a region (docs/sectors/*). These are
+ * hand-placed, so they skip the scatter clearance checks; the caller still blocks scatter
+ * around them so ambient foliage never grows through a bridge or a tulip block. */
+function authoredDecorFor(region: RegionPlan, exists: (key: string) => boolean): DecorSpot[] {
+    const out: DecorSpot[] = [];
+    for (const d of region.decor) {
+        if (!exists(d.key)) {
+            continue;
+        }
+        out.push({
+            key: d.key,
+            x: d.tileX * TILE + TILE / 2,
+            y: d.tileY * TILE + TILE,
+            hTiles: d.hTiles,
+            flip: d.flip ?? false,
+            flat: d.flat ?? false,
+            authored: true,
+        });
+    }
+    for (const f of region.fields) {
+        const wTiles = Math.abs(f.x1 - f.x0) + 1;
+        const hStrip = f.hTiles ?? Math.max(0.8, wTiles / 7);
+        const step = f.rowStep ?? hStrip * 0.85;
+        let row = 0;
+        const midX = (f.x0 + f.x1) / 2 + 0.5;
+        for (let y = Math.min(f.y0, f.y1); y <= Math.max(f.y0, f.y1) + 0.001; y += step) {
+            const key = f.assets[row % f.assets.length];
+            row++;
+            if (!exists(key)) {
+                continue;
+            }
+            out.push({
+                key,
+                x: midX * TILE,
+                y: (y + 1) * TILE,
+                hTiles: hStrip,
+                flip: row % 2 === 0,
+                flat: false,
+                authored: true,
+            });
+        }
+    }
+    return out;
+}
+
 export function planDecor(
     plan: WorldPlan,
     model: TerrainModel,
@@ -604,6 +683,13 @@ export function planDecor(
         blockPts.push({ x: r.waystone.tileX + 0.5, y: r.waystone.tileY + 0.5, r: 2.0 });
         for (const h of hedgeTilesForRegion(r.rect)) {
             blockPts.push({ x: h.tileX + 0.5, y: h.tileY + 0.5, r: 1.0 });
+        }
+        // Authored decor + field fills: emit them, and block ambient scatter around each.
+        for (const d of authoredDecorFor(r, exists)) {
+            out.push(d);
+            if (!d.flat) {
+                blockPts.push({ x: d.x / TILE, y: d.y / TILE, r: 1.4 });
+            }
         }
     }
     for (const g of plan.gates) {
@@ -778,8 +864,9 @@ function setPieces(
         return true;
     };
 
-    // Keukenhof: rectangular tulip-field patches (the signature look).
-    const bb = plan.regions.find((r) => r.section === "B-B");
+    // Keukenhof: rectangular tulip-field patches (the signature look). Skipped for authored
+    // regions — those place their tulip ribbons via `fields` (authoredDecorFor).
+    const bb = plan.regions.find((r) => r.section === "B-B" && !r.authored);
     if (bb && TULIP_STRIPS.some(exists)) {
         const br = bb.rect;
         // Two tulip-field patches inside the (compact) Keukenhof rect.
@@ -825,8 +912,9 @@ function setPieces(
         }
     }
 
-    // Versailles: render the (already-solid) hedge rows + formal topiary + statues.
-    const cp = plan.regions.find((r) => r.section === "C-P");
+    // Versailles: render the (already-solid) hedge rows + formal topiary + statues. Skipped for
+    // authored regions (they place their own parterre via props/decor/fields).
+    const cp = plan.regions.find((r) => r.section === "C-P" && !r.authored);
     if (cp) {
         if (exists(VERSAILLES_HEDGE)) {
             const rows = new Set(hedgeTilesForRegion(cp.rect).map((t) => t.tileY));

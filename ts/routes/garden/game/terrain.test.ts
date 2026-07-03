@@ -47,10 +47,10 @@ describe("planDecor", () => {
         expect(decor.length).toBeGreaterThan(80);
     });
 
-    it("never places standing decor on water, trails, or the plaza", () => {
-        for (const d of decor.filter((x) => !x.flat)) {
-            // Set pieces (hedges/tulip strips) are placed by design rules, not scatter;
-            // scatter items must respect the clearance fields.
+    it("never places standing SCATTER decor on water, trails, or the plaza", () => {
+        // Authored sector decor (bridges, hero trees, landmarks) is hand-placed and may
+        // legitimately span water; only the deterministic scatter must clear the fields.
+        for (const d of decor.filter((x) => !x.flat && !x.authored)) {
             const wd = sampleDT(model.waterDT, model.gw, model.gh, d.x, d.y);
             expect(wd).toBeGreaterThan(TILE_SIZE * 0.8);
         }
@@ -58,7 +58,7 @@ describe("planDecor", () => {
 
     it("keeps a clearing around every plant spot", () => {
         const spots = plan.regions.flatMap((r) => r.plants);
-        for (const d of decor.filter((x) => !x.flat)) {
+        for (const d of decor.filter((x) => !x.flat && !x.authored)) {
             for (const p of spots) {
                 const dist = Math.hypot(
                     d.x / TILE_SIZE - (p.tileX + 0.5),

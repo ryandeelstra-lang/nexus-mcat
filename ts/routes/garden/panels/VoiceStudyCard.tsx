@@ -12,6 +12,7 @@ import { renderExistingCard } from "@generated/backend";
 
 import { buildCardSrcdoc, nodesToHtml } from "./card-render";
 import { StudyCard } from "./StudyCard";
+import { useKeeperTts } from "./use-keeper-tts";
 import { useTextCrawl } from "./use-text-crawl";
 import { useVoiceReview } from "./use-voice-review";
 import type { VoiceBucket, VoiceGradeResult } from "./voice-api";
@@ -134,6 +135,19 @@ export function VoiceStudyCard(props: VoiceStudyCardProps): React.ReactElement {
     // The line crawls out Zelda-style; the sr-only copy carries it for AT (spec §11).
     // Declared before the classic-fallback early return so hook order never changes.
     const crawl = useTextCrawl(keeperLine);
+    const tts = useKeeperTts();
+
+    // The Keeper speaks each new ask aloud (question only, never the answer — spec §6).
+    const speakRef = useRef(tts.speak);
+    speakRef.current = tts.speak;
+    useEffect(() => {
+        if (keeperLine && answerable) {
+            speakRef.current(keeperLine);
+        }
+    }, [keeperLine, answerable]);
+    const stopRef = useRef(tts.stop);
+    stopRef.current = tts.stop;
+    useEffect(() => () => stopRef.current(), []);
 
     const submitTyped = useCallback(async (): Promise<void> => {
         const text = typed;
@@ -203,6 +217,23 @@ export function VoiceStudyCard(props: VoiceStudyCardProps): React.ReactElement {
                     <span className="count-learning">{counts.learning}</span>
                     <span className="count-review">{counts.review}</span>
                 </span>
+                {tts.capable && (
+                    <button
+                        className="keeper-close voice-tts-toggle"
+                        onClick={() => {
+                            if (!tts.muted) {
+                                tts.stop();
+                            }
+                            tts.setMuted(!tts.muted);
+                        }}
+                        aria-label={tts.muted
+                            ? "Unmute the Keeper's voice"
+                            : "Mute the Keeper's voice"}
+                        title={tts.muted ? "Keeper voice off" : "Keeper voice on"}
+                    >
+                        {tts.muted ? "🔇" : "🔊"}
+                    </button>
+                )}
                 <button className="keeper-close" onClick={onClose} aria-label="Close">
                     ✕
                 </button>

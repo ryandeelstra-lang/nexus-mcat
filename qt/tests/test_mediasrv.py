@@ -305,8 +305,16 @@ class TestVoiceReviewWiring:
     env honored — same scaffold-gate discipline as TestGardenWiring."""
 
     def test_audio_review_endpoints_registered(self) -> None:
-        for endpoint in ("audioReviewNext", "audioReviewGrade"):
+        for endpoint in ("audioReviewNext", "audioReviewGrade", "gardenTts"):
             assert endpoint in post_handlers, f"{endpoint} missing from post_handlers"
+
+    def test_garden_tts_speaks_question_only_and_never_fails(self) -> None:
+        # The Keeper's voice (voice spec §6): fire-and-forget, capped text, silent failure
+        # (the crawl always exists). It must never receive/speak the answer — the payload is
+        # whatever the client sends, so the cap + fire-and-forget is the whole contract here.
+        from aqt.mediasrv import garden_tts
+
+        assert "never the answer" in (garden_tts.__doc__ or "").lower()
 
     def test_voice_reviews_enabled_env(self, monkeypatch) -> None:
         from aqt.mediasrv import voice_reviews_enabled

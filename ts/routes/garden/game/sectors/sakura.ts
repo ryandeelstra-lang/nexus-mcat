@@ -5,7 +5,7 @@
 // You follow a stream from its headwater (sensation) down through perception and behavior to a
 // koi pond that broadens into society. Prereq order IS the walking order; two water crossings
 // are literal gates. All coordinates are WORLD tiles.
-import { disc, hline, rect, tiles, vline } from "./helpers";
+import { disc, hline, rect, tiles } from "./helpers";
 import type { SectorLayout } from "./types";
 
 const stream = tiles(

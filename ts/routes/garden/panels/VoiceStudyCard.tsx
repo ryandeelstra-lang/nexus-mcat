@@ -272,6 +272,12 @@ export function VoiceStudyCard(props: VoiceStudyCardProps): React.ReactElement {
                         </div>
                     )}
 
+                    {state.stt.hosted && canMic && (
+                        <p className="voice-hosted-disclosure" role="note">
+                            Voice is sent to OpenAI to transcribe. Type instead to keep it local.
+                        </p>
+                    )}
+
                     {state.phase === "thinking"
                         ? (
                             <div className="keeper-status voice-thinking">

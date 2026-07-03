@@ -521,6 +521,16 @@
     margin-top: 6px !important;
 }
 
+.voice-hosted-disclosure {
+    background: #f9f1e5;
+    border: 1px dashed #8a6644;
+    border-radius: 4px;
+    color: #6b4a2f;
+    font-size: 12px;
+    margin: 0;
+    padding: 4px 8px;
+}
+
 .voice-variant-badge {
     background: #e9d8f2;
     border: 1px solid #8a6644;

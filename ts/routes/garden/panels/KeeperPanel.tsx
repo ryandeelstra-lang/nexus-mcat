@@ -4,15 +4,14 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { CardAnswer_Rating } from "@generated/anki/scheduler_pb";
 
 import { bus } from "../state/bus";
-import { onBloom, onGradedAnswer, onVoiceGradedAnswer } from "../state/economy";
+import { onBloom, onGradedAnswer } from "../state/economy";
 import type { MasterySnapshot } from "../state/mastery";
 import { stageFor } from "../state/stage";
 import type { GardenStore } from "../state/store";
 import { activeWeeds, planDelivery, recordWeed, type WeedCause } from "./keeper-logic";
 import { ProveIt, type ProveItTopic } from "./ProveIt";
 import { scopeToDeck } from "./rpc";
-import { isFastAnswer } from "./StudyCard";
-import { type VoiceGradedEvent, VoiceStudyCard } from "./VoiceStudyCard";
+import { isFastAnswer, StudyCard } from "./StudyCard";
 
 export interface KeeperSessionSummary {
     answered: number;
@@ -190,22 +189,12 @@ export function KeeperPanel(props: KeeperPanelProps): React.ReactElement {
                         </div>
                     )}
                     {!scoping && !scopeError && (
-                        <VoiceStudyCard
+                        <StudyCard
                             scopeKey={scopeKey}
                             contextLabel={`Tending: ${current.label} — ${current.why}`}
                             onClose={closeSession}
-                            onGraded={(event: VoiceGradedEvent) => {
-                                // Bucket-scaled water on the voice path; the flat +1 remains
-                                // for the classic escape-hatch fallback (bucket === null).
-                                store.setBalances(
-                                    event.bucket === null
-                                        ? onGradedAnswer(store.snapshot.economy)
-                                        : onVoiceGradedAnswer(
-                                            store.snapshot.economy,
-                                            event.bucket,
-                                            event.recovered,
-                                        ),
-                                );
+                            onGraded={(event) => {
+                                store.setBalances(onGradedAnswer(store.snapshot.economy));
                                 answered.current += 1;
                                 tendedNodeIds.current.add(current.nodeId);
                                 wateredNodeIds.current.add(current.nodeId);
@@ -215,17 +204,6 @@ export function KeeperPanel(props: KeeperPanelProps): React.ReactElement {
                                     msTaken: event.msTaken,
                                     fast: isFastAnswer(event.msTaken),
                                 });
-                                if (
-                                    event.bloomed
-                                    && !store.hasParaphrasePass(current.nodeId)
-                                ) {
-                                    // A passed reworded ask during tending IS the paraphrase
-                                    // gate (voice spec §4) — same bloom flow as ProveIt.
-                                    store.recordParaphrasePass(current.nodeId);
-                                    store.setBalances(onBloom(store.snapshot.economy));
-                                    blooms.current += 1;
-                                    bus.emit("plant:bloomed", { nodeId: current.nodeId });
-                                }
                                 if (event.rating === CardAnswer_Rating.AGAIN) {
                                     setMissNodeId(current.nodeId);
                                 } else {

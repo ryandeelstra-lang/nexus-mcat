@@ -39,6 +39,50 @@ function pickFirstAsset(keys: string[]): string {
     return keys[keys.length - 1];
 }
 
+/** The eight movement facings (arrows/WASD can press two axes at once). */
+type Dir8 =
+    | "down"
+    | "down-left"
+    | "left"
+    | "up-left"
+    | "up"
+    | "up-right"
+    | "right"
+    | "down-right";
+
+/** Movement vector (each component -1|0|1) → one of the eight facings. */
+function facing8(dx: number, dy: number): Dir8 {
+    const v = dy < 0 ? "up" : dy > 0 ? "down" : "";
+    const h = dx < 0 ? "left" : dx > 0 ? "right" : "";
+    if (v && h) {
+        return `${v}-${h}` as Dir8;
+    }
+    return (v || h || "down") as Dir8;
+}
+
+/** Per-facing art: which walk/idle animation plays and whether it's mirrored. The gardener
+ * art has a front (down) and a left-facing side walk cycle plus a back (up) idle; right and
+ * the right-leaning diagonals mirror the side frames, and every diagonal borrows the side
+ * stride so it animates like a real walk. Due-up has no step art, so it holds the back idle
+ * and leans on the walk bob for a sense of stride. */
+interface FacingArt {
+    walk: string;
+    idle: string;
+    flip: boolean;
+}
+const SIDE_LEFT: FacingArt = { walk: "av-walk-side", idle: "av-idle-side", flip: false };
+const SIDE_RIGHT: FacingArt = { walk: "av-walk-side", idle: "av-idle-side", flip: true };
+const FACING_ART: Record<Dir8, FacingArt> = {
+    "down": { walk: "av-walk-down", idle: "av-idle-down", flip: false },
+    "up": { walk: "av-walk-up", idle: "av-idle-up", flip: false },
+    "left": SIDE_LEFT,
+    "up-left": SIDE_LEFT,
+    "down-left": SIDE_LEFT,
+    "right": SIDE_RIGHT,
+    "up-right": SIDE_RIGHT,
+    "down-right": SIDE_RIGHT,
+};
+
 export class WorldScene extends Phaser.Scene {
     private bus!: TypedBus;
     private plan!: WorldPlan;
@@ -98,7 +142,7 @@ export class WorldScene extends Phaser.Scene {
 
     private avatarTile = { tileX: KEEPER_TILE.tileX + 2, tileY: KEEPER_TILE.tileY };
     private tendNextTile: { tileX: number; tileY: number } | null = null;
-    private facing: "down" | "up" | "left" | "right" = "down";
+    private facing: Dir8 = "down";
 
     constructor() {
         super("world");
@@ -138,6 +182,7 @@ export class WorldScene extends Phaser.Scene {
         this.renderSectorLocks();
         this.spawnLanternGlows();
         this.spawnCritters();
+        this.setupAvatarAnimations();
         this.spawnAvatar();
         this.spawnKeeper();
         this.setupInput();
@@ -188,7 +233,6 @@ export class WorldScene extends Phaser.Scene {
         this.flags = this.registry.get("gardenFlags") as GardenFlags ?? this.flags;
 
         this.moveAvatar(delta);
-        this.cameras.main.startFollow(this.avatar, true, 0.12, 0.12);
         this.updateInteractPrompt();
         this.bobKeeper(delta);
         this.updateCritters();
@@ -344,7 +388,7 @@ export class WorldScene extends Phaser.Scene {
             const stone = this.add.image(0, 0, ensureTexture(this, stoneKey));
             stone.setOrigin(0.5, 1);
             sizeToHeightTiles(stone, 2.2);
-            const label = this.add.text(0, -2.4 * ts, "⚿ Trial", {
+            const label = this.add.text(0, -2.4 * ts, "🔒 Trial", {
                 fontFamily: "monospace",
                 fontSize: "11px",
                 color: "#ffe066",
@@ -404,9 +448,11 @@ export class WorldScene extends Phaser.Scene {
         const sy = KEEPER_TILE.tileY * ts + ts;
         this.avatar = this.physics.add.sprite(sx, sy, ensureTexture(this, "gardener-idle-down"));
         this.avatar.setOrigin(0.5, 1);
-        applyDisplaySize(this.avatar);
+        this.avatar.play("av-idle-down");
+        this.refreshAvatarView();
         this.avatar.setDepth(KEEPER_TILE.tileY + 0.8);
         this.avatar.setCollideWorldBounds(true);
+        this.cameras.main.startFollow(this.avatar, true, 0.12, 0.12);
         this.avatarTile = { tileX: KEEPER_TILE.tileX + 2, tileY: KEEPER_TILE.tileY };
     }
 
@@ -573,11 +619,15 @@ export class WorldScene extends Phaser.Scene {
 
     /** The tile the watering can POINTS at: one tile ahead of the avatar's facing. */
     private aimTile(): TileCoord {
-        const ahead: Record<typeof this.facing, [number, number]> = {
-            down: [0, 1],
-            up: [0, -1],
-            left: [-1, 0],
-            right: [1, 0],
+        const ahead: Record<Dir8, [number, number]> = {
+            "down": [0, 1],
+            "up": [0, -1],
+            "left": [-1, 0],
+            "right": [1, 0],
+            "down-left": [-1, 1],
+            "down-right": [1, 1],
+            "up-left": [-1, -1],
+            "up-right": [1, -1],
         };
         const [dx, dy] = ahead[this.facing];
         return { tileX: this.avatarTile.tileX + dx, tileY: this.avatarTile.tileY + dy };
@@ -687,44 +737,73 @@ export class WorldScene extends Phaser.Scene {
         };
 
         this.updateAvatarFrame(dx, dy, moving);
-        applyDisplaySize(this.avatar);
+        this.refreshAvatarView();
         this.avatar.setDepth(this.avatarTile.tileY + 0.8);
     }
 
-    /** Directional walk cycle. All side art faces left, so the right walk is mirrored;
-     * there are no back-facing walk frames, so "up" fakes a stride by flipping the idle. */
+    /** Register the gardener's walk/idle animations once. The frames are individual PNGs
+     * (not a sprite-atlas), so each is referenced by texture key; ensureTexture guarantees
+     * every key exists (real art or a placeholder) before the animation is created. */
+    private setupAvatarAnimations(): void {
+        const mk = (key: string, frames: string[], frameRate: number): void => {
+            if (this.anims.exists(key)) {
+                return;
+            }
+            for (const f of frames) {
+                ensureTexture(this, f);
+            }
+            this.anims.create({
+                key,
+                frames: frames.map((f) => ({ key: f })),
+                frameRate,
+                repeat: -1,
+            });
+        };
+        // Idle poses are single frames; their gentle "breathing" is the scale bob in
+        // refreshAvatarView, so it switches off cleanly under prefers-reduced-motion.
+        mk("av-idle-down", ["gardener-idle-down"], 1);
+        mk("av-idle-up", ["gardener-idle-up"], 1);
+        mk("av-idle-side", ["gardener-idle-side-a"], 1);
+        // Two contact poses per stride (left foot, right foot). ~8fps + the step bob reads
+        // as full, weighted steps instead of the old 2-frame flicker.
+        mk("av-walk-down", ["gardener-walk-down-a", "gardener-walk-down-b"], 8);
+        mk("av-walk-side", ["gardener-walk-side-a", "gardener-walk-side-b"], 8);
+        // No back-facing step art exists, so due-up holds the back idle and the bob strides.
+        mk("av-walk-up", ["gardener-idle-up"], 1);
+    }
+
+    /** 8-direction walk/idle state machine, driven off the raw movement vector. */
     private updateAvatarFrame(dx: number, dy: number, moving: boolean): void {
         if (moving) {
-            if (Math.abs(dx) > Math.abs(dy)) {
-                this.facing = dx < 0 ? "left" : "right";
+            this.facing = facing8(dx, dy);
+        }
+        const art = FACING_ART[this.facing];
+        this.avatar.play(moving ? art.walk : art.idle, true);
+        this.avatar.setFlipX(art.flip);
+    }
+
+    /** Size the avatar to a constant on-screen height with its native aspect preserved —
+     * the sliced frames differ in pixel size, and the old code force-fit each into one
+     * 32×40 box, which made the character's proportions "pop" every frame. A subtle
+     * vertical bob (two dips per stride) then gives the walk weight and smoothness. */
+    private refreshAvatarView(): void {
+        const frameH = this.avatar.frame.height;
+        const scale = frameH > 0 ? DISPLAY.avatarHeight / frameH : 1;
+        let bob = 1;
+        if (!this.reducedMotion) {
+            const t = this.time.now / 1000;
+            if (this.isMovingNow) {
+                // Due-up has no step frames, so a slightly deeper, faster bob stands in
+                // for the missing back-walk stride.
+                const up = this.facing === "up";
+                const hz = up ? 9 : 8;
+                const amp = up ? 0.06 : 0.05;
+                bob = 1 + amp * Math.sin(t * Math.PI * hz);
             } else {
-                this.facing = dy < 0 ? "up" : "down";
+                bob = 1 + 0.012 * Math.sin(t * Math.PI * 1.2);
             }
         }
-        const stepA = Math.floor(this.time.now / 150) % 2 === 0;
-        let key: string;
-        let flip = false;
-        const walkFrame = stepA ? "a" : "b";
-        switch (this.facing) {
-            case "left":
-            case "right":
-                key = moving ? `gardener-walk-side-${walkFrame}` : "gardener-idle-side-a";
-                flip = this.facing === "right";
-                break;
-            case "down":
-                key = moving ? `gardener-walk-down-${walkFrame}` : "gardener-idle-down";
-                break;
-            case "up":
-                key = "gardener-idle-up";
-                flip = moving && stepA;
-                break;
-            default: {
-                const _exhaustive: never = this.facing;
-                return _exhaustive;
-            }
-        }
-        this.avatar.setTexture(ensureTexture(this, key));
-        this.avatar.setFlipX(flip);
+        this.avatar.setScale(scale, scale * bob);
     }
 
     private resolveTileCollision(vx: number, vy: number): void {

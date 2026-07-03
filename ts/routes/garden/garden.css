@@ -336,37 +336,6 @@
     }
 }
 
-.keeper-greeting {
-    align-items: center;
-    background: rgba(246, 234, 216, 0.92);
-    border: 3px solid #6b4a2f;
-    border-radius: 6px;
-    box-shadow: 0 6px 0 #3f2c1a;
-    color: #2b2416;
-    display: flex;
-    gap: 12px;
-    margin-bottom: 10px;
-    padding: 10px 12px;
-}
-
-.keeper-greeting h2 {
-    margin: 0 0 2px;
-}
-
-.keeper-greeting p {
-    font-size: 14px;
-    margin: 0;
-}
-
-.keeper-portrait {
-    background: #efe0c6;
-    border: 2px solid #6b4a2f;
-    border-radius: 6px;
-    height: 64px;
-    object-fit: cover;
-    width: 64px;
-}
-
 .keeper-panel {
     background: #f6ead8;
     border: 3px solid #6b4a2f;
@@ -497,22 +466,6 @@
 
 /* --- voice Keeper (voice spec §3/§11): buckets signal by words + shape, tints are soft --- */
 
-.voice-keeper-line {
-    background: rgba(246, 234, 216, 0.96);
-    border: 2px solid #6b4a2f;
-    border-radius: 6px;
-    padding: 10px 12px;
-    position: relative;
-    z-index: 1;
-}
-
-.voice-keeper-line p {
-    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    font-size: 17px;
-    line-height: 1.45;
-    margin: 0;
-}
-
 .sr-only {
     clip: rect(0 0 0 0);
     clip-path: inset(50%);
@@ -578,44 +531,6 @@
     min-height: 180px;
 }
 
-.voice-answer-row {
-    align-items: stretch;
-}
-
-.voice-mic {
-    background: #8fbf7b;
-    border: 2px solid #6b4a2f;
-    border-radius: 6px;
-    box-shadow: 0 2px 0 #3f2c1a;
-    color: #2b2416;
-    cursor: pointer;
-    font-size: 15px;
-    font-weight: 700;
-    min-height: 40px;
-    padding: 6px 14px;
-}
-
-.voice-mic-live {
-    background: #d98c8c;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-    .voice-mic-live {
-        animation: voice-pulse 1.2s ease-in-out infinite;
-    }
-
-    @keyframes voice-pulse {
-        0%,
-        100% {
-            box-shadow: 0 2px 0 #3f2c1a;
-        }
-
-        50% {
-            box-shadow: 0 2px 0 #3f2c1a, 0 0 0 6px rgba(217, 140, 140, 0.35);
-        }
-    }
-}
-
 .voice-type-row {
     display: inline-flex;
     flex: 1 1 260px;
@@ -625,40 +540,18 @@
 .voice-type-field {
     background: #fdf7ec;
     border: 2px solid #6b4a2f;
-    border-radius: 6px;
+    border-radius: 8px;
     color: #2b2416;
     flex: 1;
-    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-family: "Varela Round", Inter, system-ui, sans-serif;
     font-size: 15px;
-    min-height: 34px;
-    padding: 6px 10px;
+    min-height: 36px;
+    padding: 6px 12px;
 }
 
-.voice-result {
-    background: rgba(246, 234, 216, 0.96);
-    border: 2px solid #6b4a2f;
-    border-radius: 6px;
-    display: grid;
-    gap: 6px;
-    padding: 12px;
-    position: relative;
-    z-index: 1;
-}
-
-.voice-result h3 {
-    font-size: 17px;
-    margin: 0;
-}
-
-.voice-result p {
-    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    font-size: 14px;
-    line-height: 1.45;
-    margin: 0;
-}
-
+/* Bucket tones ride a multiply veil over the parchment (.keeper-dialogue::after). */
 .voice-beat-good {
-    background: rgba(215, 234, 208, 0.96);
+    --beat-tint: #cfe6c6;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -702,15 +595,15 @@
 }
 
 .voice-beat-okay {
-    background: rgba(233, 240, 214, 0.96);
+    --beat-tint: #e0ebc9;
 }
 
 .voice-beat-ask {
-    background: rgba(243, 216, 188, 0.96);
+    --beat-tint: #f0d4ae;
 }
 
 .voice-beat-idk {
-    background: rgba(217, 231, 245, 0.96);
+    --beat-tint: #cfe0f0;
 }
 
 .voice-transcript {
@@ -752,10 +645,21 @@
     font-weight: 700;
 }
 
-/* --- indie Keeper dialogue box (dialogue-UX plan §3): portrait + wooden frame + choices --- */
+/* --- the Keeper's dialogue box (mockup art 2026-07-03): vine-wrapped wooden frame over
+ * parchment, the carved medallion holding the portrait, and the glowing arrow coin. The
+ * Keeper talks in TEXT — a word at a time — so the type itself is the voice: a rounded,
+ * modern-Zelda face (Varela Round, OFL) instead of the UI font. --- */
+
+@font-face {
+    font-family: "Varela Round";
+    font-display: swap;
+    font-style: normal;
+    font-weight: 400;
+    src: url("./assets/fonts/VarelaRound-Regular.ttf") format("truetype");
+}
 
 .keeper-panel-dialogue {
-    gap: 12px;
+    gap: 10px;
     background: transparent;
     border: none;
     box-shadow: none;
@@ -766,40 +670,61 @@
     display: none;
 }
 
+.keeper-panel-dialogue .keeper-panel-header {
+    color: #f6ead8;
+    font-family: "Varela Round", Inter, system-ui, sans-serif;
+    padding: 0 8px;
+    text-shadow: 0 1px 3px rgba(20, 12, 6, 0.85);
+}
+
 .keeper-dialogue {
-    align-items: flex-start;
-    background:
-        radial-gradient(120% 140% at 12% 0%, rgba(255, 249, 236, 0.9), transparent 60%),
-        #f6ead8;
-    border: 3px solid #6b4a2f;
-    border-radius: 12px;
-    box-shadow: 0 8px 0 #3f2c1a, 0 14px 28px rgba(20, 12, 6, 0.4);
+    /* The art frame: ui-panel-frame 9-sliced around the edge, its parchment middle filling
+     * the box; the parchment crop layers underneath for browsers while the frame decodes. */
+    background: var(--keeper-parchment, #f2e3c2) center / cover;
+    border: 34px solid transparent;
+    border-image: var(--keeper-frame) 150 fill / 34px / 10px round;
     display: flex;
-    gap: 16px;
-    padding: 16px 18px;
+    filter: drop-shadow(0 10px 18px rgba(20, 12, 6, 0.55));
+    min-height: 168px;
+    padding: 2px 10px 6px;
     position: relative;
     z-index: 1;
 }
 
+/* Soft bucket-tone veil over the parchment (never hue alone — words carry the verdict). */
 .keeper-dialogue::after {
-    border: 2px solid rgba(107, 74, 47, 0.3);
-    border-radius: 8px;
+    background: var(--beat-tint, transparent);
+    border-radius: 10px;
     content: "";
-    inset: 6px;
+    inset: -18px;
+    mix-blend-mode: multiply;
+    opacity: 0.45;
     pointer-events: none;
     position: absolute;
 }
 
-.keeper-dialogue-portrait {
-    background: #efe0c6;
-    border: 3px solid #6b4a2f;
-    border-radius: 10px;
-    box-shadow: inset 0 0 0 2px rgba(255, 249, 236, 0.6);
+.keeper-medallion {
+    background: var(--keeper-medallion) center / contain no-repeat;
+    filter: drop-shadow(0 6px 10px rgba(20, 12, 6, 0.5));
     flex: 0 0 auto;
-    height: 108px;
+    height: 148px;
+    left: -58px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 148px;
+    z-index: 2;
+}
+
+.keeper-medallion-face {
+    border-radius: 50%;
+    height: 72%;
     image-rendering: pixelated;
+    left: 14%;
     object-fit: cover;
-    width: 108px;
+    position: absolute;
+    top: 14%;
+    width: 72%;
 }
 
 .keeper-dialogue-body {
@@ -807,6 +732,12 @@
     flex: 1 1 auto;
     gap: 8px;
     min-width: 0;
+    padding-left: 78px;
+}
+
+/* No medallion (landmark flavor lines, empty states) -> no reserved portrait gutter. */
+.keeper-dialogue-body:first-child {
+    padding-left: 12px;
 }
 
 .keeper-dialogue-namerow {
@@ -818,9 +749,9 @@
 
 .keeper-dialogue-name {
     color: #7a5230;
+    font-family: "Varela Round", Inter, system-ui, sans-serif;
     font-size: 14px;
-    font-weight: 800;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.09em;
     text-transform: uppercase;
 }
 
@@ -834,11 +765,12 @@
 }
 
 .keeper-dialogue-text p {
-    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    font-size: 20px;
-    line-height: 1.55;
+    color: #38281a;
+    font-family: "Varela Round", Inter, system-ui, sans-serif;
+    font-size: 21px;
+    line-height: 1.6;
     margin: 0;
-    min-height: 1.55em;
+    min-height: 3.2em; /* two lines reserved so the box doesn't jump as words land */
 }
 
 .keeper-dialogue-choices {
@@ -846,22 +778,221 @@
     gap: 8px;
 }
 
-.voice-live {
-    background: rgba(253, 247, 236, 0.9);
+/* The "…" typing indicator — the Keeper is composing his reply. */
+.keeper-typing-dots {
+    display: inline-flex;
+    gap: 5px;
+    margin-left: 6px;
+    vertical-align: baseline;
+}
+
+.keeper-typing-dots span {
+    background: #7a5230;
+    border-radius: 50%;
+    display: inline-block;
+    height: 7px;
+    opacity: 0.35;
+    width: 7px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .keeper-typing-dots span {
+        animation: keeper-dot-breathe 1.1s ease-in-out infinite;
+    }
+
+    .keeper-typing-dots span:nth-child(2) {
+        animation-delay: 0.18s;
+    }
+
+    .keeper-typing-dots span:nth-child(3) {
+        animation-delay: 0.36s;
+    }
+
+    @keyframes keeper-dot-breathe {
+        0%,
+        100% {
+            opacity: 0.25;
+            transform: translateY(0);
+        }
+
+        40% {
+            opacity: 1;
+            transform: translateY(-3px);
+        }
+    }
+}
+
+/* The glowing arrow coin — the mockup's continue affordance, bottom-right on the frame. */
+.keeper-arrow-coin {
+    background: var(--keeper-arrow) center / contain no-repeat;
+    border: none;
+    bottom: -26px;
+    cursor: pointer;
+    filter: drop-shadow(0 4px 8px rgba(20, 12, 6, 0.55));
+    height: 84px;
+    padding: 0;
+    position: absolute;
+    right: -20px;
+    width: 84px;
+    z-index: 2;
+}
+
+.keeper-arrow-coin:hover {
+    filter: drop-shadow(0 4px 8px rgba(20, 12, 6, 0.55)) brightness(1.12);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .keeper-arrow-coin {
+        animation: keeper-arrow-beckon 1.6s ease-in-out infinite;
+    }
+
+    @keyframes keeper-arrow-beckon {
+        0%,
+        100% {
+            transform: translateX(0);
+        }
+
+        50% {
+            transform: translateX(4px);
+        }
+    }
+}
+
+/* --- the answering stage: one big mic coin, a compact type row, a slim IDK bar --- */
+
+.voice-answer-stage {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    min-height: 96px;
+}
+
+.voice-mic-coin {
+    background-color: transparent;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: none;
+    cursor: pointer;
+    filter: drop-shadow(0 5px 9px rgba(20, 12, 6, 0.45));
+    height: 96px;
+    padding: 0;
+    position: relative;
+    transition: transform 120ms ease;
+    width: 96px;
+}
+
+.voice-mic-coin:hover:not(:disabled) {
+    transform: scale(1.06);
+}
+
+.voice-mic-coin:disabled {
+    cursor: default;
+    filter: grayscale(0.6) drop-shadow(0 5px 9px rgba(20, 12, 6, 0.3));
+    opacity: 0.65;
+}
+
+.voice-mic-stop {
+    background: rgba(43, 36, 22, 0.85);
+    border-radius: 50%;
+    bottom: -2px;
+    color: #f6ead8;
+    font-size: 13px;
+    height: 28px;
+    line-height: 28px;
+    position: absolute;
+    right: -2px;
+    width: 28px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .voice-mic-coin-live {
+        animation: voice-mic-ring 1.2s ease-in-out infinite;
+        border-radius: 50%;
+    }
+
+    @keyframes voice-mic-ring {
+        0%,
+        100% {
+            box-shadow: 0 0 0 0 rgba(217, 140, 140, 0.55);
+        }
+
+        50% {
+            box-shadow: 0 0 0 10px rgba(217, 140, 140, 0);
+        }
+    }
+}
+
+.voice-mic-label {
+    color: #6b4a2f;
+    font-family: "Varela Round", Inter, system-ui, sans-serif;
+    font-size: 13px;
+}
+
+.voice-type-toggle {
+    background: none;
+    border: none;
+    color: #7a5230;
+    cursor: pointer;
+    font-family: "Varela Round", Inter, system-ui, sans-serif;
+    font-size: 14px;
+    padding: 4px 6px;
+    text-decoration: underline dotted;
+}
+
+.voice-type-toggle:hover {
+    color: #4b3a27;
+}
+
+/* The slim honest off-ramp, under the whole box — small on purpose. */
+.voice-idk-bar {
+    background: rgba(43, 36, 22, 0.72);
+    border: 1px solid rgba(246, 234, 216, 0.25);
+    border-radius: 999px;
+    color: #e8dbc8;
+    cursor: pointer;
+    font-family: "Varela Round", Inter, system-ui, sans-serif;
+    font-size: 13px;
+    justify-self: center;
+    padding: 6px 18px;
+}
+
+.voice-idk-bar:hover:not(:disabled) {
+    background: rgba(43, 36, 22, 0.9);
+}
+
+.voice-idk-bar:disabled {
+    cursor: default;
+    opacity: 0.5;
+}
+
+/* Your side of the conversation: the live caption line that fills as you speak. */
+.voice-player-line {
+    background: rgba(253, 247, 236, 0.85);
     border: 2px dashed #8a6644;
-    border-radius: 6px;
+    border-radius: 8px;
     display: grid;
-    gap: 4px;
-    padding: 8px 10px;
+    flex: 1 1 260px;
+    gap: 3px;
+    padding: 8px 12px;
+}
+
+.voice-player-name {
+    color: #7a5230;
+    font-family: "Varela Round", Inter, system-ui, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
 }
 
 .voice-live-text {
     color: #2b2416;
-    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    font-size: 15px;
-    line-height: 1.4;
+    font-family: "Varela Round", Inter, system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.45;
     margin: 0;
-    min-height: 1.4em;
+    min-height: 1.45em;
 }
 
 .voice-live-pulse {
@@ -894,28 +1025,60 @@
     text-transform: uppercase;
 }
 
+/* The reply tray under the Keeper's spoken verdict — fades in once he finishes talking. */
 .voice-result-details {
+    border-top: 1px solid rgba(107, 74, 47, 0.25);
     display: grid;
-    gap: 6px;
+    gap: 5px;
+    padding-top: 8px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .voice-result-details {
+        animation: voice-tray-rise 260ms ease-out;
+    }
+
+    @keyframes voice-tray-rise {
+        from {
+            opacity: 0;
+            transform: translateY(4px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 }
 
 .voice-result-details p {
-    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-family: "Varela Round", Inter, system-ui, sans-serif;
     font-size: 14px;
     line-height: 1.45;
     margin: 0;
 }
 
-.voice-verdict {
-    font-size: 18px;
+.voice-flavor {
+    color: #6b4a2f;
+    font-size: 14px !important;
+    font-style: italic;
     margin: 0;
 }
 
-.voice-flavor {
-    color: #6b4a2f;
-    font-size: 13px !important;
-    font-style: italic;
-    margin: 0;
+.voice-appeal {
+    background: none;
+    border: none;
+    color: #7a5230;
+    cursor: pointer;
+    font-family: "Varela Round", Inter, system-ui, sans-serif;
+    font-size: 13px;
+    justify-self: start;
+    padding: 2px 0;
+    text-decoration: underline dotted;
+}
+
+.voice-appeal:hover {
+    color: #4b3a27;
 }
 
 .keeper-miss-strip {

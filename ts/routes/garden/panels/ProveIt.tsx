@@ -4,8 +4,10 @@
 // self-grade placeholder is gone. Pass = the server's `bloomed` verdict.
 import React, { useRef, useState } from "react";
 
+import { CardAnswer_Rating } from "@generated/anki/scheduler_pb";
+
 import { scopeToDeck } from "./rpc";
-import { VoiceStudyCard } from "./VoiceStudyCard";
+import { StudyCard } from "./StudyCard";
 
 export interface ProveItTopic {
     nodeId: string;
@@ -64,20 +66,10 @@ export function ProveIt(props: ProveItProps): React.ReactElement {
             )}
 
             {step === "card" && (
-                <VoiceStudyCard
+                <StudyCard
                     scopeKey={scopeKey}
                     contextLabel={`Reworded check: ${topic.label}`}
                     onClose={onExit}
-                    preferVariant
-                    singleCard
-                    onNoVariant={() => {
-                        // Honest skip (voice spec §4): no reworded ask exists for this
-                        // topic yet — never a fake fail, never a fake bloom.
-                        if (!resolved.current) {
-                            resolved.current = true;
-                            onResolved({ nodeId: topic.nodeId, passed: false, skipped: true });
-                        }
-                    }}
                     onEmpty={() => {
                         if (!resolved.current) {
                             resolved.current = true;
@@ -87,7 +79,7 @@ export function ProveIt(props: ProveItProps): React.ReactElement {
                     onGraded={(event) => {
                         if (!resolved.current) {
                             resolved.current = true;
-                            setPassed(event.bloomed);
+                            setPassed(event.rating !== CardAnswer_Rating.AGAIN);
                             setStep("result");
                         }
                     }}

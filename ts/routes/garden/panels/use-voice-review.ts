@@ -121,14 +121,6 @@ export function voiceReviewReducer(
 /** Client-side msTaken cap: only ever downgrades toward no-glint (spec §5.6). */
 export const MS_TAKEN_CAP = 120_000;
 
-/** A brief "the Keeper considers…" beat so an instant (offline) grade still feels like a person
- * replying rather than a robotic zero-latency snap. Small enough to stay "very fast". */
-export const MIN_THINK_MS = 220;
-
-function sleep(ms: number): Promise<void> {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 export interface VoiceReviewApi {
     state: VoiceReviewState;
     loadNext(): Promise<void>;
@@ -207,20 +199,16 @@ export function useVoiceReview(opts: {
             if (!card) {
                 return;
             }
+            // No artificial delay here: the Keeper's reply opener starts crawling the moment
+            // this dispatches, and the "…" typing dots hold the beat until the grade lands.
             dispatch({ type: "thinking" });
             const msTaken = Math.min(Date.now() - promptShownAt.current, MS_TAKEN_CAP);
-            const thoughtStart = Date.now();
             try {
                 const out = await gradeVoiceAnswer({
                     cardId: card.cardId,
                     msTaken,
                     ...req,
                 });
-                // Hold the "considers…" beat to a human-feeling minimum (never longer).
-                const elapsed = Date.now() - thoughtStart;
-                if (elapsed < MIN_THINK_MS) {
-                    await sleep(MIN_THINK_MS - elapsed);
-                }
                 switch (out.kind) {
                     case "graded":
                         answered.current += 1;

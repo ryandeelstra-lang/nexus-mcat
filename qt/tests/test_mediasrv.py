@@ -299,6 +299,38 @@ class TestGardenWiring:
         assert "never into the collection" in garden_state.__doc__.lower()
 
 
+class TestVoiceReviewWiring:
+    """charged_up: pins the voice-Keeper wiring (spec §1/§5 of the voice-Keeper design).
+    Endpoints registered, GARDEN mic grant audio-only + fail-closed, and the escape-hatch
+    env honored — same scaffold-gate discipline as TestGardenWiring."""
+
+    def test_audio_review_endpoints_registered(self) -> None:
+        for endpoint in ("audioReviewNext", "audioReviewGrade"):
+            assert endpoint in post_handlers, f"{endpoint} missing from post_handlers"
+
+    def test_voice_reviews_enabled_env(self, monkeypatch) -> None:
+        from aqt.mediasrv import voice_reviews_enabled
+
+        monkeypatch.delenv("CHARGED_UP_VOICE_REVIEWS", raising=False)
+        assert voice_reviews_enabled() is True  # default ON (spec ruling 1)
+        monkeypatch.setenv("CHARGED_UP_VOICE_REVIEWS", "0")
+        assert voice_reviews_enabled() is False  # the classic-reviewer escape hatch
+
+    def test_garden_webview_grants_only_audio_capture(self) -> None:
+        # QtWebEngine denies getUserMedia unless the host app grants it. The grant must be
+        # (a) keyed to the trusted first-party GARDEN kind only, (b) audio-capture only, and
+        # (c) fail-closed for every other feature.
+        import inspect
+
+        from aqt import webview
+
+        src = inspect.getsource(webview.AnkiWebPage)
+        assert "featurePermissionRequested" in src
+        assert "MediaAudioCapture" in src
+        assert "PermissionDeniedByUser" in src
+        assert "AnkiWebViewKind.GARDEN" in src
+
+
 class TestScoresLoaderSurfacesBrokenEngine:
     """charged_up: the scores bridge is the single source of truth for the readiness/mastery numbers
     a student trusts. A genuinely-broken engine (present, but with a broken transitive import) must

@@ -154,6 +154,24 @@ class AnkiWebPage(QWebEnginePage):
         self._setupBridge()
         self.open_links_externally = True
 
+        # charged_up: the voice Keeper needs the microphone (getUserMedia). Grant audio
+        # capture ONLY for the trusted first-party GARDEN webview — every other feature and
+        # every other page kind is denied (fail-closed). No video/screen capture, ever.
+        if kind == AnkiWebViewKind.GARDEN:
+            self.featurePermissionRequested.connect(self._onFeaturePermissionRequested)
+
+    def _onFeaturePermissionRequested(
+        self, origin: QUrl, feature: QWebEnginePage.Feature
+    ) -> None:
+        if feature == QWebEnginePage.Feature.MediaAudioCapture:
+            self.setFeaturePermission(
+                origin, feature, QWebEnginePage.PermissionPolicy.PermissionGrantedByUser
+            )
+        else:
+            self.setFeaturePermission(
+                origin, feature, QWebEnginePage.PermissionPolicy.PermissionDeniedByUser
+            )
+
     def _profileForPage(self, kind: AnkiWebViewKind) -> QWebEngineProfile:
         have_api_access = kind in API_ACCESS_WEBVIEW_KINDS
 

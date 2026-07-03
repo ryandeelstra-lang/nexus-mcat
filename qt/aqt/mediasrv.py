@@ -801,6 +801,135 @@ def garden_state() -> bytes:
     return b""  # unreachable; satisfies the type checker
 
 
+def _load_voice_review():  # type: ignore[no-untyped-def]
+    """charged_up: import the out-of-tree ``journey.voice_review`` orchestrator (doc 24 §10).
+
+    Mirrors ``_load_scores_display``: dynamic import so the qt type-check never resolves a
+    package outside the aqt tree, and an honest degrade (return None) when it isn't bundled."""
+    import importlib
+    import importlib.util
+    import sys
+    from pathlib import Path
+
+    try:
+        return importlib.import_module("journey.voice_review")
+    except ImportError:
+        repo_root = (
+            Path(__file__).resolve().parents[2]
+        )  # qt/aqt/mediasrv.py -> repo root
+        if str(repo_root) not in sys.path:
+            sys.path.append(str(repo_root))
+        if importlib.util.find_spec("journey") is None:
+            return None
+        return importlib.import_module("journey.voice_review")
+
+
+def voice_reviews_enabled() -> bool:
+    """charged_up escape hatch (voice-Keeper spec ruling 1): default ON; ``0`` restores the
+    classic reveal/1-4 reviewer during rollout."""
+    return os.environ.get("CHARGED_UP_VOICE_REVIEWS", "1") != "0"
+
+
+def audio_review_next() -> bytes:
+    """charged_up (doc 24 §10): the next due card as a Keeper prompt. Read-only.
+
+    The reference answer is NEVER sent — correctness is decided server-side in
+    ``audio_review_grade``. Also reports STT availability so the client can shape the mic
+    UI, and pre-warms the local model off the request thread (spec §10)."""
+    import json
+
+    voice = _load_voice_review()
+    if voice is None or aqt.mw.col is None:
+        return json.dumps({"available": False}).encode("utf-8")
+    if not voice_reviews_enabled():
+        return json.dumps({"available": True, "enabled": False}).encode("utf-8")
+
+    req = json.loads(request.data.decode("utf-8")) if request.data else {}
+    prefer_variant = bool(req.get("preferVariant", False))
+
+    stt_info = {"available": False, "local": False, "hosted": False}
+    try:
+        from ai import stt as ai_stt
+
+        stt_info = {
+            "available": ai_stt.available(),
+            "local": ai_stt.local_available(),
+            "hosted": ai_stt.hosted_enabled(),
+        }
+        ai_stt.prewarm_async()
+    except Exception:
+        pass  # STT is optional; the typed path carries the loop (§15)
+
+    card = voice.next_card(aqt.mw.col, prefer_variant=prefer_variant)
+    if card is None:
+        return json.dumps(
+            {"available": True, "enabled": True, "done": True, "stt": stt_info}
+        ).encode("utf-8")
+    if card.get("no_variant"):
+        return json.dumps(
+            {"available": True, "enabled": True, "no_variant": True, "stt": stt_info}
+        ).encode("utf-8")
+    return json.dumps(
+        {"available": True, "enabled": True, "done": False, "stt": stt_info, **card}
+    ).encode("utf-8")
+
+
+def audio_review_grade() -> bytes:
+    """charged_up (doc 24 §10): grade one spoken/typed answer server-side and apply it
+    through the real scheduler. The client sends no signal that decides correctness; STT
+    errors are surfaced honestly (spec §5.5) instead of collapsing to an empty transcript."""
+    import json
+
+    voice = _load_voice_review()
+    if voice is None or aqt.mw.col is None:
+        return json.dumps({"available": False}).encode("utf-8")
+
+    req = json.loads(request.data.decode("utf-8")) if request.data else {}
+    card_id = int(req["cardId"])
+    idk = bool(req.get("idk", False))
+    ms_taken = req.get("msTaken")
+    transcript = (req.get("transcript") or "").strip()
+    stt_provider = None
+    stt_model = None
+    stt_error = None
+
+    # An audio clip (base64) transcribes server-side; a typed transcript is used verbatim.
+    audio_b64 = req.get("audioBase64")
+    if audio_b64 and not transcript and not idk:
+        try:
+            import base64
+
+            from ai import stt as ai_stt
+
+            audio_bytes = base64.b64decode(audio_b64)
+            result = ai_stt.transcribe(
+                audio_bytes, mime=req.get("audioMime", "audio/webm")
+            )
+            transcript = result.text
+            stt_provider = result.provider
+            stt_model = result.model
+            stt_error = result.error
+        except Exception as exc:
+            stt_error = f"transcription failed: {exc}"
+
+    if stt_error and not transcript and not idk:
+        # Honest surface (spec §5.5): steer to typing, never grade a mishear as a miss.
+        return json.dumps(
+            {"available": True, "applied": False, "stt_error": stt_error}
+        ).encode("utf-8")
+
+    payload = voice.grade_answer(
+        aqt.mw.col,
+        card_id=card_id,
+        transcript=transcript,
+        idk=idk,
+        ms_taken=int(ms_taken) if ms_taken is not None else None,
+        stt_provider=stt_provider,
+        stt_model=stt_model,
+    )
+    return json.dumps({"available": True, **payload}).encode("utf-8")
+
+
 post_handler_list = [
     congrats_info,
     get_deck_configs_for_update,
@@ -819,6 +948,8 @@ post_handler_list = [
     save_custom_colours,
     scores_dashboard,
     garden_state,
+    audio_review_next,
+    audio_review_grade,
 ]
 
 

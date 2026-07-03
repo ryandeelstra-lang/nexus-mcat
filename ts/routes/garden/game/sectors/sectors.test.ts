@@ -6,6 +6,7 @@
 // never under a plot, gates on the trail matching real prereq edges, interactions anchored.
 import { describe, expect, it } from "vitest";
 
+import { hasAssetKey } from "../assets";
 import { rasterizePath } from "./helpers";
 import { SECTORS } from "./index";
 import type { SectorLayout } from "./types";
@@ -97,6 +98,20 @@ describe("authored sectors", () => {
                     expect(plotIds.has(g.src)).toBe(true);
                     expect(plotIds.has(g.dst)).toBe(true);
                     expect(prereq.has(`${g.src}->${g.dst}`)).toBe(true);
+                }
+            });
+
+            it("every referenced asset key resolves to a real sprite (no magenta placeholders)", () => {
+                const keys = [
+                    ...layout.props.map((p) => p.key),
+                    ...layout.decor.map((d) => d.key),
+                    ...layout.fields.flatMap((f) => f.assets),
+                ];
+                if (layout.hedges?.length) {
+                    keys.push(layout.hedgeKey ?? "foliage-versailles-20");
+                }
+                for (const key of keys) {
+                    expect(hasAssetKey(key), `missing asset: ${key}`).toBe(true);
                 }
             });
         });

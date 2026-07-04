@@ -69,3 +69,23 @@ def scan(
 
 def is_clean(gold_texts, other_texts, threshold: float = DEFAULT_JACCARD_THRESHOLD) -> bool:
     return not scan(gold_texts, other_texts, threshold)
+
+
+def main() -> int:
+    """The 7e command: `python -m ai.leakage`. Exits 0 CLEAN, 1 if any gold item leaked into training."""
+    from .leakage_hooks import assemble_inputs
+
+    gold, other = assemble_inputs()
+    leaks = scan(gold, other)
+    if leaks:
+        print(f"LEAKS: {len(leaks)} found")
+        for lk in leaks[:20]:
+            print(f"  [{lk.kind} {lk.score}] {lk.gold_text[:60]!r} ~ {lk.other_text[:60]!r}")
+        return 1
+    print(f"CLEAN: 0 leaks over {len(gold)} gold x {len(other)} training/synth items "
+          f"(threshold={DEFAULT_JACCARD_THRESHOLD})")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

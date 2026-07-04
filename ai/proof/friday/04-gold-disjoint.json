@@ -1,0 +1,19 @@
+{
+  "gold_provenance": [
+    "charged-up-gold-authored@v1"
+  ],
+  "corpus_source_ids": [
+    "charged-up-cars-method",
+    "openstax-biology-2e",
+    "openstax-chemistry-2e",
+    "openstax-college-physics-2e",
+    "openstax-microbiology",
+    "openstax-psychology-2e",
+    "openstax-sociology-3e"
+  ],
+  "deck_provenance": [
+    "self-authored-original"
+  ],
+  "overlap_with_corpus_and_deck": [],
+  "gold_count": 96
+}

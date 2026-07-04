@@ -5,8 +5,10 @@
 import Phaser from "phaser";
 
 import type { TypedBus } from "../../state/bus";
+import type { DepthStats } from "../../state/depth-stats";
 import type { MasterySnapshot, TopicMastery } from "../../state/mastery";
 import { type GrowthStage, stageFor } from "../../state/stage";
+import { aimLabelText } from "../aim-label";
 import {
     applyDisplaySize,
     DISPLAY,
@@ -16,12 +18,21 @@ import {
     sizeToHeightTiles,
     stageTextureKey,
 } from "../assets";
-import { aimLabelText } from "../aim-label";
 import { baseBoxFor, boxesOverlap, firstOpenSpot, footBoxAt, moveWithSlide, type SolidBox } from "../collision";
 import { skyStateFor } from "../daynight";
 import { planFlora } from "../flora";
 import { FloraLayer } from "../flora-layer";
-import { clampFeetToTileRect, inflate, rectDiff } from "../fog";
+import { clampFeetToTileRect, cloudNoise, fogDensityAt } from "../fog";
+import {
+    buildIslandPlan,
+    ISLAND_SUBTITLE,
+    ISLAND_TITLE,
+    islandCameraBounds,
+    islandContainsPoint,
+    islandFootBlocked,
+    type IslandPlan,
+    paintIsland,
+} from "../island";
 import { sectorFor } from "../sectors/index";
 import { buildTerrainModel, paintGround, planDecor, terrainKindAt, type TerrainModel } from "../terrain";
 import { WeatherLayer } from "../weather";
@@ -49,6 +60,8 @@ interface PlantObject {
     nodeId: string;
     sprite: Phaser.GameObjects.Image;
     spot: PlantSpot;
+    /** Region art theme (regionThemeFromSection) — picks the region's flower species. */
+    theme: string;
     marker?: Phaser.GameObjects.Arc;
 }
 
@@ -64,11 +77,13 @@ const REFERENCE_HEIGHT = 720;
 // The one-time onboarding fog (2026-07-03 directive): pale morning mist hiding every
 // garden but the Keeper's plaza until the placement test lifts it. World-space rects
 // (never screen-space like the sky tint) so the shroud stays glued to the island.
-const FOG_TINT = 0xdfe8ec;
-const FOG_ALPHA = 0.985;
-const FOG_EDGE_ALPHA = 0.5;
+// NOT flat rectangles: two full-island canvas textures whose per-pixel alpha is the
+// smooth plaza falloff × layered value noise (fog.ts) — soft and wispy; the top drifts.
 const FOG_DEPTH = 7500; // above every standing sprite (y/tile), below the sky tint at 8000
-const FOG_LIFT_MS = 2400;
+const FOG_FALLOFF_TILES = 2.5;
+const FOG_CANVAS_PX_PER_TILE = 8; // painted at 1/4 world res — soft gradients, cheap boot
+const FOG_PAD_TILES = 2; // texture margin past the island so the drift never shows an edge
+const FOG_LIFT_MS = 3000;
 
 /** First key with a loaded asset, or the last as the placeholder fallback. */
 function pickFirstAsset(keys: string[]): string {
@@ -240,11 +255,20 @@ export class WorldScene extends Phaser.Scene {
     private aimLabel!: Phaser.GameObjects.Text;
     private aimGlow!: Phaser.GameObjects.Ellipse;
     private aimGlowTween?: Phaser.Tweens.Tween;
-    private nearTarget: "plant" | "keeper" | "waystone" | "flavor" | "trial" | null = null;
+    private nearTarget:
+        | "plant"
+        | "keeper"
+        | "waystone"
+        | "flavor"
+        | "trial"
+        | "island-return"
+        | "island-stat"
+        | null = null;
     private nearNodeId: string | null = null;
     private nearWaystoneId: string | null = null;
     private nearFlavorIdx: number | null = null;
     private nearTrialSection: string | null = null;
+    private nearStatId: string | null = null;
     /** One standing stone at the heart of each quadrant — interact for a little rain. */
     private trialStones = new Map<string, Phaser.GameObjects.Image>();
     /** Ambient screen-effect weather (rain streaks / snow flecks; no clouds). */
@@ -264,12 +288,23 @@ export class WorldScene extends Phaser.Scene {
 
     private skyOverlay!: Phaser.GameObjects.Rectangle;
     /** The onboarding shroud bands; empty once lifted (or never drawn when placement is done). */
-    private fogBands: Phaser.GameObjects.Rectangle[] = [];
+    private fogSprites: Phaser.GameObjects.Image[] = [];
+    private fogOrigin = { x: 0, y: 0 };
+    private fogClock = 0;
     /** While true the avatar is leashed to the plaza (no wandering blind into the mist). */
     private fogActive = false;
     private lanternGlows: Phaser.GameObjects.Arc[] = [];
     private tendMarker: Phaser.GameObjects.Arc | null = null;
     private unsubscribers: Array<() => void> = [];
+
+    /** The Overlook (Super Depth Analysis): built + painted lazily on first entry. */
+    private islandPlan: IslandPlan | null = null;
+    private islandActive = false;
+    /** Where the avatar stood before departing — the exit lands back here. */
+    private islandReturnTile: { tileX: number; tileY: number } | null = null;
+    /** Monument value/label texts by stat id — refreshed with every new snapshot. */
+    private islandTexts = new Map<string, Phaser.GameObjects.Text>();
+    private islandStats: DepthStats | null = null;
 
     private avatarTile = { tileX: KEEPER_TILE.tileX + 2, tileY: KEEPER_TILE.tileY };
     /** The garden the avatar last stood in — drives the region-adaptive lofi score. */
@@ -299,6 +334,14 @@ export class WorldScene extends Phaser.Scene {
 
         this.plan = buildWorldPlan();
         this.rebuildStageMap();
+
+        // The Overlook rebuilds lazily per scene life (its sprites/boxes die with the
+        // scene; the painted texture itself is game-global and reattaches on entry).
+        this.islandPlan = null;
+        this.islandActive = false;
+        this.islandReturnTile = null;
+        this.islandTexts.clear();
+        this.islandStats = null;
 
         const ts = DISPLAY.tile;
         const worldW = this.plan.widthTiles * ts;
@@ -350,9 +393,11 @@ export class WorldScene extends Phaser.Scene {
         // Aim indicator: a soft glow on the plot the watering can targets, plus a
         // floating label naming that plot's MCAT concept and its due/new count.
         // Presentation-only — same target as the water action (single source of truth).
-        this.aimGlow = this.add.ellipse(0, 0, DISPLAY.tile * 1.3, DISPLAY.tile * 0.7, 0xffe066, 0.3)
-            .setVisible(false)
-            .setDepth(1);
+        // fillAlpha (not transform alpha) is what the pulse tween animates below, so it's set
+        // here as the base/static value; depth is assigned per-frame (tile-relative) so the glow
+        // sits just in front of the aimed plant instead of behind its opaque sprite.
+        this.aimGlow = this.add.ellipse(0, 0, DISPLAY.tile * 1.3, DISPLAY.tile * 0.7, 0xffe066, 0.5)
+            .setVisible(false);
         this.aimLabel = this.add.text(0, 0, "", {
             fontFamily: "monospace",
             fontSize: "9px",
@@ -471,6 +516,7 @@ export class WorldScene extends Phaser.Scene {
         this.emitRegionIfChanged();
         this.bobKeeper(delta);
         this.updateCritters();
+        this.tickFog(delta);
         // The living wind: grown flowers sway as one field; completed lines host gusts.
         this.flora?.tick(time);
         // Ambient weather: screen-space rain/snow spells (plus stone-blessed bursts).
@@ -601,15 +647,16 @@ export class WorldScene extends Phaser.Scene {
             // soil holes/beds — you water the grass and the region's preset flower appears
             // there, growing with real mastery). The invisible sprite keeps the spot alive
             // for watering/growth targeting. Plants never collide — you tend right up to them.
+            const theme = regionThemeFromSection(r.section);
             for (const spot of r.plants) {
                 const stage = this.stageByNode.get(spot.nodeId) ?? "bare-soil";
-                const key = ensureTexture(this, stageTextureKey(stage));
+                const key = ensureTexture(this, stageTextureKey(stage, theme));
                 const spr = this.add.image(spot.tileX * ts + ts / 2, spot.tileY * ts + ts, key);
                 spr.setOrigin(0.5, 1);
                 applyDisplaySize(spr);
                 spr.setDepth(spr.y / ts);
                 spr.setVisible(stage !== "bare-soil");
-                this.plants.set(spot.nodeId, { nodeId: spot.nodeId, sprite: spr, spot });
+                this.plants.set(spot.nodeId, { nodeId: spot.nodeId, sprite: spr, spot, theme });
             }
         }
     }
@@ -654,7 +701,7 @@ export class WorldScene extends Phaser.Scene {
         this.rebuildStageMap();
         for (const [nodeId, plant] of this.plants) {
             const stage = this.stageByNode.get(nodeId) ?? "bare-soil";
-            plant.sprite.setTexture(ensureTexture(this, stageTextureKey(stage)));
+            plant.sprite.setTexture(ensureTexture(this, stageTextureKey(stage, plant.theme)));
             applyDisplaySize(plant.sprite);
             plant.sprite.setVisible(stage !== "bare-soil");
         }
@@ -679,6 +726,21 @@ export class WorldScene extends Phaser.Scene {
      * and every standing thing's base box. */
     private footBlocked(x: number, y: number): boolean {
         const ts = DISPLAY.tile;
+        // The Overlook floats OUTSIDE the plan rect: inside its sky rect the island's
+        // own walkable set is the floor (the sky is not), then base boxes still apply.
+        // Everything else beyond the plan rect stays blocked by the world rim below.
+        if (this.islandPlan && islandContainsPoint(this.islandPlan, x, y)) {
+            if (islandFootBlocked(this.islandPlan, x, y)) {
+                return true;
+            }
+            const islandFoot = footBoxAt(x, y);
+            for (const box of this.solidBoxes) {
+                if (boxesOverlap(islandFoot, box)) {
+                    return true;
+                }
+            }
+            return false;
+        }
         const worldW = this.plan.widthTiles * ts;
         const worldH = this.plan.heightTiles * ts;
         if (x < 10 || x > worldW - 10 || y < ts * 0.9 || y > worldH - 2) {
@@ -863,8 +925,9 @@ export class WorldScene extends Phaser.Scene {
         // active under the overlay (so one binding serves open AND close), while the hidden
         // map scene is inactive and its keyboard plugin never sees the key.
         this.input.keyboard.addKey("M").on("down", () => {
-            // No map while the island sleeps under the placement fog.
-            if (!this.panelOpen && !this.fogActive) {
+            // No map while the island sleeps under the placement fog, and none from the
+            // Overlook — the map miniature only knows the garden below.
+            if (!this.panelOpen && !this.fogActive && !this.islandActive) {
                 this.bus.emit("map:toggle", {});
             }
         });
@@ -880,9 +943,12 @@ export class WorldScene extends Phaser.Scene {
             if (
                 this.nearTarget === "keeper" || this.nearTarget === "waystone"
                 || this.nearTarget === "flavor" || this.nearTarget === "trial"
+                || this.nearTarget === "island-return" || this.nearTarget === "island-stat"
             ) {
                 this.tryInteract();
-            } else {
+            } else if (!this.islandActive) {
+                // No watering on the Overlook: pours are a garden verb (a sky pour would
+                // write flora counts for out-of-world tiles and feed the tutorial).
                 this.waterGround();
             }
         });
@@ -1096,6 +1162,33 @@ export class WorldScene extends Phaser.Scene {
         this.nearWaystoneId = null;
         this.nearFlavorIdx = null;
         this.nearTrialSection = null;
+        this.nearStatId = null;
+
+        // On the Overlook only its own targets exist — the return stone home, and each
+        // stat monument's walk-up detail line. The garden scans below never match up
+        // here (everything they check lives inside the plan rect), so skip them.
+        if (this.islandActive && this.islandPlan) {
+            const rs = this.islandPlan.returnStone;
+            if (this.distTiles(ax, ay, rs.tileX + 0.5, rs.tileY + 0.5) <= INTERACT_RADIUS + 0.5) {
+                this.nearTarget = "island-return";
+            } else {
+                for (const spot of this.islandPlan.statSpots) {
+                    if (this.distTiles(ax, ay, spot.tileX + 0.5, spot.tileY + 0.5) <= INTERACT_RADIUS) {
+                        this.nearTarget = "island-stat";
+                        this.nearStatId = spot.id;
+                        break;
+                    }
+                }
+            }
+            if (this.nearTarget && !this.panelOpen && !this.mapOpen) {
+                this.interactPrompt.setVisible(true);
+                this.interactPrompt.setPosition(this.avatar.x, this.avatar.y - ts);
+            } else {
+                this.interactPrompt.setVisible(false);
+            }
+            this.updateAimIndicator();
+            return;
+        }
 
         // Sector stones (quadrant hearts) — interact for a brief blessing of rain.
         for (const [section, stone] of this.trialStones) {
@@ -1182,6 +1275,9 @@ export class WorldScene extends Phaser.Scene {
             this.aimGlow.setVisible(false);
             this.aimGlowTween?.stop();
             this.aimGlowTween = undefined;
+            // Reset to base so the next show starts a clean pulse (the yoyo tween can stop
+            // mid-cycle, leaving scale/fillAlpha at arbitrary values).
+            this.aimGlow.setScale(1).setFillStyle(0xffe066, 0.5);
             return;
         }
         const ts = DISPLAY.tile;
@@ -1190,13 +1286,15 @@ export class WorldScene extends Phaser.Scene {
         const topic = this.snapshot?.byNode.get(aim.nodeId);
         this.aimLabel.setText(aimLabelText(aim.nodeId, topic));
         this.aimLabel.setPosition(cx, topY - 2).setVisible(true);
-        this.aimGlow.setPosition(cx, topY + ts).setVisible(true);
+        // Plant sprites are row-depth-sorted (~tileY + 1); sit just in front so the glow reads
+        // over a sprouted plot's base rather than being swallowed by its opaque sprite.
+        this.aimGlow.setPosition(cx, topY + ts).setDepth(aim.spot.tileY + 1.1).setVisible(true);
         if (!this.reducedMotion && !this.aimGlowTween) {
             this.aimGlowTween = this.tweens.add({
                 targets: this.aimGlow,
                 scaleX: 1.15,
                 scaleY: 1.15,
-                alpha: 0.15,
+                fillAlpha: 0.28,
                 duration: 900,
                 yoyo: true,
                 repeat: -1,
@@ -1252,6 +1350,17 @@ export class WorldScene extends Phaser.Scene {
                     this.weather?.rainBurst();
                 }
                 break;
+            case "island-return":
+                this.exitIsland();
+                break;
+            case "island-stat":
+                if (this.nearStatId && this.islandStats) {
+                    const stat = this.islandStats.stats.find((s) => s.id === this.nearStatId);
+                    if (stat) {
+                        this.bus.emit("world:flavor", { title: stat.label, line: stat.detail });
+                    }
+                }
+                break;
             default: {
                 const _exhaustive: never = this.nearTarget;
                 return _exhaustive;
@@ -1282,6 +1391,165 @@ export class WorldScene extends Phaser.Scene {
             tileX: Math.floor(this.avatar.x / ts),
             tileY: Math.floor((this.avatar.y - ts * 0.5) / ts),
         };
+    }
+
+    /**
+     * Super Depth Analysis: teleport to the Overlook (docs/superpowers/specs/
+     * 2026-07-03-depth-analysis-island-design.md). The island is built + painted lazily
+     * on first entry; camera bounds swap onto its fully painted sky rect with a hard cut
+     * (centerOn), so the void between garden and island is never on screen. Landing is
+     * validated with firstOpenSpot — all-blocked means stay put (the anti-softlock rule).
+     */
+    private enterIsland(stats: DepthStats): void {
+        if (!this.avatar || this.fogActive) {
+            return;
+        }
+        if (!this.islandPlan) {
+            this.islandPlan = buildIslandPlan();
+            paintIsland(this, this.islandPlan);
+            this.spawnIslandProps(this.islandPlan);
+        }
+        this.islandStats = stats;
+        this.updateIslandTexts(stats);
+        const ts = DISPLAY.tile;
+        const spot = firstOpenSpot(
+            this.islandPlan.arrival.map((t) => ({ x: t.tileX * ts + ts / 2, y: (t.tileY + 1) * ts })),
+            (x, y) => this.footBlocked(x, y),
+        );
+        if (!spot) {
+            return;
+        }
+        if (!this.islandActive) {
+            this.islandReturnTile = { ...this.avatarTile };
+            this.islandActive = true;
+            this.bus.emit("island:state", { on: true });
+        }
+        const bounds = islandCameraBounds(this.islandPlan);
+        this.cameras.main.setBounds(bounds.x, bounds.y, bounds.width, bounds.height);
+        this.avatar.setPosition(spot.x, spot.y);
+        this.avatarTile = {
+            tileX: Math.floor(this.avatar.x / ts),
+            tileY: Math.floor((this.avatar.y - ts * 0.5) / ts),
+        };
+        this.cameras.main.centerOn(this.avatar.x, this.avatar.y);
+        this.fxDropIn(this.avatar.x, this.avatar.y);
+    }
+
+    /** Leave the Overlook: restore the garden camera bounds and land back where you
+     * stood (probing neighbors, then the Keeper's side — never into geometry). */
+    private exitIsland(): void {
+        if (!this.avatar || !this.islandActive) {
+            return;
+        }
+        const ts = DISPLAY.tile;
+        const back = this.islandReturnTile
+            ?? { tileX: KEEPER_TILE.tileX + 2, tileY: KEEPER_TILE.tileY };
+        const candidates = [
+            back,
+            { tileX: back.tileX + 1, tileY: back.tileY },
+            { tileX: back.tileX - 1, tileY: back.tileY },
+            { tileX: back.tileX, tileY: back.tileY + 1 },
+            { tileX: back.tileX, tileY: back.tileY - 1 },
+            { tileX: KEEPER_TILE.tileX + 2, tileY: KEEPER_TILE.tileY },
+            { tileX: KEEPER_TILE.tileX - 2, tileY: KEEPER_TILE.tileY },
+        ];
+        const spot = firstOpenSpot(
+            candidates.map((t) => ({ x: t.tileX * ts + ts / 2, y: (t.tileY + 1) * ts })),
+            (x, y) => this.footBlocked(x, y),
+        );
+        if (!spot) {
+            return; // stay on the island rather than land inside geometry
+        }
+        this.islandActive = false;
+        this.cameras.main.setBounds(0, 0, this.plan.widthTiles * ts, this.plan.heightTiles * ts);
+        this.avatar.setPosition(spot.x, spot.y);
+        this.avatarTile = {
+            tileX: Math.floor(this.avatar.x / ts),
+            tileY: Math.floor((this.avatar.y - ts * 0.5) / ts),
+        };
+        this.cameras.main.centerOn(this.avatar.x, this.avatar.y);
+        this.fxDropIn(this.avatar.x, this.avatar.y);
+        this.bus.emit("island:state", { on: false });
+    }
+
+    /** The Overlook's standing set: an ACTIVE waystone home at the heart, a dormant
+     * stone per stat monument (value + label floating above, walk up for the detail
+     * line), and the floating title. Everything Y-sorts and collides like garden props. */
+    private spawnIslandProps(plan: IslandPlan): void {
+        const ts = DISPLAY.tile;
+        const textStyle = {
+            fontFamily: "Varela Round, sans-serif",
+            align: "center",
+        };
+
+        const rsX = plan.returnStone.tileX * ts + ts / 2;
+        const rsY = (plan.returnStone.tileY + 1) * ts;
+        const homeKey = pickFirstAsset(["struct-waystone-active", "struct-waystone-dormant"]);
+        const home = this.add.image(rsX, rsY, ensureTexture(this, homeKey));
+        home.setOrigin(0.5, 1);
+        sizeToHeightTiles(home, 2.4);
+        home.setDepth(home.y / ts);
+        this.solidBoxes.push(baseBoxFor(home.x, home.y, home.displayWidth, { heightPx: 10 }));
+        this.add.text(rsX, rsY + 6, "Back to the garden", {
+            ...textStyle,
+            fontSize: "9px",
+            color: "#dfe8ec",
+            stroke: "#1a2b1e",
+            strokeThickness: 3,
+        }).setOrigin(0.5, 0).setDepth(9000).setResolution(2);
+
+        this.add.text(rsX, (plan.sky.tileY + 2.2) * ts, ISLAND_TITLE, {
+            ...textStyle,
+            fontSize: "20px",
+            color: "#fff8e6",
+            stroke: "#3f2c1a",
+            strokeThickness: 5,
+        }).setOrigin(0.5, 1).setDepth(9000).setResolution(2);
+        this.add.text(rsX, (plan.sky.tileY + 2.35) * ts, ISLAND_SUBTITLE, {
+            ...textStyle,
+            fontSize: "10px",
+            color: "#dfe8ec",
+            stroke: "#3f2c1a",
+            strokeThickness: 3,
+        }).setOrigin(0.5, 0).setDepth(9000).setResolution(2);
+
+        const stoneKey = pickFirstAsset(["struct-waystone-dormant", "struct-waystone-active"]);
+        for (const spot of plan.statSpots) {
+            const mx = spot.tileX * ts + ts / 2;
+            const my = (spot.tileY + 1) * ts;
+            const img = this.add.image(mx, my, ensureTexture(this, stoneKey));
+            img.setOrigin(0.5, 1);
+            sizeToHeightTiles(img, 1.6);
+            img.setDepth(img.y / ts);
+            this.solidBoxes.push(
+                baseBoxFor(img.x, img.y, img.displayWidth, { widthFactor: 0.5, heightPx: 8 }),
+            );
+            const value = this.add.text(mx, my - ts * 2.15, "—", {
+                ...textStyle,
+                fontSize: "13px",
+                color: "#fff8e6",
+                stroke: "#3f2c1a",
+                strokeThickness: 4,
+                wordWrap: { width: ts * 4 },
+            }).setOrigin(0.5, 1).setDepth(9000).setResolution(2);
+            const label = this.add.text(mx, my - ts * 2.1, "", {
+                ...textStyle,
+                fontSize: "9px",
+                color: "#dfe8ec",
+                stroke: "#1a2b1e",
+                strokeThickness: 3,
+            }).setOrigin(0.5, 0).setDepth(9000).setResolution(2);
+            this.islandTexts.set(spot.id, value);
+            this.islandTexts.set(`${spot.id}:label`, label);
+        }
+    }
+
+    /** Refresh the monument texts from a fresh snapshot (every entry re-fetches). */
+    private updateIslandTexts(stats: DepthStats): void {
+        for (const stat of stats.stats) {
+            this.islandTexts.get(stat.id)?.setText(stat.value);
+            this.islandTexts.get(`${stat.id}:label`)?.setText(stat.label);
+        }
     }
 
     private setupSky(): void {
@@ -1334,54 +1602,104 @@ export class WorldScene extends Phaser.Scene {
         }
         this.fogActive = true;
         const ts = DISPLAY.tile;
-        const world = { x: 0, y: 0, w: this.plan.widthTiles, h: this.plan.heightTiles };
-        const bands = [
-            ...rectDiff(world, inflate(CENTER_PLAZA, 1)).map((r) => ({ r, alpha: FOG_ALPHA })),
-            ...rectDiff(inflate(CENTER_PLAZA, 1), CENTER_PLAZA).map((r) => ({
-                r,
-                alpha: FOG_EDGE_ALPHA,
-            })),
+        const pad = FOG_PAD_TILES;
+        this.fogOrigin = { x: -pad * ts, y: -pad * ts };
+        const wPx = (this.plan.widthTiles + pad * 2) * ts;
+        const hPx = (this.plan.heightTiles + pad * 2) * ts;
+        // Base: the near-opaque shroud. Drift: a lighter wisp layer that wanders on top.
+        const layers: Array<{ key: string; seed: number; gain: number }> = [
+            { key: "fog-shroud-base", seed: 11, gain: 1 },
+            { key: "fog-shroud-drift", seed: 71, gain: 0.6 },
         ];
-        for (const { r, alpha } of bands) {
-            const rect = this.add
-                .rectangle(r.x * ts, r.y * ts, r.w * ts, r.h * ts, FOG_TINT, alpha)
+        for (const layer of layers) {
+            this.paintFogTexture(layer.key, layer.seed, layer.gain);
+            const sprite = this.add
+                .image(this.fogOrigin.x, this.fogOrigin.y, layer.key)
                 .setOrigin(0, 0)
-                .setDepth(FOG_DEPTH);
-            this.fogBands.push(rect);
-            if (!this.reducedMotion) {
-                this.tweens.add({
-                    targets: rect,
-                    fillAlpha: Math.max(0, alpha - 0.04),
-                    duration: 2800,
-                    yoyo: true,
-                    repeat: -1,
-                    ease: "Sine.easeInOut",
-                });
-            }
+                .setDisplaySize(wPx, hPx)
+                .setDepth(FOG_DEPTH + this.fogSprites.length);
+            this.fogSprites.push(sprite);
         }
     }
 
-    /** placement:completed — peel the whole shroud away, staggered, then destroy it. */
+    /**
+     * Paint one fog layer: per-pixel alpha = smooth plaza falloff × cloud noise (wispy
+     * edges, soft body), color a pale morning mist with a broad tonal wash so the
+     * shroud has depth instead of a flat fill. Painted at 1/4 world resolution.
+     */
+    private paintFogTexture(key: string, seed: number, gain: number): void {
+        const px = FOG_CANVAS_PX_PER_TILE;
+        const pad = FOG_PAD_TILES;
+        const cw = (this.plan.widthTiles + pad * 2) * px;
+        const ch = (this.plan.heightTiles + pad * 2) * px;
+        if (this.textures.exists(key)) {
+            this.textures.remove(key);
+        }
+        const canvas = this.textures.createCanvas(key, cw, ch);
+        if (!canvas) {
+            return;
+        }
+        const ctx = canvas.getContext();
+        const img = ctx.createImageData(cw, ch);
+        const data = img.data;
+        for (let y = 0; y < ch; y++) {
+            const tileY = y / px - pad;
+            for (let x = 0; x < cw; x++) {
+                const tileX = x / px - pad;
+                const density = fogDensityAt(tileX, tileY, CENTER_PLAZA, FOG_FALLOFF_TILES);
+                if (density <= 0) {
+                    continue; // the plaza stays perfectly clear
+                }
+                // Body wisps (mid-size blobs) + a broad tonal wash for depth.
+                const wisp = 0.62 + 0.38 * cloudNoise(tileX, tileY, 5.5, seed);
+                const wash = cloudNoise(tileX, tileY, 13, seed + 9);
+                const i = (y * cw + x) * 4;
+                data[i] = 214 + Math.round(24 * wash);
+                data[i + 1] = 224 + Math.round(19 * wash);
+                data[i + 2] = 231 + Math.round(16 * wash);
+                data[i + 3] = Math.round(255 * Math.min(1, density * wisp * gain));
+            }
+        }
+        ctx.putImageData(img, 0, 0);
+        canvas.refresh();
+    }
+
+    /** The living mist: the drift layer wanders and breathes (called from update()). */
+    private tickFog(delta: number): void {
+        if (!this.fogActive || this.fogSprites.length < 2 || this.reducedMotion) {
+            return;
+        }
+        this.fogClock += delta;
+        const t = this.fogClock;
+        const drift = this.fogSprites[1];
+        drift.setPosition(
+            this.fogOrigin.x + Math.sin(t * 0.00009) * 14,
+            this.fogOrigin.y + Math.cos(t * 0.00007) * 10,
+        );
+        drift.setAlpha(0.75 + 0.25 * Math.sin(t * 0.00013));
+        this.fogSprites[0].setAlpha(0.94 + 0.06 * Math.sin(t * 0.00006));
+    }
+
+    /** placement:completed — the shroud burns off: drift first, then the base, then gone. */
     private liftFog(): void {
-        if (!this.fogActive && this.fogBands.length === 0) {
+        if (!this.fogActive && this.fogSprites.length === 0) {
             return;
         }
         this.fogActive = false;
-        const bands = this.fogBands;
-        this.fogBands = [];
+        const sprites = this.fogSprites;
+        this.fogSprites = [];
         if (this.reducedMotion) {
-            bands.forEach((rect) => rect.destroy());
+            sprites.forEach((s) => s.destroy());
             return;
         }
-        bands.forEach((rect, i) => {
-            this.tweens.killTweensOf(rect);
+        sprites.forEach((sprite, i) => {
             this.tweens.add({
-                targets: rect,
-                fillAlpha: 0,
+                targets: sprite,
+                alpha: 0,
                 duration: FOG_LIFT_MS,
-                delay: i * 150,
+                delay: (sprites.length - 1 - i) * 500,
                 ease: "Sine.easeInOut",
-                onComplete: () => rect.destroy(),
+                onComplete: () => sprite.destroy(),
             });
         });
     }
@@ -1401,6 +1719,8 @@ export class WorldScene extends Phaser.Scene {
             }),
             this.bus.on("flora:water", ({ aimTileX, aimTileY }) => this.onFloraWater(aimTileX, aimTileY)),
             this.bus.on("placement:completed", () => this.liftFog()),
+            this.bus.on("island:enter", ({ stats }) => this.enterIsland(stats)),
+            this.bus.on("island:exit", () => this.exitIsland()),
         );
     }
 

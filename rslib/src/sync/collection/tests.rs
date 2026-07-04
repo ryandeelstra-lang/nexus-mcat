@@ -1079,6 +1079,73 @@ mod mcat_block_e {
         .await
     }
 
+    // ---- S1b: same CARD modified offline on both -> LWW-by-mtime (later mtime
+    // wins) --------------- The §7b "same card reviewed on both devices" card-OBJECT
+    // half: s1 pins the note path; this pins `add_or_update_card_if_newer`
+    // (chunks.rs) with the same rule.
+    #[tokio::test]
+    async fn s1b_conflict_lww_card_object() -> Result<()> {
+        with_active_server(|client| async move {
+            let ctx = SyncTestContext::new(client);
+
+            // in-sync state with a shared card
+            let mut col1 = ctx.col1();
+            seed_cards(&mut col1, 1);
+            let out = ctx.normal_sync(&mut col1).await;
+            assert!(matches!(
+                out.required,
+                SyncActionRequired::FullSyncRequired { .. }
+            ));
+            ctx.full_upload(col1).await;
+            let mut col2 = ctx.col2();
+            let _ = ctx.normal_sync(&mut col2).await;
+            ctx.full_download(col2).await;
+
+            // reopen; both sides now hold the same single card
+            let mut col1 = ctx.col1();
+            let mut col2 = ctx.col2();
+            let cid = col1.search_cards("", SortMode::NoOrder)?[0];
+            assert_eq!(
+                col2.search_cards("", SortMode::NoOrder)?,
+                vec![cid],
+                "same card id on both sides after the full sync"
+            );
+
+            // OFFLINE edits to the SAME card on both (due round-trips through the sync
+            // chunk, CardEntry); col2 edits LATER (strictly-greater mtime)
+            col1.get_and_update_card(cid, |card| {
+                card.due = 111;
+                Ok(())
+            })?;
+
+            // card mtime is seconds-granularity too, so sleep past a 1s boundary to make
+            // col2's edit strictly newer (the LWW comparison is
+            // `existing_card.mtime < entry.mtime`, chunks.rs)
+            std::thread::sleep(std::time::Duration::from_millis(1100));
+
+            col2.get_and_update_card(cid, |card| {
+                card.due = 222;
+                Ok(())
+            })?;
+
+            // sync: col1 push (older) -> col2 push (newer) -> col1 pull-back
+            ctx.normal_sync(&mut col1).await;
+            ctx.normal_sync(&mut col2).await;
+            ctx.normal_sync(&mut col1).await;
+
+            // LWW by mtime: the LATER edit (col2) is the clear winner on BOTH sides
+            let d1 = col1.storage.get_card(cid)?.unwrap().due;
+            let d2 = col2.storage.get_card(cid)?.unwrap().due;
+            assert_eq!(d2, 222, "the later writer's due persists on col2");
+            assert_eq!(
+                d1, 222,
+                "and propagates to col1 — last-write-wins by mtime"
+            );
+            Ok(())
+        })
+        .await
+    }
+
     // ---- C7: offline review then reconnect -> the offline reviews land
     // ----------------------------
     #[tokio::test]

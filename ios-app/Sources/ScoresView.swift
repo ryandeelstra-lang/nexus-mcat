@@ -44,7 +44,8 @@ struct ScoresView: View {
                        cardsWithState: $0.cardsWithState, averageRecall: $0.averageRecall,
                        gradedReviews: $0.gradedReviews)
         }
-        scores = ScoreKit.threeScores(topics: inputs, contentCategoryPaths: categories)
+        scores = ScoreKit.threeScores(topics: inputs, contentCategoryPaths: categories,
+                                      heldOutEval: HeldOutEvalArtifact.shared.eval)
     }
 
     @ViewBuilder
@@ -61,8 +62,14 @@ struct ScoresView: View {
                 }
             }
             if s.available, let p = s.point, let r = s.range {
-                Text("\(pct(p))  (range \(pct(r.lowerBound))–\(pct(r.upperBound)))")
-                    .font(.title3.monospacedDigit())
+                // readiness lives on the real 472–528 MCAT scale; memory/performance are fractions
+                if s.kind == "readiness" {
+                    Text("\(Int(p))  (range \(Int(r.lowerBound))–\(Int(r.upperBound)))")
+                        .font(.title3.monospacedDigit())
+                } else {
+                    Text("\(pct(p))  (range \(pct(r.lowerBound))–\(pct(r.upperBound)))")
+                        .font(.title3.monospacedDigit())
+                }
             } else if s.available {
                 // e.g. readiness gate open, but no fabricated point
                 Text("Gate open — no number fabricated").font(.body)
@@ -84,6 +91,36 @@ struct ScoresView: View {
     }
 
     private func pct(_ v: Double) -> String { "\(Int((v * 100).rounded()))%" }
+}
+
+/// The desktop's published held-out performance eval, bundled as performance-heldout.json —
+/// a verbatim, provenance-stamped copy of docs/release-proof/eval/performance-heldout.txt.
+/// Missing/corrupt file => `eval` is nil and the phone abstains (never a fabricated number).
+final class HeldOutEvalArtifact {
+    static let shared = HeldOutEvalArtifact()
+    let eval: HeldOutEval?
+
+    private struct Doc: Decodable {
+        let n: Int
+        let accuracy: Double
+        let wrong_rate: Double
+        let range: [Double]
+        let baseline_accuracy: Double
+        let source: String
+    }
+
+    init() {
+        guard let url = Bundle.main.url(forResource: "performance-heldout", withExtension: "json"),
+              let data = try? Data(contentsOf: url),
+              let doc = try? JSONDecoder().decode(Doc.self, from: data),
+              doc.range.count == 2, doc.range[0] <= doc.range[1] else {
+            eval = nil
+            return
+        }
+        eval = HeldOutEval(n: doc.n, accuracy: doc.accuracy, wrongRate: doc.wrong_rate,
+                           range: doc.range[0]...doc.range[1],
+                           baselineAccuracy: doc.baseline_accuracy, source: doc.source)
+    }
 }
 
 /// The 31 content-category deck paths (the readiness gate denominator) bundled from

@@ -7,26 +7,42 @@ import Phaser from "phaser";
 import type { TypedBus } from "../../state/bus";
 import type { MasterySnapshot, TopicMastery } from "../../state/mastery";
 import { type GrowthStage, stageFor } from "../../state/stage";
-import { applyDisplaySize, DISPLAY, ensureTexture, hasAssetKey, sizeToHeightTiles, stageTextureKey } from "../assets";
-import { baseBoxFor, boxesOverlap, footBoxAt, moveWithSlide, type SolidBox } from "../collision";
+import {
+    applyDisplaySize,
+    DISPLAY,
+    ensureTexture,
+    hasAssetKey,
+    regionThemeFromSection,
+    sizeToHeightTiles,
+    stageTextureKey,
+} from "../assets";
+import { aimLabelText } from "../aim-label";
+import { baseBoxFor, boxesOverlap, firstOpenSpot, footBoxAt, moveWithSlide, type SolidBox } from "../collision";
 import { skyStateFor } from "../daynight";
 import { planFlora } from "../flora";
 import { FloraLayer } from "../flora-layer";
+import { clampFeetToTileRect, inflate, rectDiff } from "../fog";
 import { sectorFor } from "../sectors/index";
-import { buildTerrainModel, paintGround, planDecor, type TerrainModel } from "../terrain";
+import { buildTerrainModel, paintGround, planDecor, terrainKindAt, type TerrainModel } from "../terrain";
+import { WeatherLayer } from "../weather";
 import {
     buildWorldPlan,
+    CENTER_PLAZA,
     type GardenSection,
     KEEPER_TILE,
     type PlantSpot,
+    sectionAtTile,
     type TileCoord,
     waterIsSolid,
+    waystoneArrivalTiles,
     type WorldPlan,
 } from "../worldgen";
 
 export interface GardenFlags {
     paraphrase: Record<string, number>;
     weeds: Record<string, boolean>;
+    /** True once the master's placement test is done — false boots the island fogged. */
+    placementDone?: boolean;
 }
 
 interface PlantObject {
@@ -37,6 +53,22 @@ interface PlantObject {
 }
 
 const INTERACT_RADIUS = 1.5;
+
+// Overworld camera: the base zoom is tuned for a ~720p viewport. Under Phaser
+// Scale.RESIZE the canvas fills the window, so we scale zoom up with the viewport
+// to keep a constant world slice visible (a bigger window must NOT reveal more map).
+const BASE_ZOOM = 1.5;
+const REFERENCE_WIDTH = 1280;
+const REFERENCE_HEIGHT = 720;
+
+// The one-time onboarding fog (2026-07-03 directive): pale morning mist hiding every
+// garden but the Keeper's plaza until the placement test lifts it. World-space rects
+// (never screen-space like the sky tint) so the shroud stays glued to the island.
+const FOG_TINT = 0xdfe8ec;
+const FOG_ALPHA = 0.985;
+const FOG_EDGE_ALPHA = 0.5;
+const FOG_DEPTH = 7500; // above every standing sprite (y/tile), below the sky tint at 8000
+const FOG_LIFT_MS = 2400;
 
 /** First key with a loaded asset, or the last as the placeholder fallback. */
 function pickFirstAsset(keys: string[]): string {
@@ -84,19 +116,36 @@ const G = {
     idleDown: "gardener-idle-down",
     idleUp: "gardener-idle-up",
     idleSide: "gardener-idle-side-a",
+    // Every facing has its own four authored walk contacts (real art), with the watering can drawn
+    // in the same hand/position across each cycle so the legs scissor while the can stays put — no
+    // whole-sprite mirror to fake a step (that would swing the low-held can side-to-side).
     walkDownA: "gardener-walk-down-a",
     walkDownB: "gardener-walk-down-b",
+    walkDownC: "gardener-walk-down-c",
+    walkDownD: "gardener-walk-down-d",
+    walkUpA: "gardener-walk-up-a",
+    walkUpB: "gardener-walk-up-b",
+    walkUpC: "gardener-walk-up-c",
+    walkUpD: "gardener-walk-up-d",
     walkSideA: "gardener-walk-side-a",
     walkSideB: "gardener-walk-side-b",
-    // Synthesized at runtime (leg band mirrored): the source art's two side "walk" frames
-    // both lead with the SAME foot, so these fabricate the missing opposite-foot contacts.
-    walkSideOppA: "gardener-walk-side-opp-a",
-    walkSideOppB: "gardener-walk-side-opp-b",
+    walkSideC: "gardener-walk-side-c",
+    walkSideD: "gardener-walk-side-d",
+    // Three-quarter diagonal facings (drawn facing the LEFT diagonals; the right diagonals are the
+    // per-facing horizontal mirror). down-left = 3/4 front angled left; up-left = 3/4 back angled left.
+    walkDownLeftA: "gardener-walk-downleft-a",
+    walkDownLeftB: "gardener-walk-downleft-b",
+    walkDownLeftC: "gardener-walk-downleft-c",
+    walkDownLeftD: "gardener-walk-downleft-d",
+    walkUpLeftA: "gardener-walk-upleft-a",
+    walkUpLeftB: "gardener-walk-upleft-b",
+    walkUpLeftC: "gardener-walk-upleft-c",
+    walkUpLeftD: "gardener-walk-upleft-d",
 } as const;
 
-/** One pose of a walk cycle: a texture + whether it's mirrored. Mirroring does double duty —
- * it swaps the leading foot on the front/back views (a front view mirrored still faces the
- * camera) and it faces the left-only side art to the right. */
+/** One pose of a walk cycle: a texture + whether that texture is drawn mirrored. (The
+ * right-facing mirror of the whole avatar is applied separately from FACING_GAIT; per-pose
+ * `flip` is only for authoring a mirrored source frame.) */
 interface Pose {
     key: string;
     flip: boolean;
@@ -107,38 +156,49 @@ interface Gait {
 }
 const pose = (key: string, flip = false): Pose => ({ key, flip });
 
-/** The three drawable gaits. Front/back swap feet by mirroring the whole frame (the swung
- * watering can reads as a natural arm swing); the side gait alternates each real frame with
- * its synthesized opposite-foot twin so the legs actually scissor. */
-type GaitId = "down" | "up" | "side";
+/** The five drawable gaits — front, back, side, and the two three-quarter diagonals. Each plays
+ * four authored walk frames (real art) with the watering can drawn in the same hand/position across
+ * the cycle, so the legs scissor while the can stays put. No gait mirrors the whole sprite to fake a
+ * step (that swings the low-held can and reads as a fast flicker); the only mirror is the per-facing
+ * one in FACING_GAIT that turns each left-drawn facing (side + both diagonals) to its right twin.
+ * The diagonals have no separate idle, so their first contact doubles as the standing pose. */
+type GaitId = "down" | "up" | "side" | "down-diag" | "up-diag";
 const GAIT: Record<GaitId, Gait> = {
     down: {
-        walk: [pose(G.walkDownA), pose(G.walkDownA, true), pose(G.walkDownB), pose(G.walkDownB, true)],
+        walk: [pose(G.walkDownA), pose(G.walkDownB), pose(G.walkDownC), pose(G.walkDownD)],
         idle: pose(G.idleDown),
     },
     up: {
-        // No back-facing step art exists; the vertical bob carries the stride here.
-        walk: [pose(G.idleUp)],
+        walk: [pose(G.walkUpA), pose(G.walkUpB), pose(G.walkUpC), pose(G.walkUpD)],
         idle: pose(G.idleUp),
     },
     side: {
-        walk: [pose(G.walkSideA), pose(G.walkSideOppA), pose(G.walkSideB), pose(G.walkSideOppB)],
+        walk: [pose(G.walkSideA), pose(G.walkSideB), pose(G.walkSideC), pose(G.walkSideD)],
         idle: pose(G.idleSide),
+    },
+    "down-diag": {
+        walk: [pose(G.walkDownLeftA), pose(G.walkDownLeftB), pose(G.walkDownLeftC), pose(G.walkDownLeftD)],
+        idle: pose(G.walkDownLeftA),
+    },
+    "up-diag": {
+        walk: [pose(G.walkUpLeftA), pose(G.walkUpLeftB), pose(G.walkUpLeftC), pose(G.walkUpLeftD)],
+        idle: pose(G.walkUpLeftA),
     },
 };
 
-/** Each of the eight facings → which gait to draw and whether the whole sprite is mirrored.
- * The side art faces left, so right + the right-leaning diagonals flip; every diagonal
- * borrows the side gait so it walks with a real alternating stride. */
+/** Each of the eight facings → which gait to draw and whether the whole sprite is mirrored. The
+ * side and diagonal art is drawn facing LEFT, so the rightward facings set flip. Every diagonal now
+ * has its OWN three-quarter art (so NW ≠ W): south-west/north-west use the left diagonal gaits,
+ * south-east/north-east use the same art mirrored. */
 const FACING_GAIT: Record<Dir8, { gait: GaitId; flip: boolean }> = {
     "down": { gait: "down", flip: false },
     "up": { gait: "up", flip: false },
     "left": { gait: "side", flip: false },
-    "up-left": { gait: "side", flip: false },
-    "down-left": { gait: "side", flip: false },
     "right": { gait: "side", flip: true },
-    "up-right": { gait: "side", flip: true },
-    "down-right": { gait: "side", flip: true },
+    "down-left": { gait: "down-diag", flip: false },
+    "down-right": { gait: "down-diag", flip: true },
+    "up-left": { gait: "up-diag", flip: false },
+    "up-right": { gait: "up-diag", flip: true },
 };
 
 /** Walk playback speed, in poses per second (frame-rate independent via the phase clock). */
@@ -151,6 +211,7 @@ export class WorldScene extends Phaser.Scene {
     private flags: GardenFlags = { paraphrase: {}, weeds: {} };
     private reducedMotion = false;
     private panelOpen = false;
+    private mapOpen = false;
 
     private terrain: TerrainModel | null = null;
     private plants = new Map<string, PlantObject>();
@@ -176,15 +237,18 @@ export class WorldScene extends Phaser.Scene {
     private spaceKey!: Phaser.Input.Keyboard.Key;
 
     private interactPrompt!: Phaser.GameObjects.Text;
+    private aimLabel!: Phaser.GameObjects.Text;
+    private aimGlow!: Phaser.GameObjects.Ellipse;
+    private aimGlowTween?: Phaser.Tweens.Tween;
     private nearTarget: "plant" | "keeper" | "waystone" | "flavor" | "trial" | null = null;
     private nearNodeId: string | null = null;
     private nearWaystoneId: string | null = null;
     private nearFlavorIdx: number | null = null;
     private nearTrialSection: string | null = null;
-    /** Sections unlocked by their full MCAT test (registry-fed; locked regions are veiled+solid). */
-    private sectorUnlocks = new Set<string>();
-    private sectorVeils = new Map<string, Phaser.GameObjects.Rectangle>();
-    private trialStones = new Map<string, Phaser.GameObjects.Container>();
+    /** One standing stone at the heart of each quadrant — interact for a little rain. */
+    private trialStones = new Map<string, Phaser.GameObjects.Image>();
+    /** Ambient screen-effect weather (rain streaks / snow flecks; no clouds). */
+    private weather: WeatherLayer | null = null;
     private critters: Array<{
         sprite: Phaser.GameObjects.Arc;
         kind: "shadowLoop" | "moteDrift";
@@ -199,11 +263,17 @@ export class WorldScene extends Phaser.Scene {
     private isNight = false;
 
     private skyOverlay!: Phaser.GameObjects.Rectangle;
+    /** The onboarding shroud bands; empty once lifted (or never drawn when placement is done). */
+    private fogBands: Phaser.GameObjects.Rectangle[] = [];
+    /** While true the avatar is leashed to the plaza (no wandering blind into the mist). */
+    private fogActive = false;
     private lanternGlows: Phaser.GameObjects.Arc[] = [];
     private tendMarker: Phaser.GameObjects.Arc | null = null;
     private unsubscribers: Array<() => void> = [];
 
     private avatarTile = { tileX: KEEPER_TILE.tileX + 2, tileY: KEEPER_TILE.tileY };
+    /** The garden the avatar last stood in — drives the region-adaptive lofi score. */
+    private currentRegion: string | null = null;
     private tendNextTile: { tileX: number; tileY: number } | null = null;
     private facing: Dir8 = "down";
     /** Smooth, frame-rate-independent walk clock (advances in "poses"; drives frame + bob). */
@@ -219,6 +289,13 @@ export class WorldScene extends Phaser.Scene {
         this.flags = this.registry.get("gardenFlags") as GardenFlags ?? { paraphrase: {}, weeds: {} };
         this.reducedMotion = this.registry.get("reducedMotion") as boolean ?? false;
         this.panelOpen = this.registry.get("panelOpen") as boolean ?? false;
+        // The map keeps the keyboard (Esc/M live there) — so the world must gate its own
+        // tending verbs while the map covers it, or Space waters unseen behind the overlay.
+        this.unsubscribers.push(
+            this.bus.on("map:visible", ({ open }) => {
+                this.mapOpen = open;
+            }),
+        );
 
         this.plan = buildWorldPlan();
         this.rebuildStageMap();
@@ -229,18 +306,18 @@ export class WorldScene extends Phaser.Scene {
 
         this.cameras.main.setBounds(0, 0, worldW, worldH);
         // Compact overworld: a lower zoom reveals more of the island so it reads as
-        // ~2 screens across (Champions-Island feel) while sprites stay chunky.
-        this.cameras.main.setZoom(1.5);
-
-        this.sectorUnlocks = new Set(
-            (this.registry.get("sectorUnlocks") as string[] | undefined) ?? [],
-        );
+        // ~2 screens across (Champions-Island feel) while sprites stay chunky. Zoom
+        // tracks the viewport (Scale.RESIZE) so fullscreen never shows the whole map.
+        this.applyCameraZoom();
+        const onResize = (): void => this.applyCameraZoom();
+        this.scale.on("resize", onResize);
+        this.unsubscribers.push(() => this.scale.off("resize", onResize));
 
         this.renderGround();
         this.renderDecor();
         this.renderFlora();
         this.renderPropsAndPlants();
-        this.renderSectorLocks();
+        this.renderSectorStones();
         this.spawnLanternGlows();
         this.spawnCritters();
         this.setupAvatarTextures();
@@ -248,6 +325,8 @@ export class WorldScene extends Phaser.Scene {
         this.spawnKeeper();
         this.setupInput();
         this.setupSky();
+        this.setupFog();
+        this.weather = new WeatherLayer(this, this.reducedMotion);
         this.setupBus();
         this.updateTendMarker();
 
@@ -268,7 +347,35 @@ export class WorldScene extends Phaser.Scene {
             padding: { x: 3, y: 2 },
         }).setOrigin(0.5, 1).setVisible(false).setDepth(9000);
 
+        // Aim indicator: a soft glow on the plot the watering can targets, plus a
+        // floating label naming that plot's MCAT concept and its due/new count.
+        // Presentation-only — same target as the water action (single source of truth).
+        this.aimGlow = this.add.ellipse(0, 0, DISPLAY.tile * 1.3, DISPLAY.tile * 0.7, 0xffe066, 0.3)
+            .setVisible(false)
+            .setDepth(1);
+        this.aimLabel = this.add.text(0, 0, "", {
+            fontFamily: "monospace",
+            fontSize: "9px",
+            color: "#ffe066",
+            backgroundColor: "#1a2b1eaa",
+            padding: { x: 3, y: 2 },
+        }).setOrigin(0.5, 1).setVisible(false).setDepth(9000);
+
         this.scene.launch("map");
+    }
+
+    /**
+     * Scale the camera zoom with the viewport so a bigger window (e.g. fullscreen)
+     * shows the same slice of the world instead of revealing the entire map. "Cover"
+     * the reference design size on both axes; never zoom out below the base zoom.
+     */
+    private applyCameraZoom(): void {
+        const zoom = Math.max(
+            BASE_ZOOM,
+            (this.scale.width / REFERENCE_WIDTH) * BASE_ZOOM,
+            (this.scale.height / REFERENCE_HEIGHT) * BASE_ZOOM,
+        );
+        this.cameras.main.setZoom(zoom);
     }
 
     shutdown(): void {
@@ -278,6 +385,8 @@ export class WorldScene extends Phaser.Scene {
         this.unsubscribers = [];
         this.flora?.destroy();
         this.flora = null;
+        this.weather?.destroy();
+        this.weather = null;
     }
 
     /** Map overlay reads avatar position. */
@@ -289,16 +398,83 @@ export class WorldScene extends Phaser.Scene {
         return this.tendNextTile;
     }
 
+    /**
+     * Map click-to-teleport validity (doc 23 §6.4 "pick a spot and drop in"): the tile
+     * must be open GRASS — not water/shore/path/plaza, and the landing feet must not
+     * intersect any solid base box (trunks, hedges, structures, the world rim).
+     */
+    canDropAt(tileX: number, tileY: number): boolean {
+        if (!this.terrain) {
+            return false;
+        }
+        if (
+            tileX < 0 || tileY < 0
+            || tileX >= this.plan.widthTiles || tileY >= this.plan.heightTiles
+        ) {
+            return false;
+        }
+        const ts = DISPLAY.tile;
+        const cx = tileX * ts + ts / 2;
+        if (terrainKindAt(this.terrain, cx, tileY * ts + ts / 2) !== "grass") {
+            return false;
+        }
+        return !this.footBlocked(cx, tileY * ts + ts);
+    }
+
+    /** Drop the avatar onto a grass tile (map click). Returns false when the landing is
+     * invalid — the caller decides how to surface the denial. */
+    teleportToTile(tileX: number, tileY: number): boolean {
+        if (!this.avatar || !this.canDropAt(tileX, tileY)) {
+            return false;
+        }
+        const ts = DISPLAY.tile;
+        this.avatar.setPosition(tileX * ts + ts / 2, tileY * ts + ts);
+        this.avatarTile = { tileX, tileY };
+        this.fxDropIn(this.avatar.x, this.avatar.y);
+        return true;
+    }
+
+    /** A soft landing ring + a few dust motes where the avatar drops in. */
+    private fxDropIn(x: number, y: number): void {
+        if (this.reducedMotion) {
+            return;
+        }
+        const ring = this.add.circle(x, y - 4, 7, 0xf2f2e4, 0.5);
+        ring.setDepth(y / DISPLAY.tile + 0.5);
+        this.tweens.add({
+            targets: ring,
+            scale: 3,
+            alpha: 0,
+            duration: 460,
+            ease: "Cubic.easeOut",
+            onComplete: () => ring.destroy(),
+        });
+        const dust = this.add.particles(x, y - 6, ensureTexture(this, pickFirstAsset(["fx-dust-04", "fx-droplet"])), {
+            speed: { min: 20, max: 55 },
+            angle: { min: 180, max: 360 },
+            lifespan: 420,
+            quantity: 8,
+            scale: { start: 0.5, end: 0 },
+            emitting: false,
+        });
+        dust.setDepth(8500);
+        dust.explode();
+        this.time.delayedCall(520, () => dust.destroy());
+    }
+
     update(time: number, delta: number): void {
         this.panelOpen = this.registry.get("panelOpen") as boolean ?? false;
         this.flags = this.registry.get("gardenFlags") as GardenFlags ?? this.flags;
 
         this.moveAvatar(delta);
         this.updateInteractPrompt();
+        this.emitRegionIfChanged();
         this.bobKeeper(delta);
         this.updateCritters();
         // The living wind: grown flowers sway as one field; completed lines host gusts.
         this.flora?.tick(time);
+        // Ambient weather: screen-space rain/snow spells (plus stone-blessed bursts).
+        this.weather?.tick(time);
         // Walking through grown flowers rustles them (cooldown-guarded, cheap).
         if (this.isMovingNow && this.flora && this.avatar) {
             this.flora.rustle(this.avatar.x, this.avatar.y);
@@ -331,8 +507,7 @@ export class WorldScene extends Phaser.Scene {
         paintGround(this, this.plan, this.terrain);
     }
 
-    /** The preset ground flora: every grass tile's flower, restored from persisted pours.
-     * Pours inside a still-locked garden don't grow anything — the mist keeps it asleep. */
+    /** The preset ground flora: every grass tile's flower, restored from persisted pours. */
     private renderFlora(): void {
         if (!this.terrain) {
             return;
@@ -352,7 +527,7 @@ export class WorldScene extends Phaser.Scene {
             planFlora(this.plan, this.terrain),
             counts ?? {},
             this.reducedMotion,
-            (spot) => this.lockedRegionAt(spot.tileX, spot.tileY) === null,
+            () => true,
             anchors,
         );
     }
@@ -439,90 +614,39 @@ export class WorldScene extends Phaser.Scene {
         }
     }
 
-    /** The section of the LOCKED region containing this tile, or null (open ground/plaza). */
-    private lockedRegionAt(tileX: number, tileY: number): string | null {
-        for (const r of this.plan.regions) {
-            if (this.sectorUnlocks.has(r.section)) {
-                continue;
-            }
-            if (
-                tileX >= r.rect.x && tileX < r.rect.x + r.rect.w
-                && tileY >= r.rect.y && tileY < r.rect.y + r.rect.h
-            ) {
-                return r.section;
-            }
-        }
-        return null;
-    }
-
-    /** Each locked garden sleeps under a mist veil with a glowing trial stone at its mouth:
-     * take that garden's full MCAT test to lift it (placeholder panel until tests upload). */
-    private renderSectorLocks(): void {
+    /** A standing stone at the heart of each quadrant. No lock, no veil — walk up and
+     * interact and it blesses the garden with a brief shower of rain. */
+    private renderSectorStones(): void {
         const ts = DISPLAY.tile;
         for (const r of this.plan.regions) {
-            if (this.sectorUnlocks.has(r.section)) {
-                continue;
+            const center = {
+                tileX: r.rect.x + Math.floor(r.rect.w / 2),
+                tileY: r.rect.y + Math.floor(r.rect.h / 2),
+            };
+            // If the exact center is water (lagoons/ponds), spiral out to dry ground.
+            outer:
+            for (let radius = 1; radius <= 6 && waterIsSolid(this.plan, center.tileX, center.tileY); radius++) {
+                for (let dy = -radius; dy <= radius; dy++) {
+                    for (let dx = -radius; dx <= radius; dx++) {
+                        const tx = r.rect.x + Math.floor(r.rect.w / 2) + dx;
+                        const ty = r.rect.y + Math.floor(r.rect.h / 2) + dy;
+                        if (!waterIsSolid(this.plan, tx, ty)) {
+                            center.tileX = tx;
+                            center.tileY = ty;
+                            break outer;
+                        }
+                    }
+                }
             }
-            const veil = this.add.rectangle(
-                r.rect.x * ts,
-                r.rect.y * ts,
-                r.rect.w * ts,
-                r.rect.h * ts,
-                0x101820,
-                0.42,
-            );
-            veil.setOrigin(0, 0);
-            veil.setDepth(7000);
-            this.sectorVeils.set(r.section, veil);
-
-            const mouth = sectorFor(r.section)?.entrance
-                ?? { tileX: r.rect.x + Math.floor(r.rect.w / 2), tileY: r.rect.y + r.rect.h - 1 };
-            const sx = mouth.tileX * ts + ts / 2;
-            const sy = mouth.tileY * ts + ts;
+            const sx = center.tileX * ts + ts / 2;
+            const sy = center.tileY * ts + ts;
             const stoneKey = pickFirstAsset(["struct-waystone-active", "struct-waystone-dormant"]);
-            const stone = this.add.image(0, 0, ensureTexture(this, stoneKey));
+            const stone = this.add.image(sx, sy, ensureTexture(this, stoneKey));
             stone.setOrigin(0.5, 1);
             sizeToHeightTiles(stone, 2.2);
-            const label = this.add.text(0, -2.4 * ts, "🔒 Trial", {
-                fontFamily: "monospace",
-                fontSize: "11px",
-                color: "#ffe066",
-                backgroundColor: "#1a2b1ecc",
-                padding: { x: 4, y: 2 },
-            }).setOrigin(0.5, 1);
-            const group = this.add.container(sx, sy, [stone, label]);
-            group.setDepth(7001);
-            this.trialStones.set(r.section, group);
-        }
-    }
-
-    private unlockSectorVisuals(section: string): void {
-        this.sectorUnlocks.add(section);
-        const veil = this.sectorVeils.get(section);
-        const stone = this.trialStones.get(section);
-        this.sectorVeils.delete(section);
-        this.trialStones.delete(section);
-        if (this.reducedMotion) {
-            veil?.destroy();
-            stone?.destroy();
-            return;
-        }
-        if (veil) {
-            this.tweens.add({
-                targets: veil,
-                alpha: 0,
-                duration: 900,
-                onComplete: () => veil.destroy(),
-            });
-        }
-        if (stone) {
-            this.tweens.add({
-                targets: stone,
-                alpha: 0,
-                y: stone.y - 12,
-                duration: 700,
-                onComplete: () => stone.destroy(),
-            });
+            stone.setDepth(stone.y / ts);
+            this.solidBoxes.push(baseBoxFor(stone.x, stone.y, stone.displayWidth, { heightPx: 10 }));
+            this.trialStones.set(r.section, stone);
         }
     }
 
@@ -551,8 +675,8 @@ export class WorldScene extends Phaser.Scene {
         this.avatarTile = { tileX: KEEPER_TILE.tileX + 2, tileY: KEEPER_TILE.tileY };
     }
 
-    /** Would the avatar's FEET at (x, y) collide? World rim, water (minus fords), locked
-     * gardens, and every standing thing's base box. */
+    /** Would the avatar's FEET at (x, y) collide? World rim, water (minus fords),
+     * and every standing thing's base box. */
     private footBlocked(x: number, y: number): boolean {
         const ts = DISPLAY.tile;
         const worldW = this.plan.widthTiles * ts;
@@ -572,9 +696,6 @@ export class WorldScene extends Phaser.Scene {
             const tx = Math.floor(c.px / ts);
             const ty = Math.floor(c.py / ts);
             if (waterIsSolid(this.plan, tx, ty)) {
-                return true;
-            }
-            if (this.lockedRegionAt(tx, ty) !== null) {
                 return true;
             }
         }
@@ -738,12 +859,22 @@ export class WorldScene extends Phaser.Scene {
         this.interactKey = this.input.keyboard.addKey("E");
         this.spaceKey = this.input.keyboard.addKey("SPACE");
 
+        // M toggles the map overlay. It lives HERE, not in the map scene: the world stays
+        // active under the overlay (so one binding serves open AND close), while the hidden
+        // map scene is inactive and its keyboard plugin never sees the key.
+        this.input.keyboard.addKey("M").on("down", () => {
+            // No map while the island sleeps under the placement fog.
+            if (!this.panelOpen && !this.fogActive) {
+                this.bus.emit("map:toggle", {});
+            }
+        });
+
         this.interactKey.on("down", () => this.tryInteract());
         // Space is the tending verb (docs 2026-07-03): near a person/marker it interacts
         // (talk to the Keeper, use a waystone); on open ground it WATERS where you stand
         // and the garden wakes there. Planting seeds is gone — you water the ground itself.
         this.spaceKey.on("down", () => {
-            if (this.panelOpen) {
+            if (this.panelOpen || this.mapOpen) {
                 return;
             }
             if (
@@ -780,7 +911,7 @@ export class WorldScene extends Phaser.Scene {
         if (!this.avatar) {
             return;
         }
-        const nodeId = this.nearestPlotNode(6);
+        const nodeId = this.nearestPlot(6)?.nodeId ?? null;
         const aim = this.aimTile();
         this.bus.emit("ground:watered", {
             x: this.avatar.x,
@@ -793,21 +924,19 @@ export class WorldScene extends Phaser.Scene {
         this.fxGroundWater(aim.tileX * ts + ts / 2, (aim.tileY + 1) * ts);
     }
 
-    /** The nearest plot within `maxTiles` of the avatar (or null on open ground). Plots
-     * inside a still-locked garden don't drink — take the trial first. */
-    private nearestPlotNode(maxTiles: number): string | null {
+    /** The nearest plot within `maxTiles` of the avatar (or null on open ground).
+     * Returns the plot itself so callers can both queue its concept (water) and
+     * anchor the aim indicator to its tile. */
+    private nearestPlot(maxTiles: number): { nodeId: string; spot: PlantSpot } | null {
         const ax = this.avatarTile.tileX + 0.5;
         const ay = this.avatarTile.tileY + 0.5;
-        let best: string | null = null;
+        let best: { nodeId: string; spot: PlantSpot } | null = null;
         let bestD = maxTiles;
         for (const [, plant] of this.plants) {
-            if (this.lockedRegionAt(plant.spot.tileX, plant.spot.tileY) !== null) {
-                continue;
-            }
             const d = this.distTiles(ax, ay, plant.spot.tileX + 0.5, plant.spot.tileY + 0.5);
             if (d < bestD) {
                 bestD = d;
-                best = plant.nodeId;
+                best = { nodeId: plant.nodeId, spot: plant.spot };
             }
         }
         return best;
@@ -877,6 +1006,17 @@ export class WorldScene extends Phaser.Scene {
                 (x, y) => this.footBlocked(x, y),
             );
             this.avatar.setPosition(next.x, next.y);
+            if (this.fogActive) {
+                // The plaza leash: while the island sleeps under the mist you cannot
+                // wander blind into it — the placement test is the only way out.
+                const leashed = clampFeetToTileRect(
+                    this.avatar.x,
+                    this.avatar.y,
+                    CENTER_PLAZA,
+                    DISPLAY.tile,
+                );
+                this.avatar.setPosition(leashed.x, leashed.y);
+            }
         }
 
         this.avatarTile = {
@@ -891,65 +1031,17 @@ export class WorldScene extends Phaser.Scene {
         this.avatar.setDepth(this.avatar.y / DISPLAY.tile);
     }
 
-    /** Prepare the gardener's runtime textures. Guarantees every real frame exists (art or a
-     * placeholder), then fabricates the opposite-foot side contacts the source art lacks. */
+    /** Prepare the gardener's runtime textures — guarantee every authored frame exists (real art,
+     * or a generated placeholder if art is missing). Every facing now ships four real walk frames,
+     * so there are no runtime-synthesized contacts to fabricate. */
     private setupAvatarTextures(): void {
         for (const key of Object.values(G)) {
-            if (key !== G.walkSideOppA && key !== G.walkSideOppB) {
-                ensureTexture(this, key);
-            }
+            ensureTexture(this, key);
         }
-        this.makeLegMirrorTexture(G.walkSideA, G.walkSideOppA);
-        this.makeLegMirrorTexture(G.walkSideB, G.walkSideOppB);
-    }
-
-    /** Build `dstKey` from `srcKey` with the lower `frac` of the frame (the legs/boots)
-     * mirrored horizontally about the leg band's opaque centroid — swapping which foot leads
-     * while the upper body and the held watering can stay put. This turns the art's two
-     * same-foot side poses into a real alternating stride. */
-    private makeLegMirrorTexture(srcKey: string, dstKey: string, frac = 0.44): void {
-        if (this.textures.exists(dstKey)) {
-            return;
-        }
-        const img = this.textures.get(srcKey).getSourceImage() as HTMLImageElement | HTMLCanvasElement;
-        const w = Math.floor(img.width);
-        const h = Math.floor(img.height);
-        if (w <= 0 || h <= 0) {
-            return;
-        }
-        const tex = this.textures.createCanvas(dstKey, w, h);
-        if (!tex) {
-            return;
-        }
-        const ctx = tex.getContext();
-        const cut = Math.floor(h * (1 - frac));
-        const bandH = h - cut;
-        ctx.clearRect(0, 0, w, h);
-        ctx.drawImage(img, 0, 0);
-        // Opaque centroid of the leg band → the vertical axis we mirror the boots about.
-        const band = ctx.getImageData(0, cut, w, bandH);
-        let sumX = 0;
-        let count = 0;
-        for (let y = 0; y < bandH; y++) {
-            for (let x = 0; x < w; x++) {
-                if (band.data[(y * w + x) * 4 + 3] > 40) {
-                    sumX += x;
-                    count++;
-                }
-            }
-        }
-        const cx = count > 0 ? sumX / count : w / 2;
-        ctx.clearRect(0, cut, w, bandH);
-        ctx.save();
-        ctx.translate(2 * cx, 0);
-        ctx.scale(-1, 1);
-        ctx.drawImage(img, 0, cut, w, bandH, 0, cut, w, bandH);
-        ctx.restore();
-        tex.refresh();
     }
 
     /** 8-direction walk/idle driver. Advances a smooth, frame-rate-independent step clock and
-     * draws the current pose (texture + mirror); diagonals walk with the side gait. */
+     * draws the current pose (texture + per-facing mirror); each facing has its own authored art. */
     private updateAvatarFrame(dx: number, dy: number, moving: boolean, delta: number): void {
         if (moving) {
             this.facing = facing8(dx, dy);
@@ -965,7 +1057,8 @@ export class WorldScene extends Phaser.Scene {
             frame = gait.idle;
         }
         this.avatar.setTexture(ensureTexture(this, frame.key));
-        // Per-pose mirror (foot swap) XOR facing mirror (right-facing side art).
+        // Mirror only to face the left-drawn side art rightward (a per-facing flag); walk frames
+        // never self-mirror, so the held watering can never flips sides mid-stride.
         this.avatar.setFlipX(frame.flip !== fg.flip);
     }
 
@@ -979,7 +1072,7 @@ export class WorldScene extends Phaser.Scene {
         let bob = 1;
         if (!this.reducedMotion) {
             if (this.isMovingNow) {
-                // Due-up has no step frames, so it leans on a slightly deeper bob.
+                // The back view reads with a touch more vertical weight than the other facings.
                 const amp = this.facing === "up" ? 0.06 : 0.045;
                 bob = 1 + amp * Math.abs(Math.sin(this.walkPhase * Math.PI));
             } else {
@@ -1004,10 +1097,10 @@ export class WorldScene extends Phaser.Scene {
         this.nearFlavorIdx = null;
         this.nearTrialSection = null;
 
-        // Trial stones (locked gardens) — checked first so the lock always answers.
-        for (const [section, group] of this.trialStones) {
+        // Sector stones (quadrant hearts) — interact for a brief blessing of rain.
+        for (const [section, stone] of this.trialStones) {
             if (
-                this.distTiles(ax, ay, group.x / ts - 0.5 + 0.5, group.y / ts - 1 + 0.5)
+                this.distTiles(ax, ay, stone.x / ts - 0.5 + 0.5, stone.y / ts - 1 + 0.5)
                     <= INTERACT_RADIUS + 0.7
             ) {
                 this.nearTarget = "trial";
@@ -1067,16 +1160,67 @@ export class WorldScene extends Phaser.Scene {
             }
         }
 
-        if (this.nearTarget && !this.panelOpen) {
+        if (this.nearTarget && !this.panelOpen && !this.mapOpen) {
             this.interactPrompt.setVisible(true);
             this.interactPrompt.setPosition(this.avatar.x, this.avatar.y - ts);
         } else {
             this.interactPrompt.setVisible(false);
         }
+
+        this.updateAimIndicator();
+    }
+
+    /** Show a glow + concept label on the plot the watering can targets — but only
+     * when Space would water it (open ground or standing by a plant, no panel/map open).
+     * Same target as `waterGround`, so the label never lies about what watering queues. */
+    private updateAimIndicator(): void {
+        const canWater = !this.panelOpen && !this.mapOpen
+            && (this.nearTarget === null || this.nearTarget === "plant");
+        const aim = canWater ? this.nearestPlot(6) : null;
+        if (!aim) {
+            this.aimLabel.setVisible(false);
+            this.aimGlow.setVisible(false);
+            this.aimGlowTween?.stop();
+            this.aimGlowTween = undefined;
+            return;
+        }
+        const ts = DISPLAY.tile;
+        const cx = aim.spot.tileX * ts + ts / 2;
+        const topY = aim.spot.tileY * ts;
+        const topic = this.snapshot?.byNode.get(aim.nodeId);
+        this.aimLabel.setText(aimLabelText(aim.nodeId, topic));
+        this.aimLabel.setPosition(cx, topY - 2).setVisible(true);
+        this.aimGlow.setPosition(cx, topY + ts).setVisible(true);
+        if (!this.reducedMotion && !this.aimGlowTween) {
+            this.aimGlowTween = this.tweens.add({
+                targets: this.aimGlow,
+                scaleX: 1.15,
+                scaleY: 1.15,
+                alpha: 0.15,
+                duration: 900,
+                yoyo: true,
+                repeat: -1,
+                ease: "Sine.easeInOut",
+            });
+        }
+    }
+
+    /** Tell the score which garden we're in as the avatar crosses a border (cosmetic, read-only:
+     * the music layer reacts like the sky does). Seam/plaza tiles keep the last garden playing. */
+    private emitRegionIfChanged(): void {
+        const section = sectionAtTile(this.plan, this.avatarTile.tileX, this.avatarTile.tileY);
+        if (!section) {
+            return;
+        }
+        const region = regionThemeFromSection(section);
+        if (region !== this.currentRegion) {
+            this.currentRegion = region;
+            this.bus.emit("region:entered", { region });
+        }
     }
 
     private tryInteract(): void {
-        if (this.panelOpen || !this.nearTarget) {
+        if (this.panelOpen || this.mapOpen || !this.nearTarget) {
             return;
         }
         switch (this.nearTarget) {
@@ -1104,7 +1248,8 @@ export class WorldScene extends Phaser.Scene {
                 break;
             case "trial":
                 if (this.nearTrialSection) {
-                    this.bus.emit("sector:trial", { section: this.nearTrialSection });
+                    // The stone's blessing: a brief screen-space shower over the garden.
+                    this.weather?.rainBurst();
                 }
                 break;
             default: {
@@ -1116,18 +1261,23 @@ export class WorldScene extends Phaser.Scene {
 
     private teleportToWaystone(waystoneId: string): void {
         const region = this.plan.regions.find((r) => r.section === waystoneId);
-        if (!region || !this.avatar || !this.sectorUnlocks.has(waystoneId)) {
-            return; // a locked garden cannot be fast-travelled into — take its trial first
+        if (!region || !this.avatar) {
+            return;
         }
         const ts = DISPLAY.tile;
         const ws = region.waystone;
-        // Arrive one tile SOUTH of the stone (never inside its base box), sliding further
-        // south if something occupies that spot.
-        let y = (ws.tileY + 2) * ts;
-        for (let tries = 0; tries < 4 && this.footBlocked(ws.tileX * ts + ts / 2, y); tries++) {
-            y += ts;
+        // Arrive SOUTH of the stone (never inside its base box), probing further south and
+        // then NORTH (waystones on the last authored row — Versailles y=30 — have no legal
+        // south landing: every candidate is past the world rim). If every candidate is
+        // blocked we stay put: teleporting INTO geometry was the old softlock.
+        const spot = firstOpenSpot(
+            waystoneArrivalTiles(ws).map((t) => ({ x: t.tileX * ts + ts / 2, y: (t.tileY + 1) * ts })),
+            (x, y) => this.footBlocked(x, y),
+        );
+        if (!spot) {
+            return;
         }
-        this.avatar.setPosition(ws.tileX * ts + ts / 2, y);
+        this.avatar.setPosition(spot.x, spot.y);
         this.avatarTile = {
             tileX: Math.floor(this.avatar.x / ts),
             tileY: Math.floor((this.avatar.y - ts * 0.5) / ts),
@@ -1173,6 +1323,69 @@ export class WorldScene extends Phaser.Scene {
         this.time.addEvent({ delay: 60_000, loop: true, callback: apply });
     }
 
+    /**
+     * The onboarding shroud: near-opaque mist bands over everything but the Keeper's
+     * plaza (a half-alpha one-tile ring feathers the edge), gently breathing. Skipped
+     * entirely once the placement test is done — the fog never returns.
+     */
+    private setupFog(): void {
+        if (this.flags.placementDone) {
+            return;
+        }
+        this.fogActive = true;
+        const ts = DISPLAY.tile;
+        const world = { x: 0, y: 0, w: this.plan.widthTiles, h: this.plan.heightTiles };
+        const bands = [
+            ...rectDiff(world, inflate(CENTER_PLAZA, 1)).map((r) => ({ r, alpha: FOG_ALPHA })),
+            ...rectDiff(inflate(CENTER_PLAZA, 1), CENTER_PLAZA).map((r) => ({
+                r,
+                alpha: FOG_EDGE_ALPHA,
+            })),
+        ];
+        for (const { r, alpha } of bands) {
+            const rect = this.add
+                .rectangle(r.x * ts, r.y * ts, r.w * ts, r.h * ts, FOG_TINT, alpha)
+                .setOrigin(0, 0)
+                .setDepth(FOG_DEPTH);
+            this.fogBands.push(rect);
+            if (!this.reducedMotion) {
+                this.tweens.add({
+                    targets: rect,
+                    fillAlpha: Math.max(0, alpha - 0.04),
+                    duration: 2800,
+                    yoyo: true,
+                    repeat: -1,
+                    ease: "Sine.easeInOut",
+                });
+            }
+        }
+    }
+
+    /** placement:completed — peel the whole shroud away, staggered, then destroy it. */
+    private liftFog(): void {
+        if (!this.fogActive && this.fogBands.length === 0) {
+            return;
+        }
+        this.fogActive = false;
+        const bands = this.fogBands;
+        this.fogBands = [];
+        if (this.reducedMotion) {
+            bands.forEach((rect) => rect.destroy());
+            return;
+        }
+        bands.forEach((rect, i) => {
+            this.tweens.killTweensOf(rect);
+            this.tweens.add({
+                targets: rect,
+                fillAlpha: 0,
+                duration: FOG_LIFT_MS,
+                delay: i * 150,
+                ease: "Sine.easeInOut",
+                onComplete: () => rect.destroy(),
+            });
+        });
+    }
+
     private setupBus(): void {
         this.unsubscribers.push(
             this.bus.on("mastery:refreshed", () => {
@@ -1183,8 +1396,11 @@ export class WorldScene extends Phaser.Scene {
             this.bus.on("growth:tick", ({ nodeId, fast }) => this.fxGrowthTick(nodeId, fast)),
             this.bus.on("plant:bloomed", ({ nodeId }) => this.fxBloomed(nodeId)),
             this.bus.on("map:travel", ({ waystoneId }) => this.teleportToWaystone(waystoneId)),
-            this.bus.on("sector:unlocked", ({ section }) => this.unlockSectorVisuals(section)),
+            this.bus.on("map:teleport", ({ tileX, tileY }) => {
+                this.teleportToTile(tileX, tileY);
+            }),
             this.bus.on("flora:water", ({ aimTileX, aimTileY }) => this.onFloraWater(aimTileX, aimTileY)),
+            this.bus.on("placement:completed", () => this.liftFog()),
         );
     }
 

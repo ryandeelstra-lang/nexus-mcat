@@ -8,7 +8,6 @@ import {
     emitBus,
     expect,
     gardenState,
-    hudSeeds,
     hudWater,
     shot,
     test,
@@ -23,10 +22,11 @@ test("the garden boots into a seeded world (34 topics, 34 plants, 27 gate edges,
     await expect(page.locator(".garden-canvas canvas")).toBeVisible();
     await expect(page.locator(".garden-hud")).toBeVisible();
 
-    // HUD chips match the persisted economy doc exactly (self-consistent ⇒ re-run safe).
+    // HUD chip matches the persisted economy doc exactly (self-consistent ⇒ re-run safe).
     const state = await gardenState(page, { op: "get" });
     expect(await hudWater(page)).toBe(state.economy?.water ?? 80);
-    expect(await hudSeeds(page)).toBe(state.economy?.seeds ?? 40);
+    // Seeds are gone (2026-07-03): water is the only currency chip.
+    expect(await page.locator(".garden-hud .hud-top-left .hud-chip").count()).toBe(1);
 
     // The starter deck reached the engine AND the world: every leaf topic exists.
     const world = await page.evaluate(() => {

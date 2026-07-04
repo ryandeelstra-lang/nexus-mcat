@@ -51,7 +51,7 @@ def test_garden_write_is_collection_read_only():
     col = _fresh_col()
     _answer_one(col)
     before = _snapshot(col)
-    garden.set_state(col, "economy", {"seeds": 40, "water": 80, "xp": 0}, now_ms=1)
+    garden.set_state(col, "economy", {"water": 80, "xp": 0}, now_ms=1)
     garden.set_state(
         col,
         "pending",
@@ -67,31 +67,31 @@ def test_garden_write_is_collection_read_only():
 def test_object_and_array_docs_round_trip():
     """Object docs (economy) and array docs (the pending queue) both persist + read back."""
     col = _fresh_col()
-    garden.set_state(col, "economy", {"seeds": 39, "water": 86, "xp": 5}, now_ms=1)
+    garden.set_state(col, "economy", {"water": 86, "xp": 5}, now_ms=1)
     garden.set_state(
         col, "pending", [{"nodeId": "CP.4A", "kind": "plant", "pours": 1}], now_ms=2
     )
     state = garden.get_state(col)
-    assert state["economy"] == {"seeds": 39, "water": 86, "xp": 5}
+    assert state["economy"] == {"water": 86, "xp": 5}
     assert state["pending"] == [{"nodeId": "CP.4A", "kind": "plant", "pours": 1}]
     # single-key read returns just that document
     assert garden.get_state(col, "economy") == {
-        "economy": {"seeds": 39, "water": 86, "xp": 5}
+        "economy": {"water": 86, "xp": 5}
     }
     col.close()
 
 
 def test_upsert_overwrites_same_key():
     col = _fresh_col()
-    garden.set_state(col, "economy", {"seeds": 40, "water": 80, "xp": 0}, now_ms=1)
-    garden.set_state(col, "economy", {"seeds": 45, "water": 60, "xp": 20}, now_ms=2)
-    assert garden.get_state(col, "economy")["economy"]["seeds"] == 45
+    garden.set_state(col, "economy", {"water": 80, "xp": 0}, now_ms=1)
+    garden.set_state(col, "economy", {"water": 60, "xp": 20}, now_ms=2)
+    assert garden.get_state(col, "economy")["economy"]["water"] == 60
     col.close()
 
 
 def test_garden_state_lives_only_in_the_sidecar():
     col = _fresh_col()
-    garden.set_state(col, "economy", {"seeds": 40}, now_ms=1)
+    garden.set_state(col, "economy", {"water": 40}, now_ms=1)
     names = {r[0] for r in col.db.all("select name from sqlite_master where type='table'")}
     assert "garden_state" not in names  # only in the sidecar file, never the collection
     col.close()

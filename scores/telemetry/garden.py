@@ -2,7 +2,7 @@
 # License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
 """charged_up: the Knowledge Garden's ADDITIVE state store (Decisions 40-42; docs/26 I5).
 
-Persistent garden state — the currency balances (seeds/water), the pending "sow now, answer
+Persistent garden state — the currency balances (water/xp), the pending "sow now, answer
 next visit" queue, tutorial-beat progress, waystone unlocks, paraphrase-pass records, and
 cosmetic state — lives HERE, in the same additive sidecar SQLite that already holds telemetry
 (`scores.telemetry.sidecar`), keyed beside the collection file and NEVER inside it.
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS garden_state (
 # Keys the TS store round-trips today. Kept as a doc-comment, not an allowlist — the store is
 # a generic seam; shapes are owned/validated by the TS layer. A doc is any JSON value (objects
 # for economy/tutorial/settings, an array for the pending queue).
-#   "economy"    -> {seeds, water, xp}
+#   "economy"    -> {water, xp}   (seeds removed as a currency, 2026-07-03)
 #   "pending"    -> [{nodeId, deckPath, kind, pours, queuedAtMs}, ...]
 #   "tutorial"   -> {beat, done}
 #   "paraphrase" -> {nodeId: ts}

@@ -59,6 +59,13 @@ def _ensure_local_model() -> Any:
         return _local_model
 
 
+def model_ready() -> bool:
+    """True once the local model object exists — request threads must NEVER trigger the
+    lazy load themselves: constructing WhisperModel can download ~463MB under the model
+    lock, and a handful of waiting grade requests would wedge every waitress worker."""
+    return _local_model is not None
+
+
 def prewarm_async() -> None:
     """Warm the local model off the request thread (spec §10: first answer never pays load)."""
     if not local_available() or _local_model is not None:
@@ -101,6 +108,17 @@ def available() -> bool:
 
 
 def _local_transcribe(audio_path: str, lang: str) -> STTResult:
+    if not model_ready():
+        # Keep warming in the background, answer honestly NOW — never block a grade
+        # request on a model download (the UI steers to typing via stt_error).
+        prewarm_async()
+        return STTResult(
+            "",
+            None,
+            "local",
+            "",
+            error="the voice engine is still warming up — type this one",
+        )
     model = _ensure_local_model()
     model_size = os.environ.get("VOICE_STT_LOCAL_MODEL", "small")
     segments, info = model.transcribe(audio_path, language=lang, beam_size=5)
@@ -119,7 +137,9 @@ def _hosted_transcribe(audio_path: str, lang: str) -> STTResult:
     from openai import OpenAI  # type: ignore[import-not-found,import-untyped]
 
     model = os.environ.get("VOICE_STT_HOSTED_MODEL", "gpt-4o-transcribe")
-    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+    # SDK defaults are 600s x 2 retries — one slow call would hold a waitress worker
+    # for half an hour. A spoken flashcard answer transcribes in seconds or not at all.
+    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"], timeout=15.0, max_retries=0)
     with open(audio_path, "rb") as f:
         resp = client.audio.transcriptions.create(model=model, file=f, language=lang)
     return STTResult(

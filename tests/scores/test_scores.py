@@ -120,14 +120,20 @@ def test_thresholds_are_the_locked_values():
     assert give_up.PERFORMANCE_MIN_ITEMS == 20
 
 
-def test_readiness_available_branch_never_emits_a_bare_float(monkeypatch):
-    # Guard the AUTO-FAIL gate at the seam where Block G adds the 472-528 mapping: even when the
-    # give-up floor is cleared, the readiness payload must NOT contain a bare numeric point today.
+def test_readiness_available_branch_emits_mapped_point_not_a_bare_float(monkeypatch):
+    # Block G/W3.6 landed: when the give-up floor is cleared, the readiness payload now carries a
+    # 472-528 point + range from the documented map (never a fabricated/bare number). The point must
+    # be a real int on the AAMC scale and the honesty elements (evidence/range/note) must be present.
     monkeypatch.setattr(give_up, "readiness_available", lambda *a, **k: True)
     col = _fresh_col()
-    r = display.readiness_display(col, [], gate_coverage_fraction=1.0)
+    r = display.readiness_display(
+        col, [], gate_coverage_fraction=1.0, section_perf={"acc": 0.5, "acc_range": [0.4, 0.6]}
+    )
     assert r["available"] is True
-    assert r["point"] is None and r["range"] is None  # no fabricated number until Block G maps it
+    assert isinstance(r["point"], int) and 472 <= r["point"] <= 528
+    assert isinstance(r["range"], list) and len(r["range"]) == 2
+    assert r["range"][0] <= r["point"] <= r["range"][1]
+    assert "UNVALIDATED" in r["note"]  # honesty: the map is not validated against real outcomes
     col.close()
 
 

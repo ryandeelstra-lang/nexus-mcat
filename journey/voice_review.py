@@ -33,10 +33,9 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
+from ai import grade as ai_grade
 from anki.cards import CardId
 from anki.collection import Collection
-
-from ai import grade as ai_grade
 from scores.telemetry import sidecar
 
 _TAG = re.compile(r"<[^>]+>")
@@ -124,12 +123,30 @@ def load_variants() -> dict[tuple[str, str], dict[str, str]]:
     return index
 
 
+# Conversational openers for a PLAIN card front (dialogue-UX rework 2026-07-03): the Keeper
+# phrases every ask like a person talking, without inventing content — a deterministic opener
+# (stable per card, so a re-ask reads the same) glued before the card's own question. Authored
+# variants/SpokenPrompt lines are already tutor-voiced and stay verbatim. The opener is
+# presentation only: it never marks a card as a reworded variant (bloom integrity).
+_ASK_OPENERS = (
+    "Tell me —",
+    "Here's one:",
+    "Let me ask you this:",
+    "Alright, try this one:",
+    "Now then —",
+)
+
+
+def _ask_opener(front_hash: str) -> str:
+    return _ASK_OPENERS[int(front_hash[:8], 16) % len(_ASK_OPENERS)]
+
+
 def keeper_line(note, node_id: str) -> tuple[str, bool]:  # type: ignore[no-untyped-def]
     """The line the Keeper speaks + whether it is a reworded variant (paraphrase gate).
 
     Order: the authored ``SpokenPrompt`` note field (future-proof), then the shipped variants
     corpus (spec ruling 5 — authored content at serve time, AI-OFF-safe), then the card's own
-    front (real free recall; grows but never blooms).
+    front wrapped in a conversational opener (real free recall; grows but never blooms).
     """
     try:
         keys = note.keys()
@@ -139,10 +156,14 @@ def keeper_line(note, node_id: str) -> tuple[str, bool]:  # type: ignore[no-unty
         return _plain(note[SPOKEN_PROMPT_FIELD]), True
     fields = note.fields
     front = fields[0] if fields else ""
-    row = load_variants().get((node_id, _front_hash(front)))
+    fh = _front_hash(front)
+    row = load_variants().get((node_id, fh))
     if row:
         return row["spoken_prompt"], True
-    return _plain(front), False
+    plain = _plain(front)
+    if not plain:
+        return plain, False
+    return f"{_ask_opener(fh)} {plain}", False
 
 
 def reference_answer(note) -> str:  # type: ignore[no-untyped-def]

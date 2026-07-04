@@ -930,41 +930,6 @@ def audio_review_grade() -> bytes:
     return json.dumps({"available": True, **payload}).encode("utf-8")
 
 
-def garden_tts() -> bytes:
-    """charged_up (voice spec §6): speak the Keeper's line through Anki's native TTS players
-    when the webview's speechSynthesis has no voices (common in QtWebEngine). The client
-    sends the question text only — never the answer. Fire-and-forget; failure is silent
-    (the text crawl always exists)."""
-    import json
-
-    req = json.loads(request.data.decode("utf-8")) if request.data else {}
-    text = str(req.get("text", "")).strip()[:500]
-    if not text:
-        return json.dumps({"ok": False}).encode("utf-8")
-
-    def speak() -> None:
-        try:
-            from anki.sound import TTSTag
-            from aqt.sound import av_player
-
-            av_player.play_tags(
-                [
-                    TTSTag(
-                        field_text=text,
-                        lang="en_US",
-                        voices=[],
-                        other_args=[],
-                        speed=1.0,
-                    )
-                ]
-            )
-        except Exception:
-            pass
-
-    aqt.mw.taskman.run_on_main(speak)
-    return json.dumps({"ok": True}).encode("utf-8")
-
-
 post_handler_list = [
     congrats_info,
     get_deck_configs_for_update,
@@ -985,7 +950,6 @@ post_handler_list = [
     garden_state,
     audio_review_next,
     audio_review_grade,
-    garden_tts,
 ]
 
 

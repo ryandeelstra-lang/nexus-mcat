@@ -15,7 +15,6 @@ import pytest
 
 from anki.collection import Collection
 from anki.decks import DeckId
-
 from journey import voice_review
 from scores.telemetry import sidecar
 
@@ -154,6 +153,55 @@ def test_no_variant_falls_back_to_question_no_bloom():
     assert (
         res["bloomed"] is False
     )  # a plain question grows but is not a paraphrase-bloom
+    col.close()
+
+
+def test_plain_front_is_phrased_as_the_keeper_asking():
+    """Dialogue-UX rework (2026-07-03): a plain front gets a conversational opener — stable
+    per card, the question kept verbatim after it, and NEVER marked as a reworded variant
+    (openers are presentation; bloom integrity stays with true paraphrases)."""
+    col = _fresh_col()
+    _add_card(col, "What powers the cell?", "the mitochondria")
+    card = voice_review.next_card(col)
+    assert card is not None
+    line = card["keeper_line"]
+    assert line.endswith("What powers the cell?")
+    assert any(line.startswith(o) for o in voice_review._ASK_OPENERS)
+    assert card["is_fresh_variant"] is False
+    # deterministic: the same card re-served reads the same way
+    voice_review._reset_session()
+    again = voice_review.next_card(col)
+    assert again is not None
+    assert again["keeper_line"] == line
+    col.close()
+
+
+def test_authored_variants_stay_verbatim_no_opener(monkeypatch, tmp_path):
+    """Authored reworded prompts are already tutor-voiced — no opener is glued on."""
+    col = _fresh_col()
+    _add_card(col, "What powers the cell?", "the mitochondria")
+    front_hash = voice_review._front_hash("What powers the cell?")
+    served_plain = voice_review.next_card(col)
+    assert served_plain is not None
+    vdir = tmp_path / "variants"
+    vdir.mkdir()
+    (vdir / "test.jsonl").write_text(
+        json.dumps(
+            {
+                "deck_path": served_plain["node_id"],
+                "front_hash": front_hash,
+                "spoken_prompt": "Which organelle keeps the lights on?",
+                "source_id": "openstax-biology-2e",
+            }
+        )
+        + "\n"
+    )
+    monkeypatch.setattr(voice_review, "_VARIANTS_DIR", vdir)
+    monkeypatch.setattr(voice_review, "_variants_cache", None)
+    voice_review._reset_session()
+    served = voice_review.next_card(col)
+    assert served is not None
+    assert served["keeper_line"] == "Which organelle keeps the lights on?"
     col.close()
 
 
@@ -326,7 +374,10 @@ def test_bad_variants_file_never_breaks_the_loop(monkeypatch, tmp_path):
 
 
 @pytest.mark.skipif(
-    not (voice_review._VARIANTS_DIR.is_dir() and any(voice_review._VARIANTS_DIR.glob("*.jsonl"))),
+    not (
+        voice_review._VARIANTS_DIR.is_dir()
+        and any(voice_review._VARIANTS_DIR.glob("*.jsonl"))
+    ),
     reason="variants corpus not generated yet (scripts/gen_spoken_variants.py needs ANTHROPIC_API_KEY)",
 )
 def test_real_variants_corpus_loads(monkeypatch):

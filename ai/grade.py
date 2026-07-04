@@ -158,9 +158,9 @@ def _lexical_feedback(
         )
     elif not hit:
         preview = ", ".join(missed[:3])
-        rationale = (
-            f"Keyword match: the card was looking for {preview}. Say those next time."
-        )
+        # No trailing coaching sentence: the Keeper's verdict line ("Maybe next
+        # time.") lands right after this, and two closers in a row read canned.
+        rationale = f"Keyword match: the card was listening for {preview}."
     else:
         got = ", ".join(hit[:3])
         gap = ", ".join(missed[:3])

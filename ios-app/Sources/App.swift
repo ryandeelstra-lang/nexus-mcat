@@ -80,18 +80,35 @@ final class GardenModel: ObservableObject {
     /// real graded reviews through the SAME engine answer path the Tend screen uses, so a screenshot
     /// can show the watering can filling and plants growing from genuine engine truth.
     private func runDemoReviewsIfRequested() async {
-        guard let raw = ProcessInfo.processInfo.environment["KG_DEMO_REVIEWS"],
-              let count = Int(raw), count > 0 else { return }
-        for _ in 0..<count {
-            let didReview = (try? await run { e -> Bool in
-                guard let c = try e.nextCard() else { return false }
-                try e.answer(c, rating: .good, msTaken: 1500)
-                return true
-            }) ?? false
-            if !didReview { break }
-            drops += 1
+        let env = ProcessInfo.processInfo.environment
+        if let raw = env["KG_DEMO_REVIEWS"], let count = Int(raw), count > 0 {
+            for _ in 0..<count {
+                let didReview = (try? await run { e -> Bool in
+                    guard let c = try e.nextCard() else { return false }
+                    try e.answer(c, rating: .good, msTaken: 1500)
+                    return true
+                }) ?? false
+                if !didReview { break }
+                drops += 1
+            }
+            await refresh()
         }
-        await refresh()
+        // DEV/DEMO ONLY: sync immediately after the demo reviews so an automated run can prove the
+        // app reaches a real running anki-sync-server. Never set in shipping builds.
+        if env["KG_DEMO_SYNC"] == "1" { await sync() }
+
+        // DEV ONLY (KG_BENCH=1): run the §10 speed benchmark and write p50/p95/worst to
+        // Documents/kg-bench.json so an automated run can read it back. Never set in shipping builds.
+        if env["KG_BENCH"] == "1" {
+            if let results = try? await run({ try $0.benchmark() }) {
+                let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+                    .appendingPathComponent("kg-bench.json")
+                if let data = try? JSONSerialization.data(withJSONObject: results,
+                                                          options: [.prettyPrinted, .sortedKeys]) {
+                    try? data.write(to: url)
+                }
+            }
+        }
     }
 
     func refresh() async {

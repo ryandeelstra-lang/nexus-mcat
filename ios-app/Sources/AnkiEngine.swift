@@ -191,16 +191,34 @@ final class AnkiEngine: ObservableObject {
         req.syncMedia = false
         let out = try call(AnkiService.sync, SyncMethod.syncCollection, try req.serializedData())
         let resp = try Anki_Sync_SyncCollectionResponse(serializedBytes: out)
-        if resp.required != .noChanges && resp.required != .normalSync {
-            var full = Anki_Sync_FullUploadOrDownloadRequest()
-            full.auth = auth!
-            full.upload = false
-            _ = try call(AnkiService.sync, SyncMethod.fullUploadOrDownload, try full.serializedData())
-            // full op re-opens the collection inside the engine; re-select the exam deck.
-            try? selectExamDeck()
+        switch resp.required {
+        case .noChanges, .normalSync:
+            // A normal sync already merged both directions (revlog append-only, deduped by id).
+            return "synced"
+        case .fullUpload:
+            // Remote is empty — push the phone's collection (and its offline reviews) up. Never
+            // downloads here, so locally-queued reviews are never lost.
+            try fullSync(upload: true)
+            return "full upload complete"
+        case .fullDownload:
+            // Local is empty — pull the shared deck down.
+            try fullSync(upload: false)
+            return "full download complete"
+        default:
+            // FULL_SYNC (both sides diverged, e.g. first pairing with a schema difference): the
+            // desktop is the authoritative hub for this companion, so we download. After pairing,
+            // every subsequent sync is a NORMAL merge, so this branch is a one-time reconcile.
+            try fullSync(upload: false)
             return "full download complete"
         }
-        return "synced"
+    }
+
+    private func fullSync(upload: Bool) throws {
+        var full = Anki_Sync_FullUploadOrDownloadRequest()
+        full.auth = auth!
+        full.upload = upload
+        _ = try call(AnkiService.sync, SyncMethod.fullUploadOrDownload, try full.serializedData())
+        try? selectExamDeck() // a full op re-opens the collection inside the engine
     }
 
     // MARK: review loop
@@ -256,6 +274,42 @@ final class AnkiEngine: ObservableObject {
                      cardsWithState: $0.cardsWithState, averageRecall: $0.averageRecall,
                      gradedReviews: $0.gradedReviews, dueCount: 0)
         }
+    }
+
+    // MARK: benchmark (instructions.md §10 — phone speed targets, p50/p95/worst)
+
+    /// Time the hot paths against the loaded deck and return p50/p95/worst in milliseconds. Never a
+    /// single cherry-picked number (§7h). Read paths (next-card, dashboard) are idempotent so they
+    /// can be sampled many times; button-ack answers as many queued cards as exist.
+    func benchmark() throws -> [String: [String: Double]] {
+        func stats(_ xs: [Double]) -> [String: Double] {
+            guard !xs.isEmpty else { return ["p50": 0, "p95": 0, "worst": 0, "n": 0] }
+            let s = xs.sorted()
+            func pct(_ p: Double) -> Double { s[min(s.count - 1, Int(p * Double(s.count)))] }
+            return ["p50": pct(0.50), "p95": pct(0.95), "worst": s.last!, "n": Double(s.count)]
+        }
+        func ms(_ body: () throws -> Void) rethrows -> Double {
+            let t = DispatchTime.now().uptimeNanoseconds
+            try body()
+            return Double(DispatchTime.now().uptimeNanoseconds - t) / 1_000_000
+        }
+
+        var nextCardMs: [Double] = [], dashboardMs: [Double] = [], buttonAckMs: [Double] = []
+        // next-card (get_queued_cards + render) — idempotent, sample 60x
+        for _ in 0..<60 {
+            nextCardMs.append(try ms {
+                if let c = try nextCard() { _ = try renderCard(c.card.id) }
+            })
+        }
+        // dashboard (mastery_query over the whole deck) — idempotent, sample 40x
+        for _ in 0..<40 { dashboardMs.append(try ms { _ = try masteryTopics() }) }
+        // button-ack (answer_card) — consume the available queue (bounded by the daily new limit)
+        while let c = try nextCard() {
+            buttonAckMs.append(try ms { try answer(c, rating: .good, msTaken: 1500) })
+            if buttonAckMs.count >= 40 { break }
+        }
+        return ["next_card_ms": stats(nextCardMs), "dashboard_ms": stats(dashboardMs),
+                "button_ack_ms": stats(buttonAckMs)]
     }
 
     // MARK: helpers

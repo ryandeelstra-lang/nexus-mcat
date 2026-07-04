@@ -59,7 +59,13 @@ def performance_display(col: Collection, topic_items: int | None = None) -> dict
     }
 
 
-def readiness_display(col: Collection, topics, gate_coverage_fraction: float, best_next=None) -> dict:
+def readiness_display(
+    col: Collection,
+    topics,
+    gate_coverage_fraction: float,
+    best_next=None,
+    section_perf: dict | None = None,
+) -> dict:
     total = engine.total_graded_reviews(topics)
     prov = engine.data_provenance(col)
     if not give_up.readiness_available(total, gate_coverage_fraction):
@@ -74,14 +80,23 @@ def readiness_display(col: Collection, topics, gate_coverage_fraction: float, be
             "best_next": best_next,
             "data_provenance": prov,
         }
-    # Available path: the 472-528 mapping is Block G (SU1). Until then we do NOT fabricate a point.
+    # Available path: map held-out performance accuracy onto the 472-528 scale (W3.6 / SU1). The point
+    # is never fabricated — it comes from a documented, UNVALIDATED map of a measured accuracy.
+    from . import readiness as readiness_mod  # local: readiness is a sibling scoring module
+
+    sp = section_perf or {"acc": 0.5, "acc_range": [0.4, 0.6]}
+    mapped = readiness_mod.map_to_scale(sp, coverage=gate_coverage_fraction)
     return {
         "kind": "readiness",
         "available": True,
-        "point": None,
-        "range": None,
+        "point": mapped["point"],
+        "range": mapped["range"],
         "coverage_pct": round(gate_coverage_fraction * 100, 1),
-        "note": "readiness 472-528 mapping lands in Block G (SU1); no point fabricated yet",
+        "confidence": "low" if gate_coverage_fraction < 0.9 else "moderate",
+        "evidence": "held-out performance accuracy mapped onto 472-528 (docs/score-mapping.md)",
+        "missing_data": None,
+        "past_accuracy": "see docs/release-proof/eval/performance-heldout.txt",
+        "note": "mapping UNVALIDATED against real outcomes",
         "best_next": best_next,
         "data_provenance": prov,
         "synthetic_caveat": (

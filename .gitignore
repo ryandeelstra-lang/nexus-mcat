@@ -25,6 +25,11 @@ docs/_build/
 docs/autoapi/
 .complexipy_cache
 
+# charged_up: local API keys for build-time generation scripts (never committed;
+# see .env.example / scripts/gen_spoken_variants.py)
+.env
+.env.local
+
 # charged_up: generated prefilled-deck build artifacts (built by scripts/build_full_deck.py)
 qt/aqt/data/mcat-starter.apkg
 

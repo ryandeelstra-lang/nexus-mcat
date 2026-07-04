@@ -1,140 +1,140 @@
 {
- "leaves": [
-  {
-   "path": "MCAT::B-B::1A",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::B-B::1B",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::B-B::1C",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::B-B::1D",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::B-B::2A",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::B-B::2B",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::B-B::2C",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::B-B::3A",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::B-B::3B",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::C-P::4A",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::C-P::4B",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::C-P::4C",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::C-P::4D",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::C-P::4E",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::C-P::5A",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::C-P::5B",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::C-P::5C",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::C-P::5D",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::C-P::5E",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::P-S::6A",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::P-S::6B",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::P-S::6C",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::P-S::7A",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::P-S::7B",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::P-S::7C",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::P-S::8A",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::P-S::8B",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::P-S::8C",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::P-S::9A",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::P-S::9B",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::P-S::10A",
-   "is_content_category": true
-  },
-  {
-   "path": "MCAT::CARS::Foundations of Comprehension",
-   "is_content_category": false
-  },
-  {
-   "path": "MCAT::CARS::Reasoning Within the Text",
-   "is_content_category": false
-  },
-  {
-   "path": "MCAT::CARS::Reasoning Beyond the Text",
-   "is_content_category": false
-  }
- ]
+    "leaves": [
+        {
+            "path": "MCAT::B-B::1A",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::B-B::1B",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::B-B::1C",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::B-B::1D",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::B-B::2A",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::B-B::2B",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::B-B::2C",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::B-B::3A",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::B-B::3B",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::C-P::4A",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::C-P::4B",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::C-P::4C",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::C-P::4D",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::C-P::4E",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::C-P::5A",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::C-P::5B",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::C-P::5C",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::C-P::5D",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::C-P::5E",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::P-S::6A",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::P-S::6B",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::P-S::6C",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::P-S::7A",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::P-S::7B",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::P-S::7C",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::P-S::8A",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::P-S::8B",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::P-S::8C",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::P-S::9A",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::P-S::9B",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::P-S::10A",
+            "is_content_category": true
+        },
+        {
+            "path": "MCAT::CARS::Foundations of Comprehension",
+            "is_content_category": false
+        },
+        {
+            "path": "MCAT::CARS::Reasoning Within the Text",
+            "is_content_category": false
+        },
+        {
+            "path": "MCAT::CARS::Reasoning Beyond the Text",
+            "is_content_category": false
+        }
+    ]
 }

@@ -65,7 +65,10 @@ body {
     }
 }
 
-button:not(.btn, .btn-close) {
+/* charged_up: the garden is a full-bleed game surface — its buttons/inputs carry their own
+ * art-frame chrome, so the app-wide widget skin must not leak in. `:not(:where(...))` adds
+ * ZERO specificity, so cascade behavior everywhere else is byte-identical. */
+button:not(.btn, .btn-close):not(:where(.garden-host *)) {
     /* override transition for instant hover response */
     transition:
         color var(--transition) ease-in-out,
@@ -87,9 +90,9 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
-textarea,
-input[type="date"],
-input[type="text"] {
+textarea:not(:where(.garden-host *)),
+input[type="date"]:not(:where(.garden-host *)),
+input[type="text"]:not(:where(.garden-host *)) {
     border-radius: prop(border-radius);
     outline: none;
     border: 1px solid color(border);

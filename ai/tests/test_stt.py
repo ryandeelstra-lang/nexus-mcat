@@ -125,9 +125,37 @@ def test_model_dir_pinned(monkeypatch, tmp_path):
     fake_mod = types.ModuleType("faster_whisper")
     fake_mod.WhisperModel = FakeModel
     monkeypatch.setitem(sys.modules, "faster_whisper", fake_mod)
+    # Request paths never lazy-load (see test below) — warm the model the way
+    # prewarm_async does, then transcribe.
+    stt._ensure_local_model()
     result = transcribe(b"RIFFxxxx", mime="audio/wav")
     assert result.text == "hello"
     assert captured["download_root"] == str(tmp_path / "models")
+
+
+def test_transcribe_never_lazy_loads_on_request_path(monkeypatch):
+    """A grade request must not trigger the model load (a ~463MB download under the
+    model lock would wedge every server worker) — it answers honestly instead."""
+
+    class ExplodingModel:
+        def __init__(self, *a, **k):
+            raise AssertionError("request path must not construct the model")
+
+    import sys
+    import types
+
+    monkeypatch.setattr(stt, "_local_model", None)
+    monkeypatch.setattr(stt, "local_available", lambda: True)
+    monkeypatch.setattr(stt, "hosted_enabled", lambda: False)
+    # Neutralize the background warm the honest path kicks off, so the fake
+    # module can't be constructed off-thread mid-test either.
+    monkeypatch.setattr(stt, "prewarm_async", lambda: None)
+    fake_mod = types.ModuleType("faster_whisper")
+    fake_mod.WhisperModel = ExplodingModel
+    monkeypatch.setitem(sys.modules, "faster_whisper", fake_mod)
+    result = transcribe(b"RIFFxxxx", mime="audio/wav")
+    assert result.text == ""
+    assert result.error is not None and "warming up" in result.error
 
 
 def test_prewarm_async_loads_model_once(monkeypatch):

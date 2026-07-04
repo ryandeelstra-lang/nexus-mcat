@@ -123,6 +123,30 @@ export async function connectGarden(page: Page): Promise<void> {
     await page.goto("/garden", { waitUntil: "domcontentloaded" });
     await waitForBoot(page);
     await dismissIntro(page);
+    await dismissTour(page);
+}
+
+/**
+ * Keep the Garden Tour (the Keeper's first-entry concept walkthrough, sidecar-persisted —
+ * NOT localStorage like the intro) from blocking a spec: mark it done in the sidecar, and
+ * skip the overlay if this already-booted page auto-opened it. The e2e profile persists,
+ * so after the first-ever dismissal this is a single cheap GET per test. NOT called by
+ * resetGarden — the tour spec seeds `{ step, done: false }` there to test the real flow.
+ */
+export async function dismissTour(page: Page): Promise<void> {
+    const state = await gardenState(page, { op: "get" });
+    if (state?.tour?.done) {
+        return;
+    }
+    await gardenState(page, { op: "set", key: "tour", doc: { step: 0, done: true } });
+    const skip = page.locator(".garden-tour-skip");
+    try {
+        await skip.waitFor({ state: "visible", timeout: 4_000 });
+        await skip.click();
+        await expect(page.locator(".garden-tour")).not.toBeVisible();
+    } catch {
+        // the overlay never mounted on this page — the sidecar seed already covers reloads
+    }
 }
 
 export async function shot(page: Page, name: string): Promise<void> {
@@ -204,27 +228,26 @@ async function hudChip(page: Page, index: number): Promise<number> {
     return Number.parseInt(text.replace(/\D+/g, ""), 10);
 }
 
-/** 💧 is the first HUD chip, 🌱 the second (panels/Hud.tsx). */
+/** 💧 is the only HUD currency chip (panels/Hud.tsx; seeds removed 2026-07-03). */
 export async function hudWater(page: Page): Promise<number> {
     return hudChip(page, 0);
-}
-export async function hudSeeds(page: Page): Promise<number> {
-    return hudChip(page, 1);
 }
 
 /** Engine truth for one topic from the registry snapshot (masteryQuery + deckTree RPCs). */
 export async function masteryTopic(
     page: Page,
     nodeId: string,
-): Promise<{
-    nodeId: string;
-    label: string;
-    gradedReviews: number;
-    cardsWithState: number;
-    averageRecall: number;
-    dueCount: number;
-    newCount: number;
-} | null> {
+): Promise<
+    {
+        nodeId: string;
+        label: string;
+        gradedReviews: number;
+        cardsWithState: number;
+        averageRecall: number;
+        dueCount: number;
+        newCount: number;
+    } | null
+> {
     return await page.evaluate((id) => {
         const snap = (globalThis as unknown as Record<string, any>).__gardenGame
             .registry.get("masterySnapshot");

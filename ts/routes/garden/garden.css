@@ -1059,8 +1059,12 @@
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    justify-content: space-between;
+    gap: 14px;
+    /* Everything keeps LEFT: the glowing arrow coin overhangs the frame's bottom-right
+     * (absolute, 84px, always beckoning) and would sit on top of — and eat clicks meant
+     * for — anything laid out into that corner. */
+    justify-content: flex-start;
+    padding-right: 96px;
 }
 
 .tour-progress {

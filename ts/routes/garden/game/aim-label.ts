@@ -6,7 +6,7 @@
 // questions" is legible at the moment of pouring. Presentation-only; reads the
 // mastery snapshot, never writes. Full AAMC leaf labels run to 117 chars, so we
 // hand-author short names (≤ 24 chars) keyed by sidecar nodeId.
-import type { TopicMastery } from "../../state/mastery";
+import type { TopicMastery } from "../state/mastery";
 
 /** Sidecar leaf nodeId → short display name (≤ 24 chars). One per corpus leaf. */
 export const SHORT_CONCEPT_NAMES: Record<string, string> = {

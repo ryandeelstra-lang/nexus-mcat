@@ -5,7 +5,7 @@
 // text shown above the plot the watering can targets. Pure; no Phaser.
 import { describe, expect, it } from "vitest";
 
-import type { TopicMastery } from "../../state/mastery";
+import type { TopicMastery } from "../state/mastery";
 import { aimLabelText, SHORT_CONCEPT_NAMES, shortConceptName } from "./aim-label";
 
 import sidecarJson from "../../../lib/graph-sidecar.json" with { type: "json" };

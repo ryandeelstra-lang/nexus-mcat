@@ -1,0 +1,12 @@
+{
+  "primary_metric": "semantic-answer-correctness@heldout",
+  "primary_description": "Fraction of held-out gold questions each arm answers correctly, graded by the SAME LLM judge (ai/checker.py) into correct-and-useful / wrong / bad-teaching against the gold reference. Identical judge, identical held-out set, both arms. This is the fair primary comparison.",
+  "secondary_metric": "answer-match-accuracy@heldout",
+  "secondary_description": "Token-Jaccard >= match_threshold between predicted and gold answer. Reported for transparency; it under-measures correctness for terse gold answers (a correct full-sentence answer rarely shares >= 50% tokens with a two-word gold), so it is NOT the primary metric.",
+  "arms": ["bm25", "ai"],
+  "match_threshold": 0.5,
+  "bm25_tuned_on": "dev",
+  "committed": "2026-07-03T00:00:00-05:00",
+  "registered_in": "docs/05-DECISIONS.md#W2a-c4-metric",
+  "note": "AI wins under BOTH metrics; the semantic metric is primary because it measures answer correctness rather than surface token overlap."
+}

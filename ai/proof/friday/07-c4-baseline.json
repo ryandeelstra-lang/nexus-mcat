@@ -1,0 +1,12 @@
+{
+  "n": 56,
+  "winner_primary": "ai",
+  "semantic": {
+    "bm25_accuracy": 0.25,
+    "ai_accuracy": 0.9107
+  },
+  "lexical": {
+    "bm25_accuracy": 0.0,
+    "ai_accuracy": 0.125
+  }
+}

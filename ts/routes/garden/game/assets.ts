@@ -81,9 +81,29 @@ export function allAssetKeys(): string[] {
     return [...URL_BY_KEY.keys()];
 }
 
-export function stageTextureKey(stage: GrowthStage): string {
-    const idx = STAGE_ORDER.indexOf(stage);
-    return `plant-stage-${String(idx).padStart(2, "0")}-${stage}`;
+/**
+ * Texture key for a growth stage. With a region theme (e.g. "keukenhof") this
+ * prefers that region's own species art — tulips in Keukenhof, roses in
+ * Versailles, orchids in Gardens by the Bay, cherry in Sakura — and falls back
+ * to the global set whenever the themed sprite hasn't shipped.
+ */
+export function stageTextureKey(stage: GrowthStage, theme?: string): string {
+    const idx = String(STAGE_ORDER.indexOf(stage)).padStart(2, "0");
+    if (theme) {
+        const themed = `plant-${theme}-stage-${idx}-${stage}`;
+        if (URL_BY_KEY.has(themed)) {
+            return themed;
+        }
+    }
+    return `plant-stage-${idx}-${stage}`;
+}
+
+/** Reverse-parse the stage name out of any plant texture key (global or themed). */
+const STAGE_KEY_RE = /^plant(?:-[a-z0-9-]+)?-stage-\d{2}-(.+)$/;
+
+export function stageFromTextureKey(key: string): GrowthStage | null {
+    const m = STAGE_KEY_RE.exec(key);
+    return m ? (m[1] as GrowthStage) : null;
 }
 
 export function regionGrassKey(region: string, variant: number): string {
@@ -161,6 +181,46 @@ function drawPlantStage(g: Phaser.GameObjects.Graphics, stage: GrowthStage): voi
             g.fillStyle(0xffe066, 0.5);
             g.fillCircle(w / 2, h - 34, 14);
             break;
+        case "flourishing":
+            // A denser double ring of petals — visibly richer than "bloomed".
+            g.fillStyle(0x3d7a32, 1);
+            g.fillCircle(w / 2, h - 16, 9);
+            g.fillStyle(0xf9c5d5, 1);
+            for (let i = 0; i < 8; i++) {
+                const a = (i / 8) * Math.PI * 2 - Math.PI / 2;
+                g.fillCircle(w / 2 + Math.cos(a) * 11, h - 34 + Math.sin(a) * 11, 6);
+            }
+            g.fillStyle(0xfde4ec, 1);
+            for (let i = 0; i < 5; i++) {
+                const a = (i / 5) * Math.PI * 2 - Math.PI / 2;
+                g.fillCircle(w / 2 + Math.cos(a) * 5, h - 34 + Math.sin(a) * 5, 4);
+            }
+            g.fillStyle(0xffe066, 0.6);
+            g.fillCircle(w / 2, h - 34, 15);
+            break;
+        case "radiant":
+            // The pinnacle: flourishing plus a golden halo and sparkle dots.
+            g.fillStyle(0xffe066, 0.25);
+            g.fillCircle(w / 2, h - 32, 15);
+            g.fillStyle(0x3d7a32, 1);
+            g.fillCircle(w / 2, h - 16, 9);
+            g.fillStyle(0xf9c5d5, 1);
+            for (let i = 0; i < 8; i++) {
+                const a = (i / 8) * Math.PI * 2 - Math.PI / 2;
+                g.fillCircle(w / 2 + Math.cos(a) * 11, h - 33 + Math.sin(a) * 11, 6);
+            }
+            g.fillStyle(0xfff3f8, 1);
+            for (let i = 0; i < 5; i++) {
+                const a = (i / 5) * Math.PI * 2 - Math.PI / 2;
+                g.fillCircle(w / 2 + Math.cos(a) * 5, h - 33 + Math.sin(a) * 5, 4);
+            }
+            g.fillStyle(0xffe066, 0.9);
+            g.fillCircle(w / 2, h - 33, 3);
+            g.fillStyle(0xfffbe6, 1);
+            g.fillCircle(w / 2 - 12, h - 44, 1.5);
+            g.fillCircle(w / 2 + 13, h - 40, 1.5);
+            g.fillCircle(w / 2 + 2, h - 48, 1.5);
+            break;
         case "drooping":
             g.lineStyle(3, 0x4a8f3a, 1);
             g.beginPath();
@@ -193,9 +253,9 @@ function generatePlaceholder(scene: Phaser.Scene, key: string): void {
     }
     const g = scene.make.graphics({ x: 0, y: 0 }, false);
 
-    if (key.startsWith("plant-stage-")) {
-        const stage = key.replace(/^plant-stage-\d{2}-/, "") as GrowthStage;
-        drawPlantStage(g, stage);
+    const placeholderStage = stageFromTextureKey(key);
+    if (placeholderStage) {
+        drawPlantStage(g, placeholderStage);
         g.generateTexture(key, 32, 48);
         g.destroy();
         generated.add(key);
@@ -402,14 +462,17 @@ export function ensureTexture(scene: Phaser.Scene, key: string): string {
 }
 
 /** Per-stage display heights in tiles (art is aspect-preserved, so wide flat
- * stages like bare soil must not be as tall as the bloomed plant). */
-const STAGE_HEIGHT_TILES: Record<string, number> = {
+ * stages like bare soil must not be as tall as the bloomed plant). Typed over
+ * GrowthStage so a new stage cannot silently fall back to the generic height. */
+const STAGE_HEIGHT_TILES: Record<GrowthStage, number> = {
     "bare-soil": 0.85,
     "sprout": 0.9,
     "seedling": 1.1,
     "growing": 1.35,
     "budding": 1.4,
     "bloomed": 1.65,
+    "flourishing": 1.85,
+    "radiant": 2.1,
     "drooping": 1.1,
     "weedy": 1.4,
 };
@@ -450,11 +513,11 @@ export function sizeToHeightTiles(
 /** Apply canonical display size for a sprite key. */
 export function applyDisplaySize(sprite: Phaser.GameObjects.Image | Phaser.GameObjects.Sprite): void {
     const key = sprite.texture.key;
-    if (key.startsWith("plant-stage-")) {
-        const stage = key.replace(/^plant-stage-\d{2}-/, "");
+    const sizeStage = stageFromTextureKey(key);
+    if (sizeStage) {
         sizeToHeightTiles(
             sprite,
-            STAGE_HEIGHT_TILES[stage] ?? DISPLAY.plantHeight / DISPLAY.tile,
+            STAGE_HEIGHT_TILES[sizeStage] ?? DISPLAY.plantHeight / DISPLAY.tile,
         );
     } else if (key.startsWith("gardener-")) {
         sprite.setDisplaySize(32, DISPLAY.avatarHeight);
@@ -483,6 +546,24 @@ export function ensureAllStageTextures(scene: Phaser.Scene): void {
     ensureTexture(scene, "gardener-idle-side-b");
     ensureTexture(scene, "gardener-walk-down-a");
     ensureTexture(scene, "gardener-walk-down-b");
+    ensureTexture(scene, "gardener-walk-down-c");
+    ensureTexture(scene, "gardener-walk-down-d");
+    ensureTexture(scene, "gardener-walk-up-a");
+    ensureTexture(scene, "gardener-walk-up-b");
+    ensureTexture(scene, "gardener-walk-up-c");
+    ensureTexture(scene, "gardener-walk-up-d");
+    ensureTexture(scene, "gardener-walk-side-a");
+    ensureTexture(scene, "gardener-walk-side-b");
+    ensureTexture(scene, "gardener-walk-side-c");
+    ensureTexture(scene, "gardener-walk-side-d");
+    ensureTexture(scene, "gardener-walk-downleft-a");
+    ensureTexture(scene, "gardener-walk-downleft-b");
+    ensureTexture(scene, "gardener-walk-downleft-c");
+    ensureTexture(scene, "gardener-walk-downleft-d");
+    ensureTexture(scene, "gardener-walk-upleft-a");
+    ensureTexture(scene, "gardener-walk-upleft-b");
+    ensureTexture(scene, "gardener-walk-upleft-c");
+    ensureTexture(scene, "gardener-walk-upleft-d");
     ensureTexture(scene, "fx-droplet");
     ensureTexture(scene, "keeper-meditating");
     ensureTexture(scene, "gate-closed");

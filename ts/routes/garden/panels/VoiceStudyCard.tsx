@@ -18,13 +18,15 @@ import { assetUrl } from "../game/assets";
 import { buildCardSrcdoc, nodesToHtml } from "./card-render";
 import { KeeperDialogue } from "./KeeperDialogue";
 import { StudyCard } from "./StudyCard";
+import { useLiveTranscript } from "./use-live-transcript";
 import {
     composeKeeperReply,
     pickOpener,
     useTalkingReveal,
     verdictFor,
+    WORD_BASE_MS,
+    wordsOf,
 } from "./use-talking-reveal";
-import { useLiveTranscript } from "./use-live-transcript";
 import { useVoiceReview } from "./use-voice-review";
 import type { VoiceBucket, VoiceGradeResult } from "./voice-api";
 import { micSupported } from "./voice-capture";
@@ -170,11 +172,15 @@ export function VoiceStudyCard(props: VoiceStudyCardProps): React.ReactElement {
     const keeperLine = state.rePrompt?.keeperLine ?? state.card?.keeperLine ?? "";
     const counts = state.card?.counts ?? { new: 0, learning: 0, review: 0 };
 
-    // The ask talks out word by word (~70ms, jittered). A re-prompt re-asks the same line,
-    // so the reset key includes the phase flavor. Declared before the classic-fallback early
-    // return so hook order never changes.
+    // The ask talks out word by word (~70ms, jittered), but a long MCAT ask must not
+    // gate the player for 3s+ — the cadence compresses so any ask lands within ~1.8s
+    // while short asks keep the full villager feel. A re-prompt re-asks the same line,
+    // so the reset key includes the phase flavor. Declared before the classic-fallback
+    // early return so hook order never changes.
+    const askWordCount = wordsOf(keeperLine).length;
     const askReveal = useTalkingReveal(keeperLine, {
         resetKey: `${state.card?.cardId ?? "none"}:${state.phase === "rePrompt" ? "re" : "ask"}`,
+        baseMs: Math.min(WORD_BASE_MS, Math.max(28, Math.round(1800 / Math.max(1, askWordCount)))),
     });
 
     // The Keeper's reply: the opener starts crawling the INSTANT a submission begins
@@ -190,9 +196,13 @@ export function VoiceStudyCard(props: VoiceStudyCardProps): React.ReactElement {
             verdictHeadline: verdictFor(state.result.bucket).headline,
         })
         : opener;
+    // Replies run 2-3x longer than asks — a touch brisker so the verdict lands while
+    // the moment is still warm (the details tray + Continue are never gated on this).
     const replyReveal = useTalkingReveal(replying ? replyText : "", {
         final: state.phase === "result",
         resetKey: replySeed,
+        baseMs: 55,
+        jitterMs: 25,
     });
 
     // Speak = record for the real server grade AND show display-only live captions (never sent).
@@ -226,10 +236,26 @@ export function VoiceStudyCard(props: VoiceStudyCardProps): React.ReactElement {
         if (!text.trim()) {
             return;
         }
-        setTyped("");
+        // Keep the text until the grade actually lands — a timeout/mic-error path hands
+        // the turn back, and the player must not have to retype from scratch.
         setBeat((b) => b + 1);
         await review.submitTyped(text);
     }, [typed, review]);
+
+    // Clear the typed draft only once the attempt truly resolved.
+    useEffect(() => {
+        if (state.phase === "result" || state.phase === "rePrompt") {
+            setTyped("");
+        }
+    }, [state.phase]);
+
+    // A re-prompt re-asks a line the player JUST heard — land it instantly and let the
+    // hint be the news. (The crawl is for new words only.)
+    useEffect(() => {
+        if (state.phase === "rePrompt") {
+            askRevealRef.current.finish();
+        }
+    }, [state.phase]);
 
     const sayIdk = useCallback(async (): Promise<void> => {
         setBeat((b) => b + 1);
@@ -244,10 +270,22 @@ export function VoiceStudyCard(props: VoiceStudyCardProps): React.ReactElement {
                 onClose();
                 return;
             }
+            const target = e.target as HTMLElement | null;
             const inField = e.target === typedRef.current;
+            // A focused control keeps its own keys (Space/Enter must ACTIVATE the focused
+            // appeal/IDK/close button, not hijack into mic-start or advance).
+            if (
+                !inField && target
+                && target.closest("button, input, textarea, select, a, [role='button']")
+            ) {
+                return;
+            }
             if (e.key === " " && !inField) {
                 e.preventDefault();
-                if (state.phase === "listening") {
+                if (asking && !askRevealRef.current.done) {
+                    // First press lands the whole ask — the crawl is decoration, never a gate.
+                    askRevealRef.current.finish();
+                } else if (state.phase === "listening") {
                     stopSpeakingRef.current();
                 } else if (answerable && canMic) {
                     startSpeakingRef.current();
@@ -262,6 +300,9 @@ export function VoiceStudyCard(props: VoiceStudyCardProps): React.ReactElement {
                 if (inField && answerable) {
                     e.preventDefault();
                     void submitTyped();
+                } else if (asking && !askRevealRef.current.done) {
+                    e.preventDefault();
+                    askRevealRef.current.finish();
                 } else if (state.phase === "result") {
                     e.preventDefault();
                     if (!replyRevealRef.current.done) {
@@ -274,7 +315,7 @@ export function VoiceStudyCard(props: VoiceStudyCardProps): React.ReactElement {
         }
         window.addEventListener("keydown", onKeydown);
         return () => window.removeEventListener("keydown", onKeydown);
-    }, [state.phase, answerable, canMic, review, submitTyped, onClose]);
+    }, [state.phase, asking, answerable, canMic, review, submitTyped, onClose]);
 
     // Escape hatch: the server said voice is off -> the classic reveal/1-4 reviewer.
     if (state.phase === "classic") {
@@ -312,13 +353,30 @@ export function VoiceStudyCard(props: VoiceStudyCardProps): React.ReactElement {
     const listening = state.phase === "listening";
 
     return (
-        <div className="keeper-panel keeper-panel-dialogue" role="dialog" aria-label="The Keeper's questions">
+        <div className="keeper-panel keeper-panel-dialogue">
+            {
+                /* ONE persistent live region: aria-live only announces mutations inside an
+              * existing node, so this must never conditionally mount. It mirrors the ask
+              * and the full graded reply (the visible word-crawl is aria-hidden). */
+            }
+            <p className="sr-only" role="status" aria-live="polite">
+                {state.phase === "result" ? replyText : keeperLine}
+            </p>
             <div className="keeper-panel-header">
                 <span className="keeper-context">{contextLabel ?? "Today's tending"}</span>
-                <span className="keeper-counts" aria-label="cards remaining">
-                    <span className="count-new">{counts.new}</span>
-                    <span className="count-learning">{counts.learning}</span>
-                    <span className="count-review">{counts.review}</span>
+                <span className="keeper-counts">
+                    <span className="count-new" title="new">
+                        <span className="sr-only">new{" "}</span>
+                        {counts.new}
+                    </span>
+                    <span className="count-learning" title="learning">
+                        <span className="sr-only">learning{" "}</span>
+                        {counts.learning}
+                    </span>
+                    <span className="count-review" title="to review">
+                        <span className="sr-only">to review{" "}</span>
+                        {counts.review}
+                    </span>
                 </span>
                 <button className="keeper-close" onClick={onClose} aria-label="Close">
                     ✕
@@ -352,29 +410,49 @@ export function VoiceStudyCard(props: VoiceStudyCardProps): React.ReactElement {
 
                         <div className="voice-answer-stage">
                             {canMic && (
-                                <button
-                                    className={`voice-mic-coin${listening ? " voice-mic-coin-live" : ""}`}
-                                    style={micArt ? { backgroundImage: `url("${micArt}")` } : undefined}
-                                    onClick={() =>
-                                        listening
-                                            ? stopSpeakingRef.current()
-                                            : startSpeakingRef.current()}
-                                    disabled={!answerable && !listening}
-                                    aria-label={listening
-                                        ? "Done — the Keeper will consider it"
-                                        : "Speak your answer"}
-                                >
-                                    {listening && <span className="voice-mic-stop" aria-hidden="true">◼</span>}
-                                </button>
-                            )}
-                            {canMic && (
-                                <span className="voice-mic-label" aria-hidden="true">
-                                    {listening ? <>done — <kbd>Space</kbd></> : <>speak — <kbd>Space</kbd></>}
+                                <span className="voice-mic-stack">
+                                    <button
+                                        className={`voice-mic-coin${listening ? " voice-mic-coin-live" : ""}`}
+                                        style={micArt ? { backgroundImage: `url("${micArt}")` } : undefined}
+                                        onClick={() =>
+                                            listening
+                                                ? stopSpeakingRef.current()
+                                                : startSpeakingRef.current()}
+                                        disabled={!answerable && !listening}
+                                        aria-label={listening
+                                            ? "Done — the Keeper will consider it"
+                                            : "Speak your answer"}
+                                        aria-keyshortcuts="Space"
+                                    >
+                                        {
+                                            /* Fallback glyph: the primary answer control must
+                                          * never be an invisible 96px square if the coin
+                                          * art fails to resolve. */
+                                        }
+                                        {!micArt && <span aria-hidden="true" style={{ fontSize: 40 }}>🎤</span>}
+                                        {listening && <span className="voice-mic-stop" aria-hidden="true">◼</span>}
+                                    </button>
+                                    <span className="voice-mic-label" aria-hidden="true">
+                                        {listening
+                                            ? (
+                                                <>
+                                                    done — <kbd>Space</kbd>
+                                                </>
+                                            )
+                                            : (
+                                                <>
+                                                    speak — <kbd>Space</kbd>
+                                                </>
+                                            )}
+                                    </span>
                                 </span>
                             )}
 
                             {listening && (
-                                <div className="voice-player-line" role="status">
+                                /* Display-only captions: aria-hidden, or a screen reader
+                                 * narrates the player's own half-recognized words back
+                                 * over them while they speak. */
+                                <div className="voice-player-line" aria-hidden="true">
                                     <span className="voice-player-name">You</span>
                                     {live.supported && live.display
                                         ? (
@@ -385,7 +463,11 @@ export function VoiceStudyCard(props: VoiceStudyCardProps): React.ReactElement {
                                         )
                                         : (
                                             <p className="voice-live-pulse">
-                                                listening<span className="keeper-typing-dots"><span /><span /><span /></span>
+                                                listening<span className="keeper-typing-dots">
+                                                    <span />
+                                                    <span />
+                                                    <span />
+                                                </span>
                                             </p>
                                         )}
                                     {live.supported && live.display && (
@@ -463,12 +545,20 @@ export function VoiceStudyCard(props: VoiceStudyCardProps): React.ReactElement {
                     showCaret={!replyReveal.done && !replyReveal.waiting}
                     dots={replyReveal.waiting}
                     onBodyClick={replyReveal.finish}
-                    onContinue={state.phase === "result" && replyReveal.done
-                        ? () => void review.advance()
+                    onContinue={state.phase === "result"
+                        ? () => {
+                            // Input is never gated on the crawl: first press lands the
+                            // words, the next one advances.
+                            if (!replyReveal.done) {
+                                replyReveal.finish();
+                            } else {
+                                void review.advance();
+                            }
+                        }
                         : undefined}
                     continueLabel="Continue — Enter"
                 >
-                    {state.phase === "result" && state.result && replyReveal.done && (
+                    {state.phase === "result" && state.result && (
                         <div className="voice-result-details" aria-live="polite">
                             <p className="voice-flavor">
                                 <span className="voice-beat-icon" aria-hidden="true">
@@ -478,9 +568,15 @@ export function VoiceStudyCard(props: VoiceStudyCardProps): React.ReactElement {
                                 {state.result.recovered && <span className="voice-recovered-tag">recovered</span>}
                                 {state.result.bloomed && <span className="voice-bloom-tag">bloom ✿</span>}
                             </p>
-                            <p className="voice-transcript">
-                                You said: “{state.result.transcript}”
-                            </p>
+                            {
+                                /* An honest "I don't know" has no transcript — don't taunt with
+                              * an empty quote, a 0% match, or an appeal to words never said. */
+                            }
+                            {state.result.transcript.trim() !== "" && (
+                                <p className="voice-transcript">
+                                    You said: “{state.result.transcript}”
+                                </p>
+                            )}
                             {state.result.keyPointsHit.length > 0 && (
                                 <p className="voice-points-hit">
                                     ✓ {state.result.keyPointsHit.join(" · ")}
@@ -491,24 +587,32 @@ export function VoiceStudyCard(props: VoiceStudyCardProps): React.ReactElement {
                                     ✗ {state.result.keyPointsMissed.join(" · ")}
                                 </p>
                             )}
-                            <p className="voice-score">match {Math.round(state.result.score)}%</p>
+                            {state.result.transcript.trim() !== "" && (
+                                <p className="voice-score">match {Math.round(state.result.score)}%</p>
+                            )}
                             {state.result.sentinel && (
                                 <p className="voice-sentinel" role="note">
                                     {state.result.sentinel}
                                 </p>
                             )}
-                            <button
-                                className="voice-appeal"
-                                onClick={() => review.appeal()}
-                            >
-                                That's not what I said
-                            </button>
+                            {state.result.transcript.trim() !== "" && (
+                                <button
+                                    className="voice-appeal"
+                                    onClick={() => review.appeal()}
+                                >
+                                    That's not what I said
+                                </button>
+                            )}
                         </div>
                     )}
                 </KeeperDialogue>
             )}
 
-            {state.phase === "loading" && <div className="keeper-status">…</div>}
+            {
+                /* Between cards the frame STAYS — the Keeper pausing for the next question,
+              * not the whole stage blinking out into a bare "…" sliver. */
+            }
+            {state.phase === "loading" && <KeeperDialogue portraitSrc={portraitSrc} body="" dots srText="" />}
             {state.phase === "empty" && (
                 <div className="keeper-status">
                     All caught up here. The garden grows while you rest.

@@ -80,16 +80,23 @@ export function moveWithSlide(
     let cy = y;
     let xBlocked = sx === 0;
     let yBlocked = sy === 0;
+    // ESCAPE RULE (2026-07-03 QA): a sub-step is refused only when it would take FREE feet
+    // into a collision. Feet that are ALREADY overlapping something (a regression or a bad
+    // teleport landed us inside geometry) may always move — walking any direction carries you
+    // out instead of trapping you forever, and the moment the current spot is clear, normal
+    // blocking resumes. Trade-off: while embedded you could cross other solids on the way out;
+    // acceptable because the embedded state itself is only reachable through a bug, and the
+    // alternative (a permanent softlock) is strictly worse.
     for (let i = 0; i < steps && (!xBlocked || !yBlocked); i++) {
         if (!xBlocked) {
-            if (blocked(cx + sx, cy)) {
+            if (blocked(cx + sx, cy) && !blocked(cx, cy)) {
                 xBlocked = true;
             } else {
                 cx += sx;
             }
         }
         if (!yBlocked) {
-            if (blocked(cx, cy + sy)) {
+            if (blocked(cx, cy + sy) && !blocked(cx, cy)) {
                 yBlocked = true;
             } else {
                 cy += sy;
@@ -97,4 +104,21 @@ export function moveWithSlide(
         }
     }
     return { x: cx, y: cy };
+}
+
+/**
+ * First candidate the probe reports open, or null when every candidate is blocked.
+ * Teleports should then stay put — forcing a landing inside geometry (or outside the
+ * world rim) is how softlocks are born.
+ */
+export function firstOpenSpot(
+    candidates: ReadonlyArray<{ x: number; y: number }>,
+    blocked: (x: number, y: number) => boolean,
+): { x: number; y: number } | null {
+    for (const c of candidates) {
+        if (!blocked(c.x, c.y)) {
+            return c;
+        }
+    }
+    return null;
 }

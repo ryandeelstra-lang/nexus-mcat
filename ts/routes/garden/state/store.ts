@@ -24,12 +24,52 @@ export interface TutorialState {
     done: boolean;
 }
 
+/** The Garden Tour (first-entry concept walkthrough, state/tour.ts) — resumable cursor. */
+export interface TourState {
+    step: number;
+    done: boolean;
+}
+
+/** What the master learns before the questions start (all optional — honest nulls). */
+export interface PlacementIntake {
+    /** ISO YYYY-MM-DD exam date, or null while unbooked. */
+    examDateIso: string | null;
+    targetScore: number | null;
+    minutesPerDay: number | null;
+}
+
+/** The one-time placement test with the master; `done` gates the island fog. */
+export interface PlacementState {
+    done: boolean;
+    answered: number;
+    knew: number;
+    /** Per-section sample: section -> { asked, knew }. */
+    tally: Record<string, { asked: number; knew: number }>;
+    intake: PlacementIntake;
+    completedAtMs: number | null;
+}
+
+export function emptyPlacement(): PlacementState {
+    return {
+        done: false,
+        answered: 0,
+        knew: 0,
+        tally: {},
+        intake: { examDateIso: null, targetScore: null, minutesPerDay: null },
+        completedAtMs: null,
+    };
+}
+
 export interface GardenDoc {
     economy: Balances;
     pending: PendingEntry[];
     /** nodeId -> paraphrase-pass timestamp (mirrors the sidecar variant-pass truth). */
     paraphrase: Record<string, number>;
     tutorial: TutorialState;
+    /** The Keeper's concept tour (2026-07-03): plays once before the action tutorial. */
+    tour: TourState;
+    /** The master's placement test (2026-07-03): done lifts the island fog forever. */
+    placement: PlacementState;
     /** `sectors` = garden sections unlocked by passing their full MCAT test (2026-07-03). */
     unlocks: { waystones: string[]; sectors: string[] };
     settings: { muted: boolean; volume: number };
@@ -43,6 +83,8 @@ export function emptyDoc(): GardenDoc {
         pending: [],
         paraphrase: {},
         tutorial: { beat: 0, done: false },
+        tour: { step: 0, done: false },
+        placement: emptyPlacement(),
         unlocks: { waystones: [], sectors: [] },
         settings: { muted: false, volume: 0.7 },
         flora: {},
@@ -87,6 +129,8 @@ export const httpTransport: BridgeTransport = {
 export class GardenStore {
     private doc: GardenDoc = emptyDoc();
     private transport: BridgeTransport;
+    /** Write-through chain for the tour key — see setTour for why it is serialized. */
+    private tourWrites: Promise<void> = Promise.resolve();
 
     constructor(transport: BridgeTransport = httpTransport) {
         this.transport = transport;
@@ -96,10 +140,24 @@ export class GardenStore {
         const persisted = await this.transport.get();
         const base = emptyDoc();
         this.doc = {
-            economy: { ...base.economy, ...(persisted.economy ?? {}) },
+            // Picked field-by-field (not spread) so stale keys in old saved docs —
+            // e.g. the removed "seeds" balance — are shed on the next write-through.
+            economy: {
+                water: persisted.economy?.water ?? base.economy.water,
+                xp: persisted.economy?.xp ?? base.economy.xp,
+            },
             pending: persisted.pending ?? [],
             paraphrase: persisted.paraphrase ?? {},
             tutorial: { ...base.tutorial, ...(persisted.tutorial ?? {}) },
+            tour: { ...base.tour, ...(persisted.tour ?? {}) },
+            placement: {
+                ...base.placement,
+                ...(persisted.placement ?? {}),
+                intake: {
+                    ...base.placement.intake,
+                    ...(persisted.placement?.intake ?? {}),
+                },
+            },
             unlocks: {
                 waystones: persisted.unlocks?.waystones ?? [],
                 sectors: persisted.unlocks?.sectors ?? [],
@@ -158,6 +216,21 @@ export class GardenStore {
     setTutorial(t: TutorialState): void {
         this.doc = { ...this.doc, tutorial: t };
         void this.transport.set("tutorial", t);
+    }
+
+    setTour(t: TourState): void {
+        this.doc = { ...this.doc, tour: t };
+        // Serialized (unlike the other fire-and-forget keys): the tour writes this key on
+        // every advance AND again on skip/finish milliseconds later — two racing POSTs
+        // could land out of order and un-finish a finished tour on the next boot.
+        this.tourWrites = this.tourWrites
+            .then(() => this.transport.set("tour", t))
+            .catch(() => undefined);
+    }
+
+    setPlacement(p: PlacementState): void {
+        this.doc = { ...this.doc, placement: p };
+        void this.transport.set("placement", p);
     }
 
     setSettings(s: GardenDoc["settings"]): void {

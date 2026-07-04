@@ -4,14 +4,15 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { CardAnswer_Rating } from "@generated/anki/scheduler_pb";
 
 import { bus } from "../state/bus";
-import { onBloom, onGradedAnswer } from "../state/economy";
+import { onGradedAnswer } from "../state/economy";
 import type { MasterySnapshot } from "../state/mastery";
 import { stageFor } from "../state/stage";
 import type { GardenStore } from "../state/store";
 import { activeWeeds, planDelivery, recordWeed, type WeedCause } from "./keeper-logic";
 import { ProveIt, type ProveItTopic } from "./ProveIt";
 import { scopeToDeck } from "./rpc";
-import { isFastAnswer, StudyCard } from "./StudyCard";
+import { isFastAnswer } from "./StudyCard";
+import { VoiceStudyCard } from "./VoiceStudyCard";
 
 export interface KeeperSessionSummary {
     answered: number;
@@ -75,6 +76,22 @@ export function KeeperPanel(props: KeeperPanelProps): React.ReactElement {
         onClose(summary);
         bus.emit("review:closed", { answered: summary.answered, blooms: summary.blooms });
     }
+
+    // Escape closes the session from EVERY panel state — the empty/scoping/prove-it
+    // beats have no VoiceStudyCard mounted, so its own Escape handler can't cover them.
+    // closeSession is idempotent (closed ref), so overlapping listeners are safe.
+    useEffect(() => {
+        function onKeydown(e: KeyboardEvent): void {
+            if (e.key === "Escape") {
+                closeSession();
+            }
+        }
+        window.addEventListener("keydown", onKeydown);
+        return () => window.removeEventListener("keydown", onKeydown);
+        // closeSession is a stable-by-ref plain function on each render; the listener
+        // re-binds only when the session identity changes.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     async function beginParaphraseBeat(): Promise<void> {
         await refreshSnapshot().catch(() => undefined);
@@ -189,7 +206,7 @@ export function KeeperPanel(props: KeeperPanelProps): React.ReactElement {
                         </div>
                     )}
                     {!scoping && !scopeError && (
-                        <StudyCard
+                        <VoiceStudyCard
                             scopeKey={scopeKey}
                             contextLabel={`Tending: ${current.label} — ${current.why}`}
                             onClose={closeSession}
@@ -254,7 +271,6 @@ export function KeeperPanel(props: KeeperPanelProps): React.ReactElement {
                         onResolved={(result) => {
                             if (result.passed) {
                                 store.recordParaphrasePass(result.nodeId);
-                                store.setBalances(onBloom(store.snapshot.economy));
                                 blooms.current += 1;
                                 bus.emit("plant:bloomed", { nodeId: result.nodeId });
                                 setCoaching("");

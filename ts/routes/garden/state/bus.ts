@@ -5,6 +5,8 @@
 // (doc 23 §12.3 "pass events between React and the engine via an event emitter").
 // Keep this surface tiny and typed; anything not expressible here is a design smell.
 
+import type { DepthStats } from "./depth-stats";
+
 export interface GardenEvents {
     /** The player walked up to a plant and pressed interact. */
     "plant:interact": { nodeId: string };
@@ -43,17 +45,19 @@ export interface GardenEvents {
     /** The player walked up to a landmark/prop and pressed interact — a Keeper-voiced flavor
      *  line tied to the geography (the "items interact with each character" beat). */
     "world:flavor": { title: string; line: string };
-    /** The player approached a LOCKED garden's trial stone — open the full-MCAT-test panel
-     *  (placeholder until the real tests are uploaded, 2026-07-03). */
-    "sector:trial": { section: string };
-    /** A garden was unlocked (test passed / placeholder) — the world drops its veil. */
-    "sector:unlocked": { section: string };
     /** The review panel closed (session end) — the world may run the harvest beat. */
     "review:closed": { answered: number; blooms: number };
     /** Open/close the map overlay. */
     "map:toggle": Record<string, never>;
     /** Teleport the avatar to a waystone. */
     "map:travel": { waystoneId: string };
+    /** Teleport the avatar to a clicked map tile (map-first "drop in", doc 23 §6.4).
+     *  The world validates the landing — open GRASS only, never water/path/plaza, never
+     *  a solid base box — and ignores invalid requests. */
+    "map:teleport": { tileX: number; tileY: number };
+    /** The map scene reports open/close (it also closes itself on Esc) so the
+     *  panel layer can yield bottom-of-screen UI (e.g. the walk hint). */
+    "map:visible": { open: boolean };
     /** Mastery snapshot refreshed — world should restage plants. */
     "mastery:refreshed": Record<string, never>;
     /** The avatar crossed into a garden region — cosmetic layers (sky, music) may react.
@@ -62,6 +66,23 @@ export interface GardenEvents {
     "region:entered": { region: string };
     /** Tutorial scripting: focus the camera / show a beat marker. */
     "tutorial:beat": { beat: string };
+    /** The master's 20-question placement test finished — the world lifts the island fog
+     *  (one-time onboarding shroud) and the app refreshes engine truth (the answers were
+     *  real first reviews). */
+    "placement:completed": { answered: number; knew: number };
+    /** ONE derived signal: some panel/overlay/flavor line covers the world. The world
+     *  gates hotkeys + Phaser key-capture on it (never pair open/close events — a
+     *  swapped overlay skips the close event and softlocks the world). */
+    "ui:overlay": { open: boolean };
+    /** Replay the first-run cinematic (from the help panel). */
+    "intro:replay": Record<string, never>;
+    /** Super Depth Analysis: teleport to the Overlook with a freshly assembled stats
+     *  snapshot (the panel layer owns the fetch; the world owns the island). */
+    "island:enter": { stats: DepthStats };
+    /** Leave the Overlook — land back where you stood (validated, anti-softlock). */
+    "island:exit": Record<string, never>;
+    /** The world reports Overlook presence so the HUD can flip Depth ↔ Garden. */
+    "island:state": { on: boolean };
 }
 
 type Handler<T> = (payload: T) => void;

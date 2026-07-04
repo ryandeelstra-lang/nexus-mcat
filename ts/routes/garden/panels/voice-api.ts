@@ -63,12 +63,34 @@ export function toClientRating(serverRating: number): number {
     return Math.max(0, Math.min(3, serverRating - 1));
 }
 
-async function postJson(path: string, body: unknown): Promise<Record<string, unknown>> {
-    const resp = await fetch(path, {
-        method: "POST",
-        headers: { "Content-Type": "application/binary" },
-        body: JSON.stringify(body ?? {}),
-    });
+/** Thrown when the server does not answer in time — callers recover to the prompt
+ * instead of a terminal error (the Keeper must never hang on "…" forever). */
+export class VoiceTimeoutError extends Error {
+    constructor(path: string) {
+        super(`${path}: timed out`);
+        this.name = "VoiceTimeoutError";
+    }
+}
+
+async function postJson(
+    path: string,
+    body: unknown,
+    timeoutMs = 15_000,
+): Promise<Record<string, unknown>> {
+    let resp: Response;
+    try {
+        resp = await fetch(path, {
+            method: "POST",
+            headers: { "Content-Type": "application/binary" },
+            body: JSON.stringify(body ?? {}),
+            signal: AbortSignal.timeout(timeoutMs),
+        });
+    } catch (err) {
+        if (err instanceof DOMException && (err.name === "TimeoutError" || err.name === "AbortError")) {
+            throw new VoiceTimeoutError(path);
+        }
+        throw err;
+    }
     if (!resp.ok) {
         throw new Error(`${path} failed: ${resp.status}`);
     }
@@ -132,6 +154,8 @@ export async function gradeVoiceAnswer(req: {
     audioBase64?: string;
     audioMime?: string;
 }): Promise<VoiceGradeOutcome> {
+    // Audio grades ride through STT — allow real transcription time; text/idk are quick.
+    const timeoutMs = req.audioBase64 ? 30_000 : 15_000;
     const p = await postJson("/_anki/audioReviewGrade", {
         cardId: req.cardId,
         idk: Boolean(req.idk),
@@ -139,7 +163,7 @@ export async function gradeVoiceAnswer(req: {
         transcript: req.transcript,
         audioBase64: req.audioBase64,
         audioMime: req.audioMime,
-    });
+    }, timeoutMs);
     if (!p.available) {
         return { kind: "error", message: "voice review unavailable" };
     }

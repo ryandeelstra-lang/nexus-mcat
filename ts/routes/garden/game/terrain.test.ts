@@ -4,7 +4,7 @@
 // charged_up: terrain determinism + decor invariants (never on water/trail/plaza).
 import { describe, expect, it } from "vitest";
 
-import { buildTerrainModel, planDecor, plazaField, sampleDT } from "./terrain";
+import { buildTerrainModel, planDecor, plazaField, sampleDT, terrainKindAt } from "./terrain";
 import { buildWorldPlan, KEEPER_TILE, TILE_SIZE } from "./worldgen";
 
 const plan = buildWorldPlan();
@@ -85,5 +85,73 @@ describe("plazaField", () => {
             plazaField((KEEPER_TILE.tileX + 0.5) * TILE_SIZE, (KEEPER_TILE.tileY + 0.5) * TILE_SIZE),
         ).toBeLessThan(1);
         expect(plazaField(5 * TILE_SIZE, 5 * TILE_SIZE)).toBeGreaterThan(1);
+    });
+});
+
+describe("terrainKindAt (map click-to-teleport ground probe)", () => {
+    const model = buildTerrainModel(plan);
+    const center = (t: { tileX: number; tileY: number }): [number, number] => [
+        (t.tileX + 0.5) * TILE_SIZE,
+        (t.tileY + 0.5) * TILE_SIZE,
+    ];
+
+    it("is deterministic", () => {
+        for (let ty = 0; ty < plan.heightTiles; ty += 3) {
+            for (let tx = 0; tx < plan.widthTiles; tx += 3) {
+                const [px, py] = center({ tileX: tx, tileY: ty });
+                expect(terrainKindAt(model, px, py)).toBe(terrainKindAt(model, px, py));
+            }
+        }
+    });
+
+    it("classifies the keeper plaza as plaza, never grass", () => {
+        const [px, py] = center(KEEPER_TILE);
+        expect(terrainKindAt(model, px, py)).toBe("plaza");
+    });
+
+    it("classifies water-tile centers as water/shore (never a teleport target)", () => {
+        for (const r of plan.regions) {
+            // Interior water reads "water"; a 1-tile strip may read "shore" at its center.
+            for (const w of r.waterTiles.slice(0, 8)) {
+                const [px, py] = center(w);
+                expect(["water", "shore"]).toContain(terrainKindAt(model, px, py));
+            }
+        }
+    });
+
+    it("classifies trail-tile centers as path (walk, don't drop)", () => {
+        for (const r of plan.regions) {
+            let pathHits = 0;
+            let probes = 0;
+            for (const t of r.trailTiles) {
+                const [px, py] = center(t);
+                const kind = terrainKindAt(model, px, py);
+                if (kind === "water" || kind === "shore" || kind === "plaza") {
+                    continue; // fords + plaza-adjacent trail tiles legitimately read wet/sand
+                }
+                probes++;
+                if (kind === "path") {
+                    pathHits++;
+                }
+            }
+            // The painted path wobbles (noise width), so demand a strong majority, not 100%.
+            expect(probes).toBeGreaterThan(0);
+            expect(pathHits / probes).toBeGreaterThan(0.8);
+        }
+    });
+
+    it("every region offers plenty of open grass to drop into", () => {
+        for (const r of plan.regions) {
+            let grass = 0;
+            for (let ty = r.rect.y; ty < r.rect.y + r.rect.h; ty++) {
+                for (let tx = r.rect.x; tx < r.rect.x + r.rect.w; tx++) {
+                    const [px, py] = center({ tileX: tx, tileY: ty });
+                    if (terrainKindAt(model, px, py) === "grass") {
+                        grass++;
+                    }
+                }
+            }
+            expect(grass, `${r.section} grass tiles`).toBeGreaterThan(20);
+        }
     });
 });

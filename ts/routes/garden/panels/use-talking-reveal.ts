@@ -167,10 +167,13 @@ export function useTalkingReveal(text: string, opts?: TalkingRevealOpts): Talkin
     const words = wordsOf(text);
     const total = words.length;
 
-    // A new beat starts from silence.
-    useEffect(() => {
+    // A new beat starts from silence. Reset synchronously during render (the sanctioned
+    // derived-state pattern) so the new text can never flash at the old word count.
+    const [prevKey, setPrevKey] = useState(resetKey);
+    if (prevKey !== resetKey) {
+        setPrevKey(resetKey);
         setCount(0);
-    }, [resetKey]);
+    }
 
     useEffect(() => {
         if (timer.current) {
@@ -196,8 +199,7 @@ export function useTalkingReveal(text: string, opts?: TalkingRevealOpts): Talkin
                 timer.current = null;
             }
         };
-        // `text` stands in for `words` (fresh array each render).
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // `text` stands in for `words` (a fresh array each render).
     }, [count, total, text, baseMs, jitterMs]);
 
     return {

@@ -3,58 +3,40 @@
 
 // charged_up: the garden economy (docs/26 G2.4; doc 23 §7). PURE functions + ONE config
 // object holding every balance knob, so tuning never touches logic. Integrity (docs/26 §1):
-//   I4 — currency can never buy mastery or growth; refills come only from graded answers
-//        (water) and paraphrase-gate blooms (seeds). A wrong answer refills NOTHING extra
-//        and never grows a plant.
+//   I4 — currency can never buy mastery or growth; water refills come only from graded
+//        answers. A wrong answer refills NOTHING extra and never grows a plant.
+// Seeds were removed as a currency entirely (Decision, 2026-07-03): planting is free,
+// blooms pay nothing material — the bloom itself is the reward. Water is the only
+// spendable resource; XP stays cosmetic.
 
 export interface EconomyConfig {
-    startSeeds: number;
     startWater: number;
-    plantCostSeeds: number;
     waterCostPerPour: number;
     /** Water refunded per graded answer delivered at the Keeper. */
     waterPerGradedAnswer: number;
-    /** Seeds paid out when a plant blooms (paraphrase pass). */
-    seedsPerBloom: number;
     /** XP per graded review (cosmetic level; never gates content). */
     xpPerGradedAnswer: number;
 }
 
 /** Doc 23 §7 defaults — the single tuning surface (docs/26 R6). */
 export const ECONOMY: EconomyConfig = {
-    startSeeds: 40,
     startWater: 80,
-    plantCostSeeds: 1,
     waterCostPerPour: 1,
     waterPerGradedAnswer: 1,
-    seedsPerBloom: 5,
     xpPerGradedAnswer: 1,
 };
 
 export interface Balances {
-    seeds: number;
     water: number;
     xp: number;
 }
 
 export function initialBalances(cfg: EconomyConfig = ECONOMY): Balances {
-    return { seeds: cfg.startSeeds, water: cfg.startWater, xp: 0 };
-}
-
-export function canPlant(b: Balances, cfg: EconomyConfig = ECONOMY): boolean {
-    return b.seeds >= cfg.plantCostSeeds;
+    return { water: cfg.startWater, xp: 0 };
 }
 
 export function canWater(b: Balances, cfg: EconomyConfig = ECONOMY): boolean {
     return b.water >= cfg.waterCostPerPour;
-}
-
-/** Spend a seed to plant (queue a topic's intro cards). Throws if broke — callers gate on canPlant. */
-export function spendPlant(b: Balances, cfg: EconomyConfig = ECONOMY): Balances {
-    if (!canPlant(b, cfg)) {
-        throw new Error("not enough seeds");
-    }
-    return { ...b, seeds: b.seeds - cfg.plantCostSeeds };
 }
 
 /** Spend water on a pour (queue one topic's next questions). */
@@ -78,17 +60,12 @@ export function onGradedAnswer(b: Balances, cfg: EconomyConfig = ECONOMY): Balan
     };
 }
 
-/** A plant bloomed (paraphrase pass — the ONLY seed refill path). */
-export function onBloom(b: Balances, cfg: EconomyConfig = ECONOMY): Balances {
-    return { ...b, seeds: b.seeds + cfg.seedsPerBloom };
-}
-
 // --- voice-Keeper bucket-scaled rewards (voice spec ruling 2; doc 24 §3) ------------------
 
 /** Duplicated literal union (state must not import panels/voice-api — both are test-pinned). */
 export type VoiceBucket = "good" | "okay" | "ask_again" | "dont_know";
 
-/** Doc 24 §3 bucket-scaled WATER rewards. Seeds still come only from blooms (I4). */
+/** Doc 24 §3 bucket-scaled WATER rewards. */
 export const VOICE_WATER_REWARD: Record<VoiceBucket, number> = {
     good: 3,
     okay: 2,
@@ -101,7 +78,7 @@ const RECOVERED_REWARD = 2;
 /**
  * A voice-graded answer landed in the engine. Better answers pay more water; a recovered
  * second attempt pays +2; showing up always pays at least +1. Integrity unchanged (I4):
- * currency never buys mastery or growth, and seeds never move here.
+ * currency never buys mastery or growth.
  */
 export function onVoiceGradedAnswer(
     b: Balances,

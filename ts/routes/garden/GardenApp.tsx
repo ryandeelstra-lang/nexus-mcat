@@ -7,9 +7,12 @@
 // It renders honestly: if the engine is unreachable there is no fake world, just the truth.
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
+import { type MusicHandle, startGardenMusic } from "./audio";
 import type { GardenGame } from "./game/create-game";
+import { DEV_TOOLS_ENABLED, DevPanel } from "./panels/DevPanel";
+import { GardenErrorBoundary } from "./panels/GardenErrorBoundary";
 import { GardenUI } from "./panels/GardenUI";
-import { introPending, IntroVideo } from "./panels/IntroVideo";
+import { introPending, IntroVideo, resetIntroSeen } from "./panels/IntroVideo";
 import { activeWeeds } from "./panels/keeper-logic";
 import { bus } from "./state/bus";
 import { fetchMasterySnapshot, type MasterySnapshot } from "./state/mastery";
@@ -22,11 +25,19 @@ export function GardenApp(): React.ReactElement {
     const canvasHost = useRef<HTMLDivElement>(null);
     const gameRef = useRef<GardenGame | null>(null);
     const storeRef = useRef<GardenStore | null>(null);
+    const musicRef = useRef<MusicHandle | null>(null);
     const [phase, setPhase] = useState<BootPhase>("booting");
     const [bootError, setBootError] = useState<string>("");
     const [snapshot, setSnapshot] = useState<MasterySnapshot | null>(null);
     // Decision-37 splash slot: the first-run cinematic plays over boot, once.
     const [showIntro, setShowIntro] = useState<boolean>(introPending);
+
+    // Replay the intro on demand — reachable from the "?" help panel (bus "intro:replay"),
+    // not a floating dev chip on the shipped HUD.
+    const replayIntro = useCallback((): void => {
+        resetIntroSeen();
+        setShowIntro(true);
+    }, []);
 
     /** Re-read engine truth and push it into the world (drives re-staging every plant). */
     const refreshSnapshot = useCallback(async (): Promise<void> => {
@@ -56,7 +67,14 @@ export function GardenApp(): React.ReactElement {
         gameRef.current?.registry.set("gardenFlags", {
             paraphrase: store.snapshot.paraphrase,
             weeds: weedFlags,
+            // Gates the one-time island fog: false renders the shroud + plaza leash.
+            placementDone: store.snapshot.placement.done,
         });
+    }, []);
+
+    /** Mute/unmute the lofi score (called by the HUD toggle; persistence lives in the store). */
+    const setMusicMuted = useCallback((muted: boolean): void => {
+        musicRef.current?.setMuted(muted);
     }, []);
 
     useEffect(() => {
@@ -86,7 +104,6 @@ export function GardenApp(): React.ReactElement {
                 }
                 const game = await createGame(canvasHost.current, snap);
                 gameRef.current = game;
-                game.registry.set("sectorUnlocks", store.snapshot.unlocks.sectors);
                 game.registry.set("floraState", store.snapshot.flora);
                 await pushFlags();
                 setPhase("ready");
@@ -140,28 +157,59 @@ export function GardenApp(): React.ReactElement {
                 void refreshSnapshot();
             }),
             bus.on("map:toggle", () => feed({ kind: "map-opened" })),
-            // Keep the world's sector-unlock registry fresh (survives scene restarts).
-            bus.on("sector:unlocked", () => {
-                const s = storeRef.current;
-                if (s) {
-                    gameRef.current?.registry.set("sectorUnlocks", s.snapshot.unlocks.sectors);
-                }
-            }),
             // Ground-flora pours persist through the additive store (+ registry, so a scene
             // restart restores the grown garden without a reload).
             bus.on("flora:changed", ({ counts }) => {
                 storeRef.current?.setFlora(counts);
                 gameRef.current?.registry.set("floraState", counts);
             }),
-            // Keep the world's panelOpen flag honest so Space never double-fires.
-            bus.on("keeper:interact", () => gameRef.current?.registry.set("panelOpen", true)),
+            // Keep the world honest about UI covering it: GardenUI derives ONE open/closed
+            // signal from its overlay+flavor state (pairing individual open/close events
+            // desyncs — a swapped overlay skips `review:closed` and softlocks the world).
+            // While covered we also disable Phaser's keyboard wholesale: its window-level
+            // key capture preventDefaults Space/WASD/E/M even when focus is in the typed-
+            // answer field, which silently ate those characters.
+            bus.on("ui:overlay", ({ open }) => {
+                gameRef.current?.registry.set("panelOpen", open);
+                const kb = (gameRef.current as unknown as {
+                    input?: { keyboard?: { enabled: boolean } };
+                })?.input?.keyboard;
+                if (kb) {
+                    kb.enabled = !open;
+                }
+            }),
             bus.on("review:closed", () => {
-                gameRef.current?.registry.set("panelOpen", false);
                 void refreshSnapshot();
             }),
+            // The placement answers were real first reviews — pull the fresh engine truth
+            // (and push placementDone into the world's flags) the moment the test ends.
+            bus.on("placement:completed", () => {
+                void refreshSnapshot();
+            }),
+            bus.on("intro:replay", replayIntro),
         ];
         return () => offs.forEach((off) => off());
-    }, [phase, refreshSnapshot]);
+    }, [phase, refreshSnapshot, replayIntro]);
+
+    // ---- The adaptive lofi score (doc 23 §11, docs/26 G4.3) ----
+    // Boot once the world is ready so we honor the player's saved sound settings. The audio
+    // graph is created lazily on the first user gesture (autoplay policy), then the director
+    // adapts the mix to garden + time-of-day + activity from the same bus the world drives.
+    useEffect(() => {
+        if (phase !== "ready") {
+            return;
+        }
+        const settings = storeRef.current?.snapshot.settings;
+        const handle = startGardenMusic({
+            initialMuted: settings?.muted ?? false,
+            initialVolume: settings?.volume ?? 0.7,
+        });
+        musicRef.current = handle;
+        return () => {
+            handle.dispose();
+            musicRef.current = null;
+        };
+    }, [phase]);
 
     return (
         <div className="garden-app">
@@ -179,13 +227,22 @@ export function GardenApp(): React.ReactElement {
                 </div>
             )}
             {phase === "ready" && snapshot && storeRef.current && (
-                <GardenUI
-                    store={storeRef.current}
-                    snapshot={snapshot}
-                    refreshSnapshot={refreshSnapshot}
-                />
+                <GardenErrorBoundary label="panels">
+                    <GardenUI
+                        store={storeRef.current}
+                        snapshot={snapshot}
+                        refreshSnapshot={refreshSnapshot}
+                        onMusicMutedChange={setMusicMuted}
+                        introActive={showIntro}
+                    />
+                </GardenErrorBoundary>
             )}
             {showIntro && <IntroVideo onDone={() => setShowIntro(false)} />}
+            {
+                /* Dev-only: skip the first-run flow while iterating. Never renders in a clean
+              * public build (devToolsEnabled() is false without the Vite dev server or ?dev). */
+            }
+            {DEV_TOOLS_ENABLED && <DevPanel />}
         </div>
     );
 }

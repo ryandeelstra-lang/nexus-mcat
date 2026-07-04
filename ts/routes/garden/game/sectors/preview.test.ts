@@ -8,7 +8,7 @@
 import { writeFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
-import { planFlora } from "../flora";
+import { planFlora, sectionAtTile } from "../flora";
 import { buildTerrainModel } from "../terrain";
 import { buildWorldPlan } from "../worldgen";
 import { effectivePalettePreview } from "./preview-palette";
@@ -62,14 +62,12 @@ describe("sector preview", () => {
             }
         };
 
-        // Base: region grass tint.
+        // Base: grass tint over the WHOLE island (seam corridors are grass too — painted
+        // by the terrain with the nearest region's palette, mirrored here).
         const idx: Record<string, number> = { "P-S": 0, "B-B": 1, "C-P": 2, CARS: 3 };
-        for (const r of plan.regions) {
-            const pal = effectivePalettePreview(r.section);
-            for (let ty = r.rect.y; ty < r.rect.y + r.rect.h; ty++) {
-                for (let tx = r.rect.x; tx < r.rect.x + r.rect.w; tx++) {
-                    cell(tx, ty, pal.grass);
-                }
+        for (let ty = 0; ty < plan.heightTiles; ty++) {
+            for (let tx = 0; tx < plan.widthTiles; tx++) {
+                cell(tx, ty, effectivePalettePreview(sectionAtTile(tx, ty)).grass);
             }
         }
         // Plaza (center).

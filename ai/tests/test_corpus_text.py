@@ -15,11 +15,13 @@ def test_loads_real_source_and_hashes():
 
 def test_quote_resolution_is_the_anti_hallucination_gate():
     text = corpus_text.load_source_text(SID)
-    real = text[400:480]
-    assert corpus_text.quote_in_source(text, real) is True          # verbatim span resolves
-    assert corpus_text.quote_in_source(text, "  " + real.lower() + " ") is True  # whitespace/case tolerant
+    real = "building blocks, called monomers"                        # whole-word span, verbatim in source
+    assert corpus_text.quote_in_source(text, real) is True           # verbatim span resolves
+    assert corpus_text.quote_in_source(text, "  " + real.upper() + " ") is True  # whitespace/case tolerant
     assert corpus_text.quote_in_source(text, "the mitochondrion synthesizes 999 ATP per turn") is False  # fabricated
     assert corpus_text.quote_in_source(text, "") is False
+    # word-aligned: a mid-word fragment must NOT match a longer source word ('fundamental' is in the source)
+    assert corpus_text.quote_in_source(text, "fundament") is False
 
 
 def test_missing_source_raises():

@@ -1,1 +1,1 @@
-held-out (n=56): accuracy=0.9286 wrong_answer_rate=0.0179 bad_teaching=3 -> PASS (cutoff: acc>=0.80, wrong<=0.06)
+held-out (n=56): accuracy=0.8929 wrong_answer_rate=0.0536 bad_teaching=3 -> PASS (cutoff: acc>=0.80, wrong<=0.06)

@@ -3,10 +3,10 @@
   "winner_primary": "ai",
   "semantic": {
     "bm25_accuracy": 0.25,
-    "ai_accuracy": 0.9107
+    "ai_accuracy": 0.875
   },
   "lexical": {
     "bm25_accuracy": 0.0,
-    "ai_accuracy": 0.125
+    "ai_accuracy": 0.1429
   }
 }

@@ -16,6 +16,7 @@ from .chunk import chunk_source
 from .client import AIClient
 from .generate import generate_cards
 from .leakage import normalize
+from .provenance import ProvenanceStore
 
 AI = Path(__file__).resolve().parent
 SOURCE_ID = "openstax-biology-2e.ch03"
@@ -32,18 +33,22 @@ def main(argv=None) -> int:
 
     accepted: list = []
     seen: set = set()
-    total_rejected = 0
     for ch in chunks:
-        if len(accepted) >= TARGET:
-            break
         res = generate_cards(ch.text, SOURCE_ID, n=per_chunk, client=cli)
         for card in res.cards:
             key = normalize(card["question"])
-            if key and key not in seen:
+            # Final provenance check against the FULL source (chunk slicing can cut a word at its edge,
+            # so a quote word-aligned in a chunk may not be word-aligned in the whole source).
+            if key and key not in seen and corpus_text.quote_in_source(text, card["quote"]):
                 seen.add(key)
                 accepted.append(card)
-        # rejected count parsed from the reason tail is noisy; recompute honestly below
     cards = accepted[:TARGET]
+
+    # C2 gate on real output: every shipped card's source_id MUST resolve to a named source in the
+    # registry (not just carry the verbatim quote). Fails loudly rather than shipping an unsourced card.
+    store = ProvenanceStore.from_jsonl(AI / "corpus" / "sources.jsonl")
+    for c in cards:
+        store.assert_sourced(c)
 
     (AI / "artifacts").mkdir(parents=True, exist_ok=True)
     with (AI / "artifacts" / "cards.jsonl").open("w", encoding="utf-8") as fh:

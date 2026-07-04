@@ -20,7 +20,7 @@ turn ONE real open-license source into flashcards, and refuse anything it can't 
    first run** (`ai/cutoff.json`, commit `409d622`, prior to the evidence commit `67b5d1a` — the pre-
    registration is the git history). The AI answerer answers only the **held-out** gold slice (disjoint from
    tune/dev, `ai/gold/split.json`) and its answers are graded into three buckets.
-   → **accuracy 0.929, wrong-answer-rate 0.018, bad-teaching 3 (n=56) → PASS** (`06-eval-heldout.json`).
+   → **accuracy 0.893, wrong-answer-rate 0.054, bad-teaching 3 (n=56) → PASS** (`06-eval-heldout.json`).
 
 3. **The §7f card check (three counts, blocking cutoff).** `ai/checker.py` classifies each of the 50
    generated cards as correct-and-useful / wrong / correct-but-bad-teaching; anything not correct-and-useful
@@ -30,12 +30,15 @@ turn ONE real open-license source into flashcards, and refuse anything it can't 
 
 4. **Beats a simpler method (§2 pillar 3).** `ai/run_c4.py` scores our AI against a tuned BM25 keyword
    baseline (`rank_bm25`, k1=1.2/b=0.6 on the dev split) on the **same** held-out set, graded IDENTICALLY.
-   → **semantic (same LLM judge, primary): AI 0.911 vs BM25 0.25; lexical (transparency): AI 0.125 vs 0.0.**
+   → **semantic (same LLM judge, primary): AI 0.875 vs BM25 0.25; lexical (transparency): AI 0.143 vs 0.0.**
    AI wins under both (`07-c4-baseline.json`, `07-c4-comparison.md`).
 
-5. **Every AI output traces to a named source (§2 pillar 2).** The C2 gate (`ai/provenance.py`) + the
-   verbatim-quote gate mean no unsourced card can be served — the "AI claims with no traceable source → AI
-   section = 0" cap is structurally impossible to trip.
+5. **Every AI output traces to a named source (§2 pillar 2).** Two gates run on real output: (a) the C2
+   registry gate (`ai/provenance.py::assert_sourced`, wired into `run_generate`) proves every shipped card's
+   `source_id` resolves to a named source in `ai/corpus/sources.jsonl` (the chapter id is registered), and
+   (b) the verbatim-quote gate (`ai/corpus_text.py::quote_in_source`) requires the card's quote to be a
+   **word-aligned** span of the source (a mid-word fragment like "fundament"→"fundamental" is rejected).
+   The "AI claims with no traceable source → AI section = 0" cap is structurally impossible to trip.
 
 6. **Safety rails.**
    - **AI-off still scores (§6, §7g):** `ai/config.py` defaults OFF; `AI_DISABLED=1` is a master kill
@@ -45,8 +48,13 @@ turn ONE real open-license source into flashcards, and refuse anything it can't 
      stripped/flagged (`ai/sanitize.py`) and the source is delimited data-not-instructions. Live proof over
      a hostile fixture: no `ATTACK` token escaped into any card (`03-injection.json`).
    - **Leakage (§7e):** the gold set is provenance-disjoint from corpus+deck (structural wall, primary) and
-     the lexical near-copy scanner is **CLEAN over 96 gold × 4,678 training items** at a calibrated 0.6
-     Jaccard threshold (`04-leakage-CLEAN.txt`, `04-gold-disjoint.json`).
+     the lexical near-copy scanner is **CLEAN over 96 gold × 4,678 training items** on TWO calibrated passes:
+     item-level Q+A at 0.5 and question-level at 0.6 (`ai/leakage.py`). Thresholds were **calibrated against
+     the real gold×corpus distribution**, not guessed — the genuine near-copy questions it surfaced (incl. a
+     verbatim-identical stem) were reworded into distinct items; the residual overlap is shared canonical
+     answers on independently-authored questions, which is not item leakage (`04-leakage-CLEAN.txt`,
+     `04-gold-disjoint.json`). Note: this overlap could only ever help the BM25 baseline (which lost), never
+     the AI answerer, which answers from the model and never reads the corpus.
    - **Reproducibility:** record/replay cassettes make every number re-derivable offline; the generation
      run reproduces byte-identical under `--replay`.
 
@@ -77,8 +85,9 @@ turn ONE real open-license source into flashcards, and refuse anything it can't 
 
 ## Reproduce
 ```bash
-export OPENAI_API_KEY=sk-...
-.venv-ai/bin/python scripts/ai_preflight.py                 # gpt-4o smoke + deps
+export OPENAI_API_KEY=sk-...                                # a placeholder value is enough for --replay
+                                                            # (clears the ai_enabled() gate; replay opens no socket)
+.venv-ai/bin/python scripts/ai_preflight.py                 # gpt-4o smoke + deps (needs a REAL key)
 .venv-ai/bin/python -m ai.run_generate --replay             # 50 sourced cards (offline, from cassette)
 .venv-ai/bin/python -m ai.leakage                           # 7e wall CLEAN
 .venv-ai/bin/python -m ai.run_cardcheck --replay            # 3 counts vs pre-registered cutoff

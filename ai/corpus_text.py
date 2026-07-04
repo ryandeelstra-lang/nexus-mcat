@@ -25,8 +25,12 @@ def source_sha256(source_id: str, root: Path | None = None) -> str:
 
 
 def quote_in_source(source_text: str, quote: str) -> bool:
-    """True iff the (normalized) quote is a non-empty substring of the (normalized) source."""
+    """True iff the (normalized) quote is a non-empty WORD-ALIGNED span of the (normalized) source.
+
+    normalize() joins word tokens with single spaces; padding both sides with a space makes the
+    substring test respect token boundaries, so a mid-word fragment ("fundament") no longer matches a
+    longer word ("fundamental") — the quote must be a run of whole source tokens."""
     nq = normalize(quote)
     if not nq:
         return False
-    return nq in normalize(source_text)
+    return f" {nq} " in f" {normalize(source_text)} "

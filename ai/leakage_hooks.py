@@ -34,3 +34,19 @@ def assemble_inputs() -> tuple:
         d = json.loads(l)
         other.append(f"{d.get('question', '')} {d.get('answer', '')}")
     return gold, other
+
+
+def assemble_questions() -> tuple:
+    """QUESTION-only inputs for the question-level near-duplicate pass: gold questions vs training
+    questions (corpus fronts, deck fronts, generated questions). A leaked test ITEM shows up here as a
+    near-duplicate stem even when the canonical answer differs."""
+    gold_q = [json.loads(l)["question"] for l in _lines(GOLD)]
+    other_q = []
+    for f in sorted(CORPUS_CARDS.glob("*.jsonl")):
+        for l in _lines(f):
+            other_q.append(json.loads(l).get("front", ""))
+    for l in _lines(DECK):
+        other_q.append(json.loads(l).get("front", ""))
+    for l in _lines(GENERATED):
+        other_q.append(json.loads(l).get("question", ""))
+    return gold_q, other_q

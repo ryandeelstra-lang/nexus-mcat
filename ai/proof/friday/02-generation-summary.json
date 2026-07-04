@@ -6,6 +6,6 @@
   "distinct_questions": 50,
   "chunks": 7,
   "per_chunk": 13,
-  "mode": "replay",
+  "mode": "record",
   "note": "every card carries a verbatim source quote (provenance-gated); duplicates removed"
 }

@@ -7,7 +7,7 @@ Both arms answer the identical 56 held-out gold questions and are graded IDENTIC
 | arm | accuracy (judged correct-and-useful) |
 |---|---|
 | tuned BM25 keyword retrieval (k1=1.2, b=0.6) | 0.25 |
-| our AI (gpt-4o) | 0.9107 |
+| our AI (gpt-4o) | 0.875 |
 
 **Winner: ai.**
 
@@ -16,7 +16,7 @@ Both arms answer the identical 56 held-out gold questions and are graded IDENTIC
 | arm | accuracy |
 |---|---|
 | tuned BM25 | 0.0 |
-| our AI (gpt-4o) | 0.125 |
+| our AI (gpt-4o) | 0.1429 |
 
 The lexical metric under-measures correctness (terse gold vs full-sentence answers), so it is
 secondary; the AI wins under both. Keyword retrieval can only echo a stored card, so it cannot

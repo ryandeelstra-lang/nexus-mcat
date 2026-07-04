@@ -1,12 +1,12 @@
 {
   "split": "heldout",
   "counts": {
-    "correct-and-useful": 52,
-    "wrong": 1,
+    "correct-and-useful": 50,
+    "wrong": 3,
     "correct-but-bad-teaching": 3
   },
-  "accuracy": 0.9286,
-  "wrong_answer_rate": 0.0179,
+  "accuracy": 0.8929,
+  "wrong_answer_rate": 0.0536,
   "bad_teaching": 3,
   "n": 56,
   "cutoff": {
@@ -39,7 +39,7 @@
     },
     {
       "id": "GOLD.PSY.002",
-      "ai_answer": "Negative reinforcement strengthens a behavior by removing an aversive stimulus when the behavior occurs.",
+      "ai_answer": "Negative reinforcement increases the likelihood of a behavior by removing an unpleasant stimulus when the behavior occurs.",
       "gold": "It increases the behavior by removing an unpleasant stimulus.",
       "class": "correct-and-useful"
     },
@@ -63,15 +63,15 @@
     },
     {
       "id": "GOLD.GC.014",
-      "ai_answer": "A catalyst increases the rate of a reaction by providing an alternative reaction pathway with a lower activation energy, allowing more molecules to collide with sufficient energy to react.",
-      "gold": "By lowering the activation energy, without being consumed.",
+      "ai_answer": "A catalyst speeds up a chemical reaction by providing an alternative reaction pathway with a lower activation energy, thereby increasing the reaction rate without being consumed in the process.",
+      "gold": "By lowering the activation energy.",
       "class": "correct-and-useful"
     },
     {
       "id": "GOLD.CP.020",
-      "ai_answer": "The wavelength range of visible light for humans is approximately 400 to 700 nanometers.",
+      "ai_answer": "The wavelength range of visible light for humans is approximately 380 to 750 nanometers.",
       "gold": "Roughly 400 to 700 nanometers.",
-      "class": "correct-and-useful"
+      "class": "wrong"
     },
     {
       "id": "GOLD.BC.018",
@@ -87,37 +87,37 @@
     },
     {
       "id": "GOLD.BIO.003",
-      "ai_answer": "The term for an organism's observable characteristics is \"phenotype.\"",
+      "ai_answer": "Phenotype.",
       "gold": "Its phenotype.",
       "class": "correct-and-useful"
     },
     {
       "id": "GOLD.BIO.020",
-      "ai_answer": "The enzyme DNA helicase unwinds the DNA double helix during replication.",
+      "ai_answer": "The enzyme helicase unwinds the DNA double helix during replication.",
       "gold": "Helicase.",
       "class": "correct-and-useful"
     },
     {
       "id": "GOLD.PSY.015",
-      "ai_answer": "The research method that studies the same group of people over an extended period is called a longitudinal study.",
+      "ai_answer": "Longitudinal study.",
       "gold": "A longitudinal study.",
       "class": "correct-and-useful"
     },
     {
       "id": "GOLD.GC.007",
-      "ai_answer": "At constant temperature, the pressure and volume of an ideal gas are inversely related, as described by Boyle's Law.",
+      "ai_answer": "At constant temperature, the pressure and volume of an ideal gas are inversely related according to Boyle's Law (P1V1 = P2V2).",
       "gold": "Inversely (Boyle's law).",
       "class": "correct-and-useful"
     },
     {
       "id": "GOLD.GC.002",
-      "ai_answer": "An isotope is a variant of a chemical element that has the same number of protons in its nucleus as other isotopes of that element, but a different number of neutrons.",
-      "gold": "Atoms of the same element with the same number of protons but different numbers of neutrons.",
+      "ai_answer": "The two atoms are isotopes of the same element.",
+      "gold": "Isotopes.",
       "class": "correct-and-useful"
     },
     {
       "id": "GOLD.BC.004",
-      "ai_answer": "The citric acid cycle takes place in the mitochondrial matrix of eukaryotic cells.",
+      "ai_answer": "The enzymatic reactions that oxidize acetyl-CoA occur in the mitochondrial matrix.",
       "gold": "The mitochondrial matrix.",
       "class": "correct-and-useful"
     },
@@ -135,7 +135,7 @@
     },
     {
       "id": "GOLD.BC.013",
-      "ai_answer": "The alpha helix is stabilized by hydrogen bonds between backbone atoms four residues apart.",
+      "ai_answer": "The alpha helix is a secondary-structure element stabilized by hydrogen bonds between backbone atoms four residues apart.",
       "gold": "The alpha helix.",
       "class": "correct-and-useful"
     },
@@ -143,7 +143,7 @@
       "id": "GOLD.BC.019",
       "ai_answer": "Proteins are the macromolecule class that contains carbon, hydrogen, oxygen, nitrogen, and often sulfur.",
       "gold": "Proteins.",
-      "class": "correct-but-bad-teaching"
+      "class": "correct-and-useful"
     },
     {
       "id": "GOLD.GC.017",
@@ -153,25 +153,25 @@
     },
     {
       "id": "GOLD.BIO.015",
-      "ai_answer": "Antibody-mediated immunity, also known as humoral immunity, is provided by antibodies produced by B lymphocytes.",
+      "ai_answer": "The immunity provided by antibodies produced by B lymphocytes is called humoral immunity.",
       "gold": "Humoral (antibody-mediated) immunity.",
       "class": "correct-and-useful"
     },
     {
       "id": "GOLD.CP.017",
-      "ai_answer": "The coefficient of kinetic friction is a dimensionless scalar value that describes the ratio of the force of kinetic friction between two bodies in motion relative to each other, and the normal force acting perpendicular to their surfaces.",
+      "ai_answer": "The coefficient of kinetic friction is a dimensionless scalar value that represents the ratio of the force of kinetic friction between two objects to the normal force pressing them together.",
       "gold": "The ratio of the kinetic friction force to the normal force between two sliding surfaces.",
       "class": "correct-and-useful"
     },
     {
       "id": "GOLD.BIO.005",
-      "ai_answer": "The influx of sodium ions (Na+) triggers depolarization in the rising phase of a neuronal action potential.",
-      "gold": "Sodium (Na+).",
+      "ai_answer": "The inward rush of sodium (Na+) ions drives the upstroke of a neuron's spike.",
+      "gold": "Sodium.",
       "class": "correct-and-useful"
     },
     {
       "id": "GOLD.PSY.003",
-      "ai_answer": "The hippocampus is most associated with forming new long-term memories.",
+      "ai_answer": "Hippocampus",
       "gold": "The hippocampus.",
       "class": "correct-and-useful"
     },
@@ -183,7 +183,7 @@
     },
     {
       "id": "GOLD.BIO.002",
-      "ai_answer": "Sister chromatids separate during the anaphase of mitosis.",
+      "ai_answer": "Sister chromatids separate during anaphase.",
       "gold": "Anaphase.",
       "class": "correct-and-useful"
     },
@@ -191,17 +191,17 @@
       "id": "GOLD.BC.015",
       "ai_answer": "An amino acid carries zero net charge at its isoelectric point (pI).",
       "gold": "At its isoelectric point.",
-      "class": "correct-and-useful"
+      "class": "correct-but-bad-teaching"
     },
     {
       "id": "GOLD.GC.016",
-      "ai_answer": "The geometry of a molecule with four bonding pairs and no lone pairs on the central atom is tetrahedral.",
+      "ai_answer": "The molecular shape is tetrahedral.",
       "gold": "Tetrahedral.",
       "class": "correct-and-useful"
     },
     {
       "id": "GOLD.BC.008",
-      "ai_answer": "Adenosine triphosphate (ATP) is the primary energy currency molecule of the cell.",
+      "ai_answer": "ATP (adenosine triphosphate) is the primary energy currency molecule of the cell.",
       "gold": "Adenosine triphosphate (ATP).",
       "class": "correct-and-useful"
     },
@@ -213,7 +213,7 @@
     },
     {
       "id": "GOLD.PSY.011",
-      "ai_answer": "Social facilitation.",
+      "ai_answer": "This phenomenon is called social facilitation.",
       "gold": "Social facilitation.",
       "class": "correct-and-useful"
     },
@@ -221,35 +221,35 @@
       "id": "GOLD.BIO.021",
       "ai_answer": "The fluid portion of blood after cells are removed but clotting factors remain is called plasma.",
       "gold": "Plasma.",
-      "class": "wrong"
+      "class": "correct-and-useful"
     },
     {
       "id": "GOLD.PSY.016",
       "ai_answer": "Deindividuation.",
       "gold": "Deindividuation.",
-      "class": "correct-and-useful"
+      "class": "correct-but-bad-teaching"
     },
     {
       "id": "GOLD.CP.012",
-      "ai_answer": "Ohm's Law states that voltage (V) equals current (I) times resistance (R), or V = IR.",
-      "gold": "Voltage equals current times resistance (V = IR).",
+      "ai_answer": "The voltage across a resistor (V), the current through it (I), and its resistance (R) are related by Ohm's Law, V = IR.",
+      "gold": "Voltage equals current multiplied by resistance.",
       "class": "correct-and-useful"
     },
     {
       "id": "GOLD.CP.006",
-      "ai_answer": "Pascal's Principle.",
+      "ai_answer": "Pascal's principle states that pressure applied to a confined fluid is transmitted undiminished throughout the fluid.",
       "gold": "Pascal's principle.",
-      "class": "correct-but-bad-teaching"
-    },
-    {
-      "id": "GOLD.BC.010",
-      "ai_answer": "In mammals, glucose is banked long-term as the branched polymer called glycogen.",
-      "gold": "Glycogen.",
       "class": "correct-and-useful"
     },
     {
+      "id": "GOLD.BC.010",
+      "ai_answer": "In mammals, glucose is banked long-term as glycogen, which is a branched polymer.",
+      "gold": "Glycogen.",
+      "class": "wrong"
+    },
+    {
       "id": "GOLD.GC.006",
-      "ai_answer": "The ideal gas law is PV = nRT, where P is pressure, V is volume, n is the amount of substance, R is the ideal gas constant, and T is temperature.",
+      "ai_answer": "The ideal gas law is PV = nRT, where P is pressure, V is volume, n is the number of moles, R is the ideal gas constant, and T is the temperature in Kelvin.",
       "gold": "PV = nRT.",
       "class": "correct-and-useful"
     },
@@ -261,45 +261,45 @@
     },
     {
       "id": "GOLD.GC.004",
-      "ai_answer": "Fluorine has the highest electronegativity.",
+      "ai_answer": "Fluorine has the highest electronegativity of any element.",
       "gold": "Fluorine.",
       "class": "correct-and-useful"
     },
     {
       "id": "GOLD.GC.011",
-      "ai_answer": "A Bronsted-Lowry acid is a substance that donates a proton (H\u207a ion) in a chemical reaction.",
+      "ai_answer": "A Bronsted-Lowry acid is a substance that donates a proton (H\u207a ion) to another substance in a chemical reaction.",
       "gold": "A proton (hydrogen ion) donor.",
       "class": "correct-and-useful"
     },
     {
       "id": "GOLD.BIO.013",
-      "ai_answer": "Antidiuretic hormone (ADH), also known as vasopressin, increases water reabsorption in the collecting ducts of the kidney.",
+      "ai_answer": "Antidiuretic hormone (ADH) increases water reabsorption in the collecting ducts of the kidney.",
       "gold": "Antidiuretic hormone (ADH, vasopressin).",
-      "class": "correct-but-bad-teaching"
+      "class": "correct-and-useful"
     },
     {
       "id": "GOLD.BIO.019",
-      "ai_answer": "Gene",
+      "ai_answer": "A segment of DNA that codes for a protein is called a gene.",
       "gold": "A gene.",
       "class": "correct-and-useful"
     },
     {
       "id": "GOLD.PSY.006",
-      "ai_answer": "The tendency to attribute others' behavior to disposition rather than situation is called the fundamental attribution error.",
+      "ai_answer": "This reflects the fundamental attribution error.",
       "gold": "The fundamental attribution error.",
       "class": "correct-and-useful"
     },
     {
       "id": "GOLD.GC.008",
-      "ai_answer": "The enthalpy change for an exothermic reaction is negative.",
+      "ai_answer": "For an exothermic reaction, the sign of the enthalpy change (\u0394H) is negative.",
       "gold": "Negative.",
       "class": "correct-and-useful"
     },
     {
       "id": "GOLD.GC.012",
-      "ai_answer": "Oxidation is the process in which a molecule, atom, or ion loses electrons.",
-      "gold": "The loss of electrons.",
-      "class": "correct-and-useful"
+      "ai_answer": "A species that loses electrons has been oxidized.",
+      "gold": "It has been oxidized.",
+      "class": "correct-but-bad-teaching"
     },
     {
       "id": "GOLD.CP.008",
@@ -309,13 +309,13 @@
     },
     {
       "id": "GOLD.BC.003",
-      "ai_answer": "The net ATP yield of glycolysis per glucose molecule is 2 ATP.",
-      "gold": "Two ATP (net).",
+      "ai_answer": "One glucose produces a net total of 2 ATP through glycolysis.",
+      "gold": "Two.",
       "class": "correct-and-useful"
     },
     {
       "id": "GOLD.BC.006",
-      "ai_answer": "The Michaelis-Menten equation describes the enzyme kinetics of single-substrate reactions.",
+      "ai_answer": "The Michaelis-Menten equation describes simple enzyme kinetics for single-substrate reactions where the rate depends on the concentration of both the substrate and the enzyme.",
       "gold": "Single-substrate enzyme kinetics relating rate to substrate concentration.",
       "class": "correct-and-useful"
     },
@@ -327,8 +327,8 @@
     },
     {
       "id": "GOLD.CP.002",
-      "ai_answer": "The acceleration due to gravity near Earth's surface is approximately 9.8 m/s\u00b2.",
-      "gold": "About 9.8 meters per second squared.",
+      "ai_answer": "A freely falling object's speed increases by approximately 9.8 meters per second each second near sea level, due to Earth's gravitational acceleration.",
+      "gold": "By about 9.8 meters per second every second.",
       "class": "correct-and-useful"
     },
     {
@@ -351,15 +351,15 @@
     },
     {
       "id": "GOLD.CP.016",
-      "ai_answer": "The work done by a gas expanding at constant pressure is given by the formula W = P\u0394V, where W is the work done, P is the constant pressure, and \u0394V is the change in volume.",
-      "gold": "Pressure times the change in volume (W = P delta V).",
+      "ai_answer": "The work performed by the gas is calculated using the formula W = P\u0394V, where W is the work done, P is the constant pressure, and \u0394V is the change in volume.",
+      "gold": "Pressure multiplied by the change in volume.",
       "class": "correct-and-useful"
     },
     {
       "id": "GOLD.BIO.009",
-      "ai_answer": "The anterior pituitary gland secretes thyroid-stimulating hormone (TSH).",
+      "ai_answer": "The pituitary gland secretes thyroid-stimulating hormone (TSH).",
       "gold": "The anterior pituitary.",
-      "class": "correct-and-useful"
+      "class": "wrong"
     }
   ]
 }

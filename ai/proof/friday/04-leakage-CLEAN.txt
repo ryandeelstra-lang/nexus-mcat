@@ -1,1 +1,1 @@
-CLEAN: 0 leaks over 96 gold x 4678 training/synth items (threshold=0.6)
+CLEAN: 0 item leaks (Q+A>=0.5) and 0 question leaks (Q>=0.6) over 96 gold x 4678 training/synth items

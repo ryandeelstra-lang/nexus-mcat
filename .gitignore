@@ -21,6 +21,8 @@ ts/.svelte-kit
 .claude/settings.local.json
 .claude/user.md
 .venv
+.venv-ai
+.env
 docs/_build/
 docs/autoapi/
 .complexipy_cache

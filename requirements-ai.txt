@@ -1,0 +1,3 @@
+# requirements-ai.txt  — out-of-process AI deps (never imported by the engine or the Wed build path)
+openai>=1.40
+rank_bm25>=0.2.2

@@ -1,0 +1,9 @@
+{
+  "model": "gpt-4o",
+  "has_key": true,
+  "openai_installed": true,
+  "rank_bm25_installed": true,
+  "live_smoke_ok": true,
+  "smoke_model_echo": "OK",
+  "model_resolved": "gpt-4o-2024-08-06"
+}

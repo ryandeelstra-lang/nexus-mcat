@@ -19,8 +19,9 @@ def test_ai_package_does_not_import_engine():
 
 def test_ai_off_by_default(monkeypatch):
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     monkeypatch.delenv("AI_DISABLED", raising=False)
-    assert config.ai_enabled() is False  # no key -> off
+    assert config.ai_enabled() is False  # no key (either provider) -> off
 
 
 def test_ai_disabled_is_the_kill_switch(monkeypatch):
@@ -31,6 +32,7 @@ def test_ai_disabled_is_the_kill_switch(monkeypatch):
 
 def test_generate_off_makes_zero_network_calls(monkeypatch):
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     monkeypatch.delenv("AI_DISABLED", raising=False)
 
     def _blocked(*_a, **_k):

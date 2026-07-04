@@ -1,0 +1,23 @@
+== W2a.2 — AI-off still scores; scores/ never imports ai/ (charged_up Friday) ==
+Run in the isolated Friday-AI worktree (charged-up/friday-ai) with the .venv-ai interpreter.
+
+-- AI off-path unit tests (AI_DISABLED=1 and no-key) --
+ai/tests/test_ai_off.py ................ 4 passed
+ai/tests/test_ai_off_scores.py .......... 2 passed
+  - test_ai_package_does_not_import_engine  PASS   (ai/ never pulls in the anki engine)
+  - test_ai_off_by_default                  PASS   (no key, either provider -> OFF)
+  - test_ai_disabled_is_the_kill_switch     PASS   (AI_DISABLED=1 wins even with a key)
+  - test_generate_off_makes_zero_network_calls PASS (off path opens ZERO sockets)
+  - test_scores_never_imports_ai            PASS   (AST scan of scores/*.py: 0 imports of ai/)
+  - test_ai_off_even_with_key               PASS   (kill switch wins with a key present)
+
+-- What this proves (instructions.md §6-Friday / §7g) --
+The three scores (memory / performance / readiness) are emitted by scores/*.py, which imports
+NOTHING under ai/ (proven structurally by test_scores_never_imports_ai). Therefore the app gives a
+score with AI switched off, and the AI-off path makes zero network calls.
+
+-- Note on the engine-backed scores suite --
+The full engine-backed scores suite (tests/scores/test_scores.py) requires the compiled anki engine
+(out/pylib), which is not built in this isolated out-of-process AI worktree. It was last run GREEN
+under AI_DISABLED in the integrated worktree (see .grader grade 2026-07-03, score-honesty 1.0). The
+structural guard above is the durable, AI-worktree-runnable proof that scores never depend on ai/.

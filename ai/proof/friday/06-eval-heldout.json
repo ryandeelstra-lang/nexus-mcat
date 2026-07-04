@@ -1,0 +1,365 @@
+{
+  "split": "heldout",
+  "counts": {
+    "correct-and-useful": 52,
+    "wrong": 1,
+    "correct-but-bad-teaching": 3
+  },
+  "accuracy": 0.9286,
+  "wrong_answer_rate": 0.0179,
+  "bad_teaching": 3,
+  "n": 56,
+  "cutoff": {
+    "metric": "three-bucket classification of the 50 generated cards against held-out gold spans",
+    "pass_if": "correct_and_useful >= 40 AND wrong <= 3",
+    "min_correct_and_useful": 40,
+    "max_wrong": 3,
+    "n": 50,
+    "classes": [
+      "correct-and-useful",
+      "wrong",
+      "correct-but-bad-teaching"
+    ],
+    "committed": "2026-07-03T00:00:00-05:00",
+    "registered_in": "docs/05-DECISIONS.md#W2a-checker-cutoff"
+  },
+  "pass": true,
+  "items": [
+    {
+      "id": "GOLD.BC.014",
+      "ai_answer": "Kinases are the class of enzymes that catalyze the transfer of a phosphate group onto a substrate.",
+      "gold": "A kinase.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.BIO.004",
+      "ai_answer": "The expected phenotypic ratio in a monohybrid cross of two heterozygotes is 3:1.",
+      "gold": "Three to one (3:1).",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.PSY.002",
+      "ai_answer": "Negative reinforcement strengthens a behavior by removing an aversive stimulus when the behavior occurs.",
+      "gold": "It increases the behavior by removing an unpleasant stimulus.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.CP.019",
+      "ai_answer": "In an elastic collision, both momentum and kinetic energy remain constant.",
+      "gold": "Momentum and kinetic energy.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.BIO.012",
+      "ai_answer": "Most reabsorption of water and solutes occurs in the proximal convoluted tubule of the nephron.",
+      "gold": "The proximal convoluted tubule.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.PSY.009",
+      "ai_answer": "Dopamine is the neurotransmitter most implicated in the reward pathway and is deficient in Parkinson's disease.",
+      "gold": "Dopamine.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.GC.014",
+      "ai_answer": "A catalyst increases the rate of a reaction by providing an alternative reaction pathway with a lower activation energy, allowing more molecules to collide with sufficient energy to react.",
+      "gold": "By lowering the activation energy, without being consumed.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.CP.020",
+      "ai_answer": "The wavelength range of visible light for humans is approximately 400 to 700 nanometers.",
+      "gold": "Roughly 400 to 700 nanometers.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.BC.018",
+      "ai_answer": "Allosteric regulator.",
+      "gold": "An allosteric regulator.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.BC.009",
+      "ai_answer": "Glucose is synthesized from non-carbohydrate precursors during gluconeogenesis.",
+      "gold": "Gluconeogenesis.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.BIO.003",
+      "ai_answer": "The term for an organism's observable characteristics is \"phenotype.\"",
+      "gold": "Its phenotype.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.BIO.020",
+      "ai_answer": "The enzyme DNA helicase unwinds the DNA double helix during replication.",
+      "gold": "Helicase.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.PSY.015",
+      "ai_answer": "The research method that studies the same group of people over an extended period is called a longitudinal study.",
+      "gold": "A longitudinal study.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.GC.007",
+      "ai_answer": "At constant temperature, the pressure and volume of an ideal gas are inversely related, as described by Boyle's Law.",
+      "gold": "Inversely (Boyle's law).",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.GC.002",
+      "ai_answer": "An isotope is a variant of a chemical element that has the same number of protons in its nucleus as other isotopes of that element, but a different number of neutrons.",
+      "gold": "Atoms of the same element with the same number of protons but different numbers of neutrons.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.BC.004",
+      "ai_answer": "The citric acid cycle takes place in the mitochondrial matrix of eukaryotic cells.",
+      "gold": "The mitochondrial matrix.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.PSY.001",
+      "ai_answer": "Ivan Pavlov is credited with the classical-conditioning experiments using dogs and a bell.",
+      "gold": "Ivan Pavlov.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.PSY.005",
+      "ai_answer": "The Cannon-Bard theory proposes that emotion and physiological arousal occur simultaneously.",
+      "gold": "The Cannon-Bard theory.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.BC.013",
+      "ai_answer": "The alpha helix is stabilized by hydrogen bonds between backbone atoms four residues apart.",
+      "gold": "The alpha helix.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.BC.019",
+      "ai_answer": "Proteins are the macromolecule class that contains carbon, hydrogen, oxygen, nitrogen, and often sulfur.",
+      "gold": "Proteins.",
+      "class": "correct-but-bad-teaching"
+    },
+    {
+      "id": "GOLD.GC.017",
+      "ai_answer": "Molarity.",
+      "gold": "Molarity.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.BIO.015",
+      "ai_answer": "Antibody-mediated immunity, also known as humoral immunity, is provided by antibodies produced by B lymphocytes.",
+      "gold": "Humoral (antibody-mediated) immunity.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.CP.017",
+      "ai_answer": "The coefficient of kinetic friction is a dimensionless scalar value that describes the ratio of the force of kinetic friction between two bodies in motion relative to each other, and the normal force acting perpendicular to their surfaces.",
+      "gold": "The ratio of the kinetic friction force to the normal force between two sliding surfaces.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.BIO.005",
+      "ai_answer": "The influx of sodium ions (Na+) triggers depolarization in the rising phase of a neuronal action potential.",
+      "gold": "Sodium (Na+).",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.PSY.003",
+      "ai_answer": "The hippocampus is most associated with forming new long-term memories.",
+      "gold": "The hippocampus.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.CP.001",
+      "ai_answer": "The SI unit of electric charge is the coulomb (C).",
+      "gold": "The coulomb (C).",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.BIO.002",
+      "ai_answer": "Sister chromatids separate during the anaphase of mitosis.",
+      "gold": "Anaphase.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.BC.015",
+      "ai_answer": "An amino acid carries zero net charge at its isoelectric point (pI).",
+      "gold": "At its isoelectric point.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.GC.016",
+      "ai_answer": "The geometry of a molecule with four bonding pairs and no lone pairs on the central atom is tetrahedral.",
+      "gold": "Tetrahedral.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.BC.008",
+      "ai_answer": "Adenosine triphosphate (ATP) is the primary energy currency molecule of the cell.",
+      "gold": "Adenosine triphosphate (ATP).",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.PSY.004",
+      "ai_answer": "Phoneme",
+      "gold": "A phoneme.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.PSY.011",
+      "ai_answer": "Social facilitation.",
+      "gold": "Social facilitation.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.BIO.021",
+      "ai_answer": "The fluid portion of blood after cells are removed but clotting factors remain is called plasma.",
+      "gold": "Plasma.",
+      "class": "wrong"
+    },
+    {
+      "id": "GOLD.PSY.016",
+      "ai_answer": "Deindividuation.",
+      "gold": "Deindividuation.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.CP.012",
+      "ai_answer": "Ohm's Law states that voltage (V) equals current (I) times resistance (R), or V = IR.",
+      "gold": "Voltage equals current times resistance (V = IR).",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.CP.006",
+      "ai_answer": "Pascal's Principle.",
+      "gold": "Pascal's principle.",
+      "class": "correct-but-bad-teaching"
+    },
+    {
+      "id": "GOLD.BC.010",
+      "ai_answer": "In mammals, glucose is banked long-term as the branched polymer called glycogen.",
+      "gold": "Glycogen.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.GC.006",
+      "ai_answer": "The ideal gas law is PV = nRT, where P is pressure, V is volume, n is the amount of substance, R is the ideal gas constant, and T is temperature.",
+      "gold": "PV = nRT.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.GC.010",
+      "ai_answer": "The pH of a neutral aqueous solution at 25 degrees Celsius is 7.",
+      "gold": "7.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.GC.004",
+      "ai_answer": "Fluorine has the highest electronegativity.",
+      "gold": "Fluorine.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.GC.011",
+      "ai_answer": "A Bronsted-Lowry acid is a substance that donates a proton (H\u207a ion) in a chemical reaction.",
+      "gold": "A proton (hydrogen ion) donor.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.BIO.013",
+      "ai_answer": "Antidiuretic hormone (ADH), also known as vasopressin, increases water reabsorption in the collecting ducts of the kidney.",
+      "gold": "Antidiuretic hormone (ADH, vasopressin).",
+      "class": "correct-but-bad-teaching"
+    },
+    {
+      "id": "GOLD.BIO.019",
+      "ai_answer": "Gene",
+      "gold": "A gene.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.PSY.006",
+      "ai_answer": "The tendency to attribute others' behavior to disposition rather than situation is called the fundamental attribution error.",
+      "gold": "The fundamental attribution error.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.GC.008",
+      "ai_answer": "The enthalpy change for an exothermic reaction is negative.",
+      "gold": "Negative.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.GC.012",
+      "ai_answer": "Oxidation is the process in which a molecule, atom, or ion loses electrons.",
+      "gold": "The loss of electrons.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.CP.008",
+      "ai_answer": "The frequency of a wave is the reciprocal of its period, meaning frequency = 1/period.",
+      "gold": "Frequency is the reciprocal of the period (f = 1/T).",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.BC.003",
+      "ai_answer": "The net ATP yield of glycolysis per glucose molecule is 2 ATP.",
+      "gold": "Two ATP (net).",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.BC.006",
+      "ai_answer": "The Michaelis-Menten equation describes the enzyme kinetics of single-substrate reactions.",
+      "gold": "Single-substrate enzyme kinetics relating rate to substrate concentration.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.PSY.014",
+      "ai_answer": "Self-actualization is at the very top of Maslow's hierarchy of needs.",
+      "gold": "Self-actualization.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.CP.002",
+      "ai_answer": "The acceleration due to gravity near Earth's surface is approximately 9.8 m/s\u00b2.",
+      "gold": "About 9.8 meters per second squared.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.PSY.010",
+      "ai_answer": "Role",
+      "gold": "A role.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.BC.017",
+      "ai_answer": "The rate-limiting enzyme of glycolysis is phosphofructokinase-1 (PFK-1).",
+      "gold": "Phosphofructokinase-1 (PFK-1).",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.BIO.001",
+      "ai_answer": "The mitochondrion is the primary site of ATP production in eukaryotic cells.",
+      "gold": "The mitochondrion.",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.CP.016",
+      "ai_answer": "The work done by a gas expanding at constant pressure is given by the formula W = P\u0394V, where W is the work done, P is the constant pressure, and \u0394V is the change in volume.",
+      "gold": "Pressure times the change in volume (W = P delta V).",
+      "class": "correct-and-useful"
+    },
+    {
+      "id": "GOLD.BIO.009",
+      "ai_answer": "The anterior pituitary gland secretes thyroid-stimulating hormone (TSH).",
+      "gold": "The anterior pituitary.",
+      "class": "correct-and-useful"
+    }
+  ]
+}

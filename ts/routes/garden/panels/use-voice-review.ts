@@ -14,6 +14,7 @@ import {
     type SttInfo,
     type VoiceGradeResult,
     type VoiceNextCard,
+    VoiceTimeoutError,
 } from "./voice-api";
 import { MicRecorder } from "./voice-capture";
 
@@ -245,6 +246,15 @@ export function useVoiceReview(opts: {
                     }
                 }
             } catch (err) {
+                if (err instanceof VoiceTimeoutError) {
+                    // Never leave the Keeper on "…" forever: hand the turn back.
+                    promptShownAt.current = Date.now();
+                    dispatch({
+                        type: "micError",
+                        message: "The Keeper lost his train of thought — say it again, or type your answer.",
+                    });
+                    return;
+                }
                 dispatch({
                     type: "error",
                     message: err instanceof Error ? err.message : "grading failed",
@@ -294,11 +304,13 @@ export function useVoiceReview(opts: {
     }, [grade]);
 
     const appeal = useCallback((): void => {
-        // "That's not what I said": never a self-upgrade — the same card is re-asked and the
-        // server's attempt ladder grades the retry (voice spec §3.4).
-        promptShownAt.current = Date.now();
-        dispatch({ type: "backToPrompt" });
-    }, []);
+        // "That's not what I said": never a self-upgrade — the committed rating stands
+        // (downward-safe). The server clears its served card on a terminal grade, so a
+        // client-side re-ask would send the retry into `not_served` and silently discard
+        // it; until a server re-serve op exists, the honest move is onward to the next
+        // ask rather than inviting an answer that cannot count.
+        void loadNext();
+    }, [loadNext]);
 
     const advance = useCallback(async (): Promise<void> => {
         if (singleCard) {

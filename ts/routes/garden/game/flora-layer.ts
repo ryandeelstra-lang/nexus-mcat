@@ -1,22 +1,23 @@
 // Copyright: Ankitects Pty Ltd and contributors
 // License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
 
-// charged_up: the ground-flora RENDER layer (watering redesign 2026-07-03; mass-bloom
-// concepts selected same day — one per garden, all "A"):
-//   P-S  HANAMI BANKS      — waterline gradient + wind-gust waves traveling down the
-//                            shoreline lines, petals shed on the gust.
-//   B-B  ENDLESS RIBBONS   — a completed two-row band snaps into one continuous unbroken
-//                            color ribbon (jitter removed, clumps widened to touch) with
-//                            a flag-ripple wave rolling down it.
-//   C-P  EMBROIDERY PARTERRE — completed rings lay persistent gold-gravel glints between
-//                            the roses; the fountain answers (world scene owns the plume).
-//   CARS BIOLUMINAL VEINS  — bloomed orchids breathe with an additive glow; a completed
-//                            drift grows a glowing root-vein along its chain and reaches
-//                            toward the Supertrees.
-// Shared: every grown flower sways on a spatial phase so dense patches move as one wind
-// field; band completions celebrate as a traveling domino down the line, not a scatter.
-// Pure logic lives in flora.ts. Everything here is cosmetic (I4) and honors reduced
-// motion (I9): stages snap, nothing sways, veins/gravel render static.
+// charged_up: the ground-flora RENDER layer. Watering redesign + mass-bloom concepts
+// (2026-07-03, all "A"), rebuilt same day around MERGED BEDS ("everything doesn't
+// merge" fix): bloomed ground is painted as a continuous carpet (flora-carpet.ts) that
+// fills each tile edge-to-edge and flows into same-species neighbors — long unbroken
+// drifts of color, never per-tile potted clumps. Sparse HERO clumps (real art, per
+// species heroDensity) rise from the carpet and carry the life:
+//   P-S  HANAMI BANKS      — waterline gradient; gust waves travel the shoreline lines,
+//                            petals shed on the gust.
+//   B-B  ENDLESS RIBBONS   — the carpet itself fuses each two-row band into one
+//                            continuous color ribbon; gusts roll down it.
+//   C-P  EMBROIDERY PARTERRE — completed rings lay persistent gold-gravel glints.
+//   CARS BIOLUMINAL VEINS  — hero orchids breathe additive glow; completed drifts grow
+//                            a glowing root-vein chain reaching toward the Supertrees.
+// Shared: heroes/shoots sway on a spatial wind field; band completions celebrate as a
+// traveling domino down the line. Pure logic lives in flora.ts. Everything here is
+// cosmetic (I4) and honors reduced motion (I9): stages snap, nothing sways, carpet and
+// veins render static.
 import Phaser from "phaser";
 
 import { ensureTexture, sizeToHeightTiles } from "./assets";
@@ -24,6 +25,7 @@ import {
     applyPour,
     bandBloomFraction,
     bandWaveOrder,
+    bedEdges,
     type FloraCounts,
     floraHash,
     floraHeightTiles,
@@ -33,18 +35,18 @@ import {
     floraStage,
     floraTextureKey,
     type FlowerSpot,
+    isHeroTile,
     pourProgress,
     type PourResult,
     sectionBloomFraction,
 } from "./flora";
+import { FloraCarpet } from "./flora-carpet";
 import type { GardenSection, TileCoord } from "./worldgen";
 import { TILE_SIZE } from "./worldgen";
 
-/** Flowers sit just above ground decals and below plots/avatar at the same row. */
-const DEPTH_OFFSET = 0.3;
 /** Radius (tiles) around the avatar in which flowers rustle while walking. */
 const RUSTLE_RADIUS = 1.05;
-/** Minimum ms between rustles of the same flower. */
+/** Minimum ms between rustles of the same flower/carpet tile. */
 const RUSTLE_COOLDOWN_MS = 420;
 
 // --- The wind field (shared sway) ---------------------------------------------------
@@ -58,16 +60,12 @@ const SWAY_PHASE_Y = 0.22;
 // --- Gusts down completed lines ------------------------------------------------------
 /** One completed band hosts a traveling gust roughly this often. */
 const GUST_INTERVAL_MS = 6500;
-/** Stagger between neighbouring flowers as the gust travels (ms). */
+/** Stagger between neighbouring tiles as the gust travels (ms). */
 const GUST_STEP_MS = 26;
 /** Extra lean a gust adds on top of the ambient sway (deg). */
 const GUST_LEAN_DEG = 9;
 
-// --- Ribbons (B-B) ---------------------------------------------------------------------
-/** Widen ribboned clumps so neighbours touch — the unbroken line. */
-const RIBBON_WIDTH_TILES = 1.14;
-
-// --- Glow (CARS) -------------------------------------------------------------------
+// --- Glow (CARS heroes) ----------------------------------------------------------------
 const GLOW_BASE_ALPHA = 0.2;
 const GLOW_PULSE_ALPHA = 0.12;
 const GLOW_HEIGHT_TILES = 1.25;
@@ -76,7 +74,6 @@ interface FlowerSprite {
     spot: FlowerSpot;
     stage: FloraStage;
     sprite: Phaser.GameObjects.Image;
-    /** Jittered rest anchor (ribboning tweens toward the aligned anchor). */
     baseX: number;
     baseY: number;
     /** Spatial wind phase (radians). */
@@ -84,7 +81,7 @@ interface FlowerSprite {
     lastRustle: number;
     /** While now < busyUntil a tween owns the angle; the wind field skips it. */
     busyUntil: number;
-    /** Additive glow (CARS blooms). */
+    /** Additive glow (CARS hero blooms). */
     glow?: Phaser.GameObjects.Image;
 }
 
@@ -94,14 +91,17 @@ export class FloraLayer {
     private counts: FloraCounts;
     private reducedMotion: boolean;
     private allowSpot: (spot: FlowerSpot) => boolean;
-    /** Landmark anchors (C-P fountain, CARS Supertrees) for section-level ambience. */
+    /** Landmark anchors (CARS Supertrees) for section-level ambience. */
     private anchors: Partial<Record<GardenSection, TileCoord>>;
+    /** Standing sprites: every sprout/bud shoot + bloomed HERO clumps only. */
     private sprites = new Map<string, FlowerSprite>();
+    /** The merged-bed paint layer (bud sprinkle + full bloom carpet). */
+    private carpet: FloraCarpet;
     private pipGroup: Phaser.GameObjects.Container | null = null;
     private completedBands = new Set<string>();
-    private ribbonedBands = new Set<string>();
     private gravelByBand = new Map<string, Phaser.GameObjects.Container>();
     private veinsByBand = new Map<string, Phaser.GameObjects.Graphics>();
+    private carpetRustle = new Map<string, number>();
     private lastGustSlot = -1;
 
     constructor(
@@ -118,6 +118,7 @@ export class FloraLayer {
         this.reducedMotion = reducedMotion;
         this.allowSpot = allowSpot;
         this.anchors = anchors;
+        this.carpet = new FloraCarpet(scene);
         this.syncAll();
     }
 
@@ -139,37 +140,50 @@ export class FloraLayer {
         return sectionBloomFraction(this.layout, this.counts, section);
     }
 
-    /** Build sprites + persistent band visuals for every already-watered tile (boot). */
+    private stageAt(spot: FlowerSpot): FloraStage {
+        return floraStage(
+            this.counts[floraKey(spot.tileX, spot.tileY)] ?? 0,
+            spot.watersNeeded,
+        );
+    }
+
+    /** Restore everything from persisted counts (boot). No animation. */
     private syncAll(): void {
         for (const [key, spot] of this.layout.spots) {
             const stage = floraStage(this.counts[key] ?? 0, spot.watersNeeded);
-            if (stage !== "none") {
+            if (stage === "none") {
+                continue;
+            }
+            this.carpet.paintCell(spot, stage, bedEdges(this.layout, this.counts, spot));
+            if (this.wantsStandingSprite(spot, stage)) {
                 this.setSprite(key, spot, stage, false);
             }
         }
+        this.carpet.flush();
         for (const bandId of this.layout.bands.keys()) {
             if (bandBloomFraction(this.layout, this.counts, bandId) >= 1) {
                 this.completedBands.add(bandId);
-                this.applyBandCompletionVisuals(bandId, true);
+                this.applyBandCompletionVisuals(bandId);
             }
         }
     }
 
-    /** Deterministic sub-tile jitter so rows read organic, never grid-stamped. */
+    /** Sprout/bud shoots always stand; at bloom only HERO tiles keep a tall clump —
+     * everything else becomes pure carpet so drifts merge with no per-tile repetition. */
+    private wantsStandingSprite(spot: FlowerSpot, stage: FloraStage): boolean {
+        if (stage === "sprout" || stage === "bud") {
+            return true;
+        }
+        return stage === "bloom" && isHeroTile(spot);
+    }
+
+    /** Deterministic sub-tile jitter so heroes read organic, never grid-stamped. */
     private anchorFor(spot: FlowerSpot): { x: number; y: number } {
         const jx = (floraHash(spot.tileX, spot.tileY, 1201) - 0.5) * 10;
         const jy = (floraHash(spot.tileX, spot.tileY, 1202) - 0.5) * 6;
         return {
             x: spot.tileX * TILE_SIZE + TILE_SIZE / 2 + jx,
             y: (spot.tileY + 1) * TILE_SIZE - 2 + jy,
-        };
-    }
-
-    /** Grid-aligned anchor (ribboned rows sit on the line, no jitter). */
-    private alignedAnchorFor(spot: FlowerSpot): { x: number; y: number } {
-        return {
-            x: spot.tileX * TILE_SIZE + TILE_SIZE / 2,
-            y: (spot.tileY + 1) * TILE_SIZE - 2,
         };
     }
 
@@ -191,7 +205,8 @@ export class FloraLayer {
         sprite.setOrigin(0.5, 1);
         sizeToHeightTiles(sprite, floraHeightTiles(spot.species, stage));
         sprite.setFlipX(floraHash(spot.tileX, spot.tileY, 1203) < 0.5);
-        sprite.setDepth(spot.tileY + DEPTH_OFFSET);
+        // Pixel-Y depth layering (collision redesign 2026-07-03): sort by feet position.
+        sprite.setDepth(y / TILE_SIZE);
         const entry: FlowerSprite = {
             spot,
             stage,
@@ -210,7 +225,17 @@ export class FloraLayer {
         }
     }
 
-    /** CARS blooms breathe with an additive glow (Bioluminal Veins). */
+    private removeSprite(key: string): void {
+        const entry = this.sprites.get(key);
+        if (!entry) {
+            return;
+        }
+        entry.glow?.destroy();
+        entry.sprite.destroy();
+        this.sprites.delete(key);
+    }
+
+    /** CARS hero blooms breathe with an additive glow (Bioluminal Veins). */
     private syncGlow(entry: FlowerSprite): void {
         const wantsGlow = entry.spot.section === "CARS" && entry.stage === "bloom";
         if (!wantsGlow) {
@@ -231,7 +256,7 @@ export class FloraLayer {
         glow.setTint(entry.spot.species.tint);
         glow.setAlpha(GLOW_BASE_ALPHA);
         glow.setBlendMode(Phaser.BlendModes.ADD);
-        glow.setDepth(entry.spot.tileY + DEPTH_OFFSET - 0.02);
+        glow.setDepth(entry.baseY / TILE_SIZE - 0.05);
         entry.glow = glow;
     }
 
@@ -251,7 +276,7 @@ export class FloraLayer {
         });
     }
 
-    /** The bloom moment for one ground flower: petal burst + a soft ring (species-tinted). */
+    /** The bloom moment for one tile: petal burst + a soft ring (species-tinted). */
     private bloomBurst(spot: FlowerSpot): void {
         if (this.reducedMotion) {
             return;
@@ -362,25 +387,55 @@ export class FloraLayer {
     }
 
     /**
-     * A PAID pour lands (the panel ledger already spent the 💧): grow the splash, animate
-     * every stage change, celebrate fresh blooms, and show progress pips at the aim.
+     * A PAID pour lands (the panel ledger already spent the 💧): grow the splash, repaint
+     * the merged bed, animate stage changes, celebrate fresh blooms + completed bands.
      */
     applyPour(aimX: number, aimY: number): PourResult {
         const result = applyPour(this.layout, this.counts, aimX, aimY, this.allowSpot);
         this.counts = result.counts;
+
+        // Repaint changed cells AND their grown same-species neighbors (their shared
+        // edges just connected), deduped per pour.
+        const repaint = new Map<string, FlowerSpot>();
         for (const change of result.changed) {
             const key = floraKey(change.spot.tileX, change.spot.tileY);
-            if (change.stage !== change.prevStage && change.stage !== "none") {
-                this.setSprite(key, change.spot, change.stage, true);
-                if (change.stage === "bloom") {
-                    this.bloomBurst(change.spot);
+            repaint.set(key, change.spot);
+            for (const [dx, dy] of [[0, -1], [1, 0], [0, 1], [-1, 0]] as const) {
+                const nKey = floraKey(change.spot.tileX + dx, change.spot.tileY + dy);
+                const n = this.layout.spots.get(nKey);
+                if (n && n.species.id === change.spot.species.id) {
+                    repaint.set(nKey, n);
                 }
             }
         }
+        for (const [, spot] of repaint) {
+            const stage = this.stageAt(spot);
+            if (stage === "bud" || stage === "bloom") {
+                this.carpet.paintCell(spot, stage, bedEdges(this.layout, this.counts, spot));
+            }
+        }
+        this.carpet.flush();
+
+        for (const change of result.changed) {
+            if (change.stage === change.prevStage || change.stage === "none") {
+                continue;
+            }
+            const key = floraKey(change.spot.tileX, change.spot.tileY);
+            if (this.wantsStandingSprite(change.spot, change.stage)) {
+                this.setSprite(key, change.spot, change.stage, true);
+            } else {
+                // Carpet-only bloom: the shoot folds into the painted bed.
+                this.removeSprite(key);
+            }
+            if (change.stage === "bloom") {
+                this.bloomBurst(change.spot);
+            }
+        }
+
         for (const bandId of result.bandsCompleted) {
             this.completedBands.add(bandId);
             this.celebrateBand(bandId);
-            this.applyBandCompletionVisuals(bandId, this.reducedMotion);
+            this.applyBandCompletionVisuals(bandId);
         }
         this.moistureFx(aimX, aimY);
         this.showPips(aimX, aimY);
@@ -432,37 +487,38 @@ export class FloraLayer {
         this.gustBand(bandId);
     }
 
-    /** The traveling lean: each flower down the line tips in sequence; blooms shed petals. */
+    /** The traveling wave: heroes tip in sequence down the line; carpet tiles release
+     * drifting petals as the gust passes over them. */
     private gustBand(bandId: string): void {
         const order = bandWaveOrder(this.layout, bandId);
         order.forEach((tile, i) => {
-            const entry = this.sprites.get(floraKey(tile.tileX, tile.tileY));
-            if (!entry) {
-                return;
-            }
+            const key = floraKey(tile.tileX, tile.tileY);
+            const entry = this.sprites.get(key);
             this.scene.time.delayedCall(i * GUST_STEP_MS, () => {
-                entry.busyUntil = this.scene.time.now + 420;
-                this.scene.tweens.add({
-                    targets: entry.sprite,
-                    angle: { from: GUST_LEAN_DEG, to: -GUST_LEAN_DEG * 0.4 },
-                    duration: 190,
-                    yoyo: true,
-                    ease: "Sine.easeInOut",
-                    onComplete: () => entry.sprite.setAngle(0),
-                });
-                // Roughly every 4th bloom sheds a drifting petal on the gust.
-                if (entry.stage === "bloom" && (tile.tileX + tile.tileY + i) % 4 === 0) {
-                    this.shedPetal(entry, 1);
+                if (entry) {
+                    entry.busyUntil = this.scene.time.now + 420;
+                    this.scene.tweens.add({
+                        targets: entry.sprite,
+                        angle: { from: GUST_LEAN_DEG, to: -GUST_LEAN_DEG * 0.4 },
+                        duration: 190,
+                        yoyo: true,
+                        ease: "Sine.easeInOut",
+                        onComplete: () => entry.sprite.setAngle(0),
+                    });
+                }
+                // Carpet petals ride the gust (~every 4th tile).
+                const spot = this.layout.spots.get(key);
+                if (spot && (tile.tileX + tile.tileY + i) % 4 === 0) {
+                    this.shedPetalAt(spot, 1);
                 }
             });
         });
     }
 
     /** One drifting petal — real petal art for Sakura, tinted fleck elsewhere. */
-    private shedPetal(entry: FlowerSprite, direction: number): void {
-        const { spot } = entry;
-        const x = entry.baseX;
-        const y = entry.baseY - TILE_SIZE * 0.4;
+    private shedPetalAt(spot: FlowerSpot, direction: number): void {
+        const x = spot.tileX * TILE_SIZE + TILE_SIZE / 2;
+        const y = (spot.tileY + 1) * TILE_SIZE - 2 - TILE_SIZE * 0.4;
         let petal: Phaser.GameObjects.Image | Phaser.GameObjects.Arc;
         if (spot.section === "P-S") {
             const idx = Math.floor(floraHash(spot.tileX, spot.tileY, 1301) * 10);
@@ -494,7 +550,7 @@ export class FloraLayer {
     // Band completion — the magnificent moments.
     // -----------------------------------------------------------------------------
 
-    /** The domino celebration: halo pops travel down the line (not a random scatter). */
+    /** The domino celebration: gold halo pops travel down the line in order. */
     celebrateBand(bandId: string): void {
         if (this.reducedMotion) {
             return;
@@ -502,17 +558,13 @@ export class FloraLayer {
         const order = bandWaveOrder(this.layout, bandId);
         order.forEach((tile, i) => {
             this.scene.time.delayedCall(i * 40, () => {
-                const entry = this.sprites.get(floraKey(tile.tileX, tile.tileY));
-                if (!entry) {
+                const spot = this.layout.spots.get(floraKey(tile.tileX, tile.tileY));
+                if (!spot) {
                     return;
                 }
-                const halo = this.scene.add.circle(
-                    entry.baseX,
-                    entry.baseY - TILE_SIZE * 0.35,
-                    5,
-                    0xffe066,
-                    0.5,
-                );
+                const cx = tile.tileX * TILE_SIZE + TILE_SIZE / 2;
+                const cy = (tile.tileY + 1) * TILE_SIZE - TILE_SIZE * 0.4;
+                const halo = this.scene.add.circle(cx, cy, 5, 0xffe066, 0.5);
                 halo.setDepth(8650);
                 this.scene.tweens.add({
                     targets: halo,
@@ -521,74 +573,30 @@ export class FloraLayer {
                     duration: 480,
                     onComplete: () => halo.destroy(),
                 });
-                this.shedPetal(entry, i % 2 === 0 ? 1 : -1);
+                this.shedPetalAt(spot, i % 2 === 0 ? 1 : -1);
             });
         });
     }
 
-    /** Persistent per-garden completion visuals (also restored instantly at boot). */
-    private applyBandCompletionVisuals(bandId: string, instant: boolean): void {
+    /** Persistent per-garden completion visuals (also restored instantly at boot).
+     * B-B needs nothing extra — the merged carpet IS the endless ribbon. */
+    private applyBandCompletionVisuals(bandId: string): void {
         const section = bandId.split(":")[0] as GardenSection;
         switch (section) {
-            case "B-B":
-                this.ribbonizeBand(bandId, instant);
-                break;
             case "C-P":
                 this.layGoldGravel(bandId);
                 break;
             case "CARS":
                 this.growVeins(bandId);
                 break;
+            case "B-B":
             case "P-S":
-                break; // Hanami Banks lives in the recurring gusts + petals
+                break;
             default: {
                 const _exhaustive: never = section;
                 return _exhaustive;
             }
         }
-    }
-
-    /** ENDLESS RIBBONS: align every clump to the row and widen it so neighbours touch —
-     * the per-tile flowers fuse into one continuous unbroken color line. */
-    private ribbonizeBand(bandId: string, instant: boolean): void {
-        if (this.ribbonedBands.has(bandId)) {
-            return;
-        }
-        this.ribbonedBands.add(bandId);
-        const order = bandWaveOrder(this.layout, bandId);
-        order.forEach((tile, i) => {
-            const entry = this.sprites.get(floraKey(tile.tileX, tile.tileY));
-            if (!entry) {
-                return;
-            }
-            const aligned = this.alignedAnchorFor(entry.spot);
-            const targetWidth = TILE_SIZE * RIBBON_WIDTH_TILES;
-            const apply = (): void => {
-                entry.baseX = aligned.x;
-                entry.baseY = aligned.y;
-                entry.sprite.setFlipX(entry.spot.tileX % 2 === 0);
-                if (instant) {
-                    entry.sprite.setPosition(aligned.x, aligned.y);
-                    entry.sprite.setDisplaySize(targetWidth, entry.sprite.displayHeight);
-                    entry.glow?.setPosition(aligned.x, aligned.y - TILE_SIZE * 0.3);
-                    return;
-                }
-                entry.busyUntil = this.scene.time.now + 340;
-                this.scene.tweens.add({
-                    targets: entry.sprite,
-                    x: aligned.x,
-                    y: aligned.y,
-                    displayWidth: targetWidth,
-                    duration: 300,
-                    ease: "Sine.easeOut",
-                });
-            };
-            if (instant) {
-                apply();
-            } else {
-                this.scene.time.delayedCall(i * GUST_STEP_MS, apply);
-            }
-        });
     }
 
     /** EMBROIDERY PARTERRE: persistent gold-gravel glints settle between a completed
@@ -617,7 +625,7 @@ export class FloraLayer {
     }
 
     /** BIOLUMINAL VEINS: a glowing root-vein traces the completed drift's chain, plus one
-     * reach toward the Supertrees anchor. Persistent; alpha breathes in tick(). */
+     * reach toward the Supertrees anchor. Persistent; alpha breathes via tween. */
     private growVeins(bandId: string): void {
         if (this.veinsByBand.has(bandId)) {
             return;
@@ -677,13 +685,12 @@ export class FloraLayer {
     }
 
     // -----------------------------------------------------------------------------
-    // Rustle (walk-through) — unchanged behavior, tween-ownership aware.
+    // Rustle (walk-through).
     // -----------------------------------------------------------------------------
 
     /**
-     * Rustle flowers the avatar is walking through: a quick wiggle (angle sway) with a
-     * per-flower cooldown, plus one drifting petal off bloomed flowers. Call every frame
-     * while the avatar is moving; guards keep it cheap.
+     * Rustle what the avatar walks through: standing sprites wiggle; pure-carpet bloom
+     * tiles release a petal underfoot. Per-tile cooldowns keep it cheap and calm.
      */
     rustle(worldX: number, worldY: number): void {
         if (this.reducedMotion) {
@@ -696,17 +703,35 @@ export class FloraLayer {
         const ty = Math.floor(ay);
         for (let dy = -1; dy <= 1; dy++) {
             for (let dx = -1; dx <= 1; dx++) {
-                const entry = this.sprites.get(floraKey(tx + dx, ty + dy));
-                if (!entry || now - entry.lastRustle < RUSTLE_COOLDOWN_MS) {
+                const key = floraKey(tx + dx, ty + dy);
+                const entry = this.sprites.get(key);
+                if (entry) {
+                    if (now - entry.lastRustle < RUSTLE_COOLDOWN_MS) {
+                        continue;
+                    }
+                    const fx = entry.spot.tileX + 0.5;
+                    const fy = entry.spot.tileY + 0.5;
+                    if (Math.hypot(fx - ax, fy - ay) > RUSTLE_RADIUS) {
+                        continue;
+                    }
+                    entry.lastRustle = now;
+                    this.rustleTween(entry, ax < fx ? 1 : -1);
                     continue;
                 }
-                const fx = entry.spot.tileX + 0.5;
-                const fy = entry.spot.tileY + 0.5;
-                if (Math.hypot(fx - ax, fy - ay) > RUSTLE_RADIUS) {
+                // Pure-carpet bloomed tile underfoot → a petal brushes loose.
+                const spot = this.layout.spots.get(key);
+                if (!spot || this.stageAt(spot) !== "bloom") {
                     continue;
                 }
-                entry.lastRustle = now;
-                this.rustleTween(entry, ax < fx ? 1 : -1);
+                const last = this.carpetRustle.get(key) ?? 0;
+                if (now - last < RUSTLE_COOLDOWN_MS * 2) {
+                    continue;
+                }
+                if (Math.hypot(spot.tileX + 0.5 - ax, spot.tileY + 0.5 - ay) > RUSTLE_RADIUS) {
+                    continue;
+                }
+                this.carpetRustle.set(key, now);
+                this.shedPetalAt(spot, ax < spot.tileX + 0.5 ? 1 : -1);
             }
         }
     }
@@ -723,9 +748,9 @@ export class FloraLayer {
             ease: "Sine.easeInOut",
             onComplete: () => sprite.setAngle(0),
         });
-        // Bloomed flowers shed one petal as you brush through.
+        // Bloomed heroes shed one petal as you brush through.
         if (entry.stage === "bloom") {
-            this.shedPetal(entry, direction);
+            this.shedPetalAt(entry.spot, direction);
         }
     }
 
@@ -735,6 +760,7 @@ export class FloraLayer {
             entry.glow?.destroy();
         }
         this.sprites.clear();
+        this.carpet.destroy();
         this.pipGroup?.destroy();
         this.pipGroup = null;
         for (const [, c] of this.gravelByBand) {

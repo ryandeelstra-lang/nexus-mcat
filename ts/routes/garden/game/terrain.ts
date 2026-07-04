@@ -375,6 +375,44 @@ export function plazaField(px: number, py: number): number {
     return dx * dx + dy * dy + (fbm(px * 0.008, py * 0.008, 41) - 0.5) * 0.3;
 }
 
+/** Painted water half-width at a point (shared by the painter and terrainKindAt). */
+function waterWidthAt(px: number, py: number): number {
+    return TILE * 0.72 + (fbm(px * 0.01, py * 0.01, 31) - 0.5) * TILE * 0.35;
+}
+
+/** Painted path half-width at a point (shared by the painter and terrainKindAt). */
+function pathWidthAt(px: number, py: number): number {
+    return TILE * 0.62 + (fbm(px * 0.012, py * 0.012, 51) - 0.5) * TILE * 0.3;
+}
+
+/** What the ground painter draws at a point, coarsely (no per-pixel dither/jitter). */
+export type TerrainKind = "water" | "shore" | "plaza" | "path" | "grass";
+
+/**
+ * Classify a world-px point with the SAME fields and branch order the painter uses
+ * (water → shore → plaza → path → grass), minus the per-pixel edge jitter — a pure,
+ * deterministic "what ground is this?" probe. The map's click-to-teleport uses it to
+ * accept only open GRASS landings (doc 23 §6.4 map-first "pick a spot and drop in").
+ */
+export function terrainKindAt(model: TerrainModel, px: number, py: number): TerrainKind {
+    const { gw, gh, waterDT, trailDT } = model;
+    const wd = sampleDT(waterDT, gw, gh, px, py);
+    const waterW = waterWidthAt(px, py);
+    if (wd < waterW) {
+        return "water";
+    }
+    if (wd < waterW + 9) {
+        return "shore";
+    }
+    if (plazaField(px, py) < 1) {
+        return "plaza";
+    }
+    if (sampleDT(trailDT, gw, gh, px, py) < pathWidthAt(px, py)) {
+        return "path";
+    }
+    return "grass";
+}
+
 /** Paint the whole overworld ground into chunked canvas textures (below all sprites). */
 export function paintGround(scene: Phaser.Scene, plan: WorldPlan, model: TerrainModel): void {
     const wpx = plan.widthTiles * TILE;
@@ -419,8 +457,7 @@ export function paintGround(scene: Phaser.Scene, plan: WorldPlan, model: Terrain
                     const edgeJ = (hash2(px, py, 17) - 0.5) * 6;
 
                     let color: RGB;
-                    const waterW = TILE * 0.72
-                        + (fbm(px * 0.01, py * 0.01, 31) - 0.5) * TILE * 0.35;
+                    const waterW = waterWidthAt(px, py);
 
                     if (wd + edgeJ < waterW) {
                         if (wd + edgeJ < waterW - 10) {
@@ -444,8 +481,7 @@ export function paintGround(scene: Phaser.Scene, plan: WorldPlan, model: Terrain
                                 color = PLAZA_RIM;
                             }
                         } else {
-                            const pathW = TILE * 0.62
-                                + (fbm(px * 0.012, py * 0.012, 51) - 0.5) * TILE * 0.3;
+                            const pathW = pathWidthAt(px, py);
                             if (td + edgeJ < pathW) {
                                 if (td + edgeJ > pathW - 5) {
                                     color = pal.pathRim;

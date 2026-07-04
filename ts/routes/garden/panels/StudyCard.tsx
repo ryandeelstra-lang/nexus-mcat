@@ -34,7 +34,9 @@ export interface StudyCardProps {
     scopeKey: string;
 }
 
-const FAST_ANSWER_MS = 5_000;
+/** One contract for "fast": MUST match the server's GLINT_MS (journey/voice_review.py) —
+ * the gold glint fx and the GOOD→EASY promotion must agree on what a fast answer is. */
+const FAST_ANSWER_MS = 6_000;
 
 export function StudyCard(props: StudyCardProps): React.ReactElement {
     const { onGraded, onEmpty, onClose, contextLabel, scopeKey } = props;
@@ -139,6 +141,12 @@ export function StudyCard(props: StudyCardProps): React.ReactElement {
 
     useEffect(() => {
         function onKeydown(e: KeyboardEvent): void {
+            // Escape must close from EVERY phase — buried in the else-chain it was
+            // unreachable whenever an answer was showing.
+            if (e.key === "Escape") {
+                onClose();
+                return;
+            }
             if (e.key === " " || e.key === "Enter") {
                 if (phase === "question") {
                     e.preventDefault();
@@ -155,8 +163,6 @@ export function StudyCard(props: StudyCardProps): React.ReactElement {
                     e.preventDefault();
                     void grade(map[e.key]);
                 }
-            } else if (e.key === "Escape") {
-                onClose();
             }
         }
         window.addEventListener("keydown", onKeydown);
@@ -164,7 +170,8 @@ export function StudyCard(props: StudyCardProps): React.ReactElement {
     }, [phase, reveal, grade, onClose]);
 
     return (
-        <div className="keeper-panel" role="dialog" aria-label="The Keeper's questions">
+        /* No nested role="dialog": the keeper-panel-shell above already owns it. */
+        <div className="keeper-panel">
             <div className="keeper-panel-header">
                 <span className="keeper-context">{contextLabel ?? "Today's tending"}</span>
                 <span className="keeper-counts" aria-label="cards remaining">

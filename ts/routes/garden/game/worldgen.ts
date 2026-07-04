@@ -5,7 +5,7 @@
 // Pure logic — no Phaser. One continuous 2×2 quilt around a Keeper clearing. Each region is
 // either an AUTHORED sector (docs/sectors/* → game/sectors/*) or, until authored, the legacy
 // serpentine fallback below.
-import type { GrowthStage } from "../state/stage";
+import { BLOOMED_TIER, type GrowthStage } from "../state/stage";
 import { dedupeTiles as dedupe, rasterizePath } from "./sectors/helpers";
 import { sectorFor } from "./sectors/index";
 import type { FieldFill, SectorDecor, SectorInteraction } from "./sectors/types";
@@ -137,6 +137,19 @@ export const REGION_RECTS: readonly RegionRect[] = [
     { section: "C-P", x: 0, y: 19, w: 19, h: 13 },
     { section: "CARS", x: 25, y: 19, w: 19, h: 13 },
 ];
+
+/** The garden section whose rect contains this tile, or null on the seam/plaza between
+ * gardens. Lets the world tell the adaptive lofi score (audio/theory) which garden the
+ * avatar is standing in — the score keeps the last garden's identity while on the seam. */
+export function sectionAtTile(plan: WorldPlan, tileX: number, tileY: number): GardenSection | null {
+    for (const region of plan.regions) {
+        const { x, y, w, h } = region.rect;
+        if (tileX >= x && tileX < x + w && tileY >= y && tileY < y + h) {
+            return region.section;
+        }
+    }
+    return null;
+}
 
 /** The seam tiles (gap centres) between the four regions — the Keeper plaza sits here.
  * Shared by the terrain painter so region borders/decor/plaza stay in sync with layout. */
@@ -560,12 +573,29 @@ export function buildWorldPlan(): WorldPlan {
     };
 }
 
-/** §6.3 — gate opens when prerequisite topic has bloomed. */
+/** §6.3 — gate opens when the prerequisite topic has bloomed (any bloomed tier). */
 export function gateIsOpen(
     edge: { src: string; dst: string },
     stageByNode: Map<string, GrowthStage>,
 ): boolean {
-    return stageByNode.get(edge.src) === "bloomed";
+    const stage = stageByNode.get(edge.src);
+    return stage !== undefined && BLOOMED_TIER.has(stage);
+}
+
+/** Fast-travel arrival candidates for a waystone, best first: 2–5 tiles SOUTH of the stone
+ * (never inside its base box), then 2–3 tiles NORTH as the rim fallback. South-only probing
+ * softlocked Versailles (waystone at y=30 on a 32-tile world: every southern candidate is past
+ * the world rim, and the old code teleported there anyway). The scene walks this list through
+ * its footBlocked probe and stays put when nothing is open. */
+export function waystoneArrivalTiles(ws: TileCoord): TileCoord[] {
+    const out: TileCoord[] = [];
+    for (let d = 2; d <= 5; d++) {
+        out.push({ tileX: ws.tileX, tileY: ws.tileY + d });
+    }
+    for (let d = 2; d <= 3; d++) {
+        out.push({ tileX: ws.tileX, tileY: ws.tileY - d });
+    }
+    return out;
 }
 
 export function plantSpotByNode(plan: WorldPlan, nodeId: string): PlantSpot | undefined {

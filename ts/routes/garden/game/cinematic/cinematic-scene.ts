@@ -7,7 +7,7 @@
 // the game's worldgen layout (doc 23 §6). Screen-space grading lives in CineSkyScene.
 import Phaser from "phaser";
 
-import type { GrowthStage } from "../../state/stage";
+import { BLOOMED_TIER, type GrowthStage } from "../../state/stage";
 import {
     allAssetKeys,
     applyDisplaySize,
@@ -400,7 +400,7 @@ export class CinematicScene extends Phaser.Scene {
             const spr = this.add.image(
                 tileX * TS + TS / 2,
                 tileY * TS + TS,
-                ensureTexture(this, stageTextureKey("bloomed")),
+                ensureTexture(this, stageTextureKey("bloomed", region)),
             );
             spr.setOrigin(0.5, 1);
             applyDisplaySize(spr);
@@ -455,7 +455,7 @@ export class CinematicScene extends Phaser.Scene {
         this.sprout = this.add.image(
             SPROUT_TILE.tileX * TS + TS / 2,
             SPROUT_TILE.tileY * TS + TS,
-            ensureTexture(this, stageTextureKey("sprout")),
+            ensureTexture(this, stageTextureKey("sprout", "sakura")),
         );
         this.sprout.setOrigin(0.5, 1);
         applyDisplaySize(this.sprout);
@@ -507,12 +507,12 @@ export class CinematicScene extends Phaser.Scene {
             } else {
                 stage = plantStageAt(t, p.tileX, p.tileY, p.seed) as GrowthStage;
             }
-            const key = ensureTexture(this, stageTextureKey(stage));
+            const key = ensureTexture(this, stageTextureKey(stage, p.region));
             if (p.sprite.texture.key !== key) {
                 p.sprite.setTexture(key);
                 applyDisplaySize(p.sprite);
             }
-            p.glow.setAlpha(stage === "bloomed" ? 0.16 : 0);
+            p.glow.setAlpha(BLOOMED_TIER.has(stage) ? 0.16 : 0);
         }
         for (const d of this.dressing) {
             d.sprite.setAlpha(dressingAlphaAt(t, d.seed));

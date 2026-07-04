@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 
 import type { GrowthStage } from "../state/stage";
 
-import { allLeafIds, buildWorldPlan, gateIsOpen, LEAF_PREREQ, tileIsSolid } from "./worldgen";
+import { allLeafIds, buildWorldPlan, gateIsOpen, LEAF_PREREQ, sectionAtTile, tileIsSolid } from "./worldgen";
 
 describe("buildWorldPlan", () => {
     it("is deterministic (same input → same plan)", () => {
@@ -65,11 +65,47 @@ describe("gateIsOpen", () => {
         expect(gateIsOpen(edge, stages)).toBe(true);
     });
 
+    it("stays open through the post-bloom tiers — flourishing/radiant never re-lock a gate", () => {
+        for (const stage of ["flourishing", "radiant"] as GrowthStage[]) {
+            const stages = new Map<string, GrowthStage>([["BB.1A", stage]]);
+            expect(gateIsOpen(edge, stages), stage).toBe(true);
+        }
+    });
+
+    it("care states close it again — a drooping prerequisite is not a proven one", () => {
+        const stages = new Map<string, GrowthStage>([["BB.1A", "drooping"]]);
+        expect(gateIsOpen(edge, stages)).toBe(false);
+    });
+
     it("prereq gates are data-only — never solid (sector locks own progression now)", () => {
         // 2026-07-03: the little vine doors are gone; a full MCAT test unlocks each garden.
         const plan = buildWorldPlan();
         const gate = plan.gates[0];
         const closed = new Map<string, GrowthStage>();
         expect(tileIsSolid(plan, gate.tileX, gate.tileY, closed)).toBe(false);
+    });
+});
+
+describe("sectionAtTile — which garden the avatar is standing in (drives the score)", () => {
+    it("returns the containing section at each region's centre", () => {
+        const plan = buildWorldPlan();
+        // Centres of the §9.3 quilt: P-S NW · B-B NE · C-P SW · CARS SE.
+        expect(sectionAtTile(plan, 9, 6)).toBe("P-S");
+        expect(sectionAtTile(plan, 34, 6)).toBe("B-B");
+        expect(sectionAtTile(plan, 9, 25)).toBe("C-P");
+        expect(sectionAtTile(plan, 34, 25)).toBe("CARS");
+    });
+
+    it("returns null on the seam/plaza between gardens (score keeps the last identity)", () => {
+        const plan = buildWorldPlan();
+        // The Keeper plaza sits on the seam (SPLIT_X = 22), inside no region rect.
+        expect(sectionAtTile(plan, 22, 16)).toBeNull();
+        expect(sectionAtTile(plan, plan.center.keeperTile.tileX, plan.center.keeperTile.tileY)).toBeNull();
+    });
+
+    it("returns null outside the world bounds", () => {
+        const plan = buildWorldPlan();
+        expect(sectionAtTile(plan, -1, -1)).toBeNull();
+        expect(sectionAtTile(plan, 999, 999)).toBeNull();
     });
 });

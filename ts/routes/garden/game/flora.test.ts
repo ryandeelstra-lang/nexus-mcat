@@ -10,12 +10,17 @@ import { hasAssetKey } from "./assets";
 import {
     allFloraSpecies,
     applyPour,
+    bandBloomFraction,
+    bandWaveOrder,
     FLORA_CONFIG,
     floraKey,
     type FloraLayout,
     floraStage,
+    isGrassTile,
+    occupiedTiles,
     planFlora,
     pourProgress,
+    sectionBloomFraction,
     splashTiles,
 } from "./flora";
 import { buildTerrainModel, plazaField, sampleDT } from "./terrain";
@@ -37,14 +42,52 @@ describe("planFlora — the preset flower layout", () => {
         }
     });
 
+    it("EVERY grass tile can be watered — no exceptions (2026-07-03 directive)", () => {
+        // The exhaustive invariant: walk the whole world grid; every tile that is grass
+        // and not physically occupied MUST carry a flower spot, and nothing else may.
+        const occupied = occupiedTiles(plan);
+        let grassTiles = 0;
+        for (let ty = 0; ty < plan.heightTiles; ty++) {
+            for (let tx = 0; tx < plan.widthTiles; tx++) {
+                const key = floraKey(tx, ty);
+                const eligible = isGrassTile(plan, model, tx, ty) && !occupied.has(key);
+                if (eligible) {
+                    grassTiles++;
+                }
+                expect(
+                    layout.spots.has(key),
+                    `tile ${key} ${eligible ? "is grass but has no flower" : "is not grass yet has a flower"}`,
+                ).toBe(eligible);
+            }
+        }
+        expect(layout.spots.size).toBe(grassTiles);
+    });
+
     it("covers every region generously (grass everywhere can flower)", () => {
         const bySection = new Map<string, number>();
         for (const spot of layout.spots.values()) {
             bySection.set(spot.section, (bySection.get(spot.section) ?? 0) + 1);
         }
         for (const section of ["P-S", "B-B", "C-P", "CARS"]) {
-            expect(bySection.get(section) ?? 0, `no flowers in ${section}`).toBeGreaterThan(25);
+            expect(bySection.get(section) ?? 0, `no flowers in ${section}`).toBeGreaterThan(60);
         }
+    });
+
+    it("the seam corridors BETWEEN gardens flower too (they are grass)", () => {
+        // Tiles outside every region rect (the cross between the four quadrants) used to be
+        // dead ground; now any grass there carries its nearest garden's species.
+        const inAnyRect = (tx: number, ty: number) =>
+            plan.regions.some((r) =>
+                tx >= r.rect.x && tx < r.rect.x + r.rect.w
+                && ty >= r.rect.y && ty < r.rect.y + r.rect.h
+            );
+        let seamFlowers = 0;
+        for (const spot of layout.spots.values()) {
+            if (!inAnyRect(spot.tileX, spot.tileY)) {
+                seamFlowers++;
+            }
+        }
+        expect(seamFlowers).toBeGreaterThan(20);
     });
 
     it("never places a flower on water/shore, the trail, or the plaza", () => {
@@ -61,24 +104,24 @@ describe("planFlora — the preset flower layout", () => {
         }
     });
 
-    it("keeps clear of plots, props, waystones, and hedges", () => {
+    it("keeps clear of plots, props, waystones, and hedges", { timeout: 30_000 }, () => {
+        // Collect-then-assert-once: per-pair expect() calls made this test time out under
+        // full-suite parallel load (2026-07-03) — the logic is a simple set lookup anyway.
+        const standing = new Set<string>();
         for (const r of plan.regions) {
-            const anchors = [
-                ...r.plants.map((p) => ({ x: p.tileX, y: p.tileY })),
-                ...r.props.map((p) => ({ x: p.tileX, y: p.tileY })),
-                { x: r.waystone.tileX, y: r.waystone.tileY },
-            ];
-            for (const spot of layout.spots.values()) {
-                for (const a of anchors) {
-                    const d = Math.hypot(spot.tileX - a.x, spot.tileY - a.y);
-                    expect(d, `flower at ${spot.tileX},${spot.tileY} overlaps an anchor`)
-                        .toBeGreaterThanOrEqual(1);
-                }
+            for (const p of r.plants) {
+                standing.add(floraKey(p.tileX, p.tileY));
+            }
+            for (const p of r.props) {
+                standing.add(floraKey(p.tileX, p.tileY));
             }
             for (const h of r.hedges) {
-                expect(layout.spots.has(floraKey(h.tileX, h.tileY))).toBe(false);
+                standing.add(floraKey(h.tileX, h.tileY));
             }
+            standing.add(floraKey(r.waystone.tileX, r.waystone.tileY));
         }
+        const violations = [...layout.spots.keys()].filter((k) => standing.has(k));
+        expect(violations).toEqual([]);
     });
 
     it("every tile needs between 3 and 7 pours", () => {
@@ -271,6 +314,55 @@ describe("applyPour — bone-meal watering", () => {
         expect(pourProgress(layout, {}, 40, 40)).toBeNull();
         const counts = applyPour(layout, {}, 11, 10).counts;
         expect(pourProgress(layout, counts, 11, 10)).toEqual({ count: 2, needed: 4 });
+    });
+});
+
+describe("mass-bloom ambience helpers (concepts A×4, 2026-07-03)", () => {
+    it("bandWaveOrder chains a line end-to-end so waves TRAVEL down the row", () => {
+        const layout = syntheticLayout();
+        const order = bandWaveOrder(layout, "P-S:0");
+        // The three-tile row comes back west→east, each step adjacent — a real traveling wave.
+        expect(order.map((t) => t.tileX)).toEqual([10, 11, 12]);
+        expect(order.map((t) => t.tileY)).toEqual([10, 10, 10]);
+    });
+
+    it("bandWaveOrder visits every member exactly once (rings and curves included)", () => {
+        for (const [bandId, members] of layout.bands) {
+            const order = bandWaveOrder(layout, bandId);
+            expect(order).toHaveLength(members.length);
+            const seen = new Set(order.map((t) => floraKey(t.tileX, t.tileY)));
+            expect(seen.size).toBe(members.length);
+            for (const k of members) {
+                expect(seen.has(k)).toBe(true);
+            }
+        }
+    });
+
+    it("bandBloomFraction climbs 0 → 1 as a band waters up", () => {
+        const synth = syntheticLayout();
+        expect(bandBloomFraction(synth, {}, "P-S:0")).toBe(0);
+        // Bloom exactly one of three (10,10 needs 3).
+        const partial = { [floraKey(10, 10)]: 3 };
+        expect(bandBloomFraction(synth, partial, "P-S:0")).toBeCloseTo(1 / 3);
+        const full = {
+            [floraKey(10, 10)]: 3,
+            [floraKey(11, 10)]: 4,
+            [floraKey(12, 10)]: 3,
+        };
+        expect(bandBloomFraction(synth, full, "P-S:0")).toBe(1);
+    });
+
+    it("sectionBloomFraction reports the whole garden's progress", () => {
+        const synth = syntheticLayout();
+        expect(sectionBloomFraction(synth, {}, "P-S")).toBe(0);
+        const full = {
+            [floraKey(10, 10)]: 3,
+            [floraKey(11, 10)]: 4,
+            [floraKey(12, 10)]: 3,
+            [floraKey(20, 20)]: 5,
+        };
+        expect(sectionBloomFraction(synth, full, "P-S")).toBe(1);
+        expect(sectionBloomFraction(synth, full, "B-B")).toBe(0);
     });
 });
 

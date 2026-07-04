@@ -15,10 +15,12 @@ export type GrowthStage =
     | "growing"
     | "budding"
     | "bloomed"
+    | "flourishing"
+    | "radiant"
     | "drooping"
     | "weedy";
 
-/** Stage order for sprite lookup + tests (indices match the sliced stage sheet). */
+/** Stage order for sprite lookup + tests (indices match the sliced stage sheet filenames). */
 export const STAGE_ORDER: readonly GrowthStage[] = [
     "bare-soil",
     "sprout",
@@ -26,9 +28,22 @@ export const STAGE_ORDER: readonly GrowthStage[] = [
     "growing",
     "budding",
     "bloomed",
+    "flourishing",
+    "radiant",
     "drooping",
     "weedy",
 ];
+
+/**
+ * Every stage that counts as a paraphrase-proven bloom (I3). Anything keyed on
+ * "the plant has bloomed" — gate opening, bloom glow — must use this set, not
+ * `=== "bloomed"`, or the post-bloom tiers would silently close gates again.
+ */
+export const BLOOMED_TIER: ReadonlySet<GrowthStage> = new Set([
+    "bloomed",
+    "flourishing",
+    "radiant",
+]);
 
 export interface StageInputs {
     /** Engine truth for the topic (masteryQuery + deckTree join). */
@@ -46,15 +61,24 @@ export interface StageInputs {
 export const STRONG_MEMORY = 0.9;
 /** Retrievability at/above this with some history = actively growing. */
 export const GROWING_RECALL = 0.6;
+/** Bloomed topics at/above this recall with enough proven reviews keep flourishing. */
+export const FLOURISHING_RECALL = 0.95;
+export const FLOURISHING_REVIEWS = 12;
+/** The pinnacle: near-perfect recall sustained across a deep review history. */
+export const RADIANT_RECALL = 0.97;
+export const RADIANT_REVIEWS = 24;
 
 /**
- * Map engine truth onto the 8 visual stages (doc 23 §8).
+ * Map engine truth onto the 10 visual stages (doc 23 §8; ladder extended 2026-07-03).
  *
- * Precedence (highest first): weedy > drooping > bloomed > budding > growing > seedling
- * > sprout > bare-soil. Weeds/droop are *care states* — they must stay visible even on
- * strong topics, or the "knowledge fades / misses become assignments" loop disappears.
- * Bloom survives droop-precedence only when nothing is due and no weed is active, which
- * is exactly "the garden only stays lit through real upkeep."
+ * Precedence (highest first): weedy > drooping > radiant > flourishing > bloomed
+ * > budding > growing > seedling > sprout > bare-soil. Weeds/droop are *care states* —
+ * they must stay visible even on strong topics, or the "knowledge fades / misses become
+ * assignments" loop disappears. The whole bloomed tier survives droop-precedence only
+ * when nothing is due and no weed is active, which is exactly "the garden only stays
+ * lit through real upkeep." The post-bloom tiers (flourishing, radiant) still require
+ * the paraphrase pass (I3) — they are earned by *keeping* a bloomed topic strong, so
+ * every input stays engine-derived (I4).
  */
 export function stageFor(inputs: StageInputs): GrowthStage {
     const { topic, paraphrasePassed, hasActiveWeed } = inputs;
@@ -69,7 +93,19 @@ export function stageFor(inputs: StageInputs): GrowthStage {
         return "drooping";
     }
     if (topic.averageRecall >= STRONG_MEMORY) {
-        return paraphrasePassed ? "bloomed" : "budding";
+        if (!paraphrasePassed) {
+            return "budding";
+        }
+        if (topic.averageRecall >= RADIANT_RECALL && topic.gradedReviews >= RADIANT_REVIEWS) {
+            return "radiant";
+        }
+        if (
+            topic.averageRecall >= FLOURISHING_RECALL
+            && topic.gradedReviews >= FLOURISHING_REVIEWS
+        ) {
+            return "flourishing";
+        }
+        return "bloomed";
     }
     if (topic.averageRecall >= GROWING_RECALL && topic.gradedReviews > 0) {
         return "growing";

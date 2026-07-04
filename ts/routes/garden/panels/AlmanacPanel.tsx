@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 
 import { asCoverage, asMetric, asNumber, asRange, asString, extractReviewCount, hasSyntheticCaveat } from "./dashboard";
+import { panelFrameStyle } from "./KeeperDialogue";
 import type { DashboardData, DashboardMetric } from "./rpc";
 
 interface AlmanacPanelProps {
@@ -10,12 +11,25 @@ interface AlmanacPanelProps {
     onClose: () => void;
 }
 
+/** Engine abstain-reasons are honest but written for builders ("built in Block G").
+ * Translate the known ones into garden voice; anything unrecognized passes through
+ * verbatim so honesty is never edited away. */
+function playerReason(reason: string | null): string | null {
+    if (!reason) {
+        return null;
+    }
+    if (/Block [A-Z]/.test(reason)) {
+        return "The Keeper is still gathering enough of your work to say — check back after more tending.";
+    }
+    return reason;
+}
+
 function metricSummary(metric: DashboardMetric | null): React.ReactElement {
     if (!metric) {
         return <p className="almanac-empty">No score payload yet.</p>;
     }
     if (metric.available === false) {
-        return <p className="almanac-empty">{asString(metric.reason) ?? "Still growing."}</p>;
+        return <p className="almanac-empty">{playerReason(asString(metric.reason)) ?? "Still growing."}</p>;
     }
     const value = asNumber(metric.value);
     const range = asRange(metric.range);
@@ -62,8 +76,8 @@ export function AlmanacPanel(props: AlmanacPanelProps): React.ReactElement {
     }
 
     return (
-        <div className="garden-overlay almanac-overlay" role="dialog" aria-label="Almanac">
-            <div className="panel-card almanac-panel">
+        <div className="garden-overlay almanac-overlay" role="dialog" aria-modal="true" aria-label="Almanac">
+            <div className="panel-card almanac-panel" style={panelFrameStyle()}>
                 <div className="panel-header">
                     <h2>Almanac</h2>
                     <div className="panel-actions">
@@ -103,7 +117,9 @@ export function AlmanacPanel(props: AlmanacPanelProps): React.ReactElement {
                                         Gate coverage: {coveredGate} / {gateTotal} categories
                                     </p>
                                     {reviews !== null && <p>Reviews: {reviews} / 1000</p>}
-                                    {asString(readiness?.reason) && <p>{asString(readiness?.reason)}</p>}
+                                    {playerReason(asString(readiness?.reason)) && (
+                                        <p>{playerReason(asString(readiness?.reason))}</p>
+                                    )}
                                 </div>
                             )
                             : metricSummary(readiness)}

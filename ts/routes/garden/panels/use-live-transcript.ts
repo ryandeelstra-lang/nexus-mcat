@@ -43,8 +43,22 @@ interface SpeechRecognitionLike {
 }
 type SpeechRecognitionCtor = new() => SpeechRecognitionLike;
 
+/**
+ * QtWebEngine (the desktop app's Chromium webview) EXPOSES `webkitSpeechRecognition` but ships no
+ * `media.mojom.SpeechRecognizer` backend, so calling `.start()` there is uncatchable: Chromium kills
+ * the whole renderer with a bad-IPC message ("No binder found for interface media.mojom.SpeechRecognizer")
+ * that no `onerror`/try-catch can trap. Treat that environment as unsupported so we take the intended
+ * display-only fallback (listening pulse + server-side faster-whisper) instead of crashing the webview.
+ */
+function speechBackendMissing(): boolean {
+    if (typeof navigator === "undefined") {
+        return false;
+    }
+    return /\bQtWebEngine\b/.test(navigator.userAgent);
+}
+
 function recognitionCtor(): SpeechRecognitionCtor | null {
-    if (typeof globalThis === "undefined") {
+    if (typeof globalThis === "undefined" || speechBackendMissing()) {
         return null;
     }
     const w = globalThis as unknown as {
@@ -162,7 +176,21 @@ export function useLiveTranscript(lang = "en-US"): LiveTranscript {
             stop();
         };
         rec.onend = (): void => {
-            setListening(false);
+            // Chrome's engine self-ends after a few seconds of silence even with
+            // continuous=true. The player is still mid-answer (the REAL recorder is
+            // still rolling) — restart so the captions don't freeze and read as a
+            // dead microphone. stop() nulls the ref first, so a deliberate stop
+            // never bounces back here.
+            if (recognition.current === rec) {
+                try {
+                    rec.start();
+                    return;
+                } catch {
+                    // engine refused the restart — surrender the captions only
+                }
+                recognition.current = null;
+                setListening(false);
+            }
         };
         recognition.current = rec;
         try {

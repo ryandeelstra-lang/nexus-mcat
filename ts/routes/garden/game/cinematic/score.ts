@@ -29,10 +29,17 @@ interface SegmentMix {
     cutoffHz: number;
 }
 
-/** The emotional arc, one row per storyboard movement (ramped over ~2s at each edge). */
+/**
+ * The emotional arc, one row per storyboard movement (ramped over ~2s at each edge).
+ *
+ * `lead` is held at 0 across the whole film on purpose: the melodic lead (marimba/
+ * bell/pluck) and the bloom chimes both route through `layers.lead`, and those pure
+ * tones read as "high-pitch beeps" over the cinematic. Muting the layer keeps the
+ * warm lofi bed (pad + keys + bass + drums + vinyl) while removing every beep.
+ */
 const SEGMENTS: readonly SegmentMix[] = [
     // Awe — the painted establishing shots. Pad + keys + hiss, no beat yet.
-    { from: 0, pad: 0.6, keys: 0.45, bass: 0.35, drums: 0, lead: 0.2, vinyl: 0.4, cutoffHz: 2200 },
+    { from: 0, pad: 0.6, keys: 0.45, bass: 0.35, drums: 0, lead: 0, vinyl: 0.4, cutoffHz: 2200 },
     // The Master's care — the full lofi bed wakes up.
     {
         from: BEATS.careSakura.from,
@@ -40,20 +47,20 @@ const SEGMENTS: readonly SegmentMix[] = [
         keys: 0.5,
         bass: 0.6,
         drums: 0.45,
-        lead: 0.5,
+        lead: 0,
         vinyl: 0.32,
         cutoffHz: 2600,
     },
     // Departure — drums recede, melancholy.
-    { from: BEATS.departure.from, pad: 0.6, keys: 0.4, bass: 0.5, drums: 0.18, lead: 0.3, vinyl: 0.4, cutoffHz: 1600 },
+    { from: BEATS.departure.from, pad: 0.6, keys: 0.4, bass: 0.5, drums: 0.18, lead: 0, vinyl: 0.4, cutoffHz: 1600 },
     // The long sleep — a cold, near-empty bed: pad + vinyl and little else.
-    { from: BEATS.longSleep.from, pad: 0.5, keys: 0.12, bass: 0.25, drums: 0, lead: 0.12, vinyl: 0.5, cutoffHz: 900 },
+    { from: BEATS.longSleep.from, pad: 0.5, keys: 0.12, bass: 0.25, drums: 0, lead: 0, vinyl: 0.5, cutoffHz: 900 },
     // Still night before sunrise — everything holds its breath.
-    { from: 47.5, pad: 0.35, keys: 0.06, bass: 0.15, drums: 0, lead: 0.05, vinyl: 0.55, cutoffHz: 700 },
+    { from: 47.5, pad: 0.35, keys: 0.06, bass: 0.15, drums: 0, lead: 0, vinyl: 0.55, cutoffHz: 700 },
     // The student / sunrise — gentle rebuild.
-    { from: BEATS.student.from, pad: 0.55, keys: 0.42, bass: 0.5, drums: 0.22, lead: 0.4, vinyl: 0.35, cutoffHz: 2000 },
+    { from: BEATS.student.from, pad: 0.55, keys: 0.42, bass: 0.5, drums: 0.22, lead: 0, vinyl: 0.35, cutoffHz: 2000 },
     // Begin — warm full resolve.
-    { from: BEATS.begin.from, pad: 0.62, keys: 0.55, bass: 0.6, drums: 0.42, lead: 0.5, vinyl: 0.3, cutoffHz: 2700 },
+    { from: BEATS.begin.from, pad: 0.62, keys: 0.55, bass: 0.6, drums: 0.42, lead: 0, vinyl: 0.3, cutoffHz: 2700 },
 ] as const;
 
 /** Which region progression colors each stretch of the film. */

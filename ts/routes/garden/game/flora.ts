@@ -20,7 +20,15 @@
 // spend stays owned by the panel layer).
 
 import { plazaField, sampleDT, type TerrainModel } from "./terrain";
-import { type GardenSection, KEEPER_TILE, type RegionPlan, TILE_SIZE, type WorldPlan } from "./worldgen";
+import {
+    type GardenSection,
+    type RegionPlan,
+    SPLIT_X,
+    SPLIT_Y,
+    TILE_SIZE,
+    type TileCoord,
+    type WorldPlan,
+} from "./worldgen";
 
 /** Deterministic tile hash (same recipe as terrain.ts, kept local so flora stands alone). */
 export function floraHash(x: number, y: number, seed: number): number {
@@ -45,8 +53,6 @@ export const FLORA_CONFIG = {
     splashRadius: 1,
     /** Fraction of watersNeeded at/above which a flower shows its bud. */
     budFraction: 0.5,
-    /** Clearance (tiles) kept around plots / props / structures. */
-    clearance: 1.0,
     /** Distance-to-water below which a tile is shore/water, not grass. */
     waterClearTiles: 1.25,
     /** Distance-to-trail below which a tile is path. Deliberately snug (0.7): flowers
@@ -66,6 +72,9 @@ export interface FlowerSpecies {
     tint: number;
     /** Bloom display height in tiles (aspect preserved). */
     hTiles: number;
+    /** Fraction of tiles that grow a tall HERO clump above the merged bed carpet
+     * (the rest render as pure carpet, so drifts read continuous, never gridded). */
+    heroDensity: number;
 }
 
 export interface FlowerSpot {
@@ -97,35 +106,36 @@ export function floraKey(tileX: number, tileY: number): string {
 // ---------------------------------------------------------------------------
 
 const SAKURA_BANDS: FlowerSpecies[] = [
-    // Nearest the stream outward: pink blossom → rose pair → white sprinkle → pink-tip →
-    // fern meadow, so the shoreline reads as parallel same-color lines.
-    { id: "sakura-blossom", assetKey: "prop-sakura-flowers-02", tint: 0xf2a9c4, hTiles: 0.55 },
-    { id: "sakura-rose-pair", assetKey: "prop-sakura-flowers-01", tint: 0xe87ea1, hTiles: 0.5 },
-    { id: "sakura-white", assetKey: "prop-sakura-flowers-04", tint: 0xf2eee4, hTiles: 0.45 },
-    { id: "sakura-pinktip", assetKey: "prop-sakura-flowers-00", tint: 0xe87ea1, hTiles: 0.55 },
-    { id: "sakura-fern", assetKey: "prop-sakura-flowers-03", tint: 0xc4dba4, hTiles: 0.45 },
+    // HANAMI BANKS (concept A, 2026-07-03): a waterline GRADIENT — palest white-pink at the
+    // stream edge deepening to rich rose outward, then the fern meadow beyond. Band index 0
+    // hugs the water, so this order IS the gradient.
+    { id: "sakura-white", assetKey: "prop-sakura-flowers-04", tint: 0xf2eee4, hTiles: 0.45, heroDensity: 0.16 },
+    { id: "sakura-blossom", assetKey: "prop-sakura-flowers-02", tint: 0xf2a9c4, hTiles: 0.55, heroDensity: 0.2 },
+    { id: "sakura-rose-pair", assetKey: "prop-sakura-flowers-01", tint: 0xe87ea1, hTiles: 0.5, heroDensity: 0.18 },
+    { id: "sakura-pinktip", assetKey: "prop-sakura-flowers-00", tint: 0xd96a90, hTiles: 0.55, heroDensity: 0.18 },
+    { id: "sakura-fern", assetKey: "prop-sakura-flowers-03", tint: 0xc4dba4, hTiles: 0.45, heroDensity: 0.14 },
 ];
 
 const KEUKENHOF_BANDS: FlowerSpecies[] = [
     // Two-row ribbons cycling the classic Dutch field colors.
-    { id: "hyacinth-red", assetKey: "prop-keukenhof-28", tint: 0xd8484a, hTiles: 0.6 },
-    { id: "hyacinth-white", assetKey: "prop-keukenhof-22", tint: 0xf2f2e4, hTiles: 0.6 },
-    { id: "hyacinth-purple", assetKey: "prop-keukenhof-21", tint: 0xb76bd1, hTiles: 0.6 },
-    { id: "hyacinth-blue", assetKey: "prop-keukenhof-23", tint: 0x5a7bd8, hTiles: 0.6 },
+    { id: "hyacinth-red", assetKey: "prop-keukenhof-28", tint: 0xd8484a, hTiles: 0.6, heroDensity: 0.22 },
+    { id: "hyacinth-white", assetKey: "prop-keukenhof-22", tint: 0xf2f2e4, hTiles: 0.6, heroDensity: 0.22 },
+    { id: "hyacinth-purple", assetKey: "prop-keukenhof-21", tint: 0xb76bd1, hTiles: 0.6, heroDensity: 0.22 },
+    { id: "hyacinth-blue", assetKey: "prop-keukenhof-23", tint: 0x5a7bd8, hTiles: 0.6, heroDensity: 0.22 },
 ];
 
 const VERSAILLES_BANDS: FlowerSpecies[] = [
     // Formal rose rings around the Fountain Court — cream, blush, crimson.
-    { id: "rose-cream", assetKey: "foliage-versailles-26", tint: 0xf2e6c4, hTiles: 0.65 },
-    { id: "rose-blush", assetKey: "foliage-versailles-27", tint: 0xe7a0b4, hTiles: 0.65 },
-    { id: "rose-crimson", assetKey: "foliage-versailles-29", tint: 0xd06276, hTiles: 0.65 },
+    { id: "rose-cream", assetKey: "foliage-versailles-26", tint: 0xf2e6c4, hTiles: 0.65, heroDensity: 0.24 },
+    { id: "rose-blush", assetKey: "foliage-versailles-27", tint: 0xe7a0b4, hTiles: 0.65, heroDensity: 0.24 },
+    { id: "rose-crimson", assetKey: "foliage-versailles-29", tint: 0xd06276, hTiles: 0.65, heroDensity: 0.24 },
 ];
 
 const GARDENS_BANDS: FlowerSpecies[] = [
     // Night-garden orchid drifts (noise-clustered patches, not lines).
-    { id: "orchid-violet", assetKey: "prop-gardens-by-the-bay-18", tint: 0x8a5cf6, hTiles: 0.6 },
-    { id: "orchid-pink", assetKey: "prop-gardens-by-the-bay-14", tint: 0xd873c9, hTiles: 0.6 },
-    { id: "orchid-ember", assetKey: "prop-gardens-by-the-bay-11", tint: 0x3e9c8b, hTiles: 0.55 },
+    { id: "orchid-violet", assetKey: "prop-gardens-by-the-bay-18", tint: 0x8a5cf6, hTiles: 0.6, heroDensity: 0.2 },
+    { id: "orchid-pink", assetKey: "prop-gardens-by-the-bay-14", tint: 0xd873c9, hTiles: 0.6, heroDensity: 0.2 },
+    { id: "orchid-ember", assetKey: "prop-gardens-by-the-bay-11", tint: 0x3e9c8b, hTiles: 0.55, heroDensity: 0.2 },
 ];
 
 const SPECIES_BY_SECTION: Record<GardenSection, FlowerSpecies[]> = {
@@ -198,126 +208,117 @@ function bandIndexFor(
 }
 
 // ---------------------------------------------------------------------------
-// Layout — every eligible grass tile gets a preset flower.
+// Layout — EVERY grass tile in the world gets a preset flower ("all the grass
+// blocks can be watered, every single one" — 2026-07-03).
 // ---------------------------------------------------------------------------
 
-interface BlockPoint {
-    x: number;
-    y: number;
-    r: number;
+/** Which garden a tile belongs to (hard quadrant split — mirrors the terrain painter's
+ * regionAtTile). Seam-corridor grass between the region rects gets its NEAREST garden's
+ * species, so the color bands flow across the whole island, not just inside the rects. */
+export function sectionAtTile(tileX: number, tileY: number): GardenSection {
+    if (tileX > SPLIT_X) {
+        return tileY > SPLIT_Y ? "CARS" : "B-B";
+    }
+    return tileY > SPLIT_Y ? "C-P" : "P-S";
 }
 
-function blockPointsFor(region: RegionPlan): BlockPoint[] {
-    const c = FLORA_CONFIG.clearance;
-    const pts: BlockPoint[] = [];
-    for (const p of region.plants) {
-        pts.push({ x: p.tileX + 0.5, y: p.tileY + 0.5, r: c + 0.3 });
-    }
-    for (const p of region.props) {
-        pts.push({ x: p.tileX + 0.5, y: p.tileY + 0.5, r: c });
-    }
-    for (const d of region.decor) {
-        if (!d.flat) {
-            pts.push({ x: d.tileX + 0.5, y: d.tileY + 0.5, r: c });
+/** The exact tiles physically occupied by something standing on the ground (a plot plant,
+ * a prop, a hedge wall, a waystone, an authored decoration, a field planter row). Only
+ * these single tiles are skipped — the grass beside them is waterable. */
+export function occupiedTiles(plan: WorldPlan): Set<string> {
+    const occupied = new Set<string>();
+    for (const region of plan.regions) {
+        for (const p of region.plants) {
+            occupied.add(floraKey(p.tileX, p.tileY));
         }
+        for (const p of region.props) {
+            occupied.add(floraKey(p.tileX, p.tileY));
+        }
+        for (const d of region.decor) {
+            if (!d.flat) {
+                occupied.add(floraKey(Math.round(d.tileX), Math.round(d.tileY)));
+            }
+        }
+        for (const h of region.hedges) {
+            occupied.add(floraKey(h.tileX, h.tileY));
+        }
+        for (const f of region.fields) {
+            for (let ty = Math.min(f.y0, f.y1); ty <= Math.max(f.y0, f.y1); ty++) {
+                for (let tx = Math.min(f.x0, f.x1); tx <= Math.max(f.x0, f.x1); tx++) {
+                    occupied.add(floraKey(tx, ty));
+                }
+            }
+        }
+        occupied.add(floraKey(region.waystone.tileX, region.waystone.tileY));
     }
-    for (const h of region.hedges) {
-        pts.push({ x: h.tileX + 0.5, y: h.tileY + 0.5, r: 0.9 });
-    }
-    pts.push({ x: region.waystone.tileX + 0.5, y: region.waystone.tileY + 0.5, r: c + 0.4 });
-    return pts;
+    return occupied;
 }
 
-/** Rect(s) of authored field fills (tulip ribbons etc.) — flowers skip them. */
-function inField(region: RegionPlan, tileX: number, tileY: number): boolean {
-    for (const f of region.fields) {
-        const x0 = Math.min(f.x0, f.x1);
-        const x1 = Math.max(f.x0, f.x1);
-        const y0 = Math.min(f.y0, f.y1);
-        const y1 = Math.max(f.y0, f.y1);
-        if (tileX >= x0 - 1 && tileX <= x1 + 1 && tileY >= y0 - 1 && tileY <= y1 + 1) {
-            return true;
-        }
+/** True when a tile is grass: on the map, off water+shore, off the trail, off the plaza.
+ * (Water, shore sand, paths, and the plaza are the only non-grass ground the painter makes.) */
+export function isGrassTile(
+    plan: WorldPlan,
+    model: TerrainModel,
+    tileX: number,
+    tileY: number,
+): boolean {
+    if (tileX < 0 || tileY < 0 || tileX >= plan.widthTiles || tileY >= plan.heightTiles) {
+        return false;
     }
-    return false;
+    const px = (tileX + 0.5) * TILE_SIZE;
+    const py = (tileY + 0.5) * TILE_SIZE;
+    if (sampleDT(model.waterDT, model.gw, model.gh, px, py) < TILE_SIZE * FLORA_CONFIG.waterClearTiles) {
+        return false;
+    }
+    if (sampleDT(model.trailDT, model.gw, model.gh, px, py) < TILE_SIZE * FLORA_CONFIG.trailClearTiles) {
+        return false;
+    }
+    return plazaField(px, py) >= FLORA_CONFIG.plazaClear;
 }
 
 /**
- * Build the full deterministic flower layout: one preset flower per eligible grass tile
- * (grass = not water/shore, not trail, not plaza, clear of plots/props/structures).
+ * Build the full deterministic flower layout: one preset flower on EVERY grass tile of the
+ * whole world grid — region interiors, region borders, and the seam corridors between
+ * gardens — skipping only tiles something is physically standing on.
  */
 export function planFlora(plan: WorldPlan, model: TerrainModel): FloraLayout {
     const spots = new Map<string, FlowerSpot>();
     const bands = new Map<string, string[]>();
+    const occupied = occupiedTiles(plan);
+    const regionBySection = new Map(plan.regions.map((r) => [r.section, r]));
+    const spread = FLORA_CONFIG.maxWaters - FLORA_CONFIG.minWaters + 1;
 
-    const gateBlocks: BlockPoint[] = plan.gates.map((g) => ({
-        x: g.tileX + 0.5,
-        y: g.tileY + 0.5,
-        r: FLORA_CONFIG.clearance,
-    }));
-
-    for (const region of plan.regions) {
-        const speciesTable = SPECIES_BY_SECTION[region.section];
-        const blocks = [...blockPointsFor(region), ...gateBlocks];
-        const { rect } = region;
-
-        for (let ty = rect.y + 1; ty < rect.y + rect.h - 1; ty++) {
-            for (let tx = rect.x + 1; tx < rect.x + rect.w - 1; tx++) {
-                const px = (tx + 0.5) * TILE_SIZE;
-                const py = (ty + 0.5) * TILE_SIZE;
-
-                // Grass only: off water+shore, off the trail, off the plaza.
-                const waterClear = TILE_SIZE * FLORA_CONFIG.waterClearTiles;
-                if (sampleDT(model.waterDT, model.gw, model.gh, px, py) < waterClear) {
-                    continue;
-                }
-                const trailClear = TILE_SIZE * FLORA_CONFIG.trailClearTiles;
-                if (sampleDT(model.trailDT, model.gw, model.gh, px, py) < trailClear) {
-                    continue;
-                }
-                if (plazaField(px, py) < FLORA_CONFIG.plazaClear) {
-                    continue;
-                }
-                if (inField(region, tx, ty)) {
-                    continue;
-                }
-                let blocked = false;
-                for (const b of blocks) {
-                    const dx = tx + 0.5 - b.x;
-                    const dy = ty + 0.5 - b.y;
-                    if (dx * dx + dy * dy < b.r * b.r) {
-                        blocked = true;
-                        break;
-                    }
-                }
-                if (blocked) {
-                    continue;
-                }
-                // Keeper clearing (the plaza field covers most of it; belt-and-braces).
-                const kdx = tx - KEEPER_TILE.tileX;
-                const kdy = ty - KEEPER_TILE.tileY;
-                if (kdx * kdx + kdy * kdy < 3.5 * 3.5) {
-                    continue;
-                }
-
-                const band = bandIndexFor(region, tx, ty, model);
-                const species = speciesTable[band % speciesTable.length];
-                const bandId = `${region.section}:${band}`;
-                const key = floraKey(tx, ty);
-                const spread = FLORA_CONFIG.maxWaters - FLORA_CONFIG.minWaters + 1;
-                spots.set(key, {
-                    tileX: tx,
-                    tileY: ty,
-                    section: region.section,
-                    species,
-                    watersNeeded: FLORA_CONFIG.minWaters
-                        + Math.floor(floraHash(tx, ty, 777) * spread),
-                    bandId,
-                });
-                const members = bands.get(bandId) ?? [];
-                members.push(key);
-                bands.set(bandId, members);
+    for (let ty = 0; ty < plan.heightTiles; ty++) {
+        for (let tx = 0; tx < plan.widthTiles; tx++) {
+            if (!isGrassTile(plan, model, tx, ty)) {
+                continue;
             }
+            const key = floraKey(tx, ty);
+            if (occupied.has(key)) {
+                continue;
+            }
+
+            const section = sectionAtTile(tx, ty);
+            const region = regionBySection.get(section);
+            if (!region) {
+                continue;
+            }
+            const speciesTable = SPECIES_BY_SECTION[section];
+            const band = bandIndexFor(region, tx, ty, model);
+            const species = speciesTable[band % speciesTable.length];
+            const bandId = `${section}:${band}`;
+            spots.set(key, {
+                tileX: tx,
+                tileY: ty,
+                section,
+                species,
+                watersNeeded: FLORA_CONFIG.minWaters
+                    + Math.floor(floraHash(tx, ty, 777) * spread),
+                bandId,
+            });
+            const members = bands.get(bandId) ?? [];
+            members.push(key);
+            bands.set(bandId, members);
         }
     }
 
@@ -464,6 +465,111 @@ export function floraHeightTiles(species: FlowerSpecies, stage: FloraStage): num
             return _exhaustive;
         }
     }
+}
+
+/** Whether a bloomed tile grows a tall hero clump above the merged bed carpet
+ * (deterministic; the rest stay pure carpet so drifts read continuous). */
+export function isHeroTile(spot: FlowerSpot): boolean {
+    return floraHash(spot.tileX, spot.tileY, 1520) < spot.species.heroDensity;
+}
+
+/** Same-species bloomed-or-budding neighbor test — the carpet merges across these edges. */
+export function bedEdges(
+    layout: FloraLayout,
+    counts: FloraCounts,
+    spot: FlowerSpot,
+): { n: boolean; e: boolean; s: boolean; w: boolean } {
+    const grown = (dx: number, dy: number): boolean => {
+        const n = layout.spots.get(floraKey(spot.tileX + dx, spot.tileY + dy));
+        if (!n || n.species.id !== spot.species.id) {
+            return false;
+        }
+        const stage = floraStage(counts[floraKey(n.tileX, n.tileY)] ?? 0, n.watersNeeded);
+        return stage === "bud" || stage === "bloom";
+    };
+    return { n: grown(0, -1), e: grown(1, 0), s: grown(0, 1), w: grown(-1, 0) };
+}
+
+/**
+ * A band's tiles ordered ALONG the line (greedy nearest-neighbour chain from the
+ * westernmost end), so waves — wind gusts, domino bloom celebrations — travel down the
+ * row instead of firing in map order. Works for straight ribbons, shoreline curves, and
+ * rings alike (a ring chains into a loop walk).
+ */
+export function bandWaveOrder(layout: FloraLayout, bandId: string): TileCoord[] {
+    const members = (layout.bands.get(bandId) ?? []).map((k) => layout.spots.get(k)!);
+    if (members.length === 0) {
+        return [];
+    }
+    let start = 0;
+    for (let i = 1; i < members.length; i++) {
+        const a = members[i];
+        const s = members[start];
+        if (a.tileX + a.tileY * 0.25 < s.tileX + s.tileY * 0.25) {
+            start = i;
+        }
+    }
+    const remaining = new Set(members.map((_, i) => i));
+    remaining.delete(start);
+    const chain = [members[start]];
+    let current = members[start];
+    while (remaining.size > 0) {
+        let bestIdx = -1;
+        let bestD = Infinity;
+        for (const i of remaining) {
+            const m = members[i];
+            const d = (m.tileX - current.tileX) ** 2 + (m.tileY - current.tileY) ** 2;
+            if (d < bestD) {
+                bestD = d;
+                bestIdx = i;
+            }
+        }
+        remaining.delete(bestIdx);
+        current = members[bestIdx];
+        chain.push(current);
+    }
+    return chain.map((s) => ({ tileX: s.tileX, tileY: s.tileY }));
+}
+
+/** Fraction of a band's flowers at full bloom (0..1) — ambience triggers key off this. */
+export function bandBloomFraction(
+    layout: FloraLayout,
+    counts: FloraCounts,
+    bandId: string,
+): number {
+    const members = layout.bands.get(bandId) ?? [];
+    if (members.length === 0) {
+        return 0;
+    }
+    let bloomed = 0;
+    for (const k of members) {
+        const spot = layout.spots.get(k)!;
+        if ((counts[k] ?? 0) >= spot.watersNeeded) {
+            bloomed++;
+        }
+    }
+    return bloomed / members.length;
+}
+
+/** Fraction of a whole section's flowers at full bloom (0..1) — the grand-crown trigger
+ * (Versailles fountain rainbow, Supertree answer). */
+export function sectionBloomFraction(
+    layout: FloraLayout,
+    counts: FloraCounts,
+    section: GardenSection,
+): number {
+    let total = 0;
+    let bloomed = 0;
+    for (const [k, spot] of layout.spots) {
+        if (spot.section !== section) {
+            continue;
+        }
+        total++;
+        if ((counts[k] ?? 0) >= spot.watersNeeded) {
+            bloomed++;
+        }
+    }
+    return total === 0 ? 0 : bloomed / total;
 }
 
 /** Progress toward bloom for HUD pips: [count, watersNeeded] for the aimed tile. */

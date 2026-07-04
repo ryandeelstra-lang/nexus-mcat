@@ -1,5 +1,26 @@
 /* charged_up: unified panel-layer styles for the Knowledge Garden React surface (doc 23 §10). */
 
+/* Neutral baseline for garden buttons: the app-wide widget skin is scoped out of
+ * .garden-host (ts/lib/sass/base.scss), so give buttons a clean art-ready canvas here.
+ * :where() keeps this at (0,0,1) — every single-class component rule still wins. */
+:where(.garden-host) button {
+    appearance: none;
+    background: none;
+    border: none;
+    border-radius: 0;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    padding: 0;
+}
+
+/* One branded keyboard ring for the whole surface: sun-gold reads on parchment art,
+ * dark chrome, and the world alike. (The UA hairline is invisible on 96px coins.) */
+:where(.garden-host) :is(button, input, textarea, summary, [role="button"], [tabindex]):focus-visible {
+    outline: 3px solid #f4ba53;
+    outline-offset: 2px;
+}
+
 .garden-app {
     position: fixed;
     inset: 0;
@@ -95,6 +116,8 @@
     z-index: 30;
 }
 
+/* (The floating dev "replay intro" chip is gone — replay lives in the "?" help panel.) */
+
 .garden-ui {
     position: absolute;
     inset: 0;
@@ -109,29 +132,28 @@
     align-items: center;
     justify-content: center;
     background: rgba(18, 12, 8, 0.5);
+    /* Above the HUD (40) so no chrome paints or clicks through a modal backdrop. */
+    z-index: 50;
+    /* Tall panels (Almanac with coverage expanded) must scroll, never clip the ✕. */
+    overflow-y: auto;
     padding: 16px;
     pointer-events: auto;
 }
 
 .panel-card {
-    background: #f6ead8;
-    border: 3px solid #6b4a2f;
-    border-radius: 6px;
-    box-shadow: 0 6px 0 #3f2c1a;
+    /* The same 9-slice wooden art frame as the Keeper dialogue (doc 23 §10.1: DOM
+     * panels wear pixel-art chrome) — vars provided inline via panelFrameStyle(). */
+    background: var(--keeper-parchment, #f6ead8) center / cover;
+    border: 34px solid transparent;
+    border-image: var(--keeper-frame) 150 fill / 34px / 10px round;
     color: #2b2416;
+    filter: drop-shadow(0 10px 18px rgba(20, 12, 6, 0.55));
     max-width: min(860px, 95vw);
     width: 100%;
-    padding: 14px;
+    /* Auto margins: centered while it fits, top-anchored & scrollable when tall. */
+    margin: auto;
+    padding: 2px 10px 8px;
     position: relative;
-}
-
-.panel-card::before {
-    border: 2px solid rgba(107, 74, 47, 0.35);
-    border-radius: 4px;
-    content: "";
-    inset: 6px;
-    pointer-events: none;
-    position: absolute;
 }
 
 .panel-header {
@@ -145,6 +167,7 @@
 }
 
 .panel-header h2 {
+    font-family: "Varela Round", Inter, system-ui, sans-serif;
     font-size: 20px;
     margin: 0;
 }
@@ -182,6 +205,10 @@
 
 .hud-bottom {
     bottom: 12px;
+    /* CTA above, hint below — one column, centered. */
+    align-items: center;
+    flex-direction: column;
+    gap: 6px;
     justify-content: center;
     left: 50%;
     transform: translateX(-50%);
@@ -194,6 +221,7 @@
     border: 2px solid #6b4a2f;
     border-radius: 999px;
     color: #2b2416;
+    font-family: "Varela Round", Inter, system-ui, sans-serif;
     font-size: 14px;
     line-height: 1.2;
     padding: 6px 10px;
@@ -205,12 +233,14 @@
 }
 
 .hud-hint {
+    /* Wraps instead of escaping both screen edges on narrow windows. */
+    max-width: min(520px, 86vw);
     text-align: center;
-    white-space: nowrap;
+    white-space: normal;
 }
 
 .hud-bump {
-    animation: hud-bump 160ms ease-out;
+    animation: hud-bump 180ms ease-out;
 }
 
 @keyframes hud-bump {
@@ -238,6 +268,7 @@
     color: #2b2416;
     cursor: pointer;
     display: inline-flex;
+    font-family: "Varela Round", Inter, system-ui, sans-serif;
     font-size: 14px;
     gap: 6px;
     justify-content: center;
@@ -253,10 +284,57 @@
 }
 
 .hud-ghost-button:not(:disabled):hover,
+.keeper-close:hover,
 .keeper-chip:hover,
-.grade:hover,
+.grade:not(:disabled):hover,
 .keeper-reveal:hover {
     transform: translateY(-1px);
+}
+
+/* Press feel: the plate sinks onto its shadow. */
+.hud-ghost-button:not(:disabled):active,
+.keeper-close:active,
+.keeper-chip:active,
+.grade:not(:disabled):active,
+.keeper-reveal:active {
+    box-shadow: 0 0 0 #3f2c1a;
+    transform: translateY(2px);
+}
+
+/* The decided primary CTA (doc 17 §4): the one bright press into today's tending. */
+.hud-cta {
+    align-items: center;
+    background: linear-gradient(180deg, #ffe9b8 0%, #f4ba53 100%);
+    border: 2px solid #6b4a2f;
+    border-radius: 999px;
+    box-shadow: 0 3px 0 #3f2c1a;
+    color: #3a2a16;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: "Varela Round", Inter, system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    justify-content: center;
+    letter-spacing: 0.01em;
+    min-height: 40px;
+    padding: 8px 22px;
+    transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease;
+}
+
+.hud-cta:hover {
+    filter: brightness(1.05);
+    transform: translateY(-1px);
+}
+
+.hud-cta:active {
+    box-shadow: 0 0 0 #3f2c1a;
+    transform: translateY(2px);
+}
+
+/* Accent variant for a panel's primary action (e.g. Harvest "Done for today"). */
+.hud-cta-button {
+    background: linear-gradient(180deg, #ffe9b8 0%, #f4ba53 100%);
+    font-weight: 700;
 }
 
 .keeper-close {
@@ -299,10 +377,11 @@
  * top of the scene, the dialogue anchors to the bottom like a JRPG textbox, and the world
  * stays visible behind it so it feels like a conversation, not a modal card. */
 .keeper-overlay {
-    align-items: flex-end;
     justify-content: center;
     overflow-y: auto;
-    padding: 0 clamp(12px, 4vw, 48px) clamp(14px, 3.5vh, 40px);
+    /* Bottom padding clears the arrow coin's -26px overhang; top padding gives the
+     * scrolled-to header air on short windows. */
+    padding: 12px clamp(12px, 4vw, 48px) clamp(48px, 6vh, 64px);
     background: linear-gradient(
         180deg,
         rgba(18, 12, 8, 0.16) 0%,
@@ -314,6 +393,10 @@
 .keeper-panel-shell {
     display: grid;
     gap: 10px;
+    /* Auto top-margin bottom-anchors the JRPG textbox when there's room and collapses
+     * to a normal top-down scroll when the dialogue outgrows a short viewport —
+     * align-items: flex-end would clip the top unreachably instead. */
+    margin-top: auto;
     max-width: min(980px, 96vw);
     width: 100%;
 }
@@ -373,6 +456,11 @@
 .keeper-context {
     font-size: 15px;
     font-weight: 600;
+    /* Real deck labels run long — one clamped line, never wrapping over the frame. */
+    max-width: min(60ch, 70%);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .keeper-counts {
@@ -382,10 +470,14 @@
 }
 
 .keeper-counts > span {
+    border: 1px solid rgba(107, 74, 47, 0.6);
     border-radius: 4px;
+    /* Dark ink on the pastel chips — the dialogue header's cream would be ~1.2:1. */
+    color: #2b2416;
     font-size: 13px;
     font-weight: 700;
     padding: 3px 7px;
+    text-shadow: none;
 }
 
 .count-new {
@@ -434,12 +526,14 @@
     z-index: 1;
 }
 
-.keeper-actions kbd,
-.keeper-panel kbd {
+/* Every kbd chip on the surface (the plant-card watering tip included) wears the
+ * parchment key-cap — not the browser's default monospace. */
+.garden-app kbd {
     background: #f9f1e5;
     border: 1px solid #8a6644;
     border-radius: 4px;
     color: #4b3a27;
+    font-family: inherit;
     font-size: 11px;
     padding: 1px 4px;
 }
@@ -549,6 +643,18 @@
     padding: 6px 12px;
 }
 
+/* The field is auto-focused every ask — a stock blue UA ring on parchment reads
+ * foreign. Warm the border instead; the gold ring stays for keyboard :focus-visible. */
+.voice-type-field:focus {
+    border-color: #b0854f;
+    outline: none;
+}
+
+.voice-type-field:focus-visible {
+    outline: 3px solid #f4ba53;
+    outline-offset: 1px;
+}
+
 /* Bucket tones ride a multiply veil over the parchment (.keeper-dialogue::after). */
 .voice-beat-good {
     --beat-tint: #cfe6c6;
@@ -610,16 +716,12 @@
     font-style: italic;
 }
 
-.voice-answer {
-    font-weight: 600;
-}
-
 .voice-points-hit {
     color: #3c6b2f;
 }
 
 .voice-points-missed {
-    color: #7a4a2f;
+    color: #7a5230;
 }
 
 .voice-score {
@@ -652,7 +754,9 @@
 
 @font-face {
     font-family: "Varela Round";
-    font-display: swap;
+    /* block, not swap: the word-crawl reveals words over seconds — a late font swap
+     * would visibly re-font the Keeper mid-sentence on first run. */
+    font-display: block;
     font-style: normal;
     font-weight: 400;
     src: url("./assets/fonts/VarelaRound-Regular.ttf") format("truetype");
@@ -670,11 +774,26 @@
     display: none;
 }
 
+/* The whole conversation surface speaks Varela Round — one declaration instead of
+ * per-class repeats, so no "listening…"/status line ever falls back to Inter. */
+.keeper-panel-dialogue,
+.keeper-dialogue {
+    font-family: "Varela Round", Inter, system-ui, sans-serif;
+}
+
 .keeper-panel-dialogue .keeper-panel-header {
     color: #f6ead8;
-    font-family: "Varela Round", Inter, system-ui, sans-serif;
     padding: 0 8px;
     text-shadow: 0 1px 3px rgba(20, 12, 6, 0.85);
+    margin-bottom: 4px;
+}
+
+/* A soft espresso scrim behind the caption so it reads on ANY region's ground
+ * (cream text over Versailles gravel was ~1.5:1 with only a shadow doing the work). */
+.keeper-panel-dialogue .keeper-context {
+    background: rgba(20, 12, 6, 0.55);
+    border-radius: 999px;
+    padding: 3px 12px;
 }
 
 .keeper-dialogue {
@@ -708,7 +827,9 @@
     filter: drop-shadow(0 6px 10px rgba(20, 12, 6, 0.5));
     flex: 0 0 auto;
     height: 148px;
-    left: -58px;
+    /* Tracks the overlay's side padding so the carved rim never clips off-screen
+     * on narrow windows (at 1000px wide the old -58px lost 18px of medallion). */
+    left: calc(-1 * clamp(12px, 4vw, 58px));
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -719,7 +840,8 @@
 .keeper-medallion-face {
     border-radius: 50%;
     height: 72%;
-    image-rendering: pixelated;
+    /* NO image-rendering: pixelated here — the portrait is hi-res painted art
+     * (659x955 shown at ~106px); nearest-neighbor downscale crunches the face. */
     left: 14%;
     object-fit: cover;
     position: absolute;
@@ -732,7 +854,15 @@
     flex: 1 1 auto;
     gap: 8px;
     min-width: 0;
-    padding-left: 78px;
+    /* Clear the medallion's right edge with a steady ~24px gap at every width.
+     * The 148px medallion hangs left of the padding box by its overhang
+     * (clamp(12px, 4vw, 58px)) and the body starts 10px in (the frame's inner
+     * padding), so the medallion's right edge sits at (148 - overhang - 10) inside
+     * the content box. The gutter must therefore track the overhang *inversely*:
+     * as the window narrows the medallion hangs off less and pokes FURTHER into the
+     * box, so the text has to indent MORE — the old `overhang + 20` grew the gutter
+     * the wrong way and let the head slide onto the text on smaller windows. */
+    padding-left: calc(162px - clamp(12px, 4vw, 58px));
 }
 
 /* No medallion (landmark flavor lines, empty states) -> no reserved portrait gutter. */
@@ -762,6 +892,11 @@
 
 .keeper-dialogue-text {
     cursor: default;
+}
+
+/* When the text is the click-to-skip affordance it must LOOK clickable. */
+.keeper-dialogue-text[role="button"] {
+    cursor: pointer;
 }
 
 .keeper-dialogue-text p {
@@ -858,14 +993,130 @@
     }
 }
 
+/* --- the Garden Tour: the Keeper's first-entry concept walkthrough (state/tour.ts) --- */
+
+/* The concept chip in the name row ("Watering", "Blooming", …). */
+.tour-step-chip {
+    background: rgba(107, 74, 47, 0.16);
+    border: 1px solid rgba(107, 74, 47, 0.45);
+    border-radius: 999px;
+    color: #5a3d24;
+    font-family: "Varela Round", Inter, system-ui, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    padding: 2px 10px;
+    text-transform: uppercase;
+}
+
+/* The "🌱 The science" footnote — a pressed-leaf note on the parchment, landing only
+ * after the Keeper's line has fully crawled in. Shape + label carry the meaning
+ * (colorblind-safe), the green tint is garnish. */
+.tour-science {
+    background: rgba(214, 228, 189, 0.55);
+    border-left: 4px solid #4e7a3a;
+    border-radius: 4px;
+    padding: 8px 12px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .tour-science {
+        animation: tour-science-settle 260ms ease-out;
+    }
+
+    @keyframes tour-science-settle {
+        from {
+            opacity: 0;
+            transform: translateY(4px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+.tour-science-label {
+    color: #3c5c2d;
+    display: block;
+    font-family: "Varela Round", Inter, system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+}
+
+.tour-science p {
+    color: #38412c;
+    font-family: "Varela Round", Inter, system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.tour-controls {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.tour-progress {
+    display: inline-flex;
+    gap: 6px;
+}
+
+.tour-dot {
+    background: rgba(107, 74, 47, 0.28);
+    border-radius: 50%;
+    display: inline-block;
+    height: 8px;
+    width: 8px;
+}
+
+.tour-dot-past {
+    background: rgba(78, 122, 58, 0.6);
+}
+
+.tour-dot-now {
+    background: #4e7a3a;
+    box-shadow: 0 0 0 2px rgba(78, 122, 58, 0.3);
+}
+
+/* Quiet exit — never louder than Continue (the tour is replayable from Help). */
+.garden-tour-skip {
+    background: none;
+    border: none;
+    color: #6b563d;
+    cursor: pointer;
+    font-family: "Varela Round", Inter, system-ui, sans-serif;
+    font-size: 13px;
+    padding: 4px 6px;
+    text-decoration: underline;
+}
+
+.garden-tour-skip:hover {
+    color: #3f2c1a;
+}
+
 /* --- the answering stage: one big mic coin, a compact type row, a slim IDK bar --- */
 
 .voice-answer-stage {
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    gap: 6px 14px;
-    min-height: 96px;
+    gap: 6px 18px;
+    justify-content: center;
+    min-height: 104px;
+}
+
+.voice-mic-stack {
+    align-items: center;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 2px;
 }
 
 .voice-mic-coin {
@@ -906,10 +1157,16 @@
     width: 28px;
 }
 
+/* A static recording ring ALWAYS shows while live — reduced-motion players must
+ * still see that the mic is hot; only the pulse is motion-gated. */
+.voice-mic-coin-live {
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(217, 140, 140, 0.5);
+}
+
 @media (prefers-reduced-motion: no-preference) {
     .voice-mic-coin-live {
         animation: voice-mic-ring 1.2s ease-in-out infinite;
-        border-radius: 50%;
     }
 
     @keyframes voice-mic-ring {
@@ -1020,7 +1277,8 @@
 }
 
 .voice-live-tag {
-    color: #8a6644;
+    /* Dark enough for 11px caps on the pale caption plate (WCAG small-text 4.5:1). */
+    color: #6d4f33;
     font-size: 11px;
     text-transform: uppercase;
 }
@@ -1073,7 +1331,9 @@
     font-family: "Varela Round", Inter, system-ui, sans-serif;
     font-size: 13px;
     justify-self: start;
-    padding: 2px 0;
+    /* ≥24px hit target (WCAG 2.2 AA); justify-self keeps layout unshifted. */
+    min-height: 32px;
+    padding: 6px 0;
     text-decoration: underline dotted;
 }
 
@@ -1266,6 +1526,10 @@
     cursor: pointer;
 }
 
+.almanac-coverage summary:hover {
+    text-decoration: underline;
+}
+
 .almanac-coverage ul {
     margin: 6px 0 0;
     padding-left: 18px;
@@ -1277,14 +1541,41 @@
 
 .harvest-grid {
     display: grid;
-    gap: 6px;
-    margin: 8px 0;
+    gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 10px 0;
     position: relative;
     z-index: 1;
 }
 
-.harvest-grid p {
-    margin: 0;
+/* The day's tally reads like a harvest, not a debug printout: icon, big number, label. */
+.harvest-stat {
+    align-items: center;
+    background: rgba(244, 223, 197, 0.65);
+    border: 2px solid rgba(107, 74, 47, 0.45);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 6px;
+}
+
+.harvest-stat-icon {
+    font-size: 20px;
+}
+
+.harvest-stat-value {
+    font-family: "Varela Round", Inter, system-ui, sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.harvest-stat-label {
+    color: #7a5230;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
 }
 
 .harvest-growth {
@@ -1313,6 +1604,7 @@
     border-radius: 8px;
     box-shadow: 0 4px 0 #3f2c1a;
     color: #2b2416;
+    font-family: "Varela Round", Inter, system-ui, sans-serif;
     font-size: 15px;
     font-weight: 600;
     left: 50%;
@@ -1369,4 +1661,93 @@
         animation: none !important;
         transition: none !important;
     }
+}
+
+/* ---- The master's placement ceremony (2026-07-03: fog + 20-question placement) ---- */
+
+.placement-intake {
+    margin-top: 6px;
+}
+
+.placement-date {
+    background: rgba(238, 220, 196, 0.9);
+    border: 2px solid #6b4a2f;
+    border-radius: 6px;
+    color: #2b2416;
+    font: inherit;
+    padding: 6px 8px;
+}
+
+/* Numeric exam-date fields (month / day / year) — no native date-picker popup, so the
+ * intake step can never blank the QtWebEngine renderer and take the game down. */
+.placement-date-fields {
+    align-items: flex-end;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.placement-date-field {
+    display: flex;
+    flex-direction: column;
+    font-size: 11px;
+    gap: 2px;
+    text-align: center;
+}
+
+.placement-date-part {
+    text-align: center;
+    width: 52px;
+}
+
+.placement-date-year {
+    width: 74px;
+}
+
+.placement-date-confirm {
+    color: #4a3a24;
+    display: block;
+    font-size: 12px;
+    font-style: italic;
+    margin-top: 6px;
+    min-height: 1.2em;
+    text-align: center;
+}
+
+.placement-intake-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.garden-error-card {
+    max-width: 30rem;
+    padding: 20px 24px;
+    text-align: center;
+}
+
+.placement-calibrating {
+    display: inline-block;
+    line-height: 1.6;
+}
+
+.placement-facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 8px;
+    position: relative;
+    z-index: 1;
+}
+
+.placement-fact {
+    background: rgba(238, 220, 196, 0.85);
+    border: 2px solid #6b4a2f;
+    border-radius: 999px;
+    color: #2b2416;
+    font-size: 12px;
+    padding: 3px 10px;
 }

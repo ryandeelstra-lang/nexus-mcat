@@ -1,12 +1,20 @@
 // Copyright: Ankitects Pty Ltd and contributors
 // License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
 
-// charged_up: G1.2 gate — the growth-stage mapping table-tested across all 8 stages +
-// boundaries (docs/26 G1 exit gate). These pin the integrity rules:
-//   I3 bloom REQUIRES the paraphrase pass; I4 growth only from engine truth.
+// charged_up: G1.2 gate — the growth-stage mapping table-tested across all 10 stages +
+// boundaries (docs/26 G1 exit gate; ladder extended 2026-07-03). These pin the integrity
+// rules: I3 bloom (and every post-bloom tier) REQUIRES the paraphrase pass; I4 growth
+// only from engine truth.
 import { describe, expect, it } from "vitest";
 
-import { regionBloomFraction, stageFor, type StageInputs } from "./stage";
+import {
+    FLOURISHING_REVIEWS,
+    RADIANT_REVIEWS,
+    regionBloomFraction,
+    STAGE_ORDER,
+    stageFor,
+    type StageInputs,
+} from "./stage";
 
 function inputs(over: {
     totalCards?: number;
@@ -30,7 +38,22 @@ function inputs(over: {
     };
 }
 
-describe("stageFor — the 8 stages (doc 23 §8)", () => {
+describe("stageFor — the 10 stages (doc 23 §8)", () => {
+    it("the ladder is exactly 10 stages, in sprite-sheet order", () => {
+        expect(STAGE_ORDER).toEqual([
+            "bare-soil",
+            "sprout",
+            "seedling",
+            "growing",
+            "budding",
+            "bloomed",
+            "flourishing",
+            "radiant",
+            "drooping",
+            "weedy",
+        ]);
+    });
+
     it("bare-soil: nothing started", () => {
         expect(stageFor(inputs({}))).toBe("bare-soil");
     });
@@ -68,6 +91,32 @@ describe("stageFor — the 8 stages (doc 23 §8)", () => {
                 }),
             ),
         ).toBe("bloomed");
+    });
+
+    it("flourishing: a bloomed topic kept strong (recall >= 0.95 across >= 12 reviews)", () => {
+        expect(
+            stageFor(
+                inputs({
+                    cardsWithState: 8,
+                    gradedReviews: FLOURISHING_REVIEWS,
+                    averageRecall: 0.95,
+                    paraphrasePassed: true,
+                }),
+            ),
+        ).toBe("flourishing");
+    });
+
+    it("radiant: the pinnacle — near-perfect recall sustained across a deep history", () => {
+        expect(
+            stageFor(
+                inputs({
+                    cardsWithState: 8,
+                    gradedReviews: RADIANT_REVIEWS,
+                    averageRecall: 0.97,
+                    paraphrasePassed: true,
+                }),
+            ),
+        ).toBe("radiant");
     });
 
     it("drooping: due cards override bloom — knowledge fades without upkeep", () => {
@@ -129,6 +178,59 @@ describe("stageFor — boundaries + integrity", () => {
                 }),
             ),
         ).toBe("seedling");
+    });
+
+    it("I3: the post-bloom tiers are unreachable without the paraphrase pass — even at 0.99", () => {
+        expect(
+            stageFor(
+                inputs({
+                    cardsWithState: 8,
+                    gradedReviews: RADIANT_REVIEWS * 4,
+                    averageRecall: 0.99,
+                    paraphrasePassed: false,
+                }),
+            ),
+        ).toBe("budding");
+    });
+
+    it("high recall without the review depth stays bloomed (tiers are EARNED by history)", () => {
+        expect(
+            stageFor(
+                inputs({
+                    cardsWithState: 8,
+                    gradedReviews: FLOURISHING_REVIEWS - 1,
+                    averageRecall: 0.99,
+                    paraphrasePassed: true,
+                }),
+            ),
+        ).toBe("bloomed");
+    });
+
+    it("flourishing depth without radiant recall stays flourishing", () => {
+        expect(
+            stageFor(
+                inputs({
+                    cardsWithState: 8,
+                    gradedReviews: RADIANT_REVIEWS,
+                    averageRecall: 0.96,
+                    paraphrasePassed: true,
+                }),
+            ),
+        ).toBe("flourishing");
+    });
+
+    it("care states outrank the pinnacle: a due card droops even a radiant plant", () => {
+        expect(
+            stageFor(
+                inputs({
+                    cardsWithState: 8,
+                    gradedReviews: RADIANT_REVIEWS,
+                    averageRecall: 0.99,
+                    paraphrasePassed: true,
+                    dueCount: 1,
+                }),
+            ),
+        ).toBe("drooping");
     });
 
     it("bare soil stays bare even with a weed flag (nothing planted to weed)", () => {

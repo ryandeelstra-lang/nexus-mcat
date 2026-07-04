@@ -37,6 +37,15 @@ export interface KeeperDialogueProps {
     children?: React.ReactNode;
 }
 
+/** Inline art-frame vars for any .panel-card that wears the Keeper's wooden 9-slice
+ * chrome (doc 23 §10.1) — Almanac, Harvest, plant card, map help. */
+export function panelFrameStyle(): React.CSSProperties {
+    return {
+        "--keeper-frame": cssUrl(assetUrl("ui-panel-frame")),
+        "--keeper-parchment": cssUrl(assetUrl("ui-keeper-parchment")),
+    } as React.CSSProperties;
+}
+
 /** Animated "dot dot dot" — the Keeper is typing. Purely decorative; sr text carries meaning. */
 export function TypingDots(): React.ReactElement {
     return (
@@ -102,6 +111,9 @@ export function KeeperDialogue(props: KeeperDialogueProps): React.ReactElement {
                     onKeyDown={onBodyClick
                         ? (e) => {
                             if (e.key === "Enter" || e.key === " ") {
+                                // Space would otherwise also scroll / bubble into the
+                                // window-level mic shortcut.
+                                e.preventDefault();
                                 onBodyClick();
                             }
                         }

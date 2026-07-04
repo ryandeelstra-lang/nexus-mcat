@@ -74,7 +74,9 @@ export class MicRecorder {
                 this.chunks.push(e.data);
             }
         };
-        this.recorder.start();
+        // 1s timeslices: if the OS kills the track mid-answer, everything captured up
+        // to that second survives — a single end-of-recording blob would be lost whole.
+        this.recorder.start(1000);
     }
 
     get active(): boolean {

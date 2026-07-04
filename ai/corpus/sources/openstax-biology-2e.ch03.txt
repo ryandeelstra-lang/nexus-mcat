@@ -1,0 +1,81 @@
+OpenStax Biology 2e — Chapter 3: Biological Macromolecules
+Excerpted verbatim from OpenStax Biology 2e (https://openstax.org/books/biology-2e), Chapter 3,
+sections 3.1–3.5. © Rice University, licensed under Creative Commons Attribution 4.0 (CC BY 4.0).
+Attribution: OpenStax, Biology 2e. Retrieved from openstax.org.
+
+3.1 Synthesis of Biological Macromolecules
+
+Most macromolecules are made from single subunits, or building blocks, called monomers. The monomers
+combine with each other using covalent bonds to form larger molecules known as polymers. In doing so,
+the monomers release water molecules as byproducts. This type of reaction is dehydration synthesis,
+which means "to put together while losing water." In a dehydration synthesis reaction, the hydrogen of
+one monomer combines with the hydroxyl group of another monomer, releasing a water molecule. At the
+same time, the monomers share electrons and form covalent bonds. Polymers break down into monomers
+during hydrolysis. A chemical reaction occurs when inserting a water molecule across the bond. Breaking
+a covalent bond with this water molecule in the compound achieves this. During these reactions, the
+polymer breaks into two components: one part gains a hydrogen atom (H+) and the other gains a hydroxyl
+molecule (OH–) from a split water molecule. Dehydration and hydrolysis reactions are catalyzed, or
+sped up, by specific enzymes; dehydration reactions involve the formation of new bonds, requiring
+energy, while hydrolysis reactions break bonds and release energy.
+
+3.2 Carbohydrates
+
+Monosaccharides (mono- = "one"; sacchar- = "sweet") are simple sugars, the most common of which is
+glucose. In monosaccharides, the number of carbons usually ranges from three to seven. Disaccharides
+(di- = "two") form when two monosaccharides undergo a dehydration reaction (also known as a
+condensation reaction or dehydration synthesis). During this process, one monosaccharide's hydroxyl
+group combines with another monosaccharide's hydrogen, releasing a water molecule and forming a
+covalent bond. A long chain of monosaccharides linked by glycosidic bonds is a polysaccharide (poly- =
+"many"). The chain may be branched or unbranched, and it may contain different types of
+monosaccharides. Starch is the stored form of sugars in plants. Glycogen is the storage form of
+glucose in humans and other vertebrates. Cellulose is one of the most abundant natural biopolymers and
+is a major component of the plant cell wall.
+
+3.3 Lipids
+
+Lipids include a diverse group of compounds that are largely nonpolar in nature. This is because they
+are hydrocarbons that include mostly nonpolar carbon–carbon or carbon–hydrogen bonds. Non-polar
+molecules are hydrophobic ("water fearing"), or insoluble in water. Cells store energy for long-term
+use in the form of fats. Lipids include fats, oils, waxes, phospholipids, and steroids. A fat molecule
+consists of two main components—glycerol and fatty acids. Glycerol is an organic compound (alcohol)
+with three carbons, five hydrogens, and three hydroxyl (OH) groups. Fatty acids have a long chain of
+hydrocarbons to which a carboxyl group is attached, hence the name "fatty acid." In a fatty acid chain,
+if there are only single bonds between neighboring carbons in the hydrocarbon chain, the fatty acid is
+saturated. Saturated fatty acids are saturated with hydrogen. When the hydrocarbon chain contains a
+double bond, the fatty acid is unsaturated. Most unsaturated fats are liquid at room temperature and we
+call these oils. Long straight fatty acids with single bonds generally pack tightly and are solid at
+room temperature. Phospholipids are major plasma membrane constituents that comprise cells' outermost
+layer. A phospholipid is an amphipathic molecule, meaning it has a hydrophobic and a hydrophilic part.
+Unlike the phospholipids and fats that we discussed earlier, steroids have a fused ring structure. All
+steroids have four linked carbon rings and several of them, like cholesterol, have a short tail.
+Cholesterol is the most common steroid.
+
+3.4 Proteins
+
+Amino acids are the monomers that comprise proteins. Each amino acid has the same fundamental
+structure, which consists of a central carbon atom, or the alpha (α) carbon, bonded to an amino group
+(NH2), a carboxyl group (COOH), and to a hydrogen atom. A covalent bond, or peptide bond, attaches to
+each amino acid, which a dehydration reaction forms. Amino acids' unique sequence in a polypeptide chain
+is its primary structure. The local folding of the polypeptide in some regions gives rise to the
+secondary structure of the protein. The polypeptide's unique three-dimensional structure is its
+tertiary structure. In nature, some proteins form from several polypeptides, or subunits, and the
+interaction of these subunits forms the quaternary structure. If the protein is subject to changes in
+temperature, pH, or exposure to chemicals, the protein structure may change, losing its shape without
+losing its primary sequence in what scientists call denaturation. Enzymes, which living cells produce,
+are catalysts in biochemical reactions (like digestion) and are usually complex or conjugated proteins.
+
+3.5 Nucleic Acids
+
+Nucleic acids are the most important macromolecules for the continuity of life. DNA is the genetic
+material in all living organisms, ranging from single-celled bacteria to multicellular mammals. The
+cell's entire genetic content is its genome, and the study of genomes is genomics. DNA controls all of
+the cellular activities by turning the genes "on" or "off." The other type of nucleic acid, RNA, is
+mostly involved in protein synthesis. Three components comprise each nucleotide: a nitrogenous base, a
+pentose (five-carbon) sugar, and a phosphate group. Each nitrogenous base in a nucleotide is attached to
+a sugar molecule, which is attached to one or more phosphate groups. DNA contains A, T, G, and C;
+whereas, RNA contains A, U, G, and C. The pentose sugar in DNA is deoxyribose, and in RNA, the sugar is
+ribose. DNA has a double-helix structure. The sugar and phosphate lie on the outside of the helix,
+forming the DNA's backbone. The nitrogenous bases are stacked in the interior, like a pair of staircase
+steps. A certain purine can only pair with a certain pyrimidine. A can pair with T, and G can pair with
+C. RNA is usually single-stranded and is comprised of ribonucleotides that are linked by phosphodiester
+bonds.

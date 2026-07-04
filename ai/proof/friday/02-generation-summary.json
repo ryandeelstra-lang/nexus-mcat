@@ -1,0 +1,11 @@
+{
+  "source_id": "openstax-biology-2e.ch03",
+  "source_sha256": "a8280aff6db2a1ac16c8ba15eff84f48ca5551eb58c431ad74d4850e71a0ec3b",
+  "requested": 50,
+  "accepted": 50,
+  "distinct_questions": 50,
+  "chunks": 7,
+  "per_chunk": 13,
+  "mode": "replay",
+  "note": "every card carries a verbatim source quote (provenance-gated); duplicates removed"
+}

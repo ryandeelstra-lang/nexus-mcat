@@ -1,0 +1,24 @@
+{
+  "counts": {
+    "correct-and-useful": 42,
+    "wrong": 2,
+    "correct-but-bad-teaching": 6
+  },
+  "cutoff": {
+    "metric": "three-bucket classification of the 50 generated cards against held-out gold spans",
+    "pass_if": "correct_and_useful >= 40 AND wrong <= 3",
+    "min_correct_and_useful": 40,
+    "max_wrong": 3,
+    "n": 50,
+    "classes": [
+      "correct-and-useful",
+      "wrong",
+      "correct-but-bad-teaching"
+    ],
+    "committed": "2026-07-03T00:00:00-05:00",
+    "registered_in": "docs/05-DECISIONS.md#W2a-checker-cutoff"
+  },
+  "pass": true,
+  "shippable": 42,
+  "blocked": 8
+}

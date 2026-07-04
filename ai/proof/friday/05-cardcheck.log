@@ -1,0 +1,1 @@
+correct-and-useful=42 / wrong=2 / correct-but-bad-teaching=6  cutoff(>= 40 & <= 3 wrong) -> PASS

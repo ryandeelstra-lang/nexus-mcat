@@ -48,7 +48,7 @@ public enum GardenGrowth {
         case .seedling: return "\u{1F33F}"   // herb
         case .growing: return "\u{1F33E}"    // sheaf / growing
         case .budding: return "\u{1F338}"    // blossom (bud)
-        case .drooping: return "\u{1F940}"   // wilted flower
+        case .drooping: return "\u{1F940}"   // drooping flower (thirsty, reversible)
         }
     }
 }

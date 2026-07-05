@@ -1,11 +1,11 @@
 // Copyright: Ankitects Pty Ltd and contributors
 // License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
 
-// charged_up Knowledge Garden — the iOS companion. A deliberately MINIMAL app: three calm tabs over
-// the shared Anki Rust engine. The whole loop is "answer a question → fill the watering can → the
-// garden grows." No AI runs on device; every number is engine truth or an honest abstention.
+// charged_up Knowledge Garden — the iOS companion. Deliberately MINIMAL: one screen with the drops
+// you've gathered and the flashcards that earn more. The garden itself is tended on the computer;
+// the phone only collects drops (real graded reviews on the shared Anki Rust engine) and syncs them
+// home. No AI runs on device; every number is engine truth or an honest abstention.
 import SwiftUI
-import ScoreKit
 
 @main
 struct KnowledgeGardenApp: App {
@@ -13,7 +13,7 @@ struct KnowledgeGardenApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootView()
+            ReviewView()
                 .environmentObject(model)
                 .task { await model.boot() }
                 .tint(.green)
@@ -21,33 +21,7 @@ struct KnowledgeGardenApp: App {
     }
 }
 
-struct RootView: View {
-    @EnvironmentObject var model: GardenModel
-    // DEV/DEMO ONLY: `KG_START_TAB` (garden|tend|scores) picks the initial tab for screenshots.
-    // Unset in shipping builds — the app always opens on the Garden.
-    @State private var tab = RootView.initialTab
-
-    var body: some View {
-        TabView(selection: $tab) {
-            GardenView()
-                .tabItem { Label("Garden", systemImage: "leaf.fill") }.tag(0)
-            ReviewView()
-                .tabItem { Label("Tend", systemImage: "drop.fill") }.tag(1)
-            ScoresView()
-                .tabItem { Label("Scores", systemImage: "chart.bar.fill") }.tag(2)
-        }
-    }
-
-    private static var initialTab: Int {
-        switch ProcessInfo.processInfo.environment["KG_START_TAB"] {
-        case "tend": return 1
-        case "scores": return 2
-        default: return 0
-        }
-    }
-}
-
-/// Shared observable state for all three tabs. Owns the engine handle and keeps the UI on the main
+/// Shared state for the single screen. Owns the engine handle and keeps the UI on the main
 /// actor; every engine call hops to a background task and publishes results back on main.
 @MainActor
 final class GardenModel: ObservableObject {
@@ -56,14 +30,12 @@ final class GardenModel: ObservableObject {
     @Published var booted = false
     @Published var bootError: String?
     @Published var topics: [TopicRow] = []
-    /// The watering can: reviews completed this session. Every graded answer adds a drop.
+    /// Drops gathered = the collection's total graded reviews (engine truth via MasteryQuery), so
+    /// the number survives restarts and follows the collection through sync. Each answer bumps it
+    /// immediately for feedback; refresh() re-reads the real count.
     @Published var drops = 0
-    @Published var lastWateredTopic: String?
     @Published var syncStatus = "not synced yet"
     @Published var syncing = false
-
-    /// Watering-can capacity — purely cosmetic pacing; a full can is a nice "you did a set" beat.
-    let canCapacity = 12
 
     func boot() async {
         do {
@@ -77,8 +49,8 @@ final class GardenModel: ObservableObject {
     }
 
     /// DEV/DEMO ONLY (gated by the `KG_DEMO_REVIEWS` env var, never set in shipping builds): drive N
-    /// real graded reviews through the SAME engine answer path the Tend screen uses, so a screenshot
-    /// can show the watering can filling and plants growing from genuine engine truth.
+    /// real graded reviews through the SAME engine answer path the review screen uses, so a
+    /// screenshot can show drops earned from genuine engine truth.
     private func runDemoReviewsIfRequested() async {
         let env = ProcessInfo.processInfo.environment
         if let raw = env["KG_DEMO_REVIEWS"], let count = Int(raw), count > 0 {
@@ -89,7 +61,6 @@ final class GardenModel: ObservableObject {
                     return true
                 }) ?? false
                 if !didReview { break }
-                drops += 1
             }
             await refresh()
         }
@@ -114,14 +85,13 @@ final class GardenModel: ObservableObject {
     func refresh() async {
         if let rows = try? await run({ try $0.topicRows() }) {
             topics = rows.sorted { $0.deckName < $1.deckName }
+            withAnimation { drops = rows.reduce(0) { $0 + Int($1.gradedReviews) } }
         }
     }
 
-    /// Called after each graded answer: one review = one drop in the can, then re-read engine truth
-    /// so the watered topic's plant reflects the real review.
-    func water(topic: String?) async {
-        drops += 1
-        lastWateredTopic = topic
+    /// Called after each graded answer: one review = one drop, then re-read engine truth.
+    func water() async {
+        withAnimation { drops += 1 }
         await refresh()
     }
 
@@ -150,12 +120,4 @@ final class GardenModel: ObservableObject {
 func shortTopic(_ path: String) -> String {
     let parts = path.components(separatedBy: "::").filter { $0 != "MCAT" }
     return parts.suffix(2).joined(separator: " · ")
-}
-
-extension TopicRow {
-    var stage: GrowthStage {
-        GardenGrowth.stage(cardsWithState: cardsWithState, gradedReviews: gradedReviews,
-                           averageRecall: averageRecall, dueCount: dueCount)
-    }
-    var glyph: String { GardenGrowth.glyph(stage) }
 }

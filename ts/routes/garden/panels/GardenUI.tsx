@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { bus } from "../state/bus";
 import { fetchDepthStats } from "../state/depth-stats";
 import { canWater, spendWater } from "../state/economy";
+import { pickGardenerInsight } from "../state/gardener-insight";
 import type { MasterySnapshot } from "../state/mastery";
 import { stageFor } from "../state/stage";
 import type { GardenDoc, GardenStore } from "../state/store";
@@ -17,9 +18,19 @@ import { KeeperDialogue, panelFrameStyle } from "./KeeperDialogue";
 import { KeeperPanel, type KeeperSessionSummary } from "./KeeperPanel";
 import { PlacementTest } from "./PlacementTest";
 import { type DashboardData, fetchDashboard } from "./rpc";
+import { StoneExam } from "./StoneExam";
 import "../garden.css";
 
-type Overlay = "none" | "tour" | "keeper" | "placement" | "almanac" | "harvest" | "map-help" | "plant-card";
+type Overlay =
+    | "none"
+    | "tour"
+    | "keeper"
+    | "placement"
+    | "almanac"
+    | "harvest"
+    | "map-help"
+    | "plant-card"
+    | "trial-quiz";
 
 /** Celebration line when a whole preset color band blooms (flora:band-bloomed). */
 const BAND_BLOOM_LINES: Record<string, string> = {
@@ -69,13 +80,24 @@ function cloneDoc(doc: GardenDoc): GardenDoc {
         },
         settings: { ...doc.settings },
         flora: { ...doc.flora },
+        gardener: { ...doc.gardener },
     };
+}
+
+/** Local-calendar YYYY-MM-DD — the garden gnome's "one insight per day" boundary. */
+function todayIso(): string {
+    const d = new Date();
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    return `${d.getFullYear()}-${mm}-${dd}`;
 }
 
 export function GardenUI(props: GardenUIProps): React.ReactElement {
     const { store, snapshot, refreshSnapshot, onMusicMutedChange, introActive } = props;
     const [overlay, setOverlay] = useState<Overlay>("none");
     const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
+    /** Which sector stone's trial is open (the world's section id, e.g. "B-B"). */
+    const [trialSection, setTrialSection] = useState<string | null>(null);
     const [doc, setDoc] = useState<GardenDoc>(cloneDoc(store.snapshot));
     const [dashboard, setDashboard] = useState<DashboardData | null>(null);
     const [harvest, setHarvest] = useState<HarvestState | null>(null);
@@ -105,6 +127,26 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
     const syncFromStore = useCallback(() => {
         setDoc(cloneDoc(store.snapshot));
     }, [store]);
+
+    /** The garden gnome's one-a-day encouragement (feature 2026-07-05). Once per calendar day
+     *  we pick ONE positive, honest insight from the mastery snapshot + the doc, persist it as
+     *  the daily gate, and hand it to the world; the rest of the day we reuse the persisted
+     *  line so the gnome's advice is stable. Positive-only by design. */
+    const publishGardenerInsight = useCallback((): void => {
+        const today = todayIso();
+        const current = store.snapshot;
+        let text = current.gardener.text;
+        if (current.gardener.dateIso !== today || text.length === 0) {
+            text = pickGardenerInsight({
+                snapshot,
+                doc: current,
+                dateIso: today,
+                lastText: current.gardener.text || undefined,
+            }).text;
+            store.setGardener(today, text);
+        }
+        bus.emit("gardener:insight", { text });
+    }, [store, snapshot]);
 
     const refreshDashboard = useCallback(async (): Promise<void> => {
         const payload = await fetchDashboard();
@@ -188,11 +230,14 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
 
     useEffect(() => {
         void store.load()
-            .then(() => syncFromStore())
+            .then(() => {
+                syncFromStore();
+                publishGardenerInsight();
+            })
             .catch(() => syncFromStore());
         void refreshDashboard().catch(() => undefined);
         void refreshWeeds().catch(() => undefined);
-    }, [refreshDashboard, refreshWeeds, store, syncFromStore]);
+    }, [publishGardenerInsight, refreshDashboard, refreshWeeds, store, syncFromStore]);
 
     useEffect(() => {
         const offPlant = bus.on("plant:interact", ({ nodeId }) => {
@@ -204,6 +249,11 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
             // Until the master's placement test is done, HE IS the placement test —
             // the island fog only lifts when it completes (2026-07-03 directive).
             setOverlay(store.snapshot.placement.done ? "keeper" : "placement");
+        });
+        const offTrial = bus.on("trial:interact", ({ section }) => {
+            // A sector stone opens that section's short MCQ trial (StoneExam).
+            setTrialSection(section);
+            setOverlay("trial-quiz");
         });
         const offGround = bus.on("ground:watered", ({ nodeId, aimTileX, aimTileY }) => {
             waterGround(nodeId, aimTileX, aimTileY);
@@ -243,6 +293,7 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
         return () => {
             offPlant();
             offKeeper();
+            offTrial();
             offGround();
             offBand();
             offFlavor();
@@ -454,6 +505,21 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
                             syncFromStore();
                             void refreshDashboard().catch(() => undefined);
                             void refreshSnapshot().catch(() => undefined);
+                        }}
+                    />
+                </div>
+            )}
+
+            {overlay === "trial-quiz" && trialSection && (
+                <div className="garden-overlay keeper-overlay">
+                    <StoneExam
+                        section={trialSection}
+                        store={store}
+                        onGranted={() => syncFromStore()}
+                        onClose={() => {
+                            setOverlay("none");
+                            setTrialSection(null);
+                            syncFromStore();
                         }}
                     />
                 </div>

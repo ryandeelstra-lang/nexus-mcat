@@ -42,6 +42,13 @@ export interface GardenEvents {
     "plant:bloomed": { nodeId: string };
     /** The player interacted with the Keeper — open the review panel. */
     "keeper:interact": Record<string, never>;
+    /** The player walked up to a sector stone and pressed interact — open that section's
+     *  trial: a short multiple-choice exam drawn from the open MCQ bank. `section` is one
+     *  of the four garden ids (P-S / B-B / C-P / CARS). */
+    "trial:interact": { section: string };
+    /** A stone trial paid out — the world answers with a reward shower over the garden
+     *  (the "reward them with a bunch of water" beat). `water` is the amount granted. */
+    "trial:rewarded": { water: number };
     /** The player walked up to a landmark/prop and pressed interact — a Keeper-voiced flavor
      *  line tied to the geography (the "items interact with each character" beat). */
     "world:flavor": { title: string; line: string };
@@ -60,6 +67,9 @@ export interface GardenEvents {
     "map:visible": { open: boolean };
     /** Mastery snapshot refreshed — world should restage plants. */
     "mastery:refreshed": Record<string, never>;
+    /** The garden gnome's chosen line for the day (feature 2026-07-05). The panel layer owns
+     *  the daily gate + the analytics; the world owns the wandering sprite + proximity bubble. */
+    "gardener:insight": { text: string };
     /** The avatar crossed into a garden region — cosmetic layers (sky, music) may react.
      *  `region` is one of the four garden ids (see audio/theory RegionId); typed as string
      *  here to keep the state layer decoupled from the audio layer. */

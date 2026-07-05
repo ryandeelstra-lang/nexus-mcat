@@ -16,6 +16,10 @@ export interface EconomyConfig {
     waterPerGradedAnswer: number;
     /** XP per graded review (cosmetic level; never gates content). */
     xpPerGradedAnswer: number;
+    /** Water refilled per correct answer in a sector-stone trial (a short MCQ exam). */
+    waterPerTrialCorrect: number;
+    /** Extra water for a flawless trial (every question correct) — the "big reward" beat. */
+    trialPerfectBonus: number;
 }
 
 /** Doc 23 §7 defaults — the single tuning surface (docs/26 R6). */
@@ -24,6 +28,8 @@ export const ECONOMY: EconomyConfig = {
     waterCostPerPour: 1,
     waterPerGradedAnswer: 1,
     xpPerGradedAnswer: 1,
+    waterPerTrialCorrect: 3,
+    trialPerfectBonus: 5,
 };
 
 export interface Balances {
@@ -57,6 +63,39 @@ export function onGradedAnswer(b: Balances, cfg: EconomyConfig = ECONOMY): Balan
         ...b,
         water: b.water + cfg.waterPerGradedAnswer,
         xp: b.xp + cfg.xpPerGradedAnswer,
+    };
+}
+
+// --- sector-stone trials (a short MCQ exam at each quadrant's heart) -----------------------
+
+/**
+ * The exact water payout for a finished trial: each correct retrieval refills water, plus a
+ * bonus for a flawless run. Wrong answers refill nothing (I4: currency comes only from graded
+ * answers — a trial question IS a graded retrieval attempt — and never buys mastery/growth).
+ * Pure so the UI can preview the reward before crediting it.
+ */
+export function trialWaterReward(
+    correct: number,
+    total: number,
+    cfg: EconomyConfig = ECONOMY,
+): number {
+    const safeCorrect = Math.max(0, Math.min(Math.floor(correct), Math.floor(total)));
+    const perfect = total > 0 && safeCorrect === Math.floor(total);
+    return safeCorrect * cfg.waterPerTrialCorrect + (perfect ? cfg.trialPerfectBonus : 0);
+}
+
+/** Credit a finished trial's water (and cosmetic XP) to the balance. */
+export function onTrialCompleted(
+    b: Balances,
+    correct: number,
+    total: number,
+    cfg: EconomyConfig = ECONOMY,
+): Balances {
+    const safeCorrect = Math.max(0, Math.min(Math.floor(correct), Math.floor(total)));
+    return {
+        ...b,
+        water: b.water + trialWaterReward(safeCorrect, total, cfg),
+        xp: b.xp + safeCorrect * cfg.xpPerGradedAnswer,
     };
 }
 

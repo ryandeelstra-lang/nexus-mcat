@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS garden_state (
 #   "weeds"      -> {nodeId: {cause, ts}}
 #   "unlocks"    -> {waystones: [id]}
 #   "settings"   -> {muted, volume}
+#   "gardener"   -> {dateIso, text}   (the gnome's one-a-day insight + daily gate, 2026-07-05)
 
 
 def _connect(col: Collection) -> sqlite3.Connection:

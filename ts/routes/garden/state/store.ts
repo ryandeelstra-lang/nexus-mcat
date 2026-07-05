@@ -75,6 +75,10 @@ export interface GardenDoc {
     settings: { muted: boolean; volume: number };
     /** Ground-flora watered counts ("x,y" tile -> pours), cosmetic-only (2026-07-03). */
     flora: Record<string, number>;
+    /** The garden gnome's one-a-day encouragement (2026-07-05): the line last shown and the
+     *  ISO day (YYYY-MM-DD) it was chosen — the daily gate picks exactly one insight per day
+     *  and keeps it stable, and skips repeating it the next day. */
+    gardener: { dateIso: string; text: string };
 }
 
 export function emptyDoc(): GardenDoc {
@@ -88,6 +92,7 @@ export function emptyDoc(): GardenDoc {
         unlocks: { waystones: [], sectors: [] },
         settings: { muted: false, volume: 0.7 },
         flora: {},
+        gardener: { dateIso: "", text: "" },
     };
 }
 
@@ -164,6 +169,7 @@ export class GardenStore {
             },
             settings: { ...base.settings, ...(persisted.settings ?? {}) },
             flora: persisted.flora ?? {},
+            gardener: { ...base.gardener, ...(persisted.gardener ?? {}) },
         };
         return this.doc;
     }
@@ -245,6 +251,14 @@ export class GardenStore {
         const unlocks = { ...this.doc.unlocks, waystones: [...this.doc.unlocks.waystones, id] };
         this.doc = { ...this.doc, unlocks };
         void this.transport.set("unlocks", unlocks);
+    }
+
+    /** Record the day's chosen gnome insight (write-through). The daily gate compares
+     *  `dateIso` to today to decide whether to pick a fresh line. */
+    setGardener(dateIso: string, text: string): void {
+        const gardener = { dateIso, text };
+        this.doc = { ...this.doc, gardener };
+        void this.transport.set("gardener", gardener);
     }
 
     /** Ground-flora watered counts (write-through like every other key). */

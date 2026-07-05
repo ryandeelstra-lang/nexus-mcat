@@ -11,8 +11,10 @@ import {
     ECONOMY,
     initialBalances,
     onGradedAnswer,
+    onTrialCompleted,
     onVoiceGradedAnswer,
     spendWater,
+    trialWaterReward,
 } from "./economy";
 
 describe("economy — the doc 23 §7 contract", () => {
@@ -70,6 +72,39 @@ describe("economy — the doc 23 §7 contract", () => {
         }
         expect(Object.keys(ECONOMY).join(" ").toLowerCase()).not.toContain("seed");
         expect(initialBalances()).not.toHaveProperty("seeds");
+    });
+});
+
+describe("sector-stone trials — water reward (I4: only correct retrievals pay)", () => {
+    const base = { water: 10, xp: 0 };
+
+    it("pays configured water per correct answer", () => {
+        expect(trialWaterReward(3, 5)).toBe(3 * ECONOMY.waterPerTrialCorrect);
+    });
+
+    it("adds the perfect-run bonus only when every question is correct", () => {
+        expect(trialWaterReward(5, 5)).toBe(
+            5 * ECONOMY.waterPerTrialCorrect + ECONOMY.trialPerfectBonus,
+        );
+        expect(trialWaterReward(4, 5)).toBe(4 * ECONOMY.waterPerTrialCorrect);
+    });
+
+    it("pays nothing for zero correct — a wrong-only run refills no water", () => {
+        expect(trialWaterReward(0, 5)).toBe(0);
+        expect(onTrialCompleted(base, 0, 5)).toEqual(base);
+    });
+
+    it("credits water + cosmetic xp onto the balance", () => {
+        const after = onTrialCompleted(base, 3, 5);
+        expect(after.water).toBe(10 + 3 * ECONOMY.waterPerTrialCorrect);
+        expect(after.xp).toBe(3 * ECONOMY.xpPerGradedAnswer);
+    });
+
+    it("clamps out-of-range inputs (never over-pays, never negative)", () => {
+        expect(trialWaterReward(-2, 5)).toBe(0);
+        expect(trialWaterReward(9, 5)).toBe(
+            5 * ECONOMY.waterPerTrialCorrect + ECONOMY.trialPerfectBonus,
+        );
     });
 });
 

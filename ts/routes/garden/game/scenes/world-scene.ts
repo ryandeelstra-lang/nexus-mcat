@@ -23,6 +23,7 @@ import { skyStateFor } from "../daynight";
 import { planFlora } from "../flora";
 import { FloraLayer } from "../flora-layer";
 import { clampFeetToTileRect, cloudNoise, fogDensityAt } from "../fog";
+import { Gardener } from "../gardener";
 import {
     buildIslandPlan,
     ISLAND_SUBTITLE,
@@ -241,6 +242,10 @@ export class WorldScene extends Phaser.Scene {
     private avatar!: Phaser.GameObjects.Sprite;
     private keeper!: Phaser.GameObjects.Image;
     private keeperLantern!: Phaser.GameObjects.Arc;
+    /** The garden gnome: a wandering NPC that carries the day's encouragement in a bubble
+     *  that grows from "…" to the full line as you approach. Null until the garden is real
+     *  (spawned after the onboarding fog lifts). */
+    private gardener: Gardener | null = null;
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
     private wasd!: {
         W: Phaser.Input.Keyboard.Key;
@@ -369,6 +374,7 @@ export class WorldScene extends Phaser.Scene {
         this.setupInput();
         this.setupSky();
         this.setupFog();
+        this.spawnGardener();
         this.weather = new WeatherLayer(this, this.reducedMotion);
         this.setupBus();
         this.updateTendMarker();
@@ -432,6 +438,8 @@ export class WorldScene extends Phaser.Scene {
         this.flora = null;
         this.weather?.destroy();
         this.weather = null;
+        this.gardener?.destroy();
+        this.gardener = null;
     }
 
     /** Map overlay reads avatar position. */
@@ -515,6 +523,9 @@ export class WorldScene extends Phaser.Scene {
         this.updateInteractPrompt();
         this.emitRegionIfChanged();
         this.bobKeeper(delta);
+        if (this.avatar) {
+            this.gardener?.update(this.avatar.x, this.avatar.y, delta);
+        }
         this.updateCritters();
         this.tickFog(delta);
         // The living wind: grown flowers sway as one field; completed lines host gusts.
@@ -905,6 +916,44 @@ export class WorldScene extends Phaser.Scene {
         }
         const t = this.time.now / 1000;
         this.keeper.y = KEEPER_TILE.tileY * DISPLAY.tile + DISPLAY.tile + Math.sin(t * 2) * 2;
+    }
+
+    /** Spawn the wandering gnome at a random, discoverable grass tile — but only once the
+     *  garden is real (after the onboarding fog lifts; while it holds, only the non-grass
+     *  plaza is reachable, so there's nowhere honest to stand). Idempotent. */
+    private spawnGardener(): void {
+        if (this.gardener || this.fogActive) {
+            return;
+        }
+        const spot = this.pickGardenerTile();
+        if (!spot) {
+            return;
+        }
+        this.gardener = new Gardener(this, spot.tileX, spot.tileY, this.reducedMotion);
+        // The insight may have arrived on the bus before the gnome existed — apply it.
+        const pending = this.registry.get("gardenerInsight") as string | undefined;
+        if (pending) {
+            this.gardener.setText(pending);
+        }
+    }
+
+    /** A random open grass tile a short walk from where the avatar starts (so the "…"→text
+     *  reveal has room to play), validated exactly like a map drop — grass, in-bounds, not
+     *  blocked. Null if none found in a bounded number of tries (the gnome simply skips). */
+    private pickGardenerTile(): TileCoord | null {
+        const spawn = this.avatarTile;
+        for (let i = 0; i < 80; i++) {
+            const tileX = Math.floor(Math.random() * this.plan.widthTiles);
+            const tileY = Math.floor(Math.random() * this.plan.heightTiles);
+            if (!this.canDropAt(tileX, tileY)) {
+                continue;
+            }
+            if (this.distTiles(tileX + 0.5, tileY + 0.5, spawn.tileX + 0.5, spawn.tileY + 0.5) < 5) {
+                continue;
+            }
+            return { tileX, tileY };
+        }
+        return null;
     }
 
     private setupInput(): void {
@@ -1346,8 +1395,10 @@ export class WorldScene extends Phaser.Scene {
                 break;
             case "trial":
                 if (this.nearTrialSection) {
-                    // The stone's blessing: a brief screen-space shower over the garden.
-                    this.weather?.rainBurst();
+                    // The stone opens that section's trial (a short MCQ exam). The panel
+                    // layer runs the questions and pays the water reward; the world answers
+                    // that payout with rain (see "trial:rewarded" in setupBus).
+                    this.bus.emit("trial:interact", { section: this.nearTrialSection });
                 }
                 break;
             case "island-return":
@@ -1686,6 +1737,8 @@ export class WorldScene extends Phaser.Scene {
             return;
         }
         this.fogActive = false;
+        // The garden is real now — the gnome can take its place among the beds.
+        this.spawnGardener();
         const sprites = this.fogSprites;
         this.fogSprites = [];
         if (this.reducedMotion) {
@@ -1710,6 +1763,11 @@ export class WorldScene extends Phaser.Scene {
                 this.snapshot = this.registry.get("masterySnapshot") as MasterySnapshot;
                 this.restagePlants();
             }),
+            this.bus.on("gardener:insight", ({ text }) => {
+                // Cache for a gnome that hasn't spawned yet (fog still up), then push to a live one.
+                this.registry.set("gardenerInsight", text);
+                this.gardener?.setText(text);
+            }),
             this.bus.on("plant:watered", ({ nodeId }) => this.fxWatered(nodeId)),
             this.bus.on("growth:tick", ({ nodeId, fast }) => this.fxGrowthTick(nodeId, fast)),
             this.bus.on("plant:bloomed", ({ nodeId }) => this.fxBloomed(nodeId)),
@@ -1719,6 +1777,9 @@ export class WorldScene extends Phaser.Scene {
             }),
             this.bus.on("flora:water", ({ aimTileX, aimTileY }) => this.onFloraWater(aimTileX, aimTileY)),
             this.bus.on("placement:completed", () => this.liftFog()),
+            // A stone trial paid out — reward the garden with a shower of rain (the
+            // reward is credited by the panel layer; this is only the cosmetic answer).
+            this.bus.on("trial:rewarded", () => this.weather?.rainBurst()),
             this.bus.on("island:enter", ({ stats }) => this.enterIsland(stats)),
             this.bus.on("island:exit", () => this.exitIsland()),
         );

@@ -125,8 +125,8 @@ export function StoneExam(props: StoneExamProps): React.ReactElement {
                     <button className="keeper-close" onClick={onClose} aria-label="Close">✕</button>
                 </div>
                 <p className="stone-exam-empty">
-                    This stone has no questions to ask just yet. Come back soon — the {meta.subjectLabel} trial
-                    is still taking shape.
+                    This stone has no questions to ask just yet. Come back soon — the {meta.subjectLabel}{" "}
+                    trial is still taking shape.
                 </p>
                 <div className="panel-actions">
                     <button className="keeper-reveal" onClick={onClose}>Leave the stone</button>
@@ -145,10 +145,12 @@ export function StoneExam(props: StoneExamProps): React.ReactElement {
                 </div>
                 <p className="stone-exam-lede">
                     The standing stone hums as you approach. Answer its {total} question{total === 1 ? "" : "s"} on
-                    <strong> {meta.subjectLabel}</strong> and it will bless your garden with rain.
+                    <strong>{meta.subjectLabel}</strong> and it will bless your garden with rain.
                 </p>
                 <ul className="stone-exam-terms">
-                    <li>💧 <strong>+{perCorrect} water</strong> for each correct answer</li>
+                    <li>
+                        💧 <strong>+{perCorrect} water</strong> for each correct answer
+                    </li>
                     <li>🌧️ a bonus shower for a flawless run</li>
                     <li>✎ open, public-domain questions — no penalty for a wrong guess</li>
                 </ul>
@@ -176,10 +178,15 @@ export function StoneExam(props: StoneExamProps): React.ReactElement {
                     <h2>{meta.stoneTitle} — result</h2>
                 </div>
                 <div className="stone-exam-score">
-                    <span className="stone-exam-score-num">{correct}<span>/{total}</span></span>
+                    <span className="stone-exam-score-num">
+                        {correct}
+                        <span>/{total}</span>
+                    </span>
                     <span className="stone-exam-score-label">correct</span>
                 </div>
-                <p className="stone-exam-reward">You earned <strong>💧 {earnedWater} water</strong></p>
+                <p className="stone-exam-reward">
+                    You earned <strong>💧 {earnedWater} water</strong>
+                </p>
                 <p className="stone-exam-flavor">{line}</p>
                 <div className="panel-actions">
                     <button className="keeper-reveal" onClick={onClose}>
@@ -192,7 +199,12 @@ export function StoneExam(props: StoneExamProps): React.ReactElement {
 
     // phase === "question"
     return (
-        <div className="panel-card stone-exam" style={panelFrameStyle()} role="dialog" aria-label="Stone trial question">
+        <div
+            className="panel-card stone-exam"
+            style={panelFrameStyle()}
+            role="dialog"
+            aria-label="Stone trial question"
+        >
             <div className="panel-header">
                 <h2>{meta.stoneTitle}</h2>
                 <span className="stone-exam-progress" aria-live="polite">
@@ -238,7 +250,11 @@ export function StoneExam(props: StoneExamProps): React.ReactElement {
             {revealed
                 ? (
                     <div className="stone-exam-explain">
-                        <p className={selected === current.answer ? "stone-exam-verdict is-right" : "stone-exam-verdict is-off"}>
+                        <p
+                            className={selected === current.answer
+                                ? "stone-exam-verdict is-right"
+                                : "stone-exam-verdict is-off"}
+                        >
                             {selected === current.answer ? "Correct" : "Not quite"}
                         </p>
                         <p className="stone-exam-explanation">{current.explanation}</p>
@@ -250,7 +266,9 @@ export function StoneExam(props: StoneExamProps): React.ReactElement {
                     </div>
                 )
                 : (
-                    <p className="stone-exam-hint">Pick an answer — <kbd>1</kbd>–<kbd>4</kbd> or click.</p>
+                    <p className="stone-exam-hint">
+                        Pick an answer — <kbd>1</kbd>–<kbd>4</kbd> or click.
+                    </p>
                 )}
         </div>
     );

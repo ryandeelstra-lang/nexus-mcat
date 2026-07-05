@@ -8,7 +8,6 @@ import type { TypedBus } from "../../state/bus";
 import type { DepthStats } from "../../state/depth-stats";
 import type { MasterySnapshot, TopicMastery } from "../../state/mastery";
 import { type GrowthStage, stageFor, wiltLevelFor } from "../../state/stage";
-import { applyWilt } from "../wilt";
 import { aimLabelText } from "../aim-label";
 import {
     applyDisplaySize,
@@ -38,6 +37,7 @@ import {
 import { sectorFor } from "../sectors/index";
 import { buildTerrainModel, paintGround, planDecor, terrainKindAt, type TerrainModel } from "../terrain";
 import { WeatherLayer } from "../weather";
+import { applyWilt } from "../wilt";
 import {
     buildWorldPlan,
     CENTER_PLAZA,

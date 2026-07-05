@@ -60,6 +60,29 @@ struct ReviewView: View {
         // Wait for the engine to finish opening before asking for a card (avoids a boot race that
         // would otherwise show "caught up" before the deck is loaded).
         .task(id: model.booted) { if model.booted { await advance() } }
+        // DEV/DEMO ONLY (KG_DEMO_AUTOPLAY=N, never set in shipping builds): step the REAL review
+        // UI through N cards — reveal, then Good — via the same answer() path a finger tap uses,
+        // then sync, so a screen recording shows genuine card-by-card reviews earning drops.
+        .task(id: model.booted) { if model.booted { await autoplayIfRequested() } }
+    }
+
+    private func autoplayIfRequested() async {
+        guard let raw = ProcessInfo.processInfo.environment["KG_DEMO_AUTOPLAY"],
+              let n = Int(raw), n > 0 else { return }
+        for _ in 0..<n {
+            // wait for the next card to be on screen (bounded: 20s per card)
+            var waited = 0
+            while (loading || card == nil) && waited < 200 {
+                try? await Task.sleep(nanoseconds: 100_000_000)
+                waited += 1
+            }
+            guard card != nil else { break }
+            withAnimation { revealed = true }
+            try? await Task.sleep(nanoseconds: 900_000_000)
+            await answer(.good)
+            try? await Task.sleep(nanoseconds: 400_000_000)
+        }
+        await model.sync()
     }
 
     // MARK: the drops counter

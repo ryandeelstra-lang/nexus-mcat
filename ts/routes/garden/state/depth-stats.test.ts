@@ -7,15 +7,16 @@
 // and "—" (never a fabricated number) when a source is missing.
 import { describe, expect, it } from "vitest";
 
-import type { TopicMastery } from "./mastery";
 import {
     assembleDepthStats,
     CONCEPT_FLOOR_CARDS,
     DEPTH_STAT_ORDER,
+    daysSinceLastActivity,
     metricPoint,
     retentionFraction,
     studyStreakDays,
 } from "./depth-stats";
+import type { TopicMastery } from "./mastery";
 import { emptyDoc } from "./store";
 
 function mkTopic(partial: Partial<TopicMastery> & { nodeId: string }): TopicMastery {
@@ -219,5 +220,21 @@ describe("sidecar stats", () => {
         expect(garden.value).toBe("2");
         expect(garden.detail).toContain("5 pours");
         expect(garden.detail).toContain("42 water");
+    });
+});
+
+describe("daysSinceLastActivity — the decay clock (living-decay 2026-07-05)", () => {
+    it("zero history ⇒ 0: never-studied ≠ neglected — first open is pristine", () => {
+        expect(daysSinceLastActivity(undefined)).toBe(0);
+        expect(daysSinceLastActivity({})).toBe(0);
+    });
+    it("activity today ⇒ 0", () => {
+        expect(daysSinceLastActivity({ [-4]: { young: 3 }, 0: { young: 1 } })).toBe(0);
+    });
+    it("most recent activity 3 days back ⇒ 3", () => {
+        expect(daysSinceLastActivity({ [-7]: { mature: 2 }, [-3]: { young: 1 } })).toBe(3);
+    });
+    it("empty buckets do not count as activity", () => {
+        expect(daysSinceLastActivity({ [-1]: {}, [-5]: { young: 2 } })).toBe(5);
     });
 });

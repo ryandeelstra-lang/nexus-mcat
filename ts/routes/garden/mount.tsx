@@ -11,7 +11,10 @@ export function mountGarden(host: HTMLElement): () => void {
     // The root boundary is the last line of defense: even a shell/boot throw shows a calm
     // card instead of an empty host (createRoot un-mounts the whole tree on an uncaught error).
     root.render(
-        React.createElement(GardenErrorBoundary, { label: "app" }, React.createElement(GardenApp)),
+        React.createElement(GardenErrorBoundary, {
+            label: "app",
+            children: React.createElement(GardenApp),
+        }),
     );
     return () => root.unmount();
 }

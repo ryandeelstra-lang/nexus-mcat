@@ -160,7 +160,41 @@ acknowledgment). Simulator output is CONFINED to the ablation report
 (`docs/release-proof/eval/ablation.txt`); it never feeds `scores/display.py`,
 `scores/readiness.py`, or any user-facing score.
 
-## 8. How to run
+## 8. Amendments 2026-07-05 (before the first artifact run)
+
+Implementation of §6 surfaced two engine facts that required architecture
+fixes. Both were found via single-arm smoke/diagnostic probes; **no sweep,
+artifact, or per-arm accuracy comparison had been run** when these were
+committed, and no frozen mechanism parameter (κ range, η, g, p0, costs,
+budget, N, seeds) changed.
+
+1. **Learn-ahead serve order is wall-clock-fragile.** The engine stamps
+   intraday (re)learning step dues at real-wall-clock **second** granularity
+   (`CardStateUpdater.now = TimestampSecs::now()`,
+   `rslib/src/scheduler/answering/mod.rs:523`), so which failed cards tie
+   within the same second — and therefore their learn-ahead serve order —
+   varied between otherwise identical runs. Fix: the simulated session
+   **never serves future-due learn-ahead cards**; step timers roll overnight
+   and pending step dues are re-normalized to deterministic id-ordered
+   constants at each day boundary. §4's "same-day re-serves have elapsed 0 →
+   always pass" is therefore moot: there are no same-day re-serves; pending
+   steps are re-served the next morning at whole-day elapsed like every other
+   card.
+2. **FSRS elapsed ignores answered_at.** The FSRS stability update computes
+   `days_elapsed = timing.next_day_at.elapsed_days_since(last_review_time)`
+   (INTEGER days, anchored at the next real rollover —
+   `rslib/src/scheduler/answering/mod.rs:480-487`, `timestamp.rs:31-33`), so
+   §6's original fixed-epoch stamping made every gap read as ~6 months.
+   Fix — "age the collection": answers are stamped one hour into the current
+   real sched day, and at each simulated day boundary the harness shifts
+   `last_review_time` (cards.data `lrt`) back 86400 s and revlog ids back
+   86400000 ms while `crt` advances `today`. Every FSRS elapsed is then an
+   exact whole number of days — identical across arms, run dates, and times
+   of day — and prior days never count against the daily limits. The
+   learner's mirror curve uses the same whole-day elapsed, from the harness's
+   own last-reviewed-day ledger.
+
+## 9. How to run
 
 From the repo root (requires the built `out/` tree):
 

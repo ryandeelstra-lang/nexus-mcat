@@ -109,7 +109,9 @@ def test_retrievability_mirror_matches_engine(tmp_path):
         note = col.new_note(col.models.by_name("Basic"))
         note["Front"], note["Back"] = "q", "a"
         col.add_note(note, col.decks.id("PinDeck"))
+        col.decks.select(col.decks.id("PinDeck"))  # queues draw from the current deck
         card = [col.get_card(cid) for cid in col.find_cards("")][0]
+        card.start_timer()
         # Study it once through the real scheduler so it carries memory state.
         queued = col.sched.get_queued_cards(fetch_limit=1)
         answer = col.sched.build_answer(

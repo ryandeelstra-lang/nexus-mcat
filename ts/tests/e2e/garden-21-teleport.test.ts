@@ -6,6 +6,8 @@
 //   (1) bus contract: "map:teleport" onto grass moves the avatar; onto water it is a no-op;
 //   (2) a REAL mouse click on the map overlay canvas lands the avatar on the clicked tile
 //       and closes the map; clicking water keeps the map open and the avatar put.
+import type { Page } from "@playwright/test";
+
 import { avatarTile, emitBus, expect, resetGarden, shot, test } from "./garden-helpers";
 
 /** Mirrors MAP_SCALE in game/scenes/map-scene.ts (world px → mini-map px). */
@@ -18,7 +20,7 @@ interface Tile {
 }
 
 /** Every currently droppable tile plus a water tile, straight from the live world. */
-async function probeWorld(page: import("@playwright/test").Page): Promise<{
+async function probeWorld(page: Page): Promise<{
     grass: Tile[];
     water: Tile;
     waystones: Tile[];
@@ -45,7 +47,7 @@ async function probeWorld(page: import("@playwright/test").Page): Promise<{
 
 /** Page coords of a tile's center on the OPEN map overlay (through its zoomed camera). */
 async function mapClickPoint(
-    page: import("@playwright/test").Page,
+    page: Page,
     tile: Tile,
 ): Promise<{ x: number; y: number }> {
     const cam = await page.evaluate(() => {
@@ -66,7 +68,7 @@ async function mapClickPoint(
     };
 }
 
-async function mapIsVisible(page: import("@playwright/test").Page): Promise<boolean> {
+async function mapIsVisible(page: Page): Promise<boolean> {
     return await page.evaluate(() =>
         (globalThis as unknown as Record<string, any>).__gardenGame.scene.isVisible("map")
     );

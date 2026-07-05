@@ -9,6 +9,8 @@
 // drivable here — connectGarden's addInitScript pre-seeds the intro seen-key on EVERY
 // navigation, so no fixture page can boot with the cinematic pending. That ordering is
 // verified visually (live headed run) instead.
+import type { Page } from "@playwright/test";
+
 import { expect, gardenState, resetGarden, shot, test } from "./garden-helpers";
 
 const TOUR = ".garden-tour";
@@ -20,7 +22,7 @@ const SCIENCE = `${TOUR} .tour-science`;
  * Deliberately no body-click here: clicking races the crawl's natural end — a late
  * click advances the beat instead of snapping it, which flakes the assertions.
  */
-async function waitBeatLanded(page: import("@playwright/test").Page): Promise<void> {
+async function waitBeatLanded(page: Page): Promise<void> {
     await expect(page.locator(SCIENCE)).toBeVisible();
 }
 

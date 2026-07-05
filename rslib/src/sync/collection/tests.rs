@@ -1137,10 +1137,7 @@ mod mcat_block_e {
             let d1 = col1.storage.get_card(cid)?.unwrap().due;
             let d2 = col2.storage.get_card(cid)?.unwrap().due;
             assert_eq!(d2, 222, "the later writer's due persists on col2");
-            assert_eq!(
-                d1, 222,
-                "and propagates to col1 — last-write-wins by mtime"
-            );
+            assert_eq!(d1, 222, "and propagates to col1 — last-write-wins by mtime");
             Ok(())
         })
         .await

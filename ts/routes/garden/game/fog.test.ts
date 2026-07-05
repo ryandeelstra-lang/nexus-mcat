@@ -7,15 +7,7 @@
 // leash keeps the avatar out of the shroud while it stands.
 import { describe, expect, it } from "vitest";
 
-import {
-    clampFeetToTileRect,
-    cloudNoise,
-    distanceToRect,
-    fogDensityAt,
-    hash2,
-    smoothstep,
-    type TileRect,
-} from "./fog";
+import { clampFeetToTileRect, cloudNoise, distanceToRect, fogDensityAt, hash2, smoothstep, type TileRect } from "./fog";
 
 const PLAZA: TileRect = { x: 17, y: 12, w: 11, h: 8 };
 const FALLOFF = 2.5;

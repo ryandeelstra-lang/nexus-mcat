@@ -1,9 +1,9 @@
 {
-  "n": 24,
-  "accuracy": 0.7083,
-  "wrong_rate": 0.2917,
-  "range": [0.5417, 0.8333],
-  "baseline_accuracy": 0.5417,
-  "source": "docs/release-proof/eval/performance-heldout.txt (2026-07-04)",
-  "_provenance": "Verbatim copy of the desktop held-out performance eval (scores/performance.py evaluate_pairs on the paraphrase held-out split). NEVER edit by hand — regenerate when the desktop eval is re-run. The phone surfaces these numbers with their range and abstains if this file is absent."
+    "n": 24,
+    "accuracy": 0.7083,
+    "wrong_rate": 0.2917,
+    "range": [0.5417, 0.8333],
+    "baseline_accuracy": 0.5417,
+    "source": "docs/release-proof/eval/performance-heldout.txt (2026-07-04)",
+    "_provenance": "Verbatim copy of the desktop held-out performance eval (scores/performance.py evaluate_pairs on the paraphrase held-out split). NEVER edit by hand — regenerate when the desktop eval is re-run. The phone surfaces these numbers with their range and abstains if this file is absent."
 }

@@ -46,8 +46,8 @@ export class GardenErrorBoundary extends React.Component<Props, State> {
                     <div className="keeper-panel-shell garden-error-card">
                         <h2>The garden hit a snag 🌧️</h2>
                         <p>
-                            Something in this panel stumbled — but your garden is safe and nothing
-                            was lost. Try again, or reload to return to solid ground.
+                            Something in this panel stumbled — but your garden is safe and nothing was lost. Try again,
+                            or reload to return to solid ground.
                         </p>
                         <div className="keeper-actions">
                             <button className="keeper-reveal" onClick={this.reset}>

@@ -3,16 +3,7 @@
 
 // charged_up W1a: harness smoke — the seeded garden boots on the REAL engine.
 // Re-run safe: asserts self-consistency (HUD ⇔ persisted economy), never absolute balances.
-import {
-    dismissIntro,
-    emitBus,
-    expect,
-    gardenState,
-    hudWater,
-    shot,
-    test,
-    waitForBoot,
-} from "./garden-helpers";
+import { dismissIntro, emitBus, expect, gardenState, hudWater, shot, test, waitForBoot } from "./garden-helpers";
 
 test("the garden boots into a seeded world (34 topics, 34 plants, 27 gate edges, live HUD)", async ({ garden: page }) => {
     await waitForBoot(page);

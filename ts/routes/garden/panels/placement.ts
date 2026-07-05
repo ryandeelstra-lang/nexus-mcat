@@ -177,7 +177,18 @@ export function partsToIsoDate(
 
 const _WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const _MONTHS = [
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
 ];
 
 /** Human confirmation of an ISO date ("Wed · Oct 15, 2026"), or "" when unknown/invalid. */

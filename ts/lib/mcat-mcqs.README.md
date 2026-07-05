@@ -14,12 +14,12 @@ required**.
 ≥ 40 questions in each of the eight subjects, grouped under the four MCAT sections used by the
 garden's four quadrant stones:
 
-| Section (stone)                | Subjects                              |
-| ------------------------------ | ------------------------------------- |
-| **B-B** — The Tulip Stone      | Biology, Biochemistry                 |
-| **C-P** — The Parterre Stone   | General Chemistry, Organic Chemistry, Physics |
-| **P-S** — The Sakura Stone     | Psychology, Sociology                 |
-| **CARS** — The Night Stone     | Critical Analysis & Reasoning (original passages) |
+| Section (stone)              | Subjects                                          |
+| ---------------------------- | ------------------------------------------------- |
+| **B-B** — The Tulip Stone    | Biology, Biochemistry                             |
+| **C-P** — The Parterre Stone | General Chemistry, Organic Chemistry, Physics     |
+| **P-S** — The Sakura Stone   | Psychology, Sociology                             |
+| **CARS** — The Night Stone   | Critical Analysis & Reasoning (original passages) |
 
 ## Schema
 
@@ -27,16 +27,16 @@ garden's four quadrant stones:
 
 ```jsonc
 {
-  "id": "BB-biology-001",     // stable unique id
-  "section": "BB",            // BB | CP | PS | CARS
-  "subject": "Biology",       // human subject label
-  "passage": "",              // non-empty only for CARS items
-  "stem": "…",                // the question
-  "options": ["A", "B", "C", "D"],
-  "answer": 2,                // index into options of the ONE correct choice
-  "explanation": "…",         // why the answer is right
-  "difficulty": "medium",     // easy | medium | hard
-  "topic": "central dogma"    // short content tag
+    "id": "BB-biology-001", // stable unique id
+    "section": "BB", // BB | CP | PS | CARS
+    "subject": "Biology", // human subject label
+    "passage": "", // non-empty only for CARS items
+    "stem": "…", // the question
+    "options": ["A", "B", "C", "D"],
+    "answer": 2, // index into options of the ONE correct choice
+    "explanation": "…", // why the answer is right
+    "difficulty": "medium", // easy | medium | hard
+    "topic": "central dogma" // short content tag
 }
 ```
 
@@ -58,7 +58,7 @@ under a no-strings license:
 - **OpenStax** relicensed its textbooks from CC BY 4.0 to **CC BY-NC-SA 4.0 on 2026-04-23**
   (NonCommercial — fails a commercial-use bar). Only older mirrored editions
   (e.g. philschatz.com) remain **CC BY 4.0** and cover Biology / Psychology / Sociology as
-  *recall* questions (attribution required; not MCAT-format).
+  _recall_ questions (attribution required; not MCAT-format).
 - **Saylor Academy LegacyExams** (CC BY) and **Wikiversity Quizbank** (CC BY-SA) offer
   genuinely-open college-level items for several science subjects, but with attribution /
   share-alike strings, uneven coverage, and non-MCAT formatting.

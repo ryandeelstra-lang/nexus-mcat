@@ -83,6 +83,9 @@ async function postJson(
             method: "POST",
             headers: { "Content-Type": "application/binary" },
             body: JSON.stringify(body ?? {}),
+            // The garden runs only inside QtWebEngine's bundled Chromium, which ships
+            // AbortSignal.timeout; there is no legacy-browser target.
+            // eslint-disable-next-line compat/compat
             signal: AbortSignal.timeout(timeoutMs),
         });
     } catch (err) {

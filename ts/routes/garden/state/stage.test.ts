@@ -14,8 +14,8 @@ import {
     STAGE_ORDER,
     stageFor,
     type StageInputs,
-    WILT_LIGHT_RECALL,
     WILT_HEAVY_RECALL,
+    WILT_LIGHT_RECALL,
     wiltLevelFor,
 } from "./stage";
 

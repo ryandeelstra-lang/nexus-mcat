@@ -15,6 +15,13 @@ import { GardenUI } from "./panels/GardenUI";
 import { introPending, IntroVideo, resetIntroSeen } from "./panels/IntroVideo";
 import { activeWeeds } from "./panels/keeper-logic";
 import { bus } from "./state/bus";
+import {
+    DECAY_REFRESH_INTERVAL_MS,
+    type DecayRefreshEvent,
+    initialDecayRefresh,
+    nextDecayRefresh,
+} from "./state/decay-refresh";
+import { daysSinceLastActivity, fetchActivityDayBuckets } from "./state/depth-stats";
 import { fetchMasterySnapshot, type MasterySnapshot } from "./state/mastery";
 import { GardenStore } from "./state/store";
 import { advance, currentBeat, type TutorialEvent } from "./state/tutorial";
@@ -41,9 +48,13 @@ export function GardenApp(): React.ReactElement {
 
     /** Re-read engine truth and push it into the world (drives re-staging every plant). */
     const refreshSnapshot = useCallback(async (): Promise<void> => {
-        const next = await fetchMasterySnapshot();
+        const [next, buckets] = await Promise.all([
+            fetchMasterySnapshot(),
+            fetchActivityDayBuckets(),
+        ]);
         setSnapshot(next);
         gameRef.current?.registry.set("masterySnapshot", next);
+        gameRef.current?.registry.set("daysAway", daysSinceLastActivity(buckets));
         await pushFlags();
         bus.emit("mastery:refreshed", {});
     }, []);
@@ -105,7 +116,13 @@ export function GardenApp(): React.ReactElement {
                 const game = await createGame(canvasHost.current, snap);
                 gameRef.current = game;
                 game.registry.set("floraState", store.snapshot.flora);
+                // Living decay: the days-away signal (revlog day-buckets; fails to 0 =
+                // pristine). Set before the ready flip; the emit below covers whichever
+                // side of scene-create we landed on.
+                const buckets = await fetchActivityDayBuckets();
+                game.registry.set("daysAway", daysSinceLastActivity(buckets));
                 await pushFlags();
+                bus.emit("mastery:refreshed", {});
                 setPhase("ready");
             } catch (err) {
                 if (!cancelled) {
@@ -190,6 +207,44 @@ export function GardenApp(): React.ReactElement {
         ];
         return () => offs.forEach((off) => off());
     }, [phase, refreshSnapshot, replayIntro]);
+
+    // ---- Living decay (spec 2026-07-05): keep engine truth fresh while the app sits
+    // open — a slow tick + window focus, ALWAYS deferred while an overlay is up so the
+    // world never re-stages mid-card (three-tier reveal). Read-only; two RPCs per fire.
+    useEffect(() => {
+        if (phase !== "ready") {
+            return;
+        }
+        let gate = initialDecayRefresh(Date.now());
+        const apply = (event: DecayRefreshEvent): void => {
+            const next = nextDecayRefresh(gate, event, Date.now());
+            gate = next.state;
+            if (next.refresh) {
+                void refreshSnapshot();
+            }
+        };
+        const interval = window.setInterval(
+            () => apply({ kind: "tick" }),
+            DECAY_REFRESH_INTERVAL_MS,
+        );
+        const onVisible = (): void => {
+            if (document.visibilityState === "visible") {
+                apply({ kind: "focus" });
+            }
+        };
+        window.addEventListener("focus", onVisible);
+        document.addEventListener("visibilitychange", onVisible);
+        const offs = [
+            bus.on("ui:overlay", ({ open }) => apply({ kind: "overlay", open })),
+            bus.on("review:closed", () => apply({ kind: "review-closed" })),
+        ];
+        return () => {
+            window.clearInterval(interval);
+            window.removeEventListener("focus", onVisible);
+            document.removeEventListener("visibilitychange", onVisible);
+            offs.forEach((off) => off());
+        };
+    }, [phase, refreshSnapshot]);
 
     // ---- The adaptive lofi score (doc 23 §11, docs/26 G4.3) ----
     // Boot once the world is ready so we honor the player's saved sound settings. The audio

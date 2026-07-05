@@ -7,8 +7,7 @@ import Phaser from "phaser";
 import type { TypedBus } from "../../state/bus";
 import type { DepthStats } from "../../state/depth-stats";
 import type { MasterySnapshot, TopicMastery } from "../../state/mastery";
-import { type GrowthStage, stageFor, wiltLevelFor } from "../../state/stage";
-import { applyWilt } from "../wilt";
+import { type GrowthStage, stageFor } from "../../state/stage";
 import { aimLabelText } from "../aim-label";
 import {
     applyDisplaySize,
@@ -675,8 +674,6 @@ export class WorldScene extends Phaser.Scene {
                 applyDisplaySize(spr);
                 spr.setDepth(spr.y / ts);
                 spr.setVisible(stage !== "bare-soil");
-                const topic = this.topicForNode(spot.nodeId);
-                applyWilt(spr, stage === "drooping" && topic ? wiltLevelFor(topic) : null);
                 this.plants.set(spot.nodeId, { nodeId: spot.nodeId, sprite: spr, spot, theme });
             }
         }
@@ -725,8 +722,6 @@ export class WorldScene extends Phaser.Scene {
             plant.sprite.setTexture(ensureTexture(this, stageTextureKey(stage, plant.theme)));
             applyDisplaySize(plant.sprite);
             plant.sprite.setVisible(stage !== "bare-soil");
-            const topic = this.topicForNode(nodeId);
-            applyWilt(plant.sprite, stage === "drooping" && topic ? wiltLevelFor(topic) : null);
         }
         this.updateTendMarker();
     }

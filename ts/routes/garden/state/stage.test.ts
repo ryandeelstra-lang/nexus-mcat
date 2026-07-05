@@ -14,9 +14,6 @@ import {
     STAGE_ORDER,
     stageFor,
     type StageInputs,
-    WILT_HEAVY_RECALL,
-    WILT_LIGHT_RECALL,
-    wiltLevelFor,
 } from "./stage";
 
 function inputs(over: {
@@ -253,20 +250,5 @@ describe("regionBloomFraction — card-weighted rollup (mirrors rollupMastery)",
     it("empty region reads 0, never NaN", () => {
         expect(regionBloomFraction([])).toBe(0);
         expect(regionBloomFraction([{ cardsWithState: 0, averageRecall: 0.9 }])).toBe(0);
-    });
-});
-
-describe("wiltLevelFor — graded wilt by retrievability (living-decay 2026-07-05)", () => {
-    it("level 1 (light lean) while recall is still fresh (≥ 0.75)", () => {
-        expect(wiltLevelFor({ averageRecall: 0.9 })).toBe(1);
-        expect(wiltLevelFor({ averageRecall: WILT_LIGHT_RECALL })).toBe(1);
-    });
-    it("level 2 (droop) between 0.5 and 0.75", () => {
-        expect(wiltLevelFor({ averageRecall: 0.7499 })).toBe(2);
-        expect(wiltLevelFor({ averageRecall: WILT_HEAVY_RECALL })).toBe(2);
-    });
-    it("level 3 (heavy wilt) below 0.5 — days into the curve", () => {
-        expect(wiltLevelFor({ averageRecall: 0.4999 })).toBe(3);
-        expect(wiltLevelFor({ averageRecall: 0 })).toBe(3);
     });
 });

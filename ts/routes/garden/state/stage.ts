@@ -118,6 +118,28 @@ export function stageFor(inputs: StageInputs): GrowthStage {
     return "sprout";
 }
 
+/** Wilt severity while drooping — how deep into the forgetting curve the topic is. */
+export type WiltLevel = 1 | 2 | 3;
+/** Retrievability at/above this = freshly due: a light lean only. */
+export const WILT_LIGHT_RECALL = 0.75;
+/** Retrievability below this = heavy wilt — days into the curve. */
+export const WILT_HEAVY_RECALL = 0.5;
+
+/**
+ * Grade the drooping stage by real retrievability (living-decay spec 2026-07-05):
+ * three days away must LOOK worse than one hour overdue. Only meaningful when
+ * stageFor() returned "drooping"; the input stays engine-derived (I4).
+ */
+export function wiltLevelFor(topic: Pick<TopicMastery, "averageRecall">): WiltLevel {
+    if (topic.averageRecall >= WILT_LIGHT_RECALL) {
+        return 1;
+    }
+    if (topic.averageRecall >= WILT_HEAVY_RECALL) {
+        return 2;
+    }
+    return 3;
+}
+
 /** Region rollup: card-weighted mean recall across a region's topics. */
 export function regionBloomFraction(
     topics: ReadonlyArray<Pick<TopicMastery, "cardsWithState" | "averageRecall">>,

@@ -35,6 +35,7 @@ import {
     type IslandPlan,
     paintIsland,
 } from "../island";
+import { OvergrowthLayer, type OvergrowthPlotInput } from "../overgrowth";
 import { sectorFor } from "../sectors/index";
 import { buildTerrainModel, paintGround, planDecor, terrainKindAt, type TerrainModel } from "../terrain";
 import { WeatherLayer } from "../weather";
@@ -279,6 +280,8 @@ export class WorldScene extends Phaser.Scene {
     private trialStones = new Map<string, Phaser.GameObjects.Image>();
     /** Ambient screen-effect weather (rain streaks / snow flecks; no clouds). */
     private weather: WeatherLayer | null = null;
+    /** Absence-neglect ground layer: tufts creep around overdue plots (living decay). */
+    private overgrowth: OvergrowthLayer | null = null;
     private critters: Array<{
         sprite: Phaser.GameObjects.Arc;
         kind: "shadowLoop" | "moteDrift";
@@ -377,6 +380,8 @@ export class WorldScene extends Phaser.Scene {
         this.setupFog();
         this.spawnGardener();
         this.weather = new WeatherLayer(this, this.reducedMotion);
+        this.overgrowth = new OvergrowthLayer(this, this.reducedMotion);
+        this.syncOvergrowth();
         this.setupBus();
         this.updateTendMarker();
 
@@ -439,6 +444,8 @@ export class WorldScene extends Phaser.Scene {
         this.flora = null;
         this.weather?.destroy();
         this.weather = null;
+        this.overgrowth?.destroy();
+        this.overgrowth = null;
         this.gardener?.destroy();
         this.gardener = null;
     }
@@ -722,6 +729,27 @@ export class WorldScene extends Phaser.Scene {
             applyWilt(plant.sprite, stage === "drooping" && topic ? wiltLevelFor(topic) : null);
         }
         this.updateTendMarker();
+    }
+
+    /** Recompute the neglect layer from engine truth (boot + every mastery:refreshed). */
+    private syncOvergrowth(): void {
+        if (!this.overgrowth) {
+            return;
+        }
+        const daysAway = this.registry.get("daysAway") as number ?? 0;
+        const items: OvergrowthPlotInput[] = [];
+        for (const r of this.plan.regions) {
+            for (const spot of r.plants) {
+                items.push({
+                    nodeId: spot.nodeId,
+                    tileX: spot.tileX,
+                    tileY: spot.tileY,
+                    stage: this.stageByNode.get(spot.nodeId) ?? "bare-soil",
+                    dueCount: this.topicForNode(spot.nodeId)?.dueCount ?? 0,
+                });
+            }
+        }
+        this.overgrowth.sync(items, daysAway);
     }
 
     private spawnAvatar(): void {
@@ -1767,6 +1795,7 @@ export class WorldScene extends Phaser.Scene {
             this.bus.on("mastery:refreshed", () => {
                 this.snapshot = this.registry.get("masterySnapshot") as MasterySnapshot;
                 this.restagePlants();
+                this.syncOvergrowth();
             }),
             this.bus.on("gardener:insight", ({ text }) => {
                 // Cache for a gnome that hasn't spawned yet (fog still up), then push to a live one.

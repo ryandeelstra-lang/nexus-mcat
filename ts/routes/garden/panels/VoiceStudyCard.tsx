@@ -188,14 +188,26 @@ export function VoiceStudyCard(props: VoiceStudyCardProps): React.ReactElement {
     // crawl talks on into the answer, the why, and the verdict — no restart, no dead air.
     const replySeed = `${state.card?.cardId ?? "none"}:${beat}`;
     const opener = pickOpener(replySeed);
-    const replyText = state.result
-        ? composeKeeperReply({
+    // While the grade is still in flight, the revealed reference answer (fetched at submit,
+    // no AI round-trip) lets the Keeper speak "The answer: …" right away; the graded reply
+    // then GROWS the same text with the why + verdict (prefix-stable, so the crawl never
+    // restarts — both strings come from composeKeeperReply with the same opener + answer).
+    let replyText = opener;
+    if (state.result) {
+        replyText = composeKeeperReply({
             opener,
             correctAnswer: state.result.correctAnswer,
             rationale: state.result.rationale,
             verdictHeadline: verdictFor(state.result.bucket).headline,
-        })
-        : opener;
+        });
+    } else if (state.revealedAnswer) {
+        replyText = composeKeeperReply({
+            opener,
+            correctAnswer: state.revealedAnswer,
+            rationale: "",
+            verdictHeadline: "",
+        });
+    }
     // Replies run 2-3x longer than asks — a touch brisker so the verdict lands while
     // the moment is still warm (the details tray + Continue are never gated on this).
     const replyReveal = useTalkingReveal(replying ? replyText : "", {

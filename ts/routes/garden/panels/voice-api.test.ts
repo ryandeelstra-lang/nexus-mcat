@@ -5,7 +5,7 @@
 // the escape hatch, honest error surfaces, and the ONE rating conversion (1-4 -> 0-3).
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { fetchNextVoiceCard, gradeVoiceAnswer, toClientRating } from "./voice-api";
+import { fetchNextVoiceCard, fetchVoiceReveal, gradeVoiceAnswer, toClientRating } from "./voice-api";
 
 function mockFetchOnce(payload: unknown): void {
     vi.stubGlobal(
@@ -72,6 +72,24 @@ describe("fetchNextVoiceCard", () => {
         expect((await fetchNextVoiceCard({ preferVariant: true })).kind).toBe(
             "noVariant",
         );
+    });
+});
+
+describe("fetchVoiceReveal", () => {
+    it("maps a revealed answer", async () => {
+        mockFetchOnce({ available: true, revealed: true, correct_answer: "Self-concept" });
+        expect(await fetchVoiceReveal(42)).toBe("Self-concept");
+    });
+
+    it("is best-effort: unavailable, unrevealed, empty, and network errors all yield null", async () => {
+        mockFetchOnce({ available: false });
+        expect(await fetchVoiceReveal(42)).toBeNull();
+        mockFetchOnce({ available: true, revealed: false, error: "not_served" });
+        expect(await fetchVoiceReveal(42)).toBeNull();
+        mockFetchOnce({ available: true, revealed: true, correct_answer: "  " });
+        expect(await fetchVoiceReveal(42)).toBeNull();
+        vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("boom")));
+        expect(await fetchVoiceReveal(42)).toBeNull();
     });
 });
 

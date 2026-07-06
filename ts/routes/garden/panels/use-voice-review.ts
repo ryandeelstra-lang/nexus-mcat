@@ -10,6 +10,7 @@ import { useCallback, useMemo, useReducer, useRef } from "react";
 
 import {
     fetchNextVoiceCard,
+    fetchVoiceReveal,
     gradeVoiceAnswer,
     type SttInfo,
     type VoiceGradeResult,
@@ -35,6 +36,8 @@ export interface VoiceReviewState {
     card: VoiceNextCard | null;
     stt: SttInfo;
     result: VoiceGradeResult | null;
+    /** The reference answer revealed at submit time, spoken while the grade is in flight. */
+    revealedAnswer: string;
     rePrompt: { keeperLine: string; hint: string } | null;
     micError: string;
     answered: number;
@@ -47,6 +50,7 @@ export type VoiceReviewAction =
     | { type: "terminal"; phase: "classic" | "empty" | "noVariant" }
     | { type: "listening" }
     | { type: "thinking" }
+    | { type: "reveal"; correctAnswer: string }
     | { type: "result"; result: VoiceGradeResult }
     | { type: "rePrompt"; keeperLine: string; hint: string }
     | { type: "micError"; message: string }
@@ -58,6 +62,7 @@ export const INITIAL_VOICE_STATE: VoiceReviewState = {
     card: null,
     stt: { available: false, local: false, hosted: false },
     result: null,
+    revealedAnswer: "",
     rePrompt: null,
     micError: "",
     answered: 0,
@@ -74,6 +79,7 @@ export function voiceReviewReducer(
                 ...state,
                 phase: "loading",
                 result: null,
+                revealedAnswer: "",
                 rePrompt: null,
                 micError: "",
             };
@@ -84,6 +90,7 @@ export function voiceReviewReducer(
                 card: action.card,
                 stt: action.stt,
                 result: null,
+                revealedAnswer: "",
                 rePrompt: null,
                 micError: "",
             };
@@ -93,6 +100,13 @@ export function voiceReviewReducer(
             return { ...state, phase: "listening", micError: "" };
         case "thinking":
             return { ...state, phase: "thinking" };
+        case "reveal":
+            // Only meaningful while the grade is in flight — a late reveal never overwrites
+            // a landed result or a fresh ask.
+            if (state.phase !== "thinking") {
+                return state;
+            }
+            return { ...state, revealedAnswer: action.correctAnswer };
         case "result":
             return {
                 ...state,
@@ -104,12 +118,13 @@ export function voiceReviewReducer(
             return {
                 ...state,
                 phase: "rePrompt",
+                revealedAnswer: "",
                 rePrompt: { keeperLine: action.keeperLine, hint: action.hint },
             };
         case "micError":
-            return { ...state, phase: "prompt", micError: action.message };
+            return { ...state, phase: "prompt", micError: action.message, revealedAnswer: "" };
         case "backToPrompt":
-            return { ...state, phase: "prompt", result: null };
+            return { ...state, phase: "prompt", result: null, revealedAnswer: "" };
         case "error":
             return { ...state, phase: "error", errorMessage: action.message };
         default: {
@@ -203,6 +218,14 @@ export function useVoiceReview(opts: {
             // No artificial delay here: the Keeper's reply opener starts crawling the moment
             // this dispatches, and the "…" typing dots hold the beat until the grade lands.
             dispatch({ type: "thinking" });
+            // Fire-and-forget: fetch the reference answer in parallel with the (slow) grade,
+            // so the Keeper speaks the real answer while the verdict is still computing.
+            // Best-effort (null on any failure); the reducer drops it if the grade beat it.
+            void fetchVoiceReveal(card.cardId).then((answer) => {
+                if (answer && currentCard.current?.cardId === card.cardId) {
+                    dispatch({ type: "reveal", correctAnswer: answer });
+                }
+            });
             const msTaken = Math.min(Date.now() - promptShownAt.current, MS_TAKEN_CAP);
             try {
                 const out = await gradeVoiceAnswer({

@@ -74,6 +74,20 @@ describe("voiceReviewReducer", () => {
         expect(s.answered).toBe(1);
     });
 
+    it("a reveal during thinking carries the answer; late/early reveals are dropped", () => {
+        let s = atPrompt();
+        // Early (still at prompt): ignored.
+        expect(voiceReviewReducer(s, { type: "reveal", correctAnswer: "X" }).revealedAnswer).toBe("");
+        s = voiceReviewReducer(s, { type: "thinking" });
+        s = voiceReviewReducer(s, { type: "reveal", correctAnswer: "Self-concept" });
+        expect(s.revealedAnswer).toBe("Self-concept");
+        // Late (grade already landed): ignored, and a fresh card clears it.
+        s = voiceReviewReducer(s, { type: "result", result: GRADED });
+        expect(voiceReviewReducer(s, { type: "reveal", correctAnswer: "other" }).revealedAnswer)
+            .toBe("Self-concept");
+        expect(voiceReviewReducer(s, { type: "card", card: CARD, stt: STT }).revealedAnswer).toBe("");
+    });
+
     it("a re-prompt keeps the card and carries the hint (no answer counted)", () => {
         let s = atPrompt();
         s = voiceReviewReducer(s, { type: "thinking" });

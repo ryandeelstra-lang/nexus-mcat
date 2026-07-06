@@ -146,6 +146,26 @@ export async function fetchNextVoiceCard(
     };
 }
 
+/**
+ * The reference answer for the served card, fetched AT SUBMIT TIME in parallel with the
+ * (slow) grade call so the Keeper can speak the real answer immediately instead of holding
+ * "…" through the whole grading round-trip. Best-effort: any failure returns null and the
+ * reply simply waits for the graded payload like before. Server-side, revealing forfeits
+ * the ask-again second attempt (integrity: the answer was already spoken).
+ */
+export async function fetchVoiceReveal(cardId: number): Promise<string | null> {
+    try {
+        const p = await postJson("/_anki/audioReviewReveal", { cardId }, 5_000);
+        if (!p.available || !p.revealed) {
+            return null;
+        }
+        const answer = String(p.correct_answer ?? "").trim();
+        return answer || null;
+    } catch {
+        return null;
+    }
+}
+
 export async function gradeVoiceAnswer(req: {
     cardId: number;
     idk?: boolean;

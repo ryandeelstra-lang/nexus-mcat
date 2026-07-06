@@ -874,6 +874,21 @@ def audio_review_next() -> bytes:
     ).encode("utf-8")
 
 
+def audio_review_reveal() -> bytes:
+    """charged_up (voice UX): the reference answer for the served card, so the Keeper can
+    speak it the moment an answer is submitted instead of waiting out the grade round-trip.
+    Serve-bound like grading; revealing forfeits the ask-again second attempt server-side."""
+    import json
+
+    voice = _load_voice_review()
+    if voice is None or aqt.mw.col is None:
+        return json.dumps({"available": False}).encode("utf-8")
+
+    req = json.loads(request.data.decode("utf-8")) if request.data else {}
+    payload = voice.reveal_answer(aqt.mw.col, card_id=int(req["cardId"]))
+    return json.dumps({"available": True, **payload}).encode("utf-8")
+
+
 def audio_review_grade() -> bytes:
     """charged_up (doc 24 §10): grade one spoken/typed answer server-side and apply it
     through the real scheduler. The client sends no signal that decides correctness; STT
@@ -949,6 +964,7 @@ post_handler_list = [
     scores_dashboard,
     garden_state,
     audio_review_next,
+    audio_review_reveal,
     audio_review_grade,
 ]
 

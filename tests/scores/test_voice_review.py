@@ -265,6 +265,46 @@ def test_attempt_tracked_server_side(monkeypatch):
     col.close()
 
 
+def test_reveal_bound_to_served_card():
+    """The early-reveal endpoint is serve-bound like grading (no answer for unserved cards)."""
+    col = _fresh_col()
+    _add_card(col, "q", "the answer")
+    res = voice_review.reveal_answer(col, card_id=999999)
+    assert res["revealed"] is False
+    assert res["error"] == "not_served"
+    served = _serve(col)
+    ok = voice_review.reveal_answer(col, card_id=served["card_id"])
+    assert ok["revealed"] is True
+    assert ok["correct_answer"] == "the answer"
+    col.close()
+
+
+def test_reveal_forfeits_ask_again_ladder(monkeypatch):
+    """Once the answer was revealed, a mid-band grade is TERMINAL — the player can never
+    hear the answer and then parrot it back on a second attempt."""
+    col = _fresh_col()
+    _add_card(col, "q", "a")
+    monkeypatch.setattr(
+        voice_review.ai_grade,
+        "grade_spoken",
+        lambda *a, **k: voice_review.ai_grade.Grade(
+            score_0_100=50.0,
+            bucket=voice_review.ai_grade.BUCKET_ASK_AGAIN,
+            method="lexical",
+            rationale="mid",
+        ),
+    )
+    served = _serve(col)
+    voice_review.reveal_answer(col, card_id=served["card_id"])
+    res = voice_review.grade_answer(
+        col, card_id=served["card_id"], transcript="partial"
+    )
+    assert res["applied"] is True  # terminal, no re_prompt
+    assert res["bucket"] == "dont_know"
+    assert col.db.scalar("select count(*) from revlog") == 1
+    col.close()
+
+
 def test_failed_apply_reports_error_and_writes_nothing(monkeypatch):
     """Hardening: if answerCard fails, nothing is logged and applied=False (never silent)."""
     col = _fresh_col()

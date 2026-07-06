@@ -71,6 +71,11 @@ class _ServedCard:
 
     card_id: int
     attempt: int  # 1 on serve; 2 after an ask-again re-prompt
+    # True once the reference answer was revealed to the client (the Keeper speaks it while
+    # the grade is still in flight). A revealed serve forfeits the ask-again second attempt —
+    # otherwise the player could hear the answer, get a re-prompt, and parrot it back as a
+    # "recovered" pass.
+    revealed: bool = False
 
 
 _served: _ServedCard | None = None
@@ -223,6 +228,22 @@ def next_card(
     }
 
 
+def reveal_answer(col: Collection, *, card_id: int) -> dict[str, object]:
+    """The reference answer for the CURRENTLY SERVED card, for the Keeper to speak while the
+    grade is still in flight (no dead air during the LLM/STT round-trip).
+
+    Bound to the serve like grading is (replays/other cards rejected). Revealing marks the
+    serve: the ask-again ladder is forfeited for a revealed serve (see ``grade_answer``), so
+    hearing the answer early can never be converted into a second-attempt recovery. The honest
+    client only calls this at submit time, together with the grade request.
+    """
+    if _served is None or _served.card_id != card_id:
+        return {"error": "not_served", "revealed": False}
+    _served.revealed = True
+    note = col.get_card(CardId(card_id)).note()
+    return {"revealed": True, "correct_answer": reference_answer(note)}
+
+
 def _apply_through_scheduler(col: Collection, card_id: int, rating: int) -> int | None:
     """Apply the review through the REAL scheduler (spoof-proof, lights FSRS/MasteryQuery)."""
     try:
@@ -279,7 +300,7 @@ def grade_answer(
 
     # Ask-again ladder (§13): first partial answer earns a second chance, no commit yet. The
     # attempt counter is SERVER state — the client cannot reset it.
-    if g.bucket == ai_grade.BUCKET_ASK_AGAIN and attempt == 1:
+    if g.bucket == ai_grade.BUCKET_ASK_AGAIN and attempt == 1 and not _served.revealed:
         _served.attempt = 2
         return {
             "bucket": g.bucket,

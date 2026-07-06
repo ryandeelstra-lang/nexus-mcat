@@ -10,8 +10,8 @@ import { describe, expect, it } from "vitest";
 import {
     assembleDepthStats,
     CONCEPT_FLOOR_CARDS,
-    DEPTH_STAT_ORDER,
     daysSinceLastActivity,
+    DEPTH_STAT_ORDER,
     metricPoint,
     retentionFraction,
     studyStreakDays,

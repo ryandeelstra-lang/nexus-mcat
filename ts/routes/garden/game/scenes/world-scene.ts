@@ -37,6 +37,7 @@ import { OvergrowthLayer, type OvergrowthPlotInput } from "../overgrowth";
 import { sectorFor } from "../sectors/index";
 import { buildTerrainModel, paintGround, planDecor, terrainKindAt, type TerrainModel } from "../terrain";
 import { WeatherLayer } from "../weather";
+import { applyWilt } from "../wilt";
 import {
     buildWorldPlan,
     CENTER_PLAZA,

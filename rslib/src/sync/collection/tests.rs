@@ -1080,9 +1080,9 @@ mod mcat_block_e {
     }
 
     // ---- S1b: same CARD modified offline on both -> LWW-by-mtime (later mtime
-    // wins) --------------- The §7b "same card reviewed on both devices" card-OBJECT
-    // half: s1 pins the note path; this pins `add_or_update_card_if_newer`
-    // (chunks.rs) with the same rule.
+    // wins) --------------- The §7b "same card reviewed on both devices"
+    // card-OBJECT half: s1 pins the note path; this pins
+    // `add_or_update_card_if_newer` (chunks.rs) with the same rule.
     #[tokio::test]
     async fn s1b_conflict_lww_card_object() -> Result<()> {
         with_active_server(|client| async move {

@@ -72,8 +72,8 @@ describe("gateIsOpen", () => {
         }
     });
 
-    it("care states close it again — a drooping prerequisite is not a proven one", () => {
-        const stages = new Map<string, GrowthStage>([["BB.1A", "drooping"]]);
+    it("care states close it again — a weedy prerequisite is not a proven one", () => {
+        const stages = new Map<string, GrowthStage>([["BB.1A", "weedy"]]);
         expect(gateIsOpen(edge, stages)).toBe(false);
     });
 

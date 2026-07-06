@@ -3,11 +3,10 @@
 
 // charged_up W1a: harness smoke — the seeded garden boots on the REAL engine.
 // Re-run safe: asserts self-consistency (HUD ⇔ persisted economy), never absolute balances.
-import { dismissIntro, emitBus, expect, gardenState, hudWater, shot, test, waitForBoot } from "./garden-helpers";
+import { emitBus, expect, gardenState, hudWater, shot, test, waitForBoot } from "./garden-helpers";
 
 test("the garden boots into a seeded world (34 topics, 34 plants, 27 gate edges, live HUD)", async ({ garden: page }) => {
     await waitForBoot(page);
-    await dismissIntro(page);
 
     // The Phaser canvas and the DOM HUD are both live.
     await expect(page.locator(".garden-canvas canvas")).toBeVisible();
@@ -15,7 +14,7 @@ test("the garden boots into a seeded world (34 topics, 34 plants, 27 gate edges,
 
     // HUD chip matches the persisted economy doc exactly (self-consistent ⇒ re-run safe).
     const state = await gardenState(page, { op: "get" });
-    expect(await hudWater(page)).toBe(state.economy?.water ?? 80);
+    expect(await hudWater(page)).toBe(state.economy?.water ?? 20);
     // Seeds are gone (2026-07-03): water is the only currency chip.
     expect(await page.locator(".garden-hud .hud-top-left .hud-chip").count()).toBe(1);
 
@@ -40,7 +39,6 @@ test("the garden boots into a seeded world (34 topics, 34 plants, 27 gate edges,
 
 test("the Keeper fresh-assigns instead of 'come back later' (SPOV1 guard)", async ({ garden: page }) => {
     await waitForBoot(page);
-    await dismissIntro(page);
 
     await emitBus(page, "keeper:interact", {});
     const panel = page.locator(".keeper-panel-shell");

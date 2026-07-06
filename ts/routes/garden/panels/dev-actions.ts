@@ -4,29 +4,21 @@
 // charged_up: PURE descriptors for the dev-only "skip onboarding" buttons (see DevPanel.tsx —
 // a dev tool gated OFF in clean public builds). Kept pure + tested so a skip always lands the
 // garden in a genuinely first-run OR a fully-onboarded state, never a half-written limbo.
-// Integrity (doc 23; the tour's own promise "I never invent progress"): these flip only the
-// intro/tour/tutorial/placement GATES — mastery stays engine truth, so a skipped garden is
-// honestly bare soil, never fabricated blooms.
+// Integrity (doc 23): these flip only the tutorial/placement GATES — mastery stays engine
+// truth, so a skipped garden is honestly bare soil, never fabricated blooms.
 
 import {
     emptyPlacement,
     type GardenDoc,
     type PlacementState,
-    type TourState,
     type TutorialState,
 } from "../state/store";
-import { TOUR_STEPS } from "../state/tour";
 import { TUTORIAL_BEATS } from "../state/tutorial";
 
 /** One sidecar write: which GardenDoc key, and the value to persist through the bridge. */
 export interface SidecarWrite {
     key: keyof GardenDoc;
     doc: unknown;
-}
-
-/** The Garden Tour, marked seen-and-finished (cursor parked past the last beat). */
-export function skippedTour(): TourState {
-    return { step: TOUR_STEPS.length, done: true };
 }
 
 /** The action tutorial, marked complete (beat parked past the last beat). */
@@ -46,7 +38,6 @@ export function skippedPlacement(nowMs: number): PlacementState {
 /** Every sidecar write to jump a fresh gardener straight past the intro flow to free-play. */
 export function skipAllWrites(nowMs: number): SidecarWrite[] {
     return [
-        { key: "tour", doc: skippedTour() },
         { key: "tutorial", doc: skippedTutorial() },
         { key: "placement", doc: skippedPlacement(nowMs) },
     ];
@@ -55,7 +46,6 @@ export function skipAllWrites(nowMs: number): SidecarWrite[] {
 /** Every sidecar write to drop the garden back to its untouched, first-run state. */
 export function resetOnboardingWrites(): SidecarWrite[] {
     return [
-        { key: "tour", doc: { step: 0, done: false } satisfies TourState },
         { key: "tutorial", doc: { beat: 0, done: false } satisfies TutorialState },
         { key: "placement", doc: emptyPlacement() },
     ];

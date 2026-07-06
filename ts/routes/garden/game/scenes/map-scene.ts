@@ -103,6 +103,7 @@ export class MapScene extends Phaser.Scene {
     private show(): void {
         this.scene.setVisible(true);
         this.scene.setActive(true);
+        this.input.enabled = true;
         this.visible = true;
         this.bus.emit("map:visible", { open: true });
         this.updateMarkers();
@@ -123,6 +124,12 @@ export class MapScene extends Phaser.Scene {
 
     private hide(): void {
         this.visible = false;
+        // Gate input EXPLICITLY: Phaser routes pointer events by scene *status* alone
+        // (Systems.canInput ignores the active/visible flags), and SceneManager.create()
+        // forces status back to RUNNING after create() returns — clobbering the pause from
+        // the boot-time hide() below. Without this line the hidden map keeps a live
+        // full-screen click-catcher until the first open, and clicks during play teleport.
+        this.input.enabled = false;
         this.scene.setVisible(false);
         this.scene.setActive(false);
         this.bus.emit("map:visible", { open: false });
@@ -242,6 +249,11 @@ export class MapScene extends Phaser.Scene {
 
     /** Click → tile: teleport when the world approves the landing; flash a denial else. */
     private tryDropIn(tileX: number, tileY: number, mapX: number, mapY: number): void {
+        if (!this.visible) {
+            // Belt-and-braces: a closed map must never move the avatar, whatever input
+            // path delivered the click.
+            return;
+        }
         const world = this.scene.get("world") as WorldSceneApi;
         if (world?.canDropAt?.(tileX, tileY)) {
             this.bus.emit("map:teleport", { tileX, tileY });

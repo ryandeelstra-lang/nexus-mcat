@@ -121,7 +121,17 @@ def _local_transcribe(audio_path: str, lang: str) -> STTResult:
         )
     model = _ensure_local_model()
     model_size = os.environ.get("VOICE_STT_LOCAL_MODEL", "small")
-    segments, info = model.transcribe(audio_path, language=lang, beam_size=5)
+    # Deterministic decode: faster-whisper's default temperature is a FALLBACK LADDER
+    # ([0.0, 0.2, .. 1.0]) that samples when the quality gates fail — the same clip could
+    # transcribe differently across runs. One flashcard answer is a single short utterance:
+    # pin greedy/beam decode at temperature 0 and drop cross-segment conditioning.
+    segments, info = model.transcribe(
+        audio_path,
+        language=lang,
+        beam_size=5,
+        temperature=0.0,
+        condition_on_previous_text=False,
+    )
     text = " ".join(seg.text.strip() for seg in segments).strip()
     confidence = getattr(info, "language_probability", None)
     return STTResult(

@@ -2,7 +2,7 @@
 // License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
 
 // charged_up: G2.4/GARDEN-3 gate — economy invariants (docs/26 G1.3/G2.4).
-//   Start = 80 water (doc 23 §7; seeds removed 2026-07-03). Currency never buys
+//   Start = 20 water (doc 23 §7; seeds removed 2026-07-03). Currency never buys
 //   mastery (I4); water refills come only from graded answers.
 import { describe, expect, it } from "vitest";
 
@@ -18,13 +18,13 @@ import {
 } from "./economy";
 
 describe("economy — the doc 23 §7 contract", () => {
-    it("starts at 80 water / 0 xp — and no other currency exists", () => {
-        expect(initialBalances()).toEqual({ water: 80, xp: 0 });
+    it("starts at 20 water / 0 xp — and no other currency exists", () => {
+        expect(initialBalances()).toEqual({ water: 20, xp: 0 });
     });
 
     it("watering spends exactly the configured pour cost", () => {
         const b = spendWater(initialBalances());
-        expect(b.water).toBe(80 - ECONOMY.waterCostPerPour);
+        expect(b.water).toBe(20 - ECONOMY.waterCostPerPour);
     });
 
     it("cannot spend below zero — broke gates close", () => {
@@ -48,12 +48,12 @@ describe("economy — the doc 23 §7 contract", () => {
         for (let i = 0; i < 12; i++) {
             b = spendWater(b);
         }
-        expect(b.water).toBe(80 - 12);
+        expect(b.water).toBe(20 - 12);
         for (let i = 0; i < 12; i++) {
             b = onGradedAnswer(b);
         }
-        expect(b.water).toBe(80 - 12 + 12 * ECONOMY.waterPerGradedAnswer);
-        expect(b.water).toBeGreaterThanOrEqual(80);
+        expect(b.water).toBe(20 - 12 + 12 * ECONOMY.waterPerGradedAnswer);
+        expect(b.water).toBeGreaterThanOrEqual(20);
     });
 
     it("I4: no economy function can raise recall/mastery — the module exports no such path", async () => {
@@ -75,36 +75,38 @@ describe("economy — the doc 23 §7 contract", () => {
     });
 });
 
-describe("sector-stone trials — water reward (I4: only correct retrievals pay)", () => {
+describe("sector-stone trials — +1 per question, escalating stack per 3 correct", () => {
     const base = { water: 10, xp: 0 };
 
-    it("pays configured water per correct answer", () => {
-        expect(trialWaterReward(3, 5)).toBe(3 * ECONOMY.waterPerTrialCorrect);
+    it("pays +1 water for every question answered (participation base, right or wrong)", () => {
+        // 15 answered, 0 correct -> just the base of 15.
+        expect(trialWaterReward(0, 15)).toBe(15 * ECONOMY.waterPerTrialQuestion);
     });
 
-    it("adds the perfect-run bonus only when every question is correct", () => {
-        expect(trialWaterReward(5, 5)).toBe(
-            5 * ECONOMY.waterPerTrialCorrect + ECONOMY.trialPerfectBonus,
-        );
-        expect(trialWaterReward(4, 5)).toBe(4 * ECONOMY.waterPerTrialCorrect);
+    it("stacks the correctness bonus: each block of 3 correct pays one step more (1,2,3,…)", () => {
+        // 15 answered: bonus = 1+2+3+4+5 = 15 for 15 correct.
+        expect(trialWaterReward(3, 15)).toBe(15 + 1);
+        expect(trialWaterReward(6, 15)).toBe(15 + 3); // 1+2
+        expect(trialWaterReward(9, 15)).toBe(15 + 6); // 1+2+3
+        expect(trialWaterReward(12, 15)).toBe(15 + 10); // 1+2+3+4
+        expect(trialWaterReward(15, 15)).toBe(15 + 15); // perfect run = 30
     });
 
-    it("pays nothing for zero correct — a wrong-only run refills no water", () => {
-        expect(trialWaterReward(0, 5)).toBe(0);
-        expect(onTrialCompleted(base, 0, 5)).toEqual(base);
+    it("only counts COMPLETED blocks of 3 (2 correct earns no stack yet)", () => {
+        expect(trialWaterReward(2, 15)).toBe(15);
+        expect(trialWaterReward(5, 15)).toBe(15 + 1);
     });
 
     it("credits water + cosmetic xp onto the balance", () => {
-        const after = onTrialCompleted(base, 3, 5);
-        expect(after.water).toBe(10 + 3 * ECONOMY.waterPerTrialCorrect);
-        expect(after.xp).toBe(3 * ECONOMY.xpPerGradedAnswer);
+        const after = onTrialCompleted(base, 6, 15);
+        expect(after.water).toBe(10 + 15 + 3); // base 15 + stack (1+2)
+        expect(after.xp).toBe(6 * ECONOMY.xpPerGradedAnswer);
     });
 
-    it("clamps out-of-range inputs (never over-pays, never negative)", () => {
-        expect(trialWaterReward(-2, 5)).toBe(0);
-        expect(trialWaterReward(9, 5)).toBe(
-            5 * ECONOMY.waterPerTrialCorrect + ECONOMY.trialPerfectBonus,
-        );
+    it("clamps out-of-range inputs (correct never exceeds answered; no negatives)", () => {
+        expect(trialWaterReward(-2, 15)).toBe(15);
+        expect(trialWaterReward(99, 15)).toBe(15 + 15); // capped at 15 correct
+        expect(trialWaterReward(5, 0)).toBe(0);
     });
 });
 

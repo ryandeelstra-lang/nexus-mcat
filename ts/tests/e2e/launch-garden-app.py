@@ -84,10 +84,62 @@ def _seed_prefs(base: Path) -> None:
     conn.close()
 
 
+def _maybe_backdate(base: Path) -> None:
+    """Living-decay e2e fixture (spec 2026-07-05): with the app STOPPED, shift one
+    topic's real review history + review-queue due dates N days into the past, so
+    engine-side FSRS retrievability decays and the revlog day-buckets read "days
+    away". Opt-in via env; the page-side clock shim CANNOT do this (engine state
+    is wall-clock). Test-profile only — the launcher never points at a real base.
+
+      GARDEN_E2E_BACKDATE_DECK="MCAT::B-B::1A" GARDEN_E2E_BACKDATE_DAYS=4 \
+          out/pyenv/bin/python ts/tests/e2e/launch-garden-app.py
+    """
+    deck = os.environ.get("GARDEN_E2E_BACKDATE_DECK")
+    days = int(os.environ.get("GARDEN_E2E_BACKDATE_DAYS", "0"))
+    if not deck or days <= 0:
+        return
+    col_path = base / TEST_PROFILE / "collection.anki2"
+    if not col_path.exists():
+        print(f"backdate: no collection at {col_path} — run once first", file=sys.stderr)
+        return
+    conn = sqlite3.connect(str(col_path))
+    try:
+        row = conn.execute(
+            "select id from decks where name = ?", (deck.replace("::", "\x1f"),)
+        ).fetchone()
+        if not row:
+            print(f"backdate: deck {deck!r} not found", file=sys.stderr)
+            return
+        cids = [r[0] for r in conn.execute("select id from cards where did = ?", (row[0],))]
+        if not cids:
+            print(f"backdate: deck {deck!r} has no cards", file=sys.stderr)
+            return
+        marks = ",".join("?" * len(cids))
+        # Review/relearn cards: `due` counts days since collection creation — pulling
+        # it back makes them overdue by `days`.
+        conn.execute(
+            f"update cards set due = due - ?, mod = mod + 1, usn = -1 "
+            f"where id in ({marks}) and queue in (2, 3)",
+            [days, *cids],
+        )
+        # Revlog ids are epoch-ms: shifting them moves last_review_time, which drives
+        # both fsrs retrievability (mastery query) and the day-buckets (daysAway).
+        conn.execute(
+            f"update revlog set id = id - ? where cid in ({marks})",
+            [days * 86_400 * 1000, *cids],
+        )
+        conn.commit()
+        print(f"backdate: {deck} shifted {days}d across {len(cids)} cards")
+    finally:
+        conn.close()
+
+
 def main() -> int:
     BASE.mkdir(parents=True, exist_ok=True)
     if not (BASE / "prefs21.db").exists():
         _seed_prefs(BASE)
+
+    _maybe_backdate(BASE)
 
     starter = REPO_ROOT / "qt" / "aqt" / "data" / "mcat-starter.apkg"
     env = {

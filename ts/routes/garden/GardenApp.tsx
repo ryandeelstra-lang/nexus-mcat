@@ -12,7 +12,6 @@ import type { GardenGame } from "./game/create-game";
 import { DEV_TOOLS_ENABLED, DevPanel } from "./panels/DevPanel";
 import { GardenErrorBoundary } from "./panels/GardenErrorBoundary";
 import { GardenUI } from "./panels/GardenUI";
-import { introPending, IntroVideo, resetIntroSeen } from "./panels/IntroVideo";
 import { activeWeeds } from "./panels/keeper-logic";
 import { bus } from "./state/bus";
 import {
@@ -36,15 +35,6 @@ export function GardenApp(): React.ReactElement {
     const [phase, setPhase] = useState<BootPhase>("booting");
     const [bootError, setBootError] = useState<string>("");
     const [snapshot, setSnapshot] = useState<MasterySnapshot | null>(null);
-    // Decision-37 splash slot: the first-run cinematic plays over boot, once.
-    const [showIntro, setShowIntro] = useState<boolean>(introPending);
-
-    // Replay the intro on demand — reachable from the "?" help panel (bus "intro:replay"),
-    // not a floating dev chip on the shipped HUD.
-    const replayIntro = useCallback((): void => {
-        resetIntroSeen();
-        setShowIntro(true);
-    }, []);
 
     /** Re-read engine truth and push it into the world (drives re-staging every plant). */
     const refreshSnapshot = useCallback(async (): Promise<void> => {
@@ -108,12 +98,20 @@ export function GardenApp(): React.ReactElement {
                 }
                 setSnapshot(snap);
 
-                // 3. The Phaser world, client-only (doc 23 §12.3).
-                const { createGame } = await import("./game/create-game");
+                // 3. The Phaser world, client-only (doc 23 §12.3). The registry's
+                // gardenFlags are seeded from the LOADED store before the game boots:
+                // WorldScene latches the fog decision once in create(), and if it ever
+                // read a placementDone-less default (the old boot race against the two
+                // pushFlags RPCs) a done-placement player was fog-locked with no exit.
+                const { createGame, initialGardenFlags } = await import("./game/create-game");
                 if (cancelled || !canvasHost.current) {
                     return;
                 }
-                const game = await createGame(canvasHost.current, snap);
+                const game = await createGame(
+                    canvasHost.current,
+                    snap,
+                    initialGardenFlags(store.snapshot),
+                );
                 gameRef.current = game;
                 game.registry.set("floraState", store.snapshot.flora);
                 // Living decay: the days-away signal (revlog day-buckets; fails to 0 =
@@ -203,10 +201,9 @@ export function GardenApp(): React.ReactElement {
             bus.on("placement:completed", () => {
                 void refreshSnapshot();
             }),
-            bus.on("intro:replay", replayIntro),
         ];
         return () => offs.forEach((off) => off());
-    }, [phase, refreshSnapshot, replayIntro]);
+    }, [phase, refreshSnapshot]);
 
     // ---- Living decay (spec 2026-07-05): keep engine truth fresh while the app sits
     // open — a slow tick + window focus, ALWAYS deferred while an overlay is up so the
@@ -288,11 +285,9 @@ export function GardenApp(): React.ReactElement {
                         snapshot={snapshot}
                         refreshSnapshot={refreshSnapshot}
                         onMusicMutedChange={setMusicMuted}
-                        introActive={showIntro}
                     />
                 </GardenErrorBoundary>
             )}
-            {showIntro && <IntroVideo onDone={() => setShowIntro(false)} />}
             {
                 /* Dev-only: skip the first-run flow while iterating. Never renders in a clean
               * public build (devToolsEnabled() is false without the Vite dev server or ?dev). */

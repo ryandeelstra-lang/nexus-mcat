@@ -17,7 +17,7 @@ import { panelFrameStyle } from "./KeeperDialogue";
 import { buildExam, type Mcq, metaForSection } from "./mcq";
 
 /** How many questions one trial asks (capped by the section's bank size). */
-const EXAM_SIZE = 5;
+const EXAM_SIZE = 15;
 
 export interface StoneExamProps {
     /** The world's section id for the stone (e.g. "B-B"); mcq.ts normalizes it. */
@@ -43,9 +43,10 @@ export function StoneExam(props: StoneExamProps): React.ReactElement {
     const [selected, setSelected] = useState<number | null>(null);
     const [earnedWater, setEarnedWater] = useState(0);
 
-    // Correct count lives in a ref so the final tally is readable synchronously in the same
-    // event that finishes the trial and credits water (a state read would lag one render).
+    // Correct/answered counts live in refs so the final tally is readable synchronously in the
+    // same event that finishes the trial and credits water (a state read would lag one render).
     const correctRef = useRef(0);
+    const answeredRef = useRef(0);
     const grantedRef = useRef(false);
 
     const total = exam.length;
@@ -56,21 +57,23 @@ export function StoneExam(props: StoneExamProps): React.ReactElement {
         if (!grantedRef.current) {
             grantedRef.current = true;
             const correct = correctRef.current;
-            const reward = trialWaterReward(correct, total);
-            store.setBalances(onTrialCompleted(store.snapshot.economy, correct, total));
+            const answered = answeredRef.current;
+            const reward = trialWaterReward(correct, answered);
+            store.setBalances(onTrialCompleted(store.snapshot.economy, correct, answered));
             setEarnedWater(reward);
             // The world answers the payout with a shower of rain over the garden.
             bus.emit("trial:rewarded", { water: reward });
             onGranted();
         }
         setPhase("result");
-    }, [onGranted, store, total]);
+    }, [onGranted, store]);
 
     const choose = useCallback((optIdx: number): void => {
         if (selected !== null || !current) {
             return;
         }
         setSelected(optIdx);
+        answeredRef.current += 1;
         if (optIdx === current.answer) {
             correctRef.current += 1;
         }
@@ -125,8 +128,8 @@ export function StoneExam(props: StoneExamProps): React.ReactElement {
                     <button className="keeper-close" onClick={onClose} aria-label="Close">✕</button>
                 </div>
                 <p className="stone-exam-empty">
-                    This stone has no questions to ask just yet. Come back soon — the {meta.subjectLabel}{" "}
-                    trial is still taking shape.
+                    This stone has no questions to ask just yet. Come back soon — the {meta.subjectLabel} trial
+                    is still taking shape.
                 </p>
                 <div className="panel-actions">
                     <button className="keeper-reveal" onClick={onClose}>Leave the stone</button>
@@ -136,7 +139,8 @@ export function StoneExam(props: StoneExamProps): React.ReactElement {
     }
 
     if (phase === "intro") {
-        const perCorrect = ECONOMY.waterPerTrialCorrect;
+        const perQuestion = ECONOMY.waterPerTrialQuestion;
+        const maxReward = trialWaterReward(total, total);
         return (
             <div className="panel-card stone-exam" style={panelFrameStyle()} role="dialog" aria-label="Stone trial">
                 <div className="panel-header">
@@ -145,14 +149,12 @@ export function StoneExam(props: StoneExamProps): React.ReactElement {
                 </div>
                 <p className="stone-exam-lede">
                     The standing stone hums as you approach. Answer its {total} question{total === 1 ? "" : "s"} on
-                    <strong>{meta.subjectLabel}</strong> and it will bless your garden with rain.
+                    <strong> {meta.subjectLabel}</strong> and it will bless your garden with rain.
                 </p>
                 <ul className="stone-exam-terms">
-                    <li>
-                        💧 <strong>+{perCorrect} water</strong> for each correct answer
-                    </li>
-                    <li>🌧️ a bonus shower for a flawless run</li>
-                    <li>✎ open, public-domain questions — no penalty for a wrong guess</li>
+                    <li>💧 <strong>+{perQuestion} water</strong> for every question you answer</li>
+                    <li>🌧️ a <strong>stacking bonus</strong> for every 3 correct — each streak of 3 pours more than the last</li>
+                    <li>✨ up to <strong>💧 {maxReward} water</strong> for a flawless run — no penalty for a wrong guess</li>
                 </ul>
                 <div className="panel-actions">
                     <button className="keeper-reveal" onClick={() => setPhase("question")}>
@@ -165,7 +167,10 @@ export function StoneExam(props: StoneExamProps): React.ReactElement {
 
     if (phase === "result") {
         const correct = correctRef.current;
+        const answered = answeredRef.current;
         const perfect = correct === total;
+        const baseWater = answered * ECONOMY.waterPerTrialQuestion;
+        const bonusWater = earnedWater - baseWater;
         let line = "The stone stirs. Every attempt still earns its drops.";
         if (perfect) {
             line = "A flawless trial. The stone opens the sky.";
@@ -178,14 +183,12 @@ export function StoneExam(props: StoneExamProps): React.ReactElement {
                     <h2>{meta.stoneTitle} — result</h2>
                 </div>
                 <div className="stone-exam-score">
-                    <span className="stone-exam-score-num">
-                        {correct}
-                        <span>/{total}</span>
-                    </span>
+                    <span className="stone-exam-score-num">{correct}<span>/{total}</span></span>
                     <span className="stone-exam-score-label">correct</span>
                 </div>
-                <p className="stone-exam-reward">
-                    You earned <strong>💧 {earnedWater} water</strong>
+                <p className="stone-exam-reward">You earned <strong>💧 {earnedWater} water</strong></p>
+                <p className="stone-exam-breakdown">
+                    +{baseWater} for answering{bonusWater > 0 ? ` · +${bonusWater} streak bonus` : ""}
                 </p>
                 <p className="stone-exam-flavor">{line}</p>
                 <div className="panel-actions">
@@ -199,12 +202,7 @@ export function StoneExam(props: StoneExamProps): React.ReactElement {
 
     // phase === "question"
     return (
-        <div
-            className="panel-card stone-exam"
-            style={panelFrameStyle()}
-            role="dialog"
-            aria-label="Stone trial question"
-        >
+        <div className="panel-card stone-exam" style={panelFrameStyle()} role="dialog" aria-label="Stone trial question">
             <div className="panel-header">
                 <h2>{meta.stoneTitle}</h2>
                 <span className="stone-exam-progress" aria-live="polite">
@@ -250,11 +248,7 @@ export function StoneExam(props: StoneExamProps): React.ReactElement {
             {revealed
                 ? (
                     <div className="stone-exam-explain">
-                        <p
-                            className={selected === current.answer
-                                ? "stone-exam-verdict is-right"
-                                : "stone-exam-verdict is-off"}
-                        >
+                        <p className={selected === current.answer ? "stone-exam-verdict is-right" : "stone-exam-verdict is-off"}>
                             {selected === current.answer ? "Correct" : "Not quite"}
                         </p>
                         <p className="stone-exam-explanation">{current.explanation}</p>
@@ -266,9 +260,7 @@ export function StoneExam(props: StoneExamProps): React.ReactElement {
                     </div>
                 )
                 : (
-                    <p className="stone-exam-hint">
-                        Pick an answer — <kbd>1</kbd>–<kbd>4</kbd> or click.
-                    </p>
+                    <p className="stone-exam-hint">Pick an answer — <kbd>1</kbd>–<kbd>4</kbd> or click.</p>
                 )}
         </div>
     );

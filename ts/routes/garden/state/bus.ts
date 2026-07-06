@@ -67,9 +67,6 @@ export interface GardenEvents {
     "map:visible": { open: boolean };
     /** Mastery snapshot refreshed — world should restage plants. */
     "mastery:refreshed": Record<string, never>;
-    /** The garden gnome's chosen line for the day (feature 2026-07-05). The panel layer owns
-     *  the daily gate + the analytics; the world owns the wandering sprite + proximity bubble. */
-    "gardener:insight": { text: string };
     /** The avatar crossed into a garden region — cosmetic layers (sky, music) may react.
      *  `region` is one of the four garden ids (see audio/theory RegionId); typed as string
      *  here to keep the state layer decoupled from the audio layer. */
@@ -84,8 +81,6 @@ export interface GardenEvents {
      *  gates hotkeys + Phaser key-capture on it (never pair open/close events — a
      *  swapped overlay skips the close event and softlocks the world). */
     "ui:overlay": { open: boolean };
-    /** Replay the first-run cinematic (from the help panel). */
-    "intro:replay": Record<string, never>;
     /** Super Depth Analysis: teleport to the Overlook with a freshly assembled stats
      *  snapshot (the panel layer owns the fetch; the world owns the island). */
     "island:enter": { stats: DepthStats };

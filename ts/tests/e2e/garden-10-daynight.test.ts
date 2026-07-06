@@ -9,7 +9,7 @@
 // phase mapping (game/daynight.test.ts); this proves the world applies it.
 import { skyStateFor } from "../../routes/garden/game/daynight";
 
-import { dismissIntro, expect, resetGarden, setFixedTime, shot, test, waitForBoot } from "./garden-helpers";
+import { expect, resetGarden, setFixedTime, shot, test, waitForBoot } from "./garden-helpers";
 
 const CASES = [
     { name: "night", time: "2026-07-02T04:30:00", phase: "night", dial: "moon", screenshot: true },
@@ -66,7 +66,6 @@ test("restore the real clock", async ({ garden: page }) => {
     await setFixedTime(page, null);
     await page.reload({ waitUntil: "domcontentloaded" });
     await waitForBoot(page);
-    await dismissIntro(page);
     const now = await page.evaluate(() => Date.now());
     expect(Math.abs(now - Date.now())).toBeLessThan(60_000);
 });

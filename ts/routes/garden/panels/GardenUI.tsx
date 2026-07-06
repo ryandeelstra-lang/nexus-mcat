@@ -4,13 +4,11 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { bus } from "../state/bus";
 import { fetchDepthStats } from "../state/depth-stats";
 import { canWater, spendWater } from "../state/economy";
-import { pickGardenerInsight } from "../state/gardener-insight";
 import type { MasterySnapshot } from "../state/mastery";
 import { stageFor } from "../state/stage";
 import type { GardenDoc, GardenStore } from "../state/store";
 import { AlmanacPanel } from "./AlmanacPanel";
 import { extractProjectionLine } from "./dashboard";
-import { GardenTour } from "./GardenTour";
 import { HarvestPanel } from "./HarvestPanel";
 import { Hud } from "./Hud";
 import { activeWeeds } from "./keeper-logic";
@@ -23,7 +21,6 @@ import "../garden.css";
 
 type Overlay =
     | "none"
-    | "tour"
     | "keeper"
     | "placement"
     | "almanac"
@@ -46,9 +43,6 @@ export interface GardenUIProps {
     refreshSnapshot: () => Promise<void>;
     /** Mute/unmute the lofi score (the audio graph lives in the app shell). */
     onMusicMutedChange: (muted: boolean) => void;
-    /** True while the first-run cinematic still covers the screen — the Garden Tour
-     * (the Keeper's concept walkthrough) waits its turn behind it. */
-    introActive: boolean;
 }
 
 interface HarvestState {
@@ -68,7 +62,6 @@ function cloneDoc(doc: GardenDoc): GardenDoc {
         pending: doc.pending.map((entry) => ({ ...entry })),
         paraphrase: { ...doc.paraphrase },
         tutorial: { ...doc.tutorial },
-        tour: { ...doc.tour },
         placement: {
             ...doc.placement,
             tally: { ...doc.placement.tally },
@@ -80,20 +73,11 @@ function cloneDoc(doc: GardenDoc): GardenDoc {
         },
         settings: { ...doc.settings },
         flora: { ...doc.flora },
-        gardener: { ...doc.gardener },
     };
 }
 
-/** Local-calendar YYYY-MM-DD — the garden gnome's "one insight per day" boundary. */
-function todayIso(): string {
-    const d = new Date();
-    const mm = String(d.getMonth() + 1).padStart(2, "0");
-    const dd = String(d.getDate()).padStart(2, "0");
-    return `${d.getFullYear()}-${mm}-${dd}`;
-}
-
 export function GardenUI(props: GardenUIProps): React.ReactElement {
-    const { store, snapshot, refreshSnapshot, onMusicMutedChange, introActive } = props;
+    const { store, snapshot, refreshSnapshot, onMusicMutedChange } = props;
     const [overlay, setOverlay] = useState<Overlay>("none");
     const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
     /** Which sector stone's trial is open (the world's section id, e.g. "B-B"). */
@@ -109,10 +93,6 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
     const [onIsland, setOnIsland] = useState(false);
     const lastKeeperSummary = useRef<KeeperSessionSummary | null>(null);
     const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-    /** Where the Garden Tour opens: the persisted cursor on first run, 0 on a replay. */
-    const tourStart = useRef(0);
-    /** The tour auto-opens at most once per mount (Esc = pause; it resumes next visit). */
-    const tourAutoOpened = useRef(false);
 
     const growthLine = useMemo(() => extractProjectionLine(dashboard), [dashboard]);
     const selectedTopic = selectedNodeId ? snapshot.byNode.get(selectedNodeId) ?? null : null;
@@ -127,26 +107,6 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
     const syncFromStore = useCallback(() => {
         setDoc(cloneDoc(store.snapshot));
     }, [store]);
-
-    /** The garden gnome's one-a-day encouragement (feature 2026-07-05). Once per calendar day
-     *  we pick ONE positive, honest insight from the mastery snapshot + the doc, persist it as
-     *  the daily gate, and hand it to the world; the rest of the day we reuse the persisted
-     *  line so the gnome's advice is stable. Positive-only by design. */
-    const publishGardenerInsight = useCallback((): void => {
-        const today = todayIso();
-        const current = store.snapshot;
-        let text = current.gardener.text;
-        if (current.gardener.dateIso !== today || text.length === 0) {
-            text = pickGardenerInsight({
-                snapshot,
-                doc: current,
-                dateIso: today,
-                lastText: current.gardener.text || undefined,
-            }).text;
-            store.setGardener(today, text);
-        }
-        bus.emit("gardener:insight", { text });
-    }, [store, snapshot]);
 
     const refreshDashboard = useCallback(async (): Promise<void> => {
         const payload = await fetchDashboard();
@@ -232,12 +192,11 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
         void store.load()
             .then(() => {
                 syncFromStore();
-                publishGardenerInsight();
             })
             .catch(() => syncFromStore());
         void refreshDashboard().catch(() => undefined);
         void refreshWeeds().catch(() => undefined);
-    }, [publishGardenerInsight, refreshDashboard, refreshWeeds, store, syncFromStore]);
+    }, [refreshDashboard, refreshWeeds, store, syncFromStore]);
 
     useEffect(() => {
         const offPlant = bus.on("plant:interact", ({ nodeId }) => {
@@ -304,19 +263,6 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
         };
     }, [flashToast, refreshDashboard, refreshSnapshot, refreshWeeds, store, syncFromStore, waterGround]);
 
-    // The Garden Tour (state/tour.ts) plays once per gardener, right after the intro
-    // cinematic and before the action tutorial: every concept, its science named. At most
-    // one auto-open per mount — Esc pauses it (the cursor persists on every advance) and
-    // it resumes on the next visit; Skip/finish persist done forever.
-    useEffect(() => {
-        if (introActive || tourAutoOpened.current || doc.tour.done || overlay !== "none") {
-            return;
-        }
-        tourAutoOpened.current = true;
-        tourStart.current = doc.tour.step;
-        setOverlay("tour");
-    }, [introActive, doc.tour.done, doc.tour.step, overlay]);
-
     // ONE derived world-cover signal (see bus.ts "ui:overlay") — drives the world's
     // panelOpen flag AND Phaser keyboard capture, so typed answers keep their keys.
     // The map is NOT included: it is a Phaser scene that needs the keyboard (Esc/M);
@@ -339,12 +285,6 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
             // The placement ceremony pauses inside itself (StudyCard Esc -> briefing);
             // Escape must never abandon it, or the fog gate would soft-skip.
             if (overlay === "none" || overlay === "keeper" || overlay === "placement") {
-                return;
-            }
-            // Holding Esc to skip the intro auto-repeats into the tour that opens the
-            // instant the cinematic ends — a repeat must not dismiss what a press meant
-            // to reveal. A fresh Esc press still pauses the tour.
-            if (overlay === "tour" && e.repeat) {
                 return;
             }
             setOverlay("none");
@@ -484,22 +424,10 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
                 </div>
             )}
 
-            {overlay === "tour" && (
-                <GardenTour
-                    store={store}
-                    startAtStep={tourStart.current}
-                    onClose={() => {
-                        syncFromStore();
-                        setOverlay("none");
-                    }}
-                />
-            )}
-
             {overlay === "placement" && (
                 <div className="garden-overlay keeper-overlay">
                     <PlacementTest
                         store={store}
-                        snapshot={snapshot}
                         onDone={() => {
                             setOverlay("none");
                             syncFromStore();
@@ -585,24 +513,6 @@ export function GardenUI(props: GardenUIProps): React.ReactElement {
                                 }}
                             >
                                 Open Map
-                            </button>
-                            <button
-                                className="hud-ghost-button"
-                                onClick={() => {
-                                    setOverlay("none");
-                                    bus.emit("intro:replay", {});
-                                }}
-                            >
-                                ⟳ Replay the intro
-                            </button>
-                            <button
-                                className="hud-ghost-button"
-                                onClick={() => {
-                                    tourStart.current = 0;
-                                    setOverlay("tour");
-                                }}
-                            >
-                                🌱 Replay the garden tour
                             </button>
                         </div>
                     </div>

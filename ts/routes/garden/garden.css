@@ -59,49 +59,6 @@
     padding: 12px 16px;
 }
 
-/* First-run cinematic intro (Decision-37 splash slot) */
-.garden-intro {
-    position: absolute;
-    inset: 0;
-    z-index: 90;
-    background: #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.garden-intro-video {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    background: #000;
-}
-
-.garden-intro-skip {
-    position: absolute;
-    right: 24px;
-    bottom: 24px;
-    background: rgba(246, 234, 216, 0.92);
-    border: 3px solid #6b4a2f;
-    border-radius: 6px;
-    box-shadow: 0 4px 0 #3f2c1a;
-    color: #2b2416;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 15px;
-    font-weight: 600;
-    padding: 8px 18px;
-    transition: transform 0.08s ease;
-}
-
-.garden-intro-skip:hover {
-    transform: translateY(-1px);
-}
-
-.garden-intro-skip:active {
-    box-shadow: 0 2px 0 #3f2c1a;
-    transform: translateY(2px);
-}
 
 .garden-debug-status {
     position: absolute;
@@ -993,118 +950,6 @@
     }
 }
 
-/* --- the Garden Tour: the Keeper's first-entry concept walkthrough (state/tour.ts) --- */
-
-/* The concept chip in the name row ("Watering", "Blooming", …). */
-.tour-step-chip {
-    background: rgba(107, 74, 47, 0.16);
-    border: 1px solid rgba(107, 74, 47, 0.45);
-    border-radius: 999px;
-    color: #5a3d24;
-    font-family: "Varela Round", Inter, system-ui, sans-serif;
-    font-size: 12px;
-    letter-spacing: 0.04em;
-    padding: 2px 10px;
-    text-transform: uppercase;
-}
-
-/* The "🌱 The science" footnote — a pressed-leaf note on the parchment, landing only
- * after the Keeper's line has fully crawled in. Shape + label carry the meaning
- * (colorblind-safe), the green tint is garnish. */
-.tour-science {
-    background: rgba(214, 228, 189, 0.55);
-    border-left: 4px solid #4e7a3a;
-    border-radius: 4px;
-    padding: 8px 12px;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-    .tour-science {
-        animation: tour-science-settle 260ms ease-out;
-    }
-
-    @keyframes tour-science-settle {
-        from {
-            opacity: 0;
-            transform: translateY(4px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-}
-
-.tour-science-label {
-    color: #3c5c2d;
-    display: block;
-    font-family: "Varela Round", Inter, system-ui, sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    margin-bottom: 2px;
-    text-transform: uppercase;
-}
-
-.tour-science p {
-    color: #38412c;
-    font-family: "Varela Round", Inter, system-ui, sans-serif;
-    font-size: 15px;
-    line-height: 1.5;
-    margin: 0;
-}
-
-.tour-controls {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px;
-    /* Everything keeps LEFT: the glowing arrow coin overhangs the frame's bottom-right
-     * (absolute, 84px, always beckoning) and would sit on top of — and eat clicks meant
-     * for — anything laid out into that corner. */
-    justify-content: flex-start;
-    padding-right: 96px;
-}
-
-.tour-progress {
-    display: inline-flex;
-    gap: 6px;
-}
-
-.tour-dot {
-    background: rgba(107, 74, 47, 0.28);
-    border-radius: 50%;
-    display: inline-block;
-    height: 8px;
-    width: 8px;
-}
-
-.tour-dot-past {
-    background: rgba(78, 122, 58, 0.6);
-}
-
-.tour-dot-now {
-    background: #4e7a3a;
-    box-shadow: 0 0 0 2px rgba(78, 122, 58, 0.3);
-}
-
-/* Quiet exit — never louder than Continue (the tour is replayable from Help). */
-.garden-tour-skip {
-    background: none;
-    border: none;
-    color: #6b563d;
-    cursor: pointer;
-    font-family: "Varela Round", Inter, system-ui, sans-serif;
-    font-size: 13px;
-    padding: 4px 6px;
-    text-decoration: underline;
-}
-
-.garden-tour-skip:hover {
-    color: #3f2c1a;
-}
-
 /* --- the answering stage: one big mic coin, a compact type row, a slim IDK bar --- */
 
 .voice-answer-stage {
@@ -1851,6 +1696,14 @@
     box-shadow: 0 2px 0 #7d3f30;
 }
 
+/* Placement's MCQ pick — a NEUTRAL "chosen" state, never green/rose (no correct/wrong
+   reveal per question; the diagnostic surfaces only at the end). */
+.stone-exam-option.is-chosen {
+    background: rgba(196, 168, 120, 0.45);
+    border-color: #8a6a3f;
+    box-shadow: 0 2px 0 #5f4a2a;
+}
+
 .stone-exam-letter {
     align-items: center;
     background: rgba(107, 74, 47, 0.16);
@@ -1932,6 +1785,13 @@
 .stone-exam-reward {
     font-size: 18px;
     margin: 6px 0;
+    text-align: center;
+}
+
+.stone-exam-breakdown {
+    font-size: 13px;
+    margin: 0 0 8px;
+    opacity: 0.75;
     text-align: center;
 }
 

@@ -106,7 +106,7 @@ def test_model_dir_pinned(monkeypatch, tmp_path):
         def __init__(self, size, device, compute_type, download_root):
             captured["download_root"] = download_root
 
-        def transcribe(self, path, language, beam_size):
+        def transcribe(self, path, language, beam_size, **kwargs):
             class Info:
                 language_probability = 0.9
 
@@ -156,6 +156,43 @@ def test_transcribe_never_lazy_loads_on_request_path(monkeypatch):
     result = transcribe(b"RIFFxxxx", mime="audio/wav")
     assert result.text == ""
     assert result.error is not None and "warming up" in result.error
+
+
+def test_local_decode_pins_determinism(monkeypatch):
+    """The Keeper's runthrough must transcribe the same audio the same way every time:
+    faster-whisper's default temperature fallback ladder ([0.0..1.0] — it SAMPLES when the
+    quality gates fail) and cross-segment conditioning are pinned off."""
+    import sys
+    import types
+
+    captured: dict[str, object] = {}
+
+    class FakeModel:
+        def __init__(self, *a, **k):
+            pass
+
+        def transcribe(self, path, language, beam_size, **kwargs):
+            captured.update(kwargs, language=language, beam_size=beam_size)
+
+            class Info:
+                language_probability = 0.9
+
+            class Seg:
+                text = "same every time"
+
+            return [Seg()], Info()
+
+    fake_mod = types.ModuleType("faster_whisper")
+    fake_mod.WhisperModel = FakeModel
+    monkeypatch.setitem(sys.modules, "faster_whisper", fake_mod)
+    monkeypatch.setattr(stt, "_local_model", None)
+    monkeypatch.setattr(stt, "local_available", lambda: True)
+    monkeypatch.setattr(stt, "hosted_enabled", lambda: False)
+    stt._ensure_local_model()
+    result = transcribe(b"RIFFxxxx", mime="audio/wav")
+    assert result.text == "same every time"
+    assert captured["temperature"] == 0.0
+    assert captured["condition_on_previous_text"] is False
 
 
 def test_prewarm_async_loads_model_once(monkeypatch):

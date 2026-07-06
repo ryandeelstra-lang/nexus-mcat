@@ -23,7 +23,6 @@ import { skyStateFor } from "../daynight";
 import { planFlora } from "../flora";
 import { FloraLayer } from "../flora-layer";
 import { clampFeetToTileRect, cloudNoise, fogDensityAt } from "../fog";
-import { Gardener } from "../gardener";
 import {
     buildIslandPlan,
     ISLAND_SUBTITLE,
@@ -229,6 +228,8 @@ export class WorldScene extends Phaser.Scene {
     private reducedMotion = false;
     private panelOpen = false;
     private mapOpen = false;
+    /** A mastery:refreshed landed while a panel was open — three-tier reveal: restage on close, not now. */
+    private restagePending = false;
 
     private terrain: TerrainModel | null = null;
     private plants = new Map<string, PlantObject>();
@@ -243,10 +244,6 @@ export class WorldScene extends Phaser.Scene {
     private avatar!: Phaser.GameObjects.Sprite;
     private keeper!: Phaser.GameObjects.Image;
     private keeperLantern!: Phaser.GameObjects.Arc;
-    /** The garden gnome: a wandering NPC that carries the day's encouragement in a bubble
-     *  that grows from "…" to the full line as you approach. Null until the garden is real
-     *  (spawned after the onboarding fog lifts). */
-    private gardener: Gardener | null = null;
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
     private wasd!: {
         W: Phaser.Input.Keyboard.Key;
@@ -377,7 +374,6 @@ export class WorldScene extends Phaser.Scene {
         this.setupInput();
         this.setupSky();
         this.setupFog();
-        this.spawnGardener();
         this.weather = new WeatherLayer(this, this.reducedMotion);
         this.overgrowth = new OvergrowthLayer(this, this.reducedMotion);
         this.syncOvergrowth();
@@ -445,8 +441,6 @@ export class WorldScene extends Phaser.Scene {
         this.weather = null;
         this.overgrowth?.destroy();
         this.overgrowth = null;
-        this.gardener?.destroy();
-        this.gardener = null;
     }
 
     /** Map overlay reads avatar position. */
@@ -523,16 +517,30 @@ export class WorldScene extends Phaser.Scene {
     }
 
     update(time: number, delta: number): void {
+        const wasPanelOpen = this.panelOpen;
         this.panelOpen = this.registry.get("panelOpen") as boolean ?? false;
+        // A background decay/mastery refresh resolved while a panel was up (async RPC
+        // race — the pure decay-refresh gate only guards WHEN it fires, not when its
+        // promise resolves): flush the deferred restage on the open→false edge so the
+        // world never visually re-stages mid-card (three-tier reveal, doc 17).
+        if (wasPanelOpen && !this.panelOpen && this.restagePending) {
+            this.restagePending = false;
+            this.restagePlants();
+            this.syncOvergrowth();
+        }
         this.flags = this.registry.get("gardenFlags") as GardenFlags ?? this.flags;
+        // Self-heal a mistakenly-latched shroud: if truthful flags land AFTER create()
+        // booted the fog, lift it here — placement:completed can never re-fire for a
+        // done placement (the Keeper opens the normal panel), so without this the mist
+        // plus the plaza leash is a permanent softlock.
+        if (this.fogActive && this.flags.placementDone) {
+            this.liftFog();
+        }
 
         this.moveAvatar(delta);
         this.updateInteractPrompt();
         this.emitRegionIfChanged();
         this.bobKeeper(delta);
-        if (this.avatar) {
-            this.gardener?.update(this.avatar.x, this.avatar.y, delta);
-        }
         this.updateCritters();
         this.tickFog(delta);
         // The living wind: grown flowers sway as one field; completed lines host gusts.
@@ -944,44 +952,6 @@ export class WorldScene extends Phaser.Scene {
         }
         const t = this.time.now / 1000;
         this.keeper.y = KEEPER_TILE.tileY * DISPLAY.tile + DISPLAY.tile + Math.sin(t * 2) * 2;
-    }
-
-    /** Spawn the wandering gnome at a random, discoverable grass tile — but only once the
-     *  garden is real (after the onboarding fog lifts; while it holds, only the non-grass
-     *  plaza is reachable, so there's nowhere honest to stand). Idempotent. */
-    private spawnGardener(): void {
-        if (this.gardener || this.fogActive) {
-            return;
-        }
-        const spot = this.pickGardenerTile();
-        if (!spot) {
-            return;
-        }
-        this.gardener = new Gardener(this, spot.tileX, spot.tileY, this.reducedMotion);
-        // The insight may have arrived on the bus before the gnome existed — apply it.
-        const pending = this.registry.get("gardenerInsight") as string | undefined;
-        if (pending) {
-            this.gardener.setText(pending);
-        }
-    }
-
-    /** A random open grass tile a short walk from where the avatar starts (so the "…"→text
-     *  reveal has room to play), validated exactly like a map drop — grass, in-bounds, not
-     *  blocked. Null if none found in a bounded number of tries (the gnome simply skips). */
-    private pickGardenerTile(): TileCoord | null {
-        const spawn = this.avatarTile;
-        for (let i = 0; i < 80; i++) {
-            const tileX = Math.floor(Math.random() * this.plan.widthTiles);
-            const tileY = Math.floor(Math.random() * this.plan.heightTiles);
-            if (!this.canDropAt(tileX, tileY)) {
-                continue;
-            }
-            if (this.distTiles(tileX + 0.5, tileY + 0.5, spawn.tileX + 0.5, spawn.tileY + 0.5) < 5) {
-                continue;
-            }
-            return { tileX, tileY };
-        }
-        return null;
     }
 
     private setupInput(): void {
@@ -1765,8 +1735,6 @@ export class WorldScene extends Phaser.Scene {
             return;
         }
         this.fogActive = false;
-        // The garden is real now — the gnome can take its place among the beds.
-        this.spawnGardener();
         const sprites = this.fogSprites;
         this.fogSprites = [];
         if (this.reducedMotion) {
@@ -1789,13 +1757,15 @@ export class WorldScene extends Phaser.Scene {
         this.unsubscribers.push(
             this.bus.on("mastery:refreshed", () => {
                 this.snapshot = this.registry.get("masterySnapshot") as MasterySnapshot;
+                if (this.panelOpen) {
+                    // Defer the visual restage — a panel/review card is up right now
+                    // (three-tier reveal: never pop a plant mid-card). Flushed in update()
+                    // on the open→false edge.
+                    this.restagePending = true;
+                    return;
+                }
                 this.restagePlants();
                 this.syncOvergrowth();
-            }),
-            this.bus.on("gardener:insight", ({ text }) => {
-                // Cache for a gnome that hasn't spawned yet (fog still up), then push to a live one.
-                this.registry.set("gardenerInsight", text);
-                this.gardener?.setText(text);
             }),
             this.bus.on("plant:watered", ({ nodeId }) => this.fxWatered(nodeId)),
             this.bus.on("growth:tick", ({ nodeId, fast }) => this.fxGrowthTick(nodeId, fast)),

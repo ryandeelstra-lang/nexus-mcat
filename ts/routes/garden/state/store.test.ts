@@ -28,7 +28,7 @@ describe("GardenStore — the additive store contract", () => {
         const { transport } = fakeSidecar();
         const store = new GardenStore(transport);
         const doc = await store.load();
-        expect(doc.economy).toEqual({ water: 80, xp: 0 });
+        expect(doc.economy).toEqual({ water: 20, xp: 0 });
         expect(doc.pending).toEqual([]);
         expect(doc.tutorial).toEqual({ beat: 0, done: false });
     });
@@ -131,59 +131,6 @@ describe("GardenStore — the additive store contract", () => {
         expect(doc.placement.knew).toBe(13);
         expect(doc.placement.tally["P-S"]).toEqual({ asked: 5, knew: 4 });
         expect(doc.placement.intake.examDateIso).toBe("2026-10-15");
-    });
-
-    it("a fresh profile has the Garden Tour unplayed (it auto-plays on first entry)", async () => {
-        const { transport } = fakeSidecar();
-        const store = new GardenStore(transport);
-        const doc = await store.load();
-        expect(doc.tour).toEqual({ step: 0, done: false });
-    });
-
-    it("the tour cursor persists across a restart (pause mid-tour resumes; done stays done)", async () => {
-        const { disk, transport } = fakeSidecar();
-        const first = new GardenStore(transport);
-        await first.load();
-        first.setTour({ step: 4, done: false });
-        // Tour writes ride a serialized chain (ordering guarantee), so they land a
-        // microtask later than the other fire-and-forget keys — flush before "restart".
-        await new Promise((resolve) => setTimeout(resolve, 0));
-
-        const second = new GardenStore({
-            get: () => Promise.resolve(Object.fromEntries(disk) as Partial<GardenDoc>),
-            set: transport.set,
-        });
-        const doc = await second.load();
-        expect(doc.tour).toEqual({ step: 4, done: false });
-
-        second.setTour({ step: 11, done: true });
-        await new Promise((resolve) => setTimeout(resolve, 0));
-        expect((disk.get("tour") as { done: boolean }).done).toBe(true);
-    });
-
-    it("racing tour writes land in call order — a finished tour can never be un-finished by a late advance", async () => {
-        const { disk } = fakeSidecar();
-        // A transport whose FIRST write stalls (slow connection) while later writes are
-        // instant — without serialization the {done:true} would be overwritten.
-        let firstCall = true;
-        const store = new GardenStore({
-            get: () => Promise.resolve(Object.fromEntries(disk) as Partial<GardenDoc>),
-            set: (key, doc) => {
-                const delay = firstCall ? 30 : 0;
-                firstCall = false;
-                return new Promise((resolve) =>
-                    setTimeout(() => {
-                        disk.set(key, doc);
-                        resolve();
-                    }, delay)
-                );
-            },
-        });
-        await store.load();
-        store.setTour({ step: 10, done: false }); // the slow advance write
-        store.setTour({ step: 11, done: true }); // skip/finish, milliseconds later
-        await new Promise((resolve) => setTimeout(resolve, 80));
-        expect(disk.get("tour")).toEqual({ step: 11, done: true });
     });
 
     it("partial/corrupt persisted docs merge over safe defaults (versioned-store discipline)", async () => {

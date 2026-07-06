@@ -9,14 +9,14 @@ import os
 
 
 def has_api_key() -> bool:
-    return bool(os.environ.get("ANTHROPIC_API_KEY", "").strip())
+    return bool(os.environ.get("OPENAI_API_KEY", "").strip())
 
 
 def ai_enabled() -> bool:
     """AI is enabled ONLY when a key is present and AI_DISABLED is not set.
 
     - AI_DISABLED=1            -> always OFF (the master kill switch; C5/D8 + crash/offline 7g).
-    - no ANTHROPIC_API_KEY     -> OFF (cannot generate without the model; never fabricate).
+    - no OPENAI_API_KEY        -> OFF (cannot generate without the model; never fabricate).
     - key present, not disabled -> ON.
     """
     if os.environ.get("AI_DISABLED", "0") == "1":

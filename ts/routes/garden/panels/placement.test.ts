@@ -1,49 +1,30 @@
 // Copyright: Ankitects Pty Ltd and contributors
 // License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
 
-// charged_up: the placement-plan contract. What's pinned: 20 questions split evenly across
-// the four MCAT sections (the exam weighs them equally), distinct leaves preferred inside a
-// section (cycling only when the section is smaller than its quota — CARS), interleaved
-// order, and honest tally/date arithmetic for the calibration beat.
+// charged_up: the placement-exam contract. What's pinned: 20 MCQs split evenly across the
+// four MCAT sections (the exam weighs them equally), drawn from the open CC0 MCQ bank
+// (panels/mcq.ts), interleaved order, and honest tally/date arithmetic for the calibration
+// beat. The bank draw is randomized (same as the sector-stone trials), so these tests assert
+// shape/counts/distinctness, never exact question identities.
 import { describe, expect, it } from "vitest";
 
 import {
     applyOutcome,
-    buildPlacementPlan,
+    buildPlacementExam,
     daysUntil,
     formatExamDate,
     partsToIsoDate,
     PLACEMENT_QUESTIONS,
-    type PlacementTopic,
     sectionsByAccuracy,
 } from "./placement";
 
-/** The real island's shape: P-S 12 leaves, C-P 10, B-B 9, CARS 3 (34 total). */
-function islandTopics(): PlacementTopic[] {
-    const make = (section: string, count: number): PlacementTopic[] =>
-        Array.from({ length: count }, (_, i) => ({
-            nodeId: `${section}.${i}`,
-            deckPath: `MCAT::${section}::${i}`,
-            label: `${section} topic ${i}`,
-            section,
-            dueCount: 0,
-            newCount: 10,
-        }));
-    return [
-        ...make("P-S", 12),
-        ...make("C-P", 10),
-        ...make("B-B", 9),
-        ...make("CARS", 3),
-    ];
-}
-
-describe("buildPlacementPlan", () => {
+describe("buildPlacementExam", () => {
     it("asks exactly 20 questions, 5 per MCAT section", () => {
-        const plan = buildPlacementPlan(islandTopics());
+        const plan = buildPlacementExam();
         expect(plan).toHaveLength(PLACEMENT_QUESTIONS);
         const perSection = new Map<string, number>();
-        for (const step of plan) {
-            perSection.set(step.section, (perSection.get(step.section) ?? 0) + 1);
+        for (const q of plan) {
+            perSection.set(q.section, (perSection.get(q.section) ?? 0) + 1);
         }
         expect(perSection.get("P-S")).toBe(5);
         expect(perSection.get("B-B")).toBe(5);
@@ -52,41 +33,33 @@ describe("buildPlacementPlan", () => {
     });
 
     it("interleaves sections so the test roams the island (first round hits all four)", () => {
-        const plan = buildPlacementPlan(islandTopics());
-        expect(new Set(plan.slice(0, 4).map((s) => s.section)).size).toBe(4);
+        const plan = buildPlacementExam();
+        expect(new Set(plan.slice(0, 4).map((q) => q.section)).size).toBe(4);
     });
 
-    it("prefers distinct leaves; cycles only where the section is smaller than its quota", () => {
-        const plan = buildPlacementPlan(islandTopics());
-        const psLeaves = plan.filter((s) => s.section === "P-S").map((s) => s.nodeId);
-        expect(new Set(psLeaves).size).toBe(5);
-        // CARS has 3 leaves for 5 questions -> every leaf asked, none more than twice.
-        const carsLeaves = plan.filter((s) => s.section === "CARS").map((s) => s.nodeId);
-        expect(new Set(carsLeaves).size).toBe(3);
+    it("never repeats a question within a section (bank is far larger than the quota)", () => {
+        const plan = buildPlacementExam();
+        for (const section of ["P-S", "B-B", "C-P", "CARS"]) {
+            const ids = plan.filter((q) => q.section === section).map((q) => q.id);
+            expect(new Set(ids).size).toBe(ids.length);
+        }
     });
 
-    it("puts leaves with servable cards ahead of empty ones", () => {
-        const topics = islandTopics().map((t) =>
-            t.section === "B-B" && t.nodeId !== "B-B.7"
-                ? { ...t, newCount: 0, dueCount: 0 }
-                : t
-        );
-        const plan = buildPlacementPlan(topics);
-        expect(plan.filter((s) => s.section === "B-B")[0].nodeId).toBe("B-B.7");
-    });
-
-    it("handles an empty snapshot and odd totals", () => {
-        expect(buildPlacementPlan([])).toEqual([]);
-        const plan = buildPlacementPlan(islandTopics(), 6);
+    it("handles zero and odd totals", () => {
+        expect(buildPlacementExam(0)).toEqual([]);
+        const plan = buildPlacementExam(6);
         expect(plan).toHaveLength(6);
-        // 6 over 4 sections: earliest sections take the remainder (2+2+1+1? no: 1 each +2).
+        // 6 over 4 sections: the earliest two sections in SECTION_ORDER (P-S, B-B) take the
+        // +1 remainder, so it's 2/2/1/1.
         const perSection = new Map<string, number>();
-        for (const step of plan) {
-            perSection.set(step.section, (perSection.get(step.section) ?? 0) + 1);
+        for (const q of plan) {
+            perSection.set(q.section, (perSection.get(q.section) ?? 0) + 1);
         }
         expect([...perSection.values()].reduce((a, b) => a + b, 0)).toBe(6);
-        expect(Math.max(...perSection.values())).toBe(2);
-        expect(Math.min(...perSection.values())).toBe(1);
+        expect(perSection.get("P-S")).toBe(2);
+        expect(perSection.get("B-B")).toBe(2);
+        expect(perSection.get("C-P")).toBe(1);
+        expect(perSection.get("CARS")).toBe(1);
     });
 });
 

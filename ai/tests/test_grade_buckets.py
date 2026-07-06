@@ -175,7 +175,12 @@ def test_grade_is_a_dataclass_contract():
 
 
 def test_judge_called_with_temperature_zero_and_timeout(monkeypatch):
-    """The Claude judge must be deterministic (temperature=0) and time-bounded (spec §5.4)."""
+    """The Claude judge must be deterministic (temperature=0) and time-bounded (spec §5.4).
+
+    ONE attempt only (max_retries=0): the server's whole grade must land inside the client's
+    15s abort. A retrying judge (10s x 2) outlives it — the player sees "the Keeper lost his
+    train of thought", re-says the answer, and the late server grade still applies invisibly
+    (the re-say then dies on not_served). Fail fast to the lexical floor instead."""
     import sys
     import types
 
@@ -207,8 +212,27 @@ def test_judge_called_with_temperature_zero_and_timeout(monkeypatch):
     monkeypatch.setenv("ANTHROPIC_API_KEY", "test-key")
     monkeypatch.delenv("AI_DISABLED", raising=False)
 
-    g = grade.grade_spoken("Q?", "the reference answer text", "the reference answer text")
+    g = grade.grade_spoken(
+        "Q?", "the reference answer text", "the reference answer text"
+    )
     assert g.method == "semantic"
     assert captured["temperature"] == 0
     assert captured["client_kwargs"].get("timeout") == 10.0
-    assert captured["client_kwargs"].get("max_retries") == 1
+    assert captured["client_kwargs"].get("max_retries") == 0
+
+
+def test_judge_failure_is_logged_never_silent(monkeypatch, capsys):
+    """A judge failure must fall back to the lexical floor (unchanged) AND leave a trace —
+    a silent `pass` made "the autograder is off" flaps undiagnosable in a live runthrough."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "test-key")
+    monkeypatch.delenv("AI_DISABLED", raising=False)
+
+    def boom(q, r, t):
+        raise RuntimeError("judge down")
+
+    monkeypatch.setattr(grade, "_semantic_judge", boom)
+    g = grade_spoken("Q?", "mitochondria", "mitochondria")
+    # The honest fallback itself is unchanged — floor grade, sentinel shown.
+    assert g.method == "lexical" and g.sentinel == LEXICAL_SENTINEL
+    err = capsys.readouterr().err
+    assert "semantic judge failed" in err and "judge down" in err

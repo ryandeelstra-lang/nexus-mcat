@@ -6,17 +6,12 @@
 // error-cause weed stays focal), zero-due ⇒ nothing, deterministic placement.
 import { describe, expect, it } from "vitest";
 
-import {
-    OVERGROWTH_MAX_DAYS,
-    OVERGROWTH_MAX_TUFTS,
-    tuftCountFor,
-    tuftPlacements,
-} from "./overgrowth";
+import { OVERGROWTH_MAX_DAYS, OVERGROWTH_MAX_TUFTS, tuftCountFor, tuftPlacements } from "./overgrowth";
 
 describe("tuftCountFor — the neglect ramp", () => {
     it("nothing while active: < 1 full day away ⇒ 0 tufts", () => {
-        expect(tuftCountFor({ daysAway: 0, dueCount: 12, stage: "drooping" })).toBe(0);
-        expect(tuftCountFor({ daysAway: 0.9, dueCount: 12, stage: "drooping" })).toBe(0);
+        expect(tuftCountFor({ daysAway: 0, dueCount: 12, stage: "growing" })).toBe(0);
+        expect(tuftCountFor({ daysAway: 0.9, dueCount: 12, stage: "growing" })).toBe(0);
     });
     it("nothing without overdue cards, whatever the absence", () => {
         expect(tuftCountFor({ daysAway: 9, dueCount: 0, stage: "bloomed" })).toBe(0);
@@ -25,18 +20,18 @@ describe("tuftCountFor — the neglect ramp", () => {
         expect(tuftCountFor({ daysAway: 9, dueCount: 12, stage: "weedy" })).toBe(0);
     });
     it("ramps with days away and caps at the max", () => {
-        const d1 = tuftCountFor({ daysAway: 1, dueCount: 5, stage: "drooping" });
-        const d3 = tuftCountFor({ daysAway: 3, dueCount: 5, stage: "drooping" });
-        const d5 = tuftCountFor({ daysAway: OVERGROWTH_MAX_DAYS, dueCount: 5, stage: "drooping" });
-        const d30 = tuftCountFor({ daysAway: 30, dueCount: 50, stage: "drooping" });
+        const d1 = tuftCountFor({ daysAway: 1, dueCount: 5, stage: "growing" });
+        const d3 = tuftCountFor({ daysAway: 3, dueCount: 5, stage: "growing" });
+        const d5 = tuftCountFor({ daysAway: OVERGROWTH_MAX_DAYS, dueCount: 5, stage: "growing" });
+        const d30 = tuftCountFor({ daysAway: 30, dueCount: 50, stage: "growing" });
         expect(d1).toBeGreaterThanOrEqual(1);
         expect(d3).toBeGreaterThan(d1);
         expect(d5).toBeGreaterThanOrEqual(d3);
         expect(d30).toBeLessThanOrEqual(OVERGROWTH_MAX_TUFTS);
     });
     it("a deep due pile pulls slightly more growth than a shallow one", () => {
-        const shallow = tuftCountFor({ daysAway: 3, dueCount: 2, stage: "drooping" });
-        const deep = tuftCountFor({ daysAway: 3, dueCount: 25, stage: "drooping" });
+        const shallow = tuftCountFor({ daysAway: 3, dueCount: 2, stage: "growing" });
+        const deep = tuftCountFor({ daysAway: 3, dueCount: 25, stage: "growing" });
         expect(deep).toBeGreaterThanOrEqual(shallow);
     });
 });

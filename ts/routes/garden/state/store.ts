@@ -24,12 +24,6 @@ export interface TutorialState {
     done: boolean;
 }
 
-/** The Garden Tour (first-entry concept walkthrough, state/tour.ts) — resumable cursor. */
-export interface TourState {
-    step: number;
-    done: boolean;
-}
-
 /** What the master learns before the questions start (all optional — honest nulls). */
 export interface PlacementIntake {
     /** ISO YYYY-MM-DD exam date, or null while unbooked. */
@@ -66,8 +60,6 @@ export interface GardenDoc {
     /** nodeId -> paraphrase-pass timestamp (mirrors the sidecar variant-pass truth). */
     paraphrase: Record<string, number>;
     tutorial: TutorialState;
-    /** The Keeper's concept tour (2026-07-03): plays once before the action tutorial. */
-    tour: TourState;
     /** The master's placement test (2026-07-03): done lifts the island fog forever. */
     placement: PlacementState;
     /** `sectors` = garden sections unlocked by passing their full MCAT test (2026-07-03). */
@@ -75,10 +67,6 @@ export interface GardenDoc {
     settings: { muted: boolean; volume: number };
     /** Ground-flora watered counts ("x,y" tile -> pours), cosmetic-only (2026-07-03). */
     flora: Record<string, number>;
-    /** The garden gnome's one-a-day encouragement (2026-07-05): the line last shown and the
-     *  ISO day (YYYY-MM-DD) it was chosen — the daily gate picks exactly one insight per day
-     *  and keeps it stable, and skips repeating it the next day. */
-    gardener: { dateIso: string; text: string };
 }
 
 export function emptyDoc(): GardenDoc {
@@ -87,12 +75,10 @@ export function emptyDoc(): GardenDoc {
         pending: [],
         paraphrase: {},
         tutorial: { beat: 0, done: false },
-        tour: { step: 0, done: false },
         placement: emptyPlacement(),
         unlocks: { waystones: [], sectors: [] },
         settings: { muted: false, volume: 0.7 },
         flora: {},
-        gardener: { dateIso: "", text: "" },
     };
 }
 
@@ -134,8 +120,6 @@ export const httpTransport: BridgeTransport = {
 export class GardenStore {
     private doc: GardenDoc = emptyDoc();
     private transport: BridgeTransport;
-    /** Write-through chain for the tour key — see setTour for why it is serialized. */
-    private tourWrites: Promise<void> = Promise.resolve();
 
     constructor(transport: BridgeTransport = httpTransport) {
         this.transport = transport;
@@ -154,7 +138,6 @@ export class GardenStore {
             pending: persisted.pending ?? [],
             paraphrase: persisted.paraphrase ?? {},
             tutorial: { ...base.tutorial, ...(persisted.tutorial ?? {}) },
-            tour: { ...base.tour, ...(persisted.tour ?? {}) },
             placement: {
                 ...base.placement,
                 ...(persisted.placement ?? {}),
@@ -169,7 +152,6 @@ export class GardenStore {
             },
             settings: { ...base.settings, ...(persisted.settings ?? {}) },
             flora: persisted.flora ?? {},
-            gardener: { ...base.gardener, ...(persisted.gardener ?? {}) },
         };
         return this.doc;
     }
@@ -224,16 +206,6 @@ export class GardenStore {
         void this.transport.set("tutorial", t);
     }
 
-    setTour(t: TourState): void {
-        this.doc = { ...this.doc, tour: t };
-        // Serialized (unlike the other fire-and-forget keys): the tour writes this key on
-        // every advance AND again on skip/finish milliseconds later — two racing POSTs
-        // could land out of order and un-finish a finished tour on the next boot.
-        this.tourWrites = this.tourWrites
-            .then(() => this.transport.set("tour", t))
-            .catch(() => undefined);
-    }
-
     setPlacement(p: PlacementState): void {
         this.doc = { ...this.doc, placement: p };
         void this.transport.set("placement", p);
@@ -251,14 +223,6 @@ export class GardenStore {
         const unlocks = { ...this.doc.unlocks, waystones: [...this.doc.unlocks.waystones, id] };
         this.doc = { ...this.doc, unlocks };
         void this.transport.set("unlocks", unlocks);
-    }
-
-    /** Record the day's chosen gnome insight (write-through). The daily gate compares
-     *  `dateIso` to today to decide whether to pick a fresh line. */
-    setGardener(dateIso: string, text: string): void {
-        const gardener = { dateIso, text };
-        this.doc = { ...this.doc, gardener };
-        void this.transport.set("gardener", gardener);
     }
 
     /** Ground-flora watered counts (write-through like every other key). */

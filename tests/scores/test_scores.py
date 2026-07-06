@@ -146,11 +146,15 @@ def test_provenance_is_one_of_two_typed_values():
     col.close()
 
 
-def test_performance_does_not_claim_topic_data_it_lacks():
-    # The dashboard has no per-topic context yet (the model lands in Block G), so the performance
-    # abstention must NOT claim "< N graded items on this topic" — that read as a false statement for
-    # every student regardless of their real review history. The per-topic clause is only honest once
-    # a real topic_items count is actually supplied.
+def test_performance_does_not_claim_topic_data_it_lacks(tmp_path, monkeypatch):
+    # The dashboard has no per-topic context, so a performance ABSTENTION must NOT claim
+    # "< N graded items on this topic" — that read as a false statement for every student
+    # regardless of their real review history. The per-topic clause is only honest once a real
+    # topic_items count is actually supplied. (The artifact is pointed at a missing path so this
+    # pins the no-eval abstention; with an artifact present the score is available instead.)
+    from scores import heldout
+
+    monkeypatch.setenv(heldout.ENV_KEY, str(tmp_path / "no-artifact.txt"))
     col = _fresh_col()
     _answer_one_in_default(col)
     perf = display.dashboard(col, "")["performance"]
@@ -158,7 +162,7 @@ def test_performance_does_not_claim_topic_data_it_lacks():
     assert (
         "graded items on this topic" not in perf["reason"]
     ), f"dashboard must not fabricate a per-topic graded-items claim: {perf['reason']!r}"
-    # The Block-G seam is preserved: when a real per-topic count IS passed, the clause is honest.
+    # The per-topic seam is preserved: when a real per-topic count IS passed, the clause is honest.
     assert "graded items on this topic" in display.performance_display(col, topic_items=5)["reason"]
     assert (
         "graded items on this topic"

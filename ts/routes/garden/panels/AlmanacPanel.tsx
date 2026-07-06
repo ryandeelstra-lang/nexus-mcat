@@ -1,7 +1,16 @@
 // charged_up: almanac panel (doc 23 §6.6) — formats engine values only, never computes scores.
 import React, { useState } from "react";
 
-import { asCoverage, asMetric, asNumber, asRange, asString, extractReviewCount, hasSyntheticCaveat } from "./dashboard";
+import {
+    asCoverage,
+    asMetric,
+    asNumber,
+    asPoint,
+    asRange,
+    asString,
+    extractReviewCount,
+    hasSyntheticCaveat,
+} from "./dashboard";
 import { panelFrameStyle } from "./KeeperDialogue";
 import type { DashboardData, DashboardMetric } from "./rpc";
 
@@ -24,25 +33,29 @@ function playerReason(reason: string | null): string | null {
     return reason;
 }
 
-function metricSummary(metric: DashboardMetric | null): React.ReactElement {
+function metricSummary(metric: DashboardMetric | null, digits = 2): React.ReactElement {
     if (!metric) {
         return <p className="almanac-empty">No score payload yet.</p>;
     }
     if (metric.available === false) {
         return <p className="almanac-empty">{playerReason(asString(metric.reason)) ?? "Still growing."}</p>;
     }
-    const value = asNumber(metric.value);
+    const value = asPoint(metric);
     const range = asRange(metric.range);
     const confidence = asString(metric.confidence);
+    const note = asString(metric["note"] ?? null);
     return (
         <div className="almanac-metric-body">
-            {value !== null && <p className="almanac-value">{value.toFixed(2)}</p>}
+            {value !== null && <p className="almanac-value">{value.toFixed(digits)}</p>}
             {range && (
                 <p className="almanac-range">
-                    Range {range[0].toFixed(2)} - {range[1].toFixed(2)}
+                    Range {range[0].toFixed(digits)} - {range[1].toFixed(digits)}
                 </p>
             )}
             {confidence && <p className="almanac-confidence">Confidence: {confidence}</p>}
+            {/* The honesty stamp (e.g. "mapping UNVALIDATED against real outcomes") rides along with
+             * the score. Styled inline so it needs no new rule in the live session's garden.css. */}
+            {note && <p className="almanac-note" style={{ fontSize: 12, fontStyle: "italic", opacity: 0.85, margin: "4px 0" }}>{note}</p>}
             {value === null && !range && <p className="almanac-empty">Value is not available yet.</p>}
         </div>
     );
@@ -122,7 +135,7 @@ export function AlmanacPanel(props: AlmanacPanelProps): React.ReactElement {
                                     )}
                                 </div>
                             )
-                            : metricSummary(readiness)}
+                            : metricSummary(readiness, 0) /* 472-528 is an integer scale */}
                     </section>
                 </div>
 

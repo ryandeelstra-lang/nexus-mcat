@@ -43,3 +43,37 @@ def test_review_kind_filter_keeps_only_genuine_reviews():
     assert [(r_kind, btn) for (r_kind, btn, *_) in kept] == [(REVIEW, 3), (REVIEW, 1)]
     successes = [calibration.is_success(btn) for (_k, btn, *_) in kept]
     assert successes == [True, False]
+
+
+def test_last_ivl_follows_the_anki_sign_convention():
+    # revlog.lastIvl: POSITIVE = days, NEGATIVE = seconds (cards.ivl convention). The 2026-07-05
+    # audit follow-up found sub-day learning steps (e.g. -600 = 10 minutes) misread as 600 DAYS,
+    # which smuggled them past the "genuine scheduled review" filter on real collections.
+    assert calibration.last_ivl_to_days(5) == 5  # 5 days stays 5 days
+    assert calibration.last_ivl_to_days(1) == 1
+    assert calibration.last_ivl_to_days(-600) == -600 / 86400  # 10 minutes, NOT 600 days
+    assert calibration.last_ivl_to_days(-86400) == -1  # a day expressed in seconds
+    assert calibration.last_ivl_to_days(0) == 0
+
+
+def test_sub_day_learning_steps_in_seconds_are_dropped():
+    LEARNING = 0
+    # a 10-minute learning step written the way real revlogs write it: lastIvl = -600 seconds
+    rows = [(LEARNING, 3, calibration.last_ivl_to_days(-600), 0)]
+    assert calibration.filter_review_rows(rows) == []
+
+
+def test_brier_ci_brackets_the_point_and_tightens_with_n():
+    small = [_row(0.7, True), _row(0.7, False), _row(0.7, True)]
+    big = [_row(0.7, i % 3 != 0) for i in range(300)]
+    lo_s, hi_s = calibration.brier_ci(small)
+    lo_b, hi_b = calibration.brier_ci(big)
+    assert lo_s <= calibration.brier(small) <= hi_s
+    assert lo_b <= calibration.brier(big) <= hi_b
+    assert (hi_b - lo_b) < (hi_s - lo_s)  # more rows -> tighter interval
+    assert calibration.brier_ci([]) == [0.0, 0.0]
+
+
+def test_brier_ci_is_seeded_and_reproducible():
+    rows = [_row(0.6, i % 2 == 0) for i in range(50)]
+    assert calibration.brier_ci(rows) == calibration.brier_ci(rows)

@@ -24,6 +24,16 @@ export function asString(value: unknown): string | null {
     return typeof value === "string" ? value : null;
 }
 
+/** The engine emits `point` (scores/display.py); older payloads used `value`. Read either —
+ * never synthesize. */
+export function asPoint(metric: DashboardMetric | null): number | null {
+    if (!metric) {
+        return null;
+    }
+    const point = asNumber(metric["point"]);
+    return point !== null ? point : asNumber(metric.value ?? null);
+}
+
 export function asRange(value: unknown): [number, number] | null {
     if (!Array.isArray(value) || value.length !== 2) {
         return null;

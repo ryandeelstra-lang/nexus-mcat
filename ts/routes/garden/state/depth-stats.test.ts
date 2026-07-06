@@ -181,6 +181,25 @@ describe("dashboard stats — point, not value", () => {
         expect(statById(stats, "readiness").detail).toContain("498");
     });
 
+    it("carries readiness confidence and the UNVALIDATED note into the Overlook detail", () => {
+        const stats = assembleDepthStats({
+            dashboard: {
+                readiness: {
+                    available: true,
+                    point: 498,
+                    range: [486, 511],
+                    confidence: "low",
+                    note: "mapping UNVALIDATED against real outcomes",
+                },
+            } as never,
+            nowMs: 1,
+        });
+        const readiness = statById(stats, "readiness");
+        expect(readiness.value).toBe("498");
+        expect(readiness.detail).toContain("Confidence: low");
+        expect(readiness.detail).toContain("UNVALIDATED");
+    });
+
     it("relays the readiness abstention with its progress numbers", () => {
         const stats = assembleDepthStats({
             dashboard: {

@@ -13,6 +13,7 @@ from anki.collection import Collection
 
 from . import coverage as coverage_mod
 from . import engine, give_up
+from . import heldout as heldout_mod
 from . import memory as memory_mod
 
 
@@ -37,25 +38,53 @@ def memory_display(col: Collection, topics) -> dict:
         "missing_data": None
         if conf == "ok"
         else f"fewer than {give_up.MEMORY_LOW_CONFIDENCE_BELOW} cards with FSRS state",
-        "past_accuracy": "calibration pending — Brier/log-loss on held-out reviews (Block G)",
+        "past_accuracy": "Brier/log-loss on held-out reviews — docs/release-proof/eval/memory-calibration*.txt",
         "best_next": None,
         "data_provenance": engine.data_provenance(col),
     }
 
 
-def performance_display(col: Collection, topic_items: int | None = None) -> dict:
-    # The performance model (held-out exam-style accuracy) is built in Block F6/G; abstain until then.
+def performance_display(
+    col: Collection, topic_items: int | None = None, heldout_eval: dict | None = None
+) -> dict:
+    # Phone parity (ScoreKit.threeScores): the published held-out eval artifact feeds the score —
+    # a MEASURED accuracy with its bootstrap range — or performance abstains. Never recomputed here.
     # Only surface the per-topic graded-items shortfall when a real per-topic count is supplied — the
     # dashboard has no per-topic context yet, so it must not claim "< N on this topic" for everyone.
+    prov = engine.data_provenance(col)
     extra = ""
     if topic_items is not None and not give_up.performance_available(topic_items):
         extra = f"; also < {give_up.PERFORMANCE_MIN_ITEMS} graded items on this topic"
+    if heldout_eval is not None and heldout_eval["n"] >= give_up.PERFORMANCE_MIN_ITEMS:
+        return {
+            "kind": "performance",
+            "available": True,
+            "point": heldout_eval["acc"],
+            "range": list(heldout_eval["acc_range"]),
+            "confidence": None,
+            "evidence": f"held-out accuracy on {heldout_eval['n']} exam-style rewordings, from the "
+            f"published eval artifact; majority baseline {heldout_eval['baseline']:.2f}",
+            "missing_data": None,
+            "past_accuracy": "see docs/release-proof/eval/performance-heldout.txt",
+            "note": f"wrong-answer rate {heldout_eval['wrong_rate']:.0%}; 90% bootstrap range",
+            "best_next": None,
+            "data_provenance": prov,
+        }
+    if heldout_eval is not None:
+        return {
+            "kind": "performance",
+            "available": False,
+            "reason": f"held-out set has only {heldout_eval['n']} items "
+            f"(need >= {give_up.PERFORMANCE_MIN_ITEMS})" + extra,
+            "best_next": None,
+            "data_provenance": prov,
+        }
     return {
         "kind": "performance",
         "available": False,
-        "reason": "performance model (held-out exam-style accuracy) is built in Block G" + extra,
+        "reason": "no held-out performance evaluation is available yet" + extra,
         "best_next": None,
-        "data_provenance": engine.data_provenance(col),
+        "data_provenance": prov,
     }
 
 
@@ -80,12 +109,33 @@ def readiness_display(
             "best_next": best_next,
             "data_provenance": prov,
         }
+    # Gate open, but the 472-528 map only runs on a MEASURED held-out accuracy. Without one there
+    # is no evidence to map — the old neutral default (acc=0.5 -> "500") was a number derived from
+    # no evidence, exactly what the tier-1 gate forbids. Abstain instead (2026-07-05 audit).
+    if section_perf is None:
+        return {
+            "kind": "readiness",
+            "available": False,
+            "reason": "no performance evaluation available — the 472-528 map runs only on a "
+            "measured held-out accuracy (docs/score-mapping.md), never a default",
+            "graded_reviews": total,
+            "coverage_pct": round(gate_coverage_fraction * 100, 1),
+            "best_next": best_next,
+            "data_provenance": prov,
+        }
     # Available path: map held-out performance accuracy onto the 472-528 scale (W3.6 / SU1). The point
     # is never fabricated — it comes from a documented, UNVALIDATED map of a measured accuracy.
-    from . import readiness as readiness_mod  # local: readiness is a sibling scoring module
+    # local import: readiness is a sibling scoring module
+    from . import readiness as readiness_mod
 
-    sp = section_perf or {"acc": 0.5, "acc_range": [0.4, 0.6]}
+    sp = section_perf
     mapped = readiness_mod.map_to_scale(sp, coverage=gate_coverage_fraction)
+    evidence = "held-out performance accuracy mapped onto 472-528 (docs/score-mapping.md)"
+    if sp.get("n"):
+        evidence = (
+            f"held-out accuracy over {sp['n']} exam-style items "
+            "mapped onto 472-528 (docs/score-mapping.md)"
+        )
     return {
         "kind": "readiness",
         "available": True,
@@ -93,7 +143,7 @@ def readiness_display(
         "range": mapped["range"],
         "coverage_pct": round(gate_coverage_fraction * 100, 1),
         "confidence": "low" if gate_coverage_fraction < 0.9 else "moderate",
-        "evidence": "held-out performance accuracy mapped onto 472-528 (docs/score-mapping.md)",
+        "evidence": evidence,
         "missing_data": None,
         "past_accuracy": "see docs/release-proof/eval/performance-heldout.txt",
         "note": "mapping UNVALIDATED against real outcomes",
@@ -111,9 +161,15 @@ def dashboard(col: Collection, search: str = "") -> dict:
     tax = coverage_mod.load_taxonomy()
     cov = coverage_mod.coverage(topics, tax)
     best_next = cov["uncovered_content_categories"][0] if cov["uncovered_content_categories"] else None
+    # The published held-out eval feeds performance and readiness — or both abstain. An eval below
+    # the item floor is a shaky number, not evidence: readiness treats it as no eval at all.
+    ev = heldout_mod.load_heldout_eval()
+    section_perf = ev if ev is not None and ev["n"] >= give_up.PERFORMANCE_MIN_ITEMS else None
     return {
         "memory": memory_display(col, topics),
-        "performance": performance_display(col),
-        "readiness": readiness_display(col, topics, cov["gate_fraction"], best_next=best_next),
+        "performance": performance_display(col, heldout_eval=ev),
+        "readiness": readiness_display(
+            col, topics, cov["gate_fraction"], best_next=best_next, section_perf=section_perf
+        ),
         "coverage": cov,
     }

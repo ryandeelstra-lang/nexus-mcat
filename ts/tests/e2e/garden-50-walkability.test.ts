@@ -10,7 +10,7 @@
 //       Keukenhof while sampling frame times (the perf spot-check artifact).
 import { writeFileSync } from "node:fs";
 
-import { avatarTile, emitBus, expect, keyHold, resetGarden, shot, SHOT_DIR, test } from "./garden-helpers";
+import { avatarTile, emitBus, expect, resetGarden, shot, SHOT_DIR, test } from "./garden-helpers";
 
 const ALL_SECTORS = ["P-S", "B-B", "C-P", "CARS"];
 

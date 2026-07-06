@@ -366,12 +366,11 @@ export type CineStage =
     | "growing"
     | "budding"
     | "bloomed"
-    | "drooping"
     | "weedy";
 
 /**
  * Stage for a plant at time t. Perfect bloom through beat 3; regression wave
- * bloomed → drooping → weedy → bare-soil through beat 4; bare after.
+ * bloomed → weedy → bare-soil through beat 4; bare after.
  */
 export function plantStageAt(t: number, tileX: number, tileY: number, seed: number): CineStage {
     const jitter = rng(seed)() * 2.2;
@@ -381,9 +380,6 @@ export function plantStageAt(t: number, tileX: number, tileY: number, seed: numb
         return "bloomed";
     }
     if (t < onset + STEP) {
-        return "drooping";
-    }
-    if (t < onset + STEP * 2) {
         return "weedy";
     }
     return "bare-soil";

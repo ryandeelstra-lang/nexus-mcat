@@ -90,7 +90,6 @@ export function KeeperPanel(props: KeeperPanelProps): React.ReactElement {
         return () => window.removeEventListener("keydown", onKeydown);
         // closeSession is a stable-by-ref plain function on each render; the listener
         // re-binds only when the session identity changes.
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     async function beginParaphraseBeat(): Promise<void> {

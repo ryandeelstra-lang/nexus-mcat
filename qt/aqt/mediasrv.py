@@ -786,6 +786,16 @@ def garden_state() -> bytes:
         return json.dumps({}).encode("utf-8")
 
     if op == "get":
+        # Warm the local STT model the moment the garden opens — not on first mic use.
+        # The load window is exactly what surfaces "the voice engine is still warming
+        # up — type this one" when a player answers by voice right after launch.
+        try:
+            if _load_voice_review() is not None:
+                from ai import stt as ai_stt
+
+                ai_stt.prewarm_async()
+        except Exception:
+            pass  # STT is optional; the garden bridge never fails on it
         docs = garden_store.get_state(col, payload.get("key"))
         return json.dumps(docs).encode("utf-8")
     if op == "set":

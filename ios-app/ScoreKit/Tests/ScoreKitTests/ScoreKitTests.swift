@@ -28,15 +28,76 @@ final class ScoreKitTests: XCTestCase {
         XCTAssertTrue(s.readiness.reason!.contains("content categories covered"))
     }
 
+    /// The desktop's published held-out eval as of 2026-07-04 (docs/release-proof/eval/
+    /// performance-heldout.txt) — the same numbers bundled into the app as performance-heldout.json.
+    func heldOut() -> HeldOutEval {
+        HeldOutEval(n: 24, accuracy: 0.7083, wrongRate: 0.2917, range: 0.5417...0.8333,
+                    baselineAccuracy: 0.5417,
+                    source: "docs/release-proof/eval/performance-heldout.txt")
+    }
+
     func testReadinessAvailableAtExactFloor() {
         // exactly 1000 reviews + 24/31 = 77.4% -> available (>= comparisons, not >)
         let cats = (0..<31).map { "cat\($0)" }
         var topics = (0..<24).map { topic("cat\($0)", graded: 41) } // 24 * 41 = 984
         topics[0] = topic("cat0", graded: 57)                       // 984 - 41 + 57 = 1000
+        let s = ScoreKit.threeScores(topics: topics, contentCategoryPaths: Set(cats),
+                                     heldOutEval: heldOut())
+        XCTAssertTrue(s.readiness.available)
+        // W3.6 mirror (scores/readiness.py): gate open now emits the documented 472-528 map of the
+        // MEASURED held-out accuracy — a point + range on the real scale, never invented.
+        XCTAssertNotNil(s.readiness.point)
+        XCTAssertTrue((472.0...528.0).contains(s.readiness.point!))
+        XCTAssertTrue(s.readiness.range!.contains(s.readiness.point!))
+        XCTAssertEqual(s.readiness.confidence, "low") // 24/31 = 77.4% coverage < 90%
+        XCTAssertTrue(s.readiness.note!.contains("UNVALIDATED"))
+    }
+
+    func testReadinessGateOpenWithoutEvalStillHonest() {
+        // no bundled eval -> desktop's documented default map (acc 0.5), explicitly labeled
+        let cats = (0..<31).map { "cat\($0)" }
+        let topics = cats.map { topic($0, graded: 40) } // 1240 reviews, 31/31 covered
         let s = ScoreKit.threeScores(topics: topics, contentCategoryPaths: Set(cats))
         XCTAssertTrue(s.readiness.available)
-        // Available, but STILL no fabricated point (honesty rule).
-        XCTAssertNil(s.readiness.point)
+        XCTAssertEqual(s.readiness.point!, 500, accuracy: 0.5) // (118 + 14*0.5) * 4 = 500
+        XCTAssertTrue(s.readiness.evidence!.contains("documented default"))
+        XCTAssertEqual(s.readiness.confidence, "moderate") // full coverage >= 90%
+    }
+
+    // ---- the 472-528 map (scores/readiness.py mirror; same cases as test_readiness.py)
+    func testMapToScaleBounds() {
+        XCTAssertEqual(ScoreKit.mapToScale(acc: 1.0, accRange: 1.0...1.0, coverage: 1.0).point, 528)
+        XCTAssertEqual(ScoreKit.mapToScale(acc: 0.0, accRange: 0.0...0.0, coverage: 1.0).point, 472)
+        let m = ScoreKit.mapToScale(acc: 0.5, accRange: 0.4...0.6, coverage: 1.0)
+        XCTAssertTrue((472.0...528.0).contains(m.point))
+        XCTAssertTrue(m.range.contains(m.point))
+        // lower coverage widens the band, never moves the point
+        let wide = ScoreKit.mapToScale(acc: 0.5, accRange: 0.4...0.6, coverage: 0.75)
+        XCTAssertEqual(wide.point, m.point)
+        XCTAssertTrue(wide.range.lowerBound < m.range.lowerBound)
+        XCTAssertTrue(wide.range.upperBound > m.range.upperBound)
+    }
+
+    // ---- performance from the desktop's held-out eval artifact
+    func testPerformanceSurfacesDesktopHeldOutEval() {
+        let s = ScoreKit.threeScores(topics: [topic("a", graded: 30)], contentCategoryPaths: ["a"],
+                                     heldOutEval: heldOut())
+        XCTAssertTrue(s.performance.available)
+        XCTAssertEqual(s.performance.point!, 0.7083, accuracy: 0.0001)
+        XCTAssertEqual(s.performance.range!.lowerBound, 0.5417, accuracy: 0.0001)
+        XCTAssertEqual(s.performance.range!.upperBound, 0.8333, accuracy: 0.0001)
+        XCTAssertTrue(s.performance.evidence!.contains("computed on desktop"))
+        XCTAssertTrue(s.performance.evidence!.contains("baseline"))
+    }
+
+    func testPerformanceAbstainsWhenHeldOutSetTooSmall() {
+        // an eval under the 20-item floor is refused, not surfaced (give-up rule)
+        let tiny = HeldOutEval(n: 12, accuracy: 0.9, wrongRate: 0.1, range: 0.7...1.0,
+                               baselineAccuracy: 0.5, source: "test")
+        let s = ScoreKit.threeScores(topics: [topic("a", graded: 30)], contentCategoryPaths: ["a"],
+                                     heldOutEval: tiny)
+        XCTAssertFalse(s.performance.available)
+        XCTAssertTrue(s.performance.reason!.contains("only 12 items"))
     }
 
     func testMemoryAlwaysShowsWithRangeAndConfidence() {

@@ -1,16 +1,16 @@
 // Copyright: Ankitects Pty Ltd and contributors
 // License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
 
-// charged_up: a DEV-ONLY floating panel to skip the first-run flow (intro cinematic → Garden
-// Tour → action tutorial → placement test) while iterating on the garden. It is NOT shipped:
-// the shell mounts it only when devToolsEnabled() is true (the Vite dev server, or an explicit
+// charged_up: a DEV-ONLY floating panel to skip the first-run flow (action tutorial →
+// placement test) while iterating on the garden. It is NOT shipped: the shell
+// mounts it only when devToolsEnabled() is true (the Vite dev server, or an explicit
 // `?dev` opt-in that is sticky across reloads and cleared by `?dev=0`). A clean public build —
 // no query param, no flag — never renders it, so the honest onboarding stands untouched.
 //
 // Every action persists through the SAME additive sidecar bridge the store uses (awaited, so
-// the write lands before we reload) and the intro's localStorage seen-flag, then reloads the
-// page so the whole app re-derives its state from that persisted truth — no stale React state.
-// The skips only flip GATES; they never fabricate mastery (see dev-actions.ts).
+// the write lands before we reload), then reloads the page so the whole app re-derives its
+// state from that persisted truth — no stale React state. The skips only flip GATES; they
+// never fabricate mastery (see dev-actions.ts).
 import React, { useCallback, useEffect, useState } from "react";
 
 import { httpTransport } from "../state/store";
@@ -19,15 +19,10 @@ import {
     type SidecarWrite,
     skipAllWrites,
     skippedPlacement,
-    skippedTour,
     skippedTutorial,
 } from "./dev-actions";
-import { introAvailable, introPending, markIntroSeen, resetIntroSeen } from "./IntroVideo";
 
 const DEV_FLAG_KEY = "garden.devTools";
-
-/** What the intro's localStorage seen-flag should become as part of an action. */
-type IntroAction = "seen" | "reset" | "none";
 
 /** Resolve ONCE at module load (URL/flag can't change without a reload anyway) so the render
  * path stays side-effect free. On in dev; opt-in elsewhere via a sticky `?dev` query param. */
@@ -64,7 +59,6 @@ function resolveDevToolsEnabled(): boolean {
 export const DEV_TOOLS_ENABLED = resolveDevToolsEnabled();
 
 interface OnboardingStatus {
-    tourDone: boolean;
     tutorialDone: boolean;
     placementDone: boolean;
 }
@@ -127,14 +121,6 @@ function dot(done: boolean): string {
     return done ? "✅" : "▫️";
 }
 
-/** Whether the cinematic will replay on next boot — needs a staged video to mean anything. */
-function introLabel(): string {
-    if (!introAvailable()) {
-        return "no video";
-    }
-    return introPending() ? "will play" : "seen";
-}
-
 export function DevPanel(): React.ReactElement | null {
     const [open, setOpen] = useState(false);
     const [busy, setBusy] = useState<string>("");
@@ -150,7 +136,6 @@ export function DevPanel(): React.ReactElement | null {
                 const doc = await httpTransport.get();
                 if (!cancelled) {
                     setStatus({
-                        tourDone: Boolean(doc.tour?.done),
                         tutorialDone: Boolean(doc.tutorial?.done),
                         placementDone: Boolean(doc.placement?.done),
                     });
@@ -166,9 +151,9 @@ export function DevPanel(): React.ReactElement | null {
         };
     }, [open]);
 
-    /** Persist the writes (awaited), set the intro flag, then reload to re-derive from truth. */
+    /** Persist the writes (awaited), then reload to re-derive from truth. */
     const apply = useCallback(
-        async (label: string, writes: SidecarWrite[], intro: IntroAction): Promise<void> => {
+        async (label: string, writes: SidecarWrite[]): Promise<void> => {
             if (busy) {
                 return;
             }
@@ -176,11 +161,6 @@ export function DevPanel(): React.ReactElement | null {
             try {
                 for (const w of writes) {
                     await httpTransport.set(w.key, w.doc);
-                }
-                if (intro === "seen") {
-                    markIntroSeen();
-                } else if (intro === "reset") {
-                    resetIntroSeen();
                 }
             } catch (err) {
                 // A dev tool: surface the failure, don't crash the garden.
@@ -230,7 +210,7 @@ export function DevPanel(): React.ReactElement | null {
                     type="button"
                     style={primaryBtnStyle}
                     disabled={Boolean(busy)}
-                    onClick={() => void apply("all", skipAllWrites(Date.now()), "seen")}
+                    onClick={() => void apply("all", skipAllWrites(Date.now()))}
                 >
                     ⏭ Skip everything
                 </button>
@@ -238,7 +218,7 @@ export function DevPanel(): React.ReactElement | null {
                     type="button"
                     style={primaryBtnStyle}
                     disabled={Boolean(busy)}
-                    onClick={() => void apply("reset", resetOnboardingWrites(), "reset")}
+                    onClick={() => void apply("reset", resetOnboardingWrites())}
                 >
                     ↺ Reset onboarding (replay)
                 </button>
@@ -249,23 +229,7 @@ export function DevPanel(): React.ReactElement | null {
                     type="button"
                     style={btnStyle}
                     disabled={Boolean(busy)}
-                    onClick={() => void apply("intro", [], "seen")}
-                >
-                    Skip intro <span style={{ opacity: 0.6 }}>· {introLabel()}</span>
-                </button>
-                <button
-                    type="button"
-                    style={btnStyle}
-                    disabled={Boolean(busy)}
-                    onClick={() => void apply("tour", [{ key: "tour", doc: skippedTour() }], "none")}
-                >
-                    Skip tour {status ? dot(status.tourDone) : ""}
-                </button>
-                <button
-                    type="button"
-                    style={btnStyle}
-                    disabled={Boolean(busy)}
-                    onClick={() => void apply("tutorial", [{ key: "tutorial", doc: skippedTutorial() }], "none")}
+                    onClick={() => void apply("tutorial", [{ key: "tutorial", doc: skippedTutorial() }])}
                 >
                     Skip tutorial {status ? dot(status.tutorialDone) : ""}
                 </button>
@@ -277,7 +241,6 @@ export function DevPanel(): React.ReactElement | null {
                         void apply(
                             "placement",
                             [{ key: "placement", doc: skippedPlacement(Date.now()) }],
-                            "none",
                         )}
                 >
                     Skip placement {status ? dot(status.placementDone) : ""}

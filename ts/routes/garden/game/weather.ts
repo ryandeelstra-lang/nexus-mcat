@@ -6,7 +6,7 @@
 // snows, all over the camera (scrollFactor 0). Never touches clouds or the sky tint.
 // Deterministic like the critters: everything derives from the scene clock + per-particle
 // seeds, no runtime RNG, so the world stays reproducible.
-import Phaser from "phaser";
+import type Phaser from "phaser";
 
 type WeatherKind = "rain" | "snow";
 

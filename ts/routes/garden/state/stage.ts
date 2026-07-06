@@ -17,7 +17,6 @@ export type GrowthStage =
     | "bloomed"
     | "flourishing"
     | "radiant"
-    | "drooping"
     | "weedy";
 
 /** Stage order for sprite lookup + tests (indices match the sliced stage sheet filenames). */
@@ -30,7 +29,6 @@ export const STAGE_ORDER: readonly GrowthStage[] = [
     "bloomed",
     "flourishing",
     "radiant",
-    "drooping",
     "weedy",
 ];
 
@@ -69,16 +67,18 @@ export const RADIANT_RECALL = 0.97;
 export const RADIANT_REVIEWS = 24;
 
 /**
- * Map engine truth onto the 10 visual stages (doc 23 §8; ladder extended 2026-07-03).
+ * Map engine truth onto the 9 visual stages (doc 23 §8; ladder extended 2026-07-03;
+ * wilting/drooping removed 2026-07-05 — plants never wilt).
  *
- * Precedence (highest first): weedy > drooping > radiant > flourishing > bloomed
- * > budding > growing > seedling > sprout > bare-soil. Weeds/droop are *care states* —
- * they must stay visible even on strong topics, or the "knowledge fades / misses become
- * assignments" loop disappears. The whole bloomed tier survives droop-precedence only
- * when nothing is due and no weed is active, which is exactly "the garden only stays
- * lit through real upkeep." The post-bloom tiers (flourishing, radiant) still require
- * the paraphrase pass (I3) — they are earned by *keeping* a bloomed topic strong, so
- * every input stays engine-derived (I4).
+ * Precedence (highest first): weedy > radiant > flourishing > bloomed > budding
+ * > growing > seedling > sprout > bare-soil. `weedy` is the one remaining *care
+ * state* (the error-cause mechanism, doc 18) and outranks the growth ladder; due
+ * cards no longer pull a plant down a "drooping" state — a plant simply shows the
+ * stage its memory has earned. The post-bloom tiers (flourishing, radiant) still
+ * require the paraphrase pass (I3) — they are earned by *keeping* a bloomed topic
+ * strong, so every input stays engine-derived (I4). A topic with cards but zero
+ * graded reviews collapses to "bare-soil" (invisible) rather than "sprout" — nothing
+ * has been earned yet, so nothing renders (2026-07-05).
  */
 export function stageFor(inputs: StageInputs): GrowthStage {
     const { topic, paraphrasePassed, hasActiveWeed } = inputs;
@@ -88,9 +88,6 @@ export function stageFor(inputs: StageInputs): GrowthStage {
     }
     if (hasActiveWeed) {
         return "weedy";
-    }
-    if (topic.dueCount > 0) {
-        return "drooping";
     }
     if (topic.averageRecall >= STRONG_MEMORY) {
         if (!paraphrasePassed) {
@@ -114,8 +111,11 @@ export function stageFor(inputs: StageInputs): GrowthStage {
         return "seedling";
     }
     // Cards have FSRS state but no graded review rows yet (e.g. freshly imported deck
-    // with scheduling): the seed is in the ground.
-    return "sprout";
+    // with scheduling): nothing has been earned yet, so the plot stays invisible —
+    // same as a topic with no cards at all (2026-07-05: the dirt-hole sprout sprite
+    // was the "used to be wilting" spot; removed rather than replacing one eyesore
+    // with another).
+    return "bare-soil";
 }
 
 /** Region rollup: card-weighted mean recall across a region's topics. */

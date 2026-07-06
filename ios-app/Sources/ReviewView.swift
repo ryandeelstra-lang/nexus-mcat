@@ -1,9 +1,9 @@
 // Copyright: Ankitects Pty Ltd and contributors
 // License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
 
-// The watering-can loop. A question appears; you think, reveal, and say how it went. Each answer is
-// a REAL graded review on the shared engine (answer_card) — and it pours one drop into the can and
-// waters that topic's plant. This is intentionally NOT flashcard chrome: it's "tend the garden."
+// The phone's single screen: a big drops count up top, a normal Anki flashcard below. Each answer
+// is a REAL graded review on the shared engine (answer_card) and earns one drop; the garden itself
+// is tended on the computer — the phone only gathers drops and syncs them home.
 import SwiftUI
 
 struct ReviewView: View {
@@ -15,33 +15,104 @@ struct ReviewView: View {
     @State private var back = ""
     @State private var revealed = false
     @State private var shownAt = Date()
-    @State private var pouring = false
+    @State private var earned = false
     @State private var loading = true
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 20) {
-                if !model.booted || loading {
-                    ProgressView("Finding what needs water…")
+            VStack(spacing: 16) {
+                dropsHeader
+                Divider()
+                if let err = model.bootError {
+                    ContentUnavailableView("Couldn't open the deck",
+                                           systemImage: "exclamationmark.triangle",
+                                           description: Text(err))
+                } else if !model.booted || loading {
+                    Spacer()
+                    ProgressView("Loading cards…")
+                    Spacer()
                 } else if let card {
-                    questionCard(card)
+                    flashcard(card)
                 } else {
-                    watered
+                    caughtUp
                 }
             }
             .padding()
-            .navigationTitle("Tend the Garden")
-            .overlay(alignment: .top) { if pouring { drop } }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        Task { await model.sync() }
+                    } label: {
+                        if model.syncing { ProgressView() }
+                        else { Label("Sync", systemImage: "arrow.triangle.2.circlepath") }
+                    }
+                    .disabled(model.syncing)
+                }
+            }
+            .safeAreaInset(edge: .bottom) {
+                Text(model.syncStatus)
+                    .font(.caption).foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity)
+                    .padding(6)
+                    .background(.ultraThinMaterial)
+            }
         }
         // Wait for the engine to finish opening before asking for a card (avoids a boot race that
-        // would otherwise show "watered" before the deck is loaded).
+        // would otherwise show "caught up" before the deck is loaded).
         .task(id: model.booted) { if model.booted { await advance() } }
+        // DEV/DEMO ONLY (KG_DEMO_AUTOPLAY=N, never set in shipping builds): step the REAL review
+        // UI through N cards — reveal, then Good — via the same answer() path a finger tap uses,
+        // then sync, so a screen recording shows genuine card-by-card reviews earning drops.
+        .task(id: model.booted) { if model.booted { await autoplayIfRequested() } }
     }
 
-    // MARK: states
+    private func autoplayIfRequested() async {
+        guard let raw = ProcessInfo.processInfo.environment["KG_DEMO_AUTOPLAY"],
+              let n = Int(raw), n > 0 else { return }
+        for _ in 0..<n {
+            // wait for the next card to be on screen (bounded: 20s per card)
+            var waited = 0
+            while (loading || card == nil) && waited < 200 {
+                try? await Task.sleep(nanoseconds: 100_000_000)
+                waited += 1
+            }
+            guard card != nil else { break }
+            withAnimation { revealed = true }
+            try? await Task.sleep(nanoseconds: 900_000_000)
+            await answer(.good)
+            try? await Task.sleep(nanoseconds: 400_000_000)
+        }
+        await model.sync()
+    }
 
-    private func questionCard(_ card: Anki_Scheduler_QueuedCards.QueuedCard) -> some View {
-        VStack(spacing: 18) {
+    // MARK: the drops counter
+
+    private var dropsHeader: some View {
+        VStack(spacing: 6) {
+            HStack(alignment: .firstTextBaseline, spacing: 10) {
+                Image(systemName: "drop.fill")
+                    .font(.system(size: 38)).foregroundStyle(.cyan)
+                Text("\(model.drops)")
+                    .font(.system(size: 60, weight: .bold, design: .rounded))
+                    .monospacedDigit()
+                    .contentTransition(.numericText())
+                if earned {
+                    Text("+1")
+                        .font(.title3.bold()).foregroundStyle(.cyan)
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
+            }
+            Text("drops gathered").font(.headline).foregroundStyle(.secondary)
+            Text("Every card you answer earns a drop. Tend your garden on your computer.")
+                .font(.caption).foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+        }
+    }
+
+    // MARK: the flashcard
+
+    private func flashcard(_ card: Anki_Scheduler_QueuedCards.QueuedCard) -> some View {
+        VStack(spacing: 16) {
             Text(shortTopic(deckName)).font(.caption).foregroundStyle(.secondary)
 
             ScrollView {
@@ -59,12 +130,12 @@ struct ReviewView: View {
                 }
             }
             .frame(maxHeight: .infinity)
+            .background(RoundedRectangle(cornerRadius: 16).fill(Color(.secondarySystemBackground)))
 
             if revealed {
-                Text("How well did it grow?").font(.subheadline).foregroundStyle(.secondary)
                 HStack(spacing: 10) {
-                    grade("Forgot", .again, .red)
-                    grade("Tough", .hard, .orange)
+                    grade("Again", .again, .red)
+                    grade("Hard", .hard, .orange)
                     grade("Good", .good, .green)
                     grade("Easy", .easy, .blue)
                 }
@@ -72,7 +143,7 @@ struct ReviewView: View {
                 Button {
                     withAnimation { revealed = true }
                 } label: {
-                    Label("Reveal", systemImage: "eye")
+                    Label("Show Answer", systemImage: "eye")
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.borderedProminent)
@@ -81,10 +152,11 @@ struct ReviewView: View {
         }
     }
 
-    private var watered: some View {
+    private var caughtUp: some View {
         VStack(spacing: 12) {
+            Spacer()
             Text("\u{1F4A7}").font(.system(size: 60))
-            Text("Your garden is watered for now.")
+            Text("All caught up.")
                 .font(.title3)
             Text("Come back when more cards are due, or Sync to pull the shared deck.")
                 .font(.callout).foregroundStyle(.secondary).multilineTextAlignment(.center)
@@ -94,13 +166,8 @@ struct ReviewView: View {
                 Label("Sync", systemImage: "arrow.triangle.2.circlepath")
             }
             .buttonStyle(.bordered)
+            Spacer()
         }
-    }
-
-    private var drop: some View {
-        Image(systemName: "drop.fill")
-            .font(.system(size: 34)).foregroundStyle(.cyan)
-            .transition(.move(edge: .top).combined(with: .opacity))
     }
 
     private func grade(_ label: String, _ rating: Anki_Scheduler_CardAnswer.Rating,
@@ -115,7 +182,6 @@ struct ReviewView: View {
     private func answer(_ rating: Anki_Scheduler_CardAnswer.Rating) async {
         guard let card else { return }
         let ms = UInt32(min(60_000, max(1, Date().timeIntervalSince(shownAt) * 1000)))
-        let topic = deckName
         do {
             try await Task.detached(priority: .userInitiated) {
                 try AnkiEngine.shared.answer(card, rating: rating, msTaken: ms)
@@ -124,10 +190,10 @@ struct ReviewView: View {
             // A failed write must not silently drop the review; surface and stop.
             return
         }
-        withAnimation { pouring = true }
-        await model.water(topic: topic)              // one drop + re-read engine truth
+        withAnimation { earned = true }
+        await model.water()                          // one drop + re-read engine truth
         try? await Task.sleep(nanoseconds: 350_000_000)
-        withAnimation { pouring = false }
+        withAnimation { earned = false }
         await advance()
     }
 
@@ -152,7 +218,7 @@ struct ReviewView: View {
         loading = false
     }
 
-    /// The card's deck resolved to its taxonomy topic name (for the "last watered" line + header).
+    /// The card's deck resolved to its taxonomy topic name (for the header caption).
     private func deckNameFor(_ c: Anki_Scheduler_QueuedCards.QueuedCard) -> String {
         let did = c.card.deckID
         return model.topics.first { $0.deckID == did }?.deckName ?? "MCAT"

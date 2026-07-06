@@ -90,7 +90,9 @@ describe("I3 at the stage layer — a wrong answer can never render a bloom", ()
         expect(stage).toBe("budding");
     });
 
-    it("a just-failed card (due again) droops — it never advances toward bloom", () => {
+    it("a just-failed card (due again) never advances toward bloom — the gate still holds", () => {
+        // Wilting removed 2026-07-05: a due card no longer droops. Without the paraphrase
+        // pass (I3) it caps at "budding" — strong memory alone never reaches "bloomed".
         const stage = stageFor({
             topic: {
                 totalCards: 10,
@@ -102,6 +104,7 @@ describe("I3 at the stage layer — a wrong answer can never render a bloom", ()
             paraphrasePassed: false,
             hasActiveWeed: false,
         });
-        expect(stage).toBe("drooping");
+        expect(stage).toBe("budding");
+        expect(stage).not.toBe("bloomed");
     });
 });

@@ -33,9 +33,11 @@ import {
     type IslandPlan,
     paintIsland,
 } from "../island";
+import { OvergrowthLayer, type OvergrowthPlotInput } from "../overgrowth";
 import { sectorFor } from "../sectors/index";
 import { buildTerrainModel, paintGround, planDecor, terrainKindAt, type TerrainModel } from "../terrain";
 import { WeatherLayer } from "../weather";
+import { applyWilt } from "../wilt";
 import {
     buildWorldPlan,
     CENTER_PLAZA,
@@ -227,6 +229,8 @@ export class WorldScene extends Phaser.Scene {
     private reducedMotion = false;
     private panelOpen = false;
     private mapOpen = false;
+    /** A mastery:refreshed landed while a panel was open — three-tier reveal: restage on close, not now. */
+    private restagePending = false;
 
     private terrain: TerrainModel | null = null;
     private plants = new Map<string, PlantObject>();
@@ -273,6 +277,8 @@ export class WorldScene extends Phaser.Scene {
     private trialStones = new Map<string, Phaser.GameObjects.Image>();
     /** Ambient screen-effect weather (rain streaks / snow flecks; no clouds). */
     private weather: WeatherLayer | null = null;
+    /** Absence-neglect ground layer: tufts creep around overdue plots (living decay). */
+    private overgrowth: OvergrowthLayer | null = null;
     private critters: Array<{
         sprite: Phaser.GameObjects.Arc;
         kind: "shadowLoop" | "moteDrift";
@@ -370,6 +376,8 @@ export class WorldScene extends Phaser.Scene {
         this.setupSky();
         this.setupFog();
         this.weather = new WeatherLayer(this, this.reducedMotion);
+        this.overgrowth = new OvergrowthLayer(this, this.reducedMotion);
+        this.syncOvergrowth();
         this.setupBus();
         this.updateTendMarker();
 
@@ -432,6 +440,8 @@ export class WorldScene extends Phaser.Scene {
         this.flora = null;
         this.weather?.destroy();
         this.weather = null;
+        this.overgrowth?.destroy();
+        this.overgrowth = null;
     }
 
     /** Map overlay reads avatar position. */
@@ -508,8 +518,25 @@ export class WorldScene extends Phaser.Scene {
     }
 
     update(time: number, delta: number): void {
+        const wasPanelOpen = this.panelOpen;
         this.panelOpen = this.registry.get("panelOpen") as boolean ?? false;
+        // A background decay/mastery refresh resolved while a panel was up (async RPC
+        // race — the pure decay-refresh gate only guards WHEN it fires, not when its
+        // promise resolves): flush the deferred restage on the open→false edge so the
+        // world never visually re-stages mid-card (three-tier reveal, doc 17).
+        if (wasPanelOpen && !this.panelOpen && this.restagePending) {
+            this.restagePending = false;
+            this.restagePlants();
+            this.syncOvergrowth();
+        }
         this.flags = this.registry.get("gardenFlags") as GardenFlags ?? this.flags;
+        // Self-heal a mistakenly-latched shroud: if truthful flags land AFTER create()
+        // booted the fog, lift it here — placement:completed can never re-fire for a
+        // done placement (the Keeper opens the normal panel), so without this the mist
+        // plus the plaza leash is a permanent softlock.
+        if (this.fogActive && this.flags.placementDone) {
+            this.liftFog();
+        }
 
         this.moveAvatar(delta);
         this.updateInteractPrompt();
@@ -706,6 +733,27 @@ export class WorldScene extends Phaser.Scene {
             plant.sprite.setVisible(stage !== "bare-soil");
         }
         this.updateTendMarker();
+    }
+
+    /** Recompute the neglect layer from engine truth (boot + every mastery:refreshed). */
+    private syncOvergrowth(): void {
+        if (!this.overgrowth) {
+            return;
+        }
+        const daysAway = this.registry.get("daysAway") as number ?? 0;
+        const items: OvergrowthPlotInput[] = [];
+        for (const r of this.plan.regions) {
+            for (const spot of r.plants) {
+                items.push({
+                    nodeId: spot.nodeId,
+                    tileX: spot.tileX,
+                    tileY: spot.tileY,
+                    stage: this.stageByNode.get(spot.nodeId) ?? "bare-soil",
+                    dueCount: this.topicForNode(spot.nodeId)?.dueCount ?? 0,
+                });
+            }
+        }
+        this.overgrowth.sync(items, daysAway);
     }
 
     private spawnAvatar(): void {
@@ -1346,8 +1394,10 @@ export class WorldScene extends Phaser.Scene {
                 break;
             case "trial":
                 if (this.nearTrialSection) {
-                    // The stone's blessing: a brief screen-space shower over the garden.
-                    this.weather?.rainBurst();
+                    // The stone opens that section's trial (a short MCQ exam). The panel
+                    // layer runs the questions and pays the water reward; the world answers
+                    // that payout with rain (see "trial:rewarded" in setupBus).
+                    this.bus.emit("trial:interact", { section: this.nearTrialSection });
                 }
                 break;
             case "island-return":
@@ -1708,7 +1758,15 @@ export class WorldScene extends Phaser.Scene {
         this.unsubscribers.push(
             this.bus.on("mastery:refreshed", () => {
                 this.snapshot = this.registry.get("masterySnapshot") as MasterySnapshot;
+                if (this.panelOpen) {
+                    // Defer the visual restage — a panel/review card is up right now
+                    // (three-tier reveal: never pop a plant mid-card). Flushed in update()
+                    // on the open→false edge.
+                    this.restagePending = true;
+                    return;
+                }
                 this.restagePlants();
+                this.syncOvergrowth();
             }),
             this.bus.on("plant:watered", ({ nodeId }) => this.fxWatered(nodeId)),
             this.bus.on("growth:tick", ({ nodeId, fast }) => this.fxGrowthTick(nodeId, fast)),
@@ -1719,6 +1777,9 @@ export class WorldScene extends Phaser.Scene {
             }),
             this.bus.on("flora:water", ({ aimTileX, aimTileY }) => this.onFloraWater(aimTileX, aimTileY)),
             this.bus.on("placement:completed", () => this.liftFog()),
+            // A stone trial paid out — reward the garden with a shower of rain (the
+            // reward is credited by the panel layer; this is only the cosmetic answer).
+            this.bus.on("trial:rewarded", () => this.weather?.rainBurst()),
             this.bus.on("island:enter", ({ stats }) => this.enterIsland(stats)),
             this.bus.on("island:exit", () => this.exitIsland()),
         );

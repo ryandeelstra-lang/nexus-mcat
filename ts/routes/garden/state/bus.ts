@@ -42,6 +42,13 @@ export interface GardenEvents {
     "plant:bloomed": { nodeId: string };
     /** The player interacted with the Keeper — open the review panel. */
     "keeper:interact": Record<string, never>;
+    /** The player walked up to a sector stone and pressed interact — open that section's
+     *  trial: a short multiple-choice exam drawn from the open MCQ bank. `section` is one
+     *  of the four garden ids (P-S / B-B / C-P / CARS). */
+    "trial:interact": { section: string };
+    /** A stone trial paid out — the world answers with a reward shower over the garden
+     *  (the "reward them with a bunch of water" beat). `water` is the amount granted. */
+    "trial:rewarded": { water: number };
     /** The player walked up to a landmark/prop and pressed interact — a Keeper-voiced flavor
      *  line tied to the geography (the "items interact with each character" beat). */
     "world:flavor": { title: string; line: string };
@@ -74,8 +81,6 @@ export interface GardenEvents {
      *  gates hotkeys + Phaser key-capture on it (never pair open/close events — a
      *  swapped overlay skips the close event and softlocks the world). */
     "ui:overlay": { open: boolean };
-    /** Replay the first-run cinematic (from the help panel). */
-    "intro:replay": Record<string, never>;
     /** Super Depth Analysis: teleport to the Overlook with a freshly assembled stats
      *  snapshot (the panel layer owns the fetch; the world owns the island). */
     "island:enter": { stats: DepthStats };

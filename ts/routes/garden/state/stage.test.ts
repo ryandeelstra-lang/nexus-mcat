@@ -38,8 +38,8 @@ function inputs(over: {
     };
 }
 
-describe("stageFor — the 10 stages (doc 23 §8)", () => {
-    it("the ladder is exactly 10 stages, in sprite-sheet order", () => {
+describe("stageFor — the 9 stages (doc 23 §8; wilting removed 2026-07-05)", () => {
+    it("the ladder is exactly 9 stages, in sprite-sheet order", () => {
         expect(STAGE_ORDER).toEqual([
             "bare-soil",
             "sprout",
@@ -49,7 +49,6 @@ describe("stageFor — the 10 stages (doc 23 §8)", () => {
             "bloomed",
             "flourishing",
             "radiant",
-            "drooping",
             "weedy",
         ]);
     });
@@ -58,8 +57,8 @@ describe("stageFor — the 10 stages (doc 23 §8)", () => {
         expect(stageFor(inputs({}))).toBe("bare-soil");
     });
 
-    it("sprout: FSRS state exists but no graded review yet", () => {
-        expect(stageFor(inputs({ cardsWithState: 3 }))).toBe("sprout");
+    it("bare-soil: FSRS state exists but no graded review yet (nothing earned, nothing renders)", () => {
+        expect(stageFor(inputs({ cardsWithState: 3 }))).toBe("bare-soil");
     });
 
     it("seedling: reviews logged, recall still low", () => {
@@ -119,7 +118,7 @@ describe("stageFor — the 10 stages (doc 23 §8)", () => {
         ).toBe("radiant");
     });
 
-    it("drooping: due cards override bloom — knowledge fades without upkeep", () => {
+    it("no wilting: due cards no longer pull a bloom down — the plant holds its bloom", () => {
         expect(
             stageFor(
                 inputs({
@@ -130,7 +129,7 @@ describe("stageFor — the 10 stages (doc 23 §8)", () => {
                     dueCount: 2,
                 }),
             ),
-        ).toBe("drooping");
+        ).toBe("bloomed");
     });
 
     it("weedy: an active error-cause weed outranks everything but bare soil", () => {
@@ -219,7 +218,7 @@ describe("stageFor — boundaries + integrity", () => {
         ).toBe("flourishing");
     });
 
-    it("care states outrank the pinnacle: a due card droops even a radiant plant", () => {
+    it("no wilting: due cards never pull down the pinnacle — a radiant plant stays radiant", () => {
         expect(
             stageFor(
                 inputs({
@@ -230,7 +229,7 @@ describe("stageFor — boundaries + integrity", () => {
                     dueCount: 1,
                 }),
             ),
-        ).toBe("drooping");
+        ).toBe("radiant");
     });
 
     it("bare soil stays bare even with a weed flag (nothing planted to weed)", () => {

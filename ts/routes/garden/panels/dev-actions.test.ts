@@ -8,18 +8,10 @@
 import { describe, expect, it } from "vitest";
 
 import { emptyPlacement } from "../state/store";
-import { currentStep, TOUR_STEPS } from "../state/tour";
 import { currentBeat, TUTORIAL_BEATS } from "../state/tutorial";
-import { resetOnboardingWrites, skipAllWrites, skippedPlacement, skippedTour, skippedTutorial } from "./dev-actions";
+import { resetOnboardingWrites, skipAllWrites, skippedPlacement, skippedTutorial } from "./dev-actions";
 
 describe("dev skip-onboarding descriptors", () => {
-    it("skipped tour is genuinely finished and renders nothing", () => {
-        const tour = skippedTour();
-        expect(tour.done).toBe(true);
-        expect(tour.step).toBe(TOUR_STEPS.length);
-        expect(currentStep(tour)).toBeNull();
-    });
-
     it("skipped tutorial is genuinely complete and has no active beat", () => {
         const tut = skippedTutorial();
         expect(tut.done).toBe(true);
@@ -38,16 +30,15 @@ describe("dev skip-onboarding descriptors", () => {
         expect(placement.intake).toEqual(emptyPlacement().intake);
     });
 
-    it("skip-all writes exactly the three onboarding gates, all done", () => {
+    it("skip-all writes exactly the two onboarding gates, all done", () => {
         const writes = skipAllWrites(7);
-        expect(writes.map((w) => w.key)).toEqual(["tour", "tutorial", "placement"]);
+        expect(writes.map((w) => w.key)).toEqual(["tutorial", "placement"]);
         expect(writes.every((w) => (w.doc as { done: boolean }).done)).toBe(true);
     });
 
     it("reset writes drop every gate back to its untouched first-run value", () => {
         const writes = resetOnboardingWrites();
         const byKey = Object.fromEntries(writes.map((w) => [w.key, w.doc]));
-        expect(byKey.tour).toEqual({ step: 0, done: false });
         expect(byKey.tutorial).toEqual({ beat: 0, done: false });
         // Deep-equals a brand-new placement: reset must leave nothing of a prior run behind.
         expect(byKey.placement).toEqual(emptyPlacement());

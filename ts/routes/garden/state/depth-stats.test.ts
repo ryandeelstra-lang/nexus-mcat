@@ -7,15 +7,16 @@
 // and "—" (never a fabricated number) when a source is missing.
 import { describe, expect, it } from "vitest";
 
-import type { TopicMastery } from "./mastery";
 import {
     assembleDepthStats,
     CONCEPT_FLOOR_CARDS,
+    daysSinceLastActivity,
     DEPTH_STAT_ORDER,
     metricPoint,
     retentionFraction,
     studyStreakDays,
 } from "./depth-stats";
+import type { TopicMastery } from "./mastery";
 import { emptyDoc } from "./store";
 
 function mkTopic(partial: Partial<TopicMastery> & { nodeId: string }): TopicMastery {
@@ -180,6 +181,25 @@ describe("dashboard stats — point, not value", () => {
         expect(statById(stats, "readiness").detail).toContain("498");
     });
 
+    it("carries readiness confidence and the UNVALIDATED note into the Overlook detail", () => {
+        const stats = assembleDepthStats({
+            dashboard: {
+                readiness: {
+                    available: true,
+                    point: 498,
+                    range: [486, 511],
+                    confidence: "low",
+                    note: "mapping UNVALIDATED against real outcomes",
+                },
+            } as never,
+            nowMs: 1,
+        });
+        const readiness = statById(stats, "readiness");
+        expect(readiness.value).toBe("498");
+        expect(readiness.detail).toContain("Confidence: low");
+        expect(readiness.detail).toContain("UNVALIDATED");
+    });
+
     it("relays the readiness abstention with its progress numbers", () => {
         const stats = assembleDepthStats({
             dashboard: {
@@ -219,5 +239,21 @@ describe("sidecar stats", () => {
         expect(garden.value).toBe("2");
         expect(garden.detail).toContain("5 pours");
         expect(garden.detail).toContain("42 water");
+    });
+});
+
+describe("daysSinceLastActivity — the decay clock (living-decay 2026-07-05)", () => {
+    it("zero history ⇒ 0: never-studied ≠ neglected — first open is pristine", () => {
+        expect(daysSinceLastActivity(undefined)).toBe(0);
+        expect(daysSinceLastActivity({})).toBe(0);
+    });
+    it("activity today ⇒ 0", () => {
+        expect(daysSinceLastActivity({ [-4]: { young: 3 }, 0: { young: 1 } })).toBe(0);
+    });
+    it("most recent activity 3 days back ⇒ 3", () => {
+        expect(daysSinceLastActivity({ [-7]: { mature: 2 }, [-3]: { young: 1 } })).toBe(3);
+    });
+    it("empty buckets do not count as activity", () => {
+        expect(daysSinceLastActivity({ [-1]: {}, [-5]: { young: 2 } })).toBe(5);
     });
 });

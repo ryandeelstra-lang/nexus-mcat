@@ -221,18 +221,6 @@ function drawPlantStage(g: Phaser.GameObjects.Graphics, stage: GrowthStage): voi
             g.fillCircle(w / 2 + 13, h - 40, 1.5);
             g.fillCircle(w / 2 + 2, h - 48, 1.5);
             break;
-        case "drooping":
-            g.lineStyle(3, 0x4a8f3a, 1);
-            g.beginPath();
-            // A bent-over stem: two segments approximate the droop curve (Phaser's
-            // Graphics path API has no quadratic bezier).
-            g.moveTo(w / 2, h - 10);
-            g.lineTo(w / 2 + 10, h - 22);
-            g.lineTo(w / 2 + 14, h - 8);
-            g.strokePath();
-            g.fillStyle(0x5cb848, 1);
-            g.fillEllipse(w / 2 + 10, h - 10, 8, 5);
-            break;
         case "weedy":
             g.fillStyle(0x3d7a32, 1);
             g.fillCircle(w / 2, h - 20, 10);
@@ -473,7 +461,6 @@ const STAGE_HEIGHT_TILES: Record<GrowthStage, number> = {
     "bloomed": 1.65,
     "flourishing": 1.85,
     "radiant": 2.1,
-    "drooping": 1.1,
     "weedy": 1.4,
 };
 

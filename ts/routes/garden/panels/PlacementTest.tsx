@@ -1,32 +1,30 @@
 // Copyright: Ankitects Pty Ltd and contributors
 // License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
 
-// charged_up: the master's placement ceremony (2026-07-03 directive). The island boots
-// under fog; the Keeper first asks a short intake (exam date, target, daily time), then
-// walks the player through twenty REAL questions spread across the four gardens (each
-// grade is that card's genuine first FSRS review — placement IS seeding the engine), and
-// closes on a "calibrating your study plan" beat while the fog lifts behind the dialogue.
+// charged_up: the master's placement ceremony (2026-07-03 directive; MCQ'd 2026-07-05 —
+// Decision 46). The island boots under fog; the Keeper first asks a short intake (exam date,
+// target, daily time), then walks the player through twenty multiple-choice questions drawn
+// from the open CC0 MCQ bank (the same one the sector-stone trials use), and closes on a
+// "calibrating your study plan" beat while the fog lifts behind the dialogue. No question
+// ever reveals correct/wrong as you answer — every pick is tallied silently and the whole
+// diagnostic surfaces only in the calibration/result beat at the end.
 // Planning/tally math lives in placement.ts (pure, tested); this file owns only the UI.
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
-import { CardAnswer_Rating } from "@generated/anki/scheduler_pb";
-
 import { assetUrl } from "../game/assets";
 import { bus } from "../state/bus";
-import type { MasterySnapshot } from "../state/mastery";
 import type { GardenStore } from "../state/store";
 import { KeeperDialogue } from "./KeeperDialogue";
+import { metaForSection } from "./mcq";
 import {
     applyOutcome,
-    buildPlacementPlan,
+    buildPlacementExam,
     daysUntil,
     formatExamDate,
     partsToIsoDate,
     sectionsByAccuracy,
     type SectionTally,
 } from "./placement";
-import { scopeToDeck } from "./rpc";
-import { StudyCard } from "./StudyCard";
 import { useTalkingReveal } from "./use-talking-reveal";
 
 type Beat =
@@ -35,15 +33,14 @@ type Beat =
     | "intake-score"
     | "intake-time"
     | "briefing"
-    | "scoping"
-    | "card"
+    | "question"
     | "calibrating"
-    | "result"
-    | "error";
+    | "result";
+
+const OPTION_LETTERS = ["A", "B", "C", "D"] as const;
 
 export interface PlacementTestProps {
     store: GardenStore;
-    snapshot: MasterySnapshot;
     /** Fired after the result beat's continue — the test is already persisted by then. */
     onDone: () => void;
 }
@@ -77,21 +74,18 @@ function masterLine(
 ): string {
     switch (beat) {
         case "intro":
-            return "Welcome, gardener. A mist sleeps over every garden on this island — "
-                + "all but this plaza. Before it parts, I must learn where you stand. "
-                + "First, a few questions about the road ahead.";
+            return "Welcome. Before the mist lifts, three quick questions.";
         case "intake-date":
-            return "When do you sit the MCAT? If the date isn't booked yet, that's honest too.";
+            return "When's your MCAT? Not booked yet is fine.";
         case "intake-score":
-            return "And what score are you reaching for?";
+            return "Target score?";
         case "intake-time":
-            return "Last one — how much time can you give this garden each day?";
+            return "Daily study time?";
         case "briefing":
             return ctx.resuming
-                ? "Ready to continue? The mist waits on your answers."
-                : `Then we begin. ${ctx.questions} questions, drawn from all four corners of `
-                    + "the island. If you know it, say so; if not, say that too — "
-                    + "nothing here is a grade. The island shapes itself to your answers.";
+                ? "Ready to continue?"
+                : `${ctx.questions} questions across all four gardens. Answer honestly — `
+                    + "this isn't graded.";
         case "calibrating":
             return "";
         case "result": {
@@ -107,12 +101,12 @@ function masterLine(
 }
 
 export function PlacementTest(props: PlacementTestProps): React.ReactElement {
-    const { store, snapshot, onDone } = props;
-    const plan = useMemo(() => buildPlacementPlan(snapshot.topics), [snapshot]);
+    const { store, onDone } = props;
+    const plan = useMemo(() => buildPlacementExam(), []);
 
     const [beat, setBeat] = useState<Beat>("intro");
     const [stepIdx, setStepIdx] = useState(0);
-    const [scopeKey, setScopeKey] = useState("placement:0");
+    const [selected, setSelected] = useState<number | null>(null);
     const [calStep, setCalStep] = useState(0);
     // The exam date is typed into plain numeric fields (month / day / year), NOT a native
     // <input type="date">: its OS picker popup can blank Anki's QtWebEngine renderer, which
@@ -130,10 +124,6 @@ export function PlacementTest(props: PlacementTestProps): React.ReactElement {
     const tally = useRef<Record<string, SectionTally>>({});
     const answered = useRef(0);
     const knew = useRef(0);
-    // One resolution per served card (the ProveIt pattern): after a grade, the StudyCard's
-    // own loadNext can still fire onEmpty for the drained scope — without this, one answer
-    // would advance the plan twice.
-    const stepResolved = useRef(false);
     const intake = useRef({
         examDateIso: null as string | null,
         targetScore: null as number | null,
@@ -157,28 +147,6 @@ export function PlacementTest(props: PlacementTestProps): React.ReactElement {
         resuming: startedOnce.current,
     });
     const reveal = useTalkingReveal(line, { resetKey: beat });
-
-    async function askQuestion(idx: number): Promise<void> {
-        if (idx >= plan.length) {
-            completeTest();
-            return;
-        }
-        setStepIdx(idx);
-        setBeat("scoping");
-        try {
-            await scopeToDeck(plan[idx].deckPath);
-            stepResolved.current = false;
-            setScopeKey(`placement:${idx}:${Date.now()}`);
-            setBeat("card");
-        } catch {
-            setBeat("error");
-        }
-    }
-
-    function beginQuestions(): void {
-        startedOnce.current = true;
-        void askQuestion(stepIdx);
-    }
 
     /** Persist + announce FIRST, then play the calibration beat while the fog lifts behind it. */
     function completeTest(): void {
@@ -218,28 +186,65 @@ export function PlacementTest(props: PlacementTestProps): React.ReactElement {
         calTimer.current = setTimeout(() => runCalibration(step + 1), 950);
     }
 
-    function onCardGraded(rating: CardAnswer_Rating): void {
-        if (stepResolved.current) {
+    function beginQuestions(): void {
+        startedOnce.current = true;
+        setSelected(null);
+        setBeat("question");
+    }
+
+    /** Record the pick silently — no correct/wrong reveal — then wait for "Next question". */
+    function choose(optIdx: number): void {
+        if (selected !== null) {
             return;
         }
-        stepResolved.current = true;
+        setSelected(optIdx);
         const step = plan[stepIdx];
-        const gotIt = rating !== CardAnswer_Rating.AGAIN;
+        const gotIt = optIdx === step.answer;
         tally.current = applyOutcome(tally.current, step.section, gotIt);
         answered.current += 1;
         if (gotIt) {
             knew.current += 1;
         }
-        void askQuestion(stepIdx + 1);
     }
 
-    function onCardEmpty(): void {
-        if (stepResolved.current) {
+    function advanceQuestion(): void {
+        if (stepIdx + 1 >= plan.length) {
+            completeTest();
             return;
         }
-        stepResolved.current = true;
-        void askQuestion(stepIdx + 1);
+        setStepIdx((i) => i + 1);
+        setSelected(null);
     }
+
+    // Keyboard: 1-4 pick an answer, Enter/Space advances once one's picked, Escape "pauses"
+    // back to the briefing (never abandons the test) — but only before a pick is recorded,
+    // so resuming can never re-tally the same question. This beat owns Escape locally so
+    // GardenUI's global handler (which would otherwise close the whole overlay) never sees it.
+    useEffect(() => {
+        if (beat !== "question") {
+            return;
+        }
+        function onKeydown(e: KeyboardEvent): void {
+            if (e.key === "Escape") {
+                if (selected === null) {
+                    setBeat("briefing");
+                }
+                return;
+            }
+            if (selected === null && /^[1-4]$/.test(e.key)) {
+                const optIdx = Number(e.key) - 1;
+                if (optIdx < plan[stepIdx].options.length) {
+                    e.preventDefault();
+                    choose(optIdx);
+                }
+            } else if (selected !== null && (e.key === " " || e.key === "Enter")) {
+                e.preventDefault();
+                advanceQuestion();
+            }
+        }
+        window.addEventListener("keydown", onKeydown);
+        return () => window.removeEventListener("keydown", onKeydown);
+    }, [beat, selected, stepIdx, plan]);
 
     const facts: string[] = [];
     if (beat === "result") {
@@ -259,41 +264,57 @@ export function PlacementTest(props: PlacementTestProps): React.ReactElement {
         }
     }
 
-    // Question beats reuse the untouched StudyCard (the REAL review loop) with a
-    // placement header; Escape "pauses" back to the briefing, never abandons the test.
-    if (beat === "scoping" || beat === "card" || beat === "error") {
+    // Question beat: a plain multiple-choice pick, no correct/wrong reveal — the diagnostic
+    // surfaces only at the end, in the calibration/result beats below.
+    if (beat === "question") {
         const step = plan[stepIdx];
+        const meta = metaForSection(step.section);
         return (
             <div className="keeper-panel-shell" role="dialog" aria-label="Placement test">
-                {beat === "scoping" && <div className="keeper-status">The master prepares {step.label}…</div>}
-                {beat === "error" && (
-                    <div className="keeper-status" role="alert">
-                        The master could not reach {step.label} right now.
-                        <div className="keeper-actions">
+                <div className="keeper-panel">
+                    <div className="keeper-panel-header">
+                        <span className="keeper-context">
+                            Placement · {stepIdx + 1} of {plan.length} — {meta.subjectLabel}
+                        </span>
+                        {selected === null && (
                             <button
-                                className="hud-ghost-button"
-                                onClick={() => void askQuestion(stepIdx)}
+                                className="keeper-close"
+                                onClick={() => setBeat("briefing")}
+                                aria-label="Pause"
                             >
-                                Try again
+                                ✕
                             </button>
-                            <button
-                                className="hud-ghost-button"
-                                onClick={() => void askQuestion(stepIdx + 1)}
-                            >
-                                Skip this one
-                            </button>
-                        </div>
+                        )}
                     </div>
-                )}
-                {beat === "card" && (
-                    <StudyCard
-                        scopeKey={scopeKey}
-                        contextLabel={`Placement · ${stepIdx + 1} of ${plan.length} — ${step.label}`}
-                        onClose={() => setBeat("briefing")}
-                        onEmpty={onCardEmpty}
-                        onGraded={(event) => onCardGraded(event.rating)}
-                    />
-                )}
+                    {step.passage && <div className="stone-exam-passage" tabIndex={0}>{step.passage}</div>}
+                    <p className="stone-exam-stem">{step.stem}</p>
+                    <div className="stone-exam-options" role="group" aria-label="Answer choices">
+                        {step.options.map((opt, i) => (
+                            <button
+                                key={step.id + ":" + i}
+                                className={"stone-exam-option" + (selected === i ? " is-chosen" : "")}
+                                onClick={() => choose(i)}
+                                disabled={selected !== null}
+                                aria-pressed={selected === i}
+                            >
+                                <span className="stone-exam-letter">{OPTION_LETTERS[i]}</span>
+                                <span className="stone-exam-option-text">{opt}</span>
+                            </button>
+                        ))}
+                    </div>
+                    {selected !== null
+                        ? (
+                            <div className="keeper-actions">
+                                <button className="keeper-reveal" onClick={advanceQuestion}>
+                                    {stepIdx + 1 >= plan.length ? "See your results" : "Next question"}{" "}
+                                    <kbd>Enter</kbd>
+                                </button>
+                            </div>
+                        )
+                        : (
+                            <p className="stone-exam-hint">Pick an answer — <kbd>1</kbd>–<kbd>4</kbd> or click.</p>
+                        )}
+                </div>
             </div>
         );
     }
@@ -385,7 +406,7 @@ export function PlacementTest(props: PlacementTestProps): React.ReactElement {
                             </label>
                         </div>
                         <span className="placement-date-confirm" aria-live="polite">
-                            {parsedExamDate ? formatExamDate(parsedExamDate) : " "}
+                            {parsedExamDate ? formatExamDate(parsedExamDate) : " "}
                         </span>
                         <div className="placement-intake-actions">
                             <button

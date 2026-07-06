@@ -1,34 +1,22 @@
 // Copyright: Ankitects Pty Ltd and contributors
 // License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
 
-// charged_up: the master's 20-question placement test (2026-07-03 directive) — pure planning
-// + tally logic, unit-tested; PlacementTest.tsx owns the UI. The plan walks ALL FOUR MCAT
-// sections evenly (the real exam weighs them equally), spreading questions across distinct
-// topic leaves inside each section, interleaved so the test roams the whole island. Answers
-// ride the REAL review loop (scopeToDeck -> getQueuedCards -> answerCard): each grade is that
-// card's genuine first FSRS review — "gauging where you're at" IS seeding the memory model.
+// charged_up: the master's 20-question placement test (2026-07-03 directive, MCQ'd 2026-07-05
+// — Decision 46) — pure planning + tally logic, unit-tested; PlacementTest.tsx owns the UI.
+// The plan walks ALL FOUR MCAT sections evenly (the real exam weighs them equally), drawing
+// from the same open CC0 MCQ bank as the sector-stone trials (panels/mcq.ts), interleaved so
+// the test roams the whole island. The player never sees a correct/wrong verdict per
+// question — every pick is tallied silently and the whole diagnostic surfaces only in the
+// calibration/result beat at the end. This is a standalone practice surface like the stone
+// trials: it never touches the Anki collection or FSRS (I1); plant/mastery state seeds from
+// the player's real subsequent study, not from this diagnostic.
+
+import { buildExam, type Mcq } from "./mcq";
 
 export const PLACEMENT_QUESTIONS = 20;
 
 /** Canonical section walk order (matches the island quilt NW->NE->SW->SE). */
 export const SECTION_ORDER = ["P-S", "B-B", "C-P", "CARS"] as const;
-
-/** The slice of TopicMastery the planner needs (structural, so tests stay tiny). */
-export interface PlacementTopic {
-    nodeId: string;
-    deckPath: string;
-    label: string;
-    section: string;
-    dueCount: number;
-    newCount: number;
-}
-
-export interface PlacementStep {
-    nodeId: string;
-    deckPath: string;
-    label: string;
-    section: string;
-}
 
 export interface SectionTally {
     asked: number;
@@ -36,65 +24,25 @@ export interface SectionTally {
 }
 
 /**
- * Build the ordered placement plan: an even per-section quota (remainders go to the
- * earliest sections), distinct leaves preferred within a section (cycling only when a
- * section has fewer leaves than questions — CARS), leaves with servable cards first,
- * and the final order interleaved section-by-section.
+ * Build the ordered placement exam: an even per-section quota (remainders go to the
+ * earliest sections in SECTION_ORDER), questions drawn from the open MCQ bank, and the
+ * final order interleaved section-by-section so the diagnostic roams the whole island.
  */
-export function buildPlacementPlan(
-    topics: readonly PlacementTopic[],
-    total: number = PLACEMENT_QUESTIONS,
-): PlacementStep[] {
-    if (topics.length === 0 || total <= 0) {
+export function buildPlacementExam(total: number = PLACEMENT_QUESTIONS): Mcq[] {
+    if (total <= 0) {
         return [];
     }
-    const sections: string[] = [];
-    for (const known of SECTION_ORDER) {
-        if (topics.some((t) => t.section === known)) {
-            sections.push(known);
-        }
-    }
-    for (const t of topics) {
-        if (!sections.includes(t.section)) {
-            sections.push(t.section);
-        }
-    }
-
-    const base = Math.floor(total / sections.length);
-    const remainder = total % sections.length;
-    const queues = sections.map((section, idx) => {
-        const leaves = topics
-            .filter((t) => t.section === section)
-            .sort((a, b) => {
-                const aServable = a.newCount + a.dueCount > 0 ? 0 : 1;
-                const bServable = b.newCount + b.dueCount > 0 ? 0 : 1;
-                if (aServable !== bServable) {
-                    return aServable - bServable;
-                }
-                if (a.newCount !== b.newCount) {
-                    return b.newCount - a.newCount;
-                }
-                if (a.dueCount !== b.dueCount) {
-                    return b.dueCount - a.dueCount;
-                }
-                return a.nodeId.localeCompare(b.nodeId);
-            });
-        const quota = base + (idx < remainder ? 1 : 0);
-        const steps: PlacementStep[] = [];
-        for (let i = 0; i < quota; i++) {
-            const leaf = leaves[i % leaves.length];
-            steps.push({
-                nodeId: leaf.nodeId,
-                deckPath: leaf.deckPath,
-                label: leaf.label,
-                section,
-            });
-        }
-        return steps;
-    });
+    const base = Math.floor(total / SECTION_ORDER.length);
+    const remainder = total % SECTION_ORDER.length;
+    // mcq.ts's bank stores sections as its own codes ("BB"/"CP"/"PS"/"CARS"); re-stamp each
+    // drawn question with the world's hyphenated id so the tally/GARDEN_NAMES stay consistent
+    // with the rest of the placement flow.
+    const queues = SECTION_ORDER.map((section, idx) =>
+        buildExam(section, base + (idx < remainder ? 1 : 0)).map((q) => ({ ...q, section }))
+    );
 
     // Interleave: one question per section per round, so the test roams the island.
-    const plan: PlacementStep[] = [];
+    const plan: Mcq[] = [];
     for (let round = 0; plan.length < total; round++) {
         let took = false;
         for (const queue of queues) {
@@ -177,7 +125,18 @@ export function partsToIsoDate(
 
 const _WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const _MONTHS = [
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
 ];
 
 /** Human confirmation of an ISO date ("Wed · Oct 15, 2026"), or "" when unknown/invalid. */

@@ -16,5 +16,21 @@ export PYENV=${PYENV-out/pyenv}
 export ANKI_API_PORT=${ANKI_API_PORT-40000}
 export ANKI_API_HOST=${ANKI_API_HOST-127.0.0.1}
 
+# charged_up: load repo-local secrets (.env, gitignored) so the voice Keeper's semantic
+# grader is deterministically available per checkout — not dependent on which shell
+# launched the app (a missing ANTHROPIC_API_KEY silently degrades every grade to the
+# "AI grading off" lexical floor). Existing environment always wins (dotenv convention),
+# so ad-hoc overrides like AI_DISABLED=1 still work.
+if [ -f .env ]; then
+    while IFS= read -r line || [ -n "$line" ]; do
+        case "$line" in '' | \#*) continue ;; esac
+        key="${line%%=*}"
+        case "$key" in '' | *[!A-Za-z0-9_]*) continue ;; esac
+        if [ -z "${!key+x}" ]; then
+            export "$line"
+        fi
+    done <.env
+fi
+
 ./ninja pylib qt
 ${PYENV}/bin/python tools/run.py $*

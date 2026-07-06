@@ -93,60 +93,11 @@ export async function waitForBoot(page: Page): Promise<void> {
     );
 }
 
-/** Mark the v2 cinematic seen-key and click Skip if the intro overlay is up. */
-export async function dismissIntro(page: Page): Promise<void> {
-    await page.evaluate(() => {
-        try {
-            localStorage.setItem("garden.introSeen.v2", "1");
-        } catch {
-            // storage unavailable — IntroVideo never replays in that case anyway
-        }
-    });
-    const skip = page.locator(".garden-intro-skip");
-    if ((await skip.count()) > 0 && (await skip.isVisible())) {
-        await skip.click();
-        await expect(page.locator(".garden-intro")).not.toBeVisible();
-    }
-}
-
 /** Navigate to the live garden page and wait until the world is playable. */
 export async function connectGarden(page: Page): Promise<void> {
     await installClockShim(page);
-    await page.addInitScript(() => {
-        // Skip the first-run cinematic before it ever mounts (v2 seen-key).
-        try {
-            localStorage.setItem("garden.introSeen.v2", "1");
-        } catch {
-            // storage unavailable — IntroVideo never replays in that case anyway
-        }
-    });
     await page.goto("/garden", { waitUntil: "domcontentloaded" });
     await waitForBoot(page);
-    await dismissIntro(page);
-    await dismissTour(page);
-}
-
-/**
- * Keep the Garden Tour (the Keeper's first-entry concept walkthrough, sidecar-persisted —
- * NOT localStorage like the intro) from blocking a spec: mark it done in the sidecar, and
- * skip the overlay if this already-booted page auto-opened it. The e2e profile persists,
- * so after the first-ever dismissal this is a single cheap GET per test. NOT called by
- * resetGarden — the tour spec seeds `{ step, done: false }` there to test the real flow.
- */
-export async function dismissTour(page: Page): Promise<void> {
-    const state = await gardenState(page, { op: "get" });
-    if (state?.tour?.done) {
-        return;
-    }
-    await gardenState(page, { op: "set", key: "tour", doc: { step: 0, done: true } });
-    const skip = page.locator(".garden-tour-skip");
-    try {
-        await skip.waitFor({ state: "visible", timeout: 4_000 });
-        await skip.click();
-        await expect(page.locator(".garden-tour")).not.toBeVisible();
-    } catch {
-        // the overlay never mounted on this page — the sidecar seed already covers reloads
-    }
 }
 
 export async function shot(page: Page, name: string): Promise<void> {
@@ -188,7 +139,6 @@ export async function resetGarden(
     await setFixedTime(page, fixedTime);
     await page.reload({ waitUntil: "domcontentloaded" });
     await waitForBoot(page);
-    await dismissIntro(page);
 }
 
 /** Emit a typed bus event exactly as the world/panels do (state/bus.ts GardenEvents). */

@@ -50,7 +50,7 @@ export const DEPTH_STAT_ORDER = [
 export const CONCEPT_FLOOR_CARDS = 10;
 
 /** Structural slice of GraphsResponse (proto/anki/stats.proto) — only what we read. */
-interface ReviewsBucket {
+export interface ReviewsBucket {
     learn?: number;
     relearn?: number;
     young?: number;
@@ -127,6 +127,31 @@ export function studyStreakDays(count: Record<number, ReviewsBucket> | undefined
     return streak;
 }
 
+/**
+ * Days since the most recent day with ANY review activity (living-decay spec
+ * 2026-07-05). Day keys are engine-rollover-bucketed offsets (0 = today). Zero
+ * history ⇒ 0 — never-studied is fertile soil, not neglect (doc 23 §3).
+ */
+export function daysSinceLastActivity(
+    count: Record<number, ReviewsBucket> | undefined,
+): number {
+    if (!count) {
+        return 0;
+    }
+    let latest: number | null = null;
+    for (const key of Object.keys(count)) {
+        const day = Number(key);
+        if (bucketSum(count[day]) > 0 && (latest === null || day > latest)) {
+            latest = day;
+        }
+    }
+    if (latest === null) {
+        return 0;
+    }
+    const result = -latest;
+    return result === 0 ? 0 : result; // Ensure -0 becomes 0
+}
+
 /** True-retention fraction (young+mature passed over attempted), or null when nothing
  * was attempted — an empty log has no retention, not 0%. */
 export function retentionFraction(r: RetentionLike | undefined): number | null {
@@ -167,8 +192,10 @@ export function metricPoint(metric: DashboardMetric | null | undefined): number 
 
 function metricRange(metric: DashboardMetric | null | undefined): [number, number] | null {
     const range = metric?.range;
-    if (Array.isArray(range) && range.length === 2
-        && typeof range[0] === "number" && typeof range[1] === "number") {
+    if (
+        Array.isArray(range) && range.length === 2
+        && typeof range[0] === "number" && typeof range[1] === "number"
+    ) {
         return [range[0], range[1]];
     }
     return null;
@@ -246,12 +273,16 @@ export function assembleDepthStats(inputs: DepthStatsInputs): DepthStats {
     }
 
     const streak = studyStreakDays(graphs?.reviews?.count);
-    push("streak", "Study streak", streak > 0
-        ? {
-            value: `${streak}d`,
-            detail: `You've tended the garden ${streak} day${streak === 1 ? "" : "s"} in a row.`,
-        }
-        : { detail: "Tend the garden today and a streak takes root." });
+    push(
+        "streak",
+        "Study streak",
+        streak > 0
+            ? {
+                value: `${streak}d`,
+                detail: `You've tended the garden ${streak} day${streak === 1 ? "" : "s"} in a row.`,
+            }
+            : { detail: "Tend the garden today and a streak takes root." },
+    );
 
     // Best / worst concept — floored so an untouched topic is never named.
     const topics = snapshot?.topics ?? [];
@@ -320,12 +351,16 @@ export function assembleDepthStats(inputs: DepthStatsInputs): DepthStats {
     const readinessPoint = readiness?.available === false ? null : metricPoint(readiness);
     if (readinessPoint !== null) {
         const range = metricRange(readiness);
+        const projected = range
+            ? `Projected ${Math.round(readinessPoint)}, likely between ${Math.round(range[0])} `
+                + `and ${Math.round(range[1])}.`
+            : `Projected ${Math.round(readinessPoint)}.`;
+        // The engine's honesty companions ride along verbatim (confidence + the UNVALIDATED note).
+        const confidence = typeof readiness?.confidence === "string" ? readiness.confidence : null;
+        const note = typeof readiness?.["note"] === "string" ? (readiness["note"] as string) : null;
         push("readiness", "Readiness", {
             value: `${Math.round(readinessPoint)}`,
-            detail: range
-                ? `Projected ${Math.round(readinessPoint)}, likely between ${Math.round(range[0])} `
-                    + `and ${Math.round(range[1])}.`
-                : `Projected ${Math.round(readinessPoint)}.`,
+            detail: `${projected}${confidence ? ` Confidence: ${confidence}.` : ""}${note ? ` ${note}.` : ""}`,
         });
     } else {
         const graded = asCount(readiness?.["graded_reviews"]);
@@ -392,4 +427,24 @@ export async function fetchDepthStats(deps: {
         weeds: deps.weeds,
         nowMs: Date.now(),
     });
+}
+
+/**
+ * Just the revlog day-buckets, for the decay layer (read-only `graphs` RPC —
+ * the same call the Overlook makes). Fails toward pristine: any error ⇒
+ * undefined ⇒ daysAway 0 ⇒ no overgrowth. Never fabricate neglect.
+ */
+export async function fetchActivityDayBuckets(): Promise<
+    Record<number, ReviewsBucket> | undefined
+> {
+    try {
+        const backend = await import("@generated/backend");
+        const res = await backend.graphs(
+            { search: DEPTH_DECK_SEARCH, days: 0 },
+            { alertOnError: false },
+        ) as GraphsLike;
+        return res.reviews?.count;
+    } catch {
+        return undefined;
+    }
 }

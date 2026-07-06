@@ -135,5 +135,5 @@ test("invariant 3: a broke player is never stalled — the Keeper serves, gradin
     }
 
     // Restore the default balances for any later suite runs.
-    await gardenState(page, { op: "set", key: "economy", doc: { water: 80, xp: 0 } });
+    await gardenState(page, { op: "set", key: "economy", doc: { water: 20, xp: 0 } });
 });

@@ -48,3 +48,16 @@ def test_still_abstains_below_floor():
     r = display.dashboard(col, "")["readiness"]
     assert r["available"] is False and "point" not in r
     col.close()
+
+
+def test_score_mapping_doc_exists_at_the_cited_path():
+    # display.py's readiness evidence cites docs/score-mapping.md — the 2026-07-05 audit found the
+    # citation dangling. The doc must exist and actually describe the shipped map (the 118-132
+    # section scale, the 472-528 total, and its UNVALIDATED status).
+    import pathlib
+
+    doc = pathlib.Path(__file__).resolve().parents[2] / "docs" / "score-mapping.md"
+    assert doc.is_file(), f"cited mapping doc missing: {doc}"
+    text = doc.read_text(encoding="utf-8")
+    for needle in ("472", "528", "118", "132", "UNVALIDATED", "coverage"):
+        assert needle in text, f"score-mapping.md does not document {needle!r}"

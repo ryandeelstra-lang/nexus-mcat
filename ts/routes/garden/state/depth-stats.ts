@@ -351,12 +351,16 @@ export function assembleDepthStats(inputs: DepthStatsInputs): DepthStats {
     const readinessPoint = readiness?.available === false ? null : metricPoint(readiness);
     if (readinessPoint !== null) {
         const range = metricRange(readiness);
+        const projected = range
+            ? `Projected ${Math.round(readinessPoint)}, likely between ${Math.round(range[0])} `
+                + `and ${Math.round(range[1])}.`
+            : `Projected ${Math.round(readinessPoint)}.`;
+        // The engine's honesty companions ride along verbatim (confidence + the UNVALIDATED note).
+        const confidence = typeof readiness?.confidence === "string" ? readiness.confidence : null;
+        const note = typeof readiness?.["note"] === "string" ? (readiness["note"] as string) : null;
         push("readiness", "Readiness", {
             value: `${Math.round(readinessPoint)}`,
-            detail: range
-                ? `Projected ${Math.round(readinessPoint)}, likely between ${Math.round(range[0])} `
-                    + `and ${Math.round(range[1])}.`
-                : `Projected ${Math.round(readinessPoint)}.`,
+            detail: `${projected}${confidence ? ` Confidence: ${confidence}.` : ""}${note ? ` ${note}.` : ""}`,
         });
     } else {
         const graded = asCount(readiness?.["graded_reviews"]);

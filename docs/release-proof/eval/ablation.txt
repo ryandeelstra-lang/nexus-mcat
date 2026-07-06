@@ -1,0 +1,84 @@
+==============================================================================
+§8 THREE-BUILD INTERLEAVING ABLATION — FULL / ABLATION / PLAIN ANKI
+(requirements G1-G3, D4-D5; pre-registered, paired, equal study-time budget)
+==============================================================================
+
+PRE-REGISTRATION (frozen before any run; never altered after):
+  hypothesis    : "Interleaving related MCAT topics (Random order) yields higher held-out mixed-topic quiz accuracy than blocking (DeckThenDay) at an equal study-time budget."
+  main metric   : mean held-out mixed-topic quiz accuracy at a fixed
+                  simulated-study budget, identical card pool across builds
+  failure crit. : "Failed if FULL ≤ ABLATION at the same budget; CI overlapping zero = no effect, reported honestly."
+  frozen in     : planning repo docs/04-PLAN.md step 0.10, commit 4605174
+                  (git-dated 2026-06-30) + confusability range/constants in
+                  scores/ablation/README.md, commit 034f44e33 (committed
+                  before the first result; endpoints cited: Carvalho &
+                  Goldstone 2014; Taylor & Rohrer 2010; Rohrer & Taylor 2007)
+
+THE THREE BUILDS (real v3 scheduler via pylib; Decision 4 — the feature is
+exactly two deck-config fields; everything else identical, FSRS on in all):
+  FULL     : feature ON  (interleaved) reviewOrder=8 newGatherPriority=4 (newPerDay=20, revPerDay=200)
+  ABLATION : feature OFF (blocked)    reviewOrder=2 newGatherPriority=0 (newPerDay=20, revPerDay=200)
+  PLAIN    : unmodified upstream       reviewOrder=0 newGatherPriority=0 (newPerDay=20, revPerDay=200)
+
+DESIGN: N=200 SIMULATED learners (paired: same seeds, same
+held-out quiz items, same 3600s/day cap x 14 days in every arm);
+8 topics in 4 confusable pairs x 12 cards; 40 held-out quiz items
+(disjoint from study cards); master seed 20260705; learner recall =
+engine-stored FSRS-6 retrievability; discrimination from consecutive cross-
+pair presentations only (eta=0.02); quiz p = g + (1-g)*K*(1-k*(1-D)),
+g=0.25, first-exposure p0=0.3; bootstrap B=10000.
+
+SENSITIVITY SWEEP over the frozen confusability range [0.0, 0.6]
+(k=0.0 is the pre-registered in-sweep null control):
+
+ confus.     FULL  ABLATION    PLAIN  FULL-ABL              90% CI verdict
+------------------------------------------------------------------------------
+     0.0   0.9650    0.9647   0.9647   +0.0002   [-0.0010,+0.0015] no effect (CI includes 0)
+     0.2   0.8524    0.8435   0.8454   +0.0089   [+0.0070,+0.0108] effect
+     0.4   0.7438    0.7233   0.7270   +0.0205   [+0.0178,+0.0234] effect
+     0.6   0.6384    0.6122   0.6172   +0.0261   [+0.0232,+0.0290] effect
+------------------------------------------------------------------------------
+
+NULL CONTROL (k=0.0): |paired diff| = 0.0002 <= 0.01 bound: PASS; CI includes 0.
+  With the confusability mechanism off, the arms are statistically
+  indistinguishable — the simulator does not bake the conclusion in.
+
+PLAIN vs ABLATION: upstream default review order (Day) already mixes due
+cards across decks within a day, so PLAIN sits between FULL and ABLATION
+on incidental interleaving:
+  k=0.0: PLAIN-ABLATION = +0.0000, FULL-PLAIN = +0.0003
+  k=0.2: PLAIN-ABLATION = +0.0019, FULL-PLAIN = +0.0070
+  k=0.4: PLAIN-ABLATION = +0.0037, FULL-PLAIN = +0.0168
+  k=0.6: PLAIN-ABLATION = +0.0050, FULL-PLAIN = +0.0212
+
+DIAGNOSTICS (arm-blind mechanism audit; every number over the full N):
+arm        discrim D  practice acc  presentations  secs used  topic K  capped
+FULL          0.2372        0.7380          437.9     6749.5   0.9490       0
+ABLATION      0.1725        0.7380          438.0     6750.9   0.9491       0
+PLAIN         0.1869        0.7380          438.0     6750.9   0.9491       0
+
+VERDICT (the frozen failure criterion, applied verbatim):
+  "Failed if FULL ≤ ABLATION at the same budget; CI overlapping zero = no effect, reported honestly."
+  Interleaving helps when confusability >= 0.2: at those sweep
+  points FULL > ABLATION and the 90% CI excludes zero (hypothesis
+  SUPPORTED there, conditional on the confusability parameter).
+  At k in {0.0} the criterion reads NO EFFECT — reported honestly
+  (expected at the k=0.0 null control by construction).
+
+SCOPE AND LIMITS: this is a MECHANISM DEMONSTRATION on SIMULATED learners,
+NOT a measured human effect. The scheduler, queue building, FSRS memory
+updates and daily limits are the real engine; the learner (recall draws,
+first-exposure rate, discrimination accrual, quiz model) is a simulation
+whose confusability range was frozen from the literature before the run
+(commits 4605174 / 034f44e33). The effect size is therefore a function
+of the frozen parameter k, reported only as the conditional sweep above —
+never as a single tuned point. No real longitudinal cohort exists within
+this project's timeline (challenge §9 acknowledgment). Simulator output is
+CONFINED to this report; it never feeds any user-facing score.
+
+REPRODUCE (byte-identical; ~10 min on 8 cores):
+  PYTHONPATH=out/pylib:. ANKI_TEST_MODE=1 out/pyenv/bin/python \
+      scripts/eval_ablation.py
+  (equivalently: scores/ablation/run.py; --jobs N cannot change results;
+  do not run 01:30-04:00 local or within 30 min of the 4 AM rollover)
+==============================================================================
